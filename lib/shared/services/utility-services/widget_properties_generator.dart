@@ -9,9 +9,13 @@ TextStyle getHeadlineLargeStyle(BuildContext context){
   TextTheme _textTheme = Theme.of(context).textTheme;
 
   return _textTheme.headlineLarge!.copyWith(
-      fontSize:AppLocalization.of(context).locale.languageCode=='en'?
+      fontSize:Localizations.localeOf(context)
+                .languageCode
+                .toString()=='en'?
       flyternFontSize24:flyternFontSize20,
-      fontFamily:AppLocalization.of(context).locale.languageCode=='en'?
+      fontFamily:Localizations.localeOf(context)
+                .languageCode
+                .toString()=='en'?
       flyternDefaultFontFamilyEnglish:flyternDefaultFontFamilyArabic);
 }
 
@@ -19,9 +23,13 @@ TextStyle getHeadlineMediumStyle(BuildContext context){
   TextTheme _textTheme = Theme.of(context).textTheme;
 
   return _textTheme.headlineMedium!.copyWith(
-      fontSize:AppLocalization.of(context).locale.languageCode=='en'?
+      fontSize:Localizations.localeOf(context)
+                .languageCode
+                .toString()=='en'?
       flyternFontSize20:flyternFontSize16,
-      fontFamily:AppLocalization.of(context).locale.languageCode=='en'?
+      fontFamily:Localizations.localeOf(context)
+                .languageCode
+                .toString()=='en'?
       flyternDefaultFontFamilyEnglish:flyternDefaultFontFamilyArabic);
 }
 
@@ -29,10 +37,14 @@ TextStyle getBodyMediumStyle(BuildContext context){
   TextTheme _textTheme = Theme.of(context).textTheme;
 
   return _textTheme.bodyMedium!.copyWith(
-      fontSize:AppLocalization.of(context).locale.languageCode=='en'?
+      fontSize:Localizations.localeOf(context)
+          .languageCode
+          .toString()=='en'?
       flyternFontSize16:flyternFontSize14,
 
-      fontFamily:AppLocalization.of(context).locale.languageCode=='en'?
+      fontFamily:Localizations.localeOf(context)
+                .languageCode
+                .toString()=='en'?
       flyternDefaultFontFamilyEnglish:flyternDefaultFontFamilyArabic);
 }
 
@@ -40,9 +52,13 @@ TextStyle getLabelLargeStyle(BuildContext context){
   TextTheme _textTheme = Theme.of(context).textTheme;
 
   return _textTheme.labelLarge!.copyWith(
-      fontSize:AppLocalization.of(context).locale.languageCode=='en'?
+      fontSize:Localizations.localeOf(context)
+                .languageCode
+                .toString()=='en'?
       flyternFontSize14:flyternFontSize12,
-      fontFamily:AppLocalization.of(context).locale.languageCode=='en'?
+      fontFamily:Localizations.localeOf(context)
+                .languageCode
+                .toString()=='en'?
       flyternDefaultFontFamilyEnglish:flyternDefaultFontFamilyArabic);
 }
 
@@ -50,9 +66,13 @@ TextStyle getLabelSmallStyle(BuildContext context){
   TextTheme _textTheme = Theme.of(context).textTheme;
 
   return _textTheme.labelSmall!.copyWith(
-      fontSize:AppLocalization.of(context).locale.languageCode=='en'?
+      fontSize:Localizations.localeOf(context)
+                .languageCode
+                .toString()=='en'?
       flyternFontSize12:flyternFontSize12,
-      fontFamily:AppLocalization.of(context).locale.languageCode=='en'?
+      fontFamily:Localizations.localeOf(context)
+                .languageCode
+                .toString()=='en'?
       flyternDefaultFontFamilyEnglish:flyternDefaultFontFamilyArabic);
 }
 
@@ -61,9 +81,13 @@ TextStyle getElevatedButtonLabelStylePrimary(BuildContext context){
 
   return _textTheme.labelLarge!.copyWith(
       color: flyternPrimaryColor,
-      fontSize:AppLocalization.of(context).locale.languageCode=='en'?
+      fontSize:Localizations.localeOf(context)
+                .languageCode
+                .toString()=='en'?
       flyternFontSize14:flyternFontSize12,
-      fontFamily:AppLocalization.of(context).locale.languageCode=='en'?
+      fontFamily:Localizations.localeOf(context)
+                .languageCode
+                .toString()=='en'?
       flyternDefaultFontFamilyEnglish:flyternDefaultFontFamilyArabic);
 }
 
@@ -72,8 +96,12 @@ TextStyle getElevatedButtonLabelStyleLight(BuildContext context){
 
   return _textTheme.labelLarge!.copyWith(
       color: flyternGrey20,
-      fontSize:AppLocalization.of(context).locale.languageCode=='en'?
+      fontSize:Localizations.localeOf(context)
+                .languageCode
+                .toString()=='en'?
       flyternFontSize14:flyternFontSize12,
-      fontFamily:AppLocalization.of(context).locale.languageCode=='en'?
+      fontFamily:Localizations.localeOf(context)
+                .languageCode
+                .toString()=='en'?
       flyternDefaultFontFamilyEnglish:flyternDefaultFontFamilyArabic);
 }
