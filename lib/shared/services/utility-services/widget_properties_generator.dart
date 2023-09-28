@@ -11,7 +11,6 @@ TextStyle getHeadlineLargeStyle(BuildContext context){
   return _textTheme.headlineLarge!.copyWith(
       fontSize:AppLocalization.of(context).locale.languageCode=='en'?
       flyternFontSize24:flyternFontSize20,
-      color: flyternPrimaryColorDark,
       fontFamily:AppLocalization.of(context).locale.languageCode=='en'?
       flyternDefaultFontFamilyEnglish:flyternDefaultFontFamilyArabic);
 }
