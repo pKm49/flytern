@@ -65,7 +65,7 @@ ThemeData getThemeData( String type, String locale) {
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                         EdgeInsets.symmetric(
                           horizontal: flyternSpaceLarge,
-                          vertical: locale=='en'? flyternSpaceMedium*1.2:flyternSpaceMedium)),
+                          vertical: locale=='en'? flyternSpaceMedium*1.1:flyternSpaceMedium)),
                   shape: MaterialStateProperty.all<OutlinedBorder>(
                       RoundedRectangleBorder(
                           borderRadius:
@@ -179,7 +179,7 @@ ThemeData getThemeData( String type, String locale) {
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                         EdgeInsets.symmetric(
                           horizontal: flyternSpaceLarge,
-                            vertical: locale=='en'? flyternSpaceMedium*1.2:flyternSpaceMedium)),
+                            vertical: locale=='en'? flyternSpaceMedium*1.1:flyternSpaceMedium)),
                   shape: MaterialStateProperty.all<OutlinedBorder>(
                       RoundedRectangleBorder(
                           borderRadius:
