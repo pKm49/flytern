@@ -55,7 +55,7 @@ class CoreLanguageSelector extends StatelessWidget {
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                           EdgeInsets.symmetric(
-                              horizontal: flyternSpaceLarge, vertical: flyternSpaceMedium*1)),
+                              horizontal: flyternSpaceLarge, vertical: flyternSpaceMedium*.9)),
                   ),
                   child:Text("كاملة باللغة العربية"  )),
             ),

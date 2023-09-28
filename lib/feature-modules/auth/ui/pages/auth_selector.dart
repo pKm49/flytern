@@ -1,9 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/auth/data/constants/ui_constants/auth_selector_curve_clipper.dart';
+import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/services/utility-services/widget_generator.dart';
+import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:get/get.dart';
+import 'package:video_player/video_player.dart';
 
-class AuthSelector extends StatelessWidget {
+class AuthSelector extends StatefulWidget {
   const AuthSelector({super.key});
+
+  @override
+  State<AuthSelector> createState() => _AuthSelectorState();
+}
+
+class _AuthSelectorState extends State<AuthSelector> {
+  late VideoPlayerController _controller;
+  late Future<void> _initializeVideoPlayerFuture;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Create and store the VideoPlayerController. The VideoPlayerController
+    // offers several different constructors to play videos from assets, files,
+    // or the internet.
+    _controller = VideoPlayerController.asset(
+        ASSETS_AUTH_BG
+    );
+    _initializeVideoPlayerFuture =  _controller.initialize();
+    _controller.setLooping(true);
+    _initializeVideoPlayerFuture.then((_) => setState(() {
+      _controller.play();
+    }));
+
+  }
+
+  @override
+  void dispose() {
+    // Ensure disposing of the VideoPlayerController to free up resources.
+    _controller.dispose();
+
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -13,41 +54,120 @@ class AuthSelector extends StatelessWidget {
     return Container(
       height: screenheight,
       width: screenwidth,
-      padding: flyternLargePaddingAll*2.5,
+      padding: EdgeInsets.only(top: flyternSpaceLarge*2),
       color: flyternBackgroundWhite,
-      child: Center(
-        child: Wrap(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                child:   Text("Continue In English" ), onPressed: () {
-                print("en pressed");
-              },
-                style: ButtonStyle(
-                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.symmetric(
-                            horizontal: flyternSpaceLarge, vertical: flyternSpaceMedium*1.2)),
-                    backgroundColor: MaterialStateProperty.all<Color>(flyternSecondaryColor)
-                ),),
-            ),
-            SizedBox(height: flyternSpaceLarge,width: 20,),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                  onPressed: () {
-                    print("ar pressed");
+      child:Stack(
+        children: [
+          Container(
+            width: screenwidth,
+            padding: EdgeInsets.only(top: flyternSpaceLarge*2),
+            height: screenheight ,
+              child: FutureBuilder(
+                future: _initializeVideoPlayerFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    // If the VideoPlayerController has finished initialization, use
+                    // the data it provides to limit the aspect ratio of the video.
+                    return AspectRatio(
+                      aspectRatio: 9/16,
+                      // Use the VideoPlayer widget to display the video.
+                      child: VideoPlayer(_controller),
+                    );
+                  } else {
+                    // If the VideoPlayerController is still initializing, show a
+                    // loading spinner.
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              )
+          ),
 
-                  },
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.symmetric(
-                            horizontal: flyternSpaceLarge, vertical: flyternSpaceMedium*1)),
+          Container(
+            height: screenheight,
+            width: screenwidth,
+            child: Column(
+              children: [
+                Container(
+                  width: screenwidth,
+                  height: (screenwidth*0.6313645621181263).toDouble(),
+                  child: CustomPaint(
+                    size: Size(screenwidth, (screenwidth*0.6313645621181263).toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                    painter: AuthSelectorCurveClipper(),
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          addVerticalSpace(flyternSpaceLarge*2),
+                          Image.asset(ASSETS_NAMELOGO,width: screenwidth*.6)
+                        ],
+                      ),
+                    ),
                   ),
-                  child:Text("كاملة باللغة العربية"  )),
+                ),
+                Expanded(
+                    child: Container(
+                      padding: flyternLargePaddingAll*2.5,
+                  width: screenwidth,
+                      child: Wrap(
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              child:   Text("login".tr),
+                              onPressed: () async {
+
+                              },
+                              style: ButtonStyle(
+                                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                      EdgeInsets.symmetric(
+                                          horizontal: flyternSpaceLarge, vertical: flyternSpaceMedium*1.2)),
+                                  backgroundColor: MaterialStateProperty.all<Color>(flyternSecondaryColor)
+                              ),),
+                          ),
+                          SizedBox(height: flyternSpaceMedium,width: 20,),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                                onPressed: () async {
+
+                                },
+                                style: ButtonStyle(
+                                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                      const EdgeInsets.symmetric(
+                                          horizontal: flyternSpaceLarge,
+                                          vertical: flyternSpaceMedium*.9)),
+                                ),
+                                child:Text("register".tr )),
+                          ),
+                          const SizedBox(height: flyternSpaceLarge,width: 20,),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "continue_as".tr,
+                                style: getBodyMediumStyle(context).copyWith(color: flyternBackgroundWhite),
+                              ),
+                              addHorizontalSpace(flyternSpaceSmall),
+                              Text(
+                                  "guest_user".tr,
+                                style: getBodyMediumStyle(context).copyWith(
+                                    fontWeight: flyternFontWeightBold,
+                                color: flyternSecondaryColor),
+
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                )),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
