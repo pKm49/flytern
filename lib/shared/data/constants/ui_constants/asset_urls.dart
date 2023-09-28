@@ -1,6 +1,7 @@
 const String ASSETS_NAMELOGO = "assets/logo_name_1024.png";
 const String ASSETS_FLIGHTS_BG = "assets/flights_bg.png";
 const String ASSETS_HOTELS_BG = "assets/hotels_bg.png";
+const String ASSETS_AUTH_BG = "assets/auth_bg.mp4";
 const String ASSETS_TRANSLATIONS = "assets/translations/translations.json";
 
 const String ASSETS_APPLE_PAY_ICON = "assets/icons/apple_pay.png";
