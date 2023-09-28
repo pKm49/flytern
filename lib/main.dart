@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    AppTranslations.initLanguages();
+    CoreTranslationController.initLanguages();
     _themeManager.addListener(themeListener);
 
     super.initState();
@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      translations: AppTranslations(),
+      translations: CoreTranslationController(),
       debugShowCheckedModeBanner: false,
       title: 'Flytern',
       theme: getThemeData('light', Get.deviceLocale?.languageCode ?? 'en'),

@@ -4,7 +4,7 @@ import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:get/get.dart';
 import 'package:flytern/core/data/models/ui-specific/translation.model.dart';
 
-class AppTranslations extends Translations {
+class CoreTranslationController extends Translations {
 
   @override
   Map<String, Map<String, String>> get keys => {};
