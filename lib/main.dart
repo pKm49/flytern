@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flytern/core/data/constants/ui-specific/theme_data.dart';
 import 'package:flytern/core/data/constants/ui-specific/theme_manager.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,16 +12,15 @@ ThemeManager _themeManager = ThemeManager();
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
+  static final navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void dispose() {
-
     _themeManager.removeListener(themeListener);
     super.dispose();
   }
@@ -31,23 +32,33 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  themeListener(){
-    if(mounted){
-      setState(() {
-
-      });
+  themeListener() {
+    if (mounted) {
+      setState(() {});
     }
   }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      navigatorKey: MyApp.navigatorKey,
+      locale: Get.deviceLocale,
+      supportedLocales: const [
+        Locale('en'), // English, no country code
+        Locale('ar'), // Spanish, no country code
+      ],
+      fallbackLocale: const Locale('en', 'Us'),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate, // uses `flutter_localizations`
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       debugShowCheckedModeBanner: false,
       title: 'Flytern',
-        theme:getThemeData('light','en') ,
-        darkTheme:getThemeData('dark','en'),
-        home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      theme: getThemeData('light', Get.deviceLocale?.languageCode ?? 'en'),
+      darkTheme: getThemeData('dark', Get.deviceLocale?.languageCode ?? 'en'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
