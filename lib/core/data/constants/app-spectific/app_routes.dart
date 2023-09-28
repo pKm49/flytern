@@ -7,16 +7,14 @@ import 'package:get/get.dart';
 getAppRoutes() => [
   GetPage(
     name:  Approute_langaugeSelector,
-    page: () => const CoreLanguageSelector(),
-    transition: Transition.leftToRightWithFade,
-    transitionDuration: const Duration(milliseconds: 200),
+    page: () =>   CoreLanguageSelector(),
+    // transition: Transition.rightToLeft,
+    // transitionDuration: const Duration(milliseconds: 200),
   ),
   GetPage(
     name: Approute_authSelector,
     page: () => const AuthSelector(),
     middlewares: [MyMiddelware()],
-    transition: Transition.leftToRightWithFade,
-    transitionDuration: const Duration(milliseconds: 200),
   ),
 ];
 
