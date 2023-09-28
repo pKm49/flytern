@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/core/controllers/core_controller.dart';
+import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
+import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:get/get.dart';
 
 class CoreLanguageSelector extends StatelessWidget {
-  const CoreLanguageSelector({super.key});
+    CoreLanguageSelector({super.key});
+
+  final coreController = Get.put(CoreController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +30,12 @@ class CoreLanguageSelector extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                  child:   Text("Continue In English" ), onPressed: () {
-                print("en pressed");
-              },
+                  child:   Text("Continue In English" ),
+                onPressed: () async {
+                  await coreController.changeLanguage(Lang_English);
+                  Get.toNamed(Approute_authSelector);
+
+                },
                 style: ButtonStyle(
                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                           EdgeInsets.symmetric(
@@ -37,9 +47,10 @@ class CoreLanguageSelector extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     print("ar pressed");
-
+                    await coreController.changeLanguage(Lang_Arabic);
+                    Get.toNamed(Approute_authSelector);
                   },
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
