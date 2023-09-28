@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flytern/core/controllers/localization_controller.dart';
 import 'package:flytern/core/data/constants/ui-specific/theme_data.dart';
 import 'package:flytern/core/data/constants/ui-specific/theme_manager.dart';
 import 'package:get/get.dart';
@@ -27,6 +28,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
+    AppTranslations.initLanguages();
     _themeManager.addListener(themeListener);
 
     super.initState();
@@ -54,6 +56,7 @@ class _MyAppState extends State<MyApp> {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+      translations: AppTranslations(),
       debugShowCheckedModeBanner: false,
       title: 'Flytern',
       theme: getThemeData('light', Get.deviceLocale?.languageCode ?? 'en'),
