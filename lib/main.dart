@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flytern/core/controllers/localization_controller.dart';
 import 'package:flytern/core/data/constants/ui-specific/theme_data.dart';
 import 'package:flytern/core/data/constants/ui-specific/theme_manager.dart';
+import 'package:flytern/core/ui/pages/language_selector.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -61,7 +62,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Flytern',
       theme: getThemeData('light', Get.deviceLocale?.languageCode ?? 'en'),
       darkTheme: getThemeData('dark', Get.deviceLocale?.languageCode ?? 'en'),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: CoreLanguageSelector()
     );
   }
 }

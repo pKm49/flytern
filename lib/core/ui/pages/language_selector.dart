@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 
 class CoreLanguageSelector extends StatelessWidget {
   const CoreLanguageSelector({super.key});
@@ -14,7 +15,7 @@ class CoreLanguageSelector extends StatelessWidget {
     return Container(
       height: screenheight,
       width: screenwidth,
-      padding: flyternLargePaddingAll,
+      padding: flyternLargePaddingAll*2.5,
       color: flyternBackgroundWhite,
       child: Center(
         child: Wrap(
@@ -24,7 +25,13 @@ class CoreLanguageSelector extends StatelessWidget {
               child: ElevatedButton(
                   child:   Text("Continue In English" ), onPressed: () {
                 print("en pressed");
-              }),
+              },
+                style: ButtonStyle(
+                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                          EdgeInsets.symmetric(
+                            horizontal: flyternSpaceLarge, vertical: flyternSpaceMedium*1.2)),
+                    backgroundColor: MaterialStateProperty.all<Color>(flyternSecondaryColor)
+                ),),
             ),
             SizedBox(height: flyternSpaceLarge,width: 20,),
             SizedBox(
@@ -35,7 +42,9 @@ class CoreLanguageSelector extends StatelessWidget {
 
                   },
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(flyternSecondaryColor)
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                          EdgeInsets.symmetric(
+                              horizontal: flyternSpaceLarge, vertical: flyternSpaceMedium*1)),
                   ),
                   child:Text("كاملة باللغة العربية"  )),
             ),
