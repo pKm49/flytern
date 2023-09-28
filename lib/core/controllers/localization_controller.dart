@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:get/get.dart';
 import 'package:flytern/core/data/models/ui-specific/translation.model.dart';
 
@@ -15,7 +16,7 @@ class AppTranslations extends Translations {
   }
 
   static Future<Map<String, Map<String, String>>> readJson() async {
-    final res = await rootBundle.loadString('assets/languages.json');
+    final res = await rootBundle.loadString(ASSETS_TRANSLATIONS);
     List<dynamic> data = jsonDecode(res);
     final listData = data.map((j) => Translation.fromJson(j)).toList();
     final keys = Map<String, Map<String, String>>();
