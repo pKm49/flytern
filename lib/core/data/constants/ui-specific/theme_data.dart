@@ -5,6 +5,8 @@ import 'dart:ui';
 
 
 ThemeData getThemeData( String type, String locale) {
+  print("locale is");
+  print(locale);
   return type == 'light'
       ? ThemeData(
           snackBarTheme:
@@ -61,12 +63,13 @@ ThemeData getThemeData( String type, String locale) {
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ButtonStyle(
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                      const EdgeInsets.symmetric(
-                          horizontal: flyternSpaceLarge, vertical: flyternSpaceMedium)),
+                        EdgeInsets.symmetric(
+                          horizontal: flyternSpaceLarge,
+                          vertical: locale=='en'? flyternSpaceMedium*1.2:flyternSpaceMedium)),
                   shape: MaterialStateProperty.all<OutlinedBorder>(
                       RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius.circular(flyternBorderRadiusSmall*100))),
+                              BorderRadius.circular(flyternBorderRadiusExtraSmall))),
                   backgroundColor:
                       MaterialStateProperty.all<Color>(flyternPrimaryColor))),
           textButtonTheme: TextButtonThemeData(
@@ -174,12 +177,13 @@ ThemeData getThemeData( String type, String locale) {
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ButtonStyle(
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                      const EdgeInsets.symmetric(
-                          horizontal: flyternSpaceLarge, vertical: flyternSpaceMedium)),
+                        EdgeInsets.symmetric(
+                          horizontal: flyternSpaceLarge,
+                            vertical: locale=='en'? flyternSpaceMedium*1.2:flyternSpaceMedium)),
                   shape: MaterialStateProperty.all<OutlinedBorder>(
                       RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius.circular(flyternBorderRadiusSmall*100))),
+                              BorderRadius.circular(flyternBorderRadiusExtraSmall))),
                   backgroundColor:
                       MaterialStateProperty.all<Color>(flyternPrimaryColor))),
           inputDecorationTheme: InputDecorationTheme(
