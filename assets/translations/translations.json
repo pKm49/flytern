@@ -3,6 +3,8 @@
     "name": "English",
     "code": "en_US",
     "texts": {
+      "continue_as": "Continue as",
+      "guest_user": "Guest User",
       "login_or_signup_to": "Login Or Signup To",
       "experience_pound": "Experience Pound",
       "login": "Login",
@@ -247,6 +249,8 @@
     "name": "Arabic",
     "code": "ar_AE",
     "texts": {
+      "continue_as": "الاستمرار كما",
+      "guest_user": "حساب زائر",
       "login_or_signup_to":  "تسجيل الدخول أو حساب جديد",
       "experience_pound": "تجربة باوند",
       "login": "تسجيل الدخول",
