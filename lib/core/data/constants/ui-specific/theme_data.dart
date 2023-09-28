@@ -19,8 +19,7 @@ ThemeData getThemeData( String type, String locale) {
           textTheme: const TextTheme(
             headlineLarge: TextStyle(
                 fontSize: flyternFontSize24,
-                fontWeight: flyternFontWeightBold,
-                color: flyternPrimaryColorDark),
+                fontWeight: flyternFontWeightBold ),
             headlineMedium: TextStyle(
                 fontSize: flyternFontSize20,
                 fontWeight: flyternFontWeightMedium,
@@ -123,7 +122,6 @@ ThemeData getThemeData( String type, String locale) {
             fontWeight: flyternFontWeightBold,
             fontSize:locale=='en'?
             flyternFontSize20:flyternFontSize16,
-            color: flyternPrimaryColorDark,
             fontFamily: locale == 'en'
           ? flyternDefaultFontFamilyEnglish
           : flyternDefaultFontFamilyArabic,
@@ -195,7 +193,6 @@ ThemeData getThemeData( String type, String locale) {
                 fontWeight: flyternFontWeightBold,
                 fontSize:locale=='en'?
                 flyternFontSize20:flyternFontSize16,
-                color: flyternPrimaryColorDark,
                 fontFamily: locale == 'en'
                     ? flyternDefaultFontFamilyEnglish
                     : flyternDefaultFontFamilyArabic,
