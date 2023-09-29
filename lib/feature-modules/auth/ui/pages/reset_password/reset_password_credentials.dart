@@ -32,10 +32,11 @@ class _AuthResetPasswordCredentialsPageState extends State<AuthResetPasswordCred
       ),
       body: Container(
         width: screenwidth,
-        padding: flyternLargePaddingAll,
+        padding: flyternLargePaddingHorizontal,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            addVerticalSpace(flyternSpaceSmall),
             Text("reset_password_message".tr,style: getBodyMediumStyle(context)),
             addVerticalSpace(flyternSpaceLarge*2),
             TextFormField(
