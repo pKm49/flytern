@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flytern/core/ui/components/drawer_menu.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_landing_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_booking_landing_page.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_booking_landing_page.dart';
@@ -76,6 +77,7 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
 
       ],
       ),
+      drawer: CoreDrawerMenuPage(),
       body: Container(
           child: TabBarView(
             physics: NeverScrollableScrollPhysics(),
