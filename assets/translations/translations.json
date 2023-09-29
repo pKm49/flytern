@@ -34,6 +34,11 @@
       "already_have_an_account": "Already have an account?",
       "terms_n_conditions": "Terms and Conditions",
       "privacy_policy": "Privacy Policy",
+      "flights": "Flights",
+      "hotels": "Hotels",
+      "packages": "Packages",
+      "activities": "Activities",
+      "profile": "Profile",
       "lorem_ipsum_description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
 
 
@@ -58,7 +63,6 @@
       "change_password": "Change Password",
       "enter_password_message": "enter a new password with minimum 5 characters",
       "set_new_password": "Set New Password",
-      "profile": "Profile",
       "my_account": "My Account",
       "my_addresses": "Address",
       "past_orders": "Past Orders",
@@ -301,6 +305,11 @@
       "already_have_an_account": "هل لديك حساب؟",
       "terms_n_conditions": "الأحكام والشروط",
       "privacy_policy": "سياسات الخصوصية",
+      "flights": "الرحلات الجوية",
+      "hotels": "الفنادق",
+      "packages": "الحزم",
+      "activities": "أنشطة",
+      "profile": "حساب",
       "lorem_ipsum_description": "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة، ولكن بفضل هؤلاء الأشخاص الذين لا يدركون بأن السعادة لا بد أن نستشعرها بصورة أكثر عقلانية ومنطقية فيعرضهم هذا لمواجهة الظروف الأليمة، وأكرر بأنه لا يوجد من يرغب في الحب ونيل المنال ويتلذذ بالآلام، الألم هو الألم ولكن نتيجة لظروف ما قد تكمن السعاده فيما نتحمله من كد وأسي.",
 
 
@@ -325,7 +334,6 @@
       "change_password": "تغيير كلمة المرور",
       "enter_password_message":  "أدخل كلمة مرور جديدة مكونة من 5 أحرف على الأقل",
       "set_new_password": "تعيين كلمة مرور جديدة",
-      "profile": "Profile",
       "my_account": "حسابي",
       "my_addresses":  "العناونين",
       "past_orders": "الطلبات السابقة",
