@@ -17,10 +17,12 @@
       "reset_password_message": "Enter the email address associated with your account and we'll send verification code to reset your password.",
       "submit": "Submit",
       "otp_verification": "OTP Verification",
-      "otp_verification_message": "Please enter the OTP you received to email.com",
-      "expires_in": "Expires in : 00:00",
+      "otp_verification_message": "Please enter the OTP you received to",
+      "expires_in": "Expires in",
       "didnt_recieve_code": "Didn't Recieve Code?",
       "resend": "Resend",
+      "verify": "Verify",
+
 
       "login_or_signup_to": "Login Or Signup To",
       "experience_pound": "Experience Pound",
@@ -42,7 +44,6 @@
       "verify_otp": "Verify OTP",
       "enter_otp_message": "enter the OTP received on your device to verify your identity",
       "one_time_password": "One Time Password",
-      "verify": "Verify",
       "change_password": "Change Password",
       "enter_password_message": "enter a new password with minimum 5 characters",
       "set_new_password": "Set New Password",
@@ -273,10 +274,13 @@
       "reset_password_message": "أدخل عنوان البريد الإلكتروني المرتبط بحسابك وسنرسل رمز التحقق لإعادة تعيين كلمة المرور الخاصة بك.",
       "submit": "إرسال",
       "otp_verification": "التحقق من OTP",
-      "otp_verification_message": "الرجاء إدخال كلمة المرور لمرة واحدة (OTP) التي تلقيتها على email.com",
-      "expires_in": "ينتهي الساعة: 00:00",
+      "otp_verification_message": "الرجاء إدخال كلمة المرور لمرة واحدة (OTP) التي تلقيتها على",
+      "expires_in": "ينتهي الساعة",
       "didnt_recieve_code": "لم تتلق الرمز؟",
       "resend": "إعادة إرسال",
+      "verify":  "تأكيد",
+
+
 
       "login_or_signup_to":  "تسجيل الدخول أو حساب جديد",
       "experience_pound": "تجربة باوند",
@@ -298,7 +302,6 @@
       "verify_otp": "تأكد من رسالة التأكيد",
       "enter_otp_message":  "أدخل رسالة التأكيد المستلمة على جهازك للتحقق من هويتك",
       "one_time_password":  "كلمة السر لمرة واحدة",
-      "verify":  "تأكيد",
       "change_password": "تغيير كلمة المرور",
       "enter_password_message":  "أدخل كلمة مرور جديدة مكونة من 5 أحرف على الأقل",
       "set_new_password": "تعيين كلمة مرور جديدة",
