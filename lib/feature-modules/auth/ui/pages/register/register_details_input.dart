@@ -113,7 +113,7 @@ class _AuthRegisterDetailsInputPageState
             TextFormField(
                 controller: emailController,
                 validator: (value) => checkIfEmailValid(value),
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   labelText: "email".tr,
                 )),
