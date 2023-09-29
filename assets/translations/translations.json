@@ -16,6 +16,11 @@
       "reset_password": "Reset Password",
       "reset_password_message": "Enter the email address associated with your account and we'll send verification code to reset your password.",
       "submit": "Submit",
+      "otp_verification": "OTP Verification",
+      "otp_verification_message": "Please enter the OTP you received to email.com",
+      "expires_in": "Expires in : 00:00",
+      "didnt_recieve_code": "Didn't Recieve Code?",
+      "resend": "Resend",
 
       "login_or_signup_to": "Login Or Signup To",
       "experience_pound": "Experience Pound",
@@ -267,6 +272,11 @@
       "reset_password": "إعادة تعيين كلمة المرور",
       "reset_password_message": "أدخل عنوان البريد الإلكتروني المرتبط بحسابك وسنرسل رمز التحقق لإعادة تعيين كلمة المرور الخاصة بك.",
       "submit": "إرسال",
+      "otp_verification": "التحقق من OTP",
+      "otp_verification_message": "الرجاء إدخال كلمة المرور لمرة واحدة (OTP) التي تلقيتها على email.com",
+      "expires_in": "ينتهي الساعة: 00:00",
+      "didnt_recieve_code": "لم تتلق الرمز؟",
+      "resend": "إعادة إرسال",
 
       "login_or_signup_to":  "تسجيل الدخول أو حساب جديد",
       "experience_pound": "تجربة باوند",
