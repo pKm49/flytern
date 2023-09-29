@@ -13,7 +13,7 @@ getAppRoutes() => [
   ),
   GetPage(
     name: Approute_authSelector,
-    page: () => const AuthSelector(),
+    page: () => const AuthSelectorPage(),
     middlewares: [MyMiddelware()],
   ),
 ];

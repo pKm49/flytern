@@ -8,14 +8,14 @@ import 'package:flytern/shared/services/utility-services/widget_properties_gener
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
-class AuthSelector extends StatefulWidget {
-  const AuthSelector({super.key});
+class AuthSelectorPage extends StatefulWidget {
+  const AuthSelectorPage({super.key});
 
   @override
-  State<AuthSelector> createState() => _AuthSelectorState();
+  State<AuthSelectorPage> createState() => _AuthSelectorPageState();
 }
 
-class _AuthSelectorState extends State<AuthSelector> {
+class _AuthSelectorPageState extends State<AuthSelectorPage> {
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
 
