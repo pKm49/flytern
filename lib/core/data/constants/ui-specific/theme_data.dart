@@ -131,13 +131,13 @@ ThemeData getThemeData( String type, String locale) {
         ),
         backgroundColor: flyternBackgroundWhite,
         foregroundColor: flyternGrey80,
-        shape: ContinuousRectangleBorder(
-            borderRadius:BorderRadius.only(
-                bottomLeft: Radius.circular(flyternSpaceLarge*2.5),
-                bottomRight: Radius.circular(flyternSpaceLarge*2.5))
-        ),
-        centerTitle: true,
-        elevation: 2.0),
+        // shape: ContinuousRectangleBorder(
+        //     borderRadius:BorderRadius.only(
+        //         bottomLeft: Radius.circular(flyternSpaceLarge*2.5),
+        //         bottomRight: Radius.circular(flyternSpaceLarge*2.5))
+        // ),
+        centerTitle: false,
+        elevation: 0.0),
         )
       : ThemeData(
           snackBarTheme:
@@ -202,12 +202,12 @@ ThemeData getThemeData( String type, String locale) {
                     : flyternDefaultFontFamilyArabic,
               ),              foregroundColor: flyternGrey80,
               backgroundColor: flyternBackgroundWhite,
-              shape: ContinuousRectangleBorder(
-                borderRadius:BorderRadius.only(
-                    bottomLeft: Radius.circular(flyternSpaceLarge*2.5),
-                    bottomRight: Radius.circular(flyternSpaceLarge*2.5))
-              ),
-              centerTitle: true,
-              elevation: 2.0),
+              // shape: ContinuousRectangleBorder(
+              //   borderRadius:BorderRadius.only(
+              //       bottomLeft: Radius.circular(flyternSpaceLarge*2.5),
+              //       bottomRight: Radius.circular(flyternSpaceLarge*2.5))
+              // ),
+              centerTitle: false,
+              elevation: 0.0),
         );
 }
