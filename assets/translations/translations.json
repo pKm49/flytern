@@ -7,6 +7,9 @@
       "guest_user": "Guest User",
       "sign_in": "Sign In",
       "create_account": "Create Account",
+      "sign_in_message": "Your Gateway to Adventure. Sign In and Explore!",
+
+
       "login_or_signup_to": "Login Or Signup To",
       "experience_pound": "Experience Pound",
       "login_to": "Login To",
@@ -252,6 +255,7 @@
       "guest_user": "حساب زائر",
       "sign_in": "تسجيل الدخول",
       "create_account": "تسجيل جديد",
+      "sign_in_message": "بوابتك للمغامرة. تسجيل الدخول واستكشاف!",
 
 
       "login_or_signup_to":  "تسجيل الدخول أو حساب جديد",
