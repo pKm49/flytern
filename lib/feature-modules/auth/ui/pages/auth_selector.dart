@@ -147,7 +147,7 @@ class _AuthSelectorPageState extends State<AuthSelectorPage> {
                                 addHorizontalSpace(flyternSpaceSmall),
                                 InkWell(
                                   onTap: (){
-                                    Get.toNamed(Approute_landingpage);
+                                    Get.offAllNamed(Approute_landingpage);
                                   },
                                   child: Text(
                                       "guest_user".tr,

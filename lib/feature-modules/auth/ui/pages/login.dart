@@ -77,7 +77,7 @@ class _AuthLoginPageState extends State<AuthLoginPage> {
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: () {
-                        Get.toNamed(Approute_landingpage);
+                        Get.offAllNamed(Approute_landingpage);
                       },
                       child:Text("sign_in".tr )),
                 ),
