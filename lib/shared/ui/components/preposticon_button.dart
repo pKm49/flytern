@@ -32,7 +32,7 @@ class PrePostIconButton extends StatelessWidget {
           padding:  flyternMediumPaddingVertical,
           decoration: BoxDecoration(
               border:border!=""? Border(
-                  bottom:BorderSide(width: border!.contains('bottom')? .3 :0.0, color:
+                  bottom:BorderSide(width: border!.contains('bottom')? .15 :0.0, color:
                   theme=='light'? flyternGrey20: flyternGrey40 )):null,
               color: Colors.transparent, ),
           child: Row(
