@@ -23,7 +23,7 @@ getAppRoutes() => [
     middlewares: [MyMiddelware()],
   ),
   GetPage(
-    name: Approute_registerMobile,
+    name: Approute_registerPersonalData,
     page: () => const AuthRegisterDetailsInputPage(),
     middlewares: [MyMiddelware()],
   ),
