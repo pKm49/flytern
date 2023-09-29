@@ -52,114 +52,121 @@ class _AuthSelectorPageState extends State<AuthSelectorPage> {
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
 
-    return Container(
-      height: screenheight,
-      width: screenwidth,
-      padding: EdgeInsets.only(top: flyternSpaceLarge*2),
-      color: flyternBackgroundWhite,
-      child:Stack(
-        children: [
-          Container(
-            width: screenwidth,
-            padding: EdgeInsets.only(top: flyternSpaceLarge*2),
-            height: screenheight ,
-              child: FutureBuilder(
-                future: _initializeVideoPlayerFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    // If the VideoPlayerController has finished initialization, use
-                    // the data it provides to limit the aspect ratio of the video.
-                    return AspectRatio(
-                      aspectRatio: 9/16,
-                      // Use the VideoPlayer widget to display the video.
-                      child: VideoPlayer(_controller),
-                    );
-                  } else {
-                    // If the VideoPlayerController is still initializing, show a
-                    // loading spinner.
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-              )
-          ),
+    return Scaffold(
+      body: Container(
+        height: screenheight,
+        width: screenwidth,
+        padding: EdgeInsets.only(top: flyternSpaceLarge*2),
+        color: flyternBackgroundWhite,
+        child:Stack(
+          children: [
+            Container(
+              width: screenwidth,
+              padding: EdgeInsets.only(top: flyternSpaceLarge*2),
+              height: screenheight ,
+                child: FutureBuilder(
+                  future: _initializeVideoPlayerFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      // If the VideoPlayerController has finished initialization, use
+                      // the data it provides to limit the aspect ratio of the video.
+                      return AspectRatio(
+                        aspectRatio: 9/16,
+                        // Use the VideoPlayer widget to display the video.
+                        child: VideoPlayer(_controller),
+                      );
+                    } else {
+                      // If the VideoPlayerController is still initializing, show a
+                      // loading spinner.
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                )
+            ),
 
-          Container(
-            height: screenheight,
-            width: screenwidth,
-            child: Column(
-              children: [
-                Container(
-                  width: screenwidth,
-                  height: (screenwidth*0.6313645621181263).toDouble(),
-                  child: CustomPaint(
-                    size: Size(screenwidth, (screenwidth*0.6313645621181263).toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                    painter: AuthSelectorCurveClipper(),
-                    child: Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          addVerticalSpace(flyternSpaceLarge*2),
-                          Image.asset(ASSETS_NAMELOGO,width: screenwidth*.6)
-                        ],
+            Container(
+              height: screenheight,
+              width: screenwidth,
+              child: Column(
+                children: [
+                  Container(
+                    width: screenwidth,
+                    height: (screenwidth*0.6313645621181263).toDouble(),
+                    child: CustomPaint(
+                      size: Size(screenwidth, (screenwidth*0.6313645621181263).toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                      painter: AuthSelectorCurveClipper(),
+                      child: Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            addVerticalSpace(flyternSpaceLarge*2),
+                            Image.asset(ASSETS_NAMELOGO,width: screenwidth*.6)
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Expanded(
-                    child: Container(
-                      padding: flyternLargePaddingAll*2.5,
-                  width: screenwidth,
-                      child: Wrap(
-                        children: [
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              child:   Text("sign_in".tr),
-                              onPressed: () async {
-                                Get.toNamed(Approute_login);
-                              },
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all<Color>(flyternSecondaryColor)
-                              ),),
-                          ),
-                          SizedBox(height: flyternSpaceMedium,width: 20,),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
+                  Expanded(
+                      child: Container(
+                        padding: flyternLargePaddingAll*2.5,
+                    width: screenwidth,
+                        child: Wrap(
+                          children: [
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                child:   Text("sign_in".tr),
                                 onPressed: () async {
-                                  Get.toNamed(Approute_registerPersonalData);
-                                }, 
-                                child:Text("create_account".tr )),
-                          ),
-                          const SizedBox(height: flyternSpaceLarge,width: 20,),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "continue_as".tr,
-                                style: getBodyMediumStyle(context).copyWith(color: flyternBackgroundWhite),
-                              ),
-                              addHorizontalSpace(flyternSpaceSmall),
-                              Text(
-                                  "guest_user".tr,
-                                style: getBodyMediumStyle(context).copyWith(
-                                    fontWeight: flyternFontWeightBold,
-                                color: flyternSecondaryColor),
+                                  Get.toNamed(Approute_login);
+                                },
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all<Color>(flyternSecondaryColor)
+                                ),),
+                            ),
+                            SizedBox(height: flyternSpaceMedium,width: 20,),
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                  onPressed: () async {
+                                    Get.toNamed(Approute_registerPersonalData);
+                                  }, 
+                                  child:Text("create_account".tr )),
+                            ),
+                            const SizedBox(height: flyternSpaceLarge,width: 20,),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "continue_as".tr,
+                                  style: getBodyMediumStyle(context).copyWith(color: flyternBackgroundWhite),
+                                ),
+                                addHorizontalSpace(flyternSpaceSmall),
+                                InkWell(
+                                  onTap: (){
+                                    Get.toNamed(Approute_landingpage);
+                                  },
+                                  child: Text(
+                                      "guest_user".tr,
+                                    style: getBodyMediumStyle(context).copyWith(
+                                        fontWeight: flyternFontWeightBold,
+                                    color: flyternSecondaryColor),
 
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                )),
-              ],
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                  )),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
