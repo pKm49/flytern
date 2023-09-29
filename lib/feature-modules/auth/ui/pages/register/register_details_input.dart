@@ -266,11 +266,12 @@ class _AuthRegisterDetailsInputPageState
       MaterialState.pressed,
       MaterialState.hovered,
       MaterialState.focused,
+      MaterialState.selected
     };
     if (states.any(interactiveStates.contains)) {
       return flyternSecondaryColor;
     }
-    return flyternSecondaryColor;
+    return flyternBackgroundWhite;
   }
 
 }
