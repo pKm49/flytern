@@ -116,14 +116,11 @@ class _AuthSelectorState extends State<AuthSelector> {
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
-                              child:   Text("login".tr),
+                              child:   Text("sign_in".tr),
                               onPressed: () async {
 
                               },
                               style: ButtonStyle(
-                                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                      EdgeInsets.symmetric(
-                                          horizontal: flyternSpaceLarge, vertical: flyternSpaceMedium*1.2)),
                                   backgroundColor: MaterialStateProperty.all<Color>(flyternSecondaryColor)
                               ),),
                           ),
@@ -133,14 +130,8 @@ class _AuthSelectorState extends State<AuthSelector> {
                             child: ElevatedButton(
                                 onPressed: () async {
 
-                                },
-                                style: ButtonStyle(
-                                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                      const EdgeInsets.symmetric(
-                                          horizontal: flyternSpaceLarge,
-                                          vertical: flyternSpaceMedium*.9)),
-                                ),
-                                child:Text("register".tr )),
+                                }, 
+                                child:Text("create_account".tr )),
                           ),
                           const SizedBox(height: flyternSpaceLarge,width: 20,),
                           Row(

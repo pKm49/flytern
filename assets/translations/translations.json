@@ -5,15 +5,14 @@
     "texts": {
       "continue_as": "Continue as",
       "guest_user": "Guest User",
+      "sign_in": "Sign In",
+      "create_account": "Create Account",
       "login_or_signup_to": "Login Or Signup To",
       "experience_pound": "Experience Pound",
-      "login": "Login",
-      "register": "Register",
       "login_to": "Login To",
       "mobile": "Mobile",
       "password": "Password",
       "forgot_password": "Forgot Password?",
-      "create_account": "Create Account",
       "or_contiune_with": "Or Contiune with",
       "facing_login_issues": "Facing Login Issues?",
       "call_support": "Call Support",
@@ -251,15 +250,18 @@
     "texts": {
       "continue_as": "الاستمرار كما",
       "guest_user": "حساب زائر",
+      "sign_in": "تسجيل الدخول",
+      "create_account": "تسجيل جديد",
+
+
       "login_or_signup_to":  "تسجيل الدخول أو حساب جديد",
       "experience_pound": "تجربة باوند",
-      "login": "تسجيل الدخول",
-      "register": "تسجيل",
+
       "login_to": "الدخول",
       "mobile":  "الهاتفك المحمول",
       "password":  "كلمة المرور",
       "forgot_password": "نسيت كلمة المرور؟",
-      "create_account": "تسجيل جديد",
+
       "or_contiune_with": "أو أكمل مع",
       "facing_login_issues": "هل تواجه مشكلات في تسجيل الدخول؟",
       "call_support": "اتصل بالدعم",
