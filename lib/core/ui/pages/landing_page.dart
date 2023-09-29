@@ -61,44 +61,57 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
             children: _tabList,
           )),
         bottomNavigationBar:Container(
-            decoration: flyternTopShadowedContainerLargeDecoration.copyWith(color: _currentIndex==0?flyternPrimaryColor:flyternBackgroundOffWhite),
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30.0),
-                topRight: Radius.circular(30.0),
-              ),
-              child:  BottomNavigationBar(
-                selectedFontSize: 0.0,
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                backgroundColor: flyternBackgroundWhite,
-                type: BottomNavigationBarType.fixed,
-                currentIndex: _currentIndex,
-                selectedItemColor: flyternPrimaryColor,
-                onTap: (int index) {
-                  setState(() {
-                    _currentIndex = index;
-                    changeTitle(index);
-                  });
+            decoration: flyternTopShadowedContainerLargeDecoration,
+            child: BottomNavigationBar(
+              showSelectedLabels: true,
+              showUnselectedLabels: true,
+              selectedIconTheme: IconThemeData(color: flyternSecondaryColor),
+              backgroundColor: flyternBackgroundWhite,
+              type: BottomNavigationBarType.fixed,
+              currentIndex: _currentIndex,
+              selectedItemColor: flyternPrimaryColor,
+              selectedLabelStyle: TextStyle(color: flyternPrimaryColor, fontWeight: flyternFontWeightBold),
+              onTap: (int index) {
+                setState(() {
+                  _currentIndex = index;
+                  changeTitle(index);
+                });
 
-                  _tabController.animateTo(_currentIndex);
+                _tabController.animateTo(_currentIndex);
 
 
-                },
-                items: [
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.home_outlined,size: flyternFontSize24*1.5),
-                    activeIcon: Icon(Icons.home,size: flyternFontSize24*1.5),
-                    label: "",
-                  ),
+              },
+              items: [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.flight_land_outlined,size: flyternFontSize24 ),
+                  activeIcon: Icon(Icons.flight,size: flyternFontSize24 ),
+                  label: "flights".tr,
+                ),
 
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.person_outline,size: flyternFontSize24*1.5),
-                    activeIcon: Icon(Icons.person,size: flyternFontSize24*1.5),
-                    label: "",
-                  ),
-                ],
-              ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person_outline ),
+                  activeIcon: Icon(Icons.person ),
+                  label: "hotels".tr,
+                ),
+
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.backpack_outlined ),
+                  activeIcon: Icon(Icons.backpack ),
+                  label: "packages".tr,
+                ),
+
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.local_activity_outlined ),
+                  activeIcon: Icon(Icons.local_activity ),
+                  label: "activities".tr,
+                ),
+
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person_outline ),
+                  activeIcon: Icon(Icons.person ),
+                  label: "profile".tr,
+                ),
+              ],
             )
         )
     );
