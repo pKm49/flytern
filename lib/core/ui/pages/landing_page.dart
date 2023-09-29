@@ -53,7 +53,7 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
+    return Scaffold(
       body: Container(
           child: TabBarView(
             physics: NeverScrollableScrollPhysics(),
