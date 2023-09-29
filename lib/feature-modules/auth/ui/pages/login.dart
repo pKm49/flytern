@@ -120,7 +120,9 @@ class _AuthLoginPageState extends State<AuthLoginPage> {
 
                 ),
               ],
-            )
+            ),
+            addVerticalSpace(flyternSpaceLarge),
+
           ],
         ),
       ),
