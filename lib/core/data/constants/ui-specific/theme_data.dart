@@ -98,25 +98,25 @@ ThemeData getThemeData( String type, String locale) {
               labelStyle: TextStyle(color: flyternGrey80),
               hintStyle: TextStyle(color: flyternGrey60),
               border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(flyternBorderRadiusSmall*100),
+                  borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall ),
                   borderSide: BorderSide(width: .5,color: flyternGrey20 )),
               disabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(flyternBorderRadiusSmall*100),
+                  borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall ),
                   borderSide: BorderSide(width: .5, color: flyternGrey40)),
               errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(flyternBorderRadiusSmall*100),
+                  borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall ),
                   borderSide: const BorderSide(
                       color:flyternGuideRed, width: 1.0)),
               focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(flyternBorderRadiusSmall*100),
+                  borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall ),
                   borderSide: const BorderSide(
                       color: flyternGrey40, width: 1.0)),
               focusedErrorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(flyternBorderRadiusSmall*100),
+                  borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall ),
                   borderSide: const BorderSide(
                       color: flyternGuideRed, width: 1.0)),
               enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(flyternBorderRadiusSmall*100),
+                  borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall ),
                   borderSide: const BorderSide(
                       color: flyternGrey40, width: .50)) ),
           scaffoldBackgroundColor: flyternBackgroundWhite,
@@ -191,7 +191,7 @@ ThemeData getThemeData( String type, String locale) {
                       MaterialStateProperty.all<Color>(flyternPrimaryColor))),
           inputDecorationTheme: InputDecorationTheme(
               border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(flyternBorderRadiusSmall*100),
+                  borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
                   borderSide: BorderSide.none),
               filled: true,
               fillColor: Colors.grey.withOpacity(0.1)),
