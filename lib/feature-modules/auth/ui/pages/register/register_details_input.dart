@@ -247,11 +247,16 @@ class _AuthRegisterDetailsInputPageState
                   style: getBodyMediumStyle(context).copyWith(),
                 ),
                 addHorizontalSpace(flyternSpaceSmall),
-                Text(
-                  "sign_in".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      fontWeight: flyternFontWeightBold,
-                      color: flyternSecondaryColor),
+                InkWell(
+                  onTap: (){
+                    Get.toNamed(Approute_login);
+                  },
+                  child: Text(
+                    "sign_in".tr,
+                    style: getBodyMediumStyle(context).copyWith(
+                        fontWeight: flyternFontWeightBold,
+                        color: flyternSecondaryColor),
+                  ),
                 ),
               ],
             ),
