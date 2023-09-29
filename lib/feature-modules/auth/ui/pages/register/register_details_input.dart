@@ -7,6 +7,8 @@ import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/form_validator.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared/ui/components/privacy.dart';
+import 'package:flytern/shared/ui/components/terms.dart';
 import 'package:get/get.dart';
 
 class AuthRegisterDetailsInputPage extends StatefulWidget {
@@ -202,24 +204,24 @@ class _AuthRegisterDetailsInputPageState
                 Expanded(
                   child:  RichText(
                     text: TextSpan(
-                      text: "terms_agree_message".tr,
+                      text: "${"terms_agree_message".tr} ",
                       style: getBodyMediumStyle(context) ,
                       children: <TextSpan>[
                         TextSpan(
-                            // recognizer: new TapGestureRecognizer()
-                            //   ..onTap = () =>getTermsPdfData(),
+                            recognizer: new TapGestureRecognizer()
+                              ..onTap = () =>openTermsBottomSheet( ),
                             text: "terms_n_conditions".tr,
-                            style: TextStyle(fontWeight: flyternFontWeightBold,decoration: TextDecoration.underline,
+                            style: const TextStyle(fontWeight: flyternFontWeightBold,decoration: TextDecoration.underline,
                             color: flyternSecondaryColor)),
-                        TextSpan(
+                        const TextSpan(
                           // recognizer: new TapGestureRecognizer()
                           //   ..onTap = () =>getTermsPdfData(),
                             text: " & " ),
                         TextSpan(
-                          // recognizer: new TapGestureRecognizer()
-                          //   ..onTap = () =>getTermsPdfData(),
+                          recognizer: new TapGestureRecognizer()
+                            ..onTap = () =>openPrivacyBottomSheet( ),
                             text: "privacy_policy".tr,
-                            style: TextStyle(fontWeight: flyternFontWeightBold,decoration: TextDecoration.underline,
+                            style: const TextStyle(fontWeight: flyternFontWeightBold,decoration: TextDecoration.underline,
                                 color: flyternSecondaryColor)),
                       ],
                     ),
@@ -259,6 +261,58 @@ class _AuthRegisterDetailsInputPageState
         ),
       ),
     );
+
+
+  }
+
+  void openTermsBottomSheet( ) {
+    showModalBottomSheet(
+      useSafeArea: false,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(flyternBorderRadiusMedium),
+        ),
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return SharedTermsConditionsPage();
+        });
+    // Get.bottomSheet(
+    //     Container(
+    //       child:  SharedTermsConditionsPage(),
+    //       height: 1000
+    //     ),
+    //
+    //   backgroundColor: flyternBackgroundWhite,
+    //   elevation: 0,
+    //   shape: RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.circular(10),
+    //   ),
+    // );
+  }
+
+  void openPrivacyBottomSheet( ) {
+    showModalBottomSheet(
+        useSafeArea: false,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(flyternBorderRadiusMedium),
+        ),
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return SharedPrivacyPolicyPage();
+        });
+    // Get.bottomSheet(
+    //     Container(
+    //       child:  SharedTermsConditionsPage(),
+    //       height: 1000
+    //     ),
+    //
+    //   backgroundColor: flyternBackgroundWhite,
+    //   elevation: 0,
+    //   shape: RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.circular(10),
+    //   ),
+    // );
   }
 
   Color getColor(Set<MaterialState> states) {
