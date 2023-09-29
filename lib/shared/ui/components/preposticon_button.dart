@@ -4,6 +4,7 @@ import 'package:flytern/shared/services/utility-services/widget_properties_gener
 import 'package:flutter/material.dart';
 
 class PrePostIconButton extends StatelessWidget {
+  final num? specialColor;
   final String? border;
   final String? theme;
   final IconData? preIconData;
@@ -13,6 +14,7 @@ class PrePostIconButton extends StatelessWidget {
 
   const PrePostIconButton(
       {super.key,
+      required this.specialColor,
       required this.theme,
       required this.border,
       required this.preIconData,
@@ -39,12 +41,21 @@ class PrePostIconButton extends StatelessWidget {
             children: [
               Visibility(visible: preIconData != null, child: Padding(
                 padding: const EdgeInsets.only(right:  flyternSpaceMedium),
-                child: Icon(preIconData,color: theme=='light'? flyternBackgroundOffWhite: flyternGrey40),
+                child: Icon(preIconData,color:
+                specialColor ==1?flyternGuideRed:
+                specialColor ==2?flyternPrimaryColor:
+                theme=='light'? flyternBackgroundOffWhite: flyternGrey40),
               )),
               Expanded(child: Text(buttonTitle,textAlign: TextAlign.start ,
 
-                  style: getLabelLargeStyle(context).copyWith(color: theme=='light'? flyternBackgroundOffWhite: flyternBlack,fontWeight:theme=='light'? flyternFontWeightLight : FontWeight.normal))),
-              Visibility(visible: postIconData != null, child: Icon(postIconData,color: theme=='light'? flyternGrey20: flyternGrey80))
+                  style: getBodyMediumStyle(context).copyWith(color:
+                  specialColor ==1?flyternGuideRed:
+                  specialColor ==2?flyternPrimaryColor:
+                  theme=='light'? flyternBackgroundOffWhite: flyternBlack,fontWeight:theme=='light'? flyternFontWeightLight : FontWeight.normal))),
+              Visibility(visible: postIconData != null, child: Icon(postIconData,color:
+              specialColor ==1?flyternGuideRed:
+              specialColor ==2?flyternPrimaryColor:
+              theme=='light'? flyternGrey20: flyternGrey60))
             ],
           )),
     );
