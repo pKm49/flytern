@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/auth/data/constants/ui_constants/auth_selector_curve_clipper.dart';
+import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -118,7 +119,7 @@ class _AuthSelectorPageState extends State<AuthSelectorPage> {
                             child: ElevatedButton(
                               child:   Text("sign_in".tr),
                               onPressed: () async {
-
+                                Get.toNamed(Approute_login);
                               },
                               style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all<Color>(flyternSecondaryColor)
@@ -129,7 +130,7 @@ class _AuthSelectorPageState extends State<AuthSelectorPage> {
                             width: double.infinity,
                             child: ElevatedButton(
                                 onPressed: () async {
-
+                                  Get.toNamed(Approute_registerPersonalData);
                                 }, 
                                 child:Text("create_account".tr )),
                           ),
