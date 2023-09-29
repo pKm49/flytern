@@ -1,4 +1,5 @@
 
+import 'package:flytern/core/ui/pages/landing_page.dart';
 import 'package:flytern/core/ui/pages/language_selector.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/auth_selector.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/login.dart';
@@ -50,6 +51,11 @@ getAppRoutes() => [
   GetPage(
     name: Approute_resetPasswordNewpassword,
     page: () => const AuthResetPasswordNewPasswordPage(),
+    middlewares: [MyMiddelware()],
+  ),
+  GetPage(
+    name: Approute_landingpage,
+    page: () => const CoreLandingPage(),
     middlewares: [MyMiddelware()],
   ),
 ];
