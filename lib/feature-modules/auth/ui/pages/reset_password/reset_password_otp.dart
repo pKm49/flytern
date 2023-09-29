@@ -37,6 +37,8 @@ class _AuthResetPasswordOTPPageState extends State<AuthResetPasswordOTPPage> {
           children: [
             addVerticalSpace(flyternSpaceSmall),
             Text("otp_verification_message".tr,style: getBodyMediumStyle(context)),
+            addVerticalSpace(flyternSpaceExtraSmall),
+            Text("info@email.com",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold)),
             addVerticalSpace(flyternSpaceLarge*2),
             OTPTextField(
               otpFieldStyle: OtpFieldStyle(
@@ -59,7 +61,6 @@ class _AuthResetPasswordOTPPageState extends State<AuthResetPasswordOTPPage> {
                 });
               },
             ),
-
             addVerticalSpace(flyternSpaceLarge),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
