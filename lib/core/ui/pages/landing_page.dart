@@ -4,8 +4,10 @@ import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_booking_l
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_booking_landing_page.dart';
 import 'package:flytern/feature-modules/package_booking/ui/pages/package_booking_landing_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_landing_page.dart';
+import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
 
 class CoreLandingPage extends StatefulWidget {
@@ -53,7 +55,15 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
+
+    double screenwidth = MediaQuery.of(context).size.width;
+    double screenheight = MediaQuery.of(context).size.height;
+
     return Scaffold(
+      appBar: AppBar(
+        title: pageTitle == "flights"?
+        Image.asset(ASSETS_NAMELOGO,width: screenwidth*.33):Text(pageTitle,style: getHeadlineLargeStyle(context),),
+      ),
       body: Container(
           child: TabBarView(
             physics: NeverScrollableScrollPhysics(),
