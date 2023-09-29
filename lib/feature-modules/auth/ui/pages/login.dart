@@ -91,12 +91,17 @@ class _AuthLoginPageState extends State<AuthLoginPage> {
                       style: getBodyMediumStyle(context).copyWith( ),
                     ),
                     addHorizontalSpace(flyternSpaceSmall),
-                    Text(
-                      "sign_up".tr,
-                      style: getBodyMediumStyle(context).copyWith(
-                          fontWeight: flyternFontWeightBold,
-                          color: flyternSecondaryColor),
+                    InkWell(
+                      onTap: (){
+                        Get.toNamed(Approute_registerPersonalData);
+                      },
+                      child: Text(
+                        "sign_up".tr,
+                        style: getBodyMediumStyle(context).copyWith(
+                            fontWeight: flyternFontWeightBold,
+                            color: flyternSecondaryColor),
 
+                      ),
                     ),
                   ],
                 ),
