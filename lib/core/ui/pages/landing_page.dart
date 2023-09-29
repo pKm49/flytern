@@ -83,32 +83,62 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
               },
               items: [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.flight_land_outlined,size: flyternFontSize24 ),
-                  activeIcon: Icon(Icons.flight,size: flyternFontSize24 ),
+                  icon: Padding(
+                    padding: const EdgeInsets.only(bottom:flyternSpaceExtraSmall),
+                    child: Icon(Icons.flight_land_outlined,size: flyternFontSize24 ),
+                  ),
+                  activeIcon: Padding(
+                    padding: const EdgeInsets.only(bottom:flyternSpaceExtraSmall),
+                    child: Icon(Icons.flight,size: flyternFontSize24 ),
+                  ),
                   label: "flights".tr,
                 ),
 
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.person_outline ),
-                  activeIcon: Icon(Icons.person ),
+                  icon: Padding(
+                    padding: const EdgeInsets.only(bottom:flyternSpaceExtraSmall),
+                    child: Icon(Icons.hotel_outlined ),
+                  ),
+                  activeIcon: Padding(
+                    padding: const EdgeInsets.only(bottom:flyternSpaceExtraSmall),
+                    child: Icon(Icons.hotel ),
+                  ),
                   label: "hotels".tr,
                 ),
 
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.backpack_outlined ),
-                  activeIcon: Icon(Icons.backpack ),
+                  icon: Padding(
+                    padding: const EdgeInsets.only(bottom:flyternSpaceExtraSmall),
+                    child: Icon(Icons.backpack_outlined ),
+                  ),
+                  activeIcon: Padding(
+                    padding: const EdgeInsets.only(bottom:flyternSpaceExtraSmall),
+                    child: Icon(Icons.backpack ),
+                  ),
                   label: "packages".tr,
                 ),
 
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.local_activity_outlined ),
-                  activeIcon: Icon(Icons.local_activity ),
+                  icon: Padding(
+                    padding: const EdgeInsets.only(bottom:flyternSpaceExtraSmall),
+                    child: Icon(Icons.local_activity_outlined ),
+                  ),
+                  activeIcon: Padding(
+                    padding: const EdgeInsets.only(bottom:flyternSpaceExtraSmall),
+                    child: Icon(Icons.local_activity ),
+                  ),
                   label: "activities".tr,
                 ),
 
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.person_outline ),
-                  activeIcon: Icon(Icons.person ),
+                  icon: Padding(
+                    padding: const EdgeInsets.only(bottom:flyternSpaceExtraSmall),
+                    child: Icon(Icons.person_outline ),
+                  ),
+                  activeIcon: Padding(
+                    padding: const EdgeInsets.only(bottom:flyternSpaceExtraSmall),
+                    child: Icon(Icons.person ),
+                  ),
                   label: "profile".tr,
                 ),
               ],
