@@ -92,7 +92,7 @@ class _AuthRegisterDetailsInputPageState
                   child: TextFormField(
                       controller: emailController,
                       validator: (value) => checkIfEmailValid(value),
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                         labelText: "first_name".tr,
                       )),
@@ -102,7 +102,7 @@ class _AuthRegisterDetailsInputPageState
                   child: TextFormField(
                       controller: emailController,
                       validator: (value) => checkIfEmailValid(value),
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.name,
                       decoration: InputDecoration(
                         labelText: "last_name".tr,
                       )),
