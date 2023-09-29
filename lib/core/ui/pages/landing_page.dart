@@ -64,6 +64,7 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
 
     return Scaffold(
       appBar: AppBar(
+        titleSpacing: 0,
         title: pageTitle == "flights"?
         Image.asset(ASSETS_NAMELOGO,width: screenwidth*.33):Text(pageTitle,style: getHeadlineLargeStyle(context),),
       actions: [
