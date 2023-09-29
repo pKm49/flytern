@@ -109,11 +109,11 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
                 BottomNavigationBarItem(
                   icon: Padding(
                     padding: const EdgeInsets.only(bottom:flyternSpaceExtraSmall),
-                    child: Icon(Icons.flight_land_outlined,size: flyternFontSize24 ),
+                    child: Icon(Icons.airplane_ticket_outlined,size: flyternFontSize24 ),
                   ),
                   activeIcon: Padding(
                     padding: const EdgeInsets.only(bottom:flyternSpaceExtraSmall),
-                    child: Icon(Icons.flight,size: flyternFontSize24 ),
+                    child: Icon(Icons.airplane_ticket,size: flyternFontSize24 ),
                   ),
                   label: "flights".tr,
                 ),
