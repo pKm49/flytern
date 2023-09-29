@@ -76,7 +76,9 @@ class _AuthLoginPageState extends State<AuthLoginPage> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                      onPressed: () async {
+                      onPressed: () {
+                        Get.toNamed(Approute_landingpage);
+
                       },
                       child:Text("sign_in".tr )),
                 ),
