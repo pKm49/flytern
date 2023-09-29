@@ -15,9 +15,9 @@ class AuthResetPasswordCredentialsPage extends StatefulWidget {
 }
 
 class _AuthResetPasswordCredentialsPageState extends State<AuthResetPasswordCredentialsPage> {
+
   TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+   final GlobalKey<FormState> resetPasswordEmailFormKey = GlobalKey<FormState>();
 
 
   @override
