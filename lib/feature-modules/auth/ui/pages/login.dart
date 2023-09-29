@@ -34,7 +34,7 @@ class _AuthLoginPageState extends State<AuthLoginPage> {
       ),
       body: Container(
         width: screenwidth,
-        padding: flyternLargePaddingAll,
+        padding: flyternLargePaddingHorizontal,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -43,6 +43,7 @@ class _AuthLoginPageState extends State<AuthLoginPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
 
               children: [
+                addVerticalSpace(flyternSpaceSmall),
                 Text("sign_in_message".tr,style: getBodyMediumStyle(context)),
                 addVerticalSpace(flyternSpaceLarge*2),
                 TextFormField(
