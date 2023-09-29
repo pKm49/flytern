@@ -22,6 +22,8 @@
       "didnt_recieve_code": "Didn't Recieve Code?",
       "resend": "Resend",
       "verify": "Verify",
+      "new_password_message": "Your new password must be different from the previously used passwords.",
+      "confirm_password": "Confirm Password",
 
 
       "login_or_signup_to": "Login Or Signup To",
@@ -36,7 +38,6 @@
       "new_account": "New Account",
       "join": "Join",
       "name": "Name",
-      "confirm_password": "Confirm Password",
       "terms_confirmation_message": "By submitting you agree on the",
       "terms_n_conditions": "Terms & Conditions",
       "enter_mobile_message": "enter your registered mobile below to receive an OTP",
@@ -279,6 +280,8 @@
       "didnt_recieve_code": "لم تتلق الرمز؟",
       "resend": "إعادة إرسال",
       "verify":  "تأكيد",
+      "new_password_message": "يجب أن تكون كلمة المرور الجديدة مختلفة عن كلمات المرور المستخدمة سابقًا.",
+      "confirm_password":  "تأكيد كلمة المرور",
 
 
 
@@ -294,7 +297,6 @@
       "new_account": "حساب جديد",
       "join":  "الإنضمام",
       "name": "الإسم",
-      "confirm_password":  "تأكيد كلمة المرور",
       "terms_confirmation_message": "من خلال تسجيلك فإنك توافق على",
       "terms_n_conditions": "البنود و الشروط",
       "enter_mobile_message": "أدخل هاتفك المحمول المسجل أدناه لتلقي رسالة التأكيد",
