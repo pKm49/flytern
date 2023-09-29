@@ -10,3 +10,6 @@
   const String Approute_resetPasswordMobile = '$Approute_auth/reset-password-mobile';
   const String Approute_resetPasswordOtp = '$Approute_auth/reset-password-otp';
   const String Approute_resetPasswordNewpassword = '$Approute_auth/reset-password-new-password';
+
+  //landing page
+  const String Approute_landingpage = '/landing-page';
