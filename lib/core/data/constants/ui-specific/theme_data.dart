@@ -119,7 +119,8 @@ ThemeData getThemeData( String type, String locale) {
                   borderRadius: BorderRadius.circular(flyternBorderRadiusSmall*100),
                   borderSide: const BorderSide(
                       color: flyternGrey40, width: .50)) ),
-          scaffoldBackgroundColor: flyternBackgroundOffWhite,
+          scaffoldBackgroundColor: flyternBackgroundWhite,
+
     appBarTheme: AppBarTheme(
         titleTextStyle:TextStyle(
             fontWeight: flyternFontWeightBold,
@@ -140,6 +141,7 @@ ThemeData getThemeData( String type, String locale) {
         elevation: 0.0),
         )
       : ThemeData(
+        scaffoldBackgroundColor: flyternBackgroundWhite,
           snackBarTheme:
               const SnackBarThemeData(backgroundColor: flyternBackgroundOffWhite),
           brightness: Brightness.light,
