@@ -129,6 +129,7 @@ ThemeData getThemeData( String type, String locale) {
             fontFamily: locale == 'en'
           ? flyternDefaultFontFamilyEnglish
           : flyternDefaultFontFamilyArabic,
+          color: flyternGrey80
         ),
         backgroundColor: flyternBackgroundWhite,
         foregroundColor: flyternGrey80,
@@ -196,6 +197,7 @@ ThemeData getThemeData( String type, String locale) {
               fillColor: Colors.grey.withOpacity(0.1)),
           appBarTheme: AppBarTheme(
               titleTextStyle:TextStyle(
+                color: flyternGrey80,
                 fontWeight: flyternFontWeightBold,
                 fontSize:locale=='en'?
                 flyternFontSize20:flyternFontSize16,
