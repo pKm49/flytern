@@ -32,6 +32,8 @@
       "subscription_confirm_message": "Receive travel deals, special offers & other information from Flytern via email.",
       "terms_agree_message": "By continuing you agree to our",
       "already_have_an_account": "Already have an account?",
+      "terms_n_conditions": "Terms and Conditions",
+      "privacy_policy": "Privacy Policy",
 
       "login_or_signup_to": "Login Or Signup To",
       "experience_pound": "Experience Pound",
@@ -45,7 +47,6 @@
       "join": "Join",
       "name": "Name",
       "terms_confirmation_message": "By submitting you agree on the",
-      "terms_n_conditions": "Terms & Conditions",
       "enter_mobile_message": "enter your registered mobile below to receive an OTP",
       "send_otp": "Send OTP",
       "verify_otp": "Verify OTP",
@@ -62,7 +63,6 @@
       "report_a_problem": "Report A Problem",
       "instagram": "Instagram",
       "app_settings": "App Settings",
-      "privacy": "Privacy",
       "logout": "Logout",
       "signup": "SignUp",
       "account_created": "You account has been \nCreated successfully",
@@ -296,6 +296,8 @@
       "subscription_confirm_message": "احصل على عروض السفر والعروض الخاصة وغيرها من المعلومات من Flytern عبر البريد الإلكتروني.",
       "terms_agree_message": "من خلال الاستمرار، فإنك توافق على لدينا",
       "already_have_an_account": "هل لديك حساب؟",
+      "terms_n_conditions": "الأحكام والشروط",
+      "privacy_policy": "سياسات الخصوصية",
 
 
 
@@ -311,7 +313,6 @@
       "join":  "الإنضمام",
       "name": "الإسم",
       "terms_confirmation_message": "من خلال تسجيلك فإنك توافق على",
-      "terms_n_conditions": "البنود و الشروط",
       "enter_mobile_message": "أدخل هاتفك المحمول المسجل أدناه لتلقي رسالة التأكيد",
       "send_otp": "أرسل رسالة التأكيد",
       "verify_otp": "تأكد من رسالة التأكيد",
