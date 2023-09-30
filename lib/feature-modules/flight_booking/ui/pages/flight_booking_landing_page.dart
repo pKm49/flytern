@@ -91,7 +91,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                                 },
                                 index: 1,
                                 icon: Ionicons.arrow_forward_outline,
-                                label: 'One Way',
+                                label: 'one_way'.tr,
                                 selectedTab: selectedTab,
                               ),
                             ),
@@ -105,7 +105,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                                 },
                                 index: 2,
                                 icon: Ionicons.swap_horizontal_outline,
-                                label: 'Round Trip',
+                                label: 'round_trip'.tr,
                                 selectedTab: selectedTab,
                               ),
                             ),
@@ -119,7 +119,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                                 },
                                 index: 3,
                                 icon: Ionicons.share_social_outline,
-                                label: 'Multi City',
+                                label: 'multi_city'.tr,
                                 selectedTab: selectedTab,
                               ),
                             )
@@ -143,7 +143,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                 Expanded(
                   flex: 3,
                   child: Text(
-                    'Recommended For You',
+                    'recommended_for_you'.tr,
                     style: getHeadlineMediumStyle(context).copyWith(
                         color: flyternGrey80,
                         fontWeight: flyternFontWeightBold),
@@ -155,7 +155,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          'See All',
+                          "see_all".tr,
                           style: getBodyMediumStyle(context)
                               .copyWith(color: flyternTertiaryColor),
                         ),
@@ -205,7 +205,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                 Expanded(
                   flex: 3,
                   child: Text(
-                    'Popular Destinations',
+                    'popular_destinations'.tr,
                     style: getHeadlineMediumStyle(context).copyWith(
                         color: flyternGrey80,
                         fontWeight: flyternFontWeightBold),
@@ -217,7 +217,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          'See All',
+                          "see_all".tr,
                           style: getBodyMediumStyle(context)
                               .copyWith(color: flyternTertiaryColor),
                         ),
@@ -288,7 +288,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          'See All',
+                          "see_all".tr,
                           style: getBodyMediumStyle(context)
                               .copyWith(color: flyternTertiaryColor),
                         ),

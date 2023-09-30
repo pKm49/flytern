@@ -4,6 +4,7 @@ import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class FlightBookingForm extends StatefulWidget {
@@ -58,7 +59,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                       crossAxisAlignment: WrapCrossAlignment.start,
                       children: [
                         Text(
-                          'From',
+                          "from".tr,
                           style: getLabelLargeStyle(context).copyWith(
                               color: flyternGrey40,
                               fontWeight: FontWeight.  w400),
@@ -106,7 +107,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                       crossAxisAlignment: WrapCrossAlignment.start,
                       children: [
                         Text(
-                          'To',
+                          "to".tr,
                           style: getLabelLargeStyle(context).copyWith(
                               color: flyternGrey40,
                               fontWeight: FontWeight.  w400),
@@ -146,7 +147,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Travel Date',
+                              'travel_date'.tr,
                               style: getLabelLargeStyle(context).copyWith(
                                   color: flyternGrey40,
                                   fontWeight: FontWeight.  w400),
@@ -184,7 +185,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Return Date',
+                                'return_date'.tr,
                                 style: getLabelLargeStyle(context).copyWith(
                                     color: flyternGrey40,
                                     fontWeight: FontWeight.  w400),
@@ -219,7 +220,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Passengers / Cabin Class',
+                      'passengers_cabin_class'.tr,
                       style: getLabelLargeStyle(context).copyWith(
                           color: flyternGrey40,
                           fontWeight: FontWeight.  w400),
@@ -251,7 +252,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Promo Code',
+                      'promo_code'.tr,
                       style: getLabelLargeStyle(context).copyWith(
                           color: flyternGrey40,
                           fontWeight: FontWeight.  w400),
@@ -286,7 +287,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
             addHorizontalSpace(flyternSpaceSmall),
 
             Expanded(
-              child: Text("Direct Flight",style: getBodyMediumStyle(context),
+              child: Text("direct_flight".tr,style: getBodyMediumStyle(context),
                   maxLines: 2),
             ),
           ],
@@ -296,7 +297,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
           child: ElevatedButton(
               onPressed: ()   {
 
-              }, child: Text("Search Flights" )),
+              }, child: Text("search_flights".tr )),
         ),
 
       ],
