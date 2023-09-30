@@ -71,6 +71,12 @@
       "recommended_for_you": "Recommended For You",
       "popular_destinations": "Popular Destinations",
       "see_all": "See All",
+      "destination": "Destination",
+      "checkin": "Checkin",
+      "checkout": "Checkout",
+      "users": "Users",
+      "nationality": "Nationality",
+      "search_hotels": "Search Hotels",
 
       "lorem_ipsum_description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
 
@@ -157,7 +163,7 @@
       "total": "Total",
       "deliver_to": "Deliver To",
       "delivery_time": "Delivery Time",
-      "checkout": "Checkout",
+
       "knet": "KNET",
       "credit_card": "Credit Card",
       "card_message": "Card Message",
@@ -372,6 +378,13 @@
       "recommended_for_you": "موصى به لك",
       "popular_destinations": "الوجهات الشعبية",
       "see_all": "اظهار الكل",
+      "destination": "Destination",
+      "checkin": "تحقق في",
+      "checkout": "الدفع",
+      "users": "المستخدمين",
+      "nationality": "جنسية",
+      "search_hotels": "بحث عن الفنادق",
+
       "lorem_ipsum_description": "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة، ولكن بفضل هؤلاء الأشخاص الذين لا يدركون بأن السعادة لا بد أن نستشعرها بصورة أكثر عقلانية ومنطقية فيعرضهم هذا لمواجهة الظروف الأليمة، وأكرر بأنه لا يوجد من يرغب في الحب ونيل المنال ويتلذذ بالآلام، الألم هو الألم ولكن نتيجة لظروف ما قد تكمن السعاده فيما نتحمله من كد وأسي.",
 
 
@@ -457,7 +470,7 @@
       "total": "الاجمالي الطلب",
       "deliver_to":  "التوصيل الى",
       "delivery_time": "وقت التوصيل",
-      "checkout": "الدفع",
+
       "knet": "ك-نيت",
       "credit_card": "بطاقة إئتمان",
       "card_message": "الرسالة في البطاقه",
