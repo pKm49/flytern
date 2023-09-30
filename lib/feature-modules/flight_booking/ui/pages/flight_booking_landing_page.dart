@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_form.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type_tab.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/recommended_item_card.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
+import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:ionicons/ionicons.dart';
 
 class FlightBookingLandingPage extends StatefulWidget {
@@ -38,18 +40,20 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
     return Container(
       height: screenheight,
       width: screenwidth,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(ASSETS_FLIGHTS_BG),
-          fit: BoxFit.cover,
-        ),
-      ),
+      color: flyternGrey10,
       child: ListView(
         children: [
           Container(
-            margin: EdgeInsets.all(flyternSpaceLarge),
-            height: screenheight * .7,
+            padding: EdgeInsets.all(flyternSpaceLarge),
+            height: (screenheight * .7) + (flyternSpaceLarge * 2.5),
             width: screenwidth - (flyternSpaceLarge * 2),
+            decoration: BoxDecoration(
+
+              image: DecorationImage(
+                image: AssetImage(ASSETS_FLIGHTS_BG),
+                fit: BoxFit.cover,
+              ),
+            ),
             child: Stack(
               children: [
                 Column(
@@ -63,7 +67,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                       decoration: flyternShadowedContainerSmallDecoration,
                       width: screenwidth - (flyternSpaceLarge * 2),
                       padding: flyternMediumPaddingAll,
-                      child: FlightBookingForm(selectedTab:selectedTab),
+                      child: FlightBookingForm(selectedTab: selectedTab),
                     )
                   ],
                 ),
@@ -82,7 +86,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                                     selectedTab = 1;
                                   });
                                 },
-                                index : 1,
+                                index: 1,
                                 icon: Ionicons.arrow_forward_outline,
                                 label: 'One Way',
                                 selectedTab: selectedTab,
@@ -90,13 +94,13 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                             ),
                             addHorizontalSpace(flyternSpaceSmall),
                             Expanded(
-                              child:FlightTypeTab(
+                              child: FlightTypeTab(
                                 onPressed: () {
                                   setState(() {
                                     selectedTab = 2;
                                   });
                                 },
-                                index : 2,
+                                index: 2,
                                 icon: Ionicons.swap_horizontal_outline,
                                 label: 'Round Trip',
                                 selectedTab: selectedTab,
@@ -110,7 +114,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                                     selectedTab = 3;
                                   });
                                 },
-                                index :3,
+                                index: 3,
                                 icon: Ionicons.share_social_outline,
                                 label: 'Multi City',
                                 selectedTab: selectedTab,
@@ -126,7 +130,70 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                 )
               ],
             ),
-          )
+          ),
+          addVerticalSpace(flyternSpaceLarge),
+          Padding(
+            padding: flyternMediumPaddingHorizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    'Recommended For You',
+                    style: getHeadlineMediumStyle(context).copyWith(
+                        color: flyternGrey80,
+                        fontWeight: flyternFontWeightBold),
+                  ),
+                ),
+                Expanded(
+                    flex: 1,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'See All',
+                          style: getBodyMediumStyle(context)
+                              .copyWith(color: flyternTertiaryColor),
+                        ),
+                        addHorizontalSpace(flyternSpaceExtraSmall),
+                        Icon(Ionicons.chevron_forward,
+                            color: flyternTertiaryColor,
+                            size: flyternFontSize20)
+                      ],
+                    ))
+              ],
+            ),
+          ),
+          addVerticalSpace(flyternSpaceLarge),
+          Container(
+              width: screenwidth,
+              height: screenwidth * .7,
+              padding: flyternMediumPaddingHorizontal,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  FlightRecommendedItemCard(
+                      imageUrl: ASSETS_RECOMMENDED_1_SAMPLE,
+                      title: "Four Seasons Resort Bora Bora",
+                      rating: 4.4
+                  ),
+                  addHorizontalSpace(flyternSpaceMedium),
+                  FlightRecommendedItemCard(
+                      imageUrl: ASSETS_RECOMMENDED_1_SAMPLE,
+                      title: "Four Seasons Resort Bora Bora",
+                      rating: 4.4
+                  ),
+                  addHorizontalSpace(flyternSpaceMedium),
+                  FlightRecommendedItemCard(
+                      imageUrl: ASSETS_RECOMMENDED_1_SAMPLE,
+                      title: "Four Seasons Resort Bora Bora",
+                      rating: 4.4
+                  ),
+                ],
+              )),
+          addVerticalSpace(flyternSpaceLarge),
+          addVerticalSpace(flyternSpaceLarge),
         ],
       ),
     );
