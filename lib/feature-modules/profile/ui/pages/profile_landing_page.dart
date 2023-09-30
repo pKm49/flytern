@@ -55,7 +55,7 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                     addVerticalSpace(flyternSpaceExtraSmall),
                     Text("martin@gmail.com",style: getLabelLargeStyle(context).copyWith(color: flyternGrey40),),
                     addVerticalSpace(flyternSpaceSmall*1.5),
-                    Text("View Profile",style: getBodyMediumStyle(context).copyWith(color: flyternPrimaryColor,decoration: TextDecoration.underline)),
+                    Text("view_profile".tr,style: getBodyMediumStyle(context).copyWith(color: flyternPrimaryColor,decoration: TextDecoration.underline)),
 
                   ],
                 ))

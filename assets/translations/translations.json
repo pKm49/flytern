@@ -53,6 +53,7 @@
       "faq": "FAQs",
       "rating": "Rating",
       "logout": "Logout",
+      "view_profile": "View Profile",
       "edit_profile": "Edit Profile",
       "change_password": "Change Password",
 
@@ -339,6 +340,7 @@
       "faq": "الأسئلة الشائعة",
       "rating": "تقييم",
       "logout": "تسجيل خروج",
+      "view_profile": "عرض الصفحة الشخصية",
       "edit_profile": "تعديل الملف الشخصي",
       "change_password": "تغيير كلمة المرور",
 
