@@ -3,11 +3,13 @@ import 'package:flytern/feature-modules/flight_booking/ui/components/flight_book
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type_tab.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/popular_package_list_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/recommended_item_card.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/travel_stories_item_card.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class FlightBookingLandingPage extends StatefulWidget {
@@ -265,6 +267,60 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
               ],
             ),
           ),
+          addVerticalSpace(flyternSpaceLarge),
+          Padding(
+            padding: flyternMediumPaddingHorizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    'Travel Stories',
+                    style: getHeadlineMediumStyle(context).copyWith(
+                        color: flyternGrey80,
+                        fontWeight: flyternFontWeightBold),
+                  ),
+                ),
+                Expanded(
+                    flex: 1,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'See All',
+                          style: getBodyMediumStyle(context)
+                              .copyWith(color: flyternTertiaryColor),
+                        ),
+                        addHorizontalSpace(flyternSpaceExtraSmall),
+                        Icon(Ionicons.chevron_forward,
+                            color: flyternTertiaryColor,
+                            size: flyternFontSize20)
+                      ],
+                    ))
+              ],
+            ),
+          ),
+          addVerticalSpace(flyternSpaceLarge),
+          Container(
+            color: flyternBackgroundWhite,
+            child: Wrap(
+              children: [
+                TravelStoriesItemCard(
+                  profilePicUrl: ASSETS_USER_1_SAMPLE,
+                  name: "Andrew Martin",
+                  rating: 4.4,
+                  description: "lorem_ipsum_description".tr,
+                  imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
+                  child: Divider(),
+                ),
+              ],
+            ),
+          ),
+
           addVerticalSpace(flyternSpaceLarge),
         ],
       ),
