@@ -56,7 +56,18 @@
       "view_profile": "View Profile",
       "edit_profile": "Edit Profile",
       "change_password": "Change Password",
-
+      "one_way": "One Way",
+      "round_trip": "Round Trip",
+      "multi_city": "Multi City",
+      "to": "To",
+      "from": "From",
+      "travel_date": "Travel Date",
+      "return_date": "Return Date",
+      "passengers_cabin_class": "Passengers/ Cabin Class",
+      "promo_code": "Promo Code",
+      "direct_flight": "Direct Flight",
+      "search_flights": "Search Flights",
+      "add_another_city": "Add Another City",
       "lorem_ipsum_description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
 
 
@@ -146,8 +157,7 @@
       "knet": "KNET",
       "credit_card": "Credit Card",
       "card_message": "Card Message",
-      "to": "To",
-      "from": "From",
+
       "message": "Message",
       "shared_feelings_with_video": "You shared a video",
       "shared_feelings_with_audio": "You shared an audio",
@@ -251,7 +261,7 @@
       "to_someone": "To Someone",
       "receiver_name": "Receiver Name",
       "wallet": "Wallet",
-      "promo_code": "Promo Code",
+
       "check": "Check",
       "products": "Products",
       "complete_payment": "Complete Payment",
@@ -343,8 +353,18 @@
       "view_profile": "عرض الصفحة الشخصية",
       "edit_profile": "تعديل الملف الشخصي",
       "change_password": "تغيير كلمة المرور",
-
-
+      "one_way": "طريقة واحدة",
+      "round_trip": "جولة",
+      "multi_city": "مدينة متعددة",
+      "to": "من",
+      "from":  "الى",
+      "travel_date": "تاريخ السفر",
+      "return_date": "تاريخ العودة",
+      "passengers_cabin_class": "الركاب / درجة المقصورة",
+      "promo_code": "كود الخصم",
+      "direct_flight": "الطيران المباشر",
+      "search_flights": "البحث عن الرحلات الجوية",
+      "add_another_city": "أضف مدينة أخرى",
       "lorem_ipsum_description": "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة، ولكن بفضل هؤلاء الأشخاص الذين لا يدركون بأن السعادة لا بد أن نستشعرها بصورة أكثر عقلانية ومنطقية فيعرضهم هذا لمواجهة الظروف الأليمة، وأكرر بأنه لا يوجد من يرغب في الحب ونيل المنال ويتلذذ بالآلام، الألم هو الألم ولكن نتيجة لظروف ما قد تكمن السعاده فيما نتحمله من كد وأسي.",
 
 
@@ -434,8 +454,7 @@
       "knet": "ك-نيت",
       "credit_card": "بطاقة إئتمان",
       "card_message": "الرسالة في البطاقه",
-      "to": "من",
-      "from":  "الى",
+
       "message": "رسالة",
       "shared_feelings_with_video": "لقد قمت بمشاركة فيديو",
       "shared_feelings_with_audio":  "لقد قمت بمشاركة مقع صوتي",
@@ -541,7 +560,7 @@
       "to_someone": "إلى شخص ما",
       "receiver_name": "اسم المتلقي",
       "wallet": "محفظة",
-      "promo_code": "كود الخصم",
+
       "check": "Check",
       "products": "المنتجات",
       "complete_payment": "قم بالدفع",
