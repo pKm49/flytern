@@ -35,7 +35,7 @@ class _DropDownSelectorState extends State<DropDownSelector> {
       isExpanded: true,
       elevation: 16,
       hint:Text(widget.hintText??"",textAlign: TextAlign.start,style: getBodyMediumStyle(context),) ,
-      borderRadius:  BorderRadius.all(const Radius.circular(flyternBorderRadiusMedium)),
+      borderRadius:  BorderRadius.all(const Radius.circular(flyternBorderRadiusExtraSmall)),
       style: TextStyle(                  fontSize: screenwidth*.035,
           color:flyternGrey60),
       underline: Container(
