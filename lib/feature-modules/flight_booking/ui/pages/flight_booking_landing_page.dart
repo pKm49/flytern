@@ -317,6 +317,25 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                   padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
                   child: Divider(),
                 ),
+                TravelStoriesItemCard(
+                  profilePicUrl: ASSETS_USER_1_SAMPLE,
+                  name: "Andrew Martin",
+                  rating: 4.4,
+                  description: "lorem_ipsum_description".tr,
+                  imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
+                  child: Divider(),
+                ),
+                TravelStoriesItemCard(
+                  profilePicUrl: ASSETS_USER_1_SAMPLE,
+                  name: "Andrew Martin",
+                  rating: 4.4,
+                  description: "lorem_ipsum_description".tr,
+                  imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
+                ),
+
               ],
             ),
           ),
