@@ -9,8 +9,9 @@ import 'package:ionicons/ionicons.dart';
 
 class FlightBookingForm extends StatefulWidget {
   final int selectedTab;
+  final GestureTapCallback onCityAdded;
 
-  const FlightBookingForm({super.key, required this.selectedTab});
+  const FlightBookingForm({super.key, required this.selectedTab, required this.onCityAdded});
 
   @override
   State<FlightBookingForm> createState() => _FlightBookingFormState();
@@ -19,6 +20,7 @@ class FlightBookingForm extends StatefulWidget {
 class _FlightBookingFormState extends State<FlightBookingForm> {
 
   bool isDirectFlight = false;
+  int multicityCount = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -203,6 +205,218 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
             ),
           ],
         ),
+
+        Visibility(
+            visible: multicityCount == 2,child: addVerticalSpace(flyternSpaceLarge)),
+        Visibility(
+          visible: multicityCount == 2,
+          child: Container(
+            decoration: flyternBorderedContainerSmallDecoration.copyWith(
+                border: Border.all(color: flyternSecondaryColor, width: .5)),
+            padding: flyternMediumPaddingAll,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Row(
+                    children: [
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        direction: Axis.vertical,
+                        children: [
+                          for (var i = 0; i < 10; i++)
+                            Container(
+                              color: i % 2 == 0
+                                  ? flyternSecondaryColor
+                                  : Colors.transparent,
+                              width: 1,
+                              height: 3,
+                            ),
+                          Icon(Icons.flight_takeoff_outlined,
+                              color: flyternSecondaryColor),
+                        ],
+                      ),
+                      addHorizontalSpace(flyternSpaceSmall),
+                      Wrap(
+                        direction: Axis.vertical,
+                        alignment: WrapAlignment.start,
+                        crossAxisAlignment: WrapCrossAlignment.start,
+                        children: [
+                          Text(
+                            "from".tr,
+                            style: getLabelLargeStyle(context).copyWith(
+                                color: flyternGrey40,
+                                fontWeight: FontWeight.  w400),
+                          ),
+                          addVerticalSpace(flyternSpaceExtraSmall),
+                          Text('IST',
+                              style: getHeadlineLargeStyle(context)
+                                  .copyWith(fontSize: flyternFontSize24 * 1.5)),
+                          addVerticalSpace(flyternSpaceExtraSmall),
+                          Text('Istanbul'),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                addHorizontalSpace(flyternSpaceMedium),
+                Image.asset(ASSETS_ROUND_TRIP_ICON, width: 35),
+                addHorizontalSpace(flyternSpaceMedium),
+                Expanded(
+                  flex: 1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        direction: Axis.vertical,
+                        children: [
+                          for (var i = 0; i < 10; i++)
+                            Container(
+                              color: i % 2 == 0
+                                  ? flyternSecondaryColor
+                                  : Colors.transparent,
+                              width: 1,
+                              height: 3,
+                            ),
+                          Icon(Icons.flight_land_outlined,
+                              color: flyternSecondaryColor),
+                        ],
+                      ),
+                      addHorizontalSpace(flyternSpaceSmall),
+                      Wrap(
+                        direction: Axis.vertical,
+                        alignment: WrapAlignment.start,
+                        crossAxisAlignment: WrapCrossAlignment.start,
+                        children: [
+                          Text(
+                            "to".tr,
+                            style: getLabelLargeStyle(context).copyWith(
+                                color: flyternGrey40,
+                                fontWeight: FontWeight.  w400),
+                          ),
+                          addVerticalSpace(flyternSpaceExtraSmall),
+                          Text('KBL',
+                              style: getHeadlineLargeStyle(context)
+                                  .copyWith(fontSize: flyternFontSize24 * 1.5)),
+                          addVerticalSpace(flyternSpaceExtraSmall),
+                          Text('Kabul'),
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        Visibility(
+            visible: multicityCount == 2,child: addVerticalSpace(flyternSpaceMedium)),
+        Visibility(
+          visible: multicityCount == 2,
+          child: Row(
+            children: [
+              Expanded(
+                  flex: 1,
+                  child: Container(
+                    decoration: flyternBorderedContainerSmallDecoration.copyWith(
+                        border: Border.all(color: flyternGrey20, width: .5)),
+                    padding: flyternMediumPaddingAll,
+                    child: Row(
+                      children: [
+                        Icon(Icons.calendar_month,
+                            color: flyternSecondaryColor,size: flyternFontSize20),
+                        addHorizontalSpace(flyternSpaceSmall*1.5),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'travel_date'.tr,
+                                style: getLabelLargeStyle(context).copyWith(
+                                    color: flyternGrey40,
+                                    fontWeight: FontWeight.  w400),
+                              ),
+                              addVerticalSpace(flyternSpaceExtraSmall*1.5),
+                              Text('Jul 24, 2023',
+                                  style: getLabelLargeStyle(context)
+                                      .copyWith(color: flyternGrey80, )),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
+              Visibility(
+                  visible: widget.selectedTab == 2,
+                  child: addHorizontalSpace(flyternSpaceSmall)),
+              Visibility(
+                visible: widget.selectedTab == 2,
+                child: Expanded(
+                    flex: 1,
+                    child: Container(
+                      decoration: flyternBorderedContainerSmallDecoration.copyWith(
+                          border: Border.all(color: flyternGrey20, width: .5)),
+                      padding: flyternMediumPaddingAll ,
+                      child: Row(
+                        children: [
+                          Icon(Icons.calendar_month,
+                              color: flyternSecondaryColor,size: flyternFontSize20),
+                          addHorizontalSpace(flyternSpaceSmall*1.5),
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'return_date'.tr,
+                                  style: getLabelLargeStyle(context).copyWith(
+                                      color: flyternGrey40,
+                                      fontWeight: FontWeight.  w400),
+                                ),
+                                addVerticalSpace(flyternSpaceExtraSmall*1.5),
+                                Text('Jul 24, 2023',
+                                    style: getLabelLargeStyle(context)
+                                        .copyWith( color: flyternGrey80)),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    )),
+              ),
+            ],
+          ),
+        ),
+
+        Visibility(
+            visible: widget.selectedTab==3,
+            child: addVerticalSpace(flyternSpaceLarge)),
+        Visibility(
+            visible: widget.selectedTab==3,
+            child:   SizedBox(
+              width: double.infinity,
+              child: InkWell(
+                onTap: (){
+                  widget.onCityAdded();
+                  multicityCount = 2;
+                  setState(() {
+
+                  });
+                },
+                child: Container(
+                  decoration: flyternBorderedContainerSmallDecoration.copyWith(
+                      border: Border.all(color: flyternSecondaryColor, width: .5)),
+                  padding: flyternMediumPaddingAll,
+                  child: Center(child: Text("+ "+"add_another_city".tr,style: getBodyMediumStyle(context).copyWith(color: flyternSecondaryColor))),
+                ),
+              ),
+            )),
         addVerticalSpace(flyternSpaceMedium),
         Container(
           decoration: flyternBorderedContainerSmallDecoration.copyWith(

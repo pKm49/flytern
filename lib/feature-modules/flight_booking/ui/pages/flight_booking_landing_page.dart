@@ -23,6 +23,7 @@ class FlightBookingLandingPage extends StatefulWidget {
 class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
     with SingleTickerProviderStateMixin {
   int selectedTab = 1;
+  int multicityCount = 1;
 
   @override
   void initState() {
@@ -48,7 +49,8 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
         children: [
           Container(
             padding: EdgeInsets.all(flyternSpaceLarge),
-            height: (screenheight * .7) + (flyternSpaceLarge * 2.5),
+            height: (screenheight * .7) + (flyternSpaceLarge * 2.5) +
+                (   (multicityCount-1)*230  )+(selectedTab==3?65:0),
             width: screenwidth - (flyternSpaceLarge * 2),
             decoration: BoxDecoration(
 
@@ -66,11 +68,22 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                       width: screenwidth - (flyternSpaceLarge * 2),
                     ),
                     Container(
-                      height: screenheight * .675,
+                      height: screenheight * .675+   (
+                          (multicityCount-1)*230
+                      )+(selectedTab==3?65:0),
                       decoration: flyternShadowedContainerSmallDecoration,
                       width: screenwidth - (flyternSpaceLarge * 2),
                       padding: flyternMediumPaddingAll,
-                      child: FlightBookingForm(selectedTab: selectedTab),
+                      child: FlightBookingForm(
+                          onCityAdded:(){
+                            print("onCityAdded");
+                            print(multicityCount);
+                            setState(() {
+                              multicityCount = 2;
+                            });
+                            print(multicityCount);
+                          },
+                          selectedTab: selectedTab),
                     )
                   ],
                 ),
@@ -126,7 +139,8 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                           ],
                         )),
                     Container(
-                      height: screenheight * .65,
+                      height: screenheight * .65 +
+                          ( (multicityCount-1)*230  )+(selectedTab==3?65:0),
                       width: screenwidth - (flyternSpaceLarge * 2),
                     )
                   ],
