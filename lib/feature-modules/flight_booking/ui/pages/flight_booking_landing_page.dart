@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_form.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type_tab.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/popular_package_list_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/recommended_item_card.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -193,6 +194,77 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                 ],
               )),
           addVerticalSpace(flyternSpaceLarge),
+          addVerticalSpace(flyternSpaceLarge),
+          Padding(
+            padding: flyternMediumPaddingHorizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    'Popular Destinations',
+                    style: getHeadlineMediumStyle(context).copyWith(
+                        color: flyternGrey80,
+                        fontWeight: flyternFontWeightBold),
+                  ),
+                ),
+                Expanded(
+                    flex: 1,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'See All',
+                          style: getBodyMediumStyle(context)
+                              .copyWith(color: flyternTertiaryColor),
+                        ),
+                        addHorizontalSpace(flyternSpaceExtraSmall),
+                        Icon(Ionicons.chevron_forward,
+                            color: flyternTertiaryColor,
+                            size: flyternFontSize20)
+                      ],
+                    ))
+              ],
+            ),
+          ),
+          addVerticalSpace(flyternSpaceLarge),
+          Container(
+            color: flyternBackgroundWhite,
+            child: Wrap(
+              children: [
+                PopularPackageListCard(
+                  imageUrl: ASSETS_PACKAGE_1_SAMPLE,
+                  title: 'Kabul Holiday Package',
+                  destination: 'Japan',
+                  rating: 4.4,
+                  price: 15000,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
+                  child: Divider(),
+                ),
+                PopularPackageListCard(
+                  imageUrl: ASSETS_PACKAGE_1_SAMPLE,
+                  title: 'Kabul Holiday Package',
+                  destination: 'Japan',
+                  rating: 4.4,
+                  price: 15000,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
+                  child: Divider(),
+                ),
+                PopularPackageListCard(
+                  imageUrl: ASSETS_PACKAGE_1_SAMPLE,
+                  title: 'Kabul Holiday Package',
+                  destination: 'Japan',
+                  rating: 4.4,
+                  price: 15000,
+                ),
+              ],
+            ),
+          ),
           addVerticalSpace(flyternSpaceLarge),
         ],
       ),
