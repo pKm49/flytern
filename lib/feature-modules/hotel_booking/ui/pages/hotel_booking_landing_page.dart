@@ -6,6 +6,7 @@ import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class HotelBookingLandingPage extends StatefulWidget {
@@ -70,7 +71,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Destination',
+                              'destination'.tr,
                               style: getLabelLargeStyle(context).copyWith(
                                   color: flyternGrey40,
                                   fontWeight: FontWeight.  w400),
@@ -106,7 +107,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Checkin',
+                                      'checkin'.tr,
                                       style: getLabelLargeStyle(context).copyWith(
                                           color: flyternGrey40,
                                           fontWeight: FontWeight.  w400),
@@ -140,7 +141,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Checkout',
+                                      'checkout'.tr,
                                       style: getLabelLargeStyle(context).copyWith(
                                           color: flyternGrey40,
                                           fontWeight: FontWeight.  w400),
@@ -178,7 +179,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Travel Date',
+                                      'travel_date'.tr,
                                       style: getLabelLargeStyle(context).copyWith(
                                           color: flyternGrey40,
                                           fontWeight: FontWeight.  w400),
@@ -212,7 +213,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Users',
+                                      'users'.tr,
                                       style: getLabelLargeStyle(context).copyWith(
                                           color: flyternGrey40,
                                           fontWeight: FontWeight.  w400),
@@ -247,7 +248,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Nationality',
+                              'nationality'.tr,
                               style: getLabelLargeStyle(context).copyWith(
                                   color: flyternGrey40,
                                   fontWeight: FontWeight.  w400),
@@ -269,7 +270,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                   child: ElevatedButton(
                       onPressed: ()   {
 
-                      }, child: Text("Search Hotels" )),
+                      }, child: Text("search_hotels".tr )),
                 ),
 
               ],
