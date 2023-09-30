@@ -41,7 +41,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
       width: screenwidth,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(ASSETS_FLIGHTS_BG),
+          image: AssetImage(ASSETS_HOTELS_BG),
           fit: BoxFit.cover,
         ),
       ),
