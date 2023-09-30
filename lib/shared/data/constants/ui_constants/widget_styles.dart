@@ -127,7 +127,7 @@ var flyternBorderedContainerMediumDecoration = BoxDecoration(
 var flyternBorderedContainerSmallDecoration = BoxDecoration(
   color: flyternBackgroundWhite,
   border: flyternDefaultBorderAll,
-  borderRadius: BorderRadius.circular(flyternBorderRadiusSmall),
+  borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
 );
 
 var flyternElevatedButtonStyleDark =
