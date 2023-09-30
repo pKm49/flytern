@@ -7,6 +7,7 @@ import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/data/models/store_models/general_item.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/ui/components/dropdown_selector.dart';
+import 'package:get/get.dart';
 
 class ActivityBookingLandingPage extends StatefulWidget {
   const ActivityBookingLandingPage({super.key});
@@ -38,15 +39,15 @@ class _ActivityBookingLandingPageState extends State<ActivityBookingLandingPage>
               borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
             ),
             child: DropDownSelector(
-              titleText: "Select Destination",
+              titleText: "select_destination".tr,
               selected:null  ,
               items: [
-                GeneralItem.GeneralItem(id: 1, name: "Select Destination", arabicName: "Select Destination"),
+                GeneralItem.GeneralItem(id: 1, name: "select_destination".tr, arabicName:"select_destination".tr),
                 GeneralItem.GeneralItem(id: 2, name: "India", arabicName: "India"),
                 GeneralItem.GeneralItem(id: 3, name: "Spain", arabicName: "Spain"),
                 GeneralItem.GeneralItem(id: 4, name: "Nepal", arabicName: "Nepal"),
               ],
-              hintText:"Select Destination",
+              hintText:"select_destination".tr,
               valueChanged: (newZone) {
 
               },
