@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
@@ -102,9 +103,8 @@ class CustomSearchDelegate extends SearchDelegate {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-              Text("Recent Searches",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold)),
-              Text("Clear History",style: getBodyMediumStyle(context).copyWith(color: flyternGrey40)),
-
+              Text("recent_searches".tr,style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold)),
+              Text("clear_history".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey40)),
 
             ],),
           ),
