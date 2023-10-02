@@ -9,14 +9,18 @@ class FlightAirportLabelCard extends StatelessWidget {
   String topLabel;
   String midLabel;
   String bottomLabel;
-    FlightAirportLabelCard({super.key, required this.topLabel, required this.midLabel, required this.bottomLabel});
+  int sideNumber;
+    FlightAirportLabelCard({super.key,
+      required this.topLabel,
+      required this.sideNumber,
+      required this.midLabel, required this.bottomLabel});
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
       direction: Axis.vertical,
       alignment: WrapAlignment.start,
-      crossAxisAlignment: WrapCrossAlignment.start,
+      crossAxisAlignment:sideNumber==1? WrapCrossAlignment.start: WrapCrossAlignment.end,
       children: [
         Text(
            topLabel,
