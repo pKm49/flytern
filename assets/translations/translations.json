@@ -81,6 +81,19 @@
       "recent_searches": "Recent Searches",
       "clear_history": "Clear History",
       "no_of_rooms": "No. Of Rooms",
+      "select_options": "Select Options",
+      "done": "done",
+      "passengers": "Passengers",
+      "adults": "Adults",
+      "adult_description": "12 Years or above",
+      "children": "Children",
+      "children_description": "0 to 11 years",
+      "infants": "Infants",
+      "infant_description": "0 to 23 months",
+      "cabin_class": "Cabin Class",
+      "economy": "Economy",
+      "business": "Business",
+      "cancel": "Cancel",
 
       "lorem_ipsum_description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
 
@@ -392,10 +405,21 @@
       "recent_searches": "عمليات البحث الأخيرة",
       "clear_history": "تاريخ واضح",
       "no_of_rooms": "عدد الغرف",
+      "select_options": "اختر الخيارات",
+      "done": "انتهى",
+      "passengers": "ركاب",
+      "adults": "الكبار",
+      "adult_description": "12 سنة فما فوق",
+      "children": "أطفال",
+      "children_description": "من 0 إلى 11 سنة",
+      "infants": "الرضع",
+      "infant_description": "من 0 إلى 23 شهرًا",
+      "cabin_class": "فئة المقصورة",
+      "economy": "اقتصاد",
+      "business": "درجة الأعمال",
+      "cancel": "يلغي",
 
       "lorem_ipsum_description": "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة، ولكن بفضل هؤلاء الأشخاص الذين لا يدركون بأن السعادة لا بد أن نستشعرها بصورة أكثر عقلانية ومنطقية فيعرضهم هذا لمواجهة الظروف الأليمة، وأكرر بأنه لا يوجد من يرغب في الحب ونيل المنال ويتلذذ بالآلام، الألم هو الألم ولكن نتيجة لظروف ما قد تكمن السعاده فيما نتحمله من كد وأسي.",
-
-
 
       "login_or_signup_to":  "تسجيل الدخول أو حساب جديد",
       "experience_pound": "تجربة باوند",
