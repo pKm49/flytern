@@ -8,6 +8,7 @@ import 'package:flytern/feature-modules/auth/ui/pages/register/register_otp_inpu
 import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_credentials.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_new_password.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_otp.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_search_results_page.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:get/get.dart';
 
@@ -56,6 +57,11 @@ getAppRoutes() => [
   GetPage(
     name: Approute_landingpage,
     page: () => const CoreLandingPage(),
+    middlewares: [MyMiddelware()],
+  ),
+  GetPage(
+    name: Approute_flights_search_result,
+    page: () => const FlightSearchResultPage(),
     middlewares: [MyMiddelware()],
   ),
 ];
