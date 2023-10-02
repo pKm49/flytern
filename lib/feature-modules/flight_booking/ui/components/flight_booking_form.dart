@@ -600,6 +600,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
               topRight: Radius.circular(flyternBorderRadiusSmall)),
         ),
         isScrollControlled: true,
+        backgroundColor: Colors.transparent,
         context: context,
         builder: (context) {
           return FlightOptionsSelector();
