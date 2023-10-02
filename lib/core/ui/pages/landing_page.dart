@@ -67,7 +67,7 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
       appBar: AppBar(
         titleSpacing: 0,
         title: pageTitle == "flights"?
-        Image.asset(ASSETS_NAMELOGO,width: screenwidth*.33):Text(pageTitle,style: getHeadlineLargeStyle(context),),
+        Image.asset(ASSETS_NAMELOGO,width: screenwidth*.33):Text(pageTitle),
       actions: [
         Visibility(
             visible:  pageTitle == "flights" || pageTitle == "hotels".tr,
