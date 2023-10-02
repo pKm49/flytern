@@ -1,66 +1,75 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
- import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
+import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
+import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
- 
-class CustomDatePicker extends StatefulWidget {
-  final Function(DateTime dob) dobPicked;      // <------------|
+import 'package:ionicons/ionicons.dart';
 
-  const CustomDatePicker({super.key, required this.dobPicked});
+class CustomDatePicker extends StatefulWidget {
+  const CustomDatePicker({super.key});
 
   @override
   State<CustomDatePicker> createState() => _CustomDatePickerState();
 }
 
 class _CustomDatePickerState extends State<CustomDatePicker> {
-
   DateTime selectedDOB = DateTime.now();
-
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      shape: RoundedRectangleBorder(
-          borderRadius:
-          BorderRadius.all(Radius.circular(flyternBorderRadiusSmall))),
-      contentPadding: flyternMediumPaddingAll,
-      content: StatefulBuilder(// You need this, notice the parameters below:
-          builder: (BuildContext context, StateSetter _setState) {
-            return SizedBox(
-              height: 250,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: CupertinoDatePicker(
-                      mode: CupertinoDatePickerMode.date,
-                      initialDateTime: DateTime(1969, 1, 1),
-                      onDateTimeChanged: (DateTime newDateTime) {
-                        setState(() {
-                          selectedDOB = newDateTime;
-                        });
+    double screenwidth = MediaQuery.of(context).size.width;
+    double screenheight = MediaQuery.of(context).size.height;
 
-                      },
-                    ),
-                  ),
-                  addVerticalSpace(flyternSpaceMedium),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        child: Text(
-                            "submit".tr,
-                            textAlign: TextAlign.center),
-                        onPressed: () {
-                          widget.dobPicked(selectedDOB);
+    return Container(
+      width: screenwidth,
+      height: screenheight*.65,
+      padding: flyternSmallPaddingAll,
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              width: screenwidth,
+              padding: flyternLargePaddingVertical,
+              decoration: flyternBorderedContainerSmallDecoration,
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.date,
+                initialDateTime: DateTime(1969, 1, 1),
+                onDateTimeChanged: (DateTime newDateTime) {
+                  setState(() {
+                    selectedDOB = newDateTime;
+                  });
 
-                          Navigator.pop(context);
-                        }),
-                  )
-                ],
+                },
               ),
-            );
-          }),
+            ),
+          ),
+          addVerticalSpace(flyternSpaceSmall),
+          Container(
+            width: screenwidth,
+            padding: flyternMediumPaddingAll,
+            decoration: flyternBorderedContainerSmallDecoration,
+            child: Center(
+              child: Text("cancel".tr,style: getHeadlineMediumStyle(context).copyWith(color: flyternSecondaryColor)),
+            ),
+          )
+        ],
+      ),
     );
+  }
+
+  Color getColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.pressed,
+      MaterialState.hovered,
+      MaterialState.focused,
+      MaterialState.selected
+    };
+    if (states.any(interactiveStates.contains)) {
+      return flyternSecondaryColor;
+    }
+    return flyternBackgroundWhite;
   }
 }
