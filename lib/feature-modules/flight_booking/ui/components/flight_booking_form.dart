@@ -37,46 +37,51 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
             children: [
               Expanded(
                 flex: 1,
-                child: Row(
-                  children: [
-                    Wrap(
-                      alignment: WrapAlignment.center,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      direction: Axis.vertical,
-                      children: [
-                        for (var i = 0; i < 10; i++)
-                          Container(
-                            color: i % 2 == 0
-                                ? flyternSecondaryColor
-                                : Colors.transparent,
-                            width: 1,
-                            height: 3,
+                child: InkWell(
+                  onTap: (){
+                    showSearch(context: context, delegate: CustomSearchDelegate());
+                  },
+                  child: Row(
+                    children: [
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        direction: Axis.vertical,
+                        children: [
+                          for (var i = 0; i < 10; i++)
+                            Container(
+                              color: i % 2 == 0
+                                  ? flyternSecondaryColor
+                                  : Colors.transparent,
+                              width: 1,
+                              height: 3,
+                            ),
+                          Icon(Icons.flight_takeoff_outlined,
+                              color: flyternSecondaryColor),
+                        ],
+                      ),
+                      addHorizontalSpace(flyternSpaceSmall),
+                      Wrap(
+                        direction: Axis.vertical,
+                        alignment: WrapAlignment.start,
+                        crossAxisAlignment: WrapCrossAlignment.start,
+                        children: [
+                          Text(
+                            "from".tr,
+                            style: getLabelLargeStyle(context).copyWith(
+                                color: flyternGrey40,
+                                fontWeight: FontWeight.  w400),
                           ),
-                        Icon(Icons.flight_takeoff_outlined,
-                            color: flyternSecondaryColor),
-                      ],
-                    ),
-                    addHorizontalSpace(flyternSpaceSmall),
-                    Wrap(
-                      direction: Axis.vertical,
-                      alignment: WrapAlignment.start,
-                      crossAxisAlignment: WrapCrossAlignment.start,
-                      children: [
-                        Text(
-                          "from".tr,
-                          style: getLabelLargeStyle(context).copyWith(
-                              color: flyternGrey40,
-                              fontWeight: FontWeight.  w400),
-                        ),
-                        addVerticalSpace(flyternSpaceExtraSmall),
-                        Text('IST',
-                            style: getHeadlineLargeStyle(context)
-                                .copyWith(fontSize: flyternFontSize24 * 1.5)),
-                        addVerticalSpace(flyternSpaceExtraSmall),
-                        Text('Istanbul'),
-                      ],
-                    )
-                  ],
+                          addVerticalSpace(flyternSpaceExtraSmall),
+                          Text('IST',
+                              style: getHeadlineLargeStyle(context)
+                                  .copyWith(fontSize: flyternFontSize24 * 1.5)),
+                          addVerticalSpace(flyternSpaceExtraSmall),
+                          Text('Istanbul'),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
               addHorizontalSpace(flyternSpaceMedium),
@@ -84,47 +89,52 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
               addHorizontalSpace(flyternSpaceMedium),
               Expanded(
                 flex: 1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Wrap(
-                      alignment: WrapAlignment.center,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      direction: Axis.vertical,
-                      children: [
-                        for (var i = 0; i < 10; i++)
-                          Container(
-                            color: i % 2 == 0
-                                ? flyternSecondaryColor
-                                : Colors.transparent,
-                            width: 1,
-                            height: 3,
+                child: InkWell(
+                  onTap: (){
+                    showSearch(context: context, delegate: CustomSearchDelegate());
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        direction: Axis.vertical,
+                        children: [
+                          for (var i = 0; i < 10; i++)
+                            Container(
+                              color: i % 2 == 0
+                                  ? flyternSecondaryColor
+                                  : Colors.transparent,
+                              width: 1,
+                              height: 3,
+                            ),
+                          Icon(Icons.flight_land_outlined,
+                              color: flyternSecondaryColor),
+                        ],
+                      ),
+                      addHorizontalSpace(flyternSpaceSmall),
+                      Wrap(
+                        direction: Axis.vertical,
+                        alignment: WrapAlignment.start,
+                        crossAxisAlignment: WrapCrossAlignment.start,
+                        children: [
+                          Text(
+                            "to".tr,
+                            style: getLabelLargeStyle(context).copyWith(
+                                color: flyternGrey40,
+                                fontWeight: FontWeight.  w400),
                           ),
-                        Icon(Icons.flight_land_outlined,
-                            color: flyternSecondaryColor),
-                      ],
-                    ),
-                    addHorizontalSpace(flyternSpaceSmall),
-                    Wrap(
-                      direction: Axis.vertical,
-                      alignment: WrapAlignment.start,
-                      crossAxisAlignment: WrapCrossAlignment.start,
-                      children: [
-                        Text(
-                          "to".tr,
-                          style: getLabelLargeStyle(context).copyWith(
-                              color: flyternGrey40,
-                              fontWeight: FontWeight.  w400),
-                        ),
-                        addVerticalSpace(flyternSpaceExtraSmall),
-                        Text('KBL',
-                            style: getHeadlineLargeStyle(context)
-                                .copyWith(fontSize: flyternFontSize24 * 1.5)),
-                        addVerticalSpace(flyternSpaceExtraSmall),
-                        Text('Kabul'),
-                      ],
-                    )
-                  ],
+                          addVerticalSpace(flyternSpaceExtraSmall),
+                          Text('KBL',
+                              style: getHeadlineLargeStyle(context)
+                                  .copyWith(fontSize: flyternFontSize24 * 1.5)),
+                          addVerticalSpace(flyternSpaceExtraSmall),
+                          Text('Kabul'),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               )
             ],
@@ -284,6 +294,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                   flex: 1,
                   child: InkWell(
                     onTap: (){
+                      print("from clicked");
                       showSearch(context: context, delegate: CustomSearchDelegate());
                     },
                     child: Row(
@@ -342,48 +353,14 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
             children: [
               Expanded(
                   flex: 1,
-                  child: Container(
-                    decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                        border: Border.all(color: flyternGrey20, width: .5)),
-                    padding: flyternMediumPaddingAll,
-                    child: Row(
-                      children: [
-                        Icon(Icons.calendar_month,
-                            color: flyternSecondaryColor,size: flyternFontSize20),
-                        addHorizontalSpace(flyternSpaceSmall*1.5),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'travel_date'.tr,
-                                style: getLabelLargeStyle(context).copyWith(
-                                    color: flyternGrey40,
-                                    fontWeight: FontWeight.  w400),
-                              ),
-                              addVerticalSpace(flyternSpaceExtraSmall*1.5),
-                              Text('Jul 24, 2023',
-                                  style: getLabelLargeStyle(context)
-                                      .copyWith(color: flyternGrey80, )),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-              Visibility(
-                  visible: widget.selectedTab == 2,
-                  child: addHorizontalSpace(flyternSpaceSmall)),
-              Visibility(
-                visible: widget.selectedTab == 2,
-                child: Expanded(
-                    flex: 1,
+                  child:  InkWell(
+                    onTap: (){
+                      showCustomDatePicker();
+                    },
                     child: Container(
                       decoration: flyternBorderedContainerSmallDecoration.copyWith(
                           border: Border.all(color: flyternGrey20, width: .5)),
-                      padding: flyternMediumPaddingAll ,
+                      padding: flyternMediumPaddingAll,
                       child: Row(
                         children: [
                           Icon(Icons.calendar_month,
@@ -396,7 +373,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'return_date'.tr,
+                                  'travel_date'.tr,
                                   style: getLabelLargeStyle(context).copyWith(
                                       color: flyternGrey40,
                                       fontWeight: FontWeight.  w400),
@@ -404,11 +381,55 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                 addVerticalSpace(flyternSpaceExtraSmall*1.5),
                                 Text('Jul 24, 2023',
                                     style: getLabelLargeStyle(context)
-                                        .copyWith( color: flyternGrey80)),
+                                        .copyWith(color: flyternGrey80, )),
                               ],
                             ),
                           )
                         ],
+                      ),
+                    ),
+                  )),
+              Visibility(
+                  visible: widget.selectedTab == 2,
+                  child: addHorizontalSpace(flyternSpaceSmall)),
+              Visibility(
+                visible: widget.selectedTab == 2,
+                child: Expanded(
+                    flex: 1,
+                    child:  InkWell(
+                      onTap: (){
+                        showCustomDatePicker();
+                      },
+                      child: Container(
+                        decoration: flyternBorderedContainerSmallDecoration.copyWith(
+                            border: Border.all(color: flyternGrey20, width: .5)),
+                        padding: flyternMediumPaddingAll ,
+                        child: Row(
+                          children: [
+                            Icon(Icons.calendar_month,
+                                color: flyternSecondaryColor,size: flyternFontSize20),
+                            addHorizontalSpace(flyternSpaceSmall*1.5),
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'return_date'.tr,
+                                    style: getLabelLargeStyle(context).copyWith(
+                                        color: flyternGrey40,
+                                        fontWeight: FontWeight.  w400),
+                                  ),
+                                  addVerticalSpace(flyternSpaceExtraSmall*1.5),
+                                  Text('Jul 24, 2023',
+                                      style: getLabelLargeStyle(context)
+                                          .copyWith( color: flyternGrey80)),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     )),
               ),
