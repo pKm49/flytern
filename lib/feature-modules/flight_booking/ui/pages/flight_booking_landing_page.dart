@@ -100,6 +100,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                                 onPressed: () {
                                   setState(() {
                                     selectedTab = 1;
+                                    multicityCount = 1;
                                   });
                                 },
                                 index: 1,
@@ -114,6 +115,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                                 onPressed: () {
                                   setState(() {
                                     selectedTab = 2;
+                                    multicityCount = 1;
                                   });
                                 },
                                 index: 2,

@@ -207,9 +207,9 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
         ),
 
         Visibility(
-            visible: multicityCount == 2,child: addVerticalSpace(flyternSpaceLarge)),
+            visible: multicityCount == 2 && widget.selectedTab==3,child: addVerticalSpace(flyternSpaceLarge)),
         Visibility(
-          visible: multicityCount == 2,
+          visible: multicityCount == 2 && widget.selectedTab==3,
           child: Container(
             decoration: flyternBorderedContainerSmallDecoration.copyWith(
                 border: Border.all(color: flyternSecondaryColor, width: .5)),
@@ -313,9 +313,9 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
           ),
         ),
         Visibility(
-            visible: multicityCount == 2,child: addVerticalSpace(flyternSpaceMedium)),
+            visible: multicityCount == 2 && widget.selectedTab==3,child: addVerticalSpace(flyternSpaceMedium)),
         Visibility(
-          visible: multicityCount == 2,
+          visible: multicityCount == 2 && widget.selectedTab==3,
           child: Row(
             children: [
               Expanded(
