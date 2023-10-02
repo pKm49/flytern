@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/flight_search_result_card.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
@@ -175,6 +176,16 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
                     ),
                   ])
             ),
+            Expanded(child:
+            Container(
+              color: flyternGrey10,
+              child: ListView(
+                children: [
+                  addVerticalSpace(flyternSpaceLarge),
+                  FlightSearchResultCard()
+                ],
+              ),
+            ))
           ],
         ),
       ),
