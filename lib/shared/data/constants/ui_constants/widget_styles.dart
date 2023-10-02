@@ -24,6 +24,8 @@ const flyternMediumPaddingTop = EdgeInsets.only(top: flyternSpaceMedium);
 const flyternSmallPaddingAll = EdgeInsets.all(flyternSpaceSmall);
 const flyternSmallPaddingVertical =
     EdgeInsets.symmetric(vertical: flyternSpaceSmall);
+const flyternSmallPaddingHorizontal =
+EdgeInsets.symmetric(horizontal: flyternSpaceSmall);
 const flyternExtraSmallPaddingAll = EdgeInsets.all(flyternSpaceExtraSmall);
 const flyternExtraSmallPaddingVertical =
     EdgeInsets.symmetric(vertical: flyternSpaceExtraSmall);
