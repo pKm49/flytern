@@ -22,6 +22,7 @@ const String ASSETS_ROUND_TRIP_ICON = "assets/icons/roud_trip.png";
 const String ASSETS_SEAT_ICON = "assets/icons/seat.png";
 const String ASSETS_VISA_ICON = "assets/icons/visa.png";
 const String ASSETS_WIFI_ICON = "assets/icons/wifi.png";
+const String ASSETS_FLIGHT_CHART_ICON = "assets/icons/flight_chart.png";
 
 const String ASSETS_ACTIVITY_1_SAMPLE = "assets/sample/activity_1.png";
 const String ASSETS_ACTIVITY_2_SAMPLE = "assets/sample/activity_2.png";
