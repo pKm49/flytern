@@ -5,6 +5,8 @@ import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
+import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:get/get.dart';
 
 class FlightSearchResultCard extends StatelessWidget {
   const FlightSearchResultCard({super.key});
@@ -20,10 +22,12 @@ class FlightSearchResultCard extends StatelessWidget {
       width: screenwidth - (flyternSpaceLarge * 2),
       margin: flyternLargePaddingHorizontal,
       child: Wrap(
+        runSpacing: flyternSpaceLarge,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset(ASSETS_FLIGHT_1_SAMPLE, width: screenwidth * .25),
+              Image.asset(ASSETS_FLIGHT_1_SAMPLE, width: screenwidth * .2),
               Expanded(child: Container()),
               FlightDataCapsuleCard(
                 label: "2 Stops",
@@ -37,6 +41,7 @@ class FlightSearchResultCard extends StatelessWidget {
             ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                   child: FlightAirportLabelCard(
@@ -45,6 +50,10 @@ class FlightSearchResultCard extends StatelessWidget {
                 bottomLabel: "08:00 AM",
                     sideNumber: 1,
               )),
+              Padding(
+                padding: flyternSmallPaddingHorizontal,
+                child: Image.asset(ASSETS_FLIGHT_CHART_ICON,width: screenwidth*.35, ),
+              ),
               Expanded(
                   child: FlightAirportLabelCard(
                     topLabel: "Istanbul, TR",
@@ -52,6 +61,56 @@ class FlightSearchResultCard extends StatelessWidget {
                     bottomLabel: "08:00 AM",
                     sideNumber: 2,
                   ))
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                  child: FlightAirportLabelCard(
+                topLabel: "Istanbul, TR",
+                midLabel: "IST",
+                bottomLabel: "08:00 AM",
+                    sideNumber: 1,
+              )),
+              Padding(
+                padding: flyternSmallPaddingHorizontal,
+                child: Image.asset(ASSETS_FLIGHT_CHART_ICON,width: screenwidth*.35, ),
+              ),
+              Expanded(
+                  child: FlightAirportLabelCard(
+                    topLabel: "Istanbul, TR",
+                    midLabel: "IST",
+                    bottomLabel: "08:00 AM",
+                    sideNumber: 2,
+                  ))
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              for (var i = 0; i < (screenwidth -  (screenwidth/1.3)); i++)
+                Container(
+                  color: i % 2 == 0
+                      ? flyternGrey40
+                      : Colors.transparent,
+                  height: 1,
+                  width: 3,
+                ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("AED 15,000",style: getBodyMediumStyle(context).copyWith(
+                  fontWeight: flyternFontWeightBold,
+                  color: flyternSecondaryColor),),
+              Expanded(child: Container()),
+              Expanded(
+                child: ElevatedButton(
+                    onPressed: ()   {
+                    }, child: Text("select".tr)),
+              ),
             ],
           )
         ],
