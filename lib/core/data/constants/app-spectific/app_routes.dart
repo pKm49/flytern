@@ -60,7 +60,7 @@ getAppRoutes() => [
     middlewares: [MyMiddelware()],
   ),
   GetPage(
-    name: Approute_flights_search_result,
+    name: Approute_flightsSearchResult,
     page: () => const FlightSearchResultPage(),
     middlewares: [MyMiddelware()],
   ),
