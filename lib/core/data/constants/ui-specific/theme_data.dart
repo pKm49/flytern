@@ -125,7 +125,7 @@ ThemeData getThemeData( String type, String locale) {
         titleTextStyle:TextStyle(
             fontWeight: flyternFontWeightBold,
             fontSize:locale=='en'?
-            flyternFontSize20:flyternFontSize16,
+            flyternFontSize24:flyternFontSize20,
             fontFamily: locale == 'en'
           ? flyternDefaultFontFamilyEnglish
           : flyternDefaultFontFamilyArabic,
@@ -195,23 +195,24 @@ ThemeData getThemeData( String type, String locale) {
                   borderSide: BorderSide.none),
               filled: true,
               fillColor: Colors.grey.withOpacity(0.1)),
-          appBarTheme: AppBarTheme(
-              titleTextStyle:TextStyle(
-                color: flyternGrey80,
-                fontWeight: flyternFontWeightBold,
-                fontSize:locale=='en'?
-                flyternFontSize20:flyternFontSize16,
-                fontFamily: locale == 'en'
-                    ? flyternDefaultFontFamilyEnglish
-                    : flyternDefaultFontFamilyArabic,
-              ),              foregroundColor: flyternGrey80,
-              backgroundColor: flyternBackgroundWhite,
-              // shape: ContinuousRectangleBorder(
-              //   borderRadius:BorderRadius.only(
-              //       bottomLeft: Radius.circular(flyternSpaceLarge*2.5),
-              //       bottomRight: Radius.circular(flyternSpaceLarge*2.5))
-              // ),
-              centerTitle: false,
-              elevation: 0.0),
+    appBarTheme: AppBarTheme(
+        titleTextStyle:TextStyle(
+            fontWeight: flyternFontWeightBold,
+            fontSize:locale=='en'?
+            flyternFontSize24:flyternFontSize20,
+            fontFamily: locale == 'en'
+                ? flyternDefaultFontFamilyEnglish
+                : flyternDefaultFontFamilyArabic,
+            color: flyternGrey80
+        ),
+        backgroundColor: flyternBackgroundWhite,
+        foregroundColor: flyternGrey80,
+        // shape: ContinuousRectangleBorder(
+        //     borderRadius:BorderRadius.only(
+        //         bottomLeft: Radius.circular(flyternSpaceLarge*2.5),
+        //         bottomRight: Radius.circular(flyternSpaceLarge*2.5))
+        // ),
+        centerTitle: false,
+        elevation: 0.0),
         );
 }
