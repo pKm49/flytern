@@ -595,8 +595,9 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
   void openFlightOptionsSelector( ) {
     showModalBottomSheet(
         useSafeArea: false,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(flyternBorderRadiusMedium),
+        shape:   RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
+              topRight: Radius.circular(flyternBorderRadiusSmall)),
         ),
         isScrollControlled: true,
         context: context,
