@@ -4,6 +4,7 @@ import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/services/delegates/custom_search_delegate.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/custom_date_picker.dart';
@@ -56,35 +57,40 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
             padding: flyternMediumPaddingAll,
             child: Wrap(
               children: [
-                Container(
-                  decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                      border: Border.all(color: flyternGrey20, width: .5)),
-                  padding: flyternMediumPaddingAll,
-                  child: Row(
-                    children: [
-                      Icon(Ionicons.location_outline,
-                          color: flyternSecondaryColor,size: flyternFontSize20),
-                      addHorizontalSpace(flyternSpaceSmall*1.5),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'destination'.tr,
-                              style: getLabelLargeStyle(context).copyWith(
-                                  color: flyternGrey40,
-                                  fontWeight: FontWeight.  w400),
-                            ),
-                            addVerticalSpace(flyternSpaceExtraSmall*1.5),
-                            Text('Dubai',
-                                style: getLabelLargeStyle(context)
-                                    .copyWith(color: flyternGrey80, )),
-                          ],
-                        ),
-                      )
-                    ],
+                InkWell(
+                  onTap: (){
+                    showSearch(context: context, delegate: CustomSearchDelegate());
+                  },
+                  child: Container(
+                    decoration: flyternBorderedContainerSmallDecoration.copyWith(
+                        border: Border.all(color: flyternGrey20, width: .5)),
+                    padding: flyternMediumPaddingAll,
+                    child: Row(
+                      children: [
+                        Icon(Ionicons.location_outline,
+                            color: flyternSecondaryColor,size: flyternFontSize20),
+                        addHorizontalSpace(flyternSpaceSmall*1.5),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'destination'.tr,
+                                style: getLabelLargeStyle(context).copyWith(
+                                    color: flyternGrey40,
+                                    fontWeight: FontWeight.  w400),
+                              ),
+                              addVerticalSpace(flyternSpaceExtraSmall*1.5),
+                              Text('Dubai',
+                                  style: getLabelLargeStyle(context)
+                                      .copyWith(color: flyternGrey80, )),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 addVerticalSpace(flyternSpaceMedium),

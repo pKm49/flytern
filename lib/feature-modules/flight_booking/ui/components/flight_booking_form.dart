@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/services/delegates/custom_search_delegate.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/custom_date_picker.dart';
@@ -229,46 +230,51 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
               children: [
                 Expanded(
                   flex: 1,
-                  child: Row(
-                    children: [
-                      Wrap(
-                        alignment: WrapAlignment.center,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        direction: Axis.vertical,
-                        children: [
-                          for (var i = 0; i < 10; i++)
-                            Container(
-                              color: i % 2 == 0
-                                  ? flyternSecondaryColor
-                                  : Colors.transparent,
-                              width: 1,
-                              height: 3,
+                  child:InkWell(
+                    onTap: (){
+                      showSearch(context: context, delegate: CustomSearchDelegate());
+                    },
+                    child: Row(
+                      children: [
+                        Wrap(
+                          alignment: WrapAlignment.center,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          direction: Axis.vertical,
+                          children: [
+                            for (var i = 0; i < 10; i++)
+                              Container(
+                                color: i % 2 == 0
+                                    ? flyternSecondaryColor
+                                    : Colors.transparent,
+                                width: 1,
+                                height: 3,
+                              ),
+                            Icon(Icons.flight_takeoff_outlined,
+                                color: flyternSecondaryColor),
+                          ],
+                        ),
+                        addHorizontalSpace(flyternSpaceSmall),
+                        Wrap(
+                          direction: Axis.vertical,
+                          alignment: WrapAlignment.start,
+                          crossAxisAlignment: WrapCrossAlignment.start,
+                          children: [
+                            Text(
+                              "from".tr,
+                              style: getLabelLargeStyle(context).copyWith(
+                                  color: flyternGrey40,
+                                  fontWeight: FontWeight.  w400),
                             ),
-                          Icon(Icons.flight_takeoff_outlined,
-                              color: flyternSecondaryColor),
-                        ],
-                      ),
-                      addHorizontalSpace(flyternSpaceSmall),
-                      Wrap(
-                        direction: Axis.vertical,
-                        alignment: WrapAlignment.start,
-                        crossAxisAlignment: WrapCrossAlignment.start,
-                        children: [
-                          Text(
-                            "from".tr,
-                            style: getLabelLargeStyle(context).copyWith(
-                                color: flyternGrey40,
-                                fontWeight: FontWeight.  w400),
-                          ),
-                          addVerticalSpace(flyternSpaceExtraSmall),
-                          Text('IST',
-                              style: getHeadlineLargeStyle(context)
-                                  .copyWith(fontSize: flyternFontSize24 * 1.5)),
-                          addVerticalSpace(flyternSpaceExtraSmall),
-                          Text('Istanbul'),
-                        ],
-                      )
-                    ],
+                            addVerticalSpace(flyternSpaceExtraSmall),
+                            Text('IST',
+                                style: getHeadlineLargeStyle(context)
+                                    .copyWith(fontSize: flyternFontSize24 * 1.5)),
+                            addVerticalSpace(flyternSpaceExtraSmall),
+                            Text('Istanbul'),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 addHorizontalSpace(flyternSpaceMedium),
@@ -276,47 +282,52 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                 addHorizontalSpace(flyternSpaceMedium),
                 Expanded(
                   flex: 1,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Wrap(
-                        alignment: WrapAlignment.center,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        direction: Axis.vertical,
-                        children: [
-                          for (var i = 0; i < 10; i++)
-                            Container(
-                              color: i % 2 == 0
-                                  ? flyternSecondaryColor
-                                  : Colors.transparent,
-                              width: 1,
-                              height: 3,
+                  child: InkWell(
+                    onTap: (){
+                      showSearch(context: context, delegate: CustomSearchDelegate());
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Wrap(
+                          alignment: WrapAlignment.center,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          direction: Axis.vertical,
+                          children: [
+                            for (var i = 0; i < 10; i++)
+                              Container(
+                                color: i % 2 == 0
+                                    ? flyternSecondaryColor
+                                    : Colors.transparent,
+                                width: 1,
+                                height: 3,
+                              ),
+                            Icon(Icons.flight_land_outlined,
+                                color: flyternSecondaryColor),
+                          ],
+                        ),
+                        addHorizontalSpace(flyternSpaceSmall),
+                        Wrap(
+                          direction: Axis.vertical,
+                          alignment: WrapAlignment.start,
+                          crossAxisAlignment: WrapCrossAlignment.start,
+                          children: [
+                            Text(
+                              "to".tr,
+                              style: getLabelLargeStyle(context).copyWith(
+                                  color: flyternGrey40,
+                                  fontWeight: FontWeight.  w400),
                             ),
-                          Icon(Icons.flight_land_outlined,
-                              color: flyternSecondaryColor),
-                        ],
-                      ),
-                      addHorizontalSpace(flyternSpaceSmall),
-                      Wrap(
-                        direction: Axis.vertical,
-                        alignment: WrapAlignment.start,
-                        crossAxisAlignment: WrapCrossAlignment.start,
-                        children: [
-                          Text(
-                            "to".tr,
-                            style: getLabelLargeStyle(context).copyWith(
-                                color: flyternGrey40,
-                                fontWeight: FontWeight.  w400),
-                          ),
-                          addVerticalSpace(flyternSpaceExtraSmall),
-                          Text('KBL',
-                              style: getHeadlineLargeStyle(context)
-                                  .copyWith(fontSize: flyternFontSize24 * 1.5)),
-                          addVerticalSpace(flyternSpaceExtraSmall),
-                          Text('Kabul'),
-                        ],
-                      )
-                    ],
+                            addVerticalSpace(flyternSpaceExtraSmall),
+                            Text('KBL',
+                                style: getHeadlineLargeStyle(context)
+                                    .copyWith(fontSize: flyternFontSize24 * 1.5)),
+                            addVerticalSpace(flyternSpaceExtraSmall),
+                            Text('Kabul'),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],
