@@ -25,7 +25,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
     return Container(
       width: screenwidth,
-      height: screenheight*.65,
+      height: screenheight*.5,
       padding: flyternSmallPaddingAll,
       child: Column(
         children: [
@@ -34,15 +34,41 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               width: screenwidth,
               padding: flyternLargePaddingVertical,
               decoration: flyternBorderedContainerSmallDecoration,
-              child: CupertinoDatePicker(
-                mode: CupertinoDatePickerMode.date,
-                initialDateTime: DateTime(1969, 1, 1),
-                onDateTimeChanged: (DateTime newDateTime) {
-                  setState(() {
-                    selectedDOB = newDateTime;
-                  });
+              child: Column(
+                children: [
+                  Padding(
+                    padding: flyternLargePaddingHorizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("select_date".tr,
+                            style: getHeadlineMediumStyle(context).copyWith(
+                                color: flyternGrey80,
+                                fontWeight: flyternFontWeightBold),
+                            textAlign: TextAlign.center),
+                        Text("done".tr,
+                            style: getHeadlineMediumStyle(context).copyWith(
+                                color: flyternPrimaryColor,
+                                fontWeight: flyternFontWeightBold),
+                            textAlign: TextAlign.center),
+                      ],
+                    ),
+                  ),
+                  addVerticalSpace(flyternSpaceSmall),
+                  Divider(),
+                  Expanded(
+                    child: CupertinoDatePicker(
+                      mode: CupertinoDatePickerMode.date,
+                      initialDateTime: DateTime(1969, 1, 1),
+                      onDateTimeChanged: (DateTime newDateTime) {
+                        setState(() {
+                          selectedDOB = newDateTime;
+                        });
 
-                },
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
