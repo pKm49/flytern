@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_options_selector.dart';
+import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -559,7 +560,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
           width: double.infinity,
           child: ElevatedButton(
               onPressed: ()   {
-
+                Get.toNamed(Approute_flightsSearchResult);
               }, child: Text("search_flights".tr )),
         ),
 
