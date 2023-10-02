@@ -24,8 +24,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     return AlertDialog(
       shape: RoundedRectangleBorder(
           borderRadius:
-          BorderRadius.all(Radius.circular(flyternBorderRadiusLarge))),
-      contentPadding: flyternSmallPaddingAll,
+          BorderRadius.all(Radius.circular(flyternBorderRadiusSmall))),
+      contentPadding: flyternMediumPaddingAll,
       content: StatefulBuilder(// You need this, notice the parameters below:
           builder: (BuildContext context, StateSetter _setState) {
             return SizedBox(
