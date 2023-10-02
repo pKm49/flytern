@@ -122,6 +122,7 @@ ThemeData getThemeData( String type, String locale) {
           scaffoldBackgroundColor: flyternBackgroundWhite,
 
     appBarTheme: AppBarTheme(
+        titleSpacing: 0,
         titleTextStyle:TextStyle(
             fontWeight: flyternFontWeightBold,
             fontSize:locale=='en'?
@@ -139,7 +140,7 @@ ThemeData getThemeData( String type, String locale) {
         //         bottomRight: Radius.circular(flyternSpaceLarge*2.5))
         // ),
         centerTitle: false,
-        elevation: 0.0),
+        elevation: 0.5),
         )
       : ThemeData(
         scaffoldBackgroundColor: flyternBackgroundWhite,
@@ -196,6 +197,7 @@ ThemeData getThemeData( String type, String locale) {
               filled: true,
               fillColor: Colors.grey.withOpacity(0.1)),
     appBarTheme: AppBarTheme(
+        titleSpacing: 0,
         titleTextStyle:TextStyle(
             fontWeight: flyternFontWeightBold,
             fontSize:locale=='en'?
@@ -213,6 +215,6 @@ ThemeData getThemeData( String type, String locale) {
         //         bottomRight: Radius.circular(flyternSpaceLarge*2.5))
         // ),
         centerTitle: false,
-        elevation: 0.0),
+        elevation: 0.5),
         );
 }
