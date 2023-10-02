@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/flight_airport_lable_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_options_selector.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
@@ -63,24 +64,11 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                         ],
                       ),
                       addHorizontalSpace(flyternSpaceSmall),
-                      Wrap(
-                        direction: Axis.vertical,
-                        alignment: WrapAlignment.start,
-                        crossAxisAlignment: WrapCrossAlignment.start,
-                        children: [
-                          Text(
-                            "from".tr,
-                            style: getLabelLargeStyle(context).copyWith(
-                                color: flyternGrey40,
-                                fontWeight: FontWeight.  w400),
-                          ),
-                          addVerticalSpace(flyternSpaceExtraSmall),
-                          Text('IST',
-                              style: getHeadlineLargeStyle(context)
-                                  .copyWith(fontSize: flyternFontSize24 * 1.5)),
-                          addVerticalSpace(flyternSpaceExtraSmall),
-                          Text('Istanbul'),
-                        ],
+
+                      FlightAirportLabelCard(
+                        topLabel: "to".tr,
+                        midLabel: "IST",
+                        bottomLabel: "Istanbul",
                       )
                     ],
                   ),
@@ -116,24 +104,10 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                         ],
                       ),
                       addHorizontalSpace(flyternSpaceSmall),
-                      Wrap(
-                        direction: Axis.vertical,
-                        alignment: WrapAlignment.start,
-                        crossAxisAlignment: WrapCrossAlignment.start,
-                        children: [
-                          Text(
-                            "to".tr,
-                            style: getLabelLargeStyle(context).copyWith(
-                                color: flyternGrey40,
-                                fontWeight: FontWeight.  w400),
-                          ),
-                          addVerticalSpace(flyternSpaceExtraSmall),
-                          Text('KBL',
-                              style: getHeadlineLargeStyle(context)
-                                  .copyWith(fontSize: flyternFontSize24 * 1.5)),
-                          addVerticalSpace(flyternSpaceExtraSmall),
-                          Text('Kabul'),
-                        ],
+                      FlightAirportLabelCard(
+                        topLabel: "from".tr,
+                        midLabel: "KBL",
+                        bottomLabel: "Kabul",
                       )
                     ],
                   ),
