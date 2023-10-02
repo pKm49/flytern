@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/flight_options_selector.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -585,4 +586,18 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
     );
   }
 
+
+  void openPrivacyBottomSheet( ) {
+    showModalBottomSheet(
+        useSafeArea: false,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(flyternBorderRadiusMedium),
+        ),
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return FlightOptionsSelector();
+        });
+
+  }
 }
