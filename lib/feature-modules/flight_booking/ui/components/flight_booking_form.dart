@@ -462,35 +462,40 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
               ),
             )),
         addVerticalSpace(flyternSpaceMedium),
-        Container(
-          decoration: flyternBorderedContainerSmallDecoration.copyWith(
-              border: Border.all(color: flyternGrey20, width: .5)),
-          padding: flyternMediumPaddingAll,
-          child: Row(
-            children: [
-              Icon(Ionicons.person_outline,
-                  color: flyternSecondaryColor,size: flyternFontSize20),
-              addHorizontalSpace(flyternSpaceSmall*1.5),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'passengers_cabin_class'.tr,
-                      style: getLabelLargeStyle(context).copyWith(
-                          color: flyternGrey40,
-                          fontWeight: FontWeight.  w400),
-                    ),
-                    addVerticalSpace(flyternSpaceExtraSmall*1.5),
-                    Text('2 Passengers, Economy',
-                        style: getLabelLargeStyle(context)
-                            .copyWith(color: flyternGrey80, )),
-                  ],
-                ),
-              )
-            ],
+        InkWell(
+          onTap: (){
+            openFlightOptionsSelector();
+          },
+          child: Container(
+            decoration: flyternBorderedContainerSmallDecoration.copyWith(
+                border: Border.all(color: flyternGrey20, width: .5)),
+            padding: flyternMediumPaddingAll,
+            child: Row(
+              children: [
+                Icon(Ionicons.person_outline,
+                    color: flyternSecondaryColor,size: flyternFontSize20),
+                addHorizontalSpace(flyternSpaceSmall*1.5),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'passengers_cabin_class'.tr,
+                        style: getLabelLargeStyle(context).copyWith(
+                            color: flyternGrey40,
+                            fontWeight: FontWeight.  w400),
+                      ),
+                      addVerticalSpace(flyternSpaceExtraSmall*1.5),
+                      Text('2 Passengers, Economy',
+                          style: getLabelLargeStyle(context)
+                              .copyWith(color: flyternGrey80, )),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
         addVerticalSpace(flyternSpaceMedium),
@@ -587,7 +592,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
   }
 
 
-  void openPrivacyBottomSheet( ) {
+  void openFlightOptionsSelector( ) {
     showModalBottomSheet(
         useSafeArea: false,
         shape: RoundedRectangleBorder(
