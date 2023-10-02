@@ -66,9 +66,10 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                       addHorizontalSpace(flyternSpaceSmall),
 
                       FlightAirportLabelCard(
-                        topLabel: "to".tr,
+                        topLabel: "from".tr,
                         midLabel: "IST",
                         bottomLabel: "Istanbul",
+                        sideNumber: 1,
                       )
                     ],
                   ),
@@ -105,9 +106,10 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                       ),
                       addHorizontalSpace(flyternSpaceSmall),
                       FlightAirportLabelCard(
-                        topLabel: "from".tr,
+                        topLabel: "to".tr,
                         midLabel: "KBL",
                         bottomLabel: "Kabul",
+                        sideNumber: 1,
                       )
                     ],
                   ),
@@ -240,24 +242,11 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                           ],
                         ),
                         addHorizontalSpace(flyternSpaceSmall),
-                        Wrap(
-                          direction: Axis.vertical,
-                          alignment: WrapAlignment.start,
-                          crossAxisAlignment: WrapCrossAlignment.start,
-                          children: [
-                            Text(
-                              "from".tr,
-                              style: getLabelLargeStyle(context).copyWith(
-                                  color: flyternGrey40,
-                                  fontWeight: FontWeight.  w400),
-                            ),
-                            addVerticalSpace(flyternSpaceExtraSmall),
-                            Text('IST',
-                                style: getHeadlineLargeStyle(context)
-                                    .copyWith(fontSize: flyternFontSize24 * 1.5)),
-                            addVerticalSpace(flyternSpaceExtraSmall),
-                            Text('Istanbul'),
-                          ],
+                        FlightAirportLabelCard(
+                          topLabel: "from".tr,
+                          midLabel: "KBL",
+                          bottomLabel: "Kabul",
+                          sideNumber: 1,
                         )
                       ],
                     ),
@@ -294,24 +283,11 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                           ],
                         ),
                         addHorizontalSpace(flyternSpaceSmall),
-                        Wrap(
-                          direction: Axis.vertical,
-                          alignment: WrapAlignment.start,
-                          crossAxisAlignment: WrapCrossAlignment.start,
-                          children: [
-                            Text(
-                              "to".tr,
-                              style: getLabelLargeStyle(context).copyWith(
-                                  color: flyternGrey40,
-                                  fontWeight: FontWeight.  w400),
-                            ),
-                            addVerticalSpace(flyternSpaceExtraSmall),
-                            Text('KBL',
-                                style: getHeadlineLargeStyle(context)
-                                    .copyWith(fontSize: flyternFontSize24 * 1.5)),
-                            addVerticalSpace(flyternSpaceExtraSmall),
-                            Text('Kabul'),
-                          ],
+                        FlightAirportLabelCard(
+                          topLabel: "to".tr,
+                          midLabel: "IST",
+                          bottomLabel: "Istanbul",
+                          sideNumber: 1,
                         )
                       ],
                     ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/flight_airport_lable_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_data_capsule_card.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -10,20 +11,19 @@ class FlightSearchResultCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
 
     return Container(
       decoration: flyternBorderedContainerSmallDecoration,
       padding: flyternMediumPaddingAll,
-      width: screenwidth - (flyternSpaceLarge*2),
+      width: screenwidth - (flyternSpaceLarge * 2),
       margin: flyternLargePaddingHorizontal,
       child: Wrap(
         children: [
           Row(
             children: [
-              Image.asset(ASSETS_FLIGHT_1_SAMPLE,width: screenwidth*.25),
+              Image.asset(ASSETS_FLIGHT_1_SAMPLE, width: screenwidth * .25),
               Expanded(child: Container()),
               FlightDataCapsuleCard(
                 label: "2 Stops",
@@ -34,6 +34,24 @@ class FlightSearchResultCard extends StatelessWidget {
                 label: "Refundable",
                 theme: 1,
               ),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                  child: FlightAirportLabelCard(
+                topLabel: "Istanbul, TR",
+                midLabel: "IST",
+                bottomLabel: "08:00 AM",
+                    sideNumber: 1,
+              )),
+              Expanded(
+                  child: FlightAirportLabelCard(
+                    topLabel: "Istanbul, TR",
+                    midLabel: "IST",
+                    bottomLabel: "08:00 AM",
+                    sideNumber: 2,
+                  ))
             ],
           )
         ],
