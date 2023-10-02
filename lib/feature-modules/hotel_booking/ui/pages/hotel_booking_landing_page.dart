@@ -298,14 +298,21 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
     );
   }
 
-  showCustomDatePicker() async {
-    showDialog(
-      context: context,
-      builder: (_) =>
-          CustomDatePicker(dobPicked: (DateTime selectedDob) {
+  void showCustomDatePicker( ) {
+    showModalBottomSheet(
+        useSafeArea: false,
+        shape:   RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
+              topRight: Radius.circular(flyternBorderRadiusSmall)),
+        ),
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (context) {
+          return CustomDatePicker();
+        });
 
-          }),
-    );
   }
+
 
 }
