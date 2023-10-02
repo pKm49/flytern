@@ -9,6 +9,7 @@ import 'package:flytern/feature-modules/profile/ui/pages/profile_landing_page.da
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/services/delegates/custom_search_delegate.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
@@ -70,7 +71,11 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
       actions: [
         Visibility(
             visible:  pageTitle == "flights" || pageTitle == "hotels".tr,
-            child: Icon(CupertinoIcons.search,color: flyternGrey80)),
+            child: InkWell(
+                onTap: (){
+                  showSearch(context: context, delegate: CustomSearchDelegate());
+                },
+                child: Icon(CupertinoIcons.search,color: flyternGrey80))),
         addHorizontalSpace(flyternSpaceMedium),
         Visibility(
             child: Icon(CupertinoIcons.bell,color: flyternGrey80)),
