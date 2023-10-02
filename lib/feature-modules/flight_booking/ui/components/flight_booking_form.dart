@@ -4,6 +4,7 @@ import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared/ui/components/custom_date_picker.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -133,48 +134,14 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
           children: [
             Expanded(
                 flex: 1,
-                child: Container(
-                  decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                      border: Border.all(color: flyternGrey20, width: .5)),
-                  padding: flyternMediumPaddingAll,
-                  child: Row(
-                    children: [
-                      Icon(Icons.calendar_month,
-                          color: flyternSecondaryColor,size: flyternFontSize20),
-                      addHorizontalSpace(flyternSpaceSmall*1.5),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'travel_date'.tr,
-                              style: getLabelLargeStyle(context).copyWith(
-                                  color: flyternGrey40,
-                                  fontWeight: FontWeight.  w400),
-                            ),
-                            addVerticalSpace(flyternSpaceExtraSmall*1.5),
-                            Text('Jul 24, 2023',
-                                style: getLabelLargeStyle(context)
-                                    .copyWith(color: flyternGrey80, )),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                )),
-            Visibility(
-                visible: widget.selectedTab == 2,
-                child: addHorizontalSpace(flyternSpaceSmall)),
-            Visibility(
-              visible: widget.selectedTab == 2,
-              child: Expanded(
-                  flex: 1,
+                child: InkWell(
+                  onTap: (){
+                    showCustomDatePicker();
+                  },
                   child: Container(
                     decoration: flyternBorderedContainerSmallDecoration.copyWith(
                         border: Border.all(color: flyternGrey20, width: .5)),
-                    padding: flyternMediumPaddingAll ,
+                    padding: flyternMediumPaddingAll,
                     child: Row(
                       children: [
                         Icon(Icons.calendar_month,
@@ -187,7 +154,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'return_date'.tr,
+                                'travel_date'.tr,
                                 style: getLabelLargeStyle(context).copyWith(
                                     color: flyternGrey40,
                                     fontWeight: FontWeight.  w400),
@@ -195,11 +162,55 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                               addVerticalSpace(flyternSpaceExtraSmall*1.5),
                               Text('Jul 24, 2023',
                                   style: getLabelLargeStyle(context)
-                                      .copyWith( color: flyternGrey80)),
+                                      .copyWith(color: flyternGrey80, )),
                             ],
                           ),
                         )
                       ],
+                    ),
+                  ),
+                )),
+            Visibility(
+                visible: widget.selectedTab == 2,
+                child: addHorizontalSpace(flyternSpaceSmall)),
+            Visibility(
+              visible: widget.selectedTab == 2,
+              child: Expanded(
+                  flex: 1,
+                  child: InkWell(
+                    onTap: (){
+                      showCustomDatePicker();
+                    },
+                    child: Container(
+                      decoration: flyternBorderedContainerSmallDecoration.copyWith(
+                          border: Border.all(color: flyternGrey20, width: .5)),
+                      padding: flyternMediumPaddingAll ,
+                      child: Row(
+                        children: [
+                          Icon(Icons.calendar_month,
+                              color: flyternSecondaryColor,size: flyternFontSize20),
+                          addHorizontalSpace(flyternSpaceSmall*1.5),
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'return_date'.tr,
+                                  style: getLabelLargeStyle(context).copyWith(
+                                      color: flyternGrey40,
+                                      fontWeight: FontWeight.  w400),
+                                ),
+                                addVerticalSpace(flyternSpaceExtraSmall*1.5),
+                                Text('Jul 24, 2023',
+                                    style: getLabelLargeStyle(context)
+                                        .copyWith( color: flyternGrey80)),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   )),
             ),
@@ -529,6 +540,17 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
       return flyternSecondaryColor;
     }
     return flyternBackgroundWhite;
+  }
+
+
+  showCustomDatePicker() async {
+    showDialog(
+      context: context,
+      builder: (_) =>
+          CustomDatePicker(dobPicked: (DateTime selectedDob) {
+
+          }),
+    );
   }
 
 }
