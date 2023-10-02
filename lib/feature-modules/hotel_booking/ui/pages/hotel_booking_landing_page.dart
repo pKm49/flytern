@@ -176,76 +176,68 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                   ],
                 ),
                 addVerticalSpace(flyternSpaceMedium),
-                Row(
-                  children: [
-                    Expanded(
+                Container(
+                  decoration: flyternBorderedContainerSmallDecoration.copyWith(
+                      border: Border.all(color: flyternGrey20, width: .5)),
+                  padding: flyternMediumPaddingAll,
+                  child: Row(
+                    children: [
+                      Icon(Ionicons.bed_outline,
+                          color: flyternSecondaryColor,size: flyternFontSize20),
+                      addHorizontalSpace(flyternSpaceSmall*1.5),
+                      Expanded(
                         flex: 1,
-                        child: Container(
-                          decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                              border: Border.all(color: flyternGrey20, width: .5)),
-                          padding: flyternMediumPaddingAll,
-                          child: Row(
-                            children: [
-                              Icon(Ionicons.bed_outline,
-                                  color: flyternSecondaryColor,size: flyternFontSize20),
-                              addHorizontalSpace(flyternSpaceSmall*1.5),
-                              Expanded(
-                                flex: 1,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'no_of_rooms'.tr,
-                                      style: getLabelLargeStyle(context).copyWith(
-                                          color: flyternGrey40,
-                                          fontWeight: FontWeight.  w400),
-                                    ),
-                                    addVerticalSpace(flyternSpaceExtraSmall*1.5),
-                                    Text('2',
-                                        style: getLabelLargeStyle(context)
-                                            .copyWith(color: flyternGrey80, )),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        )),
-                    addHorizontalSpace(flyternSpaceSmall),
-                    Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'no_of_rooms'.tr,
+                              style: getLabelLargeStyle(context).copyWith(
+                                  color: flyternGrey40,
+                                  fontWeight: FontWeight.  w400),
+                            ),
+                            addVerticalSpace(flyternSpaceExtraSmall*1.5),
+                            Text('2',
+                                style: getLabelLargeStyle(context)
+                                    .copyWith(color: flyternGrey80, )),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                addVerticalSpace(flyternSpaceMedium),
+                Container(
+                  decoration: flyternBorderedContainerSmallDecoration.copyWith(
+                      border: Border.all(color: flyternGrey20, width: .5)),
+                  padding: flyternMediumPaddingAll ,
+                  child: Row(
+                    children: [
+                      Icon(Ionicons.person_outline,
+                          color: flyternSecondaryColor,size: flyternFontSize20),
+                      addHorizontalSpace(flyternSpaceSmall*1.5),
+                      Expanded(
                         flex: 1,
-                        child: Container(
-                          decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                              border: Border.all(color: flyternGrey20, width: .5)),
-                          padding: flyternMediumPaddingAll ,
-                          child: Row(
-                            children: [
-                              Icon(Ionicons.person_outline,
-                                  color: flyternSecondaryColor,size: flyternFontSize20),
-                              addHorizontalSpace(flyternSpaceSmall*1.5),
-                              Expanded(
-                                flex: 1,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'users'.tr,
-                                      style: getLabelLargeStyle(context).copyWith(
-                                          color: flyternGrey40,
-                                          fontWeight: FontWeight.  w400),
-                                    ),
-                                    addVerticalSpace(flyternSpaceExtraSmall*1.5),
-                                    Text('1 Adult',
-                                        style: getLabelLargeStyle(context)
-                                            .copyWith( color: flyternGrey80)),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        )),
-                  ],
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'users'.tr,
+                              style: getLabelLargeStyle(context).copyWith(
+                                  color: flyternGrey40,
+                                  fontWeight: FontWeight.  w400),
+                            ),
+                            addVerticalSpace(flyternSpaceExtraSmall*1.5),
+                            Text('1 Adult',
+                                style: getLabelLargeStyle(context)
+                                    .copyWith( color: flyternGrey80)),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 addVerticalSpace(flyternSpaceMedium),
 
