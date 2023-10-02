@@ -65,8 +65,8 @@ var flyternDefaultBorderTopOnly = const Border(
 
 var flyternDefaultBorderBottomOnly = const Border(
   bottom: BorderSide(
-    color: flyternGrey40,
-    width: 1.0,
+    color: flyternGrey20,
+    width: 0.5,
   ),
 );
 
