@@ -190,13 +190,13 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'travel_date'.tr,
+                                      'rooms'.tr,
                                       style: getLabelLargeStyle(context).copyWith(
                                           color: flyternGrey40,
                                           fontWeight: FontWeight.  w400),
                                     ),
                                     addVerticalSpace(flyternSpaceExtraSmall*1.5),
-                                    Text('Rooms',
+                                    Text('2',
                                         style: getLabelLargeStyle(context)
                                             .copyWith(color: flyternGrey80, )),
                                   ],
