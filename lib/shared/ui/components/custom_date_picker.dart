@@ -5,16 +5,16 @@ import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:get/get.dart';
  
-class DOBPicker extends StatefulWidget {
+class CustomDatePicker extends StatefulWidget {
   final Function(DateTime dob) dobPicked;      // <------------|
 
-  const DOBPicker({super.key, required this.dobPicked});
+  const CustomDatePicker({super.key, required this.dobPicked});
 
   @override
-  State<DOBPicker> createState() => _DOBPickerState();
+  State<CustomDatePicker> createState() => _CustomDatePickerState();
 }
 
-class _DOBPickerState extends State<DOBPicker> {
+class _CustomDatePickerState extends State<CustomDatePicker> {
 
   DateTime selectedDOB = DateTime.now();
 
