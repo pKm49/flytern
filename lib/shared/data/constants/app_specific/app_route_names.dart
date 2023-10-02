@@ -13,3 +13,6 @@
 
   //landing page
   const String Approute_landingpage = '/landing-page';
+
+  //flights booking
+  const String Approute_flights_search_result = '/flights-search-result';
