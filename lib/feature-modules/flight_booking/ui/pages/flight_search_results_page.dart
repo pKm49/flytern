@@ -206,7 +206,9 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
               child: ListView(
                 children: [
                   addVerticalSpace(flyternSpaceLarge),
-                  Visibility(child: Padding(
+                  Visibility(
+                      visible: isModifySearchVisible,
+                      child: Padding(
                     padding:flyternLargePaddingHorizontal,
                     child: Text("modify_search".tr,style:getHeadlineMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold,color: flyternGrey80) ),
                   )),
