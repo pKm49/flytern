@@ -5,6 +5,7 @@ import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared/ui/components/filter_option_selector.dart';
 import 'package:flytern/shared/ui/components/sort_option_selector.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -90,21 +91,26 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
                   ),
                       )),
                   addHorizontalSpace(flyternSpaceLarge),
-                  Expanded(child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                           Text("filter".tr,style: getLabelLargeStyle(context).copyWith(fontWeight: flyternFontWeightLight,color: flyternGrey40)),
-                          addVerticalSpace(flyternSpaceExtraSmall),
-                          Text("all".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Expanded(child: InkWell(
+                    onTap: (){
+                      showFilterOptions();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                             Text("filter".tr,style: getLabelLargeStyle(context).copyWith(fontWeight: flyternFontWeightLight,color: flyternGrey40)),
+                            addVerticalSpace(flyternSpaceExtraSmall),
+                            Text("all".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
 
-                        ],
-                      ),
-                      Icon(Ionicons.chevron_down,color: flyternGrey40)
-                    ],
+                          ],
+                        ),
+                        Icon(Ionicons.chevron_down,color: flyternGrey40)
+                      ],
+                    ),
                   ))
                 ],
               ),
@@ -217,6 +223,22 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
         context: context,
         builder: (context) {
           return SortOptionSelector();
+        });
+
+  }
+
+  void showFilterOptions( ) {
+    showModalBottomSheet(
+        useSafeArea: false,
+        shape:   RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
+              topRight: Radius.circular(flyternBorderRadiusSmall)),
+        ),
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (context) {
+          return FilterOptionSelector();
         });
 
   }
