@@ -112,7 +112,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
               child:  TabBar(
                   indicatorSize: TabBarIndicatorSize.tab,
                   indicatorPadding: EdgeInsets.zero,
-                  labelPadding: EdgeInsets.zero,
+                  labelPadding: flyternSmallPaddingAll,
                   // indicator: new BubbleTabIndicator(
                   //   indicatorHeight: 30.0,
                   //   indicatorColor: AppColors.PrimaryColor,
