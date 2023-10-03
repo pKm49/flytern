@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_form.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_search_result_card.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type_tab.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
@@ -20,7 +22,9 @@ class FlightSearchResultPage extends StatefulWidget {
 class _FlightSearchResultPageState extends State<FlightSearchResultPage> with SingleTickerProviderStateMixin{
 
   late TabController tabController;
-
+  bool isModifySearchVisible =false;
+  int selectedTab = 1;
+  int multicityCount = 1;
   @override
   void initState() {
     super.initState();
@@ -44,7 +48,13 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
       appBar: AppBar(
         title: Text("search_results".tr),
         actions: [
-          Icon(Ionicons.create_outline),
+          InkWell(
+              onTap: (){
+                setState(() {
+                  isModifySearchVisible = !isModifySearchVisible;
+                });
+              },
+              child: Icon(Ionicons.create_outline)),
           addHorizontalSpace(flyternSpaceMedium),
         ],
       ),
@@ -189,13 +199,38 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
                     ),
                   ])
             ),
+
             Expanded(child:
             Container(
               color: flyternGrey10,
               child: ListView(
                 children: [
                   addVerticalSpace(flyternSpaceLarge),
-                  FlightSearchResultCard(),
+                  Visibility(child: Padding(
+                    padding:flyternLargePaddingHorizontal,
+                    child: Text("modify_search".tr,style:getHeadlineMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold,color: flyternGrey80) ),
+                  )),
+                  Visibility(
+                    visible: isModifySearchVisible,
+                    child: Container(
+                      height: (screenheight * .65) ,
+                      width: screenwidth - (flyternSpaceLarge * 2),
+                      padding: flyternMediumPaddingAll,
+                      decoration: flyternShadowedContainerSmallDecoration,
+                      margin: flyternLargePaddingAll,
+                      child: FlightBookingForm(
+                          onCityAdded:(){
+                            print("onCityAdded");
+                            print(multicityCount);
+                            setState(() {
+                              multicityCount = 2;
+                            });
+                            print(multicityCount);
+                          },
+                          selectedTab: selectedTab),
+                    ),
+                  ),
+                   FlightSearchResultCard(),
                   addVerticalSpace(flyternSpaceLarge),
                   FlightSearchResultCard(),
                   addVerticalSpace(flyternSpaceLarge),
