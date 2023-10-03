@@ -182,7 +182,13 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
               child: ListView(
                 children: [
                   addVerticalSpace(flyternSpaceLarge),
-                  FlightSearchResultCard()
+                  FlightSearchResultCard(),
+                  addVerticalSpace(flyternSpaceLarge),
+                  FlightSearchResultCard(),
+                  addVerticalSpace(flyternSpaceLarge),
+                  FlightSearchResultCard(),
+                  addVerticalSpace(flyternSpaceLarge),
+                  addVerticalSpace(flyternSpaceLarge),
                 ],
               ),
             ))
