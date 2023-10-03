@@ -74,16 +74,19 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                       decoration: flyternShadowedContainerSmallDecoration,
                       width: screenwidth - (flyternSpaceLarge * 2),
                       padding: flyternMediumPaddingAll,
-                      child: FlightBookingForm(
-                          onCityAdded:(){
-                            print("onCityAdded");
-                            print(multicityCount);
-                            setState(() {
-                              multicityCount = 2;
-                            });
-                            print(multicityCount);
-                          },
-                          selectedTab: selectedTab),
+                      child: Container(
+                        margin: EdgeInsets.only(top: flyternSpaceLarge),
+                        child: FlightBookingForm(
+                            onCityAdded:(){
+                              print("onCityAdded");
+                              print(multicityCount);
+                              setState(() {
+                                multicityCount = 2;
+                              });
+                              print(multicityCount);
+                            },
+                            selectedTab: selectedTab),
+                      ),
                     )
                   ],
                 ),
