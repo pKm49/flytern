@@ -31,7 +31,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
   Widget build(BuildContext context) {
     return Wrap(
       children: [
-        addVerticalSpace(flyternSpaceLarge),
+
         Container(
           decoration: flyternBorderedContainerSmallDecoration.copyWith(
               border: Border.all(color: flyternSecondaryColor, width: .5)),
