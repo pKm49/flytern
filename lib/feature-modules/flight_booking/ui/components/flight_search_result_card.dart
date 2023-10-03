@@ -102,7 +102,7 @@ class FlightSearchResultCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("AED 15,000",style: getBodyMediumStyle(context).copyWith(
+              Text("AED 15,000",style: getHeadlineMediumStyle(context).copyWith(
                   fontWeight: flyternFontWeightBold,
                   color: flyternSecondaryColor),),
               Expanded(child: Container()),
