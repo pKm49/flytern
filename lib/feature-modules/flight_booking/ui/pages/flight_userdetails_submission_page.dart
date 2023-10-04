@@ -41,108 +41,105 @@ class _FlightUserDetailsSubmissionPageState extends State<FlightUserDetailsSubmi
               margin: flyternLargePaddingVertical.copyWith(bottom: 0),
               padding: flyternLargePaddingHorizontal,
               color: flyternBackgroundWhite,
-              child: Theme(
-                data: getThemeData('light', Get.deviceLocale?.languageCode ?? 'en').copyWith(dividerColor: Colors.transparent),
-                child: ExpansionTile(
+              child: ExpansionTile(
 
-                  tilePadding: EdgeInsets.zero,
-                  controller: controller,
-                  title:   Text('adult'.tr),
-                  children: <Widget>[
+                tilePadding: EdgeInsets.zero,
+                controller: controller,
+                title:   Text('adult'.tr),
+                children: <Widget>[
 
-                    TextFormField(
-                      onTap: (){
-                        showPassengerSelector();
-                      },
-                        keyboardType: TextInputType.emailAddress,
-                        readOnly: true,
-                        decoration: InputDecoration(
-                          labelText: "select_passenger".tr,
-                        )),
-                    addVerticalSpace(flyternSpaceMedium),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "enter_prefix".tr,
-                              )),
-                        ),
-                        addHorizontalSpace(flyternSpaceMedium),
-                        Expanded(
-                          flex: 1,
-                          child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "select_gender".tr,
-                              )),
-                        ),
-                      ],
-                    ),
-                    addVerticalSpace(flyternSpaceMedium),
+                  TextFormField(
+                    onTap: (){
+                      showPassengerSelector();
+                    },
+                      keyboardType: TextInputType.emailAddress,
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        labelText: "select_passenger".tr,
+                      )),
+                  addVerticalSpace(flyternSpaceMedium),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: "enter_prefix".tr,
+                            )),
+                      ),
+                      addHorizontalSpace(flyternSpaceMedium),
+                      Expanded(
+                        flex: 1,
+                        child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: "select_gender".tr,
+                            )),
+                      ),
+                    ],
+                  ),
+                  addVerticalSpace(flyternSpaceMedium),
 
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "enter_firstname".tr,
-                              )),
-                        ),
-                        addHorizontalSpace(flyternSpaceMedium),
-                        Expanded(
-                          flex: 1,
-                          child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "enter_lastname".tr,
-                              )),
-                        ),
-                      ],
-                    ),
-                    addVerticalSpace(flyternSpaceMedium),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: "enter_firstname".tr,
+                            )),
+                      ),
+                      addHorizontalSpace(flyternSpaceMedium),
+                      Expanded(
+                        flex: 1,
+                        child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: "enter_lastname".tr,
+                            )),
+                      ),
+                    ],
+                  ),
+                  addVerticalSpace(flyternSpaceMedium),
 
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "enter_dob".tr,
-                              )),
-                        ),
-                        addHorizontalSpace(flyternSpaceMedium),
-                        Expanded(
-                          flex: 1,
-                          child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "enter_nationality".tr,
-                              )),
-                        ),
-                      ],
-                    ),
-                    addVerticalSpace(flyternSpaceMedium),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: "enter_dob".tr,
+                            )),
+                      ),
+                      addHorizontalSpace(flyternSpaceMedium),
+                      Expanded(
+                        flex: 1,
+                        child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: "enter_nationality".tr,
+                            )),
+                      ),
+                    ],
+                  ),
+                  addVerticalSpace(flyternSpaceMedium),
 
-                    TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          labelText: "enter_passport".tr,
-                        )),
-                    addVerticalSpace(flyternSpaceMedium),
-                    TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          labelText: "enter_frequent_flyer".tr,
-                        )),
-                    addVerticalSpace(flyternSpaceLarge),
-                  ],
-                ),
+                  TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        labelText: "enter_passport".tr,
+                      )),
+                  addVerticalSpace(flyternSpaceMedium),
+                  TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        labelText: "enter_frequent_flyer".tr,
+                      )),
+                  addVerticalSpace(flyternSpaceLarge),
+                ],
               ),
             ),
             Container(
@@ -153,108 +150,105 @@ class _FlightUserDetailsSubmissionPageState extends State<FlightUserDetailsSubmi
             Container(
               padding: flyternLargePaddingHorizontal,
               color: flyternBackgroundWhite,
-              child: Theme(
-                data: getThemeData('light', Get.deviceLocale?.languageCode ?? 'en').copyWith(dividerColor: Colors.transparent),
-                child: ExpansionTile(
+              child: ExpansionTile(
 
-                  tilePadding: EdgeInsets.zero,
-                  controller: controller2,
-                  title:   Text('child'.tr),
-                  children: <Widget>[
+                tilePadding: EdgeInsets.zero,
+                controller: controller2,
+                title:   Text('child'.tr),
+                children: <Widget>[
 
-                    TextFormField(
-                      onTap: (){
-                        showPassengerSelector();
-                      },
-                        keyboardType: TextInputType.emailAddress,
-                        readOnly: true,
-                        decoration: InputDecoration(
-                          labelText: "select_passenger".tr,
-                        )),
-                    addVerticalSpace(flyternSpaceMedium),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "enter_prefix".tr,
-                              )),
-                        ),
-                        addHorizontalSpace(flyternSpaceMedium),
-                        Expanded(
-                          flex: 1,
-                          child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "select_gender".tr,
-                              )),
-                        ),
-                      ],
-                    ),
-                    addVerticalSpace(flyternSpaceMedium),
+                  TextFormField(
+                    onTap: (){
+                      showPassengerSelector();
+                    },
+                      keyboardType: TextInputType.emailAddress,
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        labelText: "select_passenger".tr,
+                      )),
+                  addVerticalSpace(flyternSpaceMedium),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: "enter_prefix".tr,
+                            )),
+                      ),
+                      addHorizontalSpace(flyternSpaceMedium),
+                      Expanded(
+                        flex: 1,
+                        child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: "select_gender".tr,
+                            )),
+                      ),
+                    ],
+                  ),
+                  addVerticalSpace(flyternSpaceMedium),
 
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "enter_firstname".tr,
-                              )),
-                        ),
-                        addHorizontalSpace(flyternSpaceMedium),
-                        Expanded(
-                          flex: 1,
-                          child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "enter_lastname".tr,
-                              )),
-                        ),
-                      ],
-                    ),
-                    addVerticalSpace(flyternSpaceMedium),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: "enter_firstname".tr,
+                            )),
+                      ),
+                      addHorizontalSpace(flyternSpaceMedium),
+                      Expanded(
+                        flex: 1,
+                        child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: "enter_lastname".tr,
+                            )),
+                      ),
+                    ],
+                  ),
+                  addVerticalSpace(flyternSpaceMedium),
 
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "enter_dob".tr,
-                              )),
-                        ),
-                        addHorizontalSpace(flyternSpaceMedium),
-                        Expanded(
-                          flex: 1,
-                          child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "enter_nationality".tr,
-                              )),
-                        ),
-                      ],
-                    ),
-                    addVerticalSpace(flyternSpaceMedium),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: "enter_dob".tr,
+                            )),
+                      ),
+                      addHorizontalSpace(flyternSpaceMedium),
+                      Expanded(
+                        flex: 1,
+                        child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: "enter_nationality".tr,
+                            )),
+                      ),
+                    ],
+                  ),
+                  addVerticalSpace(flyternSpaceMedium),
 
-                    TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          labelText: "enter_passport".tr,
-                        )),
-                    addVerticalSpace(flyternSpaceMedium),
-                    TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          labelText: "enter_frequent_flyer".tr,
-                        )),
-                    addVerticalSpace(flyternSpaceLarge),
-                  ],
-                ),
+                  TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        labelText: "enter_passport".tr,
+                      )),
+                  addVerticalSpace(flyternSpaceMedium),
+                  TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        labelText: "enter_frequent_flyer".tr,
+                      )),
+                  addVerticalSpace(flyternSpaceLarge),
+                ],
               ),
             ),
 
