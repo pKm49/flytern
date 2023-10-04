@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_addon_services_item_card.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_addon_service_card.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_itinerary_card.dart';
-import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
+  import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
-import 'package:flytern/shared/services/utility-services/widget_generator.dart';
-import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+ import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
 
 class FlightAddonServicesPage extends StatefulWidget {
@@ -90,7 +87,7 @@ class _FlightAddonServicesPageState extends State<FlightAddonServicesPage> {
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
-                  Get.toNamed(Approute_flightsUserDetailsSubmission);
+                   Get.toNamed(Approute_flightsUserDetailsSubmission);
                 },
                 child:Text("next".tr )),
           ),
@@ -98,4 +95,5 @@ class _FlightAddonServicesPageState extends State<FlightAddonServicesPage> {
       ),
     );
   }
+
 }
