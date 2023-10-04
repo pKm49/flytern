@@ -180,6 +180,8 @@
       "book_now": "Book Now",
       "user_details": "User Details",
       "get_voucher": "Get Your Voucher",
+      "select": "Select",
+      "hotel_details": "Hotel Details",
 
       "lorem_ipsum_description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "price": "Price",
@@ -329,7 +331,6 @@
       "read_less": "Read Less",
       "pick_your_presentation": "Pick your presentation",
       "options": "Options",
-      "select": "Select",
       "quantity": "Quantity",
       "maximum_quantity": "Max",
       "minimum_quantity": "Min",
@@ -591,6 +592,8 @@
       "book_now": "احجز الآن",
       "user_details": "بيانات المستخدم",
       "get_voucher": "احصل على قسيمتك",
+      "select": "اختر",
+      "hotel_details": "تفاصيل الفندق",
 
       "lorem_ipsum_description": "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة، ولكن بفضل هؤلاء الأشخاص الذين لا يدركون بأن السعادة لا بد أن نستشعرها بصورة أكثر عقلانية ومنطقية فيعرضهم هذا لمواجهة الظروف الأليمة، وأكرر بأنه لا يوجد من يرغب في الحب ونيل المنال ويتلذذ بالآلام، الألم هو الألم ولكن نتيجة لظروف ما قد تكمن السعاده فيما نتحمله من كد وأسي.",
       "price": "سعر",
@@ -743,7 +746,7 @@
 
       "pick_your_presentation": "اختر العرض",
       "options": "الخيارات",
-      "select": "اختر",
+
       "quantity": "الكمية",
       "maximum_quantity": "الحد الاقصى",
       "minimum_quantity": "الحد الأدنى",
