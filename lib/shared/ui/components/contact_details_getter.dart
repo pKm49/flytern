@@ -8,7 +8,10 @@ import 'package:flytern/shared/services/utility-services/widget_properties_gener
 import 'package:get/get.dart';
 
 class ContactDetailsGetter extends StatefulWidget {
-  const ContactDetailsGetter({super.key});
+
+  String route;
+
+    ContactDetailsGetter({super.key, required this.route});
 
   @override
   State<ContactDetailsGetter> createState() => _ContactDetailsGetterState();
@@ -85,7 +88,7 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: ()   {
-
+                  Get.toNamed(route);
                 }, child: Text("continue_as".tr+" "+"guest_user".tr)),
           ),
           addVerticalSpace(flyternSpaceLarge),
