@@ -87,7 +87,10 @@ class _FlightAddonServicesPageState extends State<FlightAddonServicesPage> {
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
-                   Get.toNamed(Approute_flightsUserDetailsSubmission);
+                   Get.toNamed(Approute_userDetailsSubmission,
+                       arguments: [
+                         {"routeName": Approute_flightsSummary}
+                       ]);
                 },
                 child:Text("next".tr )),
           ),
