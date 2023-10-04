@@ -24,3 +24,10 @@
   const String Approute_flightsUserDetailsSubmission = '/flights-userdetails-submission';
   const String Approute_flightsSummary = '/flights-summary';
   const String Approute_flightsConfirmation = '/flights-confirmation';
+
+  //hotel booking
+  const String Approute_hotelsSearchResult = '/hotels-search-result';
+  const String Approute_hotelsDetails = '/hotels-details';
+  const String Approute_hotelsUserDetailsSubmission = '/hotels-userdetails-submission';
+  const String Approute_hotelsSummary = '/hotels-summary';
+  const String Approute_hotelsConfirmation = '/hotels-confirmation';
