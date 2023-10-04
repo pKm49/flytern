@@ -563,7 +563,9 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
         backgroundColor: Colors.transparent,
         context: context,
         builder: (context) {
-          return BookingOptionsSelector();
+          return BookingOptionsSelector(
+            bookingServiceNumber: 1,
+          );
         });
 
   }
