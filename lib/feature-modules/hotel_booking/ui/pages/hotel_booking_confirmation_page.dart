@@ -243,7 +243,7 @@ class _HotelBookingConfirmationPageState extends State<HotelBookingConfirmationP
                 onPressed: () {
                   Get.offAllNamed(Approute_landingpage);
                 },
-                child:Text("get_eticket".tr )),
+                child:Text("get_voucher".tr )),
           ),
         ),
       ),
