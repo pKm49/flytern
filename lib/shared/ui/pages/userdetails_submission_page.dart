@@ -10,6 +10,7 @@ import 'package:flytern/shared/ui/components/sort_option_selector.dart';
 import 'package:get/get.dart';
 
 class UserDetailsSubmissionPage extends StatefulWidget {
+
   const UserDetailsSubmissionPage({super.key});
 
   @override
@@ -20,6 +21,17 @@ class _UserDetailsSubmissionPageState extends State<UserDetailsSubmissionPage> {
 
   final ExpansionTileController controller = ExpansionTileController();
   final ExpansionTileController controller2 = ExpansionTileController();
+  dynamic argumentData = Get.arguments;
+
+  String routeName = Approute_flightsSummary;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    routeName = argumentData[0]['routeName'];
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -303,7 +315,7 @@ class _UserDetailsSubmissionPageState extends State<UserDetailsSubmissionPage> {
       isScrollControlled: true,
       context: context,
       builder: (context) {
-        return ContactDetailsGetter(route: Approute_flightsSummary);
+        return ContactDetailsGetter(route: routeName);
       });
 }
 }
