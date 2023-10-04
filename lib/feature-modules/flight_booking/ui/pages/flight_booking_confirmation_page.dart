@@ -309,7 +309,7 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
-                  Get.toNamed(Approute_flightsConfirmation);
+                  Get.offAllNamed(Approute_landingpage);
                 },
                 child:Text("get_eticket".tr )),
           ),
