@@ -15,16 +15,19 @@ class SelectableTilePill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: flyternSmallPaddingAll,
-      decoration: BoxDecoration(
-        color: isSelected?themeNumber==1?flyternPrimaryColor:flyternSecondaryColor: flyternBackgroundWhite,
-        border: Border.all(color: isSelected?themeNumber==1?flyternPrimaryColor:flyternSecondaryColor: flyternGrey60
-            , width: .2),
-        borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        padding: flyternSmallPaddingAll,
+        decoration: BoxDecoration(
+          color: isSelected?themeNumber==1?flyternPrimaryColor:flyternSecondaryColor: flyternBackgroundWhite,
+          border: Border.all(color: isSelected?themeNumber==1?flyternPrimaryColor:flyternSecondaryColor: flyternGrey60
+              , width: .2),
+          borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
+        ),
+        child: Text(label,style: getBodyMediumStyle(context).copyWith(color:
+        isSelected? flyternBackgroundWhite:flyternGrey60 )),
       ),
-      child: Text(label,style: getBodyMediumStyle(context).copyWith(color:
-      isSelected? flyternBackgroundWhite:flyternGrey60 )),
     );
   }
 
