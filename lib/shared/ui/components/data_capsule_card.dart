@@ -3,11 +3,11 @@ import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 
-class FlightDataCapsuleCard extends StatelessWidget {
+class DataCapsuleCard extends StatelessWidget {
   String label;
   int theme;
 
-    FlightDataCapsuleCard({super.key, required this.label,required this.theme});
+    DataCapsuleCard({super.key, required this.label,required this.theme});
 
   @override
   Widget build(BuildContext context) {
