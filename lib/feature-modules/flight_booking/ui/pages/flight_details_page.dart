@@ -37,7 +37,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
             Padding(
               padding: flyternLargePaddingAll,
               child: Text("itinerary".tr,
-                  style: getHeadlineMediumStyle(context).copyWith(
+                  style: getBodyMediumStyle(context).copyWith(
                       color: flyternGrey80, fontWeight: flyternFontWeightBold)),
             ),
             FlightDetailsItineraryCard(),
@@ -46,7 +46,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
             Padding(
               padding: flyternLargePaddingAll,
               child: Text("baggage".tr,
-                  style: getHeadlineMediumStyle(context).copyWith(
+                  style: getBodyMediumStyle(context).copyWith(
                       color: flyternGrey80, fontWeight: flyternFontWeightBold)),
             ),
             FlightDetailsAddonServiceCard(
@@ -74,7 +74,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
             Padding(
               padding: flyternLargePaddingAll,
               child: Text("fare_rule".tr,
-                  style: getHeadlineMediumStyle(context).copyWith(
+                  style: getBodyMediumStyle(context).copyWith(
                       color: flyternGrey80, fontWeight: flyternFontWeightBold)),
             ),
             FlightDetailsAddonServiceCard(
@@ -95,7 +95,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
             Padding(
               padding: flyternLargePaddingAll,
               child: Text("price_details".tr,
-                  style: getHeadlineMediumStyle(context).copyWith(
+                  style: getBodyMediumStyle(context).copyWith(
                       color: flyternGrey80, fontWeight: flyternFontWeightBold)),
             ),
             FlightDetailsAddonServiceCard(
