@@ -19,22 +19,7 @@ class HotelSearchResultPage extends StatefulWidget {
 
 class _HotelSearchResultPageState extends State<HotelSearchResultPage> with SingleTickerProviderStateMixin{
 
-  late TabController tabController;
-  bool isModifySearchVisible =false;
-  int selectedTab = 1;
-  int multicityCount = 1;
-  @override
-  void initState() {
-    super.initState();
-    tabController = TabController(vsync: this, length: 3, initialIndex: 0);
-  }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    tabController.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,25 +38,11 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage> with Sing
         height: screenheight,
         child: Column(
           children: [
-            addVerticalSpace(flyternSpaceMedium),
-            Visibility(
-              visible: !isModifySearchVisible,
-              child: Container(
-                padding: flyternMediumPaddingHorizontal,
-                child: Text('KWI-DXB - 04-06 July, 23 - Round Trip - 1 Adults 1 Child',
-                    textAlign: TextAlign.start,
-                    style: getLabelLargeStyle(context).copyWith(
-                        fontWeight: flyternFontWeightLight,color: flyternGrey40)),
-              ),
-            ),
-            Visibility(
-                visible: !isModifySearchVisible,child: addVerticalSpace(flyternSpaceSmall)),
-            Visibility(
-                visible: !isModifySearchVisible,child: Divider()),
-            Visibility(
-                visible: !isModifySearchVisible,child: addVerticalSpace(flyternSpaceSmall)),
             Container(
-              padding: flyternMediumPaddingHorizontal,
+              padding: flyternMediumPaddingAll,
+              decoration: BoxDecoration(
+                border: flyternDefaultBorderBottomOnly
+              ),
               child:  Row(
                 children: [
                   Expanded(
@@ -121,84 +92,19 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage> with Sing
                 ],
               ),
             ),
-            addVerticalSpace(flyternSpaceSmall),
-            Divider(),
             Container(
-              padding: flyternMediumPaddingHorizontal,
-              decoration: BoxDecoration(
-                border: flyternDefaultBorderBottomOnly
-              ),
-              child:  TabBar(
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  indicatorPadding: EdgeInsets.zero,
-                  labelPadding: flyternSmallPaddingAll,
-                  // indicator: new BubbleTabIndicator(
-                  //   indicatorHeight: 30.0,
-                  //   indicatorColor: AppColors.PrimaryColor,
-                  //   tabBarIndicatorSize: TabBarIndicatorSize.tab,
-                  // ),
-                  indicatorColor: flyternSecondaryColor,
-                  indicatorWeight: 2,
-                  padding: EdgeInsets.zero,
-                  controller: tabController,
-                  labelColor: flyternSecondaryColor,
-                  labelStyle: TextStyle(color:flyternPrimaryColor,fontWeight: FontWeight.bold ),
-                  unselectedLabelColor: flyternGrey20,
-                  tabs: <Container>[
-                      Container(
-                      padding:flyternExtraSmallPaddingVertical,
-                      child: Wrap(
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        direction: Axis.vertical,
-                        spacing: flyternSpaceExtraSmall,
-                        children: [
-                          Text("Tue July 4, 2023",style: getLabelLargeStyle(context).copyWith(
-                            color: tabController.index == 0?flyternSecondaryColor:flyternGrey40
-                          )),
-                          Text("AED 15,000",style: getBodyMediumStyle(context).copyWith(
-                              fontWeight: flyternFontWeightBold,
-                          color: tabController.index == 0?flyternSecondaryColor:flyternGrey40),),
-                        ],
-                      ),
-                    ),
-                      Container(
-                      padding:flyternExtraSmallPaddingVertical,
-                      child: Wrap(
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        direction: Axis.vertical,
-                        spacing: flyternSpaceExtraSmall,
-                        children: [
-                          Text("Wed July 5, 2023",style: getLabelLargeStyle(context).copyWith(
-                            color: tabController.index == 1?flyternSecondaryColor:flyternGrey40
-                          )),
-                          Text("AED 15,000",style: getBodyMediumStyle(context).copyWith(
-                              fontWeight: flyternFontWeightBold,
-                          color: tabController.index == 1?flyternSecondaryColor:flyternGrey40),),
-                        ],
-                      ),
-                    ),
-                      Container(
-                      padding:flyternExtraSmallPaddingVertical,
-                      child: Wrap(
-                        direction: Axis.vertical,
-                        spacing: flyternSpaceExtraSmall,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          Text("Thu July 6, 2023",style: getLabelLargeStyle(context).copyWith(
-                            color: tabController.index == 2?flyternSecondaryColor:flyternGrey40
-                          )),
-                          Text("AED 15,000",style: getBodyMediumStyle(context).copyWith(
-                              fontWeight: flyternFontWeightBold,
-                          color: tabController.index == 2?flyternSecondaryColor:flyternGrey40),),
-                        ],
-                      ),
-                    ),
-                  ])
+              color: flyternGrey10,
+              padding: flyternMediumPaddingAll,
+              width: screenwidth,
+              child: Text('Dubai - 04-06 July, 23 - Round Trip - 1 Adults 1 Child',
+                  textAlign: TextAlign.start,
+                  style: getLabelLargeStyle(context).copyWith(
+                      fontWeight: flyternFontWeightLight,color: flyternGrey40)),
             ),
 
             Expanded(child:
             Container(
-              color: flyternGrey10,
+              color: flyternBackgroundWhite,
               child: ListView(
                 children: [
                   addVerticalSpace(flyternSpaceLarge),
