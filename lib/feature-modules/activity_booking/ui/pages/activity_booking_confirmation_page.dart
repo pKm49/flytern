@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/components/activity_list_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_airport_lable_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_summary_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_summary_passenger_details_card.dart';
@@ -44,14 +45,21 @@ class _ActivityBookingConfirmationPageState extends State<ActivityBookingConfirm
           children: [
             Padding(
               padding: flyternLargePaddingAll,
-              child: Text("hotel_details".tr,
+              child: Text("activity_details".tr,
                   style: getBodyMediumStyle(context).copyWith(
                       color: flyternGrey80, fontWeight: flyternFontWeightBold)),
             ),
             Container(
-                padding: flyternLargePaddingVertical,
-                color: flyternBackgroundWhite,
-                child: HotelSearchResultCard()),
+              color: flyternBackgroundWhite,
+              child: ActivityListCard(
+                imageUrl: ASSETS_PACKAGE_1_SAMPLE,
+                title: 'Shrek\'s Adventure',
+                flightName: 'Ticket (PP)',
+                hotelName: 'The Bank Hotel',
+                sponsoredBy: 'Central London',
+                price: 15000,
+              ),),
+
             Padding(
               padding: flyternLargePaddingAll,
               child: Text("booking_details".tr,
@@ -98,23 +106,7 @@ class _ActivityBookingConfirmationPageState extends State<ActivityBookingConfirm
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("room".tr+" 1",style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("AED 10,000",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("room".tr+" 2",style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text("ticket_price".tr ,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
                   Text("AED 10,000",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
@@ -197,32 +189,6 @@ class _ActivityBookingConfirmationPageState extends State<ActivityBookingConfirm
             ),
 
 
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("passengers".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-
-            FlightBookingSummaryPassengerDetailsCard(
-              title: "adult".tr,
-              name: "Andrew Martin",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
-            ),
-
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal,
-              child: Divider(),
-            ),
-            FlightBookingSummaryPassengerDetailsCard(
-              title: "child".tr,
-              name: "Martin Andrew",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
-            ),
-
 
             Container(
               height: 70+(flyternSpaceSmall*2),
@@ -243,7 +209,7 @@ class _ActivityBookingConfirmationPageState extends State<ActivityBookingConfirm
                 onPressed: () {
                   Get.offAllNamed(Approute_landingpage);
                 },
-                child:Text("get_voucher".tr )),
+                child:Text("get_eticket".tr )),
           ),
         ),
       ),
