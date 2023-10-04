@@ -126,7 +126,7 @@ ThemeData getThemeData( String type, String locale) {
         titleTextStyle:TextStyle(
             fontWeight: flyternFontWeightBold,
             fontSize:locale=='en'?
-            flyternFontSize24:flyternFontSize20,
+            flyternFontSize20:flyternFontSize20,
             fontFamily: locale == 'en'
           ? flyternDefaultFontFamilyEnglish
           : flyternDefaultFontFamilyArabic,
@@ -201,7 +201,7 @@ ThemeData getThemeData( String type, String locale) {
         titleTextStyle:TextStyle(
             fontWeight: flyternFontWeightBold,
             fontSize:locale=='en'?
-            flyternFontSize24:flyternFontSize20,
+            flyternFontSize20:flyternFontSize20,
             fontFamily: locale == 'en'
                 ? flyternDefaultFontFamilyEnglish
                 : flyternDefaultFontFamilyArabic,
