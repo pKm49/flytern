@@ -275,7 +275,17 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
         backgroundColor: Colors.transparent,
         context: context,
         builder: (context) {
-          return FilterOptionSelector();
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setModalState /*You can rename this!*/) {
+                return FilterOptionSelector(
+                    setModalState:(){
+                      print('modalState Changed');
+                      setModalState(() {
+
+                      });
+                    }
+                );
+              });
         });
 
   }

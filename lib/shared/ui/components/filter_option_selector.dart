@@ -7,7 +7,10 @@ import 'package:flytern/shared/ui/components/selectable_text_pill.dart';
 import 'package:get/get.dart';
 
 class FilterOptionSelector extends StatefulWidget {
-  const FilterOptionSelector({super.key});
+
+  final GestureTapCallback setModalState;
+
+  FilterOptionSelector({super.key, required this.setModalState});
 
   @override
   State<FilterOptionSelector> createState() => _FilterOptionSelectorState();
@@ -235,9 +238,11 @@ class _FilterOptionSelectorState extends State<FilterOptionSelector> {
                                     }else{
                                       selectedDepartureDates.add(i);
                                     }
-                                    setState(() {
+                                    print('SelectableTilePill modalState Changed');
 
+                                    setState(() {
                                     });
+                                   widget.setModalState();
                                   },
                                   label: '$i:00PM',
                                   isSelected: selectedDepartureDates.contains(i),
@@ -272,9 +277,12 @@ class _FilterOptionSelectorState extends State<FilterOptionSelector> {
                                       }else{
                                         selectedArrivalDates.add(i);
                                       }
-                                      setState(() {
 
+                                      print('SelectableTilePill modalState Changed');
+
+                                      setState(() {
                                       });
+                                      widget.setModalState();
                                     },
                                     label: '$i:00PM',
                                     isSelected: selectedArrivalDates.contains(i),
