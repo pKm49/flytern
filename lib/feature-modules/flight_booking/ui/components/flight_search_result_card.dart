@@ -108,6 +108,12 @@ class FlightSearchResultCard extends StatelessWidget {
               Expanded(child: Container()),
               Expanded(
                 child: ElevatedButton(
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        EdgeInsets.symmetric(
+                            horizontal: flyternSpaceLarge,
+                            vertical: flyternSpaceSmall)),
+                  ),
                     onPressed: ()   {
                     }, child: Text("select".tr)),
               ),
