@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -55,7 +56,11 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                     addVerticalSpace(flyternSpaceExtraSmall),
                     Text("martin@gmail.com",style: getLabelLargeStyle(context).copyWith(color: flyternGrey40),),
                     addVerticalSpace(flyternSpaceSmall*1.5),
-                    Text("view_profile".tr,style: getBodyMediumStyle(context).copyWith(color: flyternPrimaryColor,decoration: TextDecoration.underline)),
+                    InkWell(
+                        onTap: (){
+                          Get.toNamed(Approute_profileViewProfile);
+                        },
+                        child: Text("view_profile".tr,style: getBodyMediumStyle(context).copyWith(color: flyternPrimaryColor,decoration: TextDecoration.underline))),
 
                   ],
                 ))
@@ -72,7 +77,10 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                   width: double.infinity,
                   child: PrePostIconButton(
                     specialColor: 0,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(Approute_profileMyBookings);
+
+                    },
                     theme: 'dark',
                     border: 'bottom',
                     buttonTitle: "my_bookings".tr,
@@ -85,7 +93,10 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                   width: double.infinity,
                   child: PrePostIconButton(
                     specialColor: 0,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(Approute_profileMyTravelStories);
+
+                    },
                     theme: 'dark',
                     border: 'bottom',
                     buttonTitle: "my_travel_stories".tr,
@@ -98,7 +109,10 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                   width: double.infinity,
                   child: PrePostIconButton(
                     specialColor: 0,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(Approute_profileEditProfile);
+
+                    },
                     theme: 'dark',
                     border: 'bottom',
                     buttonTitle: "edit_profile".tr,
@@ -111,7 +125,10 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                   width: double.infinity,
                   child: PrePostIconButton(
                     specialColor: 0,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(Approute_profileResetPassword);
+
+                    },
                     theme: 'dark',
                     border: '',
                     buttonTitle: "change_password".tr,
