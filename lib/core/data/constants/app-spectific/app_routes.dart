@@ -13,8 +13,7 @@ import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_baggage_s
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_booking_confirmation_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_booking_summary_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_details_page.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_eticket_page.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_meal_selection_page.dart';
+ import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_meal_selection_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_search_results_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_seat_selection_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_userdetails_submission_page.dart';
