@@ -6,7 +6,11 @@ import 'package:flytern/shared/services/utility-services/widget_properties_gener
 import 'package:get/get.dart';
 
 class SortOptionSelector extends StatefulWidget {
-  const SortOptionSelector({super.key});
+
+  String title;
+  List<String> values;
+
+    SortOptionSelector({super.key, required this.title, required this.values});
 
   @override
   State<SortOptionSelector> createState() => _SortOptionSelectorState();
@@ -39,7 +43,7 @@ class _SortOptionSelectorState extends State<SortOptionSelector> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("sort_by".tr,
+                        Text(widget.title,
                             style: getHeadlineMediumStyle(context).copyWith(
                                 color: flyternGrey80,
                                 fontWeight: flyternFontWeightBold),
@@ -61,7 +65,7 @@ class _SortOptionSelectorState extends State<SortOptionSelector> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
 
-                        Text("price".tr,
+                        Text(widget.values.length>0?widget.values[0]:'',
                             style: getBodyMediumStyle(context)
                                 .copyWith(color: flyternGrey80)),
                         Radio(
@@ -85,7 +89,7 @@ class _SortOptionSelectorState extends State<SortOptionSelector> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
 
-                        Text("airline".tr,
+                        Text(widget.values.length>1?widget.values[1]:'',
                             style: getBodyMediumStyle(context)
                                 .copyWith(color: flyternGrey80)),
                         Radio(
