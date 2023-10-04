@@ -267,7 +267,10 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
         backgroundColor: Colors.transparent,
         context: context,
         builder: (context) {
-          return SortOptionSelector();
+          return SortOptionSelector(
+            title: "sort_by".tr,
+            values: ["airline".tr,"price".tr],
+          );
         });
 
   }
