@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_form.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type_tab.dart';
+import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -284,7 +285,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: ()   {
-
+                        Get.toNamed(Approute_hotelsSearchResult);
                       }, child: Text("search_hotels".tr )),
                 ),
 
