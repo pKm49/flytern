@@ -1,6 +1,9 @@
 
 import 'package:flytern/core/ui/pages/landing_page.dart';
 import 'package:flytern/core/ui/pages/language_selector.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_confirmation_page.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_summary_page.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_details_page.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/auth_selector.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/login.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/register/register_details_input.dart';
@@ -167,6 +170,28 @@ getAppRoutes() => [
   GetPage(
     name: Approute_packagesUserDetailsSubmission,
     page: () => const PackageUserDetailsSubmissionPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+
+
+//  activities Booking
+
+  GetPage(
+    name: Approute_activitiesDetails,
+    page: () => const ActivityDetailsPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_activitiesSummary,
+    page: () => const ActivityBookingSummaryPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_activitiesConfirmation,
+    page: () => const ActivityBookingConfirmationPage(),
     middlewares: [MyMiddelware()],
   ),
 
