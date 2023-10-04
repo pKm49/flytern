@@ -140,7 +140,7 @@ ThemeData getThemeData( String type, String locale) {
         //         bottomRight: Radius.circular(flyternSpaceLarge*2.5))
         // ),
         centerTitle: false,
-        elevation: 0.5),
+        elevation: 0.0),
         )
       : ThemeData(
         scaffoldBackgroundColor: flyternBackgroundWhite,
@@ -215,6 +215,6 @@ ThemeData getThemeData( String type, String locale) {
         //         bottomRight: Radius.circular(flyternSpaceLarge*2.5))
         // ),
         centerTitle: false,
-        elevation: 0.5),
+        elevation: 0.0),
         );
 }
