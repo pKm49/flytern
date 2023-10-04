@@ -19,6 +19,7 @@
   const String Approute_flightsDetails = '/flights-details';
   const String Approute_flightsAddonServices = '/flights-addon-services';
   const String Approute_flightsSeatSelection = '/flights-seat-selection';
+  const String Approute_flightsMealSelection = '/flights-meal-selection';
   const String Approute_flightsBaggageSelection = '/flights-baggage-selection';
   const String Approute_flightsUserDetailsSubmission = '/flights-userdetails-submission';
   const String Approute_flightsSummary = '/flights-summary';
