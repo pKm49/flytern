@@ -16,7 +16,7 @@ import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_details_p
  import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_meal_selection_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_search_results_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_seat_selection_page.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_userdetails_submission_page.dart';
+import 'package:flytern/shared/ui/pages/userdetails_submission_page.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:get/get.dart';
 
@@ -108,7 +108,7 @@ getAppRoutes() => [
 
   GetPage(
     name: Approute_flightsUserDetailsSubmission,
-    page: () => const FlightUserDetailsSubmissionPage(),
+    page: () => const UserDetailsSubmissionPage(),
     middlewares: [MyMiddelware()],
   ),
 
