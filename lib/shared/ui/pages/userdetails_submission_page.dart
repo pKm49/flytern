@@ -41,7 +41,7 @@ class _UserDetailsSubmissionPageState extends State<UserDetailsSubmissionPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("passenger_details".tr),
+        title: Text("user_details".tr),
       ),
       body: Container(
         width: screenwidth,
@@ -298,7 +298,7 @@ class _UserDetailsSubmissionPageState extends State<UserDetailsSubmissionPage> {
         context: context,
         builder: (context) {
           return SortOptionSelector(
-            title: "select_passenger".tr,
+            title: "select_user".tr,
             values: ["John Murphy","Will Smith"],
           );
         });
