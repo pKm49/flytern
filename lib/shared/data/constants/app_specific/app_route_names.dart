@@ -42,3 +42,11 @@
   const String Approute_activitiesDetails = '/activities-details';
   const String Approute_activitiesSummary = '/activities-summary';
   const String Approute_activitiesConfirmation = '/activities-confirmation';
+
+  //profile
+  const String Approute_profileViewProfile = '/profile-view';
+  const String Approute_profileEditProfile = '/profile-edit';
+  const String Approute_profileResetPassword = '/profile-reset-password';
+  const String Approute_profileMyBookings = '/profile-my-bookings';
+  const String Approute_profileMyTravelStories = '/profile-my-travel-stories';
+  const String Approute_profileAuditCopassenger = '/profile-audit-copassenger';
