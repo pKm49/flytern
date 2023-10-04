@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_airport_lable_card.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/flight_options_selector.dart';
+import 'package:flytern/shared/ui/components/booking_options_selector.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -563,7 +563,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
         backgroundColor: Colors.transparent,
         context: context,
         builder: (context) {
-          return FlightOptionsSelector();
+          return BookingOptionsSelector();
         });
 
   }
