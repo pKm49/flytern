@@ -16,6 +16,10 @@ import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_details_p
  import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_meal_selection_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_search_results_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_seat_selection_page.dart';
+import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_booking_confirmation_page.dart';
+import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_booking_summary_page.dart';
+import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_details_page.dart';
+import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_search_results_page.dart';
 import 'package:flytern/shared/ui/pages/userdetails_submission_page.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:get/get.dart';
@@ -126,6 +130,30 @@ getAppRoutes() => [
     middlewares: [MyMiddelware()],
   ),
 
+//  Hotel Booking
+  GetPage(
+    name: Approute_hotelsSearchResult,
+    page: () => const HotelSearchResultPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_hotelsDetails,
+    page: () => const HotelDetailsPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_hotelsSummary,
+    page: () => const HotelBookingSummaryPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_hotelsConfirmation,
+    page: () => const HotelBookingConfirmationPage(),
+    middlewares: [MyMiddelware()],
+  ),
 ];
 
 class MyMiddelware extends GetMiddleware {
