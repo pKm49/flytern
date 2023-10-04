@@ -31,6 +31,9 @@
   //hotel booking
   const String Approute_hotelsSearchResult = '/hotels-search-result';
   const String Approute_hotelsDetails = '/hotels-details';
-  const String Approute_hotelsUserDetailsSubmission = '/hotels-userdetails-submission';
   const String Approute_hotelsSummary = '/hotels-summary';
   const String Approute_hotelsConfirmation = '/hotels-confirmation';
+
+  //packages enquiry
+  const String Approute_packagesDetails = '/packages-details';
+  const String Approute_packagesUserDetailsSubmission = '/packages-userdetails-submission';
