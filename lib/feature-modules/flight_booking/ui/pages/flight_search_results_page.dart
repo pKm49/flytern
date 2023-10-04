@@ -289,6 +289,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter setModalState /*You can rename this!*/) {
                 return FilterOptionSelector(
+                    bookingServiceNumber:1,
                     setModalState:(){
                       print('modalState Changed');
                       setModalState(() {

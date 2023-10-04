@@ -159,6 +159,7 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage> with Sing
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter setModalState /*You can rename this!*/) {
                 return FilterOptionSelector(
+                    bookingServiceNumber:2,
                     setModalState:(){
                       print('modalState Changed');
                       setModalState(() {
