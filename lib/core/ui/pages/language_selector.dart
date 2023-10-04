@@ -57,7 +57,7 @@ class CoreLanguageSelector extends StatelessWidget {
                           EdgeInsets.symmetric(
                               horizontal: flyternSpaceLarge, vertical: flyternSpaceMedium*.9)),
                   ),
-                  child:Text("كاملة باللغة العربية"  )),
+                  child:Text("اللغه العربيه"  )),
             ),
           ],
         ),
