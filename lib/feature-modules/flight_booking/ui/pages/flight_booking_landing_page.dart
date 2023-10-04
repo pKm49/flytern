@@ -68,9 +68,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                       width: screenwidth - (flyternSpaceLarge * 2),
                     ),
                     Container(
-                      height: screenheight * .675+   (
-                          (multicityCount-1)*230
-                      )+(selectedTab==3?65:0),
+                      height: screenheight * .675+((multicityCount-1)*230)+(selectedTab==3?65:0),
                       decoration: flyternShadowedContainerSmallDecoration,
                       width: screenwidth - (flyternSpaceLarge * 2),
                       padding: flyternMediumPaddingAll,
