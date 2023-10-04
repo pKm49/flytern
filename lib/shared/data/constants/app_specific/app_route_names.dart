@@ -11,6 +11,10 @@
   const String Approute_resetPasswordOtp = '$Approute_auth/reset-password-otp';
   const String Approute_resetPasswordNewpassword = '$Approute_auth/reset-password-new-password';
 
+  //common
+  const String Approute_userDetailsSubmission = '/booking-userdetails-submission';
+
+
   //landing page
   const String Approute_landingpage = '/landing-page';
 
@@ -21,7 +25,6 @@
   const String Approute_flightsSeatSelection = '/flights-seat-selection';
   const String Approute_flightsMealSelection = '/flights-meal-selection';
   const String Approute_flightsBaggageSelection = '/flights-baggage-selection';
-  const String Approute_flightsUserDetailsSubmission = '/flights-userdetails-submission';
   const String Approute_flightsSummary = '/flights-summary';
   const String Approute_flightsConfirmation = '/flights-confirmation';
 
