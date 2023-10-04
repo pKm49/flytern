@@ -8,7 +8,10 @@ class SelectableTilePill extends StatelessWidget {
   String label;
   bool isSelected;
   int themeNumber;
-  SelectableTilePill({super.key, required this.label, required this.isSelected, required this.themeNumber});
+  final GestureTapCallback onPressed;
+
+  SelectableTilePill({super.key, required this.label, required this.isSelected, required this.themeNumber,
+  required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
