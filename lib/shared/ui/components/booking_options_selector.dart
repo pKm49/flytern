@@ -7,14 +7,16 @@ import 'package:flytern/shared/services/utility-services/widget_properties_gener
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
-class FlightOptionsSelector extends StatefulWidget {
-  const FlightOptionsSelector({super.key});
+class BookingOptionsSelector extends StatefulWidget {
+
+  int bookingServiceNumber;
+  BookingOptionsSelector({super.key, required this.bookingServiceNumber});
 
   @override
-  State<FlightOptionsSelector> createState() => _FlightOptionsSelectorState();
+  State<BookingOptionsSelector> createState() => _BookingOptionsSelectorState();
 }
 
-class _FlightOptionsSelectorState extends State<FlightOptionsSelector> {
+class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
   int selectedCabinClass = 1;
 
   @override
