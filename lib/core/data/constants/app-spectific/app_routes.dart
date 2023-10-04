@@ -8,7 +8,16 @@ import 'package:flytern/feature-modules/auth/ui/pages/register/register_otp_inpu
 import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_credentials.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_new_password.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_otp.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_addon_services_page.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_baggage_selection_page.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_booking_confirmation_page.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_booking_summary_page.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_details_page.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_eticket_page.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_meal_selection_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_search_results_page.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_seat_selection_page.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_userdetails_submission_page.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:get/get.dart';
 
@@ -59,9 +68,66 @@ getAppRoutes() => [
     page: () => const CoreLandingPage(),
     middlewares: [MyMiddelware()],
   ),
+
+  // flight booking
+
   GetPage(
     name: Approute_flightsSearchResult,
     page: () => const FlightSearchResultPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_flightsDetails,
+    page: () => const FlightDetailsPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_flightsAddonServices,
+    page: () => const FlightAddonServicesPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_flightsSeatSelection,
+    page: () => const FlightSeatSelectionPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_flightsMealSelection,
+    page: () => const FlightMealSelectionPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_flightsBaggageSelection,
+    page: () => const FlightBaggageSelectionPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_flightsUserDetailsSubmission,
+    page: () => const FlightUserDetailsSubmissionPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_flightsSummary,
+    page: () => const FlightBookingSummaryPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_flightsConfirmation,
+    page: () => const FlightBookingConfirmationPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_flightsETicket,
+    page: () => const FlightETicketPage(),
     middlewares: [MyMiddelware()],
   ),
 ];
