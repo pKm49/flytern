@@ -79,7 +79,7 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
             color: flyternBackgroundWhite,
             padding: flyternLargePaddingVertical,
             child: DataCapsuleCard(
-              label: "Note : " + "one_piece_luggage".tr,
+              label: "Note : " + "notification_update_message".tr,
               theme: 2,
             ),
           ),
@@ -88,7 +88,7 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: ()   {
-                  Get.toNamed(route);
+                  Get.toNamed(widget.route);
                 }, child: Text("continue_as".tr+" "+"guest_user".tr)),
           ),
           addVerticalSpace(flyternSpaceLarge),
