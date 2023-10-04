@@ -26,7 +26,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
 
     return Container(
       width: screenwidth,
-      height: screenheight*.65,
+      height:   widget.bookingServiceNumber==1?(screenheight*.65):(screenheight*.5),
       padding: flyternSmallPaddingAll,
       child: Column(
         children: [
@@ -43,7 +43,8 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("select_options".tr,
+                        Text( widget.bookingServiceNumber==1? "select_options".tr:
+                        "select_users".tr,
                             style: getHeadlineMediumStyle(context).copyWith(
                                 color: flyternGrey80,
                                 fontWeight: flyternFontWeightBold),
@@ -58,12 +59,17 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                   ),
                   addVerticalSpace(flyternSpaceSmall),
                   Divider(),
-                  addVerticalSpace(flyternSpaceLarge),
-                  Padding(
-                    padding: flyternLargePaddingHorizontal,
-                    child: Text("passengers".tr,
-                        style: getBodyMediumStyle(context)
-                            .copyWith(fontWeight: flyternFontWeightBold)),
+                  Visibility(
+                      visible: widget.bookingServiceNumber==1,
+                      child: addVerticalSpace(flyternSpaceLarge)),
+                  Visibility(
+                    visible: widget.bookingServiceNumber==1,
+                    child: Padding(
+                      padding: flyternLargePaddingHorizontal,
+                      child: Text("passengers".tr,
+                          style: getBodyMediumStyle(context)
+                              .copyWith(fontWeight: flyternFontWeightBold)),
+                    ),
                   ),
                   addVerticalSpace(flyternSpaceLarge),
                   Padding(
@@ -182,66 +188,76 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                       ],
                     ),
                   ),
-                  addVerticalSpace(flyternSpaceExtraSmall),
-                  Padding(padding: flyternLargePaddingHorizontal, child: Divider()),
+                  Visibility(
+                      visible: widget.bookingServiceNumber==1,child: addVerticalSpace(flyternSpaceExtraSmall)),
+                  Visibility(
+                      visible: widget.bookingServiceNumber==1,
+                      child: Padding(padding: flyternLargePaddingHorizontal, child: Divider())),
                   addVerticalSpace(flyternSpaceLarge),
-                  Padding(
-                    padding: flyternLargePaddingHorizontal,
-                    child: Text("cabin_class".tr,
-                        style: getBodyMediumStyle(context)
-                            .copyWith(fontWeight: flyternFontWeightBold)),
+                  Visibility(
+                    visible: widget.bookingServiceNumber==1,
+                    child: Padding(
+                      padding: flyternLargePaddingHorizontal,
+                      child: Text("cabin_class".tr,
+                          style: getBodyMediumStyle(context)
+                              .copyWith(fontWeight: flyternFontWeightBold)),
+                    ),
                   ),
-                  addVerticalSpace(flyternSpaceMedium),
-                  Padding(
-                    padding: flyternLargePaddingHorizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                  Visibility(
+                      visible: widget.bookingServiceNumber==1,child: addVerticalSpace(flyternSpaceMedium)),
+                  Visibility(
+                    visible: widget.bookingServiceNumber==1,
+                    child: Padding(
+                      padding: flyternLargePaddingHorizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
 
-                        Expanded(
-                            flex: 1,
-                            child: Row(
-                              children: [
+                          Expanded(
+                              flex: 1,
+                              child: Row(
+                                children: [
 
-                                Text("economy".tr,
-                                    style: getBodyMediumStyle(context)
-                                        .copyWith(color: flyternGrey80)),
-                                Radio(
-                                  activeColor: flyternSecondaryColor,
-                                  value: 1,
-                                  groupValue: selectedCabinClass,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      print(value);
-                                      selectedCabinClass = value!;
-                                    });
-                                  },
-                                ),
-                              ],
-                            )),
-                        Expanded(
-                            flex: 1,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
+                                  Text("economy".tr,
+                                      style: getBodyMediumStyle(context)
+                                          .copyWith(color: flyternGrey80)),
+                                  Radio(
+                                    activeColor: flyternSecondaryColor,
+                                    value: 1,
+                                    groupValue: selectedCabinClass,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        print(value);
+                                        selectedCabinClass = value!;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              )),
+                          Expanded(
+                              flex: 1,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
 
-                                Text("business".tr,
-                                    style: getBodyMediumStyle(context)
-                                        .copyWith(color: flyternGrey80)),
-                                Radio(
-                                  activeColor: flyternSecondaryColor,
-                                  value: 2,
-                                  groupValue: selectedCabinClass,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      print(value);
-                                      selectedCabinClass = value!;
-                                    });
-                                  },
-                                ),
-                              ],
-                            )),
-                      ],
+                                  Text("business".tr,
+                                      style: getBodyMediumStyle(context)
+                                          .copyWith(color: flyternGrey80)),
+                                  Radio(
+                                    activeColor: flyternSecondaryColor,
+                                    value: 2,
+                                    groupValue: selectedCabinClass,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        print(value);
+                                        selectedCabinClass = value!;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              )),
+                        ],
+                      ),
                     ),
                   ),
                 ],
