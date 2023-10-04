@@ -12,7 +12,7 @@ class FlightDataCapsuleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: flyternExtraSmallPaddingAll,
+      padding: flyternSmallPaddingAll,
       decoration: BoxDecoration(
         color: theme==1?flyternPrimaryColorBg:flyternSecondaryColorBg,
         borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
