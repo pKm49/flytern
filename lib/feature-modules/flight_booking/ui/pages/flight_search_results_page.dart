@@ -66,16 +66,22 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
         child: Column(
           children: [
             addVerticalSpace(flyternSpaceMedium),
-            Container(
-              padding: flyternMediumPaddingHorizontal,
-              child: Text('KWI-DXB - 04-06 July, 23 - Round Trip - 1 Adults 1 Child',
-                  textAlign: TextAlign.start,
-                  style: getLabelLargeStyle(context).copyWith(
-                      fontWeight: flyternFontWeightLight,color: flyternGrey40)),
+            Visibility(
+              visible: !isModifySearchVisible,
+              child: Container(
+                padding: flyternMediumPaddingHorizontal,
+                child: Text('KWI-DXB - 04-06 July, 23 - Round Trip - 1 Adults 1 Child',
+                    textAlign: TextAlign.start,
+                    style: getLabelLargeStyle(context).copyWith(
+                        fontWeight: flyternFontWeightLight,color: flyternGrey40)),
+              ),
             ),
-            addVerticalSpace(flyternSpaceSmall),
-            Divider(),
-            addVerticalSpace(flyternSpaceSmall),
+            Visibility(
+                visible: !isModifySearchVisible,child: addVerticalSpace(flyternSpaceSmall)),
+            Visibility(
+                visible: !isModifySearchVisible,child: Divider()),
+            Visibility(
+                visible: !isModifySearchVisible,child: addVerticalSpace(flyternSpaceSmall)),
             Container(
               padding: flyternMediumPaddingHorizontal,
               child:  Row(
