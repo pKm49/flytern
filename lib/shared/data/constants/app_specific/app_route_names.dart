@@ -24,4 +24,3 @@
   const String Approute_flightsUserDetailsSubmission = '/flights-userdetails-submission';
   const String Approute_flightsSummary = '/flights-summary';
   const String Approute_flightsConfirmation = '/flights-confirmation';
-  const String Approute_flightsETicket = '/flights-eticket';
