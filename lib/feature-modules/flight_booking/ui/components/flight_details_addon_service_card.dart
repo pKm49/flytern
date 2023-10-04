@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_airport_lable_card.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/flight_data_capsule_card.dart';
+import 'package:flytern/shared/ui/components/data_capsule_card.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';

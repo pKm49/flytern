@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/flight_data_capsule_card.dart';
+import 'package:flytern/shared/ui/components/data_capsule_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_addon_service_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_itinerary_card.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
@@ -66,7 +66,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
             Container(
               color: flyternBackgroundWhite,
               padding: flyternLargePaddingAll.copyWith(top: 0),
-              child: FlightDataCapsuleCard(
+              child: DataCapsuleCard(
                 label: "Note : " + "one_piece_luggage".tr,
                 theme: 2,
               ),
