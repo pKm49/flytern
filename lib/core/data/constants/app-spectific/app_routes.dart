@@ -25,6 +25,13 @@ import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_details_pag
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_search_results_page.dart';
 import 'package:flytern/feature-modules/package_booking/ui/pages/package_details_page.dart';
 import 'package:flytern/feature-modules/package_booking/ui/pages/package_user_details_submission_page.dart';
+import 'package:flytern/feature-modules/profile/ui/pages/profile_audit_copassenger_page.dart';
+import 'package:flytern/feature-modules/profile/ui/pages/profile_edit_profile_page.dart';
+import 'package:flytern/feature-modules/profile/ui/pages/profile_my_bookings_page.dart';
+import 'package:flytern/feature-modules/profile/ui/pages/profile_my_travel_stories_page.dart';
+import 'package:flytern/feature-modules/profile/ui/pages/profile_new_travel_story_page.dart';
+import 'package:flytern/feature-modules/profile/ui/pages/profile_reset_password_page.dart';
+import 'package:flytern/feature-modules/profile/ui/pages/profile_view_profile_page.dart';
 import 'package:flytern/shared/ui/pages/userdetails_submission_page.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:get/get.dart';
@@ -192,6 +199,50 @@ getAppRoutes() => [
   GetPage(
     name: Approute_activitiesConfirmation,
     page: () => const ActivityBookingConfirmationPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  // profile pages
+
+  GetPage(
+    name: Approute_profileViewProfile,
+    page: () => const ProfileViewProfilePage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_profileEditProfile,
+    page: () => const ProfileEditProfilePage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_profileResetPassword,
+    page: () => const ProfileResetPasswordPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_profileMyBookings,
+    page: () => const ProfileMyBookingsPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_profileMyTravelStories,
+    page: () => const ProfileMyTravelStoriesPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_profileNewTravelStories,
+    page: () => const ProfileNewTravelStoryPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_profileAuditCopassenger,
+    page: () => const ProfileAuditCopassengerPage(),
     middlewares: [MyMiddelware()],
   ),
 
