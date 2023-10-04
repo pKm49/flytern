@@ -45,7 +45,9 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
     double screenheight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+
       appBar: AppBar(
+        elevation: 0.5,
         title: Text("search_results".tr),
         actions: [
           InkWell(
