@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_airport_lable_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_summary_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_summary_passenger_details_card.dart';
+import 'package:flytern/feature-modules/hotel_booking/ui/components/hote_search_result_card.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -43,21 +44,14 @@ class _HotelBookingConfirmationPageState extends State<HotelBookingConfirmationP
           children: [
             Padding(
               padding: flyternLargePaddingAll,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("flight_summary".tr,
-                      style: getBodyMediumStyle(context).copyWith(
-                          color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-                  Text("flight_details".tr,
-                      style: getBodyMediumStyle(context).copyWith(
-                          decoration: TextDecoration.underline,
-                          color: flyternTertiaryColor )),
-                ],
-              ),
+              child: Text("hotel_details".tr,
+                  style: getBodyMediumStyle(context).copyWith(
+                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
             ),
-            FlightBookingSummaryCard(),
-
+            Container(
+                padding: flyternLargePaddingVertical,
+                color: flyternBackgroundWhite,
+                child: HotelSearchResultCard()),
             Padding(
               padding: flyternLargePaddingAll,
               child: Text("booking_details".tr,
@@ -104,11 +98,12 @@ class _HotelBookingConfirmationPageState extends State<HotelBookingConfirmationP
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("ticket_price".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text("room".tr+" 1",style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
                   Text("AED 10,000",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
+
             Container(
                 padding: flyternLargePaddingHorizontal,
                 color:flyternBackgroundWhite,
@@ -119,26 +114,12 @@ class _HotelBookingConfirmationPageState extends State<HotelBookingConfirmationP
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("meal".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("AED 25",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text("room".tr+" 2",style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text("AED 10,000",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("baggage".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("AED 20",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
+
             Container(
                 padding: flyternLargePaddingHorizontal,
                 color:flyternBackgroundWhite,
@@ -242,55 +223,6 @@ class _HotelBookingConfirmationPageState extends State<HotelBookingConfirmationP
               mobile: "+92 334431234",
             ),
 
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("add_on_services".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("seats".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("15D",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("meal".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("Burger",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("baggage".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("23 Kg",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-
-            // Payment summary
 
             Container(
               height: 70+(flyternSpaceSmall*2),
