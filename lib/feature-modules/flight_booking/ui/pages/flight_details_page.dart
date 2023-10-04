@@ -152,7 +152,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
-                  Get.offAllNamed(Approute_flightsAddonServices);
+                  Get.toNamed(Approute_flightsAddonServices);
                 },
                 child:Text("next".tr )),
           ),
