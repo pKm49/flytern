@@ -20,6 +20,8 @@ import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_booking_con
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_booking_summary_page.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_details_page.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_search_results_page.dart';
+import 'package:flytern/feature-modules/package_booking/ui/pages/package_details_page.dart';
+import 'package:flytern/feature-modules/package_booking/ui/pages/package_user_details_submission_page.dart';
 import 'package:flytern/shared/ui/pages/userdetails_submission_page.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:get/get.dart';
@@ -154,6 +156,20 @@ getAppRoutes() => [
     page: () => const HotelBookingConfirmationPage(),
     middlewares: [MyMiddelware()],
   ),
+
+  //  package
+  GetPage(
+    name: Approute_packagesDetails,
+    page: () => const PackageDetailsPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_packagesUserDetailsSubmission,
+    page: () => const PackageUserDetailsSubmissionPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
 ];
 
 class MyMiddelware extends GetMiddleware {
