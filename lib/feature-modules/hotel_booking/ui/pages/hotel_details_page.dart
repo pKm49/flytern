@@ -197,7 +197,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                         children: [
                           Image.asset(ASSETS_MEAL_ICON,width: screenwidth*.14),
                           addVerticalSpace(flyternSpaceSmall),
-                          Text("meals".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60),)
+                          Text("meal".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60),)
                         ],
                       ),
                       addHorizontalSpace(flyternSpaceMedium),
@@ -326,7 +326,10 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
               width: double.infinity,
               child: ElevatedButton(
                   onPressed: () {
-                    Get.toNamed(Approute_flightsAddonServices);
+                    Get.toNamed(Approute_userDetailsSubmission,
+                        arguments: [
+                          {"routeName": Approute_hotelsSummary}
+                        ]);
                   },
                   child: Text("book_now".tr)),
             ),
