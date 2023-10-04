@@ -68,6 +68,14 @@ getAppRoutes() => [
     middlewares: [MyMiddelware()],
   ),
 
+  // Common
+  GetPage(
+    name: Approute_userDetailsSubmission,
+    page: () => const UserDetailsSubmissionPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+
   // flight booking
 
   GetPage(
@@ -103,12 +111,6 @@ getAppRoutes() => [
   GetPage(
     name: Approute_flightsBaggageSelection,
     page: () => const FlightBaggageSelectionPage(),
-    middlewares: [MyMiddelware()],
-  ),
-
-  GetPage(
-    name: Approute_flightsUserDetailsSubmission,
-    page: () => const UserDetailsSubmissionPage(),
     middlewares: [MyMiddelware()],
   ),
 
