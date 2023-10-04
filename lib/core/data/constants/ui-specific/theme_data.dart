@@ -48,7 +48,7 @@ ThemeData getThemeData( String type, String locale) {
           outlinedButtonTheme: OutlinedButtonThemeData(
               style: ButtonStyle(
                   side: MaterialStateProperty.all<BorderSide>(
-                      const BorderSide(color: flyternPrimaryColor, width: 2)),
+                      const BorderSide(color: flyternPrimaryColor, width: 1)),
                   textStyle: MaterialStateProperty.all<TextStyle>(const TextStyle(
                       fontWeight: flyternFontWeightMedium, color: flyternPrimaryColor)),
                   foregroundColor:
@@ -56,10 +56,10 @@ ThemeData getThemeData( String type, String locale) {
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                       const EdgeInsets.symmetric(
                           horizontal: flyternSpaceLarge, vertical: flyternSpaceMedium)),
-                  shape: MaterialStateProperty.all<OutlinedBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(flyternBorderRadiusSmall*100))))),
+                shape: MaterialStateProperty.all<OutlinedBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.circular(flyternBorderRadiusExtraSmall))),)),
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ButtonStyle(
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
@@ -166,7 +166,7 @@ ThemeData getThemeData( String type, String locale) {
           outlinedButtonTheme: OutlinedButtonThemeData(
               style: ButtonStyle(
                   side: MaterialStateProperty.all<BorderSide>(
-                      const BorderSide(color: flyternPrimaryColor, width: 2)),
+                      const BorderSide(color: flyternPrimaryColor, width: 1)),
                   textStyle: MaterialStateProperty.all<TextStyle>(const TextStyle(
                       fontWeight: flyternFontWeightMedium, color: flyternPrimaryColor)),
                   foregroundColor:
@@ -174,10 +174,10 @@ ThemeData getThemeData( String type, String locale) {
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                       const EdgeInsets.symmetric(
                           horizontal: flyternSpaceLarge, vertical: flyternSpaceMedium)),
-                  shape: MaterialStateProperty.all<OutlinedBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(flyternBorderRadiusSmall*100))))),
+                shape: MaterialStateProperty.all<OutlinedBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.circular(flyternBorderRadiusExtraSmall))),)),
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ButtonStyle(
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
