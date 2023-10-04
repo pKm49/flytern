@@ -125,11 +125,6 @@ getAppRoutes() => [
     middlewares: [MyMiddelware()],
   ),
 
-  GetPage(
-    name: Approute_flightsETicket,
-    page: () => const FlightETicketPage(),
-    middlewares: [MyMiddelware()],
-  ),
 ];
 
 class MyMiddelware extends GetMiddleware {
