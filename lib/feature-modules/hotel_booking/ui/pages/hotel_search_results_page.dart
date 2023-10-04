@@ -121,6 +121,23 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage> with Sing
                     child: Divider(),
                   ),
                   HotelSearchResultCard(),
+                  HotelSearchResultCard(),
+                  Padding(
+                    padding: flyternLargePaddingHorizontal,
+                    child: Divider(),
+                  ),
+                  HotelSearchResultCard(),
+                  Padding(
+                    padding: flyternLargePaddingHorizontal,
+                    child: Divider(),
+                  ),
+                  HotelSearchResultCard(),
+                  Padding(
+                    padding: flyternLargePaddingHorizontal,
+                    child: Divider(),
+                  ),
+                  HotelSearchResultCard(),
+
                   addVerticalSpace(flyternSpaceLarge),
                   addVerticalSpace(flyternSpaceLarge),
                 ],
