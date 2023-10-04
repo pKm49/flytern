@@ -110,6 +110,21 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                   child: PrePostIconButton(
                     specialColor: 0,
                     onPressed: () {
+                      Get.toNamed(Approute_profileMyTravelStories);
+                    },
+                    theme: 'dark',
+                    border: 'bottom',
+                    buttonTitle: "co_passengers".tr,
+                    preIconData: Ionicons.people_outline,
+                    postIconData: Ionicons.chevron_forward,
+                  ),
+                ),
+                addVerticalSpace(flyternSpaceSmall),
+                SizedBox(
+                  width: double.infinity,
+                  child: PrePostIconButton(
+                    specialColor: 0,
+                    onPressed: () {
                       Get.toNamed(Approute_profileEditProfile);
 
                     },
