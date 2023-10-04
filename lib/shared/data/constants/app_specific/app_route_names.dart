@@ -50,4 +50,5 @@
   const String Approute_profileMyBookings = '/profile-my-bookings';
   const String Approute_profileMyTravelStories = '/profile-my-travel-stories';
   const String Approute_profileNewTravelStories = '/profile-new-travel-story';
+  const String Approute_profileMyCopassenger = '/profile-my-copassenger';
   const String Approute_profileAuditCopassenger = '/profile-audit-copassenger';
