@@ -7,6 +7,7 @@ import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/delegates/custom_search_delegate.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared/ui/components/booking_options_selector.dart';
 import 'package:flytern/shared/ui/components/custom_date_picker.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -208,35 +209,40 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                   ),
                 ),
                 addVerticalSpace(flyternSpaceMedium),
-                Container(
-                  decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                      border: Border.all(color: flyternGrey20, width: .5)),
-                  padding: flyternMediumPaddingAll ,
-                  child: Row(
-                    children: [
-                      Icon(Ionicons.person_outline,
-                          color: flyternSecondaryColor,size: flyternFontSize20),
-                      addHorizontalSpace(flyternSpaceSmall*1.5),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'users'.tr,
-                              style: getLabelLargeStyle(context).copyWith(
-                                  color: flyternGrey40,
-                                  fontWeight: FontWeight.  w400),
-                            ),
-                            addVerticalSpace(flyternSpaceExtraSmall*1.5),
-                            Text('1 Adult',
-                                style: getLabelLargeStyle(context)
-                                    .copyWith( color: flyternGrey80)),
-                          ],
-                        ),
-                      )
-                    ],
+                InkWell(
+                  onTap: (){
+                    openHotelOptionsSelector();
+                  },
+                  child: Container(
+                    decoration: flyternBorderedContainerSmallDecoration.copyWith(
+                        border: Border.all(color: flyternGrey20, width: .5)),
+                    padding: flyternMediumPaddingAll ,
+                    child: Row(
+                      children: [
+                        Icon(Ionicons.person_outline,
+                            color: flyternSecondaryColor,size: flyternFontSize20),
+                        addHorizontalSpace(flyternSpaceSmall*1.5),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'users'.tr,
+                                style: getLabelLargeStyle(context).copyWith(
+                                    color: flyternGrey40,
+                                    fontWeight: FontWeight.  w400),
+                              ),
+                              addVerticalSpace(flyternSpaceExtraSmall*1.5),
+                              Text('1 Adult',
+                                  style: getLabelLargeStyle(context)
+                                      .copyWith( color: flyternGrey80)),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 addVerticalSpace(flyternSpaceMedium),
@@ -305,6 +311,22 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
         });
 
   }
+  void openHotelOptionsSelector( ) {
+    showModalBottomSheet(
+        useSafeArea: false,
+        shape:   RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
+              topRight: Radius.circular(flyternBorderRadiusSmall)),
+        ),
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (context) {
+          return BookingOptionsSelector(
+            bookingServiceNumber: 2,
+          );
+        });
 
+  }
 
 }
