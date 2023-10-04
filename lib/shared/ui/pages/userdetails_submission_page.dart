@@ -9,14 +9,14 @@ import 'package:flytern/shared/ui/components/contact_details_getter.dart';
 import 'package:flytern/shared/ui/components/sort_option_selector.dart';
 import 'package:get/get.dart';
 
-class FlightUserDetailsSubmissionPage extends StatefulWidget {
-  const FlightUserDetailsSubmissionPage({super.key});
+class UserDetailsSubmissionPage extends StatefulWidget {
+  const UserDetailsSubmissionPage({super.key});
 
   @override
-  State<FlightUserDetailsSubmissionPage> createState() => _FlightUserDetailsSubmissionPageState();
+  State<UserDetailsSubmissionPage> createState() => _UserDetailsSubmissionPageState();
 }
 
-class _FlightUserDetailsSubmissionPageState extends State<FlightUserDetailsSubmissionPage> {
+class _UserDetailsSubmissionPageState extends State<UserDetailsSubmissionPage> {
 
   final ExpansionTileController controller = ExpansionTileController();
   final ExpansionTileController controller2 = ExpansionTileController();
