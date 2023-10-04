@@ -21,6 +21,9 @@ class _FilterOptionSelectorState extends State<FilterOptionSelector> {
   bool isAirline4Selected = false;
   int selectedFilter = 1;
   double _currentSliderValue = 20;
+  List<int> selectedDepartureDates = [];
+  List<int> selectedArrivalDates = [];
+
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -226,14 +229,29 @@ class _FilterOptionSelectorState extends State<FilterOptionSelector> {
                               Padding(
                                 padding: const EdgeInsets.only(right:flyternSpaceSmall,bottom: flyternSpaceSmall),
                                 child: SelectableTilePill(
+                                  onPressed:(){
+                                    if(selectedDepartureDates.contains(i)){
+                                      selectedDepartureDates.remove(i);
+                                    }else{
+                                      selectedDepartureDates.add(i);
+                                    }
+                                    setState(() {
+
+                                    });
+                                  },
                                   label: '$i:00PM',
-                                  isSelected: false,
+                                  isSelected: selectedDepartureDates.contains(i),
                                   themeNumber: 2,
                                 ),
                               ),
                             ],
                           ),
                         ),
+                        const Padding(
+                          padding: flyternLargePaddingHorizontal,
+                          child: Divider(),
+                        ),
+                        addVerticalSpace(flyternSpaceMedium),
                         Padding(
                           padding: flyternLargePaddingHorizontal,
                           child: Text("arrival_time".tr,
@@ -248,16 +266,29 @@ class _FilterOptionSelectorState extends State<FilterOptionSelector> {
                                 Padding(
                                   padding: const EdgeInsets.only(right:flyternSpaceSmall,bottom: flyternSpaceSmall),
                                   child: SelectableTilePill(
+                                    onPressed:(){
+                                      if(selectedArrivalDates.contains(i)){
+                                        selectedArrivalDates.remove(i);
+                                      }else{
+                                        selectedArrivalDates.add(i);
+                                      }
+                                      setState(() {
+
+                                      });
+                                    },
                                     label: '$i:00PM',
-                                    isSelected: false,
+                                    isSelected: selectedArrivalDates.contains(i),
                                     themeNumber: 2,
                                   ),
                                 ),
                             ],
                           ),
                         ),
+                        const Padding(
+                          padding: flyternLargePaddingHorizontal,
+                          child: Divider(),
+                        ),
                         addVerticalSpace(flyternSpaceMedium),
-
                         Padding(
                           padding: flyternLargePaddingHorizontal,
                           child: Text("stops".tr,
