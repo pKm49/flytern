@@ -28,6 +28,7 @@ import 'package:flytern/feature-modules/package_booking/ui/pages/package_user_de
 import 'package:flytern/feature-modules/profile/ui/pages/profile_audit_copassenger_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_edit_profile_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_my_bookings_page.dart';
+import 'package:flytern/feature-modules/profile/ui/pages/profile_my_copassengers_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_my_travel_stories_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_new_travel_story_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_reset_password_page.dart';
@@ -237,6 +238,12 @@ getAppRoutes() => [
   GetPage(
     name: Approute_profileNewTravelStories,
     page: () => const ProfileNewTravelStoryPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_profileMyCopassenger,
+    page: () => const ProfileMyCoPassengersPage(),
     middlewares: [MyMiddelware()],
   ),
 
