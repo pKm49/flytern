@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/components/activity_list_card.dart';
 import 'package:flytern/feature-modules/package_booking/ui/components/package_list_card.dart';
+import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -58,6 +59,9 @@ class _ActivityBookingLandingPageState extends State<ActivityBookingLandingPage>
             child: ListView(
               children: [
                 ActivityListCard(
+                  onPressed: (){
+                    Get.toNamed(Approute_activitiesDetails);
+                  },
                   imageUrl: ASSETS_PACKAGE_1_SAMPLE,
                   title: 'Shrek\'s Adventure',
                   flightName: 'Ticket (PP)',
@@ -70,6 +74,9 @@ class _ActivityBookingLandingPageState extends State<ActivityBookingLandingPage>
                   child: Divider(),
                 ),
                 ActivityListCard(
+                  onPressed: (){
+                    Get.toNamed(Approute_activitiesDetails);
+                  },
                   imageUrl: ASSETS_PACKAGE_1_SAMPLE,
                   title: 'Shrek\'s Adventure',
                   flightName: 'KBL to IST',
@@ -82,6 +89,9 @@ class _ActivityBookingLandingPageState extends State<ActivityBookingLandingPage>
                   child: Divider(),
                 ),
                 ActivityListCard(
+                  onPressed: (){
+                    Get.toNamed(Approute_activitiesDetails);
+                  },
                   imageUrl: ASSETS_PACKAGE_1_SAMPLE,
                   title: 'Shrek\'s Adventure',
                   flightName: 'KBL to IST',
@@ -94,6 +104,9 @@ class _ActivityBookingLandingPageState extends State<ActivityBookingLandingPage>
                   child: Divider(),
                 ),
                 ActivityListCard(
+                  onPressed: (){
+                    Get.toNamed(Approute_activitiesDetails);
+                  },
                   imageUrl: ASSETS_PACKAGE_1_SAMPLE,
                   title: 'Shrek\'s Adventure',
                   flightName: 'KBL to IST',
@@ -106,6 +119,9 @@ class _ActivityBookingLandingPageState extends State<ActivityBookingLandingPage>
                   child: Divider(),
                 ),
                 ActivityListCard(
+                  onPressed: (){
+                    Get.toNamed(Approute_activitiesDetails);
+                  },
                   imageUrl: ASSETS_PACKAGE_1_SAMPLE,
                   title: 'Shrek\'s Adventure',
                   flightName: 'KBL to IST',

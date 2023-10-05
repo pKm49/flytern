@@ -22,6 +22,9 @@ class ProfileActivityBookingsList extends StatelessWidget {
           ),
           addVerticalSpace(flyternSpaceLarge),
            ActivityListCard(
+             onPressed: (){
+
+             },
             imageUrl: ASSETS_PACKAGE_1_SAMPLE,
             title: 'Shrek\'s Adventure',
             flightName: 'Ticket (PP)',
@@ -34,6 +37,9 @@ class ProfileActivityBookingsList extends StatelessWidget {
             child: Divider(),
           ),
           ActivityListCard(
+            onPressed: (){
+
+            },
             imageUrl: ASSETS_PACKAGE_1_SAMPLE,
             title: 'Shrek\'s Adventure',
             flightName: 'Ticket (PP)',

@@ -52,6 +52,9 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
             Container(
                 color: flyternBackgroundWhite,
                 child: ActivityListCard(
+                  onPressed: (){
+                    Get.toNamed(Approute_activitiesDetails);
+                  },
                   imageUrl: ASSETS_PACKAGE_1_SAMPLE,
                   title: 'Shrek\'s Adventure',
                   flightName: 'Ticket (PP)',
