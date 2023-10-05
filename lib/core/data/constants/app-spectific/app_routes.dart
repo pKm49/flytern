@@ -1,6 +1,8 @@
 
+import 'package:flytern/core/ui/pages/info_page.dart';
 import 'package:flytern/core/ui/pages/landing_page.dart';
 import 'package:flytern/core/ui/pages/language_selector.dart';
+import 'package:flytern/core/ui/pages/settings_page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_confirmation_page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_summary_page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_details_page.dart';
@@ -250,6 +252,18 @@ getAppRoutes() => [
   GetPage(
     name: Approute_profileAuditCopassenger,
     page: () => const ProfileAuditCopassengerPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_coreAppSettings,
+    page: () => const CoreSettingsPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_coreAppInfo,
+    page: () => const CoreInfoPage(),
     middlewares: [MyMiddelware()],
   ),
 

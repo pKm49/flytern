@@ -52,3 +52,7 @@
   const String Approute_profileNewTravelStories = '/profile-new-travel-story';
   const String Approute_profileMyCopassenger = '/profile-my-copassenger';
   const String Approute_profileAuditCopassenger = '/profile-audit-copassenger';
+
+  //  core menu pages
+  const String Approute_coreAppSettings = '/core-app-settings';
+  const String Approute_coreAppInfo = '/core-app-info';
