@@ -45,6 +45,8 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
             child: PrePostIconButton(
               specialColor:0,
               onPressed: (){
+                Get.toNamed(Approute_insuranceLandingPage);
+
               },
               theme: 'dark',
               border: 'bottom',
