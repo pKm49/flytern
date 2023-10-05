@@ -30,6 +30,7 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
             child: PrePostIconButton(
               specialColor:0,
               onPressed: (){
+                Get.toNamed(Approute_coreSmartPayment);
               },
               theme: 'dark',
               border: 'bottom',
