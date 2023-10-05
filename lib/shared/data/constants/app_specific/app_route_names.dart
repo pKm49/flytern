@@ -57,3 +57,9 @@
   const String Approute_coreAppSettings = '/core-app-settings';
   const String Approute_coreAppInfo = '/core-app-info';
   const String Approute_coreSmartPayment = '/core-smart-payment';
+
+//insurance booking
+const String Approute_insuranceLandingPage = '/insurance-landing-page';
+const String Approute_insuranceUserDetailsSubmission = '/insurance-userdetails-submission';
+const String Approute_insuranceSummary = '/insurance-summary';
+const String Approute_insuranceConfirmation = '/insurance-confirmation';

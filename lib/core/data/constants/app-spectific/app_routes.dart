@@ -26,6 +26,10 @@ import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_booking_con
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_booking_summary_page.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_details_page.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_search_results_page.dart';
+import 'package:flytern/feature-modules/insurance/ui/pages/insurance_booking_confirmation_page.dart';
+import 'package:flytern/feature-modules/insurance/ui/pages/insurance_booking_summary_page.dart';
+import 'package:flytern/feature-modules/insurance/ui/pages/insurance_landing_page.dart';
+import 'package:flytern/feature-modules/insurance/ui/pages/insurance_user_details_submission_page.dart';
 import 'package:flytern/feature-modules/package_booking/ui/pages/package_details_page.dart';
 import 'package:flytern/feature-modules/package_booking/ui/pages/package_user_details_submission_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_audit_copassenger_page.dart';
@@ -274,7 +278,38 @@ getAppRoutes() => [
     middlewares: [MyMiddelware()],
   ),
 
+
+  //insurance related
+
+  GetPage(
+    name: Approute_insuranceLandingPage,
+    page: () => const InsuranceLandingPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_insuranceUserDetailsSubmission,
+    page: () => const InsuranceUserDetailsSubmissionPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_insuranceSummary,
+    page: () => const InsuranceBookingSummaryPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+  GetPage(
+    name: Approute_insuranceConfirmation,
+    page: () => const InsuranceBookingConfirmationPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+
+
+
 ];
+
 
 class MyMiddelware extends GetMiddleware {
   @override
