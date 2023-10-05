@@ -364,7 +364,9 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
-                  Get.toNamed(Approute_flightsConfirmation);
+                  Get.toNamed(Approute_flightsConfirmation,arguments: [
+                    {"mode": "view"}
+                  ] );
                  },
                 child:Text("proceed".tr )),
           ),
