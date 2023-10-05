@@ -128,6 +128,8 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
             child: PrePostIconButton(
               specialColor:0,
               onPressed: (){
+                Get.toNamed(Approute_coreAppSettings);
+
               },
               theme: 'dark',
               border: 'bottom',
@@ -142,6 +144,7 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
             child: PrePostIconButton(
               specialColor:0,
               onPressed: (){
+                Get.toNamed(Approute_coreAppInfo);
               },
               theme: 'dark',
               border: 'bottom',
