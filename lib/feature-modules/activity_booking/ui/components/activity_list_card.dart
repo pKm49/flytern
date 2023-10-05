@@ -15,6 +15,7 @@ class ActivityListCard extends StatelessWidget {
   final String hotelName;
   final String sponsoredBy;
   final double price;
+  final GestureTapCallback onPressed;
 
 
     ActivityListCard({
@@ -25,6 +26,7 @@ class ActivityListCard extends StatelessWidget {
     required this.hotelName,
     required this.sponsoredBy,
     required this.price,
+    required this.onPressed,
     });
 
   @override
@@ -33,9 +35,7 @@ class ActivityListCard extends StatelessWidget {
     double screenheight = MediaQuery.of(context).size.height;
 
     return InkWell(
-      onTap: (){
-        Get.toNamed(Approute_activitiesDetails);
-      },
+      onTap:onPressed ,
       child: Container(
         decoration:  BoxDecoration(
           color: flyternBackgroundWhite,
