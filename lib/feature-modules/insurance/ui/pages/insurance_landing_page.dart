@@ -76,6 +76,23 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>  with Singl
           ],
         ),
       ),
+        bottomSheet: Container(
+          width: screenwidth,
+          color: flyternBackgroundWhite,
+          height: 60 + (flyternSpaceSmall * 2),
+          padding: flyternLargePaddingAll.copyWith(
+              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+          child: Center(
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("apply_now".tr)),
+            ),
+          ),
+        )
     );
   }
 }
