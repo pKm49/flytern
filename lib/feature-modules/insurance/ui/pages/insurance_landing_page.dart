@@ -64,7 +64,7 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>  with Singl
                     controller: tabController,
                     labelColor: flyternSecondaryColor,
                     labelStyle: TextStyle(color:flyternPrimaryColor,fontWeight: FontWeight.bold ),
-                    unselectedLabelColor: flyternGrey20,
+                    unselectedLabelColor: flyternGrey60,
                     tabs: <Tab>[
                       Tab(text: "covid".tr),
                       Tab(text: "regular".tr),

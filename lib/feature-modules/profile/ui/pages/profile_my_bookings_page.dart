@@ -72,7 +72,7 @@ class _ProfileMyBookingsPageState extends State<ProfileMyBookingsPage>
                     controller: tabController,
                     labelColor: flyternSecondaryColor,
                     labelStyle: TextStyle(color:flyternPrimaryColor,fontWeight: FontWeight.bold ),
-                    unselectedLabelColor: flyternGrey20,
+                    unselectedLabelColor: flyternGrey60,
                     tabs: <Tab>[
                        Tab(text: "flight_bookings".tr),
                        Tab(text: "hotel_bookings".tr),
