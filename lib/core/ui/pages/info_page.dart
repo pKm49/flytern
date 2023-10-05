@@ -123,7 +123,7 @@ class _CoreInfoPageState extends State<CoreInfoPage> {
                       padding: flyternLargePaddingHorizontal,
                       child: Row(
                         children: [
-                          Expanded(child: Text("social_account",style: getBodyMediumStyle(context))),
+                          Expanded(child: Text("social_account".tr,style: getBodyMediumStyle(context))),
                           Icon(Ionicons.logo_facebook,color: flyternGrey60,),
                           addHorizontalSpace(flyternSpaceSmall),
                           Icon(Ionicons.logo_twitter,color: flyternGrey60),
