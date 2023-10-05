@@ -10,7 +10,9 @@ import 'package:flytern/shared/services/utility-services/widget_properties_gener
 import 'package:get/get.dart';
 
 class FlightSearchResultCard extends StatelessWidget {
-  const FlightSearchResultCard({super.key});
+  final GestureTapCallback onPressed;
+
+    FlightSearchResultCard({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -115,10 +117,7 @@ class FlightSearchResultCard extends StatelessWidget {
                             horizontal: flyternSpaceLarge,
                             vertical: flyternSpaceSmall)),
                   ),
-                    onPressed: ()   {
-                      Get.toNamed(Approute_flightsDetails);
-
-                    }, child: Text("select".tr)),
+                    onPressed:onPressed , child: Text("select".tr)),
               ),
             ],
           )
