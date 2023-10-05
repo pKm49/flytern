@@ -32,63 +32,66 @@ class UserDetailsCard extends StatelessWidget {
     return Container(
       padding: flyternLargePaddingHorizontal,
       color: flyternBackgroundWhite,
-      child: ExpansionTile(
+      child: Theme(
+        data: ThemeData().copyWith(dividerColor: Colors.transparent),
+        child: ExpansionTile(
 
-        tilePadding: EdgeInsets.zero,
-        controller: controller,
-        title:   Text(title),
-        children: <Widget>[
+          tilePadding: EdgeInsets.zero,
+          controller: controller,
+          title:   Text(title),
+          children: <Widget>[
 
-          Padding(
-            padding: flyternSmallPaddingVertical,
-            child: Row(
+            Padding(
+              padding: flyternSmallPaddingVertical,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("full_name".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text(name,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                ],
+              ),
+            ),
+            Container(
+                color:flyternBackgroundWhite,
+                child: Divider()),
+            Padding(
+              padding: flyternSmallPaddingVertical,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("email_address".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text(email,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                ],
+              ),
+            ),
+            Container(
+                color:flyternBackgroundWhite,
+                child: Divider()),
+            Padding(
+              padding: flyternSmallPaddingVertical,                    child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("full_name".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                Text(name,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                Text("mobile_number".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                Text(mobile,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
               ],
             ),
-          ),
-          Container(
-              color:flyternBackgroundWhite,
-              child: Divider()),
-          Padding(
-            padding: flyternSmallPaddingVertical,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("email_address".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                Text(email,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-              ],
             ),
-          ),
-          Container(
-              color:flyternBackgroundWhite,
-              child: Divider()),
-          Padding(
-            padding: flyternSmallPaddingVertical,                    child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("mobile_number".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-              Text(mobile,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-            ],
-          ),
-          ),
 
-          Visibility(
-              visible: isActionAllowed,
-              child: Padding(
-                padding: flyternLargePaddingVertical,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-                Icon(Ionicons.create_outline,color: flyternPrimaryColor),
-              addHorizontalSpace(flyternSpaceSmall),
-              Icon(Ionicons.trash_bin_outline,color: flyternGuideRed)
-            ],
-          ),
-              ))
-        ],
+            Visibility(
+                visible: isActionAllowed,
+                child: Padding(
+                  padding: flyternLargePaddingVertical,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                  Icon(Ionicons.create_outline,color: flyternPrimaryColor),
+                addHorizontalSpace(flyternSpaceSmall),
+                Icon(Ionicons.trash_bin_outline,color: flyternGuideRed)
+              ],
+            ),
+                ))
+          ],
+        ),
       ),
     );
   }
