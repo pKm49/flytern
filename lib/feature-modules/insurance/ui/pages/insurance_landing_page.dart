@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/insurance/ui/components/insurance_covid_data_collection_component.dart';
 import 'package:flytern/feature-modules/insurance/ui/components/insurance_regular_data_collection_component.dart';
+import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:get/get.dart';
@@ -87,7 +88,7 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>  with Singl
               width: double.infinity,
               child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    Get.toNamed(Approute_insuranceUserDetailsSubmission);
                   },
                   child: Text("apply_now".tr)),
             ),
