@@ -22,7 +22,20 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
   final ExpansionTileController controller = ExpansionTileController();
   final ExpansionTileController controller2 = ExpansionTileController();
 
+  bool isCancelling = false;
+  bool isDateChanging = false;
+
   int selectedPaymentMethod = 1;
+  dynamic argumentData = Get.arguments;
+
+  String mode = "view";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    mode = argumentData[0]['mode'];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +45,8 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('booking_confirmation'.tr),
+        title: Text(mode=="view"?'booking_confirmation'.tr:
+        'booking_details'.tr),
         elevation: 0.5,
       ),
       body: Container(
@@ -56,7 +70,107 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
                 ],
               ),
             ),
-            FlightBookingSummaryCard(),
+            FlightBookingSummaryCard(
+              mode: mode,
+              onCancel: (){
+                setState(() {
+                  isCancelling =!isCancelling;
+                });
+              },
+              onDateChange: (){
+                setState(() {
+                  isDateChanging = !isDateChanging;
+                });
+              },
+            ),
+
+            Visibility(
+              visible: isCancelling || isDateChanging,
+              child: Padding(
+                padding: flyternLargePaddingAll,
+                child: Text("reason".tr,
+                    style: getBodyMediumStyle(context).copyWith(
+                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+              ),
+            ),
+        Visibility(
+            visible: isCancelling || isDateChanging,
+              child: Container(
+                padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceLarge),
+                color: flyternBackgroundWhite,
+                child: TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      labelText: "reason_for_cancel".tr,
+                    )),
+              ),
+            ),
+        Visibility(
+          visible: isCancelling || isDateChanging,
+              child: Padding(
+                padding: flyternLargePaddingAll,
+                child: Text("refund_details".tr,
+                    style: getBodyMediumStyle(context).copyWith(
+                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+              ),
+            ),
+        Visibility(
+            visible: isCancelling || isDateChanging,
+              child: Container(
+                padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
+                color: flyternBackgroundWhite,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("total_paid".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                    Text("AED 15,000",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold)),
+                  ],
+                ),
+              ),
+            ),
+        Visibility(
+            visible: isCancelling || isDateChanging,
+              child: Container(
+                  padding: flyternLargePaddingHorizontal,
+                  color:flyternBackgroundWhite,
+                  child: Divider()),
+            ),
+        Visibility(
+            visible: isCancelling || isDateChanging,
+              child: Container(
+                padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
+                color: flyternBackgroundWhite,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("cancellation_charge".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                    Text("AED 5000",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  ],
+                ),
+              ),
+            ),
+        Visibility(
+            visible: isCancelling || isDateChanging,
+              child: Container(
+                  padding: flyternLargePaddingHorizontal,
+                  color:flyternBackgroundWhite,
+                  child: Divider()),
+            ),
+        Visibility(
+            visible: isCancelling || isDateChanging,
+              child: Container(
+                padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
+                color: flyternBackgroundWhite,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("refundable_amount".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                    Text("AED 1000",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  ],
+                ),
+              ),
+            ),
+
 
             Padding(
               padding: flyternLargePaddingAll,
@@ -311,9 +425,11 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
-                  Get.offAllNamed(Approute_landingpage);
+                  mode=="edit"?
+                  Navigator.pop(context)
+                  :Get.offAllNamed(Approute_landingpage);
                 },
-                child:Text("get_eticket".tr )),
+                child:Text(isCancelling || isDateChanging? "confirm".tr :"get_eticket".tr )),
           ),
         ),
       ),

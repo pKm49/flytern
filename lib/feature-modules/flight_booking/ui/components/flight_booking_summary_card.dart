@@ -8,7 +8,15 @@ import 'package:flytern/shared/services/utility-services/widget_properties_gener
 import 'package:get/get.dart';
 
 class FlightBookingSummaryCard extends StatelessWidget {
-  const FlightBookingSummaryCard({super.key});
+
+  String mode ;
+  final GestureTapCallback onDateChange;
+  final GestureTapCallback onCancel;
+
+  FlightBookingSummaryCard({super.key, required this.mode,
+  required this.onCancel,
+  required this.onDateChange,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -252,7 +260,31 @@ class FlightBookingSummaryCard extends StatelessWidget {
               ],
             ),
           ),
-
+          Visibility(
+            visible: mode == "edit",
+            child: Row(
+              children: [
+                Expanded(child: OutlinedButton(
+                    style: ButtonStyle(
+                      side: MaterialStateProperty.all<BorderSide>(
+                          const BorderSide(color: flyternSecondaryColor, width: 1)),
+                      textStyle: MaterialStateProperty.all<TextStyle>(const TextStyle(
+                          fontWeight: flyternFontWeightMedium, color: flyternSecondaryColor)),
+                      foregroundColor:
+                      MaterialStateProperty.all<Color>(flyternSecondaryColor),
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                          const EdgeInsets.symmetric(
+                              horizontal: flyternSpaceLarge, vertical: flyternSpaceMedium)),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.circular(flyternBorderRadiusExtraSmall))),),
+                    onPressed: onDateChange, child: Text("change_date".tr))),
+                addHorizontalSpace(flyternSpaceSmall),
+                Expanded(child: ElevatedButton(onPressed: onCancel, child: Text("cancel".tr)))
+              ],
+            ),
+          )
         ],
       ),
     );

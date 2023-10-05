@@ -56,7 +56,12 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                 ],
               ),
             ),
-            FlightBookingSummaryCard(),
+            FlightBookingSummaryCard(
+              mode: "view",
+
+              onCancel: (){},
+              onDateChange: (){},
+            ),
             Padding(
               padding: flyternLargePaddingAll,
               child: Text("passengers".tr,
