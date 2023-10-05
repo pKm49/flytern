@@ -520,7 +520,7 @@ class _InsuranceUserDetailsSubmissionPageState extends State<InsuranceUserDetail
         isScrollControlled: true,
         context: context,
         builder: (context) {
-          return ContactDetailsGetter(route: Approute_landingpage);
+          return ContactDetailsGetter(route: Approute_insuranceSummary);
         });
   }
 }
