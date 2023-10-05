@@ -80,20 +80,7 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
               postIconData: Ionicons.chevron_forward,
             ),
           ),
-          addVerticalSpace(flyternSpaceSmall),
-          SizedBox(
-            width: double.infinity,
-            child: PrePostIconButton(
-              specialColor:0,
-              onPressed: (){
-              },
-              theme: 'dark',
-              border: 'bottom',
-              buttonTitle: "travel_stories".tr,
-              preIconData: Ionicons.reader_outline,
-              postIconData: Ionicons.chevron_forward,
-            ),
-          ),
+
           addVerticalSpace(flyternSpaceSmall),
           SizedBox(
             width: double.infinity,
@@ -108,20 +95,7 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
               postIconData: Ionicons.chevron_forward,
             ),
           ),
-          addVerticalSpace(flyternSpaceSmall),
-          SizedBox(
-            width: double.infinity,
-            child: PrePostIconButton(
-              specialColor:0,
-              onPressed: (){
-              },
-              theme: 'dark',
-              border: 'bottom',
-              buttonTitle: "manage_bookings".tr,
-              preIconData: Ionicons.list_outline,
-              postIconData: Ionicons.chevron_forward,
-            ),
-          ),
+
           addVerticalSpace(flyternSpaceSmall),
           SizedBox(
             width: double.infinity,
