@@ -38,7 +38,7 @@ class _SmartPaymentPageState extends State<SmartPaymentPage> {
         body: Container(
           width: screenwidth,
           height: screenheight,
-          color: flyternGrey10,
+          color: flyternBackgroundWhite,
           child: ListView(
             children: [
               Container(
@@ -57,7 +57,6 @@ class _SmartPaymentPageState extends State<SmartPaymentPage> {
                     validator: (value) => checkIfEmailValid(value),
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      suffixIcon: Icon(Ionicons.eye_outline),
                       labelText: "enter_booking_id".tr,
                     )),
               ),
