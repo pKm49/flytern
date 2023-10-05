@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
+import 'package:flytern/shared/ui/components/confirm_dialogue.dart';
 import 'package:flytern/shared/ui/components/preposticon_button.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -169,6 +171,7 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
             child: PrePostIconButton(
                 specialColor:1,
               onPressed: (){
+                showConfirmDialog();
               },
               theme: 'dark',
               border: '',
@@ -180,5 +183,18 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
         ],
       ),
     );
+  }
+
+  showConfirmDialog() async {
+
+    showDialog(
+      context: context,
+      builder: (_) => ConfirmDialogue(
+          onClick:() async {
+            Get.offAllNamed(Approute_langaugeSelector);
+          },
+          titleKey: 'logout'.tr+" ?", subtitleKey: 'logout_confirm'.tr),
+    );
+
   }
 }
