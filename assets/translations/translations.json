@@ -218,6 +218,10 @@
       "package_bookings": "Package Bookings",
       "activity_bookings": "Activity Bookings",
       "insurance_purchases": "Insurance Purchases",
+      "are_you_sure": "Are you sure?",
+      "logout_confirm": "Are you sure you want to logout?",
+
+
 
       "lorem_ipsum_description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "price": "Price",
@@ -388,7 +392,7 @@
       "what_say": "What would you like to say?",
 
       "will_earn_Pound_points": "You will earn 321 Pound points by completing this order",
-      "are_you_sure": "Are you sure?",
+
       "remove_product_from_cart": "You really want to remove this product from your cart?",
       "remove_it": "Remove it",
       "keep_it": "Keep It!",
@@ -665,7 +669,8 @@
       "package_bookings": "حجوزات الباقة",
       "activity_bookings": "حجوزات النشاط",
       "insurance_purchases": "مشتريات التأمين",
-
+      "are_you_sure": "هل أنت متأكد؟",
+      "logout_confirm": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
 
       "lorem_ipsum_description": "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة، ولكن بفضل هؤلاء الأشخاص الذين لا يدركون بأن السعادة لا بد أن نستشعرها بصورة أكثر عقلانية ومنطقية فيعرضهم هذا لمواجهة الظروف الأليمة، وأكرر بأنه لا يوجد من يرغب في الحب ونيل المنال ويتلذذ بالآلام، الألم هو الألم ولكن نتيجة لظروف ما قد تكمن السعاده فيما نتحمله من كد وأسي.",
       "price": "سعر",
@@ -840,7 +845,7 @@
 
       "what_say": "ماذا تريد أن تقول؟",
       "will_earn_Pound_points":  "ستكسب 321 باوند نقطة بإتمام هذا الطلب",
-      "are_you_sure": "هل أنت متأكد؟",
+
       "remove_product_from_cart": "هل تريد إزالة هذا المنتج من سلة التسوق الخاصة بك؟",
       "remove_it": "احذفه",
       "keep_it": "إحتفظ به!",
