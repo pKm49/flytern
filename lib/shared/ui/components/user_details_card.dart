@@ -6,15 +6,18 @@ import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 
-class FlightBookingSummaryPassengerDetailsCard extends StatelessWidget {
+class UserDetailsCard extends StatelessWidget {
   String title;
   String name;
   String email;
   String mobile;
-    FlightBookingSummaryPassengerDetailsCard({super.key, required this.title,
+  bool isActionAllowed;
+    UserDetailsCard({super.key, required this.title,
     required this.name,
       required this.email,
+      required this.isActionAllowed,
       required this.mobile
     });
 
@@ -71,6 +74,20 @@ class FlightBookingSummaryPassengerDetailsCard extends StatelessWidget {
             ],
           ),
           ),
+
+          Visibility(
+              visible: isActionAllowed,
+              child: Padding(
+                padding: flyternLargePaddingVertical,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+                Icon(Ionicons.create_outline,color: flyternPrimaryColor),
+              addHorizontalSpace(flyternSpaceSmall),
+              Icon(Ionicons.trash_bin_outline,color: flyternGuideRed)
+            ],
+          ),
+              ))
         ],
       ),
     );
