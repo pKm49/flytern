@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_airport_lable_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_summary_card.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_summary_passenger_details_card.dart';
+import 'package:flytern/shared/ui/components/user_details_card.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -64,7 +64,8 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                       color: flyternGrey80, fontWeight: flyternFontWeightBold)),
             ),
 
-            FlightBookingSummaryPassengerDetailsCard(
+            UserDetailsCard(
+              isActionAllowed:false,
               title: "adult".tr,
               name: "Andrew Martin",
               email: "andrewmartin@gmail.com",
@@ -76,7 +77,8 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
               padding: flyternLargePaddingHorizontal,
               child: Divider(),
             ),
-            FlightBookingSummaryPassengerDetailsCard(
+            UserDetailsCard(
+              isActionAllowed:false,
               title: "child".tr,
               name: "Martin Andrew",
               email: "andrewmartin@gmail.com",

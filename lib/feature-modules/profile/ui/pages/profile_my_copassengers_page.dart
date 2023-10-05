@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_summary_passenger_details_card.dart';
+import 'package:flytern/shared/ui/components/user_details_card.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -48,7 +48,8 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
                 ],
               ),
             ),
-            FlightBookingSummaryPassengerDetailsCard(
+            UserDetailsCard(
+              isActionAllowed:true,
               title: "adult".tr,
               name: "Andrew Martin",
               email: "andrewmartin@gmail.com",
@@ -59,7 +60,8 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
               padding: flyternLargePaddingHorizontal,
               child: Divider(),
             ),
-            FlightBookingSummaryPassengerDetailsCard(
+            UserDetailsCard(
+              isActionAllowed:true,
               title: "child".tr,
               name: "Martin Andrew",
               email: "andrewmartin@gmail.com",
