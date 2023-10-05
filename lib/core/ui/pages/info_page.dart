@@ -4,6 +4,7 @@ import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart'
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
+import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/confirm_dialogue.dart';
 import 'package:flytern/shared/ui/components/preposticon_button.dart';
 import 'package:get/get.dart';
@@ -19,172 +20,129 @@ class CoreInfoPage extends StatefulWidget {
 class _CoreInfoPageState extends State<CoreInfoPage> {
   @override
   Widget build(BuildContext context) {
+    double screenwidth = MediaQuery.of(context).size.width;
+    double screenheight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("app_settings"),
+        title: Text("info".tr),
         elevation: 0.5,
       ),
       body: Container(
-        padding: flyternLargePaddingAll,
+        height: screenheight,
         color: flyternBackgroundWhite,
-        child: ListView(
+        child: Column(
           children: [
-            addVerticalSpace(flyternSpaceLarge),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor:0,
-                onPressed: (){
-                },
-                theme: 'dark',
-                border: 'bottom',
-                buttonTitle: "smart_payment".tr,
-                preIconData: Ionicons.cash_outline,
-                postIconData: Ionicons.chevron_forward,
-              ),
-            ),
-            addVerticalSpace(flyternSpaceSmall),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor:0,
-                onPressed: (){
-                },
-                theme: 'dark',
-                border: 'bottom',
-                buttonTitle: "travel_insurance".tr,
-                preIconData: Ionicons.pulse_outline,
-                postIconData: Ionicons.chevron_forward,
-              ),
-            ),
-            addVerticalSpace(flyternSpaceSmall),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor:0,
-                onPressed: (){
-                },
-                theme: 'dark',
-                border: 'bottom',
-                buttonTitle: "extra_miles".tr,
-                preIconData: Ionicons.walk_outline,
-                postIconData: Ionicons.chevron_forward,
-              ),
-            ),
-            addVerticalSpace(flyternSpaceSmall),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor:0,
-                onPressed: (){
-                },
-                theme: 'dark',
-                border: 'bottom',
-                buttonTitle: "gift_cards".tr,
-                preIconData: Ionicons.gift_outline,
-                postIconData: Ionicons.chevron_forward,
-              ),
-            ),
-            addVerticalSpace(flyternSpaceSmall),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor:0,
-                onPressed: (){
-                },
-                theme: 'dark',
-                border: 'bottom',
-                buttonTitle: "travel_stories".tr,
-                preIconData: Ionicons.reader_outline,
-                postIconData: Ionicons.chevron_forward,
-              ),
-            ),
-            addVerticalSpace(flyternSpaceSmall),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor:0,
-                onPressed: (){
-                },
-                theme: 'dark',
-                border: 'bottom',
-                buttonTitle: "travel_tips".tr,
-                preIconData: Ionicons.trail_sign_outline,
-                postIconData: Ionicons.chevron_forward,
-              ),
-            ),
-            addVerticalSpace(flyternSpaceSmall),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor:0,
-                onPressed: (){
-                },
-                theme: 'dark',
-                border: 'bottom',
-                buttonTitle: "manage_bookings".tr,
-                preIconData: Ionicons.list_outline,
-                postIconData: Ionicons.chevron_forward,
-              ),
-            ),
-            addVerticalSpace(flyternSpaceSmall),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor:0,
-                onPressed: (){
-                },
-                theme: 'dark',
-                border: 'bottom',
-                buttonTitle: "app_settings".tr,
-                preIconData: Ionicons.settings_outline,
-                postIconData: Ionicons.chevron_forward,
-              ),
-            ),
-            addVerticalSpace(flyternSpaceSmall),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor:0,
-                onPressed: (){
-                },
-                theme: 'dark',
-                border: 'bottom',
-                buttonTitle: "info".tr,
-                preIconData: Ionicons.information_circle_outline,
-                postIconData: Ionicons.chevron_forward,
-              ),
-            ),
-            addVerticalSpace(flyternSpaceSmall),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor:0,
-                onPressed: (){
-                },
-                theme: 'dark',
-                border: 'bottom',
-                buttonTitle: "rating".tr,
-                preIconData: Ionicons.star_outline,
-                postIconData: Ionicons.chevron_forward,
-              ),
-            ),
+            Expanded(
+              child: ListView(
+                children: [
+                  Container(
+                    width: screenwidth  ,
+                    padding: flyternLargePaddingAll,
+                    height: flyternSpaceLarge,
+                    decoration: BoxDecoration(
+                      color: flyternGrey10,
+                    ),
+                  ),
+                  addVerticalSpace(flyternSpaceSmall),
 
-            addVerticalSpace(flyternSpaceSmall),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor:1,
-                onPressed: (){
-                  showConfirmDialog();
-                },
-                theme: 'dark',
-                border: '',
-                buttonTitle: "logout".tr,
-                preIconData: Ionicons.log_out_outline,
-                postIconData: Ionicons.chevron_forward,
+                  Padding(
+                    padding: flyternLargePaddingHorizontal,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: PrePostIconButton(
+                        specialColor:0,
+                        onPressed: (){
+                        },
+                        theme: 'dark',
+                        border: 'bottom',
+                        buttonTitle: "about_us".tr,
+                        preIconData: Ionicons.information_circle_outline,
+                        postIconData: Ionicons.chevron_forward,
+                      ),
+                    ),
+                  ),
+
+
+                  addVerticalSpace(flyternSpaceSmall),
+                  Padding(
+                    padding: flyternLargePaddingHorizontal,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: PrePostIconButton(
+                        specialColor:0,
+                        onPressed: (){
+                        },
+                        theme: 'dark',
+                        border: 'bottom',
+                        buttonTitle: "contact_us".tr,
+                        preIconData: Ionicons.call_outline,
+                        postIconData: Ionicons.chevron_forward,
+                      ),
+                    ),
+                  ),
+                  addVerticalSpace(flyternSpaceSmall),
+
+                  Padding(
+                    padding: flyternLargePaddingHorizontal,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: PrePostIconButton(
+                        specialColor:0,
+                        onPressed: (){
+                        },
+                        theme: 'dark',
+                        border: 'bottom',
+                        buttonTitle: "terms_n_conditions".tr,
+                        preIconData: Ionicons.document_outline,
+                        postIconData: Ionicons.chevron_forward,
+                      ),
+                    ),
+                  ),
+                  addVerticalSpace(flyternSpaceSmall),
+
+                  Padding(
+                    padding: flyternLargePaddingHorizontal,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: PrePostIconButton(
+                        specialColor:0,
+                        onPressed: (){
+                        },
+                        theme: 'dark',
+                        border: 'bottom',
+                        buttonTitle: "privacy_policy".tr,
+                        preIconData: Ionicons.lock_closed_outline,
+                        postIconData: Ionicons.chevron_forward,
+                      ),
+                    ),
+                  ),
+                  addVerticalSpace(flyternSpaceLarge),
+
+                  Padding(
+                      padding: flyternLargePaddingHorizontal,
+                      child: Row(
+                        children: [
+                          Expanded(child: Text("social_account",style: getBodyMediumStyle(context))),
+                          Icon(Ionicons.logo_facebook,color: flyternGrey60,),
+                          addHorizontalSpace(flyternSpaceSmall),
+                          Icon(Ionicons.logo_twitter,color: flyternGrey60),
+                          addHorizontalSpace(flyternSpaceSmall),
+                          Icon(Ionicons.logo_instagram,color: flyternGrey60),
+                        ],
+                      )
+                  ),
+
+                ],
               ),
             ),
+            Padding(
+              padding: flyternLargePaddingAll,
+              child: Text('app_version'.tr + " 1.0.0",
+                textAlign: TextAlign.center,
+                style: getBodyMediumStyle(context).copyWith(  color: flyternPrimaryColor,
+                ),),
+            )
           ],
         ),
       ),
