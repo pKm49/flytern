@@ -207,6 +207,7 @@
       "passport_expiry": "Passport Expiry",
       "passport_issuer_country": "Passport Issuer Country",
       "set_new_password": "Set New Password",
+      "add_co_passenger": "Add Co-Pax",
 
       "lorem_ipsum_description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "price": "Price",
@@ -643,6 +644,7 @@
       "passport_expiry": "انتهاء جواز السفر",
       "passport_issuer_country": "الدولة المصدرة لجواز السفر",
       "set_new_password": "تعيين كلمة مرور جديدة",
+      "add_co_passenger": "إضافة مستخدم",
 
 
       "lorem_ipsum_description": "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة، ولكن بفضل هؤلاء الأشخاص الذين لا يدركون بأن السعادة لا بد أن نستشعرها بصورة أكثر عقلانية ومنطقية فيعرضهم هذا لمواجهة الظروف الأليمة، وأكرر بأنه لا يوجد من يرغب في الحب ونيل المنال ويتلذذ بالآلام، الألم هو الألم ولكن نتيجة لظروف ما قد تكمن السعاده فيما نتحمله من كد وأسي.",
