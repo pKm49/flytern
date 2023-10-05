@@ -19,7 +19,7 @@ class ActivityListCard extends StatelessWidget {
 
 
     ActivityListCard({
-      super.key,
+    super.key,
     required this.imageUrl,
     required this.title,
     required this.flightName,
