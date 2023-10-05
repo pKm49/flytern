@@ -1,9 +1,9 @@
 
-import 'package:flytern/core/ui/pages/info_page.dart';
+import 'package:flytern/core/ui/pages/drawer_pages/info_page.dart';
 import 'package:flytern/core/ui/pages/landing_page.dart';
 import 'package:flytern/core/ui/pages/language_selector.dart';
-import 'package:flytern/core/ui/pages/settings_page.dart';
-import 'package:flytern/core/ui/pages/smart_payment_page.dart';
+import 'package:flytern/core/ui/pages/drawer_pages/settings_page.dart';
+import 'package:flytern/core/ui/pages/drawer_pages/smart_payment_page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_confirmation_page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_summary_page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_details_page.dart';
