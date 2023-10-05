@@ -17,12 +17,12 @@ class ConfirmDialogue extends StatelessWidget {
     return AlertDialog(
       shape: RoundedRectangleBorder(
           borderRadius:
-              BorderRadius.all(Radius.circular(flyternBorderRadiusLarge))),
+              BorderRadius.all(Radius.circular(flyternBorderRadiusSmall))),
       contentPadding: flyternMediumPaddingAll,
       content: SizedBox(
         height:subtitleKey !=''?
-              90+(flyternSpaceMedium*5)
-            : 45 + (flyternSpaceMedium * 4),
+              80+(flyternSpaceMedium*5)
+            : 35 + (flyternSpaceMedium * 4),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -44,16 +44,8 @@ class ConfirmDialogue extends StatelessWidget {
               ),
             ),
             addVerticalSpace(flyternSpaceMedium),
-            Row(
-              children: List.generate(
-                  600 ~/ 10,
-                  (index) => Expanded(
-                        child: Container(
-                          color:
-                              index % 2 == 0 ? Colors.transparent : Colors.grey,
-                          height: 2,
-                        ),
-                      )),
+            Divider(
+              thickness: 1.5,
             ),
             addVerticalSpace(flyternSpaceMedium),
             Row(
@@ -65,7 +57,10 @@ class ConfirmDialogue extends StatelessWidget {
                   },
                   child: Text(
                     "no".tr,
-                    style: getBodyMediumStyle(context),
+                    style: getBodyMediumStyle(context).copyWith(
+                      fontWeight: flyternFontWeightBold,
+                     color: flyternPrimaryColor
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 )),
@@ -78,7 +73,7 @@ class ConfirmDialogue extends StatelessWidget {
                   child: Text(
                     "yes".tr,
                     style: getBodyMediumStyle(context)
-                        .copyWith(fontWeight: FontWeight.bold),
+                        .copyWith(fontWeight: FontWeight.bold,color: flyternGuideRed),
                     textAlign: TextAlign.center,
                   ),
                 ))
