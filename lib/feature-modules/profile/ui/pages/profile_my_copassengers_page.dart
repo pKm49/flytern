@@ -48,6 +48,11 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
                 ],
               ),
             ),
+            Container(
+              width: screenwidth,
+              height: flyternSpaceSmall,
+              color: flyternBackgroundWhite,
+            ),
             UserDetailsCard(
               isActionAllowed:true,
               title: "adult".tr,
