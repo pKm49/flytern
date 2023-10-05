@@ -56,3 +56,4 @@
   //  core menu pages
   const String Approute_coreAppSettings = '/core-app-settings';
   const String Approute_coreAppInfo = '/core-app-info';
+  const String Approute_coreSmartPayment = '/core-smart-payment';
