@@ -41,102 +41,7 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
         color: flyternGrey10,
         child: ListView(
           children: [
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("flight_summary".tr,
-                      style: getBodyMediumStyle(context).copyWith(
-                          color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-                  Text("flight_details".tr,
-                      style: getBodyMediumStyle(context).copyWith(
-                          decoration: TextDecoration.underline,
-                          color: flyternTertiaryColor )),
-                ],
-              ),
-            ),
-            FlightBookingSummaryCard(
-              mode: "view",
 
-              onCancel: (){},
-              onDateChange: (){},
-            ),
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("passengers".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-
-            UserDetailsCard(
-              isActionAllowed:false,
-              title: "adult".tr,
-              name: "Andrew Martin",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
-            ),
-
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal,
-              child: Divider(),
-            ),
-            UserDetailsCard(
-              isActionAllowed:false,
-              title: "child".tr,
-              name: "Martin Andrew",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
-            ),
-
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("add_on_services".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("seats".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("15D",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("meal".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("Burger",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("baggage".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("23 Kg",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
 
             // Payment summary
 
@@ -352,6 +257,104 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                 ],
               ),
             ),
+
+            Padding(
+              padding: flyternLargePaddingAll,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("flight_summary".tr,
+                      style: getBodyMediumStyle(context).copyWith(
+                          color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+                  Text("flight_details".tr,
+                      style: getBodyMediumStyle(context).copyWith(
+                          decoration: TextDecoration.underline,
+                          color: flyternTertiaryColor )),
+                ],
+              ),
+            ),
+            FlightBookingSummaryCard(
+              mode: "view",
+
+              onCancel: (){},
+              onDateChange: (){},
+            ),
+            Padding(
+              padding: flyternLargePaddingAll,
+              child: Text("passengers".tr,
+                  style: getBodyMediumStyle(context).copyWith(
+                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+            ),
+
+            UserDetailsCard(
+              isActionAllowed:false,
+              title: "adult".tr,
+              name: "Andrew Martin",
+              email: "andrewmartin@gmail.com",
+              mobile: "+92 334431234",
+            ),
+
+            Container(
+              color: flyternBackgroundWhite,
+              padding: flyternLargePaddingHorizontal,
+              child: Divider(),
+            ),
+            UserDetailsCard(
+              isActionAllowed:false,
+              title: "child".tr,
+              name: "Martin Andrew",
+              email: "andrewmartin@gmail.com",
+              mobile: "+92 334431234",
+            ),
+
+            Padding(
+              padding: flyternLargePaddingAll,
+              child: Text("add_on_services".tr,
+                  style: getBodyMediumStyle(context).copyWith(
+                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+            ),
+            Container(
+              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
+              color: flyternBackgroundWhite,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("seats".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text("15D",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                ],
+              ),
+            ),
+            Container(
+                padding: flyternLargePaddingHorizontal,
+                color:flyternBackgroundWhite,
+                child: Divider()),
+            Container(
+              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
+              color: flyternBackgroundWhite,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("meal".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text("Burger",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                ],
+              ),
+            ),
+            Container(
+                padding: flyternLargePaddingHorizontal,
+                color:flyternBackgroundWhite,
+                child: Divider()),
+            Container(
+              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
+              color: flyternBackgroundWhite,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("baggage".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text("23 Kg",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                ],
+              ),
+            ),
+
             Container(
               height: 70+(flyternSpaceSmall*2),
               padding: flyternLargePaddingAll,
