@@ -344,10 +344,21 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
-                  openContactDetailsGetterBottomSheet( );
-
+                  openContactDetailsGetterBottomSheet();
                 },
-                child: Text("select".tr)),
+                child: Row(
+                  children: [
+
+                    Expanded(
+                      child: Text(
+                        "AED 1500",
+                      ),
+                    ),
+                    Text("select".tr),
+                    addHorizontalSpace(flyternSpaceSmall),
+                    Icon(Ionicons.chevron_forward,size: flyternFontSize20,)
+                  ],
+                )) ,
           ),
         ),
       ),
