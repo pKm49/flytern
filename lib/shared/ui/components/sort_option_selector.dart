@@ -48,9 +48,9 @@ class _SortOptionSelectorState extends State<SortOptionSelector> {
                                 color: flyternGrey80,
                                 fontWeight: flyternFontWeightBold),
                             textAlign: TextAlign.center),
-                        Text("done".tr,
-                            style: getHeadlineMediumStyle(context).copyWith(
-                                color: flyternPrimaryColor,
+                        Text("cancel".tr,
+                            style: getBodyMediumStyle(context).copyWith(
+                                color: flyternGuideRed,
                                 fontWeight: flyternFontWeightBold),
                             textAlign: TextAlign.center),
                       ],
@@ -116,7 +116,7 @@ class _SortOptionSelectorState extends State<SortOptionSelector> {
             padding: flyternMediumPaddingAll,
             decoration: flyternBorderedContainerSmallDecoration,
             child: Center(
-              child: Text("cancel".tr,style: getHeadlineMediumStyle(context).copyWith(color: flyternSecondaryColor)),
+              child: Text("done".tr,style: getHeadlineMediumStyle(context).copyWith(color: flyternPrimaryColor,fontWeight: flyternFontWeightBold)),
             ),
           )
         ],
