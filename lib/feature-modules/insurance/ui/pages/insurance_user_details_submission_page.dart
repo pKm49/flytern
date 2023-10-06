@@ -482,7 +482,7 @@ class _InsuranceUserDetailsSubmissionPageState extends State<InsuranceUserDetail
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
-                  openContactDetailsGetterBottomSheet();
+                  Get.toNamed(Approute_insuranceSummary);
                 },
                 child:Text("proceed".tr )),
           ),
@@ -510,17 +510,5 @@ class _InsuranceUserDetailsSubmissionPageState extends State<InsuranceUserDetail
   }
 
 
-  void openContactDetailsGetterBottomSheet( ) {
-    showModalBottomSheet(
-        useSafeArea: false,
-        shape:   RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
-              topRight: Radius.circular(flyternBorderRadiusSmall)),
-        ),
-        isScrollControlled: true,
-        context: context,
-        builder: (context) {
-          return ContactDetailsGetter(route: Approute_insuranceSummary);
-        });
-  }
+
 }

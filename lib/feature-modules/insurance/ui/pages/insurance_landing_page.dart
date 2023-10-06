@@ -4,6 +4,7 @@ import 'package:flytern/feature-modules/insurance/ui/components/insurance_regula
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/ui/components/contact_details_getter.dart';
 import 'package:get/get.dart';
 
 class InsuranceLandingPage extends StatefulWidget {
@@ -88,7 +89,8 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>  with Singl
               width: double.infinity,
               child: ElevatedButton(
                   onPressed: () {
-                    Get.toNamed(Approute_insuranceUserDetailsSubmission);
+                    openContactDetailsGetterBottomSheet();
+
                   },
                   child: Text("apply_now".tr)),
             ),
@@ -96,4 +98,19 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>  with Singl
         )
     );
   }
+
+  void openContactDetailsGetterBottomSheet( ) {
+    showModalBottomSheet(
+        useSafeArea: false,
+        shape:   RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
+              topRight: Radius.circular(flyternBorderRadiusSmall)),
+        ),
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return ContactDetailsGetter(route: Approute_insuranceUserDetailsSubmission);
+        });
+  }
+
 }
