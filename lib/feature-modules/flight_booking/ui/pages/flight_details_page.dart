@@ -9,6 +9,7 @@ import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 
 class FlightDetailsPage extends StatefulWidget {
   const FlightDetailsPage({super.key});
@@ -113,28 +114,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
               valueLabel:
                   "${"base_fare".tr} : AED 150\n${"tax_fare".tr} : AED 150",
             ),
-            Container(
-                color: flyternBackgroundWhite,
-                padding: flyternLargePaddingHorizontal,
-                child: Divider()),
-            Container(
-                color: flyternBackgroundWhite,
-                padding: flyternLargePaddingAll,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "total".tr,
-                      style: getHeadlineMediumStyle(context),
-                    ),
-                    Text(
-                      "AED 1500",
-                      style: getHeadlineMediumStyle(context).copyWith(
-                          fontWeight: flyternFontWeightBold,
-                          color: flyternGrey80),
-                    ),
-                  ],
-                )),
+
             Container(
               height: 70+(flyternSpaceSmall*2),
               padding: flyternLargePaddingAll,
@@ -154,7 +134,20 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                 onPressed: () {
                   Get.toNamed(Approute_flightsAddonServices);
                 },
-                child:Text("next".tr )),
+                child:Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+
+                    Expanded(
+                      child: Text(
+                        "AED 1500", 
+                      ),
+                    ),
+                    Text("next".tr ),
+                    addHorizontalSpace(flyternSpaceSmall),
+                    Icon(Ionicons.chevron_forward,size: flyternFontSize20,)
+                  ],
+                )),
           ),
         ),
       ),
