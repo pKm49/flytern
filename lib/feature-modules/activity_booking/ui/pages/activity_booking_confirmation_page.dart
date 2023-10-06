@@ -43,25 +43,6 @@ class _ActivityBookingConfirmationPageState extends State<ActivityBookingConfirm
         color: flyternGrey10,
         child: ListView(
           children: [
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("activity_details".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            Container(
-              color: flyternBackgroundWhite,
-              child: ActivityListCard(
-                onPressed: (){
-                  Get.toNamed(Approute_activitiesDetails);
-                },
-                imageUrl: ASSETS_PACKAGE_1_SAMPLE,
-                title: 'Shrek\'s Adventure',
-                flightName: 'Ticket (PP)',
-                hotelName: 'The Bank Hotel',
-                sponsoredBy: 'Central London',
-                price: 15000,
-              ),),
 
             Padding(
               padding: flyternLargePaddingAll,
@@ -192,6 +173,25 @@ class _ActivityBookingConfirmationPageState extends State<ActivityBookingConfirm
             ),
 
 
+            Padding(
+              padding: flyternLargePaddingAll,
+              child: Text("activity_details".tr,
+                  style: getBodyMediumStyle(context).copyWith(
+                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+            ),
+            Container(
+              color: flyternBackgroundWhite,
+              child: ActivityListCard(
+                onPressed: (){
+                  Get.toNamed(Approute_activitiesDetails);
+                },
+                imageUrl: ASSETS_PACKAGE_1_SAMPLE,
+                title: 'Shrek\'s Adventure',
+                flightName: 'Ticket (PP)',
+                hotelName: 'The Bank Hotel',
+                sponsoredBy: 'Central London',
+                price: 15000,
+              ),),
 
             Container(
               height: 70+(flyternSpaceSmall*2),
