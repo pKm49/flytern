@@ -42,16 +42,7 @@ class _HotelBookingConfirmationPageState extends State<HotelBookingConfirmationP
         color: flyternGrey10,
         child: ListView(
           children: [
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("hotel_details".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            Container(
-                padding: flyternLargePaddingVertical,
-                color: flyternBackgroundWhite,
-                child: HotelSearchResultCard()),
+
             Padding(
               padding: flyternLargePaddingAll,
               child: Text("booking_details".tr,
@@ -196,7 +187,16 @@ class _HotelBookingConfirmationPageState extends State<HotelBookingConfirmationP
               ),
             ),
 
-
+            Padding(
+              padding: flyternLargePaddingAll,
+              child: Text("hotel_details".tr,
+                  style: getBodyMediumStyle(context).copyWith(
+                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+            ),
+            Container(
+                padding: flyternLargePaddingVertical,
+                color: flyternBackgroundWhite,
+                child: HotelSearchResultCard()),
             Padding(
               padding: flyternLargePaddingAll,
               child: Text("passengers".tr,

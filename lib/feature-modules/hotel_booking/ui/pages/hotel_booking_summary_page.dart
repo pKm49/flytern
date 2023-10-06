@@ -42,43 +42,7 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
         color: flyternGrey10,
         child: ListView(
           children: [
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("hotel_details".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            Container(
-              padding: flyternLargePaddingVertical,
-                color: flyternBackgroundWhite,
-                child: HotelSearchResultCard()),
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("users".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
 
-            UserDetailsCard(
-              isActionAllowed:false,
-              title: "adult".tr,
-              name: "Andrew Martin",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
-            ),
-
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal,
-              child: Divider(),
-            ),
-            UserDetailsCard(
-              isActionAllowed:false,
-              title: "child".tr,
-              name: "Martin Andrew",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
-            ),
 
             // Payment summary
 
@@ -280,6 +244,45 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                 ],
               ),
             ),
+
+            Padding(
+              padding: flyternLargePaddingAll,
+              child: Text("hotel_details".tr,
+                  style: getBodyMediumStyle(context).copyWith(
+                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+            ),
+            Container(
+              padding: flyternLargePaddingVertical,
+                color: flyternBackgroundWhite,
+                child: HotelSearchResultCard()),
+            Padding(
+              padding: flyternLargePaddingAll,
+              child: Text("users".tr,
+                  style: getBodyMediumStyle(context).copyWith(
+                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+            ),
+
+            UserDetailsCard(
+              isActionAllowed:false,
+              title: "adult".tr,
+              name: "Andrew Martin",
+              email: "andrewmartin@gmail.com",
+              mobile: "+92 334431234",
+            ),
+
+            Container(
+              color: flyternBackgroundWhite,
+              padding: flyternLargePaddingHorizontal,
+              child: Divider(),
+            ),
+            UserDetailsCard(
+              isActionAllowed:false,
+              title: "child".tr,
+              name: "Martin Andrew",
+              email: "andrewmartin@gmail.com",
+              mobile: "+92 334431234",
+            ),
+
             Container(
               height: 70+(flyternSpaceSmall*2),
               padding: flyternLargePaddingAll,
