@@ -115,8 +115,8 @@ class _PackageUserDetailsSubmissionPageState extends State<PackageUserDetailsSub
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
-                  openContactDetailsGetterBottomSheet( );
-                },
+                  Get.toNamed(Approute_landingpage );
+                  },
                 child: Text("submit_enquiry".tr)),
           ),
         ),
@@ -125,17 +125,5 @@ class _PackageUserDetailsSubmissionPageState extends State<PackageUserDetailsSub
   }
 
 
-  void openContactDetailsGetterBottomSheet( ) {
-    showModalBottomSheet(
-        useSafeArea: false,
-        shape:   RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
-              topRight: Radius.circular(flyternBorderRadiusSmall)),
-        ),
-        isScrollControlled: true,
-        context: context,
-        builder: (context) {
-          return ContactDetailsGetter(route: Approute_landingpage);
-        });
-  }
+
 }

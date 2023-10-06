@@ -7,6 +7,7 @@ import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared/ui/components/contact_details_getter.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -343,12 +344,27 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
-                  Get.toNamed(Approute_packagesUserDetailsSubmission );
+                  openContactDetailsGetterBottomSheet( );
+
                 },
                 child: Text("select".tr)),
           ),
         ),
       ),
     );
+  }
+
+  void openContactDetailsGetterBottomSheet( ) {
+    showModalBottomSheet(
+        useSafeArea: false,
+        shape:   RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
+              topRight: Radius.circular(flyternBorderRadiusSmall)),
+        ),
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return ContactDetailsGetter(route: Approute_packagesUserDetailsSubmission);
+        });
   }
 }
