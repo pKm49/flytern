@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/services/utility-services/form_validator.dart';
 import 'package:flytern/shared/ui/components/data_capsule_card.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -10,8 +11,9 @@ import 'package:get/get.dart';
 class ContactDetailsGetter extends StatefulWidget {
 
   String route;
+  String? secondRoute;
 
-    ContactDetailsGetter({super.key, required this.route});
+    ContactDetailsGetter({super.key, required this.route, this.secondRoute});
 
   @override
   State<ContactDetailsGetter> createState() => _ContactDetailsGetterState();
@@ -88,7 +90,10 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: ()   {
-                  Get.toNamed(widget.route);
+                  Get.toNamed(widget.route,
+                      arguments: [
+                        {"routeName": widget.secondRoute??Approute_landingpage}
+                      ]);
                 }, child: Text("continue_as".tr+" "+"guest_user".tr)),
           ),
           addVerticalSpace(flyternSpaceLarge),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/travel_stories_item_card.dart';
+import 'package:flytern/shared/ui/components/contact_details_getter.dart';
 import 'package:flytern/shared/ui/components/data_capsule_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_addon_service_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_itinerary_card.dart';
@@ -327,10 +328,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
               width: double.infinity,
               child: ElevatedButton(
                   onPressed: () {
-                    Get.toNamed(Approute_userDetailsSubmission,
-                        arguments: [
-                          {"routeName": Approute_hotelsSummary}
-                        ]);
+                 openContactDetailsGetterBottomSheet();
                   },
                   child: Row(
                     children: [
@@ -350,5 +348,21 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
         ),
       ),
     );
+  }
+
+
+  void openContactDetailsGetterBottomSheet( ) {
+    showModalBottomSheet(
+        useSafeArea: false,
+        shape:   RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
+              topRight: Radius.circular(flyternBorderRadiusSmall)),
+        ),
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return ContactDetailsGetter(route: Approute_userDetailsSubmission,
+              secondRoute:Approute_hotelsSummary);
+        });
   }
 }

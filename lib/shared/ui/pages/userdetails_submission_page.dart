@@ -277,7 +277,7 @@ class _UserDetailsSubmissionPageState extends State<UserDetailsSubmissionPage> {
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
-                  openContactDetailsGetterBottomSheet();
+                  Get.toNamed(routeName);
                  },
                 child:Text("proceed".tr )),
           ),
@@ -305,17 +305,4 @@ class _UserDetailsSubmissionPageState extends State<UserDetailsSubmissionPage> {
 
   }
 
-  void openContactDetailsGetterBottomSheet( ) {
-  showModalBottomSheet(
-      useSafeArea: false,
-      shape:   RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
-            topRight: Radius.circular(flyternBorderRadiusSmall)),
-      ),
-      isScrollControlled: true,
-      context: context,
-      builder: (context) {
-        return ContactDetailsGetter(route: routeName);
-      });
-}
 }
