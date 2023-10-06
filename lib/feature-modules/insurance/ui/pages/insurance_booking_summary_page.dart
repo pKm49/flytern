@@ -43,133 +43,6 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
         color: flyternGrey10,
         child: ListView(
           children: [
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("user_details".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            UserDetailsCard(
-              isActionAllowed:false,
-              title: "contributor".tr,
-              name: "Andrew Martin",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
-            ),
-
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal,
-              child: Divider(),
-            ),
-            UserDetailsCard(
-              isActionAllowed:false,
-              title: "spouse".tr,
-              name: "Martin Andrew",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
-            ),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal,
-              child: Divider(),
-            ),
-            UserDetailsCard(
-              isActionAllowed:false,
-              title: "son".tr,
-              name: "Martin Andrew",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
-            ),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal,
-              child: Divider(),
-            ),
-            UserDetailsCard(
-              isActionAllowed:false,
-              title: "daughter".tr,
-              name: "Martin Andrew",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
-            ),
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("insurance_details".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("policy".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("COVID-19",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("policy_type".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("Individual",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("policy_plan".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("Silver",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("policy_period".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("One Week",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("policy_start_date".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("18 Apr 23",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
 
             Padding(
               padding: flyternLargePaddingAll,
@@ -354,6 +227,135 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
                   ),
                 ],
               ),
+            ),
+
+            Padding(
+              padding: flyternLargePaddingAll,
+              child: Text("insurance_details".tr,
+                  style: getBodyMediumStyle(context).copyWith(
+                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+            ),
+            Container(
+              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
+              color: flyternBackgroundWhite,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("policy".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text("COVID-19",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                ],
+              ),
+            ),
+            Container(
+                padding: flyternLargePaddingHorizontal,
+                color:flyternBackgroundWhite,
+                child: Divider()),
+            Container(
+              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
+              color: flyternBackgroundWhite,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("policy_type".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text("Individual",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                ],
+              ),
+            ),
+            Container(
+                padding: flyternLargePaddingHorizontal,
+                color:flyternBackgroundWhite,
+                child: Divider()),
+            Container(
+              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
+              color: flyternBackgroundWhite,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("policy_plan".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text("Silver",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                ],
+              ),
+            ),
+            Container(
+                padding: flyternLargePaddingHorizontal,
+                color:flyternBackgroundWhite,
+                child: Divider()),
+            Container(
+              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
+              color: flyternBackgroundWhite,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("policy_period".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text("One Week",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                ],
+              ),
+            ),
+            Container(
+                padding: flyternLargePaddingHorizontal,
+                color:flyternBackgroundWhite,
+                child: Divider()),
+            Container(
+              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
+              color: flyternBackgroundWhite,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("policy_start_date".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text("18 Apr 23",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                ],
+              ),
+            ),
+
+            Padding(
+              padding: flyternLargePaddingAll,
+              child: Text("user_details".tr,
+                  style: getBodyMediumStyle(context).copyWith(
+                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+            ),
+            UserDetailsCard(
+              isActionAllowed:false,
+              title: "contributor".tr,
+              name: "Andrew Martin",
+              email: "andrewmartin@gmail.com",
+              mobile: "+92 334431234",
+            ),
+
+            Container(
+              color: flyternBackgroundWhite,
+              padding: flyternLargePaddingHorizontal,
+              child: Divider(),
+            ),
+            UserDetailsCard(
+              isActionAllowed:false,
+              title: "spouse".tr,
+              name: "Martin Andrew",
+              email: "andrewmartin@gmail.com",
+              mobile: "+92 334431234",
+            ),
+            Container(
+              color: flyternBackgroundWhite,
+              padding: flyternLargePaddingHorizontal,
+              child: Divider(),
+            ),
+            UserDetailsCard(
+              isActionAllowed:false,
+              title: "son".tr,
+              name: "Martin Andrew",
+              email: "andrewmartin@gmail.com",
+              mobile: "+92 334431234",
+            ),
+            Container(
+              color: flyternBackgroundWhite,
+              padding: flyternLargePaddingHorizontal,
+              child: Divider(),
+            ),
+            UserDetailsCard(
+              isActionAllowed:false,
+              title: "daughter".tr,
+              name: "Martin Andrew",
+              email: "andrewmartin@gmail.com",
+              mobile: "+92 334431234",
             ),
             Container(
               height: 70+(flyternSpaceSmall*2),
