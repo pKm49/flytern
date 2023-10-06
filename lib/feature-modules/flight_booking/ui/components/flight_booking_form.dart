@@ -76,7 +76,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                 ),
               ),
               addHorizontalSpace(flyternSpaceMedium),
-              Image.asset(ASSETS_ROUND_TRIP_ICON, width: 35),
+              Icon(Ionicons.sync,size: 35,color: flyternTertiaryColor,),
               addHorizontalSpace(flyternSpaceMedium),
               Expanded(
                 flex: 1,
@@ -253,7 +253,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                   ),
                 ),
                 addHorizontalSpace(flyternSpaceMedium),
-                Image.asset(ASSETS_ROUND_TRIP_ICON, width: 35),
+                Icon(Ionicons.sync,size: 35),
                 addHorizontalSpace(flyternSpaceMedium),
                 Expanded(
                   flex: 1,
