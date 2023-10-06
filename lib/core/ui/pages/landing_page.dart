@@ -77,9 +77,9 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
                 },
                 child: Icon(CupertinoIcons.search,color: flyternGrey80))),
         addHorizontalSpace(flyternSpaceMedium),
-        Visibility(
-            child: Icon(CupertinoIcons.bell,color: flyternGrey80)),
-        addHorizontalSpace(flyternSpaceMedium),
+        // Visibility(
+        //     child: Icon(CupertinoIcons.bell,color: flyternGrey80)),
+        // addHorizontalSpace(flyternSpaceMedium),
 
       ],
       ),
