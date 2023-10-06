@@ -10,6 +10,7 @@ import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 
 class HotelDetailsPage extends StatefulWidget {
   const HotelDetailsPage({super.key});
@@ -331,7 +332,19 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                           {"routeName": Approute_hotelsSummary}
                         ]);
                   },
-                  child: Text("book_now".tr)),
+                  child: Row(
+                    children: [
+
+                      Expanded(
+                        child: Text(
+                          "AED 1500",
+                        ),
+                      ),
+                      Text("book_now".tr),
+                      addHorizontalSpace(flyternSpaceSmall),
+                      Icon(Ionicons.chevron_forward,size: flyternFontSize20,)
+                    ],
+                  )),
             ),
           ),
         ),
