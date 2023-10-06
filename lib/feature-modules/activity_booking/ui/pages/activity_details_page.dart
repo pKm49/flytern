@@ -11,6 +11,7 @@ import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 
 class ActivityDetailsPage extends StatefulWidget {
   const ActivityDetailsPage({super.key});
@@ -52,39 +53,7 @@ class _ActivityDetailsPageState extends State<ActivityDetailsPage> {
                     ),
                   ),
                 ),
-                Container(
-                  padding: flyternLargePaddingAll,
-                  width: screenwidth,
-                  color: flyternGrey10,
-                  child:  Text(
-                    "reviews_rating".tr,
-                    style: getBodyMediumStyle(context).copyWith(
-                        color: flyternGrey80,
-                        fontWeight: flyternFontWeightBold),
-                  ),
-                ),
 
-                addVerticalSpace(flyternSpaceSmall),
-                TravelStoriesItemCard(
-                  profilePicUrl: ASSETS_USER_1_SAMPLE,
-                  name: "Andrew Martin",
-                  rating: 4.4,
-                  description: "lorem_ipsum_description".tr,
-                  imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
-                  child: Divider(),
-                ),
-                TravelStoriesItemCard(
-                  profilePicUrl: ASSETS_USER_1_SAMPLE,
-                  name: "Andrew Martin",
-                  rating: 4.4,
-                  description: "lorem_ipsum_description".tr,
-                  imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
-                ),
-
-                addVerticalSpace(flyternSpaceMedium),
 
                 Container(
                   padding: flyternLargePaddingAll,
@@ -133,7 +102,37 @@ class _ActivityDetailsPageState extends State<ActivityDetailsPage> {
                   ),
                 ),
                 addVerticalSpace(flyternSpaceLarge),
+                Container(
+                  padding: flyternLargePaddingAll,
+                  width: screenwidth,
+                  color: flyternGrey10,
+                  child:  Text(
+                    "reviews_rating".tr,
+                    style: getBodyMediumStyle(context).copyWith(
+                        color: flyternGrey80,
+                        fontWeight: flyternFontWeightBold),
+                  ),
+                ),
 
+                addVerticalSpace(flyternSpaceSmall),
+                TravelStoriesItemCard(
+                  profilePicUrl: ASSETS_USER_1_SAMPLE,
+                  name: "Andrew Martin",
+                  rating: 4.4,
+                  description: "lorem_ipsum_description".tr,
+                  imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
+                  child: Divider(),
+                ),
+                TravelStoriesItemCard(
+                  profilePicUrl: ASSETS_USER_1_SAMPLE,
+                  name: "Andrew Martin",
+                  rating: 4.4,
+                  description: "lorem_ipsum_description".tr,
+                  imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
+                ),
                 Container(
                   height: 70+(flyternSpaceSmall*2),
                   padding: flyternLargePaddingAll,
@@ -155,7 +154,19 @@ class _ActivityDetailsPageState extends State<ActivityDetailsPage> {
                   onPressed: () {
                     openContactDetailsGetterBottomSheet( );
                   },
-                  child: Text("buy_now".tr)),
+                  child:Row(
+                    children: [
+
+                      Expanded(
+                        child: Text(
+                          "AED 1500",
+                        ),
+                      ),
+                      Text("book_now".tr),
+                      addHorizontalSpace(flyternSpaceSmall),
+                      Icon(Ionicons.chevron_forward,size: flyternFontSize20,)
+                    ],
+                  )),
             ),
           ),
         ),
