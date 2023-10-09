@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 getRequest(endpoint, parameters) async {
   try {
     print("getRequest called");
-    print(endpoint);
+    print(env.apiEndPoint+ "$endpoint");
     print(parameters);
 
     final http = InterceptedHttp.build(interceptors: [
@@ -20,8 +20,8 @@ getRequest(endpoint, parameters) async {
     ]);
 
     final httpResponse = await http
-        .get(Uri.http(env.apiEndPoint, "$endpoint"),params: json.decode(json.encode(parameters)));
-    print(Uri.http(env.apiEndPoint, "$endpoint").toString());
+        .get(Uri.https(env.apiEndPoint, "$endpoint"),params: json.decode(json.encode(parameters)));
+    print(Uri.https(env.apiEndPoint, "$endpoint").toString());
 
     print("httpResponse");
     print(httpResponse.body);
@@ -30,8 +30,10 @@ getRequest(endpoint, parameters) async {
     return generateSuccessResponse(httpResponseBody);
 
   } on SocketException {
+    print("SocketException");
     return generateErrorResponse('Couldn\'t Connect, Try Again Later');
   } on FormatException catch (e,stack) {
+
     if (e.toString().contains("Request Not Implemented")) {
       return generateErrorResponse('Request Not Implemented');
     }
@@ -41,13 +43,13 @@ getRequest(endpoint, parameters) async {
     if (e.toString().contains("Request Not Authorised")) {
       return generateErrorResponse('Request Not Authorised');
     }
-    // print("get FormatException exception");
-    // print(e.toString());
-    // print(stack.toString());
+    print("get FormatException exception");
+    print(e.toString());
+    print(stack.toString());
     return generateErrorResponse('Something went wrong, try again');
   } on Exception catch (e) {
-    // print("get exception");
-    // print(e.toString());
+    print("get exception");
+    print(e.toString());
     return generateErrorResponse('Something went wrong, try again');
   }
 }
@@ -55,14 +57,14 @@ getRequest(endpoint, parameters) async {
 postRequest(endpoint, body) async {
   print("postRequest called");
   print(endpoint);
-  print(Uri.http(env.apiEndPoint, "$endpoint").toString());
+  print(Uri.https(env.apiEndPoint, "$endpoint").toString());
   print(body);
   try {
     final http = InterceptedHttp.build(interceptors: [
       FlyternHttpInterceptor(),
     ]);
     print("postRequest called pass 1");
-    print(Uri.http(env.apiEndPoint, "$endpoint").toString());
+    print(Uri.https(env.apiEndPoint, "$endpoint").toString());
   print("update_customer_profile request");
   print(endpoint.toString().contains('update_customer_profile'));
   late var httpResponse;
@@ -70,12 +72,12 @@ postRequest(endpoint, body) async {
     // print("update_customer_profile contains update_customer_profile");
 
     httpResponse = await http.post(
-        Uri.http(env.apiEndPoint, "$endpoint"),
+        Uri.https(env.apiEndPoint, "$endpoint"),
         params:endpoint.toString().contains('update_customer_profile')? json.decode(json.encode(body)) : null
     );
   }else{
       httpResponse = await http.post(
-        Uri.http(env.apiEndPoint, "$endpoint"),
+        Uri.https(env.apiEndPoint, "$endpoint"),
         body:endpoint.toString().contains('update_customer_profile')?null: json.encode(body)
     );
   }
@@ -123,7 +125,7 @@ patchRequest(endpoint, body) async {
     ]);
 
     final httpResponse = await http.patch(
-        Uri.http(env.apiEndPoint, "/$endpoint"),
+        Uri.https(env.apiEndPoint, "/$endpoint"),
         body: json.encode(body));
 
     var httpResponseBody = json.decode(httpResponse.body);
@@ -155,7 +157,7 @@ deleteRequest(endpoint) async {
     ]);
 
     final httpResponse =
-        await http.delete(Uri.http(env.apiEndPoint, "/$endpoint"));
+        await http.delete(Uri.https(env.apiEndPoint, "/$endpoint"));
 
     var httpResponseBody = json.decode(httpResponse.body);
 
@@ -222,7 +224,7 @@ fileUpload(dynamic body, List<File> files, String field) async {
     }
 
     var request = httpForMultipart.MultipartRequest(
-        "POST", Uri.http(env.apiEndPoint, "/media"));
+        "POST", Uri.https(env.apiEndPoint, "/media"));
     request.headers.addAll(headers);
     request.fields.addAll(Map<String, String>.from(body)  );
 
