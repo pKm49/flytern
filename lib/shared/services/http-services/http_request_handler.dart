@@ -208,7 +208,6 @@ fileUpload(dynamic body, List<File> files, String field) async {
       "Content-Type": "application/json",
     };
 
-    headers["x-api-key"] = env.apiKey;
 
     var sharedPreferences = await SharedPreferences.getInstance();
     var accessToken = await sharedPreferences.getString("accessToken");
