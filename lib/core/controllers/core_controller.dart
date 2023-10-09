@@ -7,17 +7,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CoreController extends GetxController {
 
-  final coreController = Get.find<CoreController>();
-
   var selectedLanguage = "".obs;
-  var isLoading = true.obs;
-  var themes = [].obs;
-
-  int loggedInUserCallCount = 0;
 
   @override
   void onInit() {
     super.onInit();
+    getAuthToken();
   }
 
   changeLanguage(newLanguage) async {
@@ -29,6 +24,20 @@ class CoreController extends GetxController {
     Get.updateLocale(Locale(newLanguage));
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString('selectedLanguage', newLanguage);
+  }
+
+  Future<void> getAuthToken() async {
+    print("checkAuthStatusAndHandleRedirection");
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? accessToken = prefs.getString('accessToken');
+    final String? refreshToken = prefs.getString('refreshToken');
+
+    if(accessToken != null && accessToken !=''){
+
+    }else{
+
+    }
+
   }
 
 }
