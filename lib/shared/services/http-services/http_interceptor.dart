@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:flytern/core/data/constants/app-spectific/http_request_endpoints.dart';
+import 'package:flytern/core/data/constants/app-spectific/core_http_request_endpoints.dart';
 import 'package:http_interceptor/http_interceptor.dart';
  import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flytern/config/env.dart' as env;
