@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flytern/core/controllers/core_controller.dart';
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
 import 'package:flytern/feature-modules/auth/data/constants/ui_constants/language_selector_curve_clipper.dart';
+import 'package:flytern/shared/controllers/shared_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -20,7 +21,7 @@ class CoreLanguageSelector extends StatefulWidget {
 
 class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
 
-  final coreController = Get.put(CoreController());
+  final sharedController = Get.put(SharedController());
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
   String currentLanguageCode = "en";
@@ -99,7 +100,7 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                           width: double.infinity,
                           child: ElevatedButton(
                             onPressed: () async {
-                              await coreController.changeLanguage(Lang_English);
+                              await sharedController.changeLanguage(Lang_English);
                               Get.toNamed(Approute_authSelector);
                             },
                             style: ButtonStyle(
@@ -122,7 +123,7 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                           width: double.infinity,
                           child: ElevatedButton(
                               onPressed: () async {
-                                await coreController
+                                await sharedController
                                     .changeLanguage(Lang_Arabic);
                                 Get.toNamed(Approute_authSelector);
                               },
