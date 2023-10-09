@@ -12,12 +12,6 @@ class CoreHttpServices{
 
     FlyternHttpResponse response = await postRequest(CoreHttpRequestEndpointGetGuestToken,null);
 
-    print("response is");
-    print(response.success);
-    print(response.data);
-    print(response.message);
-    print(response.errors);
-
     if(response.success){
       if(response.data != null){
         AuthToken authToken = mapAuthToken(response.data);
@@ -29,12 +23,20 @@ class CoreHttpServices{
 
   }
 
-  Future<FlyternHttpResponse> updateFirebaseToken(flavor,userId,String firebaseToken) async {
-    FlyternHttpResponse response = await patchRequest(
-        flavor.toLowerCase().split(" ").join('-')+'/'+userId  ,
-        {"firebaseToken":firebaseToken});
+  getRefreshedToken(String refreshToken) async {
 
-    return response;
+    FlyternHttpResponse response = await postRequest(CoreHttpRequestEndpointGetNewAccesToken,
+        {refreshToken:refreshToken});
+
+    if(response.success){
+      if(response.data != null){
+        AuthToken authToken = mapAuthToken(response.data);
+        return authToken;
+      }
+    }
+
+    return mapAuthToken({});
+
   }
 
 }
