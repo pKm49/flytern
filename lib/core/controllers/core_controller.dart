@@ -2,6 +2,7 @@
 
 import 'package:flutter/services.dart';
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
+import 'package:flytern/core/services/http-services/core_http.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,14 +28,21 @@ class CoreController extends GetxController {
   }
 
   Future<void> getAuthToken() async {
-    print("checkAuthStatusAndHandleRedirection");
+
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+
     final String? accessToken = prefs.getString('accessToken');
     final String? refreshToken = prefs.getString('refreshToken');
 
     if(accessToken != null && accessToken !=''){
 
     }else{
+
+      var coreHttpServices = CoreHttpServices();
+      var responseData = await coreHttpServices.getGuestToken();
+      if(responseData != null){
+
+      }
 
     }
 
