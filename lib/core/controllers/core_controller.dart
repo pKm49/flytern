@@ -8,23 +8,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CoreController extends GetxController {
 
-  var selectedLanguage = "".obs;
 
   @override
   void onInit() {
     super.onInit();
     setAuthToken();
-  }
-
-  changeLanguage(newLanguage) async {
-    if (newLanguage != Lang_Arabic &&
-        newLanguage != Lang_English) {
-      newLanguage = Lang_English;
-    }
-    selectedLanguage.value = newLanguage;
-    Get.updateLocale(Locale(newLanguage));
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString('selectedLanguage', newLanguage);
   }
 
   Future<void> setAuthToken() async {
