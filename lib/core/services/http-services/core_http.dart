@@ -10,7 +10,7 @@ class CoreHttpServices{
 
   getGuestToken() async {
 
-    FlyternHttpResponse response = await getRequest(CoreHttpRequestEndpointGetGuestToken,null);
+    FlyternHttpResponse response = await postRequest(CoreHttpRequestEndpointGetGuestToken,null);
 
     print("response is");
     print(response.success);
