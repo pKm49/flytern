@@ -34,24 +34,45 @@ class CoreController extends GetxController {
 
     final String? accessToken = prefs.getString('accessToken');
     final String? refreshToken = prefs.getString('refreshToken');
+    final String? expiryOnString = prefs.getString('expiryOn');
 
-    print("accessToken refreshToken");
+    print("prefs accessToken");
     print(accessToken);
     print(refreshToken);
+    print(expiryOnString);
 
     if(accessToken != null && accessToken !='' &&
-        refreshToken != null && refreshToken !=''){
+        refreshToken != null && refreshToken !='' &&
+        expiryOnString != null && expiryOnString !=''){
+
+      DateTime expiryOn = DateTime.parse(expiryOnString);
+
+      if(DateTime.now().isBefore(expiryOn)){
+        print("access token expired ");
+        AuthToken authToken = await coreHttpServices.getRefreshedToken(refreshToken);
+        print("authToken");
+        print(authToken.accessToken);
+        if(authToken.accessToken != ""){
+          saveAuthTokenToSharedPreference(authToken);
+        }
+      }
+
       return;
     }
 
     AuthToken authToken = await coreHttpServices.getGuestToken();
-    print(authToken.accessToken);
-    print(authToken.refreshToken);
-    print(authToken.expiryOn);
-    if(authToken != null){
 
+    if(authToken.accessToken != ""){
+      saveAuthTokenToSharedPreference(authToken);
     }
 
+  }
+
+  saveAuthTokenToSharedPreference(AuthToken authToken) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("accessToken", authToken.accessToken);
+    prefs.setString("refreshToken", authToken.refreshToken);
+    prefs.setString("expiryOn", authToken.expiryOn.toString());
   }
 
 }
