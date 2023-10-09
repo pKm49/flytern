@@ -7,6 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CoreController extends GetxController {
 
+  final coreController = Get.find<CoreController>();
+
   var selectedLanguage = "".obs;
   var isLoading = true.obs;
   var themes = [].obs;
