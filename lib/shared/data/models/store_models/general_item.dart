@@ -4,7 +4,7 @@ class GeneralItem {
   final String name;
   final String arabicName;
 
-  GeneralItem.GeneralItem({
+  GeneralItem({
     required this.id,
     required this.name,
     required this.arabicName,
@@ -19,7 +19,7 @@ class GeneralItem {
 }
 
 GeneralItem mapGeneralItem(dynamic payload){
-  return GeneralItem.GeneralItem(
+  return GeneralItem(
     id :payload["id"]??-1,
     name :payload["name"]??"",
     arabicName :payload["arabic_name"] != null?payload["arabic_name"].toString():"",
