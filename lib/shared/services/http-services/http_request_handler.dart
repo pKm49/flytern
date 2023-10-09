@@ -184,13 +184,22 @@ generateSuccessResponse(dynamic httpResponseBody ) {
 
     FlyternHttpResponse poundHttpResponse = FlyternHttpResponse(
         statusCode:httpResponseBody['statusCode']??500,
-        message: httpResponseBody['message']??[],
-        errors: httpResponseBody['errors']??[],
-        data: httpResponseBody['data']??{}, success: httpResponseBody['success']??false);
+        message: httpResponseBody['message'] !=null?getStringListFromDynamic(httpResponseBody['errors']):[],
+        errors: httpResponseBody['errors'] !=null?getStringListFromDynamic(httpResponseBody['errors']):[],
+        data: httpResponseBody['data']??{},
+        success: httpResponseBody['success']??false);
     return poundHttpResponse;
 
+}
 
+List<String> getStringListFromDynamic(List<dynamic> list) {
+  List<String> returnList = [];
 
+  list.forEach((element) {
+    returnList.add(element.toString());
+  });
+
+  return returnList;
 }
 
 fileUpload(dynamic body, List<File> files, String field) async {
