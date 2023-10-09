@@ -36,11 +36,6 @@ class CoreController extends GetxController {
     final String? refreshToken = prefs.getString('refreshToken');
     final String? expiryOnString = prefs.getString('expiryOn');
 
-    print("prefs accessToken");
-    print(accessToken);
-    print(refreshToken);
-    print(expiryOnString);
-
     if(accessToken != null && accessToken !='' &&
         refreshToken != null && refreshToken !='' &&
         expiryOnString != null && expiryOnString !=''){
@@ -48,16 +43,14 @@ class CoreController extends GetxController {
       DateTime expiryOn = DateTime.parse(expiryOnString);
 
       if(DateTime.now().isBefore(expiryOn)){
-        print("access token expired ");
         AuthToken authToken = await coreHttpServices.getRefreshedToken(refreshToken);
-        print("authToken");
-        print(authToken.accessToken);
         if(authToken.accessToken != ""){
           saveAuthTokenToSharedPreference(authToken);
         }
       }
 
       return;
+
     }
 
     AuthToken authToken = await coreHttpServices.getGuestToken();
