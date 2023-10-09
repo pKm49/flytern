@@ -1,10 +1,9 @@
 import 'dart:developer';
 
-import 'package:flytern/core/data/constants/app-spectific/http_request_endpoints.dart';
+import 'package:flytern/core/data/constants/app-spectific/core_http_request_endpoints.dart';
 import 'package:flytern/core/data/models/app-specific/auth_token.dart';
 import 'package:flytern/shared/data/models/app_specific/flytern_http_response.dart';
 import 'package:flytern/shared/services/http-services/http_request_handler.dart';
-
 
 class CoreHttpServices{
 
