@@ -1,7 +1,7 @@
  import 'dart:ui';
 
-import 'package:flutter/services.dart';
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
+import 'package:flytern/core/data/models/app-specific/auth_token.dart';
 import 'package:flytern/core/services/http-services/core_http.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,7 +13,7 @@ class CoreController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getAuthToken();
+    setAuthToken();
   }
 
   changeLanguage(newLanguage) async {
@@ -27,22 +27,28 @@ class CoreController extends GetxController {
     await sharedPreferences.setString('selectedLanguage', newLanguage);
   }
 
-  Future<void> getAuthToken() async {
+  Future<void> setAuthToken() async {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var coreHttpServices = CoreHttpServices();
 
     final String? accessToken = prefs.getString('accessToken');
     final String? refreshToken = prefs.getString('refreshToken');
 
-    if(accessToken != null && accessToken !=''){
+    print("accessToken refreshToken");
+    print(accessToken);
+    print(refreshToken);
 
-    }else{
+    if(accessToken != null && accessToken !='' &&
+        refreshToken != null && refreshToken !=''){
+      return;
+    }
 
-      var coreHttpServices = CoreHttpServices();
-      var responseData = await coreHttpServices.getGuestToken();
-      if(responseData != null){
-
-      }
+    AuthToken authToken = await coreHttpServices.getGuestToken();
+    print(authToken.accessToken);
+    print(authToken.refreshToken);
+    print(authToken.expiryOn);
+    if(authToken != null){
 
     }
 
