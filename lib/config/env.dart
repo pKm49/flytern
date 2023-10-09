@@ -1,5 +1,5 @@
 //const apiEndPoint = "api.samrambhakar.com";
-const apiEndPoint = "https://flytern.com/coreapi/api/";
+const apiEndPoint = "https://www.flytern.com/coreapi/api/";
 
 const firebaseConfig= {
   "apiKey": "AIzaSyBCHln2k-jA0_grdjEakhLjo6IubzJTf7s",
