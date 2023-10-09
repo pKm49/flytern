@@ -3,6 +3,7 @@
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
 import 'package:flytern/core/data/models/app-specific/auth_token.dart';
 import 'package:flytern/core/services/http-services/core_http.dart';
+import 'package:flytern/shared/controllers/shared_controller.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -46,6 +47,8 @@ class CoreController extends GetxController {
     if(authToken.accessToken != ""){
       saveAuthTokenToSharedPreference(authToken);
     }
+
+    Get.put(SharedController());
 
   }
 

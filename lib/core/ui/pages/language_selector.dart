@@ -21,7 +21,7 @@ class CoreLanguageSelector extends StatefulWidget {
 
 class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
 
-  final sharedController = Get.put(SharedController());
+  final sharedController = Get.find<SharedController>();
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
   String currentLanguageCode = "en";
