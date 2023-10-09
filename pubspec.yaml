@@ -47,6 +47,7 @@ dependencies:
   dotted_border: ^2.1.0
   ionicons: ^0.2.2
   country_code_picker: ^3.0.0
+  http_interceptor: ^1.0.2
 
 dev_dependencies:
   flutter_test:
