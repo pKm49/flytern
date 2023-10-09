@@ -35,7 +35,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    final coreController = Get.put(CoreController());
+
+    Get.put(CoreController());
     CoreTranslationController.initLanguages();
     _themeManager.addListener(themeListener);
 
