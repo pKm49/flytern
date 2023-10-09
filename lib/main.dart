@@ -26,7 +26,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  final coreController = Get.put(CoreController());
 
   @override
   void dispose() {
@@ -36,6 +35,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
+    final coreController = Get.put(CoreController());
     CoreTranslationController.initLanguages();
     _themeManager.addListener(themeListener);
 
