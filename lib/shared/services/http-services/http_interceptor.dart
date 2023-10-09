@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:flytern/core/data/constants/app-spectific/http_request_endpoints.dart';
 import 'package:http_interceptor/http_interceptor.dart';
  import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flytern/config/env.dart' as env;
@@ -12,15 +13,31 @@ class FlyternHttpInterceptor implements InterceptorContract {
       var Bearer = await sharedPreferences.getString("accessToken");
       var Basic = env.basicToken;
 
+      print("Bearer");
+      print(Bearer);
+      print("Basic");
+      print(Basic);
+      print(data.url.contains(CoreHttpRequestEndpointGetGuestToken));
+      print(data.baseUrl);
+
       data.headers["Accept"] = "*/*";
       data.headers["Content-Type"] = "application/json";
 
       if (Bearer != null && Bearer != "") {
         data.headers["Authorization"] = "Bearer $Bearer";
       }else{
-        data.headers["Authorization"] = "Basic $Basic.";
+        data.headers["Authorization"] = "Basic $Basic";
       }
+
+      data.headers["Host"]=env.apiEndPoint;
+      if(data.url.contains(CoreHttpRequestEndpointGetGuestToken)){
+        data.headers["DeviceID"] = "123123";
+      }
+
+      print(" interceptRequest data.headers");
+      print(data.headers);
     } catch (e) {
+      print("interceptRequest error");
       print(e);
     }
     return data;
