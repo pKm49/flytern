@@ -1,0 +1,1 @@
+const String SharedHttpRequestEndpointGetInitalInfo = "/coreapi/api/Supports/GetInitalInfo";
