@@ -11,13 +11,21 @@ class CoreHttpServices{
   getGuestToken() async {
 
     FlyternHttpResponse response = await getRequest(CoreHttpRequestEndpointGetGuestToken,null);
+
+    print("response is");
+    print(response.success);
+    print(response.data);
+    print(response.message);
+    print(response.errors);
+
     if(response.success){
       if(response.data != null){
         AuthToken authToken = mapAuthToken(response.data);
         return authToken;
       }
     }
-    return null;
+
+    return mapAuthToken({});
 
   }
 
