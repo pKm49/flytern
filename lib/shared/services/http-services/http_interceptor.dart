@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http_interceptor/http_interceptor.dart';
-import 'package:flytern/shared/services/http-services/shared_http_services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+ import 'package:shared_preferences/shared_preferences.dart';
 
 class FlyternHttpInterceptor implements InterceptorContract {
   @override
@@ -30,7 +29,7 @@ class FlyternHttpInterceptor implements InterceptorContract {
         var httpResponseBody = json.decode(data.body!);
         if (httpResponseBody['result'] != null) {
           if (httpResponseBody['result'] is String && httpResponseBody["result"].toString().contains('UNAUTHORIZED')) {
-            var sharedHttpService = new SharedHttpService();
+            // var sharedHttpService = new SharedHttpService();
             // await sharedHttpService.getAccessToken();
           } else {
             if (httpResponseBody['result']['access_token'] != null) {
