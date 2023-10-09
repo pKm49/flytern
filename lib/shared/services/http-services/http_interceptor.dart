@@ -2,19 +2,23 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:http_interceptor/http_interceptor.dart';
  import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flytern/config/env.dart' as env;
 
 class FlyternHttpInterceptor implements InterceptorContract {
   @override
   Future<RequestData> interceptRequest({required RequestData data}) async {
     try {
       var sharedPreferences = await SharedPreferences.getInstance();
-      var Bearer = await sharedPreferences.getString("access_token");
+      var Bearer = await sharedPreferences.getString("accessToken");
+      var Basic = env.basicToken;
 
       data.headers["Accept"] = "*/*";
       data.headers["Content-Type"] = "application/json";
 
       if (Bearer != null && Bearer != "") {
         data.headers["Authorization"] = "Bearer $Bearer";
+      }else{
+        data.headers["Authorization"] = "Basic $Basic.";
       }
     } catch (e) {
       print(e);
@@ -32,10 +36,10 @@ class FlyternHttpInterceptor implements InterceptorContract {
             // var sharedHttpService = new SharedHttpService();
             // await sharedHttpService.getAccessToken();
           } else {
-            if (httpResponseBody['result']['access_token'] != null) {
+            if (httpResponseBody['data']['accessToken'] != null) {
               var sharedPreferences = await SharedPreferences.getInstance();
-              sharedPreferences.setString("access_token",
-                  httpResponseBody['result']['access_token'].toString());
+              sharedPreferences.setString("accessToken",
+                  httpResponseBody['data']['accessToken'].toString());
             }
           }
         }
