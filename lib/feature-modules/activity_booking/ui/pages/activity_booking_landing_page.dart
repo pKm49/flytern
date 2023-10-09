@@ -5,7 +5,7 @@ import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart'
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
-import 'package:flytern/shared/data/models/store_models/general_item.dart';
+import 'package:flytern/shared/data/models/business_models/general_item.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/ui/components/dropdown_selector.dart';
 import 'package:get/get.dart';

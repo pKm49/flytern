@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
-import 'package:flytern/shared/data/models/store_models/general_item.dart';
+import 'package:flytern/shared/data/models/business_models/general_item.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:ionicons/ionicons.dart';
 
