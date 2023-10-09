@@ -20,8 +20,8 @@ getRequest(endpoint, parameters) async {
     ]);
 
     final httpResponse = await http
-        .get(Uri.https(env.apiEndPoint, "/coreapi/api/$endpoint"),params: json.decode(json.encode(parameters)));
-    print(Uri.https(env.apiEndPoint, "/coreapi/api/$endpoint").toString());
+        .get(Uri.https(env.apiEndPoint, "$endpoint"),params: json.decode(json.encode(parameters)));
+    print(Uri.https(env.apiEndPoint, "$endpoint").toString());
 
     print("httpResponse");
     print(httpResponse.headers.toString());
@@ -58,18 +58,18 @@ getRequest(endpoint, parameters) async {
 postRequest(endpoint, body) async {
   print("postRequest called");
   print(endpoint);
-  print(Uri.https(env.apiEndPoint, "/coreapi/api/$endpoint").toString());
+  print(Uri.https(env.apiEndPoint, "$endpoint").toString());
   print(body);
   try {
     final http = InterceptedHttp.build(interceptors: [
       FlyternHttpInterceptor(),
     ]);
     print("postRequest called pass 1");
-    print(Uri.https(env.apiEndPoint, "/coreapi/api/$endpoint").toString());
+    print(Uri.https(env.apiEndPoint, "$endpoint").toString());
   print("postRequest request");
   print(endpoint.toString().contains('postRequest'));
     final httpResponse = await http.post(
-        Uri.https(env.apiEndPoint, "/coreapi/api/$endpoint"),
+        Uri.https(env.apiEndPoint, "$endpoint"),
         body:body!=null?json.encode(body):body
     );
     print("postRequest called pass 2");
