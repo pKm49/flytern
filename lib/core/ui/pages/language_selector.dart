@@ -9,7 +9,10 @@ import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
+import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared/ui/components/country_selector.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:video_player/video_player.dart';
 
 class CoreLanguageSelector extends StatefulWidget {
@@ -149,25 +152,20 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                       child: Container(
                         padding: flyternLargePaddingVertical,
                         alignment: Alignment.bottomCenter,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            addHorizontalSpace(flyternSpaceLarge),
-                            const CountryCodePicker(
-                              padding: EdgeInsets.zero,
-                              showDropDownButton: true,
-                              onChanged: print,
-                              // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                              initialSelection: 'KW',
-                              // optional. Shows only country name and flag
-                              showCountryOnly: false,
-                              // optional. Shows only country name and flag when popup is closed.
-                              showOnlyCountryWhenClosed: true,
-                              // optional. aligns the flag and the Text left
-                              alignLeft: false,
-                            ),
-                          ],
-                        ),
+                        child: InkWell(
+                          onTap: openCountrySelector,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                            Image.network(sharedController.countries[0].flag, width: 30),
+                            addHorizontalSpace(flyternSpaceSmall),
+                            Text(sharedController.countries[0].countryName,
+                                style: getBodyMediumStyle(context)),
+                              addHorizontalSpace(flyternSpaceMedium),
+                              Icon(Ionicons.caret_down,color: flyternGrey60)
+
+                            ],),
+                        )
                       ),
                     ),
                   ),
@@ -178,5 +176,31 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
         ),
       ),
     );
+  }
+
+  void openCountrySelector( ) {
+    showModalBottomSheet(
+        useSafeArea: false,
+        shape:   RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
+              topRight: Radius.circular(flyternBorderRadiusSmall)),
+        ),
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return CountrySelector();
+        });
+    // Get.bottomSheet(
+    //     Container(
+    //       child:  SharedTermsConditionsPage(),
+    //       height: 1000
+    //     ),
+    //
+    //   backgroundColor: flyternBackgroundWhite,
+    //   elevation: 0,
+    //   shape: RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.circular(10),
+    //   ),
+    // );
   }
 }
