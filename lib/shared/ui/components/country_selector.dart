@@ -22,6 +22,11 @@ class CountrySelector extends StatelessWidget {
       padding: flyternLargePaddingAll,
       child: Column(
         children: [
+
+            Text("select_country".tr,
+                style: getHeadlineMediumStyle(context).copyWith(color: flyternGrey80,fontWeight: flyternFontWeightBold)),
+          addVerticalSpace(flyternSpaceMedium ),
+
           TextFormField(
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
@@ -34,29 +39,34 @@ class CountrySelector extends StatelessWidget {
               children: [
 
                 for(var i =0; i<sharedController.countries.length;i++)
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(width: .5,color: flyternGrey40))
+                  InkWell(
+                    onTap: () async {
+                      await sharedController.changeCountry(sharedController.countries[i]);
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border(bottom: BorderSide(width: .5,color: flyternGrey40))
+                      ),
+                      padding: EdgeInsets.symmetric(vertical: flyternSpaceSmall),
+                      child: Row(children: [
+
+                        Image.network(sharedController.countries[i].flag, width: 40),
+                        addHorizontalSpace(flyternSpaceMedium),
+                        Expanded(
+                            child: Text(
+                                Localizations.localeOf(context).languageCode.toString() ==
+                                    'en'?
+                                sharedController.countries[i].countryName:
+                                sharedController.countries[i].countryName_Ar,
+                                maxLines: 2,
+                                style: getBodyMediumStyle(context))),
+                        addHorizontalSpace(flyternSpaceSmall),
+                        Text("( ${sharedController.countries[i].code} )",
+                            style: getBodyMediumStyle(context)),
+
+                      ],),
                     ),
-                    padding: EdgeInsets.only(bottom: flyternSpaceSmall),
-                    margin: EdgeInsets.only(bottom: flyternSpaceSmall),
-                    child: Row(children: [
-
-                      Image.network(sharedController.countries[i].flag, width: 40),
-                      addHorizontalSpace(flyternSpaceMedium),
-                      Expanded(
-                          child: Text(
-                              Localizations.localeOf(context).languageCode.toString() ==
-                                  'en'?
-                              sharedController.countries[i].countryName:
-                              sharedController.countries[i].countryName_Ar,
-                              maxLines: 2,
-                              style: getBodyMediumStyle(context))),
-                      addHorizontalSpace(flyternSpaceSmall),
-                      Text("( ${sharedController.countries[i].code} )",
-                          style: getBodyMediumStyle(context)),
-
-                    ],),
                   )
 
               ],
