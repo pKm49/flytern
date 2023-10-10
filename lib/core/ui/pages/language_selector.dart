@@ -1,4 +1,4 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
 import 'package:flytern/feature-modules/auth/data/constants/ui_constants/language_selector_curve_clipper.dart';
 import 'package:flytern/shared/controllers/shared_controller.dart';
@@ -21,7 +21,6 @@ class CoreLanguageSelector extends StatefulWidget {
 }
 
 class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
-
   final sharedController = Get.find<SharedController>();
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
@@ -92,81 +91,110 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                 children: [
                   Expanded(
                       child: Container(
-                    alignment: Alignment.bottomCenter,
+                    alignment: Alignment.topCenter,
                     padding: flyternLargePaddingAll * 2.5,
                     width: screenwidth,
-                    child: Wrap(
-                      children: [
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              await sharedController.changeLanguage(Lang_English);
-                              Get.toNamed(Approute_authSelector);
-                            },
-                            style: ButtonStyle(
-                                padding: MaterialStateProperty.all<
-                                        EdgeInsetsGeometry>(
-                                    const EdgeInsets.symmetric(
-                                        horizontal: flyternSpaceLarge,
-                                        vertical: flyternSpaceMedium * 1.2)),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        flyternSecondaryColor)),
-                            child: const Text("Continue In English"),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: flyternSpaceLarge,
-                          width: 20,
-                        ),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                              onPressed: () async {
-                                await sharedController
-                                    .changeLanguage(Lang_Arabic);
-                                Get.toNamed(Approute_authSelector);
-                              },
-                              style: ButtonStyle(
-                                padding: MaterialStateProperty.all<
-                                        EdgeInsetsGeometry>(
-                                    const EdgeInsets.symmetric(
-                                        horizontal: flyternSpaceLarge,
-                                        vertical: flyternSpaceMedium * .9)),
-                              ),
-                              child: const Text("اللغه العربيه")),
-                        ),
-                      ],
-                    ),
+                    child: Container(  ),
                   )),
-                  SizedBox(
-                    width: screenwidth,
-                    height: (screenwidth * 0.6).toDouble(),
-                    child: CustomPaint(
-                      size: Size(screenwidth, (screenwidth * 0.6).toDouble()),
-                      //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                      painter: LanguageSelectorCurveClipper(),
-                      child: Container(
-                        padding: flyternLargePaddingVertical,
-                        alignment: Alignment.bottomCenter,
-                        child: InkWell(
-                          onTap: openCountrySelector,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                            Image.network(sharedController.countries[0].flag, width: 30),
-                            addHorizontalSpace(flyternSpaceSmall),
-                            Text(sharedController.countries[0].countryName,
-                                style: getBodyMediumStyle(context)),
-                              addHorizontalSpace(flyternSpaceMedium),
-                              Icon(Ionicons.caret_down,color: flyternGrey60)
-
-                            ],),
-                        )
+                  Container(
+                      width: screenwidth,
+                      decoration: BoxDecoration(
+                        color: flyternBackgroundWhite,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(flyternBlurRadiusLarge),
+                          topLeft: Radius.circular(flyternBlurRadiusLarge),
+                        ),
                       ),
-                    ),
-                  ),
+                      padding: flyternLargePaddingAll,
+                      alignment: Alignment.bottomCenter,
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        children: [
+
+                          Container(
+                            margin:EdgeInsets.only(bottom:flyternSpaceLarge),
+                            child: Image.asset(ASSETS_NAMELOGO,
+                                width: screenwidth * .4),
+                          ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: InkWell(
+                                  onTap: openCountrySelector,
+                                  child: Container(
+                                    decoration:
+                                        flyternBorderedContainerSmallDecoration,
+                                    padding: flyternMediumPaddingAll,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Image.network(
+                                            sharedController.countries[0].flag,
+                                            width: 30),
+                                        addHorizontalSpace(flyternSpaceSmall),
+                                        Expanded(
+                                          child: Text(
+                                              sharedController
+                                                  .countries[0].countryCode,
+                                              style: getBodyMediumStyle(context)),
+                                        ),
+                                        addHorizontalSpace(flyternSpaceMedium),
+                                        Icon(Ionicons.caret_down,
+                                            color: flyternGrey60,size: flyternFontSize16,)
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              addHorizontalSpace(flyternSpaceMedium),
+                              Expanded(
+                                child: InkWell(
+                                  onTap: openCountrySelector,
+                                  child: Container(
+                                    decoration:
+                                        flyternBorderedContainerSmallDecoration,
+                                    padding: flyternMediumPaddingAll,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(Ionicons.language_outline,color: flyternGrey40),
+                                        addHorizontalSpace(flyternSpaceSmall),
+                                        Expanded(
+                                          child: Text(
+                                              sharedController
+                                                  .selectedLanguage.value,
+                                              style: getBodyMediumStyle(context)),
+                                        ),
+                                        addHorizontalSpace(flyternSpaceMedium),
+                                        Icon(Ionicons.caret_down,
+                                            color: flyternGrey60,size: flyternFontSize16)
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: flyternSpaceLarge,
+                            width: 20,
+                          ),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                                onPressed: () async {
+                                  await sharedController
+                                      .changeLanguage(Lang_Arabic);
+                                  Get.toNamed(Approute_authSelector);
+                                },
+                                child: const Text("continue")),
+                          ),
+                        ],
+                      )),
                 ],
               ),
             ),
@@ -176,11 +204,12 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
     );
   }
 
-  void openCountrySelector( ) {
+  void openCountrySelector() {
     showModalBottomSheet(
         useSafeArea: false,
-        shape:   RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(flyternBorderRadiusSmall),
               topRight: Radius.circular(flyternBorderRadiusSmall)),
         ),
         isScrollControlled: true,
