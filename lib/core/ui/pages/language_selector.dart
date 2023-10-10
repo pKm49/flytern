@@ -7,10 +7,12 @@ import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/data/models/business_models/country.dart';
+import 'package:flytern/shared/data/models/business_models/general_item.dart';
 import 'package:flytern/shared/data/models/business_models/language.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/country_selector.dart';
+import 'package:flytern/shared/ui/components/dropdown_selector.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:video_player/video_player.dart';
@@ -170,11 +172,20 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                                             color: flyternGrey40),
                                         addHorizontalSpace(flyternSpaceSmall),
                                         Expanded(
-                                          child: Text(
-                                              sharedController
-                                                  .selectedLanguage.value.name,
-                                              style:
-                                                  getBodyMediumStyle(context)),
+                                          child: DropDownSelector(
+                                            titleText: "select_destination".tr,
+                                            selected:null  ,
+                                            items: [
+                                              GeneralItem(id: 1, name: "select_destination".tr),
+                                              GeneralItem(id: 2, name: "India"),
+                                              GeneralItem(id: 3, name: "Spain"),
+                                              GeneralItem(id: 4, name: "Nepal"),
+                                            ],
+                                            hintText:"select_destination".tr,
+                                            valueChanged: (newZone) {
+
+                                            },
+                                          ),
                                         ),
                                         addHorizontalSpace(flyternSpaceMedium),
                                         Icon(Ionicons.caret_down,

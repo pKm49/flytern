@@ -51,10 +51,7 @@ class _DropDownSelectorState extends State<DropDownSelector> {
       items: widget.items.map((GeneralItem value) {
         return DropdownMenuItem<String>(
           value: value.id.toString(),
-          child: Text(Localizations.localeOf(context)
-              .languageCode
-              .toString() ==
-              'ar'?value.arabicName:value.name,textAlign: TextAlign.center,
+          child: Text(value.name,textAlign: TextAlign.center,
             style: TextStyle(color:  flyternGrey60),),
         );
       }).toList(),
