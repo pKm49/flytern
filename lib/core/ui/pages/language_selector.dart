@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
 import 'package:flytern/feature-modules/auth/data/constants/ui_constants/language_selector_curve_clipper.dart';
@@ -209,14 +211,21 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                               width: 20,
                             ),
                             SizedBox(
-                              width: double.infinity,
+                              width:sharedController.setDeviceLanguageAndCountrySubmitting.value?double.maxFinite :double.infinity,
                               child: ElevatedButton(
                                   onPressed: () async {
                                     await sharedController.setDeviceLanguageAndCountry();
                                     Get.toNamed(Approute_authSelector);
                                   },
                                   style: getElevatedButtonStyle(context),
-                                  child: Text("continue".tr)),
+                                  child:sharedController.setDeviceLanguageAndCountrySubmitting.value?
+                                  const SizedBox(
+                                    width: 20,
+                                    height: 20,
+                                    child: CircularProgressIndicator(
+                                      color: flyternBackgroundWhite,
+                                    ),
+                                  ):Text("continue".tr)),
                             ),
                           ],
                         )),
