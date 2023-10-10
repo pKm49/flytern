@@ -34,14 +34,12 @@ class SharedController extends GetxController {
 
   }
 
-  changeLanguage(newLanguage) async {
-    if (newLanguage != Lang_Arabic && newLanguage != Lang_English) {
-      newLanguage = Lang_English;
-    }
-    selectedLanguage.value = newLanguage;
-    Get.updateLocale(Locale(newLanguage));
+  changeLanguage(Language language) async {
+
+    selectedLanguage.value = language;
+    Get.updateLocale(Locale(language.code));
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString('selectedLanguage', newLanguage);
+    await sharedPreferences.setString('selectedLanguage', language.code);
   }
 
   Future<void> getInitialInfo() async {

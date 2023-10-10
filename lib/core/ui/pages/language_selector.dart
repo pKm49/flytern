@@ -196,7 +196,7 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                             child: ElevatedButton(
                                 onPressed: () async {
                                   await sharedController
-                                      .changeLanguage(Lang_Arabic);
+                                      .changeLanguage(sharedController.selectedLanguage.value);
                                   Get.toNamed(Approute_authSelector);
                                 },
                                 child: const Text("continue")),
