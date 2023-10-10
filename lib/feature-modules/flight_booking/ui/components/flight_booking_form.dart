@@ -508,7 +508,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
         ),
         SizedBox(
           width: double.infinity,
-          child: ElevatedButton(
+          child: ElevatedButton(style: getElevatedButtonStyle(context),
               onPressed: ()   {
                 Get.toNamed(Approute_flightsSearchResult);
               }, child: Text("search_flights".tr )),

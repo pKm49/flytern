@@ -331,7 +331,7 @@ class _FlightMealSelectionPageState extends State<FlightMealSelectionPage> {
         child: Center(
           child: SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
+            child: ElevatedButton(style: getElevatedButtonStyle(context),
                 onPressed: () {
                   Navigator.pop(context);
                 },

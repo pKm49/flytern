@@ -326,7 +326,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
           child: Center(
             child: SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
+              child: ElevatedButton(style: getElevatedButtonStyle(context),
                   onPressed: () {
                  openContactDetailsGetterBottomSheet();
                   },

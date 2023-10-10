@@ -58,7 +58,7 @@ class _AuthResetPasswordNewPasswordPageState extends State<AuthResetPasswordNewP
             addVerticalSpace(flyternSpaceLarge),
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
+              child: ElevatedButton(style: getElevatedButtonStyle(context),
                   onPressed: () async {
                     Get.toNamed(Approute_login);
                   },

@@ -241,7 +241,7 @@ class _HotelBookingConfirmationPageState extends State<HotelBookingConfirmationP
         child: Center(
           child: SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
+            child: ElevatedButton(style: getElevatedButtonStyle(context),
                 onPressed: () {
                   Get.offAllNamed(Approute_landingpage);
                 },

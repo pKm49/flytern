@@ -86,7 +86,7 @@ class _FlightAddonServicesPageState extends State<FlightAddonServicesPage> {
         child: Center(
           child: SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
+            child: ElevatedButton(style: getElevatedButtonStyle(context),
                 onPressed: () {
                   openContactDetailsGetterBottomSheet();
                 },

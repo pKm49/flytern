@@ -84,7 +84,7 @@ class _AuthRegisterOTPInputPageState extends State<AuthRegisterOTPInputPage> {
 
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
+              child: ElevatedButton(style: getElevatedButtonStyle(context),
                   onPressed: ()   {
                     Get.offAllNamed(Approute_landingpage);
 

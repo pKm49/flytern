@@ -122,14 +122,14 @@ class _AuthSelectorPageState extends State<AuthSelectorPage> {
                                 onPressed: () async {
                                   Get.toNamed(Approute_login);
                                 },
-                                style: ButtonStyle(
+                                style: getElevatedButtonStyle(context).copyWith(
                                     backgroundColor: MaterialStateProperty.all<Color>(flyternSecondaryColor)
                                 ),),
                             ),
                             SizedBox(height: flyternSpaceMedium,width: 20,),
                             SizedBox(
                               width: double.infinity,
-                              child: ElevatedButton(
+                              child: ElevatedButton(style: getElevatedButtonStyle(context),
                                   onPressed: () async {
                                     Get.toNamed(Approute_registerPersonalData);
                                   }, 

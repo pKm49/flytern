@@ -85,7 +85,7 @@ class _SmartPaymentPageState extends State<SmartPaymentPage> {
           child: Center(
             child: SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
+              child: ElevatedButton(style: getElevatedButtonStyle(context),
                   onPressed: () {
                    Get.toNamed(Approute_flightsDetails);
                   },

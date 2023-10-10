@@ -4,6 +4,7 @@ import 'package:flytern/feature-modules/insurance/ui/components/insurance_regula
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/contact_details_getter.dart';
 import 'package:get/get.dart';
 
@@ -87,7 +88,7 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>  with Singl
           child: Center(
             child: SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
+              child: ElevatedButton(style: getElevatedButtonStyle(context),
                   onPressed: () {
                     openContactDetailsGetterBottomSheet();
 

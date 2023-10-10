@@ -49,7 +49,7 @@ class _AuthResetPasswordCredentialsPageState extends State<AuthResetPasswordCred
             addVerticalSpace(flyternSpaceLarge),
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
+              child: ElevatedButton(style: getElevatedButtonStyle(context),
                   onPressed: () async {
                     Get.toNamed(Approute_resetPasswordOtp);
                   },

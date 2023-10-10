@@ -426,7 +426,7 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
         child: Center(
           child: SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
+            child: ElevatedButton(style: getElevatedButtonStyle(context),
                 onPressed: () {
                   Navigator.pop(context);
                 },

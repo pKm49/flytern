@@ -289,7 +289,7 @@ class _FlightBaggageSelectionPageState extends State<FlightBaggageSelectionPage>
         child: Center(
           child: SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
+            child: ElevatedButton(style: getElevatedButtonStyle(context),
                 onPressed: () {
                   Navigator.pop(context);
                 },

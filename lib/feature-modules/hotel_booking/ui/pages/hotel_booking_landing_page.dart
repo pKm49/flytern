@@ -283,7 +283,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
 
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
+                  child: ElevatedButton(style: getElevatedButtonStyle(context),
                       onPressed: ()   {
                         Get.toNamed(Approute_hotelsSearchResult);
                       }, child: Text("search_hotels".tr )),

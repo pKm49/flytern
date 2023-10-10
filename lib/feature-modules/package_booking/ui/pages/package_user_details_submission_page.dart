@@ -3,6 +3,7 @@ import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart'
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
+import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/contact_details_getter.dart';
 import 'package:get/get.dart';
 
@@ -113,7 +114,7 @@ class _PackageUserDetailsSubmissionPageState extends State<PackageUserDetailsSub
         child: Center(
           child: SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
+            child: ElevatedButton(style: getElevatedButtonStyle(context),
                 onPressed: () {
                   Get.toNamed(Approute_landingpage );
                   },

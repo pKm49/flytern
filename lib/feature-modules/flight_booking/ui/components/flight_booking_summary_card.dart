@@ -281,7 +281,7 @@ class FlightBookingSummaryCard extends StatelessWidget {
                               BorderRadius.circular(flyternBorderRadiusExtraSmall))),),
                     onPressed: onDateChange, child: Text("change_date".tr))),
                 addHorizontalSpace(flyternSpaceSmall),
-                Expanded(child: ElevatedButton(onPressed: onCancel, child: Text("cancel".tr)))
+                Expanded(child: ElevatedButton(style: getElevatedButtonStyle(context),onPressed: onCancel, child: Text("cancel".tr)))
               ],
             ),
           )

@@ -130,7 +130,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
         child: Center(
           child: SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
+            child: ElevatedButton(style: getElevatedButtonStyle(context),
                 onPressed: () {
                   Get.toNamed(Approute_flightsAddonServices);
                 },

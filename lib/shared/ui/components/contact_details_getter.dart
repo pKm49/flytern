@@ -88,7 +88,7 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
           addVerticalSpace(flyternSpaceLarge),
           SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
+            child: ElevatedButton(style: getElevatedButtonStyle(context),
                 onPressed: ()   {
                   Get.toNamed(widget.route,
                       arguments: [

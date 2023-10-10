@@ -150,7 +150,7 @@ class _ActivityDetailsPageState extends State<ActivityDetailsPage> {
           child: Center(
             child: SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
+              child: ElevatedButton(style: getElevatedButtonStyle(context),
                   onPressed: () {
                     openContactDetailsGetterBottomSheet( );
                   },

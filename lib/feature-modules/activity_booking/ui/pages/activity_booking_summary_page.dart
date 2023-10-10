@@ -264,7 +264,7 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
         child: Center(
           child: SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
+            child: ElevatedButton(style: getElevatedButtonStyle(context),
                 onPressed: () {
                   Get.toNamed(Approute_activitiesConfirmation);
                  },

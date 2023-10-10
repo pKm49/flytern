@@ -426,7 +426,7 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
         child: Center(
           child: SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
+            child: ElevatedButton(style: getElevatedButtonStyle(context),
                 onPressed: () {
                   mode=="edit"?
                   Navigator.pop(context)

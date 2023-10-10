@@ -84,7 +84,7 @@ class _AuthResetPasswordOTPPageState extends State<AuthResetPasswordOTPPage> {
 
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
+              child: ElevatedButton(style: getElevatedButtonStyle(context),
                   onPressed: () async {
                     Get.toNamed(Approute_resetPasswordNewpassword);
                   },

@@ -232,7 +232,7 @@ class _AuthRegisterDetailsInputPageState
             addVerticalSpace(flyternSpaceLarge),
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
+              child: ElevatedButton(style: getElevatedButtonStyle(context),
                   onPressed: ()   {
                     Get.toNamed(Approute_registerOtp);
                   }, child: Text("create_account".tr)),

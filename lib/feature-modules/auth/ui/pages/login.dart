@@ -75,7 +75,7 @@ class _AuthLoginPageState extends State<AuthLoginPage> {
                 addVerticalSpace(flyternSpaceLarge),
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
+                  child: ElevatedButton(style: getElevatedButtonStyle(context),
                       onPressed: () {
                         Get.offAllNamed(Approute_landingpage);
                       },
