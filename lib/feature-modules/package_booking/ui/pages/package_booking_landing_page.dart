@@ -41,10 +41,10 @@ class _PackageBookingLandingPageState extends State<PackageBookingLandingPage> {
               titleText: "select_destination".tr,
               selected:null  ,
               items: [
-                GeneralItem(id: 1, name: "select_destination".tr),
-                GeneralItem(id: 2, name: "India"),
-                GeneralItem(id: 3, name: "Spain"),
-                GeneralItem(id: 4, name: "Nepal"),
+                GeneralItem(id: "1", name: "select_destination".tr),
+                GeneralItem(id: "2", name: "India"),
+                GeneralItem(id: "3", name: "Spain"),
+                GeneralItem(id: "4", name: "Nepal"),
               ],
               hintText:"select_destination".tr,
               valueChanged: (newZone) {
