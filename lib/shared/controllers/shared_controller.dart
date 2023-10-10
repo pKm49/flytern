@@ -34,13 +34,13 @@ class SharedController extends GetxController {
     var sharedHttpService = SharedHttpService();
 
     SupportInfo supportInfo =
-        await sharedHttpService.getInitialSupportInfo(
-            true,
-            "derMddvSkkWOsVGXObg-Wr:APA91bEL2QxF8TPLpH3uPsTaBeBz44LC9XTZhR3htfS1-hyjA5Dss9FJ8PqOLMvmjUK2VO2w8e3JxsyLfoyeUK0rXzbsf1xoCFJUeMUElSac-q3XGPZWpbsQf9IK7AITqafCVjzV5VPD"
-        );
+        await sharedHttpService.getInitialSupportInfo();
 
     languages.value = supportInfo.languages;
     countries.value = supportInfo.countries;
 
+    print("languages.value");
+    print(languages.length);
+    print(countries.length);
   }
 }
