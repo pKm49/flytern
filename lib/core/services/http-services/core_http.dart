@@ -22,12 +22,9 @@ class CoreHttpServices{
 
   }
 
-  getRefreshedToken(String refreshToken) async {
+  getRefreshedToken() async {
 
-    Map<String, dynamic> params = {};
-    params["RefreshToken"]=refreshToken;
-    FlyternHttpResponse response = await getRequest(
-        CoreHttpRequestEndpointGetNewAccesToken,params);
+    FlyternHttpResponse response = await getRequest(CoreHttpRequestEndpointGetNewAccesToken,null);
 
     if(response.success){
       if(response.data != null){
