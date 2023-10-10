@@ -19,8 +19,25 @@ class SupportInfo {
 }
 
 SupportInfo mapSupportInfo(dynamic payload){
+
+  List<Language> tempLanguages = [];
+  List<Country> tempCountries = [];
+
+  if(payload["languages"] != null){
+    payload["languages"].forEach((element) {
+      tempLanguages.add(mapLanguage(element));
+    });
+  }
+
+  if(payload["countries"] != null){
+    payload["countries"].forEach((element) {
+      tempCountries.add(mapCountry(element));
+    });
+  }
+
+
   return SupportInfo(
-    languages :payload["languages"]??[],
-    countries :payload["countries"] ??[],
+    languages :tempLanguages,
+    countries :tempCountries,
   );
 }
