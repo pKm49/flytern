@@ -9,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CoreController extends GetxController {
 
-
   @override
   void onInit() {
     super.onInit();
@@ -21,6 +20,7 @@ class CoreController extends GetxController {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var coreHttpServices = CoreHttpServices();
 
+    final bool? isGuest = prefs.getBool('isGuest');
     final String? accessToken = prefs.getString('accessToken');
     final String? refreshToken = prefs.getString('refreshToken');
     final String? expiryOnString = prefs.getString('expiryOn');
@@ -47,15 +47,14 @@ class CoreController extends GetxController {
       }
     }
 
-
     final sharedController = Get.find<SharedController>();
     sharedController.getInitialInfo();
-
 
   }
 
   saveAuthTokenToSharedPreference(AuthToken authToken) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("isGuest", authToken.isGuest);
     prefs.setString("accessToken", authToken.accessToken);
     prefs.setString("refreshToken", authToken.refreshToken);
     prefs.setString("expiryOn", authToken.expiryOn.toString());

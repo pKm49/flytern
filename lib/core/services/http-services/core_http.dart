@@ -13,12 +13,12 @@ class CoreHttpServices{
 
     if(response.success){
       if(response.data != null){
-        AuthToken authToken = mapAuthToken(response.data);
+        AuthToken authToken = mapAuthToken(response.data, true);
         return authToken;
       }
     }
 
-    return mapAuthToken({});
+    return mapAuthToken({},true);
 
   }
 
@@ -29,12 +29,12 @@ class CoreHttpServices{
 
     if(response.success){
       if(response.data != null){
-        AuthToken authToken = mapAuthToken(response.data);
+        AuthToken authToken = mapAuthToken(response.data,false);
         return authToken;
       }
     }
 
-    return mapAuthToken({});
+    return mapAuthToken({},true);
 
   }
 
