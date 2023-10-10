@@ -17,7 +17,6 @@ class SharedController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getInitialInfo();
   }
 
   changeLanguage(newLanguage) async {
@@ -31,6 +30,8 @@ class SharedController extends GetxController {
   }
 
   Future<void> getInitialInfo() async {
+    print("shared getInitialInfo");
+
     var sharedHttpService = SharedHttpService();
 
     SupportInfo supportInfo =
