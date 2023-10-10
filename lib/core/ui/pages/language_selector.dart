@@ -163,7 +163,8 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                                   child: Container(
                                     decoration:
                                         flyternBorderedContainerSmallDecoration,
-                                    padding: flyternMediumPaddingAll,
+                                    padding: flyternMediumPaddingHorizontal.copyWith(top: flyternSpaceExtraSmall,
+                                    bottom: flyternSpaceExtraSmall),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -173,24 +174,19 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                                         addHorizontalSpace(flyternSpaceSmall),
                                         Expanded(
                                           child: DropDownSelector(
-                                            titleText: "select_destination".tr,
-                                            selected:null  ,
+                                            titleText: sharedController.selectedLanguage.value.name,
+                                            selected:sharedController.selectedLanguage.value.code  ,
                                             items: [
-                                              GeneralItem(id: 1, name: "select_destination".tr),
-                                              GeneralItem(id: 2, name: "India"),
-                                              GeneralItem(id: 3, name: "Spain"),
-                                              GeneralItem(id: 4, name: "Nepal"),
+                                               for(var i =0; i<sharedController.languages.length;i++)
+                                                 GeneralItem(id: sharedController.languages[i].code,
+                                                     name: sharedController.languages[i].name)
                                             ],
-                                            hintText:"select_destination".tr,
+                                            hintText:"" ,
                                             valueChanged: (newZone) {
 
                                             },
                                           ),
                                         ),
-                                        addHorizontalSpace(flyternSpaceMedium),
-                                        Icon(Ionicons.caret_down,
-                                            color: flyternGrey60,
-                                            size: flyternFontSize16)
                                       ],
                                     ),
                                   ),
