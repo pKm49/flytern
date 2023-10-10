@@ -6,6 +6,8 @@ import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart'
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/data/models/business_models/country.dart';
+import 'package:flytern/shared/data/models/business_models/language.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/country_selector.dart';
@@ -24,7 +26,7 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
   final sharedController = Get.find<SharedController>();
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
-  String currentLanguageCode = "en";
+
 
   @override
   void initState() {
@@ -94,7 +96,7 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                     alignment: Alignment.topCenter,
                     padding: flyternLargePaddingAll * 2.5,
                     width: screenwidth,
-                    child: Container(  ),
+                    child: Container(),
                   )),
                   Container(
                       width: screenwidth,
@@ -110,13 +112,11 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                       child: Wrap(
                         alignment: WrapAlignment.center,
                         children: [
-
                           Container(
-                            margin:EdgeInsets.only(bottom:flyternSpaceLarge),
+                            margin: EdgeInsets.only(bottom: flyternSpaceLarge),
                             child: Image.asset(ASSETS_NAMELOGO,
                                 width: screenwidth * .4),
                           ),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -132,18 +132,23 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Image.network(
-                                            sharedController.countries[0].flag,
+                                            sharedController
+                                                .selectedCountry.value.flag,
                                             width: 30),
                                         addHorizontalSpace(flyternSpaceSmall),
                                         Expanded(
                                           child: Text(
                                               sharedController
-                                                  .countries[0].countryCode,
-                                              style: getBodyMediumStyle(context)),
+                                                  .selectedCountry.value.countryCode,
+                                              style:
+                                                  getBodyMediumStyle(context)),
                                         ),
                                         addHorizontalSpace(flyternSpaceMedium),
-                                        Icon(Ionicons.caret_down,
-                                            color: flyternGrey60,size: flyternFontSize16,)
+                                        Icon(
+                                          Ionicons.caret_down,
+                                          color: flyternGrey60,
+                                          size: flyternFontSize16,
+                                        )
                                       ],
                                     ),
                                   ),
@@ -161,17 +166,20 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(Ionicons.language_outline,color: flyternGrey40),
+                                        Icon(Ionicons.language_outline,
+                                            color: flyternGrey40),
                                         addHorizontalSpace(flyternSpaceSmall),
                                         Expanded(
                                           child: Text(
                                               sharedController
-                                                  .selectedLanguage.value,
-                                              style: getBodyMediumStyle(context)),
+                                                  .selectedLanguage.value.name,
+                                              style:
+                                                  getBodyMediumStyle(context)),
                                         ),
                                         addHorizontalSpace(flyternSpaceMedium),
                                         Icon(Ionicons.caret_down,
-                                            color: flyternGrey60,size: flyternFontSize16)
+                                            color: flyternGrey60,
+                                            size: flyternFontSize16)
                                       ],
                                     ),
                                   ),
