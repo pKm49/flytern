@@ -182,7 +182,16 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                                                      name: sharedController.languages[i].name)
                                             ],
                                             hintText:"" ,
-                                            valueChanged: (newZone) {
+                                            valueChanged: (newLang) {
+
+                                              List<Language> langs = sharedController.languages.where((e) => e.code == newLang).toList();
+                                              if(langs.isNotEmpty){
+                                                sharedController
+                                                    .changeLanguage(
+                                                    langs[0]
+                                                );
+                                              }
+
 
                                             },
                                           ),
@@ -202,11 +211,10 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                             width: double.infinity,
                             child: ElevatedButton(
                                 onPressed: () async {
-                                  await sharedController
-                                      .changeLanguage(sharedController.selectedLanguage.value);
+
                                   Get.toNamed(Approute_authSelector);
                                 },
-                                child: const Text("continue")),
+                                child: Text("continue".tr)),
                           ),
                         ],
                       )),
