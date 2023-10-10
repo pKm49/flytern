@@ -26,13 +26,6 @@ class SharedHttpService {
     FlyternHttpResponse response = await postRequest(
         SharedHttpRequestEndpointSetDeviceInfo,setDeviceInfoRequestBody.toJson());
 
-    print("setDeviceInfo response");
-    print(response.success);
-    print(response.data);
-    print(response.errors);
-    print(response.message);
-
   }
-
 
 }
