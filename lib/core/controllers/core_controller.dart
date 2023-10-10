@@ -32,7 +32,7 @@ class CoreController extends GetxController {
       DateTime expiryOn = DateTime.parse(expiryOnString);
 
       if(DateTime.now().isAfter(expiryOn)){
-        AuthToken authToken = await coreHttpServices.getRefreshedToken(refreshToken);
+        AuthToken authToken = await coreHttpServices.getRefreshedToken();
         if(authToken.accessToken != ""){
           saveAuthTokenToSharedPreference(authToken);
         }
