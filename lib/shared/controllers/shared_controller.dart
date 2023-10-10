@@ -11,7 +11,16 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedController extends GetxController {
-  var selectedLanguage = "en".obs;
+
+  var selectedLanguage = Language(name: "English", code: "en").obs;
+  var selectedCountry = Country(
+      countryName: "India",
+      countryCode: "IND",
+      countryISOCode: "IN",
+      countryName_Ar: "الهند",
+      flag: "https://flagcdn.com/48x36/in.png",
+      code: "+91").obs;
+
   var languages = <Language>[].obs;
   var countries = <Country>[].obs;
 
@@ -22,9 +31,6 @@ class SharedController extends GetxController {
     languages.value = availableLanguages;
     countries.value = availableCountries;
 
-    selectedLanguage.value = availableLanguages.isNotEmpty
-        ? availableLanguages[0].code
-        : selectedLanguage.value;
 
   }
 
