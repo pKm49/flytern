@@ -1,6 +1,6 @@
 class GeneralItem {
 
-  final int id;
+  final String id;
   final String name;
 
   GeneralItem({
