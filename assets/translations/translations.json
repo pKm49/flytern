@@ -255,6 +255,7 @@
       "total_paid": "Total Paid",
       "cancellation_charge": "Cancellation Charge",
       "refundable_amount": "Refundable Amount",
+      "select_country": "Select your Country",
 
       "lorem_ipsum_description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "price": "Price",
@@ -739,6 +740,7 @@
       "total_paid": "مجموع المبالغ المدفوعة",
       "cancellation_charge": "تهمة إلغاء",
       "refundable_amount": "المبلغ القابل للاسترداد",
+      "select_country": "اختر بلدك",
 
       "lorem_ipsum_description": "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة، ولكن بفضل هؤلاء الأشخاص الذين لا يدركون بأن السعادة لا بد أن نستشعرها بصورة أكثر عقلانية ومنطقية فيعرضهم هذا لمواجهة الظروف الأليمة، وأكرر بأنه لا يوجد من يرغب في الحب ونيل المنال ويتلذذ بالآلام، الألم هو الألم ولكن نتيجة لظروف ما قد تكمن السعاده فيما نتحمله من كد وأسي.",
       "price": "سعر",
