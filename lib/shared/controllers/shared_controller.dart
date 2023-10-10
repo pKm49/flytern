@@ -42,6 +42,14 @@ class SharedController extends GetxController {
     await sharedPreferences.setString('selectedLanguage', language.code);
   }
 
+  changeCountry(Country country) async {
+
+    selectedCountry.value = country;
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString('selectedCountry', country.countryCode);
+
+  }
+
   Future<void> getInitialInfo() async {
     print("shared getInitialInfo");
 
