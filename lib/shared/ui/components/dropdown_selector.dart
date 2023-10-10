@@ -29,7 +29,7 @@ class _DropDownSelectorState extends State<DropDownSelector> {
     double screenwidth = MediaQuery.of(context).size.width;
 
     return DropdownButton<String>(
-      icon: Icon(Ionicons.chevron_down,color: flyternGrey60),
+      icon: Icon(Ionicons.caret_down,color: flyternGrey60),
       value:  widget.selected != null?widget.selected.toString():null,
       iconSize: flyternFontSize16,
       isExpanded: true,
