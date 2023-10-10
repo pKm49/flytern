@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
+import 'package:flytern/shared/data/constants/business_constants/available_countries.dart';
+import 'package:flytern/shared/data/constants/business_constants/available_languages.dart';
 import 'package:flytern/shared/data/models/business_models/country.dart';
 import 'package:flytern/shared/data/models/business_models/language.dart';
 import 'package:flytern/shared/data/models/business_models/support_info.dart';
@@ -9,14 +11,21 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedController extends GetxController {
-
-  var selectedLanguage = "".obs;
+  var selectedLanguage = "en".obs;
   var languages = <Language>[].obs;
   var countries = <Country>[].obs;
 
   @override
   void onInit() {
     super.onInit();
+
+    languages.value = availableLanguages;
+    countries.value = availableCountries;
+
+    selectedLanguage.value = availableLanguages.isNotEmpty
+        ? availableLanguages[0].code
+        : selectedLanguage.value;
+
   }
 
   changeLanguage(newLanguage) async {
@@ -34,8 +43,7 @@ class SharedController extends GetxController {
 
     var sharedHttpService = SharedHttpService();
 
-    SupportInfo supportInfo =
-        await sharedHttpService.getInitialSupportInfo();
+    SupportInfo supportInfo = await sharedHttpService.getInitialSupportInfo();
 
     languages.value = supportInfo.languages;
     countries.value = supportInfo.countries;
