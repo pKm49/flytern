@@ -38,17 +38,19 @@ class CoreController extends GetxController {
         }
       }
 
-      return;
 
+    }else{
+      AuthToken authToken = await coreHttpServices.getGuestToken();
+
+      if(authToken.accessToken != ""){
+        saveAuthTokenToSharedPreference(authToken);
+      }
     }
 
-    AuthToken authToken = await coreHttpServices.getGuestToken();
 
-    if(authToken.accessToken != ""){
-      saveAuthTokenToSharedPreference(authToken);
-    }
+    final sharedController = Get.find<SharedController>();
+    sharedController.getInitialInfo();
 
-    Get.put(SharedController());
 
   }
 
