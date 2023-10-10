@@ -66,6 +66,7 @@ class SharedController extends GetxController {
     );
 
     await sharedHttpService.setDeviceInfo(setDeviceInfoRequestBody);
+    return;
   }
 
 
