@@ -6,6 +6,7 @@ import 'package:flytern/core/data/constants/app-spectific/app_routes.dart';
 import 'package:flytern/core/data/constants/ui-specific/theme_data.dart';
 import 'package:flytern/core/data/constants/ui-specific/theme_manager.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flytern/shared/controllers/shared_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,6 +38,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
 
     Get.put(CoreController());
+    Get.put(SharedController());
     CoreTranslationController.initLanguages();
     _themeManager.addListener(themeListener);
 
