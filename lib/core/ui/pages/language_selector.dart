@@ -212,6 +212,7 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                               width: double.infinity,
                               child: ElevatedButton(
                                   onPressed: () async {
+                                    await sharedController.setDeviceLanguageAndCountry();
                                     Get.toNamed(Approute_authSelector);
                                   },
                                   style: getElevatedButtonStyle(context),
