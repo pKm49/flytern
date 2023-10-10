@@ -45,7 +45,11 @@ class CountrySelector extends StatelessWidget {
                       Image.network(sharedController.countries[i].flag, width: 40),
                       addHorizontalSpace(flyternSpaceMedium),
                       Expanded(
-                          child: Text(sharedController.countries[i].countryName,
+                          child: Text(
+                              Localizations.localeOf(context).languageCode.toString() ==
+                                  'en'?
+                              sharedController.countries[i].countryName:
+                              sharedController.countries[i].countryName_Ar,
                               maxLines: 2,
                               style: getBodyMediumStyle(context))),
                       addHorizontalSpace(flyternSpaceSmall),
