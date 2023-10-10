@@ -9,8 +9,6 @@ import 'package:flytern/config/env.dart' as env;
 
 class FlyternHttpInterceptor implements InterceptorContract {
 
-
-
   @override
   Future<RequestData> interceptRequest({required RequestData data}) async {
     try {
@@ -36,7 +34,15 @@ class FlyternHttpInterceptor implements InterceptorContract {
 
       data.headers["Host"]=env.apiEndPoint;
       if(data.url.contains(CoreHttpRequestEndpointGetGuestToken)){
-       _getId().then((value) =>   data.headers["DeviceID"] = value??"");
+        String? deviceId = await _getId();
+        data.headers["DeviceID"] = deviceId??"";
+      }
+
+      print("does contain");
+      print(data.url.contains(CoreHttpRequestEndpointGetNewAccesToken));
+      if(data.url.contains(CoreHttpRequestEndpointGetNewAccesToken)){
+        String? refreshToken = await getRefreshToken();
+        data.headers["RefreshToken"] = refreshToken ;
       }
 
       print(" interceptRequest data.headers");
@@ -97,4 +103,15 @@ class FlyternHttpInterceptor implements InterceptorContract {
       return idPattern+androidDeviceInfo.serialNumber.toString(); // unique ID on Android
     }
   }
+
+  Future<String> getRefreshToken() async {
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? refreshToken = prefs.getString('refreshToken');
+
+    print("getRefreshToken");
+    print(refreshToken);
+    return refreshToken??"";
+  }
+
 }
