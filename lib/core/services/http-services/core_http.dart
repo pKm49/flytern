@@ -9,7 +9,7 @@ class CoreHttpServices{
 
   getGuestToken() async {
 
-    FlyternHttpResponse response = await postRequest(CoreHttpRequestEndpointGetGuestToken,null);
+    FlyternHttpResponse response = await getRequest(CoreHttpRequestEndpointGetGuestToken,null);
 
     if(response.success){
       if(response.data != null){
@@ -24,8 +24,10 @@ class CoreHttpServices{
 
   getRefreshedToken(String refreshToken) async {
 
-    FlyternHttpResponse response = await postRequest(CoreHttpRequestEndpointGetNewAccesToken,
-        {refreshToken:refreshToken});
+    Map<String, dynamic> params = {};
+    params["RefreshToken"]=refreshToken;
+    FlyternHttpResponse response = await getRequest(
+        CoreHttpRequestEndpointGetNewAccesToken,params);
 
     if(response.success){
       if(response.data != null){
