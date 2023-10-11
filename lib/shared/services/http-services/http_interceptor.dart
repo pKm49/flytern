@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:device_info_plus/device_info_plus.dart';
+// import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flytern/core/data/constants/app-spectific/core_http_request_endpoints.dart';
 import 'package:http_interceptor/http_interceptor.dart';
  import 'package:shared_preferences/shared_preferences.dart';
@@ -92,15 +92,15 @@ class FlyternHttpInterceptor implements InterceptorContract {
 
   Future<String?> _getId() async {
     String idPattern = "FLYMOB";
-    var deviceInfo = DeviceInfoPlugin();
+    // var deviceInfo = DeviceInfoPlugin();
     if (Platform.isIOS) { // import 'dart:io'
-      idPattern += "IOS";
-      var iosDeviceInfo = await deviceInfo.iosInfo;
-      return  idPattern+iosDeviceInfo.identifierForVendor.toString(); // unique ID on iOS
+      idPattern += "IOS123123123";
+      // var iosDeviceInfo = await deviceInfo.iosInfo;
+      return  idPattern;; // unique ID on iOS
     } else if(Platform.isAndroid) {
-      idPattern += "AND";
-      var androidDeviceInfo = await deviceInfo.androidInfo;
-      return idPattern+androidDeviceInfo.serialNumber.toString(); // unique ID on Android
+      idPattern += "AND123123123123";
+      // var androidDeviceInfo = await deviceInfo.androidInfo;
+      return idPattern;; // unique ID on Android
     }
   }
 
