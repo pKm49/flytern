@@ -13,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedController extends GetxController {
 
-  var setDeviceLanguageAndCountrySubmitting = false.obs;
+  var isSetDeviceLanguageAndCountrySubmitting = false.obs;
   var sharedHttpService = SharedHttpService();
   var selectedLanguage = Language(name: "English", code: "en").obs;
   var selectedCountry = Country(
@@ -57,7 +57,7 @@ class SharedController extends GetxController {
 
   Future<void> setDeviceLanguageAndCountry() async {
 
-    setDeviceLanguageAndCountrySubmitting.value = true;
+    isSetDeviceLanguageAndCountrySubmitting.value = true;
     String firebaseToken = await getFirebaseMessagingToken();
 
     SetDeviceInfoRequestBody setDeviceInfoRequestBody = SetDeviceInfoRequestBody(
@@ -68,7 +68,7 @@ class SharedController extends GetxController {
     );
 
     await sharedHttpService.setDeviceInfo(setDeviceInfoRequestBody);
-    setDeviceLanguageAndCountrySubmitting.value = false;
+    isSetDeviceLanguageAndCountrySubmitting.value = false;
     return;
   }
 

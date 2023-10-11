@@ -211,14 +211,14 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                               width: 20,
                             ),
                             SizedBox(
-                              width:sharedController.setDeviceLanguageAndCountrySubmitting.value?double.maxFinite :double.infinity,
+                              width:sharedController.isSetDeviceLanguageAndCountrySubmitting.value?double.maxFinite :double.infinity,
                               child: ElevatedButton(
                                   onPressed: () async {
                                     await sharedController.setDeviceLanguageAndCountry();
                                     Get.toNamed(Approute_authSelector);
                                   },
                                   style: getElevatedButtonStyle(context),
-                                  child:sharedController.setDeviceLanguageAndCountrySubmitting.value?
+                                  child:sharedController.isSetDeviceLanguageAndCountrySubmitting.value?
                                   const SizedBox(
                                     width: 20,
                                     height: 20,
