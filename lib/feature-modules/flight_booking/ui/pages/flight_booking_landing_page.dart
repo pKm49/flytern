@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_for_you.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_for_you_loader.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_form.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type_tab.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/popular_package_list_card.dart';
@@ -22,6 +25,9 @@ class FlightBookingLandingPage extends StatefulWidget {
 
 class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
     with SingleTickerProviderStateMixin {
+
+  final flightBookingController =  Get.put(FlightBookingController());
+
   int selectedTab = 1;
   int multicityCount = 1;
 
@@ -186,34 +192,13 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
             ),
           ),
           addVerticalSpace(flyternSpaceLarge),
-          Container(
-              width: screenwidth,
-              height: screenwidth * .7,
-              padding: flyternMediumPaddingHorizontal,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  FlightRecommendedItemCard(
-                      imageUrl: ASSETS_RECOMMENDED_1_SAMPLE,
-                      title: "Four Seasons Resort Bora Bora",
-                      rating: 4.4
-                  ),
-                  addHorizontalSpace(flyternSpaceMedium),
-                  FlightRecommendedItemCard(
-                      imageUrl: ASSETS_RECOMMENDED_1_SAMPLE,
-                      title: "Four Seasons Resort Bora Bora",
-                      rating: 4.4
-                  ),
-                  addHorizontalSpace(flyternSpaceMedium),
-                  FlightRecommendedItemCard(
-                      imageUrl: ASSETS_RECOMMENDED_1_SAMPLE,
-                      title: "Four Seasons Resort Bora Bora",
-                      rating: 4.4
-                  ),
-                ],
-              )),
-          addVerticalSpace(flyternSpaceLarge),
-          addVerticalSpace(flyternSpaceLarge),
+          Visibility(
+              visible: !flightBookingController.isInitialDataLoading.value &&
+              flightBookingController.recommendedPackages.isNotEmpty,
+              child: RecommendedForYouContainer()),
+          Visibility(visible:  flightBookingController.isInitialDataLoading.value,
+              child: RecommendedForYouLoader()),
+          addVerticalSpace(flyternSpaceLarge*2),
           Padding(
             padding: flyternMediumPaddingHorizontal,
             child: Row(
@@ -356,7 +341,6 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
               ],
             ),
           ),
-
           addVerticalSpace(flyternSpaceLarge),
         ],
       ),

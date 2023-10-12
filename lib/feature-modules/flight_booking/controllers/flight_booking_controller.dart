@@ -31,7 +31,8 @@ class FlightBookingController extends GetxController {
   Future<void> getInitialInfo() async {
 
     ExploreData? exploreData = await flightBookingHttpService.getInitialInfo();
-
+    print("getInitialInfo completed");
+    print(exploreData != null);
     if(exploreData != null){
       cabinClasses.value = exploreData.cabinClasses;
       recommendedPackages.value = exploreData.recommendedPackages;
