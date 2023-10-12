@@ -26,22 +26,42 @@ class RecommendedForYouLoader extends StatelessWidget {
               baseColor: flyternBackgroundWhite,
               highlightColor: flyternGrey20,
               child: Container(
+                decoration: BoxDecoration(
+                    color:flyternGrey10,
+                    borderRadius:
+                  BorderRadius.circular(flyternBorderRadiusExtraSmall),
+                ),
                   width: screenwidth * .7,
                   height: screenwidth * .7,
-                  color:flyternGrey10
               ),
             ),
             addHorizontalSpace(flyternSpaceMedium),
-            FlightRecommendedItemCard(
-                imageUrl: ASSETS_RECOMMENDED_1_SAMPLE,
-                title: "Four Seasons Resort Bora Bora",
-                rating: 4.4
+            Shimmer.fromColors(
+              baseColor: flyternBackgroundWhite,
+              highlightColor: flyternGrey20,
+              child: Container(
+                decoration: BoxDecoration(
+                  color:flyternGrey10,
+                  borderRadius:
+                  BorderRadius.circular(flyternBorderRadiusExtraSmall),
+                ),
+                width: screenwidth * .7,
+                height: screenwidth * .7,
+              ),
             ),
             addHorizontalSpace(flyternSpaceMedium),
-            FlightRecommendedItemCard(
-                imageUrl: ASSETS_RECOMMENDED_1_SAMPLE,
-                title: "Four Seasons Resort Bora Bora",
-                rating: 4.4
+            Shimmer.fromColors(
+              baseColor: flyternBackgroundWhite,
+              highlightColor: flyternGrey20,
+              child: Container(
+                decoration: BoxDecoration(
+                  color:flyternGrey10,
+                  borderRadius:
+                  BorderRadius.circular(flyternBorderRadiusExtraSmall),
+                ),
+                width: screenwidth * .7,
+                height: screenwidth * .7,
+              ),
             ),
           ],
         ));
