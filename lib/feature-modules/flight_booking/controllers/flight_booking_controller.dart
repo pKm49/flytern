@@ -14,7 +14,7 @@ import 'package:get/get.dart';
 
 class FlightBookingController extends GetxController {
 
-  var isInitialDataLoading = false.obs;
+  var isInitialDataLoading = true.obs;
   var flightBookingHttpService = FlightBookingHttpService();
 
   var cabinClasses = <CabinClass>[].obs;
@@ -39,6 +39,8 @@ class FlightBookingController extends GetxController {
       popularDestinations.value = exploreData.popularDestinations;
       travelStories.value = exploreData.travelStories;
     }
+
+    isInitialDataLoading.value = false;
 
   }
 
