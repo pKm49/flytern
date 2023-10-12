@@ -51,298 +51,300 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
       height: screenheight,
       width: screenwidth,
       color: flyternGrey10,
-      child: ListView(
-        children: [
-          Container(
-            padding: EdgeInsets.all(flyternSpaceLarge),
-            height: (screenheight * .7) + (flyternSpaceLarge * 2.5) +
-                (   (multicityCount-1)*230  )+(selectedTab==3?65:0),
-            width: screenwidth - (flyternSpaceLarge * 2),
-            decoration: BoxDecoration(
+      child: Obx(
+          ()=> ListView(
+          children: [
+            Container(
+              padding: EdgeInsets.all(flyternSpaceLarge),
+              height: (screenheight * .7) + (flyternSpaceLarge * 2.5) +
+                  (   (multicityCount-1)*230  )+(selectedTab==3?65:0),
+              width: screenwidth - (flyternSpaceLarge * 2),
+              decoration: BoxDecoration(
 
-              image: DecorationImage(
-                image: AssetImage(ASSETS_FLIGHTS_BG),
-                fit: BoxFit.cover,
+                image: DecorationImage(
+                  image: AssetImage(ASSETS_FLIGHTS_BG),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Stack(
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        height: screenheight * .025,
+                        width: screenwidth - (flyternSpaceLarge * 2),
+                      ),
+                      Container(
+                        height: screenheight * .675+((multicityCount-1)*230)+(selectedTab==3?65:0),
+                        decoration: flyternShadowedContainerSmallDecoration,
+                        width: screenwidth - (flyternSpaceLarge * 2),
+                        padding: flyternMediumPaddingAll,
+                        child: Container(
+                          margin: EdgeInsets.only(top: flyternSpaceLarge),
+                          child: FlightBookingForm(
+                              onCityAdded:(){
+                                print("onCityAdded");
+                                print(multicityCount);
+                                setState(() {
+                                  multicityCount = 2;
+                                });
+                                print(multicityCount);
+                              },
+                              selectedTab: selectedTab),
+                        ),
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                          height: screenheight * .05,
+                          width: screenwidth - (flyternSpaceLarge * 2),
+                          padding: flyternMediumPaddingHorizontal,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: FlightTypeTab(
+                                  onPressed: () {
+                                    setState(() {
+                                      selectedTab = 1;
+                                      multicityCount = 1;
+                                    });
+                                  },
+                                  index: 1,
+                                  icon: Ionicons.arrow_forward_outline,
+                                  label: 'one_way'.tr,
+                                  selectedTab: selectedTab,
+                                ),
+                              ),
+                              addHorizontalSpace(flyternSpaceSmall),
+                              Expanded(
+                                child: FlightTypeTab(
+                                  onPressed: () {
+                                    setState(() {
+                                      selectedTab = 2;
+                                      multicityCount = 1;
+                                    });
+                                  },
+                                  index: 2,
+                                  icon: Ionicons.swap_horizontal_outline,
+                                  label: 'round_trip'.tr,
+                                  selectedTab: selectedTab,
+                                ),
+                              ),
+                              addHorizontalSpace(flyternSpaceSmall),
+                              Expanded(
+                                child: FlightTypeTab(
+                                  onPressed: () {
+                                    setState(() {
+                                      selectedTab = 3;
+                                    });
+                                  },
+                                  index: 3,
+                                  icon: Ionicons.share_social_outline,
+                                  label: 'multi_city'.tr,
+                                  selectedTab: selectedTab,
+                                ),
+                              )
+                            ],
+                          )),
+                      Container(
+                        height: screenheight * .65 +
+                            ( (multicityCount-1)*230  )+(selectedTab==3?65:0),
+                        width: screenwidth - (flyternSpaceLarge * 2),
+                      )
+                    ],
+                  )
+                ],
               ),
             ),
-            child: Stack(
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      height: screenheight * .025,
-                      width: screenwidth - (flyternSpaceLarge * 2),
+            addVerticalSpace(flyternSpaceLarge),
+            Padding(
+              padding: flyternMediumPaddingHorizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      'recommended_for_you'.tr,
+                      style: getHeadlineMediumStyle(context).copyWith(
+                          color: flyternGrey80,
+                          fontWeight: flyternFontWeightBold),
                     ),
-                    Container(
-                      height: screenheight * .675+((multicityCount-1)*230)+(selectedTab==3?65:0),
-                      decoration: flyternShadowedContainerSmallDecoration,
-                      width: screenwidth - (flyternSpaceLarge * 2),
-                      padding: flyternMediumPaddingAll,
-                      child: Container(
-                        margin: EdgeInsets.only(top: flyternSpaceLarge),
-                        child: FlightBookingForm(
-                            onCityAdded:(){
-                              print("onCityAdded");
-                              print(multicityCount);
-                              setState(() {
-                                multicityCount = 2;
-                              });
-                              print(multicityCount);
-                            },
-                            selectedTab: selectedTab),
-                      ),
-                    )
-                  ],
-                ),
-                Column(
-                  children: [
-                    Container(
-                        height: screenheight * .05,
-                        width: screenwidth - (flyternSpaceLarge * 2),
-                        padding: flyternMediumPaddingHorizontal,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: FlightTypeTab(
-                                onPressed: () {
-                                  setState(() {
-                                    selectedTab = 1;
-                                    multicityCount = 1;
-                                  });
-                                },
-                                index: 1,
-                                icon: Ionicons.arrow_forward_outline,
-                                label: 'one_way'.tr,
-                                selectedTab: selectedTab,
-                              ),
-                            ),
-                            addHorizontalSpace(flyternSpaceSmall),
-                            Expanded(
-                              child: FlightTypeTab(
-                                onPressed: () {
-                                  setState(() {
-                                    selectedTab = 2;
-                                    multicityCount = 1;
-                                  });
-                                },
-                                index: 2,
-                                icon: Ionicons.swap_horizontal_outline,
-                                label: 'round_trip'.tr,
-                                selectedTab: selectedTab,
-                              ),
-                            ),
-                            addHorizontalSpace(flyternSpaceSmall),
-                            Expanded(
-                              child: FlightTypeTab(
-                                onPressed: () {
-                                  setState(() {
-                                    selectedTab = 3;
-                                  });
-                                },
-                                index: 3,
-                                icon: Ionicons.share_social_outline,
-                                label: 'multi_city'.tr,
-                                selectedTab: selectedTab,
-                              ),
-                            )
-                          ],
-                        )),
-                    Container(
-                      height: screenheight * .65 +
-                          ( (multicityCount-1)*230  )+(selectedTab==3?65:0),
-                      width: screenwidth - (flyternSpaceLarge * 2),
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          addVerticalSpace(flyternSpaceLarge),
-          Padding(
-            padding: flyternMediumPaddingHorizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Text(
-                    'recommended_for_you'.tr,
-                    style: getHeadlineMediumStyle(context).copyWith(
-                        color: flyternGrey80,
-                        fontWeight: flyternFontWeightBold),
                   ),
-                ),
-                Expanded(
-                    flex: 1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "see_all".tr,
-                          style: getBodyMediumStyle(context)
-                              .copyWith(color: flyternTertiaryColor),
-                        ),
-                        addHorizontalSpace(flyternSpaceExtraSmall),
-                        Icon(Ionicons.chevron_forward,
-                            color: flyternTertiaryColor,
-                            size: flyternFontSize20)
-                      ],
-                    ))
-              ],
+                  Expanded(
+                      flex: 1,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "see_all".tr,
+                            style: getBodyMediumStyle(context)
+                                .copyWith(color: flyternTertiaryColor),
+                          ),
+                          addHorizontalSpace(flyternSpaceExtraSmall),
+                          Icon(Ionicons.chevron_forward,
+                              color: flyternTertiaryColor,
+                              size: flyternFontSize20)
+                        ],
+                      ))
+                ],
+              ),
             ),
-          ),
-          addVerticalSpace(flyternSpaceLarge),
-          Visibility(
-              visible: !flightBookingController.isInitialDataLoading.value &&
-              flightBookingController.recommendedPackages.isNotEmpty,
-              child: RecommendedForYouContainer()),
-          Visibility(visible:  flightBookingController.isInitialDataLoading.value,
-              child: RecommendedForYouLoader()),
-          addVerticalSpace(flyternSpaceLarge*2),
-          Padding(
-            padding: flyternMediumPaddingHorizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Text(
-                    'popular_destinations'.tr,
-                    style: getHeadlineMediumStyle(context).copyWith(
-                        color: flyternGrey80,
-                        fontWeight: flyternFontWeightBold),
+            addVerticalSpace(flyternSpaceLarge),
+            Visibility(
+                visible: !flightBookingController.isInitialDataLoading.value &&
+                flightBookingController.recommendedPackages.isNotEmpty,
+                child: RecommendedForYouContainer()),
+            Visibility(visible:  flightBookingController.isInitialDataLoading.value,
+                child: RecommendedForYouLoader()),
+            addVerticalSpace(flyternSpaceLarge*2),
+            Padding(
+              padding: flyternMediumPaddingHorizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      'popular_destinations'.tr,
+                      style: getHeadlineMediumStyle(context).copyWith(
+                          color: flyternGrey80,
+                          fontWeight: flyternFontWeightBold),
+                    ),
                   ),
-                ),
-                Expanded(
-                    flex: 1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "see_all".tr,
-                          style: getBodyMediumStyle(context)
-                              .copyWith(color: flyternTertiaryColor),
-                        ),
-                        addHorizontalSpace(flyternSpaceExtraSmall),
-                        Icon(Ionicons.chevron_forward,
-                            color: flyternTertiaryColor,
-                            size: flyternFontSize20)
-                      ],
-                    ))
-              ],
+                  Expanded(
+                      flex: 1,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "see_all".tr,
+                            style: getBodyMediumStyle(context)
+                                .copyWith(color: flyternTertiaryColor),
+                          ),
+                          addHorizontalSpace(flyternSpaceExtraSmall),
+                          Icon(Ionicons.chevron_forward,
+                              color: flyternTertiaryColor,
+                              size: flyternFontSize20)
+                        ],
+                      ))
+                ],
+              ),
             ),
-          ),
-          addVerticalSpace(flyternSpaceLarge),
-          Container(
-            color: flyternBackgroundWhite,
-            child: Wrap(
-              children: [
-                PopularPackageListCard(
-                  imageUrl: ASSETS_PACKAGE_1_SAMPLE,
-                  title: 'Kabul Holiday Package',
-                  destination: 'Japan',
-                  rating: 4.4,
-                  price: 15000,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
-                  child: Divider(),
-                ),
-                PopularPackageListCard(
-                  imageUrl: ASSETS_PACKAGE_1_SAMPLE,
-                  title: 'Kabul Holiday Package',
-                  destination: 'Japan',
-                  rating: 4.4,
-                  price: 15000,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
-                  child: Divider(),
-                ),
-                PopularPackageListCard(
-                  imageUrl: ASSETS_PACKAGE_1_SAMPLE,
-                  title: 'Kabul Holiday Package',
-                  destination: 'Japan',
-                  rating: 4.4,
-                  price: 15000,
-                ),
-              ],
-            ),
-          ),
-          addVerticalSpace(flyternSpaceLarge),
-          Padding(
-            padding: flyternMediumPaddingHorizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Text(
-                    'Travel Stories',
-                    style: getHeadlineMediumStyle(context).copyWith(
-                        color: flyternGrey80,
-                        fontWeight: flyternFontWeightBold),
+            addVerticalSpace(flyternSpaceLarge),
+            Container(
+              color: flyternBackgroundWhite,
+              child: Wrap(
+                children: [
+                  PopularPackageListCard(
+                    imageUrl: ASSETS_PACKAGE_1_SAMPLE,
+                    title: 'Kabul Holiday Package',
+                    destination: 'Japan',
+                    rating: 4.4,
+                    price: 15000,
                   ),
-                ),
-                Expanded(
-                    flex: 1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          "see_all".tr,
-                          style: getBodyMediumStyle(context)
-                              .copyWith(color: flyternTertiaryColor),
-                        ),
-                        addHorizontalSpace(flyternSpaceExtraSmall),
-                        Icon(Ionicons.chevron_forward,
-                            color: flyternTertiaryColor,
-                            size: flyternFontSize20)
-                      ],
-                    ))
-              ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
+                    child: Divider(),
+                  ),
+                  PopularPackageListCard(
+                    imageUrl: ASSETS_PACKAGE_1_SAMPLE,
+                    title: 'Kabul Holiday Package',
+                    destination: 'Japan',
+                    rating: 4.4,
+                    price: 15000,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
+                    child: Divider(),
+                  ),
+                  PopularPackageListCard(
+                    imageUrl: ASSETS_PACKAGE_1_SAMPLE,
+                    title: 'Kabul Holiday Package',
+                    destination: 'Japan',
+                    rating: 4.4,
+                    price: 15000,
+                  ),
+                ],
+              ),
             ),
-          ),
-          addVerticalSpace(flyternSpaceLarge),
-          Container(
-            color: flyternBackgroundWhite,
-            child: Wrap(
-              children: [
-                TravelStoriesItemCard(
-                  profilePicUrl: ASSETS_USER_1_SAMPLE,
-                  name: "Andrew Martin",
-                  rating: 4.4,
-                  description: "lorem_ipsum_description".tr,
-                  imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
-                  child: Divider(),
-                ),
-                TravelStoriesItemCard(
-                  profilePicUrl: ASSETS_USER_1_SAMPLE,
-                  name: "Andrew Martin",
-                  rating: 4.4,
-                  description: "lorem_ipsum_description".tr,
-                  imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
-                  child: Divider(),
-                ),
-                TravelStoriesItemCard(
-                  profilePicUrl: ASSETS_USER_1_SAMPLE,
-                  name: "Andrew Martin",
-                  rating: 4.4,
-                  description: "lorem_ipsum_description".tr,
-                  imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
-                ),
+            addVerticalSpace(flyternSpaceLarge),
+            Padding(
+              padding: flyternMediumPaddingHorizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      'Travel Stories',
+                      style: getHeadlineMediumStyle(context).copyWith(
+                          color: flyternGrey80,
+                          fontWeight: flyternFontWeightBold),
+                    ),
+                  ),
+                  Expanded(
+                      flex: 1,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "see_all".tr,
+                            style: getBodyMediumStyle(context)
+                                .copyWith(color: flyternTertiaryColor),
+                          ),
+                          addHorizontalSpace(flyternSpaceExtraSmall),
+                          Icon(Ionicons.chevron_forward,
+                              color: flyternTertiaryColor,
+                              size: flyternFontSize20)
+                        ],
+                      ))
+                ],
+              ),
+            ),
+            addVerticalSpace(flyternSpaceLarge),
+            Container(
+              color: flyternBackgroundWhite,
+              child: Wrap(
+                children: [
+                  TravelStoriesItemCard(
+                    profilePicUrl: ASSETS_USER_1_SAMPLE,
+                    name: "Andrew Martin",
+                    rating: 4.4,
+                    description: "lorem_ipsum_description".tr,
+                    imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
+                    child: Divider(),
+                  ),
+                  TravelStoriesItemCard(
+                    profilePicUrl: ASSETS_USER_1_SAMPLE,
+                    name: "Andrew Martin",
+                    rating: 4.4,
+                    description: "lorem_ipsum_description".tr,
+                    imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
+                    child: Divider(),
+                  ),
+                  TravelStoriesItemCard(
+                    profilePicUrl: ASSETS_USER_1_SAMPLE,
+                    name: "Andrew Martin",
+                    rating: 4.4,
+                    description: "lorem_ipsum_description".tr,
+                    imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
+                  ),
 
-              ],
+                ],
+              ),
             ),
-          ),
-          addVerticalSpace(flyternSpaceLarge),
-        ],
+            addVerticalSpace(flyternSpaceLarge),
+          ],
+        ),
       ),
     );
   }
