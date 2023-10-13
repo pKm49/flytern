@@ -6,11 +6,11 @@ import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 
-class RecommendedForYouCard extends StatelessWidget {
+class RecommendedForYouContainer extends StatelessWidget {
 
   List <RecommendedPackage> recommendedPackages;
 
-  RecommendedForYouCard({super.key, required this.recommendedPackages});
+  RecommendedForYouContainer({super.key, required this.recommendedPackages});
 
   @override
   Widget build(BuildContext context) {
