@@ -196,7 +196,9 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
             Visibility(
                 visible: !flightBookingController.isInitialDataLoading.value &&
                 flightBookingController.recommendedPackages.isNotEmpty,
-                child: RecommendedForYouContainer()),
+                child: RecommendedForYouContainer(
+                    recommendedPackages:flightBookingController.recommendedPackages
+                )),
             Visibility(visible:  flightBookingController.isInitialDataLoading.value,
                 child: RecommendedForYouLoader()),
             addVerticalSpace(flyternSpaceLarge*2),
