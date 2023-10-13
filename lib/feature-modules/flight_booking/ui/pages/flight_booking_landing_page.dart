@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_for_you.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_for_you_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_for_you_loader.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_form.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type_tab.dart';
@@ -190,7 +190,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                 flightBookingController.recommendedPackages.isNotEmpty,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom:flyternSpaceLarge*2),
-                  child: RecommendedForYouContainer(
+                  child: RecommendedForYouCard(
                       recommendedPackages:flightBookingController.recommendedPackages
                   ),
                 )),
