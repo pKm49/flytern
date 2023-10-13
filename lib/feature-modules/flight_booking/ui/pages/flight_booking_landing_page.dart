@@ -12,6 +12,8 @@ import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared/ui/components/section_title/section_title_container.dart';
+import 'package:flytern/shared/ui/components/section_title/section_title_container_loader.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -159,50 +161,45 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
               ),
             ),
             addVerticalSpace(flyternSpaceLarge),
-            Padding(
-              padding: flyternMediumPaddingHorizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: Text(
-                      'recommended_for_you'.tr,
-                      style: getHeadlineMediumStyle(context).copyWith(
-                          color: flyternGrey80,
-                          fontWeight: flyternFontWeightBold),
-                    ),
-                  ),
-                  Expanded(
-                      flex: 1,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            "see_all".tr,
-                            style: getBodyMediumStyle(context)
-                                .copyWith(color: flyternTertiaryColor),
-                          ),
-                          addHorizontalSpace(flyternSpaceExtraSmall),
-                          Icon(Ionicons.chevron_forward,
-                              color: flyternTertiaryColor,
-                              size: flyternFontSize20)
-                        ],
-                      ))
-                ],
+            Visibility(
+              visible: !flightBookingController.isInitialDataLoading.value &&
+                  flightBookingController.recommendedPackages.isNotEmpty,
+              child: Padding(
+                padding: flyternMediumPaddingHorizontal.copyWith(
+                  bottom: flyternSpaceLarge
+                ),
+                child:SectionTitleContainer(
+                  name: 'recommended_for_you'.tr,
+                  linkName: 'see_all'.tr,
+                  linkUrl: '',
+                  isLarge: true,
+                ) ,
               ),
             ),
-            addVerticalSpace(flyternSpaceLarge),
+            Visibility(
+              visible:  flightBookingController.isInitialDataLoading.value,
+              child: Padding(
+                padding: flyternMediumPaddingHorizontal.copyWith(
+                  bottom: flyternSpaceLarge
+                ),
+                child:SectionTitleContainerLoader( ) ,
+              ),
+            ),
             Visibility(
                 visible: !flightBookingController.isInitialDataLoading.value &&
                 flightBookingController.recommendedPackages.isNotEmpty,
-                child: RecommendedForYouContainer(
-                    recommendedPackages:flightBookingController.recommendedPackages
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom:flyternSpaceLarge*2),
+                  child: RecommendedForYouContainer(
+                      recommendedPackages:flightBookingController.recommendedPackages
+                  ),
                 )),
             Visibility(visible:  flightBookingController.isInitialDataLoading.value,
-                child: RecommendedForYouLoader()),
-            addVerticalSpace(flyternSpaceLarge*2),
-            Padding(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom:flyternSpaceLarge*2),
+                  child: RecommendedForYouLoader(),
+                )),
+             Padding(
               padding: flyternMediumPaddingHorizontal,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
