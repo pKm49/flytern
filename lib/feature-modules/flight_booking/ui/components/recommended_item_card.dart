@@ -9,7 +9,7 @@ import 'package:ionicons/ionicons.dart';
 class FlightRecommendedItemCard extends StatelessWidget {
   final String imageUrl;
   final String title;
-  final double rating;
+  final String rating;
 
     FlightRecommendedItemCard({super.key,
     required this.imageUrl,
@@ -32,7 +32,7 @@ class FlightRecommendedItemCard extends StatelessWidget {
         borderRadius:
         BorderRadius.circular(flyternBorderRadiusExtraSmall),
         image:   DecorationImage(
-          image: AssetImage(imageUrl),
+          image:  NetworkImage(imageUrl),
           fit: BoxFit.cover,
         ),
       ),
