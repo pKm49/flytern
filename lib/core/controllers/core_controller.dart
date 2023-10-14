@@ -1,9 +1,10 @@
  import 'dart:ui';
 
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
-import 'package:flytern/core/data/models/app-specific/auth_token.dart';
+import 'package:flytern/shared/data/models/business_models/auth_token.dart';
 import 'package:flytern/core/services/http-services/core_http.dart';
 import 'package:flytern/shared/controllers/shared_controller.dart';
+import 'package:flytern/shared/services/utility-services/shared_preference_handler.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -52,12 +53,6 @@ class CoreController extends GetxController {
 
   }
 
-  saveAuthTokenToSharedPreference(AuthToken authToken) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool("isGuest", authToken.isGuest);
-    prefs.setString("accessToken", authToken.accessToken);
-    prefs.setString("refreshToken", authToken.refreshToken);
-    prefs.setString("expiryOn", authToken.expiryOn.toString());
-  }
+
 
 }
