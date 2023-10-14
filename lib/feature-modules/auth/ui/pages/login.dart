@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/auth/controllers/login_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -16,11 +19,9 @@ class AuthLoginPage extends StatefulWidget {
 
 class _AuthLoginPageState extends State<AuthLoginPage> {
 
+  final loginController =  Get.put(LoginController());
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-
 
   @override
   Widget build(BuildContext context) {
@@ -32,104 +33,111 @@ class _AuthLoginPageState extends State<AuthLoginPage> {
       appBar: AppBar(
         title: Text("sign_in".tr),
       ),
-      body: Container(
-        width: screenwidth,
-        padding: flyternLargePaddingHorizontal,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(child:
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: Form(
+        key: loginFormKey,
+        child: Container(
+          width: screenwidth,
+          padding: flyternLargePaddingHorizontal,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(child:
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
 
-              children: [
-                addVerticalSpace(flyternSpaceSmall),
-                Text("sign_in_message".tr,style: getBodyMediumStyle(context)),
-                addVerticalSpace(flyternSpaceLarge*2),
-                TextFormField(
-                    controller: emailController,
-                    validator: (value) => checkIfEmailValid(value),
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      labelText: "email".tr,
-                    )),
-                addVerticalSpace(flyternSpaceMedium),
-                TextFormField(
-                    controller: passwordController,
-                    validator: (value) => checkIfPasswordFieldValid(value),
-                    decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.remove_red_eye_outlined),
-                      labelText:"password".tr,
-                    )),
-                addVerticalSpace(flyternSpaceLarge),
-                InkWell(
-                  onTap: (){
-                    Get.toNamed(Approute_resetPasswordMobile);
-                  },
-                  child: Text(
-                    "forgot_password".tr,
-                    style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold,
-                        color: flyternSecondaryColor),
+                children: [
+                  addVerticalSpace(flyternSpaceSmall),
+                  Text("sign_in_message".tr,style: getBodyMediumStyle(context)),
+                  addVerticalSpace(flyternSpaceLarge*2),
+                  TextFormField(
+                      controller: loginController.emailFieldController.value,
+                      validator: (value) => checkIfEmailValid(value),
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        labelText: "email".tr,
+                      )),
+                  addVerticalSpace(flyternSpaceMedium),
+                  TextFormField(
+                      controller: loginController.passwordController.value,
+                      validator: (value) => checkIfPasswordFieldValid(value),
+                      decoration: InputDecoration(
+                        suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                        labelText:"password".tr,
+                      )),
+                  addVerticalSpace(flyternSpaceLarge),
+                  InkWell(
+                    onTap: (){
+                      Get.toNamed(Approute_resetPasswordMobile);
+                    },
+                    child: Text(
+                      "forgot_password".tr,
+                      style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold,
+                          color: flyternSecondaryColor),
+                    ),
                   ),
-                ),
-                addVerticalSpace(flyternSpaceLarge),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(style: getElevatedButtonStyle(context),
-                      onPressed: () {
-                        Get.offAllNamed(Approute_landingpage);
-                      },
-                      child:Text("sign_in".tr )),
-                ),
-                addVerticalSpace(flyternSpaceLarge),
+                  addVerticalSpace(flyternSpaceLarge),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(style: getElevatedButtonStyle(context),
+                        onPressed: () {
+                      if(loginFormKey.currentState!.validate() &&
+                        !loginController.isSubmitting.value){
+                        loginController.submitLoginForm();
+                      }
 
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "dont_have_account".tr,
-                      style: getBodyMediumStyle(context).copyWith( ),
-                    ),
-                    addHorizontalSpace(flyternSpaceSmall),
-                    InkWell(
-                      onTap: (){
-                        Get.toNamed(Approute_registerPersonalData);
-                      },
-                      child: Text(
-                        "sign_up".tr,
-                        style: getBodyMediumStyle(context).copyWith(
-                            fontWeight: flyternFontWeightBold,
-                            color: flyternSecondaryColor),
+                        },
+                        child:Text("sign_in".tr )),
+                  ),
+                  addVerticalSpace(flyternSpaceLarge),
 
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "dont_have_account".tr,
+                        style: getBodyMediumStyle(context).copyWith( ),
                       ),
-                    ),
-                  ],
-                ),
+                      addHorizontalSpace(flyternSpaceSmall),
+                      InkWell(
+                        onTap: (){
+                          Get.toNamed(Approute_registerPersonalData);
+                        },
+                        child: Text(
+                          "sign_up".tr,
+                          style: getBodyMediumStyle(context).copyWith(
+                              fontWeight: flyternFontWeightBold,
+                              color: flyternSecondaryColor),
 
-              ],
-            )),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "continue_as".tr,
-                  style: getBodyMediumStyle(context).copyWith(),
-                ),
-                addHorizontalSpace(flyternSpaceSmall),
-                Text(
-                  "guest_user".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      fontWeight: flyternFontWeightBold,
-                      color: flyternSecondaryColor),
+                        ),
+                      ),
+                    ],
+                  ),
 
-                ),
-              ],
-            ),
-            addVerticalSpace(flyternSpaceLarge),
+                ],
+              )),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "continue_as".tr,
+                    style: getBodyMediumStyle(context).copyWith(),
+                  ),
+                  addHorizontalSpace(flyternSpaceSmall),
+                  Text(
+                    "guest_user".tr,
+                    style: getBodyMediumStyle(context).copyWith(
+                        fontWeight: flyternFontWeightBold,
+                        color: flyternSecondaryColor),
 
-          ],
+                  ),
+                ],
+              ),
+              addVerticalSpace(flyternSpaceLarge),
+
+            ],
+          ),
         ),
       ),
     );
