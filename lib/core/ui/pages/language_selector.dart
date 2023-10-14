@@ -27,10 +27,10 @@ class CoreLanguageSelector extends StatefulWidget {
 }
 
 class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
+
   final sharedController = Get.find<SharedController>();
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
-
 
   @override
   void initState() {
@@ -220,8 +220,8 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                                   style: getElevatedButtonStyle(context),
                                   child:sharedController.isSetDeviceLanguageAndCountrySubmitting.value?
                                   const SizedBox(
-                                    width: 20,
-                                    height: 20,
+                                    width: 16,
+                                    height: 16,
                                     child: CircularProgressIndicator(
                                       color: flyternBackgroundWhite,
                                     ),
