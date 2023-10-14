@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_for_you_card.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/popular_destinations_container.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/popular_destinations_loader.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_for_you_container.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_for_you_loader.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_form.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type_tab.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/popular_package_list_card.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/recommended_item_card.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/travel_stories_item_card.dart';
-import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
+  import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
@@ -161,6 +161,8 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
               ),
             ),
             addVerticalSpace(flyternSpaceLarge),
+
+            //recommended for you
             Visibility(
               visible: !flightBookingController.isInitialDataLoading.value &&
                   flightBookingController.recommendedPackages.isNotEmpty,
@@ -190,7 +192,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                 flightBookingController.recommendedPackages.isNotEmpty,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom:flyternSpaceLarge*2),
-                  child: RecommendedForYouCard(
+                  child: RecommendedForYouContainer(
                       recommendedPackages:flightBookingController.recommendedPackages
                   ),
                 )),
@@ -199,77 +201,49 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                   padding: const EdgeInsets.only(bottom:flyternSpaceLarge*2),
                   child: RecommendedForYouLoader(),
                 )),
-             Padding(
-              padding: flyternMediumPaddingHorizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: Text(
-                      'popular_destinations'.tr,
-                      style: getHeadlineMediumStyle(context).copyWith(
-                          color: flyternGrey80,
-                          fontWeight: flyternFontWeightBold),
-                    ),
-                  ),
-                  Expanded(
-                      flex: 1,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            "see_all".tr,
-                            style: getBodyMediumStyle(context)
-                                .copyWith(color: flyternTertiaryColor),
-                          ),
-                          addHorizontalSpace(flyternSpaceExtraSmall),
-                          Icon(Ionicons.chevron_forward,
-                              color: flyternTertiaryColor,
-                              size: flyternFontSize20)
-                        ],
-                      ))
-                ],
+
+             //popular destinations
+            Visibility(
+              visible: !flightBookingController.isInitialDataLoading.value &&
+                  flightBookingController.popularDestinations.isNotEmpty,
+              child: Padding(
+                padding: flyternMediumPaddingHorizontal.copyWith(
+                    bottom: flyternSpaceLarge
+                ),
+                child:SectionTitleContainer(
+                  name: 'popular_destinations'.tr,
+                  linkName: 'see_all'.tr,
+                  linkUrl: '',
+                  isLarge: true,
+                ) ,
               ),
             ),
-            addVerticalSpace(flyternSpaceLarge),
-            Container(
-              color: flyternBackgroundWhite,
-              child: Wrap(
-                children: [
-                  PopularPackageListCard(
-                    imageUrl: ASSETS_PACKAGE_1_SAMPLE,
-                    title: 'Kabul Holiday Package',
-                    destination: 'Japan',
-                    rating: 4.4,
-                    price: 15000,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
-                    child: Divider(),
-                  ),
-                  PopularPackageListCard(
-                    imageUrl: ASSETS_PACKAGE_1_SAMPLE,
-                    title: 'Kabul Holiday Package',
-                    destination: 'Japan',
-                    rating: 4.4,
-                    price: 15000,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
-                    child: Divider(),
-                  ),
-                  PopularPackageListCard(
-                    imageUrl: ASSETS_PACKAGE_1_SAMPLE,
-                    title: 'Kabul Holiday Package',
-                    destination: 'Japan',
-                    rating: 4.4,
-                    price: 15000,
-                  ),
-                ],
+            Visibility(
+              visible:  flightBookingController.isInitialDataLoading.value,
+              child: Padding(
+                padding: flyternMediumPaddingHorizontal.copyWith(
+                    bottom: flyternSpaceLarge
+                ),
+                child:SectionTitleContainerLoader( ) ,
               ),
             ),
-            addVerticalSpace(flyternSpaceLarge),
+            Visibility(
+                visible: !flightBookingController.isInitialDataLoading.value &&
+                    flightBookingController.popularDestinations.isNotEmpty,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom:flyternSpaceLarge*2),
+                  child: PopularDestinationsContainer(
+                      popularDestinations:flightBookingController.popularDestinations
+                  ),
+                )),
+            Visibility(visible:  flightBookingController.isInitialDataLoading.value,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom:flyternSpaceLarge*2),
+                  child: PopularDestinationsLoader(),
+                )),
+
+
+
             Padding(
               padding: flyternMediumPaddingHorizontal,
               child: Row(
