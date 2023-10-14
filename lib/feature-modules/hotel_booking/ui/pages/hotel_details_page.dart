@@ -294,7 +294,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                 TravelStoriesItemCard(
                   profilePicUrl: ASSETS_USER_1_SAMPLE,
                   name: "Andrew Martin",
-                  rating: 4.4,
+                  ratings: "4.4",
                   description: "lorem_ipsum_description".tr,
                   imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
                 ),
@@ -305,7 +305,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                 TravelStoriesItemCard(
                   profilePicUrl: ASSETS_USER_1_SAMPLE,
                   name: "Andrew Martin",
-                  rating: 4.4,
+                  ratings: "4.4",
                   description: "lorem_ipsum_description".tr,
                   imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
                 ),
