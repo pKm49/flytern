@@ -17,7 +17,7 @@ class GeneralItem {
 
 GeneralItem mapGeneralItem(dynamic payload){
   return GeneralItem(
-    id :payload["id"]??-1,
+    id :payload["id"]??"",
     name :payload["name"]??"",
   );
 }
