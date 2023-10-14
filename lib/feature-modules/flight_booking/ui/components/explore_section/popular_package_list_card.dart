@@ -11,11 +11,11 @@ class PopularPackageListCard extends StatelessWidget {
   final String title;
   final String destination;
   final double price;
-  final double rating;
+  final String rating;
 
 
   PopularPackageListCard({
-      super.key,
+    super.key,
     required this.imageUrl,
     required this.title,
     required this.destination,

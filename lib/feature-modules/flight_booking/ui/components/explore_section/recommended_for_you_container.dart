@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/recommended_package.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/recommended_item_card.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_item_card.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';

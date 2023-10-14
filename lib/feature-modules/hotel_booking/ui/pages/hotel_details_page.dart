@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/travel_stories_item_card.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.dart';
 import 'package:flytern/shared/ui/components/contact_details_getter.dart';
 import 'package:flytern/shared/ui/components/data_capsule_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_addon_service_card.dart';
