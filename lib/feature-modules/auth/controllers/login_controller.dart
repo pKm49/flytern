@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/auth/data/models/business_models/login_credential.dart';
 import 'package:flytern/feature-modules/auth/services/http-services/auth_http_services.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/cabin_class.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/popular_destination.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/recommended_package.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/travel_story.dart';
+import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/models/business_models/auth_token.dart';
 import 'package:flytern/shared/services/utility-services/shared_preference_handler.dart';
 import 'package:get/get.dart';
@@ -34,6 +31,8 @@ class LoginController extends GetxController {
     if(authToken.accessToken != ""){
       saveAuthTokenToSharedPreference(authToken);
     }
+
+    Get.offAllNamed(Approute_landingpage);
   }
 
 
