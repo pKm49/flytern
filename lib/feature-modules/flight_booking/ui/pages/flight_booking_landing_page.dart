@@ -4,7 +4,9 @@ import 'package:flytern/feature-modules/flight_booking/ui/components/explore_sec
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/popular_destinations_loader.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_for_you_container.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_for_you_loader.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_container.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_loader.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_form.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type_tab.dart';
   import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
@@ -244,77 +246,46 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
 
 
 
-            Padding(
-              padding: flyternMediumPaddingHorizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: Text(
-                      'Travel Stories',
-                      style: getHeadlineMediumStyle(context).copyWith(
-                          color: flyternGrey80,
-                          fontWeight: flyternFontWeightBold),
-                    ),
-                  ),
-                  Expanded(
-                      flex: 1,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            "see_all".tr,
-                            style: getBodyMediumStyle(context)
-                                .copyWith(color: flyternTertiaryColor),
-                          ),
-                          addHorizontalSpace(flyternSpaceExtraSmall),
-                          Icon(Ionicons.chevron_forward,
-                              color: flyternTertiaryColor,
-                              size: flyternFontSize20)
-                        ],
-                      ))
-                ],
+            //travel stories
+            Visibility(
+              visible: !flightBookingController.isInitialDataLoading.value &&
+                  flightBookingController.popularDestinations.isNotEmpty,
+              child: Padding(
+                padding: flyternMediumPaddingHorizontal.copyWith(
+                    bottom: flyternSpaceLarge
+                ),
+                child:SectionTitleContainer(
+                  name: 'travel_stories'.tr,
+                  linkName: 'see_all'.tr,
+                  linkUrl: '',
+                  isLarge: true,
+                ) ,
               ),
             ),
-            addVerticalSpace(flyternSpaceLarge),
-            Container(
-              color: flyternBackgroundWhite,
-              child: Wrap(
-                children: [
-                  TravelStoriesItemCard(
-                    profilePicUrl: ASSETS_USER_1_SAMPLE,
-                    name: "Andrew Martin",
-                    rating: 4.4,
-                    description: "lorem_ipsum_description".tr,
-                    imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
+            Visibility(
+              visible:  flightBookingController.isInitialDataLoading.value,
+              child: Padding(
+                padding: flyternMediumPaddingHorizontal.copyWith(
+                    bottom: flyternSpaceLarge
+                ),
+                child:SectionTitleContainerLoader( ) ,
+              ),
+            ),
+            Visibility(
+                visible: !flightBookingController.isInitialDataLoading.value &&
+                    flightBookingController.popularDestinations.isNotEmpty,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom:flyternSpaceLarge*2),
+                  child: TravelStoriesContainer(
+                      travelStories:flightBookingController.travelStories
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
-                    child: Divider(),
-                  ),
-                  TravelStoriesItemCard(
-                    profilePicUrl: ASSETS_USER_1_SAMPLE,
-                    name: "Andrew Martin",
-                    rating: 4.4,
-                    description: "lorem_ipsum_description".tr,
-                    imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
-                    child: Divider(),
-                  ),
-                  TravelStoriesItemCard(
-                    profilePicUrl: ASSETS_USER_1_SAMPLE,
-                    name: "Andrew Martin",
-                    rating: 4.4,
-                    description: "lorem_ipsum_description".tr,
-                    imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
-                  ),
+                )),
+            Visibility(visible:  flightBookingController.isInitialDataLoading.value,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom:flyternSpaceLarge*2),
+                  child: TravelStoriesLoader(),
+                )),
 
-                ],
-              ),
-            ),
             addVerticalSpace(flyternSpaceLarge),
           ],
         ),
