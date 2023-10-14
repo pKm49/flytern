@@ -4,7 +4,9 @@ import 'package:flytern/core/data/constants/business-specific/valid_languages.da
 import 'package:flytern/shared/data/constants/business_constants/available_countries.dart';
 import 'package:flytern/shared/data/constants/business_constants/available_languages.dart';
 import 'package:flytern/shared/data/models/app_specific/set_device_info_request_body.dart';
+import 'package:flytern/shared/data/models/business_models/business_doc.dart';
 import 'package:flytern/shared/data/models/business_models/country.dart';
+import 'package:flytern/shared/data/models/business_models/general_item.dart';
 import 'package:flytern/shared/data/models/business_models/language.dart';
 import 'package:flytern/shared/data/models/business_models/support_info.dart';
 import 'package:flytern/shared/services/http-services/shared_http_services.dart';
@@ -26,6 +28,9 @@ class SharedController extends GetxController {
 
   var languages = <Language>[].obs;
   var countries = <Country>[].obs;
+
+  var termsHtml = "".obs;
+  var privacyHtml = "".obs;
 
   @override
   void onInit() {
@@ -55,6 +60,14 @@ class SharedController extends GetxController {
     countries.value = supportInfo.countries;
   }
 
+  Future<void> getPreRegisterInfo() async {
+    BusinessDoc businessDoc  = await sharedHttpService.getPreRegisterSupportInfo();
+
+    termsHtml.value = businessDoc.terms;
+    privacyHtml.value = businessDoc.privacy;
+
+  }
+
   Future<void> setDeviceLanguageAndCountry() async {
 
     isSetDeviceLanguageAndCountrySubmitting.value = true;
@@ -71,7 +84,6 @@ class SharedController extends GetxController {
     isSetDeviceLanguageAndCountrySubmitting.value = false;
     return;
   }
-
 
   Future<String> getFirebaseMessagingToken() async {
     // String firebaseMessagingToken = await FirebaseMessaging.instance.getToken()??"";
