@@ -1,31 +1,39 @@
+import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/auth/data/models/business_models/login_credential.dart';
 import 'package:flytern/feature-modules/auth/services/http-services/auth_http_services.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/cabin_class.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/explore_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/popular_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/recommended_package.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/travel_story.dart';
-import 'package:flytern/feature-modules/flight_booking/services/http-services/flight_booking_http_services.dart';
-import 'package:flytern/shared/data/constants/business_constants/available_countries.dart';
-import 'package:flytern/shared/data/constants/business_constants/available_languages.dart';
-import 'package:flytern/shared/data/models/business_models/country.dart';
-import 'package:flytern/shared/data/models/business_models/language.dart';
-import 'package:flytern/shared/data/models/business_models/support_info.dart';
-import 'package:flytern/shared/services/http-services/shared_http_services.dart';
+import 'package:flytern/shared/data/models/business_models/auth_token.dart';
+import 'package:flytern/shared/services/utility-services/shared_preference_handler.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
 
-  var isInitialDataLoading = true.obs;
-  var authHttpService = AuthHttpService();
+  Rx<TextEditingController> emailFieldController = TextEditingController().obs;
+  Rx<TextEditingController> passwordController = TextEditingController().obs;
+  var errorMessage = "".obs;
+  var isSubmitting = false.obs;
 
-  var cabinClasses = <CabinClass>[].obs;
-  var recommendedPackages = <RecommendedPackage>[].obs;
-  var popularDestinations = <PopularDestination>[].obs;
-  var travelStories = <TravelStory>[].obs;
+  var authHttpService = AuthHttpService();
 
   @override
   void onInit() {
     super.onInit();
+  }
+
+  submitLoginForm() async {
+
+    LoginCredential loginCredential = LoginCredential(
+        email: emailFieldController.value.text,
+        password: passwordController.value.text
+    );
+
+    AuthToken authToken  = await authHttpService.login(loginCredential);
+    if(authToken.accessToken != ""){
+      saveAuthTokenToSharedPreference(authToken);
+    }
   }
 
 
