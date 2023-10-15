@@ -10,14 +10,22 @@ class AuthHttpService {
     FlyternHttpResponse response = await postRequest(
         AuthHttpRequestEndpointLogin, loginCredential.toJson());
 
-    if(response.success){
-      if(response.data != null){
-        AuthToken authToken = mapAuthToken(response.data, false);
-        return authToken;
-      }
-    }
+    print(" response.message ");
+    print(response.message);
+    print(response.errors);
+    print(response.success);
 
-    return mapAuthToken({},true);
+   try{
+     if(response.success && response.data != null){
+       AuthToken authToken = mapAuthToken(response.data, false);
+       return authToken;
+     }else{
+       throw Exception(response.errors[0]);
+     }
+   }catch (e){
+     rethrow;
+   }
+
   }
 
 
