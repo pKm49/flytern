@@ -18,14 +18,12 @@ class AuthLoginPage extends StatefulWidget {
 }
 
 class _AuthLoginPageState extends State<AuthLoginPage> {
-
-  final loginController =  Get.put(LoginController());
+  final loginController = Get.put(LoginController());
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
 
@@ -35,108 +33,116 @@ class _AuthLoginPageState extends State<AuthLoginPage> {
       ),
       body: Form(
         key: loginFormKey,
-        child: Container(
-          width: screenwidth,
-          padding: flyternLargePaddingHorizontal,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(child:
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        child: Obx(
+          ()=> Container(
+            width: screenwidth,
+            padding: flyternLargePaddingHorizontal,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                    child: ListView(
+                  children: [
+                    addVerticalSpace(flyternSpaceSmall),
+                    Text("sign_in_message".tr,
+                        style: getBodyMediumStyle(context)),
+                    addVerticalSpace(flyternSpaceLarge * 2),
+                    TextFormField(
+                        controller: loginController.emailFieldController.value,
+                        validator: (value) => checkIfEmailValid(value),
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          labelText: "email".tr,
+                        )),
+                    addVerticalSpace(flyternSpaceMedium),
+                    TextFormField(
+                        controller: loginController.passwordController.value,
+                        validator: (value) => checkIfPasswordFieldValid(value),
+                        decoration: InputDecoration(
+                          suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                          labelText: "password".tr,
+                        )),
+                    addVerticalSpace(flyternSpaceLarge),
+                    InkWell(
+                      onTap: () {
+                        Get.toNamed(Approute_resetPasswordMobile);
+                      },
+                      child: Text(
+                        "forgot_password".tr,
+                        style: getBodyMediumStyle(context).copyWith(
+                            fontWeight: flyternFontWeightBold,
+                            color: flyternSecondaryColor),
+                      ),
+                    ),
+                    addVerticalSpace(flyternSpaceLarge),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                          style: getElevatedButtonStyle(context),
+                          onPressed: () {
 
-                children: [
-                  addVerticalSpace(flyternSpaceSmall),
-                  Text("sign_in_message".tr,style: getBodyMediumStyle(context)),
-                  addVerticalSpace(flyternSpaceLarge*2),
-                  TextFormField(
-                      controller: loginController.emailFieldController.value,
-                      validator: (value) => checkIfEmailValid(value),
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: "email".tr,
-                      )),
-                  addVerticalSpace(flyternSpaceMedium),
-                  TextFormField(
-                      controller: loginController.passwordController.value,
-                      validator: (value) => checkIfPasswordFieldValid(value),
-                      decoration: InputDecoration(
-                        suffixIcon: Icon(Icons.remove_red_eye_outlined),
-                        labelText:"password".tr,
-                      )),
-                  addVerticalSpace(flyternSpaceLarge),
-                  InkWell(
-                    onTap: (){
-                      Get.toNamed(Approute_resetPasswordMobile);
-                    },
-                    child: Text(
-                      "forgot_password".tr,
-                      style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold,
+                            if (loginFormKey.currentState!.validate() &&
+                                !loginController.isSubmitting.value) {
+                              FocusManager.instance.primaryFocus?.unfocus();
+
+                              loginController.submitLoginForm();
+                            }
+                          },
+                          child: loginController.isSubmitting.value
+                              ? const SizedBox(
+                                  width: 16,
+                                  height: 16,
+                                  child: CircularProgressIndicator(
+                                    color: flyternBackgroundWhite,
+                                  ),
+                                )
+                              : Text("sign_in".tr)),
+                    ),
+                    addVerticalSpace(flyternSpaceLarge),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "dont_have_account".tr,
+                          style: getBodyMediumStyle(context).copyWith(),
+                        ),
+                        addHorizontalSpace(flyternSpaceSmall),
+                        InkWell(
+                          onTap: () {
+                            Get.toNamed(Approute_registerPersonalData);
+                          },
+                          child: Text(
+                            "sign_up".tr,
+                            style: getBodyMediumStyle(context).copyWith(
+                                fontWeight: flyternFontWeightBold,
+                                color: flyternSecondaryColor),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                )),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "continue_as".tr,
+                      style: getBodyMediumStyle(context).copyWith(),
+                    ),
+                    addHorizontalSpace(flyternSpaceSmall),
+                    Text(
+                      "guest_user".tr,
+                      style: getBodyMediumStyle(context).copyWith(
+                          fontWeight: flyternFontWeightBold,
                           color: flyternSecondaryColor),
                     ),
-                  ),
-                  addVerticalSpace(flyternSpaceLarge),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(style: getElevatedButtonStyle(context),
-                        onPressed: () {
-                      if(loginFormKey.currentState!.validate() &&
-                        !loginController.isSubmitting.value){
-                        loginController.submitLoginForm();
-                      }
-
-                        },
-                        child:Text("sign_in".tr )),
-                  ),
-                  addVerticalSpace(flyternSpaceLarge),
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "dont_have_account".tr,
-                        style: getBodyMediumStyle(context).copyWith( ),
-                      ),
-                      addHorizontalSpace(flyternSpaceSmall),
-                      InkWell(
-                        onTap: (){
-                          Get.toNamed(Approute_registerPersonalData);
-                        },
-                        child: Text(
-                          "sign_up".tr,
-                          style: getBodyMediumStyle(context).copyWith(
-                              fontWeight: flyternFontWeightBold,
-                              color: flyternSecondaryColor),
-
-                        ),
-                      ),
-                    ],
-                  ),
-
-                ],
-              )),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "continue_as".tr,
-                    style: getBodyMediumStyle(context).copyWith(),
-                  ),
-                  addHorizontalSpace(flyternSpaceSmall),
-                  Text(
-                    "guest_user".tr,
-                    style: getBodyMediumStyle(context).copyWith(
-                        fontWeight: flyternFontWeightBold,
-                        color: flyternSecondaryColor),
-
-                  ),
-                ],
-              ),
-              addVerticalSpace(flyternSpaceLarge),
-
-            ],
+                  ],
+                ),
+                addVerticalSpace(flyternSpaceLarge),
+              ],
+            ),
           ),
         ),
       ),
