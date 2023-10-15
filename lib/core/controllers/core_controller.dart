@@ -1,6 +1,7 @@
  import 'dart:ui';
 
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
+import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/models/business_models/auth_token.dart';
 import 'package:flytern/core/services/http-services/core_http.dart';
 import 'package:flytern/shared/controllers/shared_controller.dart';
@@ -38,7 +39,7 @@ class CoreController extends GetxController {
           saveAuthTokenToSharedPreference(authToken);
         }
       }
-
+      Get.offAllNamed(Approute_landingpage);
 
     }else{
       AuthToken authToken = await coreHttpServices.getGuestToken();
@@ -47,6 +48,8 @@ class CoreController extends GetxController {
         saveAuthTokenToSharedPreference(authToken);
       }
     }
+
+
 
     final sharedController = Get.find<SharedController>();
     sharedController.getInitialInfo();
