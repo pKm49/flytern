@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/auth/data/models/business_models/login_credential.dart';
 import 'package:flytern/feature-modules/auth/services/http-services/auth_http_services.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
+import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/models/business_models/auth_token.dart';
 import 'package:flytern/shared/services/utility-services/shared_preference_handler.dart';
+import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
@@ -22,18 +24,26 @@ class LoginController extends GetxController {
 
   submitLoginForm() async {
 
-    LoginCredential loginCredential = LoginCredential(
-        email: emailFieldController.value.text,
-        password: passwordController.value.text
-    );
+    isSubmitting.value = true;
+    try{
 
-    AuthToken authToken  = await authHttpService.login(loginCredential);
-    if(authToken.accessToken != ""){
-      saveAuthTokenToSharedPreference(authToken);
+      LoginCredential loginCredential = LoginCredential(
+          email: emailFieldController.value.text,
+          password: passwordController.value.text
+      );
+
+      AuthToken authToken  = await authHttpService.login(loginCredential);
+
+      if(authToken.accessToken != ""){
+        saveAuthTokenToSharedPreference(authToken);
+        Get.offAllNamed(Approute_landingpage);
+      }
+      isSubmitting.value = false;
+    }catch (e){
+      showSnackbar( e.toString(),"error");
+      isSubmitting.value = false;
     }
 
-    Get.offAllNamed(Approute_landingpage);
   }
-
 
 }
