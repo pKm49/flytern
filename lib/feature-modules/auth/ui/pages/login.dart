@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/auth/controllers/login_controller.dart';
+import 'package:flytern/feature-modules/auth/controllers/reset_password_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -18,9 +19,16 @@ class AuthLoginPage extends StatefulWidget {
 }
 
 class _AuthLoginPageState extends State<AuthLoginPage> {
-  final loginController = Get.put(LoginController());
+
+  final loginController = Get.find<LoginController>();
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
