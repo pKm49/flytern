@@ -10,8 +10,15 @@ import 'package:get/get.dart';
 
 class RegisterController extends GetxController {
 
+  Rx<TextEditingController> firsNameController = TextEditingController().obs;
+  Rx<TextEditingController> lastNameController = TextEditingController().obs;
   Rx<TextEditingController> emailFieldController = TextEditingController().obs;
   Rx<TextEditingController> passwordController = TextEditingController().obs;
+  Rx<TextEditingController> confirmPasswordController = TextEditingController().obs;
+  Rx<TextEditingController> mobileController = TextEditingController().obs;
+
+  var selectedCountryCode = "".obs;
+  var profilePicture = "".obs;
   var errorMessage = "".obs;
   var isSubmitting = false.obs;
 
