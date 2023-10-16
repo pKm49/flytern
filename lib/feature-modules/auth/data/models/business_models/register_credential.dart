@@ -27,7 +27,7 @@ class RegisterCredential {
     'PhoneNumber': PhoneNumber,
     'CountryCode': CountryCode,
     'Password': Password,
-    'IsEmailSubscription': IsEmailSubscription,
+    'IsEmailSubscription': IsEmailSubscription.toString(),
   };
 
 }
