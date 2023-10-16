@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/auth/controllers/login_controller.dart';
 import 'package:flytern/feature-modules/auth/controllers/register_controller.dart';
 import 'package:flytern/feature-modules/auth/controllers/reset_password_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
@@ -25,8 +26,10 @@ class _OTPInputPageState extends State<OTPInputPage> {
   String from = Approute_registerPersonalData;
   late Timer _timer;
   int timeInSeconds = 60;
-  final registerController = Get.find<RegisterController>();
-  final resetPasswordController = Get.find<ResetPasswordController>();
+  var loginController = Get.find<LoginController>();
+  var registerController = Get.find<RegisterController>();
+  var resetPasswordController = Get.find<ResetPasswordController>();
+
 
   @override
   void initState() {
@@ -63,7 +66,8 @@ class _OTPInputPageState extends State<OTPInputPage> {
             addVerticalSpace(flyternSpaceExtraSmall),
             Text(
                 from == Approute_registerPersonalData
-                    ? ("${registerController.selectedCountry.value.code}  ${registerController.mobileController.value.text}")
+                    ? ("${registerController.selectedCountry.value.code}  ${registerController.mobileController.value.text}"):
+                from == Approute_login? ("your_mobile".tr)
                     : ("${resetPasswordController.selectedCountry.value.code}  ${resetPasswordController.mobileController.value.text}"),
                 style: getBodyMediumStyle(context)
                     .copyWith(fontWeight: flyternFontWeightBold)),
@@ -87,69 +91,109 @@ class _OTPInputPageState extends State<OTPInputPage> {
                 setState(() {
                   if (from == Approute_registerPersonalData) {
                     registerController.updateOtp(pin);
-                  } else {
+                  } else if( from == Approute_login) {
+                    loginController.updateOtp(pin);
+                  }else{
                     resetPasswordController.updateOtp(pin);
+
                   }
                 });
               },
             ),
             addVerticalSpace(flyternSpaceLarge),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "expires_in".tr,
-                  style: getBodyMediumStyle(context).copyWith(),
-                ),
-                addHorizontalSpace(flyternSpaceSmall),
-                Text(
-                  "$timeInSeconds",
-                  style: getBodyMediumStyle(context).copyWith(
-                      fontWeight: flyternFontWeightBold,
-                      color: flyternSecondaryColor),
-                ),
-              ],
+            Visibility(
+              visible: timeInSeconds > 0,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "expires_in".tr,
+                    style: getBodyMediumStyle(context).copyWith(),
+                  ),
+                  addHorizontalSpace(flyternSpaceSmall),
+                  Text(
+                    "$timeInSeconds",
+                    style: getBodyMediumStyle(context).copyWith(
+                        fontWeight: flyternFontWeightBold,
+                        color: flyternSecondaryColor),
+                  ),
+                ],
+              ),
+            ),
+            Visibility(
+              visible: timeInSeconds == 0,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "otp_expired".tr,
+                    style: getBodyMediumStyle(context).copyWith(
+                        fontWeight: flyternFontWeightBold,
+                        color: flyternSecondaryColor),
+                  ),
+                ],
+              ),
             ),
             addVerticalSpace(flyternSpaceLarge),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                  style: getElevatedButtonStyle(context),
-                  onPressed: () {
-                    if (from == Approute_registerPersonalData) {
-                      if (registerController.otp.value != '') {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        registerController
-                            .verifyOtp(registerController.otp.value);
+            Visibility(
+              visible:  timeInSeconds > 0,
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                    style: getElevatedButtonStyle(context),
+                    onPressed: () {
+                      if (from == Approute_registerPersonalData) {
+                        if (registerController.otp.value != '') {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          registerController
+                              .verifyOtp(registerController.otp.value);
+                        }
+                      } else if (from == Approute_login) {
+                        if (loginController.otp.value != '') {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          loginController
+                              .verifyOtp(loginController.otp.value);
+                        }
+                      } else{
+                        if (resetPasswordController.otp.value != '') {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          resetPasswordController
+                              .verifyOtp(resetPasswordController.otp.value);
+                        }
                       }
-                    } else {
-                      if (resetPasswordController.otp.value != '') {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        resetPasswordController
-                            .verifyOtp(resetPasswordController.otp.value);
-                      }
-                    }
-                  },
-                  child: from == Approute_registerPersonalData
-                      ? registerController.isSubmitting.value
-                          ? const SizedBox(
-                              width: 16,
-                              height: 16,
-                              child: CircularProgressIndicator(
-                                color: flyternBackgroundWhite,
-                              ),
-                            )
-                          : Text("verify".tr)
-                      : resetPasswordController.isSubmitting.value
-                          ? const SizedBox(
-                              width: 16,
-                              height: 16,
-                              child: CircularProgressIndicator(
-                                color: flyternBackgroundWhite,
-                              ),
-                            )
-                          : Text("verify".tr)),
+                    },
+                    child: from == Approute_registerPersonalData
+                        ? registerController.isSubmitting.value
+                            ? const SizedBox(
+                                width: 16,
+                                height: 16,
+                                child: CircularProgressIndicator(
+                                  color: flyternBackgroundWhite,
+                                ),
+                              )
+                            : Text("verify".tr):
+                    from == Approute_login
+                        ? loginController.isSubmitting.value
+                        ? const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(
+                        color: flyternBackgroundWhite,
+                      ),
+                    )
+                        : Text("verify".tr)
+                        : resetPasswordController.isSubmitting.value
+                            ? const SizedBox(
+                                width: 16,
+                                height: 16,
+                                child: CircularProgressIndicator(
+                                  color: flyternBackgroundWhite,
+                                ),
+                              )
+                            : Text("verify".tr)),
+              ),
             ),
             addVerticalSpace(flyternSpaceLarge),
             Row(
@@ -161,11 +205,27 @@ class _OTPInputPageState extends State<OTPInputPage> {
                   style: getBodyMediumStyle(context).copyWith(),
                 ),
                 addHorizontalSpace(flyternSpaceSmall),
-                Text(
-                  "resend".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      fontWeight: flyternFontWeightBold,
-                      color: flyternSecondaryColor),
+                InkWell(
+                  onTap: (){
+                    if (from == Approute_registerPersonalData) {
+                      registerController.resendOtp();
+                    } else if (from == Approute_login) {
+                      loginController.resendOtp();
+                    } else{
+                      resetPasswordController.resendOtp();
+                    }
+                    timeInSeconds = 60;
+                    setState(() {
+
+                    });
+                    startTimer();
+                  },
+                  child: Text(
+                    "resend".tr,
+                    style: getBodyMediumStyle(context).copyWith(
+                        fontWeight: flyternFontWeightBold,
+                        color: flyternSecondaryColor),
+                  ),
                 ),
               ],
             ),
