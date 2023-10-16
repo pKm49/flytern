@@ -128,7 +128,7 @@ class _AuthRegisterDetailsInputPageState
                     Expanded(
                       child: TextFormField(
                           controller: registerController.firsNameController.value,
-                          validator: (value) => checkIfEmailValid(value),
+                          validator: (value) => checkIfNameFormValid(value, "first_name".tr),
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
                             labelText: "first_name".tr,
@@ -138,7 +138,7 @@ class _AuthRegisterDetailsInputPageState
                     Expanded(
                       child: TextFormField(
                           controller: registerController.lastNameController.value,
-                          validator: (value) => checkIfEmailValid(value),
+                          validator: (value) => checkIfNameFormValid(value, "last_name".tr),
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
                             labelText: "last_name".tr,
@@ -165,7 +165,7 @@ class _AuthRegisterDetailsInputPageState
                 addVerticalSpace(flyternSpaceMedium),
                 TextFormField(
                     controller: registerController.confirmPasswordController.value,
-                    validator: (value) => checkIfPasswordFieldValid(value),
+                    validator: (value) => checkIfConfirmPasswordFieldValid(value,registerController.passwordController.value.text),
                     decoration: InputDecoration(
                       suffixIcon: Icon(Icons.remove_red_eye_outlined),
                       labelText: "confirm_password".tr,
@@ -225,9 +225,7 @@ class _AuthRegisterDetailsInputPageState
                       fillColor: MaterialStateProperty.resolveWith(getColor),
                       value: registerController.isSubscribedToEmail.value,
                       onChanged: (bool? value) {
-                         setState(() {
-                           registerController.updateSubscriptionAgreement(value??false);
-                         });
+                        registerController.updateSubscriptionAgreement(value??false);
                       },
                     ),
 
@@ -249,9 +247,7 @@ class _AuthRegisterDetailsInputPageState
                       fillColor: MaterialStateProperty.resolveWith(getColor),
                       value: registerController.isTermsAndPrivacyAgreed.value,
                       onChanged: (bool? value) {
-                        setState(() {
-                          registerController.updateTermsAndPrivacyAgreement(value??false);
-                        });
+                        registerController.updateTermsAndPrivacyAgreement(value??false);
                       },
                     ),
 
@@ -290,7 +286,12 @@ class _AuthRegisterDetailsInputPageState
                   width: double.infinity,
                   child: ElevatedButton(style: getElevatedButtonStyle(context),
                       onPressed: ()   {
-                        Get.toNamed(Approute_registerOtp);
+                        if (registerFormKey.currentState!.validate() &&
+                            !registerController.isSubmitting.value &&
+                          registerController.isTermsAndPrivacyAgreed.value) {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          registerController.submitRegisterForm();
+                        }
                       }, child: Text("create_account".tr)),
                 ),
                 addVerticalSpace(flyternSpaceLarge),
