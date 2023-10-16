@@ -207,7 +207,7 @@ class _AuthRegisterDetailsInputPageState
                       flex: 4,
                       child: TextFormField(
                           controller: registerController.mobileController.value,
-                          validator: (value) => checkIfEmailValid(value),
+                          validator: (value) => checkIfMobileNumberValid(value),
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             labelText: "mobile".tr,
@@ -261,7 +261,7 @@ class _AuthRegisterDetailsInputPageState
                           children: <TextSpan>[
                             TextSpan(
                                 recognizer: new TapGestureRecognizer()
-                                  ..onTap = () =>openTermsBottomSheet( ),
+                                  ..onTap = () =>openDocsBottomSheet( "terms_n_conditions" ),
                                 text: "terms_n_conditions".tr,
                                 style: const TextStyle(fontWeight: flyternFontWeightBold,decoration: TextDecoration.underline,
                                 color: flyternSecondaryColor)),
@@ -271,7 +271,7 @@ class _AuthRegisterDetailsInputPageState
                                 text: " & " ),
                             TextSpan(
                               recognizer: new TapGestureRecognizer()
-                                ..onTap = () =>openPrivacyBottomSheet( ),
+                                ..onTap = () =>openDocsBottomSheet( "privacy_policy" ),
                                 text: "privacy_policy".tr,
                                 style: const TextStyle(fontWeight: flyternFontWeightBold,decoration: TextDecoration.underline,
                                     color: flyternSecondaryColor)),
@@ -329,56 +329,22 @@ class _AuthRegisterDetailsInputPageState
 
   }
 
-  void openTermsBottomSheet( ) {
+  void openDocsBottomSheet(String item ) {
     showModalBottomSheet(
       useSafeArea: false,
-        shape:   RoundedRectangleBorder(
+        shape:   const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
               topRight: Radius.circular(flyternBorderRadiusSmall)),
         ),
         isScrollControlled: true,
         context: context,
         builder: (context) {
-          return SharedTermsConditionsPage();
+          return SharedTermsConditionsPage(
+            title:item,
+            htmlData: '',
+          );
         });
-    // Get.bottomSheet(
-    //     Container(
-    //       child:  SharedTermsConditionsPage(),
-    //       height: 1000
-    //     ),
-    //
-    //   backgroundColor: flyternBackgroundWhite,
-    //   elevation: 0,
-    //   shape: RoundedRectangleBorder(
-    //     borderRadius: BorderRadius.circular(10),
-    //   ),
-    // );
-  }
 
-  void openPrivacyBottomSheet( ) {
-    showModalBottomSheet(
-        useSafeArea: false,
-        shape:   RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
-              topRight: Radius.circular(flyternBorderRadiusSmall)),
-        ),
-        isScrollControlled: true,
-        context: context,
-        builder: (context) {
-          return SharedPrivacyPolicyPage();
-        });
-    // Get.bottomSheet(
-    //     Container(
-    //       child:  SharedTermsConditionsPage(),
-    //       height: 1000
-    //     ),
-    //
-    //   backgroundColor: flyternBackgroundWhite,
-    //   elevation: 0,
-    //   shape: RoundedRectangleBorder(
-    //     borderRadius: BorderRadius.circular(10),
-    //   ),
-    // );
   }
 
   Color getColor(Set<MaterialState> states) {
