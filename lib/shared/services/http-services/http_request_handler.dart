@@ -75,7 +75,8 @@ postRequest(endpoint, body) async {
     print("postRequest called pass 2");
 
     print("post body");
-    print(json.encode(body));
+    print(httpResponse.headers);
+    print(httpResponse.statusCode);
     print(httpResponse.body);
     var httpResponseBody = json.decode(httpResponse.body);
 
@@ -83,9 +84,10 @@ postRequest(endpoint, body) async {
   } on SocketException {
     print("post SocketException exception");
     return generateErrorResponse('Couldn\'t Connect, Try Again Later');
-  } on FormatException catch (e) {
+  } on FormatException catch (e,stacktrace) {
     print("post FormatException exception");
     print(e.toString());
+    print(stacktrace);
     if (e.toString().contains("Request Not Implemented")) {
       return generateErrorResponse('Request Not Implemented');
     }
@@ -202,7 +204,7 @@ List<String> getStringListFromDynamic(List<dynamic> list) {
   return returnList;
 }
 
-fileUpload(dynamic body, List<File> files, String field) async {
+fileUpload(dynamic body, File? file, String field, String endpoint) async {
   try {
     Map<String, String> headers = {
       "Accept": "application/json",
@@ -211,27 +213,24 @@ fileUpload(dynamic body, List<File> files, String field) async {
 
 
     var sharedPreferences = await SharedPreferences.getInstance();
-    var accessToken = await sharedPreferences.getString("accessToken");
-    var refreshToken = await sharedPreferences.getString("refreshToken");
+    var Bearer = await sharedPreferences.getString("accessToken");
 
-    if (accessToken != null && accessToken != "") {
-      headers["x-access-token"] = accessToken;
-    }
-
-    if (refreshToken != null && refreshToken != "") {
-      headers["x-refresh-token"] = refreshToken;
+    if (Bearer != null && Bearer != "") {
+      headers["Authorization"] = "Bearer $Bearer";
     }
 
     var request = httpForMultipart.MultipartRequest(
-        "POST", Uri.https(env.apiEndPoint, "/media"));
+        "POST", Uri.https(env.apiEndPoint, endpoint));
+
     request.headers.addAll(headers);
     request.fields.addAll(Map<String, String>.from(body)  );
 
-    files.forEach((element) {
+    if(file !=null){
       request.files.add(httpForMultipart.MultipartFile(
-          field, element.readAsBytes().asStream(), element.lengthSync(),
-      filename: element.path.split("/").last));
-    });
+          field, file.readAsBytes().asStream(), file.lengthSync(),
+          filename: file.path.split("/").last));
+    }
+
 
     httpForMultipart.Response httpResponse =
         await httpForMultipart.Response.fromStream(await request.send());
@@ -239,8 +238,31 @@ fileUpload(dynamic body, List<File> files, String field) async {
     var httpResponseBody = json.decode(httpResponse.body);
 
     return generateSuccessResponse(httpResponseBody );
-  } catch (e, stack){
-    return generateErrorResponse('Couldn\'t upload files, try again');
+  } on SocketException {
+    print("post SocketException exception");
+    return generateErrorResponse('Couldn\'t Connect, Try Again Later');
+  } on FormatException catch (e,stacktrace) {
+    print("post FormatException exception");
+    print(e.toString());
+    print(stacktrace);
+    if (e.toString().contains("Request Not Implemented")) {
+      return generateErrorResponse('Request Not Implemented');
+    }
+
+    if (e.toString().contains("Already authorised")) {
+      return generateErrorResponse('Already authorised');
+    }
+
+    if (e.toString().contains("Request Not Authorised")) {
+      return generateErrorResponse('Request Not Authorised');
+    }
+
+    return generateErrorResponse('Something went wrong, try again');
+  } on Exception catch (e) {
+
+    print("post exception");
+    print(e.toString());
+    return generateErrorResponse('Something went wrong, try again');
   }
 }
 
