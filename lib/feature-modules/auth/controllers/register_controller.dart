@@ -28,6 +28,8 @@ class RegisterController extends GetxController {
 
   var profilePicture = "".obs;
   var errorMessage = "".obs;
+  var isPasswordVisible = false.obs;
+  var isConfirmPasswordVisible = false.obs;
   var isTermsAndPrivacyAgreed = false.obs;
   var isSubscribedToEmail = false.obs;
   var isSubmitting = false.obs;
