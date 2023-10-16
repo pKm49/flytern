@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class RegisterCredential {
 
   final String FirstName;
@@ -5,7 +7,7 @@ class RegisterCredential {
   final String Email;
   final String PhoneNumber;
   final String CountryCode;
-  final String File;
+  final bool IsEmailSubscription;
   final String Password;
 
   RegisterCredential({
@@ -14,8 +16,8 @@ class RegisterCredential {
     required this.Email,
     required this.PhoneNumber,
     required this.CountryCode,
-    required this.File,
     required this.Password,
+    required this.IsEmailSubscription,
   });
 
   Map toJson() => {
@@ -24,8 +26,8 @@ class RegisterCredential {
     'Email': Email,
     'PhoneNumber': PhoneNumber,
     'CountryCode': CountryCode,
-    'File': File,
     'Password': Password,
+    'IsEmailSubscription': IsEmailSubscription,
   };
 
 }
@@ -37,7 +39,7 @@ RegisterCredential mapRegisterCredential(dynamic payload){
     Email :payload["Email"]??"",
     PhoneNumber :payload["PhoneNumber"]??"",
     CountryCode :payload["CountryCode"]??"",
-    File :payload["File"]??"",
     Password :payload["Password"]??"",
+    IsEmailSubscription :payload["IsEmailSubscription"]??false,
   );
 }
