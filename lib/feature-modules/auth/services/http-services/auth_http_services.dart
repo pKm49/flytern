@@ -125,10 +125,10 @@ class AuthHttpService {
   }
 
   Future<void > updatePassword(  String newPassword ) async {
-    FlyternHttpResponse response = await postRequest(
+    FlyternHttpResponse response = await patchRequest(
         AuthHttpRequestEndpointChangePassword, {"newPassword":newPassword });
 
-    print(" response.message ");
+    print("updatePassword response.message ");
     print(response.message);
     print(response.errors);
     print(response.success);
