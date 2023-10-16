@@ -16,7 +16,7 @@ import 'package:flytern/shared/services/utility-services/widget_properties_gener
 import 'package:flytern/shared/ui/components/country_selector.dart';
 import 'package:flytern/shared/ui/components/photo_selector.dart';
 import 'package:flytern/shared/ui/components/privacy.dart';
-import 'package:flytern/shared/ui/components/terms.dart';
+import 'package:flytern/shared/ui/components/html_viewer.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -337,6 +337,10 @@ class _AuthRegisterDetailsInputPageState
   }
 
   void openDocsBottomSheet(String item ) {
+    print("openDocsBottomSheet");
+    print(item);
+    print(sharedController.termsHtml);
+    print(sharedController.privacyHtml);
     showModalBottomSheet(
       useSafeArea: false,
         shape:   const RoundedRectangleBorder(
@@ -346,9 +350,11 @@ class _AuthRegisterDetailsInputPageState
         isScrollControlled: true,
         context: context,
         builder: (context) {
-          return SharedTermsConditionsPage(
-            title:item,
-            htmlData: '',
+          return SharedHtmlViewerPage(
+            title:item.tr,
+            htmlData:item=="privacy_policy"?
+            sharedController.privacyHtml.value
+                :sharedController.termsHtml.value,
           );
         });
 
