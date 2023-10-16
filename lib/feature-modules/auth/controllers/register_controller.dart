@@ -4,6 +4,7 @@ import 'package:flytern/feature-modules/auth/services/http-services/auth_http_se
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/models/business_models/auth_token.dart';
+import 'package:flytern/shared/data/models/business_models/country.dart';
 import 'package:flytern/shared/services/utility-services/shared_preference_handler.dart';
 import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,14 @@ class RegisterController extends GetxController {
   Rx<TextEditingController> confirmPasswordController = TextEditingController().obs;
   Rx<TextEditingController> mobileController = TextEditingController().obs;
 
-  var selectedCountryCode = "".obs;
+  var selectedCountry = Country(
+      countryName: "India",
+      countryCode: "IND",
+      countryISOCode: "IN",
+      countryName_Ar: "الهند",
+      flag: "https://flagcdn.com/48x36/in.png",
+      code: "+91").obs;
+
   var profilePicture = "".obs;
   var errorMessage = "".obs;
   var isSubmitting = false.obs;
