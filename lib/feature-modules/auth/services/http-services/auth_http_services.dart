@@ -55,6 +55,28 @@ class AuthHttpService {
 
   }
 
+  Future<String > sendOtp(String mobile, String countryCode ) async {
+    FlyternHttpResponse response = await postRequest(
+        AuthHttpRequestEndpointResendOTP, {mobile:mobile,countryCode:countryCode});
+
+    print("resendOtp response.message ");
+    print(response.message);
+    print(response.errors);
+    print(response.success);
+
+
+    try{
+      if(response.success && response.data != null){
+        String userId = response.data["userId"]??"";
+        return userId;
+      }else{
+        throw Exception(response.errors[0]);
+      }
+    }catch (e){
+      rethrow;
+    }
+  }
+
   Future<void > resendOtp(String userId ) async {
     FlyternHttpResponse response = await postRequest(
         AuthHttpRequestEndpointResendOTP, {userId:userId});
@@ -98,4 +120,24 @@ class AuthHttpService {
 
   }
 
+  Future<void > updatePassword(  String newPassword ) async {
+    FlyternHttpResponse response = await postRequest(
+        AuthHttpRequestEndpointChangePassword, {newPassword:newPassword });
+
+    print(" response.message ");
+    print(response.message);
+    print(response.errors);
+    print(response.success);
+
+    try{
+      if(response.success && response.statusCode == 200){
+        return;
+      }else{
+        throw Exception(response.errors[0]);
+      }
+    }catch (e){
+      rethrow;
+    }
+
+  }
 }
