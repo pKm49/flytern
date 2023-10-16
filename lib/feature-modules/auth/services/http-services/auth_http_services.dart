@@ -58,9 +58,9 @@ class AuthHttpService {
 
   Future<String > sendOtp(String mobile, String countryCode ) async {
     FlyternHttpResponse response = await postRequest(
-        AuthHttpRequestEndpointResendOTP, {"mobile":mobile,"countryCode":countryCode});
+        AuthHttpRequestEndpointForgetPassword, {"mobile":mobile,"countryCode":countryCode});
 
-    print("resendOtp response.message ");
+    print("sendOtp response.message ");
     print(response.message);
     print(response.errors);
     print(response.success);
@@ -68,7 +68,7 @@ class AuthHttpService {
 
     try{
       if(response.success && response.data != null){
-        String userId = response.data["userId"]??"";
+        String userId = response.data["userID"]??"";
         return userId;
       }else{
         throw Exception(response.errors[0]);
@@ -80,7 +80,7 @@ class AuthHttpService {
 
   Future<void > resendOtp(String userId ) async {
     FlyternHttpResponse response = await postRequest(
-        AuthHttpRequestEndpointResendOTP, {"userId":userId});
+        AuthHttpRequestEndpointResendOTP, {"userID":userId});
 
     print("resendOtp response.message ");
     print(response.message);
@@ -104,7 +104,7 @@ class AuthHttpService {
     print(otp);
     print(userId);
     FlyternHttpResponse response = await postRequest(
-        AuthHttpRequestEndpointVerifyOTP, {"otp":otp,"userId":userId});
+        AuthHttpRequestEndpointVerifyOTP, {"otp":otp,"userID":userId});
 
     print(" response.message ");
     print(response.message);
