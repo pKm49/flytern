@@ -32,7 +32,8 @@ class _AuthRegisterDetailsInputPageState
     extends State<AuthRegisterDetailsInputPage> {
 
   final sharedController = Get.find<SharedController>();
-  final registerController = Get.put(RegisterController());
+  final registerController = Get.find<RegisterController>();
+
   final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
   late File profilePictureFile;
 
@@ -159,7 +160,7 @@ class _AuthRegisterDetailsInputPageState
                     controller: registerController.passwordController.value,
                     validator: (value) => checkIfPasswordFieldValid(value),
                     decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                      suffixIcon: const Icon(Icons.remove_red_eye_outlined),
                       labelText: "password".tr,
                     )),
                 addVerticalSpace(flyternSpaceMedium),
@@ -167,7 +168,7 @@ class _AuthRegisterDetailsInputPageState
                     controller: registerController.confirmPasswordController.value,
                     validator: (value) => checkIfConfirmPasswordFieldValid(value,registerController.passwordController.value.text),
                     decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                      suffixIcon: const Icon(Icons.remove_red_eye_outlined),
                       labelText: "confirm_password".tr,
                     )),
                 addVerticalSpace(flyternSpaceMedium),
