@@ -58,7 +58,7 @@ class CoreController extends GetxController {
     isAuthTokenSet.value = true;
     final sharedController = Get.find<SharedController>();
     sharedController.getInitialInfo();
-
+    sharedController.getPreRegisterInfo();
   }
 
   Future<void> handleLogout() async {
