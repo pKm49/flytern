@@ -4,7 +4,7 @@ String? checkIfEmailValid(String? email) {
   RegExp validOtpRegex = new RegExp(validOtpPattern);
 
   if (email!.isEmpty || !validOtpRegex.hasMatch(email)) {
-    return "Please provide a valid Email";
+    return "Provide a valid Email";
   }
 
 
@@ -139,7 +139,7 @@ String? checkIfOtpFormValid(String? otp) {
 String? checkIfNameFormValid(String? name, String fieldName) {
 
   if ( name!.isEmpty) {
-    return "Please provide a valid "+fieldName;
+    return "Provide a valid "+fieldName;
   }
 
   return null;
