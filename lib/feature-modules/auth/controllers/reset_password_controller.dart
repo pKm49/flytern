@@ -32,8 +32,6 @@ class ResetPasswordController extends GetxController {
   var errorMessage = "".obs;
   var isPasswordVisible = false.obs;
   var isConfirmPasswordVisible = false.obs;
-  var isTermsAndPrivacyAgreed = false.obs;
-  var isSubscribedToEmail = false.obs;
   var isSubmitting = false.obs;
 
   var authHttpService = AuthHttpService();
@@ -125,14 +123,6 @@ class ResetPasswordController extends GetxController {
 
   void updateOtp(String otpString) {
     otp.value = otpString;
-  }
-
-  void updateSubscriptionAgreement(bool bool) {
-    isSubscribedToEmail.value = bool;
-  }
-
-  void updateTermsAndPrivacyAgreement(bool bool) {
-    isTermsAndPrivacyAgreed.value = bool;
   }
 
   void updateProfilePicture(String base64encode) {
