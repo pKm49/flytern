@@ -19,7 +19,6 @@ class AuthResetPasswordCredentialsPage extends StatefulWidget {
 
 class _AuthResetPasswordCredentialsPageState extends State<AuthResetPasswordCredentialsPage> {
 
-  TextEditingController emailController = TextEditingController();
   final GlobalKey<FormState> resetPasswordEmailFormKey = GlobalKey<FormState>();
   final resetPasswordController = Get.find<ResetPasswordController>();
   final sharedController = Get.find<SharedController>();
@@ -34,10 +33,10 @@ class _AuthResetPasswordCredentialsPageState extends State<AuthResetPasswordCred
       appBar: AppBar(
         title: Text("reset_password".tr),
       ),
-      body: Obx(
-        ()=> Form(
-          key: resetPasswordEmailFormKey,
-          child: Container(
+      body: Form(
+        key: resetPasswordEmailFormKey,
+        child: Obx(
+          ()=> Container(
             width: screenwidth,
             padding: flyternLargePaddingHorizontal,
             child: Column(
