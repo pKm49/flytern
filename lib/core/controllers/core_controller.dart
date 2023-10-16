@@ -11,6 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CoreController extends GetxController {
 
+  var isAuthTokenSet = false.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +20,8 @@ class CoreController extends GetxController {
   }
 
   Future<void> setAuthToken() async {
+
+    isAuthTokenSet.value = false;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var coreHttpServices = CoreHttpServices();
@@ -50,7 +54,7 @@ class CoreController extends GetxController {
     }
 
 
-
+    isAuthTokenSet.value = true;
     final sharedController = Get.find<SharedController>();
     sharedController.getInitialInfo();
 
