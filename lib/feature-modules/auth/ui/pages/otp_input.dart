@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/auth/controllers/register_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -19,14 +22,23 @@ class OTPInputPage extends StatefulWidget {
 class _OTPInputPageState extends State<OTPInputPage> {
 
   var getArguments = Get.arguments;
-
   String from = Approute_registerPersonalData;
+  late Timer _timer;
+  int timeInSeconds = 60;
+  final registerController = Get.find<RegisterController>();
 
   @override
   void initState() {
     // TODO: implement initState
     from = getArguments[0];
+    startTimer();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
 
@@ -68,7 +80,7 @@ class _OTPInputPageState extends State<OTPInputPage> {
               onCompleted: (pin) {
                 print("Completed: " + pin);
                 setState(() {
-
+                  registerController.updateOtp(pin);
                 });
               },
             ),
@@ -83,7 +95,7 @@ class _OTPInputPageState extends State<OTPInputPage> {
                 ),
                 addHorizontalSpace(flyternSpaceSmall),
                 Text(
-                  "00:00",
+                  "$timeInSeconds",
                   style: getBodyMediumStyle(context).copyWith(
                       fontWeight: flyternFontWeightBold,
                       color: flyternSecondaryColor),
@@ -97,10 +109,21 @@ class _OTPInputPageState extends State<OTPInputPage> {
               width: double.infinity,
               child: ElevatedButton(style: getElevatedButtonStyle(context),
                   onPressed: ()   {
-                    Get.offAllNamed(Approute_landingpage);
+
+                    if ( registerController.otp.value !='') {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      registerController.verifyOtp(registerController.otp.value);
+                    }
 
                   },
-                  child:Text("verify".tr )),
+                  child:registerController.isSubmitting.value
+                      ? const SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(
+                      color: flyternBackgroundWhite,
+                    ),
+                  ): Text("verify".tr )),
             ),
             addVerticalSpace(flyternSpaceLarge),
 
@@ -126,6 +149,24 @@ class _OTPInputPageState extends State<OTPInputPage> {
           ],
         ),
       ),
+    );
+  }
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = Timer.periodic(
+      oneSec,
+          (Timer timer) {
+        if (timeInSeconds == 0) {
+          setState(() {
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            timeInSeconds--;
+          });
+        }
+      },
     );
   }
 }
