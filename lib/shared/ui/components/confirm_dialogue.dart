@@ -68,7 +68,6 @@ class ConfirmDialogue extends StatelessWidget {
                     child: InkWell(
                   onTap: () {
                     onClick();
-                    Navigator.pop(context);
                   },
                   child: Text(
                     "yes".tr,
