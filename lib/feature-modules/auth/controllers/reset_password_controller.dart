@@ -54,7 +54,7 @@ class ResetPasswordController extends GetxController {
 
       if(userIdFromApi != ""){
         userId.value = userIdFromApi;
-        Get.offAllNamed(Approute_resetPasswordOtp,arguments: [Approute_resetPasswordMobile]);
+        Get.toNamed(Approute_resetPasswordOtp,arguments: [Approute_resetPasswordMobile]);
       }else{
         throw Exception("Something Went wrong, Please Try Again");
       }

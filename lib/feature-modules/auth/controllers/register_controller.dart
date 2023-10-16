@@ -65,7 +65,7 @@ class RegisterController extends GetxController {
 
       if(userIdFromApi != ""){
         userId.value = userIdFromApi;
-        Get.offAllNamed(Approute_registerOtp);
+        Get.toNamed(Approute_registerOtp,arguments: [Approute_registerPersonalData]);
       }else{
         throw Exception("Something Went wrong, Please Try Again");
       }
