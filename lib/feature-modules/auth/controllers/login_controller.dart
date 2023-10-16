@@ -12,6 +12,8 @@ class LoginController extends GetxController {
 
   Rx<TextEditingController> emailFieldController = TextEditingController().obs;
   Rx<TextEditingController> passwordController = TextEditingController().obs;
+  var userId = "".obs;
+  var otp = "".obs;
   var errorMessage = "".obs;
   var isSubmitting = false.obs;
 
@@ -20,6 +22,7 @@ class LoginController extends GetxController {
   submitLoginForm() async {
 
     isSubmitting.value = true;
+
     try{
 
       LoginCredential loginCredential = LoginCredential(
@@ -32,6 +35,9 @@ class LoginController extends GetxController {
       if(authToken.accessToken != ""){
         saveAuthTokenToSharedPreference(authToken);
         Get.offAllNamed(Approute_landingpage);
+      }else{
+        userId.value = authToken.refreshToken;
+        Get.toNamed(Approute_registerOtp,arguments: [Approute_login]);
       }
       isSubmitting.value = false;
     }catch (e){
@@ -40,5 +46,50 @@ class LoginController extends GetxController {
     }
 
   }
+
+  verifyOtp(String otp) async {
+
+    if(userId.value != ""){
+      isSubmitting.value = true;
+      try{
+
+        AuthToken authToken  = await authHttpService.verifyOtp(userId.value,otp);
+
+        if(authToken.accessToken != ""){
+          saveAuthTokenToSharedPreference(authToken);
+          Get.offAllNamed(Approute_landingpage);
+        }
+        isSubmitting.value = false;
+      }catch (e){
+        showSnackbar( e.toString(),"error");
+        isSubmitting.value = false;
+      }
+    }
+
+  }
+
+  void updateOtp(String otpString) {
+    otp.value = otpString;
+  }
+
+  resendOtp( ) async {
+
+    if(userId.value !=""){
+      isSubmitting.value = true;
+      try{
+
+        await authHttpService.resendOtp(userId.value);
+        showSnackbar("otp_resend".tr,"info");
+        isSubmitting.value = false;
+      }catch (e,t){
+        print(t);
+        showSnackbar( e.toString(),"error");
+        isSubmitting.value = false;
+      }
+
+    }
+
+  }
+
 
 }
