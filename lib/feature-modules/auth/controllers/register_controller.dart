@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/auth/data/models/business_models/login_credential.dart';
+import 'package:flytern/feature-modules/auth/data/models/business_models/register_credential.dart';
 import 'package:flytern/feature-modules/auth/services/http-services/auth_http_services.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -41,21 +42,26 @@ class RegisterController extends GetxController {
     super.onInit();
   }
 
-  submitLoginForm() async {
+  submitRegisterForm() async {
 
     isSubmitting.value = true;
     try{
 
-      LoginCredential loginCredential = LoginCredential(
-          email: emailFieldController.value.text,
-          password: passwordController.value.text
+      RegisterCredential registerCredential = RegisterCredential(
+          Email: emailFieldController.value.text,
+          Password: passwordController.value.text,
+          FirstName: firsNameController.value.text,
+          LastName: lastNameController.value.text,
+          PhoneNumber: mobileController.value.text,
+          CountryCode: '',
+          File: ''
       );
 
-      AuthToken authToken  = await authHttpService.login(loginCredential);
+      AuthToken authToken  = await authHttpService.register(registerCredential);
 
       if(authToken.accessToken != ""){
         saveAuthTokenToSharedPreference(authToken);
-        Get.offAllNamed(Approute_landingpage);
+        Get.offAllNamed(Approute_registerOtp);
       }
       isSubmitting.value = false;
     }catch (e){
