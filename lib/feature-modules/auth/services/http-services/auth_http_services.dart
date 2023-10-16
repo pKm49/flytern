@@ -31,7 +31,7 @@ class AuthHttpService {
 
   }
 
-  Future<AuthToken > register(RegisterCredential registerCredential, File? file ) async {
+  Future<String > register(RegisterCredential registerCredential, File? file ) async {
     FlyternHttpResponse response = await fileUpload(
       registerCredential.toJson(),
       file??null,'File',
@@ -44,8 +44,8 @@ class AuthHttpService {
 
     try{
       if(response.success && response.data != null){
-        AuthToken authToken = mapAuthToken(response.data, false);
-        return authToken;
+        String userId = response.data["userId"]??"";
+        return userId;
       }else{
         throw Exception(response.errors[0]);
       }

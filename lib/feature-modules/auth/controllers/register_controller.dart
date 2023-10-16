@@ -29,6 +29,7 @@ class RegisterController extends GetxController {
       flag: "https://flagcdn.com/48x36/in.png",
       code: "+91").obs;
 
+  var userId = "".obs;
   var profilePicture = "".obs;
   var errorMessage = "".obs;
   var isPasswordVisible = false.obs;
@@ -59,14 +60,17 @@ class RegisterController extends GetxController {
           IsEmailSubscription:isSubscribedToEmail.value
       );
 
-      AuthToken authToken  = await authHttpService.register(registerCredential,file);
+      String userIdFromApi  = await authHttpService.register(registerCredential,file);
 
-      if(authToken.accessToken != ""){
-        saveAuthTokenToSharedPreference(authToken);
+      if(userIdFromApi != ""){
+        userId.value = userIdFromApi;
         Get.offAllNamed(Approute_registerOtp);
+      }else{
+        throw Exception("Something Went wrong, Please Try Again");
       }
       isSubmitting.value = false;
-    }catch (e){
+    }catch (e,t){
+      print(t);
       showSnackbar( e.toString(),"error");
       isSubmitting.value = false;
     }
