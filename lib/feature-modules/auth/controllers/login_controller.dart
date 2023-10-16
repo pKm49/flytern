@@ -17,11 +17,6 @@ class LoginController extends GetxController {
 
   var authHttpService = AuthHttpService();
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   submitLoginForm() async {
 
     isSubmitting.value = true;
