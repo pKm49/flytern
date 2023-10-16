@@ -17,7 +17,7 @@ class BusinessDoc {
 
 BusinessDoc mapBusinessDoc(dynamic payload){
   return BusinessDoc(
-    terms :payload["terms"]??"",
-    privacy :payload["privacy"]??"",
+    terms :payload["terms"] != null?payload["terms"][0]["content"]:"",
+    privacy :payload["privacy"] != null?payload["privacy"][0]["content"]:""
   );
 }
