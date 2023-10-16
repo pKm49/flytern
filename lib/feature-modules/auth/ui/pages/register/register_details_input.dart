@@ -84,9 +84,29 @@ class _AuthRegisterDetailsInputPageState
                                   height: screenwidth * .25,
                                   width: screenwidth * .25,
                                   child: Center(
-                                    child: Icon(Icons.camera_alt_outlined,
+                                    child:registerController.profilePicture.value==''?
+                                    Icon(Icons.camera_alt_outlined,
                                         size: screenwidth * .08,
-                                        color: flyternGrey40),
+                                        color: flyternGrey40):
+                                    Image.memory(
+                                      base64Decode(registerController.profilePicture.value)  ,
+                                      height: screenwidth *  .35,
+                                      width: screenwidth * .35,
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return Container(
+                                          height: screenwidth * .35,
+                                          width: screenwidth * .35,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(1000),
+                                          ),
+                                          clipBehavior: Clip.hardEdge,
+                                          child: Icon(Icons.camera_alt_outlined,
+                                              size: screenwidth * .08,
+                                              color: flyternGrey40),
+                                        );
+                                      },
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),
