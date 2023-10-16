@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/auth/data/models/business_models/login_credential.dart';
 import 'package:flytern/feature-modules/auth/data/models/business_models/register_credential.dart';
@@ -27,7 +29,6 @@ class RegisterController extends GetxController {
       flag: "https://flagcdn.com/48x36/in.png",
       code: "+91").obs;
 
-  var profilePicture = "".obs;
   var errorMessage = "".obs;
   var isPasswordVisible = false.obs;
   var isConfirmPasswordVisible = false.obs;
@@ -42,7 +43,7 @@ class RegisterController extends GetxController {
     super.onInit();
   }
 
-  submitRegisterForm() async {
+  submitRegisterForm(File? profilePicFile) async {
 
     isSubmitting.value = true;
     try{
@@ -53,11 +54,11 @@ class RegisterController extends GetxController {
           FirstName: firsNameController.value.text,
           LastName: lastNameController.value.text,
           PhoneNumber: mobileController.value.text,
-          CountryCode: '',
-          File: ''
+          CountryCode: selectedCountry.value.code,
+          IsEmailSubscription:isSubscribedToEmail.value
       );
 
-      AuthToken authToken  = await authHttpService.register(registerCredential);
+      AuthToken authToken  = await authHttpService.register(registerCredential,profilePicFile);
 
       if(authToken.accessToken != ""){
         saveAuthTokenToSharedPreference(authToken);
@@ -79,8 +80,5 @@ class RegisterController extends GetxController {
     isTermsAndPrivacyAgreed.value = bool;
   }
 
-  void updateProfilePicture(String base64encode) {
-    profilePicture.value = base64encode;
-  }
 
 }

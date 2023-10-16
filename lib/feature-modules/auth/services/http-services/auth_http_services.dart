@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flytern/feature-modules/auth/data/constants/app_specific/auth_http_request_endpoints.dart';
 import 'package:flytern/feature-modules/auth/data/models/business_models/login_credential.dart';
 import 'package:flytern/feature-modules/auth/data/models/business_models/register_credential.dart';
@@ -29,9 +31,11 @@ class AuthHttpService {
 
   }
 
-  Future<AuthToken > register(RegisterCredential registerCredential ) async {
-    FlyternHttpResponse response = await postRequest(
-        AuthHttpRequestEndpointRegister, registerCredential.toJson());
+  Future<AuthToken > register(RegisterCredential registerCredential, File? file ) async {
+    FlyternHttpResponse response = await fileUpload(
+      registerCredential.toJson(),
+      file??null,'File',
+        AuthHttpRequestEndpointRegister, );
 
     print(" response.message ");
     print(response.message);
