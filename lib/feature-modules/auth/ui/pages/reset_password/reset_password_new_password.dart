@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/auth/controllers/reset_password_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -11,19 +12,18 @@ class AuthResetPasswordNewPasswordPage extends StatefulWidget {
   const AuthResetPasswordNewPasswordPage({super.key});
 
   @override
-  State<AuthResetPasswordNewPasswordPage> createState() => _AuthResetPasswordNewPasswordPageState();
+  State<AuthResetPasswordNewPasswordPage> createState() =>
+      _AuthResetPasswordNewPasswordPageState();
 }
 
-class _AuthResetPasswordNewPasswordPageState extends State<AuthResetPasswordNewPasswordPage> {
-
-   TextEditingController passwordController = TextEditingController();
-   TextEditingController confirmPasswordController = TextEditingController();
-  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-
+class _AuthResetPasswordNewPasswordPageState
+    extends State<AuthResetPasswordNewPasswordPage> {
+  final GlobalKey<FormState> resetPasswordNewPasswordFormKey =
+      GlobalKey<FormState>();
+  final resetPasswordController = Get.find<ResetPasswordController>();
 
   @override
   Widget build(BuildContext context) {
-
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
 
@@ -31,46 +31,64 @@ class _AuthResetPasswordNewPasswordPageState extends State<AuthResetPasswordNewP
       appBar: AppBar(
         title: Text("reset_password".tr),
       ),
-      body: Container(
-        width: screenwidth,
-        padding: flyternLargePaddingHorizontal,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            addVerticalSpace(flyternSpaceSmall),
-            Text("new_password_message".tr,style: getBodyMediumStyle(context)),
-            addVerticalSpace(flyternSpaceLarge*2),
-            TextFormField(
-                controller: passwordController,
-                validator: (value) => checkIfPasswordFieldValid(value),
-                decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.remove_red_eye_outlined),
-                  labelText:"password".tr,
-                )),
-            addVerticalSpace(flyternSpaceMedium),
-            TextFormField(
-                controller: confirmPasswordController,
-                validator: (value) => checkIfPasswordFieldValid(value),
-                decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.remove_red_eye_outlined),
-                  labelText:"confirm_password".tr,
-                )),
-            addVerticalSpace(flyternSpaceLarge),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(style: getElevatedButtonStyle(context),
-                  onPressed: () async {
-                    Get.toNamed(Approute_login);
-                  },
-                  child:Text("reset_password".tr )),
+      body: Form(
+        key: resetPasswordNewPasswordFormKey,
+        child: Obx(
+          () => Container(
+            width: screenwidth,
+            padding: flyternLargePaddingHorizontal,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                addVerticalSpace(flyternSpaceSmall),
+                Text("new_password_message".tr,
+                    style: getBodyMediumStyle(context)),
+                addVerticalSpace(flyternSpaceLarge * 2),
+                TextFormField(
+                    controller:
+                        resetPasswordController.passwordController.value,
+                    validator: (value) => checkIfPasswordFieldValid(value),
+                    decoration: InputDecoration(
+                      suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                      labelText: "password".tr,
+                    )),
+                addVerticalSpace(flyternSpaceMedium),
+                TextFormField(
+                    controller:
+                        resetPasswordController.confirmPasswordController.value,
+                    validator: (value) => checkIfConfirmPasswordFieldValid(
+                        value,
+                        resetPasswordController.passwordController.value.text),
+                    decoration: InputDecoration(
+                      suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                      labelText: "confirm_password".tr,
+                    )),
+                addVerticalSpace(flyternSpaceLarge),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      style: getElevatedButtonStyle(context),
+                      onPressed: ()   {
+                        if (resetPasswordNewPasswordFormKey.currentState!.validate() &&
+                            !resetPasswordController.isSubmitting.value  ) {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          resetPasswordController.updatePassword();
+                        }
+                      }, child:resetPasswordController.isSubmitting.value
+                      ? const SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(
+                      color: flyternBackgroundWhite,
+                    ),
+                  ): Text("reset_password".tr)),
+                ),
+                addVerticalSpace(flyternSpaceLarge),
+              ],
             ),
-            addVerticalSpace(flyternSpaceLarge),
-
-
-          ],
+          ),
         ),
       ),
     );
   }
-
 }
