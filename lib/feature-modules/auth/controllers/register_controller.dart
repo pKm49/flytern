@@ -65,4 +65,16 @@ class RegisterController extends GetxController {
 
   }
 
+  void updateSubscriptionAgreement(bool bool) {
+    isSubscribedToEmail.value = bool;
+  }
+
+  void updateTermsAndPrivacyAgreement(bool bool) {
+    isTermsAndPrivacyAgreed.value = bool;
+  }
+
+  void updateProfilePicture(String base64encode) {
+    profilePicture.value = base64encode;
+  }
+
 }
