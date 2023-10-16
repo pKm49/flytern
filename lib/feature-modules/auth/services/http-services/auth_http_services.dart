@@ -55,5 +55,47 @@ class AuthHttpService {
 
   }
 
+  Future<void > resendOtp(String userId ) async {
+    FlyternHttpResponse response = await postRequest(
+        AuthHttpRequestEndpointResendOTP, {userId:userId});
+
+    print("resendOtp response.message ");
+    print(response.message);
+    print(response.errors);
+    print(response.success);
+
+    try{
+      if(response.success && response.data != null){
+        return;
+      }else{
+        throw Exception(response.errors[0]);
+      }
+    }catch (e){
+      rethrow;
+    }
+
+  }
+
+  Future<AuthToken > verifyOtp(String otp, String userId ) async {
+    FlyternHttpResponse response = await postRequest(
+        AuthHttpRequestEndpointVerifyOTP, {otp:otp,userId:userId});
+
+    print(" response.message ");
+    print(response.message);
+    print(response.errors);
+    print(response.success);
+
+    try{
+      if(response.success && response.data != null){
+        AuthToken authToken = mapAuthToken(response.data, false);
+        return authToken;
+      }else{
+        throw Exception(response.errors[0]);
+      }
+    }catch (e){
+      rethrow;
+    }
+
+  }
 
 }

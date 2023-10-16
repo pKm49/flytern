@@ -30,6 +30,7 @@ class RegisterController extends GetxController {
       code: "+91").obs;
 
   var userId = "".obs;
+  var otp = "".obs;
   var profilePicture = "".obs;
   var errorMessage = "".obs;
   var isPasswordVisible = false.obs;
@@ -75,6 +76,50 @@ class RegisterController extends GetxController {
       isSubmitting.value = false;
     }
 
+  }
+
+  resendOtp( ) async {
+
+    if(userId.value !=""){
+      isSubmitting.value = true;
+      try{
+
+        await authHttpService.resendOtp(userId.value);
+
+        isSubmitting.value = false;
+      }catch (e,t){
+        print(t);
+        showSnackbar( e.toString(),"error");
+        isSubmitting.value = false;
+      }
+
+    }
+
+  }
+
+  verifyOtp(String otp) async {
+
+    if(userId.value != ""){
+      isSubmitting.value = true;
+      try{
+
+        AuthToken authToken  = await authHttpService.verifyOtp(userId.value,otp);
+
+        if(authToken.accessToken != ""){
+          saveAuthTokenToSharedPreference(authToken);
+          Get.offAllNamed(Approute_landingpage);
+        }
+        isSubmitting.value = false;
+      }catch (e){
+        showSnackbar( e.toString(),"error");
+        isSubmitting.value = false;
+      }
+    }
+
+  }
+
+  void updateOtp(String otpString) {
+    otp.value = otpString;
   }
 
   void updateSubscriptionAgreement(bool bool) {
