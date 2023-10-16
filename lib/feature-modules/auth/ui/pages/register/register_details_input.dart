@@ -292,7 +292,14 @@ class _AuthRegisterDetailsInputPageState
                           FocusManager.instance.primaryFocus?.unfocus();
                           registerController.submitRegisterForm(profilePictureFile);
                         }
-                      }, child: Text("create_account".tr)),
+                      }, child:registerController.isSubmitting.value
+                          ? const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(
+                          color: flyternBackgroundWhite,
+                        ),
+                      ): Text("create_account".tr)),
                 ),
                 addVerticalSpace(flyternSpaceLarge),
                 Row(
