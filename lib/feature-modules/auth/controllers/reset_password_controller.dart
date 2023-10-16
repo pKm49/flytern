@@ -94,7 +94,7 @@ class ResetPasswordController extends GetxController {
 
         if(authToken.accessToken != ""){
           saveAuthTokenToSharedPreference(authToken);
-          Get.offAllNamed(Approute_resetPasswordNewpassword);
+          Get.offNamed(Approute_resetPasswordNewpassword);
         }
         isSubmitting.value = false;
       }catch (e){
@@ -105,13 +105,13 @@ class ResetPasswordController extends GetxController {
 
   }
 
-  updatePassword(String otp) async {
+  updatePassword() async {
 
     if(userId.value != ""){
       isSubmitting.value = true;
       try{
        await authHttpService.updatePassword(passwordController.value.text);
-       Get.offAllNamed(Approute_login);
+       Get.offAllNamed(Approute_authSelector);
        isSubmitting.value = false;
       }catch (e){
         showSnackbar( e.toString(),"error");

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/auth/controllers/register_controller.dart';
+import 'package:flytern/feature-modules/auth/controllers/reset_password_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -20,12 +21,12 @@ class OTPInputPage extends StatefulWidget {
 }
 
 class _OTPInputPageState extends State<OTPInputPage> {
-
   var getArguments = Get.arguments;
   String from = Approute_registerPersonalData;
   late Timer _timer;
   int timeInSeconds = 60;
   final registerController = Get.find<RegisterController>();
+  final resetPasswordController = Get.find<ResetPasswordController>();
 
   @override
   void initState() {
@@ -41,10 +42,8 @@ class _OTPInputPageState extends State<OTPInputPage> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
 
@@ -59,10 +58,16 @@ class _OTPInputPageState extends State<OTPInputPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             addVerticalSpace(flyternSpaceSmall),
-            Text("otp_verification_message".tr,style: getBodyMediumStyle(context)),
+            Text("otp_verification_message".tr,
+                style: getBodyMediumStyle(context)),
             addVerticalSpace(flyternSpaceExtraSmall),
-            Text("info@email.com",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold)),
-            addVerticalSpace(flyternSpaceLarge*2),
+            Text(
+                from == Approute_registerPersonalData
+                    ? ("${registerController.selectedCountry.value.code}  ${registerController.mobileController.value.text}")
+                    : ("${resetPasswordController.selectedCountry.value.code}  ${resetPasswordController.mobileController.value.text}"),
+                style: getBodyMediumStyle(context)
+                    .copyWith(fontWeight: flyternFontWeightBold)),
+            addVerticalSpace(flyternSpaceLarge * 2),
             OTPTextField(
               otpFieldStyle: OtpFieldStyle(
                 backgroundColor: flyternGrey20,
@@ -80,7 +85,11 @@ class _OTPInputPageState extends State<OTPInputPage> {
               onCompleted: (pin) {
                 print("Completed: " + pin);
                 setState(() {
-                  registerController.updateOtp(pin);
+                  if (from == Approute_registerPersonalData) {
+                    registerController.updateOtp(pin);
+                  } else {
+                    resetPasswordController.updateOtp(pin);
+                  }
                 });
               },
             ),
@@ -91,7 +100,7 @@ class _OTPInputPageState extends State<OTPInputPage> {
               children: [
                 Text(
                   "expires_in".tr,
-                  style: getBodyMediumStyle(context).copyWith( ),
+                  style: getBodyMediumStyle(context).copyWith(),
                 ),
                 addHorizontalSpace(flyternSpaceSmall),
                 Text(
@@ -99,41 +108,57 @@ class _OTPInputPageState extends State<OTPInputPage> {
                   style: getBodyMediumStyle(context).copyWith(
                       fontWeight: flyternFontWeightBold,
                       color: flyternSecondaryColor),
-
                 ),
               ],
             ),
             addVerticalSpace(flyternSpaceLarge),
-
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(style: getElevatedButtonStyle(context),
-                  onPressed: ()   {
-
-                    if ( registerController.otp.value !='') {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                      registerController.verifyOtp(registerController.otp.value);
+              child: ElevatedButton(
+                  style: getElevatedButtonStyle(context),
+                  onPressed: () {
+                    if (from == Approute_registerPersonalData) {
+                      if (registerController.otp.value != '') {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        registerController
+                            .verifyOtp(registerController.otp.value);
+                      }
+                    } else {
+                      if (resetPasswordController.otp.value != '') {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        resetPasswordController
+                            .verifyOtp(resetPasswordController.otp.value);
+                      }
                     }
-
                   },
-                  child:registerController.isSubmitting.value
-                      ? const SizedBox(
-                    width: 16,
-                    height: 16,
-                    child: CircularProgressIndicator(
-                      color: flyternBackgroundWhite,
-                    ),
-                  ): Text("verify".tr )),
+                  child: from == Approute_registerPersonalData
+                      ? registerController.isSubmitting.value
+                          ? const SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(
+                                color: flyternBackgroundWhite,
+                              ),
+                            )
+                          : Text("verify".tr)
+                      : resetPasswordController.isSubmitting.value
+                          ? const SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(
+                                color: flyternBackgroundWhite,
+                              ),
+                            )
+                          : Text("verify".tr)),
             ),
             addVerticalSpace(flyternSpaceLarge),
-
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   "didnt_recieve_code".tr,
-                  style: getBodyMediumStyle(context).copyWith( ),
+                  style: getBodyMediumStyle(context).copyWith(),
                 ),
                 addHorizontalSpace(flyternSpaceSmall),
                 Text(
@@ -141,11 +166,9 @@ class _OTPInputPageState extends State<OTPInputPage> {
                   style: getBodyMediumStyle(context).copyWith(
                       fontWeight: flyternFontWeightBold,
                       color: flyternSecondaryColor),
-
                 ),
               ],
             ),
-
           ],
         ),
       ),
@@ -156,7 +179,7 @@ class _OTPInputPageState extends State<OTPInputPage> {
     const oneSec = const Duration(seconds: 1);
     _timer = Timer.periodic(
       oneSec,
-          (Timer timer) {
+      (Timer timer) {
         if (timeInSeconds == 0) {
           setState(() {
             timer.cancel();
