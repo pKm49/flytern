@@ -9,11 +9,10 @@ import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booki
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_details_page.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/auth_selector.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/login.dart';
+import 'package:flytern/feature-modules/auth/ui/pages/otp_input.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/register/register_details_input.dart';
-import 'package:flytern/feature-modules/auth/ui/pages/register/register_otp_input.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_credentials.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_new_password.dart';
-import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_otp.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_addon_services_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_baggage_selection_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_booking_confirmation_page.dart';
@@ -63,7 +62,7 @@ getAppRoutes() => [
   ),
   GetPage(
     name: Approute_registerOtp,
-    page: () => const AuthRegisterOTPInputPage(),
+    page: () => const OTPInputPage(),
     middlewares: [MyMiddelware()],
   ),
   GetPage(
@@ -78,7 +77,7 @@ getAppRoutes() => [
   ),
   GetPage(
     name: Approute_resetPasswordOtp,
-    page: () => const AuthResetPasswordOTPPage(),
+    page: () => const OTPInputPage(),
     middlewares: [MyMiddelware()],
   ),
   GetPage(

@@ -9,14 +9,14 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 
-class AuthResetPasswordOTPPage extends StatefulWidget {
-  const AuthResetPasswordOTPPage({super.key});
+class OTPInputPage extends StatefulWidget {
+  const OTPInputPage({super.key});
 
   @override
-  State<AuthResetPasswordOTPPage> createState() => _AuthResetPasswordOTPPageState();
+  State<OTPInputPage> createState() => _OTPInputPageState();
 }
 
-class _AuthResetPasswordOTPPageState extends State<AuthResetPasswordOTPPage> {
+class _OTPInputPageState extends State<OTPInputPage> {
 
 
   @override
@@ -85,8 +85,9 @@ class _AuthResetPasswordOTPPageState extends State<AuthResetPasswordOTPPage> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(style: getElevatedButtonStyle(context),
-                  onPressed: () async {
-                    Get.toNamed(Approute_resetPasswordNewpassword);
+                  onPressed: ()   {
+                    Get.offAllNamed(Approute_landingpage);
+
                   },
                   child:Text("verify".tr )),
             ),
