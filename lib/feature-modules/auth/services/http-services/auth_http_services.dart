@@ -20,8 +20,20 @@ class AuthHttpService {
 
    try{
      if(response.success && response.data != null){
-       AuthToken authToken = mapAuthToken(response.data, false);
-       return authToken;
+       if(response.data.containsKey('userID')){
+         String userId = response.data["userID"]??"";
+         AuthToken authToken = AuthToken(
+             accessToken: "",
+             refreshToken: userId,
+             expiryOn: DateTime.now(),
+             isGuest: false
+         );
+         return authToken;
+       }else{
+         AuthToken authToken = mapAuthToken(response.data, false);
+         return authToken;
+       }
+
      }else{
        throw Exception(response.errors[0]);
      }
