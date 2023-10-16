@@ -58,7 +58,7 @@ class AuthHttpService {
 
   Future<String > sendOtp(String mobile, String countryCode ) async {
     FlyternHttpResponse response = await postRequest(
-        AuthHttpRequestEndpointResendOTP, {mobile:mobile,countryCode:countryCode});
+        AuthHttpRequestEndpointResendOTP, {"mobile":mobile,"countryCode":countryCode});
 
     print("resendOtp response.message ");
     print(response.message);
@@ -80,7 +80,7 @@ class AuthHttpService {
 
   Future<void > resendOtp(String userId ) async {
     FlyternHttpResponse response = await postRequest(
-        AuthHttpRequestEndpointResendOTP, {userId:userId});
+        AuthHttpRequestEndpointResendOTP, {"userId":userId});
 
     print("resendOtp response.message ");
     print(response.message);
@@ -99,9 +99,12 @@ class AuthHttpService {
 
   }
 
-  Future<AuthToken > verifyOtp(String otp, String userId ) async {
+  Future<AuthToken > verifyOtp( String userId, String otp  ) async {
+    print("verifyOtp");
+    print(otp);
+    print(userId);
     FlyternHttpResponse response = await postRequest(
-        AuthHttpRequestEndpointVerifyOTP, {otp:otp,userId:userId});
+        AuthHttpRequestEndpointVerifyOTP, {"otp":otp,"userId":userId});
 
     print(" response.message ");
     print(response.message);
@@ -123,7 +126,7 @@ class AuthHttpService {
 
   Future<void > updatePassword(  String newPassword ) async {
     FlyternHttpResponse response = await postRequest(
-        AuthHttpRequestEndpointChangePassword, {newPassword:newPassword });
+        AuthHttpRequestEndpointChangePassword, {"newPassword":newPassword });
 
     print(" response.message ");
     print(response.message);
