@@ -29,6 +29,7 @@ class RegisterController extends GetxController {
       flag: "https://flagcdn.com/48x36/in.png",
       code: "+91").obs;
 
+  var profilePicture = "".obs;
   var errorMessage = "".obs;
   var isPasswordVisible = false.obs;
   var isConfirmPasswordVisible = false.obs;
@@ -43,7 +44,7 @@ class RegisterController extends GetxController {
     super.onInit();
   }
 
-  submitRegisterForm(File? profilePicFile) async {
+  submitRegisterForm(File? file) async {
 
     isSubmitting.value = true;
     try{
@@ -58,7 +59,7 @@ class RegisterController extends GetxController {
           IsEmailSubscription:isSubscribedToEmail.value
       );
 
-      AuthToken authToken  = await authHttpService.register(registerCredential,profilePicFile);
+      AuthToken authToken  = await authHttpService.register(registerCredential,file);
 
       if(authToken.accessToken != ""){
         saveAuthTokenToSharedPreference(authToken);
@@ -80,5 +81,8 @@ class RegisterController extends GetxController {
     isTermsAndPrivacyAgreed.value = bool;
   }
 
+  void updateProfilePicture(String base64encode) {
+    profilePicture.value = base64encode;
+  }
 
 }
