@@ -72,6 +72,7 @@ class ResetPasswordController extends GetxController {
       try{
 
         await authHttpService.resendOtp(userId.value);
+        showSnackbar("otp_resend".tr,"info");
 
         isSubmitting.value = false;
       }catch (e,t){
