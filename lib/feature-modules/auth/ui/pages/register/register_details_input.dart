@@ -290,7 +290,7 @@ class _AuthRegisterDetailsInputPageState
                             !registerController.isSubmitting.value &&
                           registerController.isTermsAndPrivacyAgreed.value) {
                           FocusManager.instance.primaryFocus?.unfocus();
-                          registerController.submitRegisterForm();
+                          registerController.submitRegisterForm(profilePictureFile);
                         }
                       }, child: Text("create_account".tr)),
                 ),
