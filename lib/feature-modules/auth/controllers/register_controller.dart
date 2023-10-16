@@ -28,6 +28,8 @@ class RegisterController extends GetxController {
 
   var profilePicture = "".obs;
   var errorMessage = "".obs;
+  var isTermsAndPrivacyAgreed = false.obs;
+  var isSubscribedToEmail = false.obs;
   var isSubmitting = false.obs;
 
   var authHttpService = AuthHttpService();
