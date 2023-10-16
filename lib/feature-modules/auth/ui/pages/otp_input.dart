@@ -18,6 +18,17 @@ class OTPInputPage extends StatefulWidget {
 
 class _OTPInputPageState extends State<OTPInputPage> {
 
+  var getArguments = Get.arguments;
+
+  String from = Approute_registerPersonalData;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    from = getArguments[0];
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
