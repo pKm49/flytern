@@ -33,7 +33,8 @@ class CoreController extends GetxController {
 
     if(accessToken != null && accessToken !='' &&
         refreshToken != null && refreshToken !='' &&
-        expiryOnString != null && expiryOnString !=''){
+        expiryOnString != null && expiryOnString !='' &&
+        !isGuest!){
 
       DateTime expiryOn = DateTime.parse(expiryOnString);
 
@@ -60,6 +61,14 @@ class CoreController extends GetxController {
 
   }
 
-
+  Future<void> handleLogout() async {
+    AuthToken authToken = AuthToken(accessToken: "",
+        refreshToken: "",
+        expiryOn: DateTime.now(),
+        isGuest: true);
+    saveAuthTokenToSharedPreference(authToken);
+    setAuthToken();
+    Get.offAllNamed(Approute_langaugeSelector);
+  }
 
 }
