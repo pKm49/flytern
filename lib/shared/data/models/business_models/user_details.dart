@@ -15,10 +15,10 @@ class UserDetails {
   final String passportNumber;
   final DateTime passportExpiry;
   final DateTime dateOfBirth;
-  final DateTime passportIssuerCountryCode;
-  final DateTime passportIssuerCountryName;
-  final DateTime nationalityCode;
-  final DateTime nationalityName;
+  final String passportIssuerCountryCode;
+  final String passportIssuerCountryName;
+  final String nationalityCode;
+  final String nationalityName;
 
 
   UserDetails({
