@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.dart';
+import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -11,10 +12,14 @@ class ProfileMyTravelStoriesPage extends StatefulWidget {
   const ProfileMyTravelStoriesPage({super.key});
 
   @override
-  State<ProfileMyTravelStoriesPage> createState() => _ProfileMyTravelStoriesPageState();
+  State<ProfileMyTravelStoriesPage> createState() =>
+      _ProfileMyTravelStoriesPageState();
 }
 
-class _ProfileMyTravelStoriesPageState extends State<ProfileMyTravelStoriesPage> {
+class _ProfileMyTravelStoriesPageState
+    extends State<ProfileMyTravelStoriesPage> {
+  final profileController = Get.find<ProfileController>();
+
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -29,7 +34,7 @@ class _ProfileMyTravelStoriesPageState extends State<ProfileMyTravelStoriesPage>
         width: screenwidth,
         height: screenheight,
         color: flyternGrey10,
-        child: ListView(
+        child: Column(
           children: [
             Padding(
               padding: flyternLargePaddingAll,
@@ -53,38 +58,28 @@ class _ProfileMyTravelStoriesPageState extends State<ProfileMyTravelStoriesPage>
               height: flyternSpaceSmall,
               color: flyternBackgroundWhite,
             ),
-            Container(
-              width: screenwidth,
-              color: flyternBackgroundWhite,
-              child: TravelStoriesItemCard(
-                profilePicUrl: ASSETS_USER_1_SAMPLE,
-                name: "Andrew Martin",
-                ratings: "4.4",
-                description: "lorem_ipsum_description".tr,
-                imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
-              ),
-            ),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
-              child: Divider(),
-            ),
-            Container(
-              width: screenwidth,
-              color: flyternBackgroundWhite,
-              child: TravelStoriesItemCard(
-                profilePicUrl: ASSETS_USER_1_SAMPLE,
-                name: "Andrew Martin",
-                ratings: "4.4",
-                description: "lorem_ipsum_description".tr,
-                imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
-              ),
-            ),
-
-            Container(
-              width: screenwidth,
-              height: flyternSpaceMedium,
-              color: flyternBackgroundWhite,
+            Expanded(
+              child: ListView.builder(
+                  itemCount: profileController.userTravelStories.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      width: screenwidth,
+                      decoration: BoxDecoration(
+                          color: flyternBackgroundWhite,
+                          border: flyternDefaultBorderBottomOnly
+                      ),
+                      child: TravelStoriesItemCard(
+                        createdOn: profileController.userTravelStories.value[index].createdOn,
+                        title: profileController.userTravelStories.value[index].title,
+                        profilePicUrl: profileController.userTravelStories.value[index].profileUrl,
+                        name: profileController.userTravelStories.value[index].firstName,
+                        ratings: profileController.userTravelStories.value[index].rating,
+                        description: profileController.userTravelStories.value[index].tripSummary,
+                        imageUrl:profileController.userTravelStories.value[index].fileType == "Image"?
+                        profileController.userTravelStories.value[index].fileUrl:"",
+                      ),
+                    );
+                  }),
             ),
           ],
         ),
