@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +14,8 @@ import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/country_selector.dart';
 import 'package:flytern/shared/ui/components/photo_selector.dart';
-import 'package:flytern/shared/ui/components/privacy.dart';
 import 'package:flytern/shared/ui/components/html_viewer.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 
 class AuthRegisterDetailsInputPage extends StatefulWidget {
   const AuthRegisterDetailsInputPage({super.key});
@@ -410,7 +407,7 @@ class _AuthRegisterDetailsInputPageState
 
               }
               setState(() {});
-            },
+            }, isVideosAllowed: false,
           );
         });
 
