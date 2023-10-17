@@ -3,7 +3,7 @@ import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 
 class UserTravelStory {
 
-  final String  id;
+  final int  id;
   final String  title;
   final String rating;
   final String tripSummary;
@@ -34,8 +34,8 @@ class UserTravelStory {
 
 UserTravelStory mapUserTravelStory(dynamic payload){
   return UserTravelStory(
-    rating:payload["id"]??"",
-    id :payload["id"]??"",
+    rating:payload["rating"]??-1,
+    id :payload["id"]??-1,
     title :payload["title"]??"",
     createdOn :(payload["createdOn"] != null && payload["createdOn"] != "")?
     DateTime.parse(getParsableDateString(payload["createdOn"])): DefaultInvalidDate,
