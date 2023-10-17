@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
+import 'package:mime/mime.dart';
 
 class PhotoSelector extends StatelessWidget {
 
@@ -79,7 +80,18 @@ class PhotoSelector extends StatelessWidget {
 
     if (result1 == null) return;
 
-    await cropImage(result1.files.first.path!);
+    String? mimeStr = lookupMimeType(result1.files.first.path!);
+
+    if(mimeStr == null) return;
+
+    String fileType = mimeStr.split('/')[0];
+    print("fileType");
+    print(fileType);
+    if(fileType == "image"){
+      await cropImage(result1.files.first.path!);
+    }else{
+      await result1.files.first;
+    }
   }
 
   Future<void> getPictureFromCamera() async {
