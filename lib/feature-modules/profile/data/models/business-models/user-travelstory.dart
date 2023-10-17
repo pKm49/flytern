@@ -38,7 +38,7 @@ UserTravelStory mapUserTravelStory(dynamic payload){
     id :payload["id"]??-1,
     title :payload["title"]??"",
     createdOn :(payload["createdOn"] != null && payload["createdOn"] != "")?
-    DateTime.parse(getParsableDateString(payload["createdOn"])): DefaultInvalidDate,
+    DateTime.parse(payload["createdOn"]): DefaultInvalidDate,
     tripSummary: payload["tripSummary"]??"",
     firstName: payload["firstName"]??"",
     fileUrl: payload["fileUrl"]??"",
@@ -49,6 +49,4 @@ UserTravelStory mapUserTravelStory(dynamic payload){
   );
 }
 
-String getParsableDateString(String payload) {
-  return payload.split("-").toList().reversed.join("-");
-}
+
