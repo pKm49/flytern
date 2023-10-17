@@ -1,5 +1,6 @@
  import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/user-copax.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/user-travelstory.dart';
@@ -16,6 +17,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CoPaxController extends GetxController {
 
+  Rx<TextEditingController> firsNameController = TextEditingController().obs;
+  Rx<TextEditingController> lastNameController = TextEditingController().obs;
+  Rx<TextEditingController> passportNumberController = TextEditingController().obs;
+
+  var nationalityCode = "".obs;
+  var passportIssuedCountryCode = "".obs;
+  var dateOfBirth = "".obs;
+  var passportExp = "".obs;
+  var gender = "".obs;
+
+  var isSubmitting = true.obs;
   var isCopaxDataLoading = true.obs;
   var userCopaxes = <UserCoPax>[].obs;
 
@@ -50,6 +62,18 @@ class CoPaxController extends GetxController {
 
     isCopaxDataLoading.value = false;
 
+  }
+
+  initializeAuditData(){
+    gender.value = "Male";
+    nationalityCode.value = "IN";
+    passportIssuedCountryCode.value = "IN";
+    dateOfBirth.value = "";
+    passportExp.value = "";
+    firsNameController.value.text = "";
+    lastNameController.value.text = "";
+    passportNumberController.value.text = "";
+    Get.toNamed(Approute_profileAuditCopassenger);
   }
 
 }
