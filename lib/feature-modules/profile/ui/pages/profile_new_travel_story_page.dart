@@ -69,7 +69,7 @@ class _ProfileNewTravelStoryPageState extends State<ProfileNewTravelStoryPage> {
              padding: flyternLargePaddingAll,
               width: screenwidth,
               color: flyternBackgroundWhite,
-              child: Text("give_star_rating",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold)),
+              child: Text("give_star_rating".tr,style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold)),
             ),
 
             Container(
@@ -102,7 +102,7 @@ class _ProfileNewTravelStoryPageState extends State<ProfileNewTravelStoryPage> {
               padding: flyternLargePaddingAll.copyWith(top: 0),
               width: screenwidth,
               color: flyternBackgroundWhite,
-              child: Text("share_your_review",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold)),
+              child: Text("share_your_review".tr,style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold)),
             ),
             Container(
                 padding: flyternLargePaddingAll.copyWith(top: 0),
