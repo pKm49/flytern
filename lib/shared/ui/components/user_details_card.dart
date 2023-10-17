@@ -9,16 +9,16 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class UserDetailsCard extends StatelessWidget {
-  String title;
+  String passportNumber;
   String name;
-  String email;
-  String mobile;
+  String age;
+  String gender;
   bool isActionAllowed;
-    UserDetailsCard({super.key, required this.title,
+    UserDetailsCard({super.key, required this.passportNumber,
     required this.name,
-      required this.email,
+      required this.age,
       required this.isActionAllowed,
-      required this.mobile
+      required this.gender
     });
 
   final ExpansionTileController controller = ExpansionTileController();
@@ -31,14 +31,16 @@ class UserDetailsCard extends StatelessWidget {
 
     return Container(
       padding: flyternLargePaddingHorizontal,
-      color: flyternBackgroundWhite,
+      decoration: BoxDecoration(
+          color: flyternBackgroundWhite,
+          border: flyternDefaultBorderBottomOnly),
       child: Theme(
         data: ThemeData().copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
 
           tilePadding: EdgeInsets.zero,
           controller: controller,
-          title:   Text(title),
+          title:   Text(name),
           children: <Widget>[
 
             Padding(
@@ -46,8 +48,8 @@ class UserDetailsCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("full_name".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text(name,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text("gender".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text(gender,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
@@ -59,8 +61,8 @@ class UserDetailsCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("email_address".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text(email,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text("age".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text(age,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
@@ -71,8 +73,8 @@ class UserDetailsCard extends StatelessWidget {
               padding: flyternSmallPaddingVertical,                    child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("mobile_number".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                Text(mobile,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                Text("passport_number".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                Text(passportNumber,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
               ],
             ),
             ),
