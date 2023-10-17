@@ -89,6 +89,7 @@ class ProfileController extends GetxController {
         isGuest != null && !isGuest){
 
       List<UserTravelStory> travelStories = await profileHttpServices.getUserTravelStories();
+      print("travelStories.length");
       print(travelStories.length);
       userTravelStories.value = travelStories;
 
@@ -113,6 +114,7 @@ class ProfileController extends GetxController {
         isGuest != null && !isGuest){
 
       List<UserCoPax> coPaxes = await profileHttpServices.getUserCoPaxs();
+      print("coPaxes.length");
       print(coPaxes.length);
       userCopaxes.value = coPaxes;
 
