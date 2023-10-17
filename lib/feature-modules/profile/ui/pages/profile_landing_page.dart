@@ -134,6 +134,37 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                   child: PrePostIconButton(
                     specialColor: 0,
                     onPressed: () {
+                      Get.toNamed(Approute_profileResetPassword);
+
+                    },
+                    theme: 'dark',
+                    border: 'bottom',
+                    buttonTitle: "change_mobile".tr,
+                    preIconData: Ionicons.call_outline,
+                    postIconData: Ionicons.chevron_forward,
+                  ),
+                ),
+                addVerticalSpace(flyternSpaceSmall),
+                SizedBox(
+                  width: double.infinity,
+                  child: PrePostIconButton(
+                    specialColor: 0,
+                    onPressed: () {
+                      Get.toNamed(Approute_profileResetPassword);
+                    },
+                    theme: 'dark',
+                    border: 'bottom',
+                    buttonTitle: "change_email".tr,
+                    preIconData: Ionicons.mail_outline,
+                    postIconData: Ionicons.chevron_forward,
+                  ),
+                ),
+                addVerticalSpace(flyternSpaceSmall),
+                SizedBox(
+                  width: double.infinity,
+                  child: PrePostIconButton(
+                    specialColor: 0,
+                    onPressed: () {
                       Get.toNamed(Approute_profileEditProfile);
 
                     },
