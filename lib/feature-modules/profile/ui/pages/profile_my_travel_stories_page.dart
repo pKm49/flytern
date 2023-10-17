@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
+import 'package:flytern/feature-modules/profile/controllers/travel_story_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -18,7 +19,7 @@ class ProfileMyTravelStoriesPage extends StatefulWidget {
 
 class _ProfileMyTravelStoriesPageState
     extends State<ProfileMyTravelStoriesPage> {
-  final profileController = Get.find<ProfileController>();
+  final travelStoryController = Get.find<TravelStoryController>();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class _ProfileMyTravelStoriesPageState
               ),
             ),
             Visibility(
-              visible: profileController.userTravelStories.isEmpty,
+              visible: travelStoryController.userTravelStories.isEmpty,
               child: Container(
                 width: screenwidth,
                 color: flyternBackgroundWhite,
@@ -68,7 +69,7 @@ class _ProfileMyTravelStoriesPageState
             ),
             Expanded(
               child: ListView.builder(
-                  itemCount: profileController.userTravelStories.length,
+                  itemCount: travelStoryController.userTravelStories.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       width: screenwidth,
@@ -77,14 +78,14 @@ class _ProfileMyTravelStoriesPageState
                           border: flyternDefaultBorderBottomOnly
                       ),
                       child: TravelStoriesItemCard(
-                        createdOn: profileController.userTravelStories.value[index].createdOn,
-                        title: profileController.userTravelStories.value[index].title,
-                        profilePicUrl: profileController.userTravelStories.value[index].profileUrl,
-                        name: profileController.userTravelStories.value[index].firstName,
-                        ratings: profileController.userTravelStories.value[index].rating,
-                        description: profileController.userTravelStories.value[index].tripSummary,
-                        imageUrl:profileController.userTravelStories.value[index].fileType == "Image"?
-                        profileController.userTravelStories.value[index].fileUrl:"",
+                        createdOn: travelStoryController.userTravelStories.value[index].createdOn,
+                        title: travelStoryController.userTravelStories.value[index].title,
+                        profilePicUrl: travelStoryController.userTravelStories.value[index].profileUrl,
+                        name: travelStoryController.userTravelStories.value[index].firstName,
+                        ratings: travelStoryController.userTravelStories.value[index].rating,
+                        description: travelStoryController.userTravelStories.value[index].tripSummary,
+                        imageUrl:travelStoryController.userTravelStories.value[index].fileType == "Image"?
+                        travelStoryController.userTravelStories.value[index].fileUrl:"",
                       ),
                     );
                   }),

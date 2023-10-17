@@ -1,6 +1,8 @@
  import 'dart:ui';
 
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
+import 'package:flytern/feature-modules/profile/controllers/copax_controller.dart';
+import 'package:flytern/feature-modules/profile/controllers/travel_story_controller.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/user-copax.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/user-travelstory.dart';
 import 'package:flytern/feature-modules/profile/services/http-services/profile_http.dart';
@@ -18,8 +20,6 @@ class ProfileController extends GetxController {
 
   var isGuest = true.obs;
   var isProfileDataLoading = true.obs;
-  var userTravelStories = <UserTravelStory>[].obs;
-  var userCopaxes = <UserCoPax>[].obs;
   var userDetails = UserDetails(gender: "",
       firstName: "",
       lastName: "",
@@ -35,19 +35,20 @@ class ProfileController extends GetxController {
       email: "",
       passportExpiry: DefaultInvalidDate,
       phoneNumber: "").obs;
-
+  final coPaxController = Get.put(CoPaxController());
+  final travelStoryController = Get.put(TravelStoryController());
 
   @override
   void onInit() {
     super.onInit();
     getUserDetails();
-    getUserTravelStories();
-    getUserCoPassengers();
+    travelStoryController.getUserTravelStories();
+    coPaxController.getUserCoPassengers();
   }
 
   Future<void> getUserDetails() async {
 
-    isProfileDataLoading.value = false;
+    isProfileDataLoading.value = true;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var profileHttpServices = ProfileHttpServices();
@@ -69,58 +70,7 @@ class ProfileController extends GetxController {
 
     }
 
-    isProfileDataLoading.value = true;
-
-  }
-
-  Future<void> getUserTravelStories() async {
-
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var profileHttpServices = ProfileHttpServices();
-
-    final bool? isGuest = prefs.getBool('isGuest');
-    final String? accessToken = prefs.getString('accessToken');
-    final String? refreshToken = prefs.getString('refreshToken');
-    final String? expiryOnString = prefs.getString('expiryOn');
-
-    if(accessToken != null && accessToken !='' &&
-        refreshToken != null && refreshToken !='' &&
-        expiryOnString != null && expiryOnString !='' &&
-        isGuest != null && !isGuest){
-
-      List<UserTravelStory> travelStories = await profileHttpServices.getUserTravelStories();
-      print("travelStories.length");
-      print(travelStories.length);
-      userTravelStories.value = travelStories;
-
-    }
-
-
-  }
-
-  Future<void> getUserCoPassengers() async {
-
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var profileHttpServices = ProfileHttpServices();
-
-    final bool? isGuest = prefs.getBool('isGuest');
-    final String? accessToken = prefs.getString('accessToken');
-    final String? refreshToken = prefs.getString('refreshToken');
-    final String? expiryOnString = prefs.getString('expiryOn');
-
-    if(accessToken != null && accessToken !='' &&
-        refreshToken != null && refreshToken !='' &&
-        expiryOnString != null && expiryOnString !='' &&
-        isGuest != null && !isGuest){
-
-      List<UserCoPax> coPaxes = await profileHttpServices.getUserCoPaxs();
-      print("coPaxes.length");
-      print(coPaxes.length);
-      userCopaxes.value = coPaxes;
-
-    }
-
-    isProfileDataLoading.value = true;
+    isProfileDataLoading.value = false;
 
   }
 

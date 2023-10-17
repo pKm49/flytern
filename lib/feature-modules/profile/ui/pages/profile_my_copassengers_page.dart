@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/profile/controllers/copax_controller.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
 import 'package:flytern/shared/ui/components/user_details_card.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
@@ -18,7 +19,7 @@ class ProfileMyCoPassengersPage extends StatefulWidget {
 }
 
 class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
-  final profileController = Get.find<ProfileController>();
+  final coPaxController = Get.find<CoPaxController>();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
               ),
             ),
             Visibility(
-              visible: profileController.userCopaxes.isEmpty,
+              visible: coPaxController.userCopaxes.isEmpty,
               child: Container(
                 width: screenwidth,
                 color: flyternBackgroundWhite,
@@ -68,14 +69,14 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
             ),
             Expanded(
               child: ListView.builder(
-                  itemCount: profileController.userCopaxes.length,
+                  itemCount: coPaxController.userCopaxes.length,
                   itemBuilder: (BuildContext context, int index) {
                     return  UserDetailsCard(
                       isActionAllowed: true,
-                      passportNumber: profileController.userCopaxes[index].passportNumber,
-                      name: "${profileController.userCopaxes[index].firstName} ${profileController.userCopaxes[index].lastName}",
-                      age: getAge(profileController.userCopaxes[index].dateOfBirth),
-                      gender: profileController.userCopaxes[index].gender,
+                      passportNumber: coPaxController.userCopaxes[index].passportNumber,
+                      name: "${coPaxController.userCopaxes[index].firstName} ${coPaxController.userCopaxes[index].lastName}",
+                      age: getAge(coPaxController.userCopaxes[index].dateOfBirth),
+                      gender: coPaxController.userCopaxes[index].gender,
                     );
                   }),
             ),
