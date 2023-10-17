@@ -10,7 +10,7 @@ import 'package:flytern/shared/services/http-services/http_request_handler.dart'
 class ProfileHttpServices{
 
   getUserDetails() async {
-
+  print("getUserDetails");
     FlyternHttpResponse response = await getRequest(ProfileHttpRequestEndpointGetUserDetails,null);
 
     if(response.success){
