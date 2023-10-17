@@ -34,7 +34,8 @@ class ProfileController extends GetxController {
       userName: "",
       email: "",
       passportExpiry: DefaultInvalidDate,
-      phoneNumber: "").obs;
+      phoneNumber: "",
+  genders: []).obs;
   final coPaxController = Get.put(CoPaxController());
   final travelStoryController = Get.put(TravelStoryController());
 
@@ -66,6 +67,11 @@ class ProfileController extends GetxController {
       UserDetails tempUserDetails = await profileHttpServices.getUserDetails();
       if(tempUserDetails.firstName != ""){
         userDetails.value = tempUserDetails;
+      }
+
+      if(tempUserDetails.genders.isNotEmpty){
+        final sharedController = Get.find<SharedController>();
+        sharedController.updateGenders(tempUserDetails.genders);
       }
 
     }
