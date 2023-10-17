@@ -1,6 +1,8 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flytern/core/data/constants/app-spectific/core_http_request_endpoints.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/travel_story.dart';
 import 'package:flytern/feature-modules/profile/data/constants/app-specific/profile_http_request_endpoints.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/user-copax.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/user-travelstory.dart';
@@ -43,6 +45,28 @@ class ProfileHttpServices{
     return [];
 
   }
+
+  createTravelStory(UserTravelStory travelStory,  File? file) async {
+    print("createTravelStory");
+
+    try{
+      FlyternHttpResponse response = await fileUpload(
+        travelStory.toJson(),
+        file??null,'File',
+        ProfileHttpRequestEndpointGetUserTravelStory, );
+      if(response.success && response.statusCode == 200){
+        return;
+      }else{
+        throw Exception(response.errors[0]);
+      }
+
+    }catch (e){
+      rethrow;
+    }
+    return;
+
+  }
+
 
   getUserCoPaxs() async {
     print("getUserCoPaxs");
