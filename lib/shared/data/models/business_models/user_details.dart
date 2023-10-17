@@ -1,5 +1,6 @@
 
 import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
+import 'package:flytern/shared/data/models/business_models/gender.dart';
 
 class UserDetails {
 
@@ -19,6 +20,7 @@ class UserDetails {
   final String passportIssuerCountryName;
   final String nationalityCode;
   final String nationalityName;
+  final List<Gender> genders;
 
 
   UserDetails({
@@ -30,6 +32,7 @@ class UserDetails {
     required this.email,
     required this.passportExpiry,
     required this.phoneNumber,
+    required this.genders,
   });
 
   Map toJson() => {
@@ -47,6 +50,13 @@ class UserDetails {
 }
 
 UserDetails mapUserDetails(dynamic payload){
+
+  List<Gender> tempGenders = [];
+  if(payload["genderList"] != null){
+    payload["genderList"].forEach((element) {
+      tempGenders.add(mapGender(element));
+    });
+  }
   return UserDetails(
     phoneNumber:payload["phoneNumber"]??"",
     userName :payload["userName"]??"",
@@ -66,6 +76,7 @@ UserDetails mapUserDetails(dynamic payload){
     passportIssuerCountryName: payload["passportIssuerCountryName"]??"",
     nationalityCode:payload["nationalityCode"]??"",
     nationalityName: payload["nationalityName"]??"",
+    genders: tempGenders,
   );
 }
 
