@@ -10,6 +10,7 @@ import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 import 'package:flytern/shared/data/models/business_models/auth_token.dart';
 import 'package:flytern/core/services/http-services/core_http.dart';
 import 'package:flytern/shared/controllers/shared_controller.dart';
+import 'package:flytern/shared/data/models/business_models/gender.dart';
 import 'package:flytern/shared/data/models/business_models/user_details.dart';
 import 'package:flytern/shared/services/utility-services/shared_preference_handler.dart';
 import 'package:get/get.dart';
@@ -25,7 +26,7 @@ class CoPaxController extends GetxController {
   var passportIssuedCountryCode = "".obs;
   var dateOfBirth = "".obs;
   var passportExp = "".obs;
-  var gender = "".obs;
+  var gender = "Male".obs;
 
   var isSubmitting = true.obs;
   var isCopaxDataLoading = true.obs;
@@ -74,6 +75,10 @@ class CoPaxController extends GetxController {
     lastNameController.value.text = "";
     passportNumberController.value.text = "";
     Get.toNamed(Approute_profileAuditCopassenger);
+  }
+
+  void changeGender(Gender newGender) {
+    gender.value = newGender.code;
   }
 
 }
