@@ -15,6 +15,7 @@ class TravelStoriesItemCard extends StatelessWidget {
   final String ratings;
   final String description;
   final String title;
+  final String status;
   final DateTime createdOn;
   final String imageUrl;
 
@@ -22,6 +23,7 @@ class TravelStoriesItemCard extends StatelessWidget {
     super.key,
     required this.profilePicUrl,
     required this.name,
+    required this.status,
     required this.ratings,
     required this.description,
     required this.title,
@@ -86,7 +88,23 @@ class TravelStoriesItemCard extends StatelessWidget {
                     ),)
                   ],
                 ),
-              )
+              ),
+              Visibility(
+                  visible: status !="",
+                  child: OutlinedButton(
+                    style: ButtonStyle(
+                      textStyle: MaterialStateProperty.all<TextStyle>(  TextStyle(
+                          color:status=="Published"? flyternPrimaryColor:flyternSecondaryColor)),
+                      foregroundColor:
+                      MaterialStateProperty.all<Color>(status=="Published"? flyternPrimaryColor:flyternSecondaryColor),
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                          EdgeInsets.symmetric(
+                              horizontal: flyternSpaceLarge,
+                              vertical: flyternSpaceSmall)),
+                    ),
+                onPressed: (){},
+                child: Text(         status),
+              ))
             ],
           ),
           Visibility(
