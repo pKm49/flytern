@@ -41,7 +41,7 @@ class ProfileHttpServices{
 
   }
 
-  createTravelStory(UserTravelStory travelStory,  File? file) async {
+ Future<bool> createTravelStory(UserTravelStory travelStory,  File? file) async {
     print("createTravelStory");
 
     try{
@@ -50,7 +50,7 @@ class ProfileHttpServices{
         file??null,'File',
         ProfileHttpRequestEndpointCreateUserTravelStory, );
       if(response.success && response.statusCode == 200){
-        return;
+        return true;
       }else{
         throw Exception(response.errors[0]);
       }
@@ -58,7 +58,6 @@ class ProfileHttpServices{
     }catch (e){
       rethrow;
     }
-    return;
 
   }
 
