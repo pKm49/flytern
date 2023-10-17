@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.dart';
+import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 import 'package:flytern/shared/ui/components/contact_details_getter.dart';
 import 'package:flytern/shared/ui/components/data_capsule_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_addon_service_card.dart';
@@ -292,6 +293,8 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
 
                 addVerticalSpace(flyternSpaceSmall),
                 TravelStoriesItemCard(
+                  createdOn: DefaultInvalidDate,
+                  title: "",
                   profilePicUrl: ASSETS_USER_1_SAMPLE,
                   name: "Andrew Martin",
                   ratings: "4.4",
@@ -303,6 +306,8 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                   child: Divider(),
                 ),
                 TravelStoriesItemCard(
+                  createdOn: DefaultInvalidDate,
+                  title: "",
                   profilePicUrl: ASSETS_USER_1_SAMPLE,
                   name: "Andrew Martin",
                   ratings: "4.4",

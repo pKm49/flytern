@@ -3,6 +3,7 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/travel_story.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/popular_package_list_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.dart';
+import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -27,6 +28,8 @@ class TravelStoriesContainer extends StatelessWidget {
               i==(travelStories.length-1)?null:
               flyternDefaultBorderBottomOnly),
               child: TravelStoriesItemCard(
+                createdOn: DefaultInvalidDate,
+                title: "",
                 profilePicUrl: travelStories[i].profileUrl,
                 name: travelStories[i].name,
                 ratings:travelStories[i].ratings,

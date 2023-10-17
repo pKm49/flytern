@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.dart';
+import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 import 'package:flytern/shared/ui/components/contact_details_getter.dart';
 import 'package:flytern/shared/ui/components/data_capsule_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_addon_service_card.dart';
@@ -113,20 +114,23 @@ class _ActivityDetailsPageState extends State<ActivityDetailsPage> {
                         fontWeight: flyternFontWeightBold),
                   ),
                 ),
-
                 addVerticalSpace(flyternSpaceSmall),
                 TravelStoriesItemCard(
+                  createdOn: DefaultInvalidDate,
+                  title: "",
                   profilePicUrl: ASSETS_USER_1_SAMPLE,
                   name: "Andrew Martin",
                   ratings: "4.4",
                   description: "lorem_ipsum_description".tr,
                   imageUrl: ASSETS_TESTIMONIAL_SAMPLE,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
                   child: Divider(),
                 ),
                 TravelStoriesItemCard(
+                  createdOn: DefaultInvalidDate,
+                  title: "",
                   profilePicUrl: ASSETS_USER_1_SAMPLE,
                   name: "Andrew Martin",
                   ratings: "4.4",
