@@ -1,12 +1,17 @@
  
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/profile/controllers/copax_controller.dart';
+import 'package:flytern/shared/controllers/shared_controller.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/data/models/business_models/gender.dart';
+import 'package:flytern/shared/data/models/business_models/general_item.dart';
 import 'package:flytern/shared/services/utility-services/form_validator.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared/ui/components/dropdown_selector.dart';
 import 'package:get/get.dart';
 
 class ProfileAuditCopassengerPage extends StatefulWidget {
@@ -18,8 +23,9 @@ class ProfileAuditCopassengerPage extends StatefulWidget {
 
 class _ProfileAuditCopassengerPageState extends State<ProfileAuditCopassengerPage> {
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final coPaxController = Get.find<CoPaxController>();
+  final sharedController = Get.find<SharedController>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +59,8 @@ class _ProfileAuditCopassengerPageState extends State<ProfileAuditCopassengerPag
                   children: [
                     Expanded(
                       child: TextFormField(
-                          controller: emailController,
-                          validator: (value) => checkIfEmailValid(value),
+                          controller: coPaxController.firsNameController.value,
+                          validator: (value) => checkIfNameFormValid(value, "first_name".tr),
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
                             labelText: "first_name".tr,
@@ -63,8 +69,8 @@ class _ProfileAuditCopassengerPageState extends State<ProfileAuditCopassengerPag
                     addHorizontalSpace(flyternSpaceMedium),
                     Expanded(
                       child: TextFormField(
-                          controller: emailController,
-                          validator: (value) => checkIfEmailValid(value),
+                          controller: coPaxController.firsNameController.value,
+                          validator: (value) => checkIfNameFormValid(value, "last_name".tr),
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
                             labelText: "last_name".tr,
@@ -74,16 +80,48 @@ class _ProfileAuditCopassengerPageState extends State<ProfileAuditCopassengerPag
                 ),
               ),
               Container(
-                padding: flyternLargePaddingHorizontal.copyWith(top: 0,bottom: flyternSpaceMedium),
+                padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceMedium),
                 color: flyternBackgroundWhite,
-                child: TextFormField(
-                    controller: emailController,
-                    validator: (value) => checkIfEmailValid(value),
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      labelText: "email".tr,
-                    )),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: DropDownSelector(
+                        titleText: coPaxController.gender.value,
+                        selected:coPaxController.gender.value  ,
+                        items: [
+                          for(var i =0; i<sharedController.genders.length;i++)
+                            GeneralItem(id: sharedController.genders[i].code,
+                                name: sharedController.genders[i].name)
+                        ],
+                        hintText:"gender".tr ,
+                        valueChanged: (newGender) {
+
+                          List<Gender> genders = sharedController.genders.where((e) => e.code == newGender).toList();
+                          if(genders.isNotEmpty){
+                            coPaxController
+                                .changeGender(
+                                genders[0]
+                            );
+                          }
+
+
+                        },
+                      )
+                    ),
+                    addHorizontalSpace(flyternSpaceMedium),
+                    Expanded(
+                      child: TextFormField(
+                          controller: coPaxController.firsNameController.value,
+                          validator: (value) => checkIfNameFormValid(value, "last_name".tr),
+                          keyboardType: TextInputType.name,
+                          decoration: InputDecoration(
+                            labelText: "last_name".tr,
+                          )),
+                    ),
+                  ],
+                ),
               ),
+
 
               Container(
                 padding: flyternLargePaddingHorizontal.copyWith(top: 0,bottom: flyternSpaceMedium),
@@ -93,7 +131,6 @@ class _ProfileAuditCopassengerPageState extends State<ProfileAuditCopassengerPag
                     Expanded(
                       flex: 2,
                       child: TextFormField(
-                          controller: emailController,
                           validator: (value) => checkIfEmailValid(value),
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
@@ -104,7 +141,6 @@ class _ProfileAuditCopassengerPageState extends State<ProfileAuditCopassengerPag
                     Expanded(
                       flex: 4,
                       child: TextFormField(
-                          controller: emailController,
                           validator: (value) => checkIfEmailValid(value),
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
@@ -119,7 +155,6 @@ class _ProfileAuditCopassengerPageState extends State<ProfileAuditCopassengerPag
                 padding: flyternLargePaddingHorizontal.copyWith(top: 0,bottom: flyternSpaceMedium),
                 color: flyternBackgroundWhite,
                 child: TextFormField(
-                    controller: emailController,
                     validator: (value) => checkIfEmailValid(value),
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
@@ -131,7 +166,6 @@ class _ProfileAuditCopassengerPageState extends State<ProfileAuditCopassengerPag
                 padding: flyternLargePaddingHorizontal.copyWith(top: 0,bottom: flyternSpaceMedium),
                 color: flyternBackgroundWhite,
                 child: TextFormField(
-                    controller: emailController,
                     validator: (value) => checkIfEmailValid(value),
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
@@ -143,7 +177,6 @@ class _ProfileAuditCopassengerPageState extends State<ProfileAuditCopassengerPag
                 padding: flyternLargePaddingHorizontal.copyWith(top: 0,bottom: flyternSpaceMedium),
                 color: flyternBackgroundWhite,
                 child: TextFormField(
-                    controller: emailController,
                     validator: (value) => checkIfEmailValid(value),
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
