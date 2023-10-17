@@ -334,6 +334,7 @@ class _ProfileNewTravelStoryPageState extends State<ProfileNewTravelStoryPage> {
   }
 
   void handleSubmission() {
+    FocusManager.instance.primaryFocus?.unfocus();
     if ((titleController.text != "" || tripSummaryController.text != "") ||
         fileType != "") {
       print("condition success");
