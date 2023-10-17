@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
+import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 
 class ProfileViewProfilePage extends StatefulWidget {
@@ -16,6 +19,9 @@ class ProfileViewProfilePage extends StatefulWidget {
 }
 
 class _ProfileViewProfilePageState extends State<ProfileViewProfilePage> {
+
+  final profileController = Get.find<ProfileController>();
+
   @override
   Widget build(BuildContext context) {
 
@@ -57,7 +63,12 @@ class _ProfileViewProfilePageState extends State<ProfileViewProfilePage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(1000),
                     ),
-                    child: Image.asset(ASSETS_USER_1_SAMPLE),
+                    child: profileController.userDetails.value.imgUrl !=""?
+                    Image.network(profileController.userDetails.value.imgUrl,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Icon(Ionicons.person_circle,size: screenwidth*.2);
+                      },)
+                        :Icon(Ionicons.person_circle,size: screenwidth*.2),
                   ),
                   addHorizontalSpace(flyternSpaceMedium),
                   Expanded(child:
@@ -65,7 +76,7 @@ class _ProfileViewProfilePageState extends State<ProfileViewProfilePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Andrew Martin",style: getHeadlineMediumStyle(context).copyWith(  color: flyternGrey80),),
+                      Text("${profileController.userDetails.value.firstName} ${profileController.userDetails.value.lastName}",style: getHeadlineMediumStyle(context).copyWith(  color: flyternGrey80),),
 
                     ],
                   ))
@@ -79,7 +90,7 @@ class _ProfileViewProfilePageState extends State<ProfileViewProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("full_name".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("Andrew Martin",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text("${profileController.userDetails.value.firstName} ${profileController.userDetails.value.lastName}",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
@@ -94,7 +105,7 @@ class _ProfileViewProfilePageState extends State<ProfileViewProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("email_address".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("andrewmartin@gmail.com",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text("${profileController.userDetails.value.email}",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
@@ -109,7 +120,7 @@ class _ProfileViewProfilePageState extends State<ProfileViewProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("mobile_number".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("+92 321 232 2134",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text("${profileController.userDetails.value.phoneCountryCode} ${profileController.userDetails.value.phoneNumber}",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
@@ -124,7 +135,7 @@ class _ProfileViewProfilePageState extends State<ProfileViewProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("dob".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("July 27, 1995",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text(getFormattedDOB(profileController.userDetails.value.dateOfBirth),style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
@@ -139,7 +150,7 @@ class _ProfileViewProfilePageState extends State<ProfileViewProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("passport_no".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("AMH321 232 2134",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text(profileController.userDetails.value.passportNumber,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
@@ -154,7 +165,9 @@ class _ProfileViewProfilePageState extends State<ProfileViewProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("passport_expiry".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("Aug 21, 2026",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text(
+                      profileController.userDetails.value.passportExpiry == DefaultInvalidDate?"":
+                      getFormattedDOB(profileController.userDetails.value.passportExpiry),style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
@@ -169,7 +182,7 @@ class _ProfileViewProfilePageState extends State<ProfileViewProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("passport_issuer_country".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("India",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text(profileController.userDetails.value.passportIssuerCountryName,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
@@ -177,5 +190,10 @@ class _ProfileViewProfilePageState extends State<ProfileViewProfilePage> {
         ),
       ),
     );
+  }
+
+  String getFormattedDOB(DateTime dateOfBirth) {
+    final f = DateFormat.yMMMMd('en_US');
+    return f.format(dateOfBirth);
   }
 }
