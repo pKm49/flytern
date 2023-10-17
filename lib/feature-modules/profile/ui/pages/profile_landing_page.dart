@@ -42,8 +42,8 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
             child: Row(
               children: [
                 Container(
-                  height: screenwidth*.2,
-                  width: screenwidth*.2,
+                  height: screenwidth*.22,
+                  width: screenwidth*.22,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(1000),
@@ -51,9 +51,9 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                   child:profileController.userDetails.value.imgUrl !=""?
                   Image.network(profileController.userDetails.value.imgUrl,
                     errorBuilder: (context, error, stackTrace) {
-                      return Image.asset(ASSETS_USER_1_SAMPLE);
+                      return Icon(Ionicons.person_circle,size: screenwidth*.2);
                     },)
-                  :Image.asset(ASSETS_USER_1_SAMPLE),
+                  :Icon(Ionicons.person_circle,size: screenwidth*.2) ,
                 ),
                 addHorizontalSpace(flyternSpaceMedium),
                 Expanded(child:
