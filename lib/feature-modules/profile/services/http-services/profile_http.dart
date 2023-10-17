@@ -4,6 +4,7 @@ import 'package:flytern/core/data/constants/app-spectific/core_http_request_endp
 import 'package:flytern/feature-modules/profile/data/constants/app-specific/profile_http_request_endpoints.dart';
 import 'package:flytern/shared/data/models/business_models/auth_token.dart';
 import 'package:flytern/shared/data/models/app_specific/flytern_http_response.dart';
+import 'package:flytern/shared/data/models/business_models/user_details.dart';
 import 'package:flytern/shared/services/http-services/http_request_handler.dart';
 
 class ProfileHttpServices{
@@ -14,12 +15,12 @@ class ProfileHttpServices{
 
     if(response.success){
       if(response.data != null){
-        AuthToken authToken = mapAuthToken(response.data,false);
-        return authToken;
+        UserDetails userDetails = mapUserDetails(response.data);
+        return userDetails;
       }
     }
 
-    return mapAuthToken({},true);
+    return mapUserDetails({});
 
   }
 
