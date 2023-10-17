@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -17,6 +18,9 @@ class ProfileLandingPage extends StatefulWidget {
 }
 
 class _ProfileLandingPageState extends State<ProfileLandingPage> {
+
+  final profileController = Get.find<ProfileController>();
+
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -44,7 +48,12 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(1000),
                   ),
-                  child: Image.asset(ASSETS_USER_1_SAMPLE),
+                  child:profileController.userDetails.value.imgUrl !=""?
+                  Image.network(profileController.userDetails.value.imgUrl,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(ASSETS_USER_1_SAMPLE);
+                    },)
+                  :Image.asset(ASSETS_USER_1_SAMPLE),
                 ),
                 addHorizontalSpace(flyternSpaceMedium),
                 Expanded(child:
@@ -52,9 +61,9 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Andrew Martin",style: getHeadlineMediumStyle(context).copyWith(  color: flyternGrey80),),
+                    Text("${profileController.userDetails.value.firstName} ${profileController.userDetails.value.lastName}",style: getHeadlineMediumStyle(context).copyWith(  color: flyternGrey80),),
                     addVerticalSpace(flyternSpaceExtraSmall),
-                    Text("martin@gmail.com",style: getLabelLargeStyle(context).copyWith(color: flyternGrey40),),
+                    Text("${profileController.userDetails.value.email}",style: getLabelLargeStyle(context).copyWith(color: flyternGrey40),),
                     addVerticalSpace(flyternSpaceSmall*1.5),
                     InkWell(
                         onTap: (){
