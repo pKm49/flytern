@@ -2,10 +2,12 @@ import 'dart:ui';
 
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
 import 'package:flytern/shared/data/constants/business_constants/available_countries.dart';
+import 'package:flytern/shared/data/constants/business_constants/available_genders.dart';
 import 'package:flytern/shared/data/constants/business_constants/available_languages.dart';
 import 'package:flytern/shared/data/models/app_specific/set_device_info_request_body.dart';
 import 'package:flytern/shared/data/models/business_models/business_doc.dart';
 import 'package:flytern/shared/data/models/business_models/country.dart';
+import 'package:flytern/shared/data/models/business_models/gender.dart';
 import 'package:flytern/shared/data/models/business_models/general_item.dart';
 import 'package:flytern/shared/data/models/business_models/language.dart';
 import 'package:flytern/shared/data/models/business_models/support_info.dart';
@@ -26,6 +28,7 @@ class SharedController extends GetxController {
       flag: "https://flagcdn.com/48x36/in.png",
       code: "+91").obs;
 
+  var genders = <Gender>[].obs;
   var languages = <Language>[].obs;
   var countries = <Country>[].obs;
 
@@ -35,7 +38,7 @@ class SharedController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
+    genders.value = availableGenders;
     languages.value = availableLanguages;
     countries.value = availableCountries;
   }
@@ -51,6 +54,10 @@ class SharedController extends GetxController {
     selectedCountry.value = country;
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString('selectedCountry', country.countryCode);
+  }
+
+  updateGenders(List<Gender> newGendersList){
+    genders.value = newGendersList;
   }
 
   Future<void> getInitialInfo() async {
