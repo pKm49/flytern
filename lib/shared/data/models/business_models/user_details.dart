@@ -51,17 +51,24 @@ UserDetails mapUserDetails(dynamic payload){
     phoneNumber:payload["userName"]??"",
     userName :payload["userName"]??"",
     email :payload["email"]??"",
-    passportExpiry :payload["passportExpiry"] != null?DateTime.parse(payload["passportExpiry"]): DefaultInvalidDate,
+    passportExpiry :(payload["passportExpiry"] != null && payload["passportExpiry"] != "")?
+
+    DateTime.parse(getParsableDateString(payload["passportExpiry"])): DefaultInvalidDate,
     gender: payload["gender"]??"",
     firstName: payload["firstName"]??"",
     lastName: payload["lastName"]??"",
     phoneCountryCode: payload["phoneCountryCode"]??"",
     imgUrl: payload["imgUrl"]??"",
     passportNumber: payload["passportNumber"]??"",
-    dateOfBirth: payload["dateOfBirth"] != null?DateTime.parse(payload["dateOfBirth"]): DefaultInvalidDate,
+    dateOfBirth: (payload["dateOfBirth"] != null && payload["dateOfBirth"] != "")?
+    DateTime.parse(getParsableDateString(payload["dateOfBirth"])): DefaultInvalidDate,
     passportIssuerCountryCode: payload["passportIssuerCountryCode"]??"",
     passportIssuerCountryName: payload["passportIssuerCountryName"]??"",
     nationalityCode:payload["nationalityCode"]??"",
     nationalityName: payload["nationalityName"]??"",
   );
+}
+
+String getParsableDateString(String payload) {
+  return payload.split("-").toList().reversed.join("-");
 }
