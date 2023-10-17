@@ -48,7 +48,7 @@ class ProfileHttpServices{
       FlyternHttpResponse response = await fileUpload(
         travelStory.toJson(),
         file??null,'File',
-        ProfileHttpRequestEndpointGetUserTravelStory, );
+        ProfileHttpRequestEndpointCreateUserTravelStory, );
       if(response.success && response.statusCode == 200){
         return;
       }else{
