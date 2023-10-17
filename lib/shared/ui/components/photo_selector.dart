@@ -88,9 +88,9 @@ class PhotoSelector extends StatelessWidget {
     print("fileType");
     print(fileType);
     if(fileType == "image"){
-      await cropImage(result1.files.first.path!);
+        await cropImage(result1.files.first.path!);
     }else{
-      await result1.files.first;
+      photoSelected(File(result1.files.first.path!));
     }
   }
 
