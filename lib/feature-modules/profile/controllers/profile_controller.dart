@@ -1,6 +1,8 @@
  import 'dart:ui';
 
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
+import 'package:flytern/feature-modules/profile/data/models/business-models/user-copax.dart';
+import 'package:flytern/feature-modules/profile/data/models/business-models/user-travelstory.dart';
 import 'package:flytern/feature-modules/profile/services/http-services/profile_http.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
@@ -16,7 +18,8 @@ class ProfileController extends GetxController {
 
   var isGuest = true.obs;
   var isProfileDataLoading = true.obs;
-
+  var userTravelStories = <UserTravelStory>[].obs;
+  var userCopaxes = <UserCoPax>[].obs;
   var userDetails = UserDetails(gender: "",
       firstName: "",
       lastName: "",
@@ -38,6 +41,8 @@ class ProfileController extends GetxController {
   void onInit() {
     super.onInit();
     getUserDetails();
+    getUserTravelStories();
+    getUserCoPassengers();
   }
 
   Future<void> getUserDetails() async {
@@ -68,6 +73,54 @@ class ProfileController extends GetxController {
 
   }
 
+  Future<void> getUserTravelStories() async {
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var profileHttpServices = ProfileHttpServices();
+
+    final bool? isGuest = prefs.getBool('isGuest');
+    final String? accessToken = prefs.getString('accessToken');
+    final String? refreshToken = prefs.getString('refreshToken');
+    final String? expiryOnString = prefs.getString('expiryOn');
+
+    if(accessToken != null && accessToken !='' &&
+        refreshToken != null && refreshToken !='' &&
+        expiryOnString != null && expiryOnString !='' &&
+        isGuest != null && !isGuest){
+
+      List<UserTravelStory> travelStories = await profileHttpServices.getUserTravelStories();
+      print(travelStories.length);
+      userTravelStories.value = travelStories;
+
+    }
+
+
+  }
+
+  Future<void> getUserCoPassengers() async {
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var profileHttpServices = ProfileHttpServices();
+
+    final bool? isGuest = prefs.getBool('isGuest');
+    final String? accessToken = prefs.getString('accessToken');
+    final String? refreshToken = prefs.getString('refreshToken');
+    final String? expiryOnString = prefs.getString('expiryOn');
+
+    if(accessToken != null && accessToken !='' &&
+        refreshToken != null && refreshToken !='' &&
+        expiryOnString != null && expiryOnString !='' &&
+        isGuest != null && !isGuest){
+
+      List<UserCoPax> coPaxes = await profileHttpServices.getUserCoPaxs();
+      print(coPaxes.length);
+      userCopaxes.value = coPaxes;
+
+    }
+
+    isProfileDataLoading.value = true;
+
+  }
 
 
 }
