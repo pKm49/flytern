@@ -31,57 +31,59 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
         title: Text('co_passengers'.tr),
         elevation: 0.5,
       ),
-      body: Container(
-        width: screenwidth,
-        height: screenheight,
-        color: flyternGrey10,
-        child: Column(
-          children: [
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  InkWell(
-                    child: Text("add_co_passenger".tr,
-                        style: getBodyMediumStyle(context).copyWith(
-                            decoration: TextDecoration.underline,
-                            color: flyternTertiaryColor)),
-                    onTap: () {
-                      Get.toNamed(Approute_profileAuditCopassenger);
-                    },
-                  ),
-                ],
-              ),
-            ),
-            Visibility(
-              visible: coPaxController.userCopaxes.isEmpty,
-              child: Container(
-                width: screenwidth,
-                color: flyternBackgroundWhite,
+      body: Obx(
+            ()=>  Container(
+          width: screenwidth,
+          height: screenheight,
+          color: flyternGrey10,
+          child: Column(
+            children: [
+              Padding(
                 padding: flyternLargePaddingAll,
-                child: Center(
-                  child: Text("no_item".tr,style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey60
-                  ),),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    InkWell(
+                      child: Text("add_co_passenger".tr,
+                          style: getBodyMediumStyle(context).copyWith(
+                              decoration: TextDecoration.underline,
+                              color: flyternTertiaryColor)),
+                      onTap: () {
+                        Get.toNamed(Approute_profileAuditCopassenger);
+                      },
+                    ),
+                  ],
                 ),
               ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                  itemCount: coPaxController.userCopaxes.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return  UserDetailsCard(
-                      isActionAllowed: true,
-                      passportNumber: coPaxController.userCopaxes[index].passportNumber,
-                      name: "${coPaxController.userCopaxes[index].firstName} ${coPaxController.userCopaxes[index].lastName}",
-                      age: getAge(coPaxController.userCopaxes[index].dateOfBirth),
-                      gender: coPaxController.userCopaxes[index].gender,
-                    );
-                  }),
-            ),
+              Visibility(
+                visible: coPaxController.userCopaxes.isEmpty,
+                child: Container(
+                  width: screenwidth,
+                  color: flyternBackgroundWhite,
+                  padding: flyternLargePaddingAll,
+                  child: Center(
+                    child: Text("no_item".tr,style: getBodyMediumStyle(context).copyWith(
+                        color: flyternGrey60
+                    ),),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                    itemCount: coPaxController.userCopaxes.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return  UserDetailsCard(
+                        isActionAllowed: true,
+                        passportNumber: coPaxController.userCopaxes[index].passportNumber,
+                        name: "${coPaxController.userCopaxes[index].firstName} ${coPaxController.userCopaxes[index].lastName}",
+                        age: getAge(coPaxController.userCopaxes[index].dateOfBirth),
+                        gender: coPaxController.userCopaxes[index].gender,
+                      );
+                    }),
+              ),
 
-          ],
+            ],
+          ),
         ),
       ),
     );

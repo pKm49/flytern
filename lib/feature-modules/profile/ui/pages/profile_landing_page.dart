@@ -32,48 +32,50 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
       color: flyternGrey10,
       child: Column(
         children: [
-          Container(
-            width: screenwidth  ,
-            padding: flyternLargePaddingAll,
-            margin: flyternMediumPaddingVertical,
-            decoration: BoxDecoration(
-              color: flyternBackgroundWhite,
-            ),
-            child: Row(
-              children: [
-                Container(
-                  height: screenwidth*.22,
-                  width: screenwidth*.22,
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(1000),
+          Obx(
+            ()=> Container(
+              width: screenwidth  ,
+              padding: flyternLargePaddingAll,
+              margin: flyternMediumPaddingVertical,
+              decoration: BoxDecoration(
+                color: flyternBackgroundWhite,
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    height: screenwidth*.22,
+                    width: screenwidth*.22,
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(1000),
+                    ),
+                    child:profileController.userDetails.value.imgUrl !=""?
+                    Image.network(profileController.userDetails.value.imgUrl,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Icon(Ionicons.person_circle,size: screenwidth*.2);
+                      },)
+                    :Icon(Ionicons.person_circle,size: screenwidth*.2) ,
                   ),
-                  child:profileController.userDetails.value.imgUrl !=""?
-                  Image.network(profileController.userDetails.value.imgUrl,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Icon(Ionicons.person_circle,size: screenwidth*.2);
-                    },)
-                  :Icon(Ionicons.person_circle,size: screenwidth*.2) ,
-                ),
-                addHorizontalSpace(flyternSpaceMedium),
-                Expanded(child:
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("${profileController.userDetails.value.firstName} ${profileController.userDetails.value.lastName}",style: getHeadlineMediumStyle(context).copyWith(  color: flyternGrey80),),
-                    addVerticalSpace(flyternSpaceExtraSmall),
-                    Text("${profileController.userDetails.value.email}",style: getLabelLargeStyle(context).copyWith(color: flyternGrey40),),
-                    addVerticalSpace(flyternSpaceSmall*1.5),
-                    InkWell(
-                        onTap: (){
-                          Get.toNamed(Approute_profileViewProfile);
-                        },
-                        child: Text("view_profile".tr,style: getBodyMediumStyle(context).copyWith(color: flyternPrimaryColor,decoration: TextDecoration.underline))),
+                  addHorizontalSpace(flyternSpaceMedium),
+                  Expanded(child:
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("${profileController.userDetails.value.firstName} ${profileController.userDetails.value.lastName}",style: getHeadlineMediumStyle(context).copyWith(  color: flyternGrey80),),
+                      addVerticalSpace(flyternSpaceExtraSmall),
+                      Text("${profileController.userDetails.value.email}",style: getLabelLargeStyle(context).copyWith(color: flyternGrey40),),
+                      addVerticalSpace(flyternSpaceSmall*1.5),
+                      InkWell(
+                          onTap: (){
+                            Get.toNamed(Approute_profileViewProfile);
+                          },
+                          child: Text("view_profile".tr,style: getBodyMediumStyle(context).copyWith(color: flyternPrimaryColor,decoration: TextDecoration.underline))),
 
-                  ],
-                ))
-              ],
+                    ],
+                  ))
+                ],
+              ),
             ),
           ),
           Container(
