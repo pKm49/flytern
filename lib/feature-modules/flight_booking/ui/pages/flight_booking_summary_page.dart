@@ -288,10 +288,10 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
 
             UserDetailsCard(
               isActionAllowed:false,
-              title: "adult".tr,
-              name: "Andrew Martin",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
+              name: "adult".tr,
+              age: "Andrew Martin",
+              gender: "andrewmartin@gmail.com",
+              passportNumber: "+92 334431234",
             ),
 
             Container(
@@ -301,10 +301,10 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
             ),
             UserDetailsCard(
               isActionAllowed:false,
-              title: "child".tr,
-              name: "Martin Andrew",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
+              name: "adult".tr,
+              age: "Andrew Martin",
+              gender: "andrewmartin@gmail.com",
+              passportNumber: "+92 334431234",
             ),
 
             Padding(

@@ -264,10 +264,10 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
 
             UserDetailsCard(
               isActionAllowed:false,
-              title: "adult".tr,
-              name: "Andrew Martin",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
+              name: "adult".tr,
+              age: "Andrew Martin",
+              gender: "andrewmartin@gmail.com",
+              passportNumber: "+92 334431234",
             ),
 
             Container(
@@ -277,10 +277,10 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
             ),
             UserDetailsCard(
               isActionAllowed:false,
-              title: "child".tr,
-              name: "Martin Andrew",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
+              name: "adult".tr,
+              age: "Andrew Martin",
+              gender: "andrewmartin@gmail.com",
+              passportNumber: "+92 334431234",
             ),
 
             Container(

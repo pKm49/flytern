@@ -70,23 +70,25 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
               child: ListView.builder(
                   itemCount: profileController.userCopaxes.length,
                   itemBuilder: (BuildContext context, int index) {
-                    Container(
-                      decoration: BoxDecoration(
-                          color: flyternBackgroundWhite,
-                          border: flyternDefaultBorderBottomOnly),
-                      child: UserDetailsCard(
-                        isActionAllowed: true,
-                        title: profileController.userCopaxes.value[index].firstName,
-                        name: "${profileController.userCopaxes.value[index].firstName} ${profileController.userCopaxes.value[index].lastName}",
-                        email: profileController.userCopaxes.value[index].passportNumber,
-                        mobile: profileController.userCopaxes.value[index].firstName,
-                      ),
+                    return  UserDetailsCard(
+                      isActionAllowed: true,
+                      passportNumber: profileController.userCopaxes[index].passportNumber,
+                      name: "${profileController.userCopaxes[index].firstName} ${profileController.userCopaxes[index].lastName}",
+                      age: getAge(profileController.userCopaxes[index].dateOfBirth),
+                      gender: profileController.userCopaxes[index].gender,
                     );
                   }),
             ),
+
           ],
         ),
       ),
     );
+  }
+
+  getAge(DateTime dateOfBirth) {
+    int currenYear = DateTime.now().year;
+    int dobYear = dateOfBirth.year;
+    return "${currenYear - dobYear} years";
   }
 }

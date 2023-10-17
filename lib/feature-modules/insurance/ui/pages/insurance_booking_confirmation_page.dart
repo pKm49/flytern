@@ -181,10 +181,10 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
             ),
             UserDetailsCard(
               isActionAllowed:false,
-              title: "contributor".tr,
-              name: "Andrew Martin",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
+              name: "adult".tr,
+              age: "Andrew Martin",
+              gender: "andrewmartin@gmail.com",
+              passportNumber: "+92 334431234",
             ),
 
             Container(
@@ -194,10 +194,10 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
             ),
             UserDetailsCard(
               isActionAllowed:false,
-              title: "spouse".tr,
-              name: "Martin Andrew",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
+              name: "adult".tr,
+              age: "Andrew Martin",
+              gender: "andrewmartin@gmail.com",
+              passportNumber: "+92 334431234",
             ),
             Container(
               color: flyternBackgroundWhite,
@@ -206,10 +206,10 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
             ),
             UserDetailsCard(
               isActionAllowed:false,
-              title: "son".tr,
-              name: "Martin Andrew",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
+              name: "adult".tr,
+              age: "Andrew Martin",
+              gender: "andrewmartin@gmail.com",
+              passportNumber: "+92 334431234",
             ),
             Container(
               color: flyternBackgroundWhite,
@@ -218,10 +218,10 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
             ),
             UserDetailsCard(
               isActionAllowed:false,
-              title: "daughter".tr,
-              name: "Martin Andrew",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
+              name: "adult".tr,
+              age: "Andrew Martin",
+              gender: "andrewmartin@gmail.com",
+              passportNumber: "+92 334431234",
             ),
             Padding(
               padding: flyternLargePaddingAll,
