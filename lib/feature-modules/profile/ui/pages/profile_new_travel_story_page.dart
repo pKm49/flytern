@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,8 @@ import 'package:flytern/shared/services/utility-services/widget_properties_gener
 import 'package:flytern/shared/ui/components/photo_selector.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:mime/mime.dart';
+import 'package:video_player/video_player.dart';
 
 class ProfileNewTravelStoryPage extends StatefulWidget {
   const ProfileNewTravelStoryPage({super.key});
@@ -21,10 +25,27 @@ class ProfileNewTravelStoryPage extends StatefulWidget {
 
 class _ProfileNewTravelStoryPageState extends State<ProfileNewTravelStoryPage> {
 
+  String fileType = "";
   double rating = 3.0;
   final travelStoryController = Get.find<TravelStoryController>();
   late File mediaFile;
+  late VideoPlayerController _controller;
+  late Future<void> _initializeVideoPlayerFuture;
+ String imageFileUrl = "";
 
+  @override
+  void initState() {
+    super.initState();
+
+    // Create and store the VideoPlayerController. The VideoPlayerController
+    // offers several different constructors to play videos from assets, files,
+    // or the internet.
+    _controller = VideoPlayerController.asset(
+        ASSETS_AUTH_BG
+    );
+    _initializeVideoPlayerFuture =  _controller.initialize();
+
+  }
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -57,25 +78,79 @@ class _ProfileNewTravelStoryPageState extends State<ProfileNewTravelStoryPage> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(
                         flyternBorderRadiusSmall)),
-                    child: Container(
-                      width: screenwidth-(flyternSpaceLarge*2),
-                      padding: flyternLargePaddingAll,
-                      color: flyternSecondaryColorBg,
-                      height: 200,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset(ASSETS_FILE_UPLOAD_ICON,width: screenwidth*.2),
-                          addVerticalSpace(flyternSpaceLarge),
-                          Text("upload_image_video".tr,style: getBodyMediumStyle(context))
-                        ],
-                      ),
+                    child: Stack(
+                      children: [
+                        Visibility(
+                          visible: fileType == "",
+                          child: Container(
+                            width: screenwidth-(flyternSpaceLarge*2),
+                            padding: flyternLargePaddingAll,
+                            color: flyternSecondaryColorBg,
+                            height: 200,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(ASSETS_FILE_UPLOAD_ICON,width: screenwidth*.2),
+                                addVerticalSpace(flyternSpaceLarge),
+                                Text("upload_image_video".tr,style: getBodyMediumStyle(context))
+                              ],
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: fileType == "image" && imageFileUrl !="",
+                          child:Image.memory(
+                            base64Decode(imageFileUrl)  ,
+                            height: 200,
+                            width: screenwidth-(flyternSpaceLarge*2),
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                height: 200,
+                                width: screenwidth-(flyternSpaceLarge*2),
+                                clipBehavior: Clip.hardEdge,
+                                child: Icon(Icons.camera_alt_outlined,
+                                    size: screenwidth * .08,
+                                    color: flyternGrey40),
+                              );
+                            },
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Visibility(
+                          visible: fileType == "video",
+                          child: Container(
+                              width: screenwidth-(flyternSpaceLarge*2),
+                              color: flyternSecondaryColorBg,
+                              height: 200,
+                              child: AspectRatio(
+                                aspectRatio: 9/16,
+                                // Use the VideoPlayer widget to display the video.
+                                child: VideoPlayer(_controller),
+                              )
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
             ),
+            Visibility(
+              visible: fileType != "",
+              child: Padding(
+                padding:flyternLargePaddingAll,
+                child: InkWell(
+                  onTap: (){
+                    openSourceSelector(context);
+                  },
+                  child: Text("upload_image_video".tr,
+                      textAlign: TextAlign.center,
+                      style: getBodyMediumStyle(context).copyWith(color: flyternSecondaryColor,decoration: TextDecoration.underline)),
+                ),
+              ),
+            ),
+
             Container(
              padding: flyternLargePaddingAll,
               width: screenwidth,
@@ -163,6 +238,22 @@ class _ProfileNewTravelStoryPageState extends State<ProfileNewTravelStoryPage> {
             photoSelected: (File? selectedMediaFile) {
               if (selectedMediaFile != null) {
                 mediaFile = selectedMediaFile;
+                String? mimeStr = lookupMimeType(mediaFile.path);
+                if(mimeStr !=null){
+                   fileType = mimeStr.split('/')[0];
+                   print("fileType");
+                   print("fileType");
+                   print(fileType == "video");
+                   if(fileType == "video"){
+                     initializeVideo();
+                   }else{
+                     Uint8List imageBytes = mediaFile.readAsBytesSync();
+                     imageFileUrl = base64Encode(imageBytes);
+                   }
+                   setState(() {
+
+                   });
+                }
               }
               setState(() {});
             }, isVideosAllowed: true
@@ -171,6 +262,20 @@ class _ProfileNewTravelStoryPageState extends State<ProfileNewTravelStoryPage> {
         });
 
 
+
+  }
+
+  initializeVideo(){
+    _controller.pause();
+    _controller.dispose();
+    _controller = VideoPlayerController.file(
+        mediaFile
+    );
+    _initializeVideoPlayerFuture =  _controller.initialize();
+    _controller.setLooping(true);
+    _initializeVideoPlayerFuture.then((_) => setState(() {
+
+    }));
 
   }
 }
