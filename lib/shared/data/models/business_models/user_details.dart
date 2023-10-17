@@ -48,7 +48,7 @@ class UserDetails {
 
 UserDetails mapUserDetails(dynamic payload){
   return UserDetails(
-    phoneNumber:payload["userName"]??"",
+    phoneNumber:payload["phoneNumber"]??"",
     userName :payload["userName"]??"",
     email :payload["email"]??"",
     passportExpiry :(payload["passportExpiry"] != null && payload["passportExpiry"] != "")?
