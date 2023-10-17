@@ -14,8 +14,9 @@ import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 class PhotoSelector extends StatelessWidget {
 
   final Function(File? photo) photoSelected;      // <------------|
-
-  const PhotoSelector({super.key, required this.photoSelected});
+  bool isVideosAllowed;
+    PhotoSelector({super.key, required this.photoSelected
+    , required this.isVideosAllowed});
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +68,14 @@ class PhotoSelector extends StatelessWidget {
   }
 
   Future<void> getPictureFromGallery() async {
+    List<String> allowedExtensions = ['jpg', 'png', 'jpeg'];
+    List<String> allowedVideExtensions = ['jpg', 'png', 'jpeg'];
+    if(isVideosAllowed){
+      allowedExtensions.addAll(allowedVideExtensions);
+    }
+
     FilePickerResult? result1 = await FilePicker.platform.pickFiles(
-        type: FileType.custom, allowedExtensions: ['jpg', 'png', 'jpeg']);
+        type: FileType.custom, allowedExtensions: allowedExtensions);
 
     if (result1 == null) return;
 
