@@ -12,6 +12,8 @@ class TravelStoriesItemCard extends StatelessWidget {
   final String name;
   final String ratings;
   final String description;
+  final String title;
+  final DateTime createdOn;
   final String imageUrl;
 
   TravelStoriesItemCard({
@@ -20,6 +22,8 @@ class TravelStoriesItemCard extends StatelessWidget {
     required this.name,
     required this.ratings,
     required this.description,
+    required this.title,
+    required this.createdOn,
     required this.imageUrl,
   });
 
@@ -56,7 +60,8 @@ class TravelStoriesItemCard extends StatelessWidget {
                   child: Image.network(
                     profilePicUrl,
                     errorBuilder: (context, error, stackTrace) {
-                      return Image.asset(ASSETS_DESTINATION_1_SAMPLE);
+                      return Icon(Ionicons.person_circle,size: screenwidth*.12);
+
                     },
                   )),
               addHorizontalSpace(flyternSpaceMedium),
@@ -77,9 +82,9 @@ class TravelStoriesItemCard extends StatelessWidget {
                   child: Icon(
                       rating < i + 1 && rating > i
                           ? Ionicons.star_half
-                          : i <= rating.round()
-                              ? Ionicons.star
-                              : Ionicons.star_outline,
+                          : i > roundedRating(rating)
+                              ? Ionicons.star_outline
+                              : Ionicons.star,
                       color: i <= rating.round()
                           ? flyternAccentColor
                           : flyternGrey40),
@@ -110,5 +115,9 @@ class TravelStoriesItemCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  num roundedRating(double rating) {
+    return rating.round()>rating?rating-1:rating.round();
   }
 }
