@@ -1,4 +1,5 @@
- import 'dart:ui';
+ import 'dart:io';
+import 'dart:ui';
 
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/user-copax.dart';
@@ -11,14 +12,19 @@ import 'package:flytern/core/services/http-services/core_http.dart';
 import 'package:flytern/shared/controllers/shared_controller.dart';
 import 'package:flytern/shared/data/models/business_models/user_details.dart';
 import 'package:flytern/shared/services/utility-services/shared_preference_handler.dart';
+import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TravelStoryController extends GetxController {
 
   var isGuest = true.obs;
+  var isSubmitting = false.obs;
   var isTravelStoriesDataLoading = true.obs;
   var userTravelStories = <UserTravelStory>[].obs;
+  var profileHttpServices = ProfileHttpServices();
+
+
   @override
   void onInit() {
     super.onInit();
@@ -29,7 +35,6 @@ class TravelStoryController extends GetxController {
   Future<void> getUserTravelStories() async {
     isTravelStoriesDataLoading.value = true;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var profileHttpServices = ProfileHttpServices();
 
     final bool? isGuest = prefs.getBool('isGuest');
     final String? accessToken = prefs.getString('accessToken');
@@ -49,6 +54,20 @@ class TravelStoryController extends GetxController {
     }
     isTravelStoriesDataLoading.value = false;
 
+  }
+
+  Future<void> addTravelStory(UserTravelStory userTravelStory, File? file) async {
+    isSubmitting.value = true;
+    try{
+      await profileHttpServices.createTravelStory(userTravelStory, file);
+      getUserTravelStories();
+      isSubmitting.value = false;
+      showSnackbar("travel_story_created","info");
+      Get.back();
+    }catch (e){
+      showSnackbar( e.toString(),"error");
+      isSubmitting.value = false;
+    }
   }
 
 
