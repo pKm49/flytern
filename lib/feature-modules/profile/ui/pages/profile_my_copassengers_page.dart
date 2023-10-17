@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
 import 'package:flytern/shared/ui/components/user_details_card.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -15,6 +18,8 @@ class ProfileMyCoPassengersPage extends StatefulWidget {
 }
 
 class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
+  final profileController = Get.find<ProfileController>();
+
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -29,7 +34,7 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
         width: screenwidth,
         height: screenheight,
         color: flyternGrey10,
-        child: ListView(
+        child: Column(
           children: [
             Padding(
               padding: flyternLargePaddingAll,
@@ -48,34 +53,36 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
                 ],
               ),
             ),
-            Container(
-              width: screenwidth,
-              height: flyternSpaceSmall,
-              color: flyternBackgroundWhite,
+            Visibility(
+              visible: profileController.userCopaxes.isEmpty,
+              child: Container(
+                width: screenwidth,
+                color: flyternBackgroundWhite,
+                padding: flyternLargePaddingAll,
+                child: Center(
+                  child: Text("no_item".tr,style: getBodyMediumStyle(context).copyWith(
+                      color: flyternGrey60
+                  ),),
+                ),
+              ),
             ),
-            UserDetailsCard(
-              isActionAllowed:true,
-              title: "adult".tr,
-              name: "Andrew Martin",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
-            ),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal,
-              child: Divider(),
-            ),
-            UserDetailsCard(
-              isActionAllowed:true,
-              title: "child".tr,
-              name: "Martin Andrew",
-              email: "andrewmartin@gmail.com",
-              mobile: "+92 334431234",
-            ),
-            Container(
-              width: screenwidth,
-              height: flyternSpaceMedium,
-              color: flyternBackgroundWhite,
+            Expanded(
+              child: ListView.builder(
+                  itemCount: profileController.userCopaxes.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Container(
+                      decoration: BoxDecoration(
+                          color: flyternBackgroundWhite,
+                          border: flyternDefaultBorderBottomOnly),
+                      child: UserDetailsCard(
+                        isActionAllowed: true,
+                        title: profileController.userCopaxes.value[index].firstName,
+                        name: "${profileController.userCopaxes.value[index].firstName} ${profileController.userCopaxes.value[index].lastName}",
+                        email: profileController.userCopaxes.value[index].passportNumber,
+                        mobile: profileController.userCopaxes.value[index].firstName,
+                      ),
+                    );
+                  }),
             ),
           ],
         ),
