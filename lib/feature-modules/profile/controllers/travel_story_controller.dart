@@ -59,12 +59,27 @@ class TravelStoryController extends GetxController {
   Future<void> addTravelStory(UserTravelStory userTravelStory, File? file) async {
     isSubmitting.value = true;
     try{
-      await profileHttpServices.createTravelStory(userTravelStory, file);
-      getUserTravelStories();
-      isSubmitting.value = false;
-      showSnackbar("travel_story_created","info");
-      Get.back();
+
+     bool isSuccess =  await profileHttpServices.createTravelStory(userTravelStory, file);
+
+     if(isSuccess){
+       Get.back();
+       print("createTravelStory completed");
+       isSubmitting.value = false;
+       print("createTravelStory completed 1");
+
+       showSnackbar("travel_story_created".tr,"info");
+       print("createTravelStory completed 2");
+
+
+       print("createTravelStory completed 3");
+
+       await getUserTravelStories();
+
+     }
+
     }catch (e){
+      print("createTravelStory failed");
       showSnackbar( e.toString(),"error");
       isSubmitting.value = false;
     }
