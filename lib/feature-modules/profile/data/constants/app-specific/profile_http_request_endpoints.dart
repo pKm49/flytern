@@ -1,0 +1,1 @@
+const String ProfileHttpRequestEndpointGetUserDetails = "/coreapi/api/Users/GetUserProfile";
