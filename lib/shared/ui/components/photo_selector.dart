@@ -69,7 +69,7 @@ class PhotoSelector extends StatelessWidget {
 
   Future<void> getPictureFromGallery() async {
     List<String> allowedExtensions = ['jpg', 'png', 'jpeg'];
-    List<String> allowedVideExtensions = ['jpg', 'png', 'jpeg'];
+    List<String> allowedVideExtensions = ['mp4', 'avi'];
     if(isVideosAllowed){
       allowedExtensions.addAll(allowedVideExtensions);
     }
