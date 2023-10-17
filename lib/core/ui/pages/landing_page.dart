@@ -5,6 +5,7 @@ import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booki
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_booking_landing_page.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_booking_landing_page.dart';
 import 'package:flytern/feature-modules/package_booking/ui/pages/package_booking_landing_page.dart';
+import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_landing_page.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -24,14 +25,16 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
 
   late TabController _tabController;
   int _currentIndex = 0;
-  List<Widget> _tabList = [
-    FlightBookingLandingPage(),
-    HotelBookingLandingPage(),
-    PackageBookingLandingPage(),
-    ActivityBookingLandingPage(),
-    ProfileLandingPage()
+  final List<Widget> _tabList = [
+    const FlightBookingLandingPage(),
+    const HotelBookingLandingPage(),
+    const PackageBookingLandingPage(),
+    const ActivityBookingLandingPage(),
+    const ProfileLandingPage()
   ];
   String pageTitle = "flights";
+
+  final profileController = Get.put(ProfileController());
 
   @override
   void initState() {
