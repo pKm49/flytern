@@ -53,10 +53,18 @@ class _ProfileMyTravelStoriesPageState
                 ],
               ),
             ),
-            Container(
-              width: screenwidth,
-              height: flyternSpaceSmall,
-              color: flyternBackgroundWhite,
+            Visibility(
+              visible: profileController.userTravelStories.isEmpty,
+              child: Container(
+                width: screenwidth,
+                color: flyternBackgroundWhite,
+                padding: flyternLargePaddingAll,
+                child: Center(
+                  child: Text("no_item".tr,style: getBodyMediumStyle(context).copyWith(
+                    color: flyternGrey60
+                  ),),
+                ),
+              ),
             ),
             Expanded(
               child: ListView.builder(
