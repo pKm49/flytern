@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 
 class TravelStoriesItemCard extends StatelessWidget {
@@ -66,13 +68,32 @@ class TravelStoriesItemCard extends StatelessWidget {
                   )),
               addHorizontalSpace(flyternSpaceMedium),
               Expanded(
-                child: Text(
-                  name,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: getBodyMediumStyle(context).copyWith(
+                          color: flyternGrey80, fontWeight: flyternFontWeightBold),
+                    ),
+                    addVerticalSpace(flyternSpaceExtraSmall),
+                    Visibility(
+                      visible: createdOn != DefaultInvalidDate,
+                      child: Text(
+                      getFormattedDate(createdOn),
+                      style: getLabelLargeStyle(context).copyWith(
+                          color: flyternGrey40),
+                    ),)
+                  ],
                 ),
               )
             ],
+          ),
+          Visibility(
+            visible: title !="",
+            child: Text(title,
+                style:
+                getHeadlineMediumStyle(context).copyWith(color: flyternGrey80,fontWeight: flyternFontWeightBold)),
           ),
           Row(
             children: [
@@ -119,5 +140,10 @@ class TravelStoriesItemCard extends StatelessWidget {
 
   num roundedRating(double rating) {
     return rating.round()>rating?rating-1:rating.round();
+  }
+
+  getFormattedDate(DateTime dateTime){
+    final f = DateFormat('yyyy-MM-dd');
+    return f.format(dateTime);
   }
 }
