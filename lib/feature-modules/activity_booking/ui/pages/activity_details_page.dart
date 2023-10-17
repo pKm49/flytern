@@ -118,6 +118,7 @@ class _ActivityDetailsPageState extends State<ActivityDetailsPage> {
                 TravelStoriesItemCard(
                   createdOn: DefaultInvalidDate,
                   title: "",
+                  status: "",
                   profilePicUrl: ASSETS_USER_1_SAMPLE,
                   name: "Andrew Martin",
                   ratings: "4.4",
@@ -131,6 +132,7 @@ class _ActivityDetailsPageState extends State<ActivityDetailsPage> {
                 TravelStoriesItemCard(
                   createdOn: DefaultInvalidDate,
                   title: "",
+                  status: "",
                   profilePicUrl: ASSETS_USER_1_SAMPLE,
                   name: "Andrew Martin",
                   ratings: "4.4",

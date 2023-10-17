@@ -79,6 +79,7 @@ class _ProfileMyTravelStoriesPageState
                             border: flyternDefaultBorderBottomOnly
                         ),
                         child: TravelStoriesItemCard(
+                        status: travelStoryController.userTravelStories.value[index].status,
                           createdOn: travelStoryController.userTravelStories.value[index].createdOn,
                           title: travelStoryController.userTravelStories.value[index].title,
                           profilePicUrl: travelStoryController.userTravelStories.value[index].profileUrl,

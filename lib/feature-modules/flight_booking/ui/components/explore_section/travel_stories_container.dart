@@ -30,6 +30,7 @@ class TravelStoriesContainer extends StatelessWidget {
               child: TravelStoriesItemCard(
                 createdOn: DefaultInvalidDate,
                 title: "",
+                status: "",
                 profilePicUrl: travelStories[i].profileUrl,
                 name: travelStories[i].name,
                 ratings:travelStories[i].ratings,
