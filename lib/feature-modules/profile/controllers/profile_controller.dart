@@ -95,6 +95,7 @@ class ProfileController extends GetxController {
       UserDetails tempUserDetails = await profileHttpServices.getUserDetails();
       if(tempUserDetails.firstName != ""){
         userDetails.value = tempUserDetails;
+        updateEditForm(userDetails.value);
       }
 
       if(tempUserDetails.genders.isNotEmpty){
@@ -180,4 +181,24 @@ class ProfileController extends GetxController {
     }
   }
 
+  void updateEditForm(UserDetails userDetails) {  
+    gender.value =userDetails.gender==""?"Male":userDetails.gender;
+    nationalityController.value.text =userDetails.nationalityName;
+    passportCountryController.value.text =userDetails.passportIssuerCountryName;
+    passportExpiryController.value.text = getFormattedDate(userDetails.passportExpiry);
+    dobController.value.text = getFormattedDate(userDetails.dateOfBirth);
+    firsNameController.value.text =userDetails.firstName;
+    lastNameController.value.text = userDetails.lastName;
+    passportNumberController.value.text = userDetails.passportNumber;
+    dob.value = userDetails.dateOfBirth ;
+    passportExpiry.value = userDetails.passportExpiry;
+    nationalityCode.value = userDetails.nationalityCode;
+    passportIssuedCountryCode.value = userDetails.passportIssuerCountryCode;
+
+  }
+
+  String getFormattedDate(DateTime dateTime){
+    final f = DateFormat('dd-MM-yyyy');
+    return f.format(dateTime);
+  }
 }
