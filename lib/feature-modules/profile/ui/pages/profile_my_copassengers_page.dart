@@ -50,7 +50,7 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
                               color: flyternTertiaryColor)),
                       onTap: () {
                         coPaxController.initializeAuditData();
-
+                        Get.toNamed(Approute_profileAuditCopassenger);
                       },
                     ),
                   ],
