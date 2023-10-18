@@ -32,12 +32,12 @@ import 'package:flytern/feature-modules/insurance/ui/pages/insurance_user_detail
 import 'package:flytern/feature-modules/package_booking/ui/pages/package_details_page.dart';
 import 'package:flytern/feature-modules/package_booking/ui/pages/package_user_details_submission_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_audit_copassenger_page.dart';
-import 'package:flytern/feature-modules/profile/ui/pages/profile_edit_profile_page.dart';
+import 'package:flytern/feature-modules/profile/ui/pages/profile_edit_pages/profile_edit_profile_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_my_bookings_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_my_copassengers_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_my_travel_stories_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_new_travel_story_page.dart';
-import 'package:flytern/feature-modules/profile/ui/pages/profile_reset_password_page.dart';
+import 'package:flytern/feature-modules/profile/ui/pages/profile_edit_pages/profile_reset_password_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_view_profile_page.dart';
 import 'package:flytern/shared/ui/pages/userdetails_submission_page.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
