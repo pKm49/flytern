@@ -1,5 +1,6 @@
 
 import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
+import 'package:intl/intl.dart';
 
 class UserCoPax {
 
@@ -31,11 +32,11 @@ class UserCoPax {
   Map toJson() => {
     'FirstName': firstName,
     'LastName': lastName,
-    'dateOfBirth': dateOfBirth,
+    'dateOfBirth': getFormattedDate(dateOfBirth),
     'Gender': gender,
     'Nationality': nationalityCode,
     'PassportNumber': passportNumber,
-    'ExpiryDate': passportExp,
+    'ExpiryDate':getFormattedDate (passportExp),
     'IssueCountry': passportIssuedCountryCode,
   };
 
@@ -60,4 +61,9 @@ UserCoPax mapUserCoPax(dynamic payload){
 
 String getParsableDateString(String payload) {
   return payload.split("-").toList().reversed.join("-");
+}
+
+String getFormattedDate(DateTime dateTime){
+  final f = DateFormat('dd-MM-yyyy');
+  return f.format(dateTime);
 }
