@@ -33,7 +33,7 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
   final profileController = Get.find<ProfileController>();
   final GlobalKey<FormState> updateProfileFormKey = GlobalKey<FormState>();
   final sharedController = Get.find<SharedController>();
-  late File profilePictureFile;
+  late File? profilePictureFile = File(ASSETS_NAMELOGO);
 
   @override
   Widget build(BuildContext context) {
@@ -310,7 +310,9 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
                       if (updateProfileFormKey.currentState!.validate() &&
                           !profileController.isProfileSubmitting.value) {
                         FocusManager.instance.primaryFocus?.unfocus();
-                        profileController.updateProfile(profilePictureFile);
+                        profileController.updateProfile(
+                            profileController.profilePicture.value !=""?
+                            profilePictureFile:null);
                       }
                     },
                     child: profileController.isProfileSubmitting.value
@@ -394,7 +396,7 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
             photoSelected: (File? pictureFile) {
               if (pictureFile != null) {
                 profilePictureFile = pictureFile;
-                Uint8List imageBytes = profilePictureFile.readAsBytesSync();
+                Uint8List imageBytes = profilePictureFile!.readAsBytesSync();
                 profileController
                     .updateProfilePicture(base64Encode(imageBytes));
               }
