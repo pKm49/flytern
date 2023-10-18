@@ -33,7 +33,7 @@ class CoPaxController extends GetxController {
   var profileHttpServices = ProfileHttpServices();
 
   var dob = DefaultInvalidDate.obs;
-  var passportExpiry= DefaultInvalidDate.obs;
+  var passportExpiry = DefaultInvalidDate.obs;
   var gender = "Male".obs;
   var nationalityCode = "".obs;
   var passportIssuedCountryCode = "".obs;
@@ -122,8 +122,9 @@ class CoPaxController extends GetxController {
 
   Future<void> createCoPax() async {
     isSubmitting.value = true;
-    try{
+    try {
       UserCoPax coPax = UserCoPax(
+          id: 0,
           gender: gender.value,
           firstName: firsNameController.value.text,
           lastName: lastNameController.value.text,
@@ -135,31 +136,52 @@ class CoPaxController extends GetxController {
           nationalityName: "",
           passportExp: passportExpiry.value);
 
+      bool isSuccess = await profileHttpServices.createCoPax(coPax);
 
-      bool isSuccess =  await profileHttpServices.createCoPax(coPax);
-
-      if(isSuccess){
+      if (isSuccess) {
         Get.back();
         print("copax_created completed");
         isSubmitting.value = false;
         print("copax_created completed 1");
 
-        showSnackbar("copax_created".tr,"info");
+        showSnackbar("copax_created".tr, "info");
         print("copax_created completed 2");
 
         initializeAuditData(true);
         print("copax_created completed 3");
 
         await getUserCoPassengers();
-
       }
-
-    }catch (e){
+    } catch (e) {
       print("copax_created failed");
-      showSnackbar( e.toString(),"error");
+      showSnackbar(e.toString(), "error");
       isSubmitting.value = false;
     }
+  }
 
+  Future<void> deleteCoPax(int id) async {
+    isSubmitting.value = true;
+    try {
 
+      bool isSuccess = await profileHttpServices.deleteCoPax(id);
+
+      if (isSuccess) {
+        Get.back();
+        print("copax_created completed");
+        isSubmitting.value = false;
+        print("copax_created completed 1");
+
+        showSnackbar("copax_deleted".tr, "info");
+        print("copax_created completed 2");
+
+        print("copax_created completed 3");
+
+        await getUserCoPassengers();
+      }
+    } catch (e) {
+      print("copax_created failed");
+      showSnackbar(e.toString(), "error");
+      isSubmitting.value = false;
+    }
   }
 }

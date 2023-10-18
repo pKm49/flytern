@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/profile/controllers/copax_controller.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
+import 'package:flytern/shared/ui/components/confirm_dialogue.dart';
 import 'package:flytern/shared/ui/components/user_details_card.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -74,7 +75,9 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
                     itemCount: coPaxController.userCopaxes.length,
                     itemBuilder: (BuildContext context, int index) {
                       return  UserDetailsCard(
-                        onDelete: (){},
+                        onDelete: (){
+                          showDeleteConfirmDialog(coPaxController.userCopaxes[index].id);
+                        },
                         onEdit: (){},
                         isActionAllowed: true,
                         passportNumber: coPaxController.userCopaxes[index].passportNumber,
@@ -92,9 +95,23 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
     );
   }
 
+  showDeleteConfirmDialog(int id) async {
+
+    showDialog(
+      context: context,
+      builder: (_) => ConfirmDialogue(
+          onClick:() async {
+            coPaxController.deleteCoPax(id);
+          },
+          titleKey: 'are_you_sure'.tr, subtitleKey: ''),
+    );
+
+  }
+
   getAge(DateTime dateOfBirth) {
     int currenYear = DateTime.now().year;
     int dobYear = dateOfBirth.year;
     return "${currenYear - dobYear} years";
   }
+
 }
