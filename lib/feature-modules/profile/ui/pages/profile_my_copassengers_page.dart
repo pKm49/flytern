@@ -57,6 +57,12 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
                   ],
                 ),
               ),
+                Visibility(
+                  visible:coPaxController.isSubmitting.value,
+                  child: LinearProgressIndicator(
+                    backgroundColor: flyternPrimaryColor,
+                    color: flyternSecondaryColor,
+                  )),
               Visibility(
                 visible: coPaxController.userCopaxes.isEmpty,
                 child: Container(
@@ -101,7 +107,11 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
       context: context,
       builder: (_) => ConfirmDialogue(
           onClick:() async {
-            coPaxController.deleteCoPax(id);
+            if(!coPaxController.isSubmitting.value){
+              coPaxController.deleteCoPax(id);
+              Navigator.pop(context);
+            }
+
           },
           titleKey: 'are_you_sure'.tr, subtitleKey: ''),
     );
