@@ -204,7 +204,7 @@ List<String> getStringListFromDynamic(List<dynamic> list) {
   return returnList;
 }
 
-fileUpload(dynamic body, File? file, String field, String endpoint) async {
+fileUpload(dynamic body, File? file, String field, String endpoint, String requestType) async {
   try {
     Map<String, String> headers = {
       "Accept": "application/json",
@@ -220,7 +220,7 @@ fileUpload(dynamic body, File? file, String field, String endpoint) async {
     }
 
     var request = httpForMultipart.MultipartRequest(
-        "POST", Uri.https(env.apiEndPoint, endpoint));
+         requestType, Uri.https(env.apiEndPoint, endpoint));
 
     request.headers.addAll(headers);
     request.fields.addAll(Map<String, String>.from(body)  );
