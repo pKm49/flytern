@@ -46,6 +46,10 @@
   //profile
   const String Approute_profileViewProfile = '/profile-view';
   const String Approute_profileEditProfile = '/profile-edit';
+  const String Approute_profileEditEmail = '/profile-edit-email';
+  const String Approute_profileEditMobile = '/profile-edit-mobile';
+  const String Approute_profileEditMobileOTP = '/profile-edit-mobile-otp';
+  const String Approute_profileEditEmailOTP = '/profile-edit-email-otp';
   const String Approute_profileResetPassword = '/profile-reset-password';
   const String Approute_profileMyBookings = '/profile-my-bookings';
   const String Approute_profileMyTravelStories = '/profile-my-travel-stories';
