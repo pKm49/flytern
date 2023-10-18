@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/profile/controllers/copax_controller.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
+import 'package:flytern/feature-modules/profile/data/models/business-models/user-copax.dart';
 import 'package:flytern/shared/ui/components/confirm_dialogue.dart';
 import 'package:flytern/shared/ui/components/user_details_card.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
@@ -58,7 +59,7 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
                 ),
               ),
                 Visibility(
-                  visible:coPaxController.isSubmitting.value == true,
+                  visible:coPaxController.isSubmitting.value,
                   child: LinearProgressIndicator(
                     backgroundColor: flyternPrimaryColor,
                     color: flyternSecondaryColor,
@@ -84,7 +85,9 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
                         onDelete: (){
                           showDeleteConfirmDialog(coPaxController.userCopaxes[index].id);
                         },
-                        onEdit: (){},
+                        onEdit: (){
+                          coPaxController.updateEditForm(coPaxController.userCopaxes[index]);
+                        },
                         isActionAllowed: true,
                         passportNumber: coPaxController.userCopaxes[index].passportNumber,
                         name: "${coPaxController.userCopaxes[index].firstName} ${coPaxController.userCopaxes[index].lastName}",
