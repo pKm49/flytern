@@ -489,7 +489,7 @@
       "Selected_problem_deleted_successfully": "Selected problem deleted successfully",
       "remove_address_question": "You really want to remove this address?",
       "remove_reported_problem": "You really want to remove this reported problem?",
-      "yes_logout": "Yes, Logout",
+      "yes": "Yes",
       "no": "No",
       "view_all": "View All",
 
@@ -993,7 +993,7 @@
       "Selected_problem_deleted_successfully": "تم حذف المشكلة المحددة بنجاح",
       "remove_address_question": "هل تريد إزالة هذا العنوان؟",
       "remove_reported_problem": "هل تريد إزالة هذه المشكلة المبلغ عنها؟",
-      "yes_logout":  "نعم ، تسجيل الخروج",
+      "yes":  "نعم",
       "no": "لا",
       "view_all": "مشاهدة الكل",
       "order_successfully_placed": "تم تقديم الطلب بنجاح",
