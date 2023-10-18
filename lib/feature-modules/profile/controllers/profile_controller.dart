@@ -1,4 +1,5 @@
- import 'dart:ui';
+ import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
@@ -12,10 +13,13 @@ import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 import 'package:flytern/shared/data/models/business_models/auth_token.dart';
 import 'package:flytern/core/services/http-services/core_http.dart';
 import 'package:flytern/shared/controllers/shared_controller.dart';
+import 'package:flytern/shared/data/models/business_models/country.dart';
+import 'package:flytern/shared/data/models/business_models/gender.dart';
 import 'package:flytern/shared/data/models/business_models/user_details.dart';
 import 'package:flytern/shared/services/utility-services/shared_preference_handler.dart';
 import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileController extends GetxController {
@@ -40,6 +44,7 @@ class ProfileController extends GetxController {
   var isProfileSubmitting = false.obs;
   var isEmailSubmitting = false.obs;
   var isMobileSubmitting = false.obs;
+  var profilePicture = "".obs;
 
   var isGuest = true.obs;
   var isProfileDataLoading = true.obs;
@@ -103,7 +108,40 @@ class ProfileController extends GetxController {
 
   }
 
-  Future<void> updateProfile() async {
+  void changeGender(Gender newGender) {
+    gender.value = newGender.code;
+  }
+
+  void changeNationality(Country country) {
+    nationalityController.value.text =
+    "${country.countryName} (${country.code})";
+    nationalityCode.value = country.countryISOCode;
+  }
+
+  void changePassportCountry(Country country) {
+    passportCountryController.value.text =
+    "${country.countryName} (${country.code})";
+    passportIssuedCountryCode.value = country.countryISOCode;
+  }
+
+  void changePassportExpiry(DateTime dateTime) {
+    final f = DateFormat('dd-MM-yyyy');
+    passportExpiryController.value.text = f.format(dateTime);
+    passportExpiry.value = dateTime;
+  }
+
+  void changeDateOfBirth(DateTime dateTime) {
+    final f = DateFormat('dd-MM-yyyy');
+    dobController.value.text = f.format(dateTime);
+    dob.value = dateTime;
+  }
+
+  void updateProfilePicture(String base64encode) {
+    profilePicture.value = base64encode;
+  }
+
+
+  Future<void> updateProfile(File? file) async {
     isProfileSubmitting.value = true;
     try {
       UserDetails userDetails = UserDetails(
@@ -120,7 +158,7 @@ class ProfileController extends GetxController {
           phoneCountryCode: '',
           imgUrl: '', userName: '', email: '', phoneNumber: '', genders: []);
 
-      bool isSuccess = await profileHttpServices.updateUserDetails(userDetails);
+      bool isSuccess = await profileHttpServices.updateUserDetails(userDetails,file);
 
       if (isSuccess) {
         Get.back();
