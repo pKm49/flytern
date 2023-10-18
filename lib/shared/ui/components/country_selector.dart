@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flytern/shared/controllers/shared_controller.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/data/models/business_models/country.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class CountrySelector extends StatelessWidget {
-    CountrySelector({super.key});
+
+  final Function(Country? country) countrySelected;
+
+  CountrySelector({super.key, required this.countrySelected});
+
   final sharedController = Get.find<SharedController>();
 
   @override
@@ -41,6 +46,7 @@ class CountrySelector extends StatelessWidget {
                 for(var i =0; i<sharedController.countries.length;i++)
                   InkWell(
                     onTap: () async {
+                      countrySelected(sharedController.countries[i]);
                       await sharedController.changeCountry(sharedController.countries[i]);
                       Navigator.pop(context);
                     },
