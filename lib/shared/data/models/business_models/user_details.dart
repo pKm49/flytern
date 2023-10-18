@@ -1,6 +1,7 @@
 
 import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 import 'package:flytern/shared/data/models/business_models/gender.dart';
+import 'package:intl/intl.dart';
 
 class UserDetails {
 
@@ -39,11 +40,11 @@ class UserDetails {
     'Email': email,
     'FirstName': firstName,
     'LastName': lastName,
-    'dateOfBirth': dateOfBirth,
+    'dateOfBirth': getFormattedDate(dateOfBirth),
     'Gender': gender,
     'Nationality': nationalityCode,
     'PassportNumber': passportNumber,
-    'ExpiryDate': passportExpiry,
+    'ExpiryDate':getFormattedDate (passportExpiry),
     'IssueCountry': passportIssuerCountryCode,
   };
 
@@ -82,4 +83,8 @@ UserDetails mapUserDetails(dynamic payload){
 
 String getParsableDateString(String payload) {
   return payload.split("-").toList().reversed.join("-");
+}
+String getFormattedDate(DateTime dateTime){
+  final f = DateFormat('dd-MM-yyyy');
+  return f.format(dateTime);
 }
