@@ -58,7 +58,7 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
                 ),
               ),
                 Visibility(
-                  visible:coPaxController.isSubmitting.value,
+                  visible:coPaxController.isSubmitting.value == true,
                   child: LinearProgressIndicator(
                     backgroundColor: flyternPrimaryColor,
                     color: flyternSecondaryColor,

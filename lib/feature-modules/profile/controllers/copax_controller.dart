@@ -38,7 +38,7 @@ class CoPaxController extends GetxController {
   var nationalityCode = "".obs;
   var passportIssuedCountryCode = "".obs;
   var isCreation = true.obs;
-  var isSubmitting = true.obs;
+  var isSubmitting = false.obs;
   var isCopaxDataLoading = true.obs;
   var userCopaxes = <UserCoPax>[].obs;
 
