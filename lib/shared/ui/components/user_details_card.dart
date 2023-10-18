@@ -92,11 +92,11 @@ class UserDetailsCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
               children: [
                   InkWell(
-                      onTap: onDelete,
+                      onTap: onEdit,
                       child: Icon(Ionicons.create_outline,color: flyternPrimaryColor)),
                 addHorizontalSpace(flyternSpaceSmall),
                 InkWell(
-                    onTap: onEdit,child: Icon(Ionicons.trash_bin_outline,color: flyternGuideRed))
+                    onTap:onDelete ,child: Icon(Ionicons.trash_bin_outline,color: flyternGuideRed))
               ],
             ),
                 ))
