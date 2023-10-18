@@ -47,7 +47,7 @@ class AuthHttpService {
     FlyternHttpResponse response = await fileUpload(
       registerCredential.toJson(),
       file??null,'File',
-        AuthHttpRequestEndpointRegister, );
+        AuthHttpRequestEndpointRegister,"POST" );
 
     print(" response.message ");
     print(response.message);
