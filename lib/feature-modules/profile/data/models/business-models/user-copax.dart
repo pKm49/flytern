@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 class UserCoPax {
 
+  final int id;
   final String gender;
   final String firstName;
   final String lastName;  
@@ -17,6 +18,7 @@ class UserCoPax {
 
 
   UserCoPax({
+    required this.id,
     required this.gender,
     required this.firstName,
     required this.lastName,
@@ -30,6 +32,8 @@ class UserCoPax {
   });
 
   Map toJson() => {
+
+    'id': id,
     'FirstName': firstName,
     'LastName': lastName,
     'dateOfBirth': getFormattedDate(dateOfBirth),
@@ -47,6 +51,7 @@ UserCoPax mapUserCoPax(dynamic payload){
     passportExp :(payload["passportExp"] != null && payload["passportExp"] != "")?
     DateTime.parse(getParsableDateString(payload["passportExp"])): DefaultInvalidDate,
     gender: payload["gender"]??"",
+    id: payload["id"]??-1,
     firstName: payload["firstName"]??"",
     lastName: payload["lastName"]??"",
     passportNumber: payload["passportNumber"]??"",
