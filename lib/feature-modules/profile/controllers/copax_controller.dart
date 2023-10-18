@@ -166,7 +166,6 @@ class CoPaxController extends GetxController {
       bool isSuccess = await profileHttpServices.deleteCoPax(id);
 
       if (isSuccess) {
-        Get.back();
         print("copax_created completed");
         isSubmitting.value = false;
         print("copax_created completed 1");
