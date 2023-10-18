@@ -29,8 +29,7 @@ class ProfileEditProfilePage extends StatefulWidget {
 }
 
 class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+
   final profileController = Get.find<ProfileController>();
   final GlobalKey<FormState> updateProfileFormKey = GlobalKey<FormState>();
   final sharedController = Get.find<SharedController>();
