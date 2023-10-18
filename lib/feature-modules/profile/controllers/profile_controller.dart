@@ -1,5 +1,6 @@
  import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
 import 'package:flytern/feature-modules/profile/controllers/copax_controller.dart';
 import 'package:flytern/feature-modules/profile/controllers/travel_story_controller.dart';
@@ -13,10 +14,32 @@ import 'package:flytern/core/services/http-services/core_http.dart';
 import 'package:flytern/shared/controllers/shared_controller.dart';
 import 'package:flytern/shared/data/models/business_models/user_details.dart';
 import 'package:flytern/shared/services/utility-services/shared_preference_handler.dart';
+import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileController extends GetxController {
+
+  Rx<TextEditingController> firsNameController = TextEditingController().obs;
+  Rx<TextEditingController> lastNameController = TextEditingController().obs;
+  Rx<TextEditingController> passportNumberController =
+      TextEditingController().obs;
+  Rx<TextEditingController> nationalityController = TextEditingController().obs;
+  Rx<TextEditingController> passportCountryController =
+      TextEditingController().obs;
+  Rx<TextEditingController> passportExpiryController =
+      TextEditingController().obs;
+  Rx<TextEditingController> dobController = TextEditingController().obs;
+
+  var dob = DefaultInvalidDate.obs;
+  var passportExpiry = DefaultInvalidDate.obs;
+  var editCoPaxId = 0.obs;
+  var gender = "Male".obs;
+  var nationalityCode = "".obs;
+  var passportIssuedCountryCode = "".obs;
+  var isProfileSubmitting = false.obs;
+  var isEmailSubmitting = false.obs;
+  var isMobileSubmitting = false.obs;
 
   var isGuest = true.obs;
   var isProfileDataLoading = true.obs;
@@ -38,6 +61,7 @@ class ProfileController extends GetxController {
   genders: []).obs;
   final coPaxController = Get.put(CoPaxController());
   final travelStoryController = Get.put(TravelStoryController());
+  var profileHttpServices = ProfileHttpServices();
 
   @override
   void onInit() {
@@ -52,7 +76,6 @@ class ProfileController extends GetxController {
     isProfileDataLoading.value = true;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var profileHttpServices = ProfileHttpServices();
 
     final bool? isGuest = prefs.getBool('isGuest');
     final String? accessToken = prefs.getString('accessToken');
@@ -80,5 +103,43 @@ class ProfileController extends GetxController {
 
   }
 
+  Future<void> updateProfile() async {
+    isProfileSubmitting.value = true;
+    try {
+      UserDetails userDetails = UserDetails(
+          gender: gender.value,
+          firstName: firsNameController.value.text,
+          lastName: lastNameController.value.text,
+          passportNumber: passportNumberController.value.text,
+          dateOfBirth: dob.value,
+          passportIssuerCountryCode: passportIssuedCountryCode.value,
+          passportIssuerCountryName: "",
+          nationalityCode: nationalityCode.value,
+          nationalityName: "",
+          passportExpiry: passportExpiry.value,
+          phoneCountryCode: '',
+          imgUrl: '', userName: '', email: '', phoneNumber: '', genders: []);
+
+      bool isSuccess = await profileHttpServices.updateUserDetails(userDetails);
+
+      if (isSuccess) {
+        Get.back();
+        print("user update completed");
+        isProfileSubmitting.value = false;
+        print("user update completed 1");
+
+        showSnackbar("copax_updated".tr, "info");
+        print("user update completed 2");
+
+        print("user update completed 3");
+
+        await getUserDetails();
+      }
+    } catch (e) {
+      print("user update failed");
+      showSnackbar(e.toString(), "error");
+      isProfileSubmitting.value = false;
+    }
+  }
 
 }
