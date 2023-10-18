@@ -142,7 +142,7 @@ class ProfileController extends GetxController {
   }
 
 
-  Future<void> updateProfile(File? file) async {
+ updateProfile(File? file) async {
     isProfileSubmitting.value = true;
     try {
       UserDetails userDetails = UserDetails(
@@ -167,7 +167,7 @@ class ProfileController extends GetxController {
         isProfileSubmitting.value = false;
         print("user update completed 1");
 
-        showSnackbar("copax_updated".tr, "info");
+        showSnackbar("profile_updated".tr, "info");
         print("user update completed 2");
 
         print("user update completed 3");
