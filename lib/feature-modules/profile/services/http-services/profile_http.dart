@@ -8,6 +8,24 @@ import 'package:flytern/shared/services/http-services/http_request_handler.dart'
 
 class ProfileHttpServices{
 
+  Future<bool> updateUserDetails(UserDetails userDetails ) async {
+    print("createTravelStory");
+
+    try{
+      FlyternHttpResponse response = await postRequest(
+          ProfileHttpRequestEndpointUpdateUserDetails,userDetails.toJson() );
+      if(response.success && response.statusCode == 200){
+        return true;
+      }else{
+        throw Exception(response.errors[0]);
+      }
+
+    }catch (e){
+      rethrow;
+    }
+
+  }
+
   getUserDetails() async {
 
     FlyternHttpResponse response = await getRequest(ProfileHttpRequestEndpointGetUserDetails,null);
@@ -61,7 +79,6 @@ class ProfileHttpServices{
 
   }
 
-
   Future<bool> createCoPax(UserCoPax userCoPax ) async {
     print("createTravelStory");
 
@@ -98,7 +115,6 @@ class ProfileHttpServices{
 
   }
 
-
   Future<bool> deleteCoPax(int id ) async {
     print("createTravelStory");
 
@@ -116,7 +132,6 @@ class ProfileHttpServices{
     }
 
   }
-
 
   getUserCoPaxs() async {
     print("getUserCoPaxs");
