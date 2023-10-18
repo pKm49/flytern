@@ -263,6 +263,8 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
             ),
 
             UserDetailsCard(
+              onDelete: (){},
+              onEdit: (){},
               isActionAllowed:false,
               name: "adult".tr,
               age: "Andrew Martin",
@@ -276,6 +278,8 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
               child: Divider(),
             ),
             UserDetailsCard(
+              onDelete: (){},
+              onEdit: (){},
               isActionAllowed:false,
               name: "adult".tr,
               age: "Andrew Martin",

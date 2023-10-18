@@ -341,6 +341,8 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
             ),
 
             UserDetailsCard(
+              onDelete: (){},
+              onEdit: (){},
               isActionAllowed:false,
               name: "adult".tr,
               age: "Andrew Martin",
@@ -354,6 +356,8 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
               child: Divider(),
             ),
             UserDetailsCard(
+              onDelete: (){},
+              onEdit: (){},
               isActionAllowed:false,
               name: "adult".tr,
               age: "Andrew Martin",

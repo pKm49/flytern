@@ -287,6 +287,8 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
             ),
 
             UserDetailsCard(
+              onDelete: (){},
+              onEdit: (){},
               isActionAllowed:false,
               name: "adult".tr,
               age: "Andrew Martin",
@@ -300,6 +302,8 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
               child: Divider(),
             ),
             UserDetailsCard(
+              onDelete: (){},
+              onEdit: (){},
               isActionAllowed:false,
               name: "adult".tr,
               age: "Andrew Martin",

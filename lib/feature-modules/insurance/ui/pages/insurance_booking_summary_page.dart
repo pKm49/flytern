@@ -314,6 +314,8 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
                       color: flyternGrey80, fontWeight: flyternFontWeightBold)),
             ),
             UserDetailsCard(
+              onDelete: (){},
+              onEdit: (){},
               isActionAllowed:false,
               name: "adult".tr,
               age: "Andrew Martin",
@@ -327,6 +329,8 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
               child: Divider(),
             ),
             UserDetailsCard(
+              onDelete: (){},
+              onEdit: (){},
               isActionAllowed:false,
               name: "adult".tr,
               age: "Andrew Martin",
@@ -339,6 +343,8 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
               child: Divider(),
             ),
             UserDetailsCard(
+              onDelete: (){},
+              onEdit: (){},
               isActionAllowed:false,
               name: "adult".tr,
               age: "Andrew Martin",
@@ -351,6 +357,8 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
               child: Divider(),
             ),
             UserDetailsCard(
+              onDelete: (){},
+              onEdit: (){},
               isActionAllowed:false,
               name: "adult".tr,
               age: "Andrew Martin",

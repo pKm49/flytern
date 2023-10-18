@@ -74,6 +74,8 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
                     itemCount: coPaxController.userCopaxes.length,
                     itemBuilder: (BuildContext context, int index) {
                       return  UserDetailsCard(
+                        onDelete: (){},
+                        onEdit: (){},
                         isActionAllowed: true,
                         passportNumber: coPaxController.userCopaxes[index].passportNumber,
                         name: "${coPaxController.userCopaxes[index].firstName} ${coPaxController.userCopaxes[index].lastName}",

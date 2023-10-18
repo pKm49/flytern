@@ -205,6 +205,8 @@ class _HotelBookingConfirmationPageState extends State<HotelBookingConfirmationP
             ),
 
             UserDetailsCard(
+              onDelete: (){},
+              onEdit: (){},
               isActionAllowed:false,
               name: "adult".tr,
               age: "Andrew Martin",
@@ -218,6 +220,8 @@ class _HotelBookingConfirmationPageState extends State<HotelBookingConfirmationP
               child: Divider(),
             ),
             UserDetailsCard(
+              onDelete: (){},
+              onEdit: (){},
               isActionAllowed:false,
               name: "adult".tr,
               age: "Andrew Martin",
