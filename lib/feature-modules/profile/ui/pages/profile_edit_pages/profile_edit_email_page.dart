@@ -28,7 +28,7 @@ class _ProfileEditEmailPageState extends State<ProfileEditEmailPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("edit_email".tr),
+        title: Text("change_email".tr),
         elevation: 0.5,
       ),
       body: Container(
@@ -38,8 +38,9 @@ class _ProfileEditEmailPageState extends State<ProfileEditEmailPage> {
         child: ListView(
           children: [
             Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: 0,bottom: flyternSpaceMedium),
+              padding: flyternLargePaddingAll,
               color: flyternBackgroundWhite,
+              margin: flyternMediumPaddingVertical,
               child: TextFormField(
                   controller: emailController,
                   validator: (value) => checkIfEmailValid(value),

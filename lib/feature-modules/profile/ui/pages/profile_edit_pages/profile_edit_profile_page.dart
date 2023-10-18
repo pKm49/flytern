@@ -109,47 +109,6 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
                 ],
               ),
             ),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: 0,bottom: flyternSpaceMedium),
-              color: flyternBackgroundWhite,
-              child: TextFormField(
-                  controller: emailController,
-                  validator: (value) => checkIfEmailValid(value),
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    labelText: "email".tr,
-                  )),
-            ),
-
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: 0,bottom: flyternSpaceMedium),
-              color: flyternBackgroundWhite,
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: TextFormField(
-                        controller: emailController,
-                        validator: (value) => checkIfEmailValid(value),
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: "🇰🇼 +965",
-                        )),
-                  ),
-                  addHorizontalSpace(flyternSpaceMedium),
-                  Expanded(
-                    flex: 4,
-                    child: TextFormField(
-                        controller: emailController,
-                        validator: (value) => checkIfEmailValid(value),
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: "mobile".tr,
-                        )),
-                  ),
-                ],
-              ),
-            ),
 
             Container(
               padding: flyternLargePaddingHorizontal.copyWith(top: 0,bottom: flyternSpaceMedium),

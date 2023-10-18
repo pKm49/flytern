@@ -28,7 +28,7 @@ class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("edit_mobile".tr),
+        title: Text("change_mobile".tr),
         elevation: 0.5,
       ),
       body: Container(
@@ -39,8 +39,9 @@ class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
           children: [
 
             Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: 0,bottom: flyternSpaceMedium),
+              padding: flyternLargePaddingAll,
               color: flyternBackgroundWhite,
+              margin: flyternMediumPaddingVertical,
               child: Row(
                 children: [
                   Expanded(
