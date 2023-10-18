@@ -34,6 +34,16 @@ class ProfileController extends GetxController {
   Rx<TextEditingController> passportExpiryController =
       TextEditingController().obs;
   Rx<TextEditingController> dobController = TextEditingController().obs;
+  Rx<TextEditingController> emailController = TextEditingController().obs;
+  Rx<TextEditingController> mobileController = TextEditingController().obs;
+
+  var selectedCountry = Country(
+      countryName: "India",
+      countryCode: "IND",
+      countryISOCode: "IN",
+      countryName_Ar: "الهند",
+      flag: "https://flagcdn.com/48x36/in.png",
+      code: "+91").obs;
 
   var dob = DefaultInvalidDate.obs;
   var passportExpiry = DefaultInvalidDate.obs;
@@ -119,6 +129,11 @@ class ProfileController extends GetxController {
     nationalityCode.value = country.countryISOCode;
   }
 
+  void changeMobileCountry(Country country) {
+
+    selectedCountry.value = country;
+  }
+
   void changePassportCountry(Country country) {
     passportCountryController.value.text =
     "${country.countryName} (${country.code})";
@@ -181,9 +196,20 @@ class ProfileController extends GetxController {
     }
   }
 
-  void updateEditForm(UserDetails userDetails) {  
+  void updateEditForm(UserDetails userDetails) {
+    final sharedController = Get.find<SharedController>();
+
+    List<Country> userMobileCountry = sharedController.countries.value.where((element) =>
+    element.code == userDetails.phoneCountryCode).toList();
+
+    if(userMobileCountry.isNotEmpty){
+      selectedCountry.value = userMobileCountry[0];
+    }
+
     gender.value =userDetails.gender==""?"Male":userDetails.gender;
     nationalityController.value.text =userDetails.nationalityName;
+    mobileController.value.text =userDetails.phoneNumber;
+    emailController.value.text =userDetails.email;
     passportCountryController.value.text =userDetails.passportIssuerCountryName;
     passportExpiryController.value.text = getFormattedDate(userDetails.passportExpiry);
     dobController.value.text = getFormattedDate(userDetails.dateOfBirth);
