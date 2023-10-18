@@ -546,7 +546,11 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
         backgroundColor: Colors.transparent,
         context: context,
         builder: (context) {
-          return CustomDatePicker();
+          return CustomDatePicker(
+            dateSelected: (DateTime? dateTime){
+
+            },
+          );
         });
 
   }

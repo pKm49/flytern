@@ -3,6 +3,7 @@ import 'package:flytern/feature-modules/auth/controllers/reset_password_controll
 import 'package:flytern/shared/controllers/shared_controller.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/data/models/business_models/country.dart';
 import 'package:flytern/shared/services/utility-services/form_validator.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
@@ -128,7 +129,11 @@ class _AuthResetPasswordCredentialsPageState extends State<AuthResetPasswordCred
         isScrollControlled: true,
         context: context,
         builder: (context) {
-          return CountrySelector();
+          return CountrySelector(
+            countrySelected: (Country? country){
+
+            },
+          );
         });
 
   }

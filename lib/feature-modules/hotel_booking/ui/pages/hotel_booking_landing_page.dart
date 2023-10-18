@@ -308,7 +308,11 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
         backgroundColor: Colors.transparent,
         context: context,
         builder: (context) {
-          return CustomDatePicker();
+          return CustomDatePicker(
+            dateSelected: (DateTime? dateTime){
+
+            },
+          );
         });
 
   }

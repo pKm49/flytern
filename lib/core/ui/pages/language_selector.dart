@@ -7,6 +7,7 @@ import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart'
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/data/models/business_models/country.dart';
 import 'package:flytern/shared/data/models/business_models/general_item.dart';
 import 'package:flytern/shared/data/models/business_models/language.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
@@ -268,7 +269,11 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
         isScrollControlled: true,
         context: context,
         builder: (context) {
-          return CountrySelector();
+          return CountrySelector(
+            countrySelected: (Country? country){
+
+            },
+          );
         });
     // Get.bottomSheet(
     //     Container(
