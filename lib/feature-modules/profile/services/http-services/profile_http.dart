@@ -8,12 +8,15 @@ import 'package:flytern/shared/services/http-services/http_request_handler.dart'
 
 class ProfileHttpServices{
 
-  Future<bool> updateUserDetails(UserDetails userDetails ) async {
+  Future<bool> updateUserDetails(UserDetails userDetails, File? file ) async {
     print("createTravelStory");
 
     try{
-      FlyternHttpResponse response = await postRequest(
-          ProfileHttpRequestEndpointUpdateUserDetails,userDetails.toJson() );
+      FlyternHttpResponse response = await fileUpload(
+        userDetails.toJson(),
+        file,'File',
+        ProfileHttpRequestEndpointUpdateUserDetails, );
+
       if(response.success && response.statusCode == 200){
         return true;
       }else{
