@@ -34,6 +34,7 @@ class CoPaxController extends GetxController {
 
   var dob = DefaultInvalidDate.obs;
   var passportExpiry = DefaultInvalidDate.obs;
+  var editCoPaxId = 0.obs;
   var gender = "Male".obs;
   var nationalityCode = "".obs;
   var passportIssuedCountryCode = "".obs;
@@ -99,13 +100,13 @@ class CoPaxController extends GetxController {
   void changeNationality(Country country) {
     nationalityController.value.text =
         "${country.countryName} (${country.code})";
-    nationalityCode.value = country.countryCode;
+    nationalityCode.value = country.countryISOCode;
   }
 
   void changePassportCountry(Country country) {
     passportCountryController.value.text =
         "${country.countryName} (${country.code})";
-    passportIssuedCountryCode.value = country.countryCode;
+    passportIssuedCountryCode.value = country.countryISOCode;
   }
 
   void changePassportExpiry(DateTime dateTime) {
@@ -159,21 +160,35 @@ class CoPaxController extends GetxController {
     }
   }
 
-  Future<void> deleteCoPax(int id) async {
+  Future<void> editCoPax() async {
     isSubmitting.value = true;
     try {
+      UserCoPax coPax = UserCoPax(
+          id: editCoPaxId.value,
+          gender: gender.value,
+          firstName: firsNameController.value.text,
+          lastName: lastNameController.value.text,
+          passportNumber: passportNumberController.value.text,
+          dateOfBirth: dob.value,
+          passportIssuedCountryCode: passportIssuedCountryCode.value,
+          passportIssuedCountryName: "",
+          nationalityCode: nationalityCode.value,
+          nationalityName: "",
+          passportExp: passportExpiry.value);
 
-      bool isSuccess = await profileHttpServices.deleteCoPax(id);
+      bool isSuccess = await profileHttpServices.updateCoPax(coPax);
 
       if (isSuccess) {
-        print("copax_created completed");
+        Get.back();
+        print("copax_updated completed");
         isSubmitting.value = false;
-        print("copax_created completed 1");
+        print("copax_updated completed 1");
 
-        showSnackbar("copax_deleted".tr, "info");
-        print("copax_created completed 2");
+        showSnackbar("copax_updated".tr, "info");
+        print("copax_updated completed 2");
 
-        print("copax_created completed 3");
+        initializeAuditData(true);
+        print("copax_updated completed 3");
 
         await getUserCoPassengers();
       }
@@ -182,5 +197,52 @@ class CoPaxController extends GetxController {
       showSnackbar(e.toString(), "error");
       isSubmitting.value = false;
     }
+  }
+
+  Future<void> deleteCoPax(int id) async {
+    isSubmitting.value = true;
+    try {
+
+      bool isSuccess = await profileHttpServices.deleteCoPax(id);
+
+      if (isSuccess) {
+        print("copax_created completed");
+
+        await getUserCoPassengers();
+        isSubmitting.value = false;
+        print("copax_created completed 1");
+
+        showSnackbar("copax_deleted".tr, "info");
+      }
+    } catch (e) {
+      print("copax_created failed");
+      showSnackbar(e.toString(), "error");
+      isSubmitting.value = false;
+    }
+  }
+
+  void updateEditForm(UserCoPax userCopax) {
+    editCoPaxId.value = userCopax.id;
+    isCreation.value = false;
+    gender.value =userCopax.gender;
+    nationalityController.value.text =userCopax.nationalityName;
+    passportCountryController.value.text =userCopax.passportIssuedCountryName;
+    passportExpiryController.value.text = getFormattedDate(userCopax.passportExp);
+    dobController.value.text = getFormattedDate(userCopax.dateOfBirth);
+    firsNameController.value.text =userCopax.firstName;
+    lastNameController.value.text = userCopax.lastName;
+    passportNumberController.value.text = userCopax.passportNumber;
+    dob.value = userCopax.dateOfBirth ;
+    passportExpiry.value = userCopax.passportExp;
+    nationalityCode.value = userCopax.nationalityCode;
+    passportIssuedCountryCode.value = userCopax.passportIssuedCountryCode;
+    isSubmitting = false.obs;
+    Get.toNamed(Approute_profileAuditCopassenger);
+
+  }
+
+  String getFormattedDate(DateTime dateTime){
+    final f = DateFormat('dd-MM-yyyy');
+    return f.format(dateTime);
   }
 }
