@@ -274,6 +274,8 @@
       "copax_deleted": "Co-Passenger has been successfully deleted",
       "copax_updated": "Co-Passenger has been successfully updated",
       "profile_updated": "Profile has been successfully updated",
+      "password_updated": "لقد تم تحديث كلمة المرور الخاصة بك، يرجى تسجيل الدخول مرة أخرى",
+
 
 
       "lorem_ipsum_description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
@@ -778,6 +780,7 @@
       "copax_deleted": "تم حذف المستخدم بنجاح",
       "copax_updated": "تم تحديث المستخدم بنجاح",
       "profile_updated": "تم تحديث الملف الشخصي بنجاح",
+      "password_updated": "تم تحديث الملف الشخصي بنجاح",
 
       "lorem_ipsum_description": "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة، ولكن بفضل هؤلاء الأشخاص الذين لا يدركون بأن السعادة لا بد أن نستشعرها بصورة أكثر عقلانية ومنطقية فيعرضهم هذا لمواجهة الظروف الأليمة، وأكرر بأنه لا يوجد من يرغب في الحب ونيل المنال ويتلذذ بالآلام، الألم هو الألم ولكن نتيجة لظروف ما قد تكمن السعاده فيما نتحمله من كد وأسي.",
       "price": "سعر",
