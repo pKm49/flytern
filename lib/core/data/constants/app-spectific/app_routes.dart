@@ -8,7 +8,7 @@ import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booki
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_details_page.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/auth_selector.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/login.dart';
-import 'package:flytern/feature-modules/auth/ui/pages/otp_input.dart';
+import 'package:flytern/shared/ui/pages/otp_input.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/register/register_details_input.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_credentials.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_new_password.dart';
