@@ -47,11 +47,16 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                                 color: flyternGrey80,
                                 fontWeight: flyternFontWeightBold),
                             textAlign: TextAlign.center),
-                        Text("done".tr,
-                            style: getHeadlineMediumStyle(context).copyWith(
-                                color: flyternPrimaryColor,
-                                fontWeight: flyternFontWeightBold),
-                            textAlign: TextAlign.center),
+                        InkWell(
+                            onTap: (){
+                              Navigator.pop(context);
+                            },
+                          child: Text("cancel".tr,
+                              style: getHeadlineMediumStyle(context).copyWith(
+                                  color: flyternSecondaryColor,
+                                  fontWeight: flyternFontWeightBold),
+                              textAlign: TextAlign.center),
+                        ),
                       ],
                     ),
                   ),
@@ -73,14 +78,20 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
             ),
           ),
           addVerticalSpace(flyternSpaceSmall),
-          Container(
-            width: screenwidth,
-            padding: flyternMediumPaddingAll,
-            decoration: flyternBorderedContainerSmallDecoration,
-            child: Center(
-              child: Text("cancel".tr,
-                  style: getHeadlineMediumStyle(context)
-                      .copyWith(color: flyternSecondaryColor)),
+          InkWell(
+            onTap:() {
+              widget.dateSelected(selectedDOB);
+              Navigator.pop(context);
+              },
+            child: Container(
+              width: screenwidth,
+              padding: flyternMediumPaddingAll,
+              decoration: flyternBorderedContainerSmallDecoration,
+              child: Center(
+                child: Text("done".tr,
+                    style: getHeadlineMediumStyle(context)
+                        .copyWith(color: flyternPrimaryColor)),
+              ),
             ),
           )
         ],
