@@ -117,7 +117,7 @@ patchRequest(endpoint, body) async {
     ]);
 
     final httpResponse = await http.patch(
-        Uri.https(env.apiEndPoint, "/$endpoint"),
+        Uri.https(env.apiEndPoint, "$endpoint"),
         body: json.encode(body));
 
     var httpResponseBody = json.decode(httpResponse.body);
