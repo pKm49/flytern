@@ -62,6 +62,24 @@ class ProfileHttpServices{
   }
 
 
+  Future<bool> createCoPax(UserCoPax userCoPax ) async {
+    print("createTravelStory");
+
+    try{
+      FlyternHttpResponse response = await postRequest(
+          ProfileHttpRequestEndpointGetUserCreateCoPaxs,userCoPax.toJson() );
+      if(response.success && response.statusCode == 200){
+        return true;
+      }else{
+        throw Exception(response.errors[0]);
+      }
+
+    }catch (e){
+      rethrow;
+    }
+
+  }
+
   getUserCoPaxs() async {
     print("getUserCoPaxs");
     FlyternHttpResponse response = await getRequest(ProfileHttpRequestEndpointGetUserCoPaxs,null);
