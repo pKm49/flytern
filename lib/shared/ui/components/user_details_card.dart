@@ -14,11 +14,16 @@ class UserDetailsCard extends StatelessWidget {
   String age;
   String gender;
   bool isActionAllowed;
-    UserDetailsCard({super.key, required this.passportNumber,
+  final GestureTapCallback onDelete;
+  final GestureTapCallback onEdit;
+
+  UserDetailsCard({super.key, required this.passportNumber,
     required this.name,
       required this.age,
       required this.isActionAllowed,
-      required this.gender
+      required this.gender,
+      required this.onDelete,
+      required this.onEdit,
     });
 
   final ExpansionTileController controller = ExpansionTileController();
@@ -86,9 +91,12 @@ class UserDetailsCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                  Icon(Ionicons.create_outline,color: flyternPrimaryColor),
+                  InkWell(
+                      onTap: onDelete,
+                      child: Icon(Ionicons.create_outline,color: flyternPrimaryColor)),
                 addHorizontalSpace(flyternSpaceSmall),
-                Icon(Ionicons.trash_bin_outline,color: flyternGuideRed)
+                InkWell(
+                    onTap: onEdit,child: Icon(Ionicons.trash_bin_outline,color: flyternGuideRed))
               ],
             ),
                 ))
