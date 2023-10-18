@@ -34,14 +34,14 @@ class UserCoPax {
   Map toJson() => {
 
     'id': id,
-    'FirstName': firstName,
-    'LastName': lastName,
+    'firstName': firstName,
+    'lastName': lastName,
     'dateOfBirth': getFormattedDate(dateOfBirth),
-    'Gender': gender,
-    'Nationality': nationalityCode,
-    'PassportNumber': passportNumber,
-    'ExpiryDate':getFormattedDate (passportExp),
-    'IssueCountry': passportIssuedCountryCode,
+    'gender': gender,
+    'nationalityCode': nationalityCode,
+    'passportNumber': passportNumber,
+    'passportExp':getFormattedDate (passportExp),
+    'passportIssuedCountryCode': passportIssuedCountryCode,
   };
 
 }
