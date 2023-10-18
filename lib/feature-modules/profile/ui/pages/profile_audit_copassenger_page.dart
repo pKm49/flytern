@@ -38,13 +38,13 @@ class _ProfileAuditCopassengerPageState
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("add_co_passenger".tr),
+          title: Text(coPaxController.isCreation.value?"add_co_passenger".tr:"update_co_passenger".tr),
           elevation: 0.5,
         ),
         body: Form(
           key: auditCoPaxFormKey,
           child: Obx(
-            ()=> Container(
+            () => Container(
               width: screenwidth,
               height: screenheight,
               color: flyternGrey10,
@@ -66,7 +66,8 @@ class _ProfileAuditCopassengerPageState
                       children: [
                         Expanded(
                           child: TextFormField(
-                              controller: coPaxController.firsNameController.value,
+                              controller:
+                                  coPaxController.firsNameController.value,
                               validator: (value) =>
                                   checkIfNameFormValid(value, "first_name".tr),
                               keyboardType: TextInputType.name,
@@ -77,7 +78,8 @@ class _ProfileAuditCopassengerPageState
                         addHorizontalSpace(flyternSpaceMedium),
                         Expanded(
                           child: TextFormField(
-                              controller: coPaxController.lastNameController.value,
+                              controller:
+                                  coPaxController.lastNameController.value,
                               validator: (value) =>
                                   checkIfNameFormValid(value, "last_name".tr),
                               keyboardType: TextInputType.name,
@@ -90,7 +92,8 @@ class _ProfileAuditCopassengerPageState
                   ),
                   Container(
                     padding: flyternLargePaddingHorizontal.copyWith(
-                        top: flyternSpaceExtraSmall, bottom: flyternSpaceMedium),
+                        top: flyternSpaceExtraSmall,
+                        bottom: flyternSpaceMedium),
                     color: flyternBackgroundWhite,
                     child: Row(
                       children: [
@@ -99,8 +102,8 @@ class _ProfileAuditCopassengerPageState
                           decoration:
                               flyternBorderedContainerSmallDecoration.copyWith(
                                   color: flyternGrey10,
-                                  border:
-                                      Border.all(color: flyternGrey10, width: .2)),
+                                  border: Border.all(
+                                      color: flyternGrey10, width: .2)),
                           padding: flyternMediumPaddingHorizontal.copyWith(
                               top: flyternSpaceExtraSmall,
                               bottom: flyternSpaceExtraSmall),
@@ -167,9 +170,10 @@ class _ProfileAuditCopassengerPageState
                         top: 0, bottom: flyternSpaceMedium),
                     color: flyternBackgroundWhite,
                     child: TextFormField(
-
-                      controller: coPaxController.passportNumberController.value,
-                        validator: (value) => checkIfNameFormValid(value,"passport_number".tr),
+                        controller:
+                            coPaxController.passportNumberController.value,
+                        validator: (value) =>
+                            checkIfNameFormValid(value, "passport_number".tr),
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           labelText: "enter_passport".tr,
@@ -184,8 +188,10 @@ class _ProfileAuditCopassengerPageState
                         onTap: () {
                           openCountrySelector(false);
                         },
-                        controller: coPaxController.passportCountryController.value,
-                        validator: (value) => checkIfNameFormValid(value,"enter_passport_country".tr),
+                        controller:
+                            coPaxController.passportCountryController.value,
+                        validator: (value) => checkIfNameFormValid(
+                            value, "enter_passport_country".tr),
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           labelText: "enter_passport_country".tr,
@@ -200,8 +206,10 @@ class _ProfileAuditCopassengerPageState
                         onTap: () {
                           showDOBPickerDialog(false);
                         },
-                        controller: coPaxController.passportExpiryController.value,
-                        validator: (value) => checkIfNameFormValid(value,"enter_passport_expiry".tr),
+                        controller:
+                            coPaxController.passportExpiryController.value,
+                        validator: (value) => checkIfNameFormValid(
+                            value, "enter_passport_expiry".tr),
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           hintText: "DD-MM-YY",
@@ -217,34 +225,41 @@ class _ProfileAuditCopassengerPageState
             ),
           ),
         ),
-        bottomSheet: Container(
-          width: screenwidth,
-          color: flyternBackgroundWhite,
-          height: 60 + (flyternSpaceSmall * 2),
-          padding: flyternLargePaddingAll.copyWith(
-              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
-          child: Center(
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                  style: getElevatedButtonStyle(context),
-                  onPressed: () {
-                    if (auditCoPaxFormKey.currentState!.validate() &&
-                        !coPaxController.isSubmitting.value) {
-                      FocusManager.instance.primaryFocus?.unfocus();
-
-                      coPaxController.createCoPax();
-                    }
-                  },
-                  child:coPaxController.isSubmitting.value
-                      ? const SizedBox(
-                    width: 16,
-                    height: 16,
-                    child: CircularProgressIndicator(
-                      color: flyternBackgroundWhite,
-                    ),
-                  )
-                      :  Text("add".tr)),
+        bottomSheet: Obx(
+          () => Container(
+            width: screenwidth,
+            color: flyternBackgroundWhite,
+            height: 60 + (flyternSpaceSmall * 2),
+            padding: flyternLargePaddingAll.copyWith(
+                top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+            child: Center(
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                    style: getElevatedButtonStyle(context),
+                    onPressed: () {
+                      if (auditCoPaxFormKey.currentState!.validate() &&
+                          !coPaxController.isSubmitting.value) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        if (coPaxController.isCreation.value) {
+                          coPaxController.createCoPax();
+                        } else {
+                          coPaxController.editCoPax();
+                        }
+                      }
+                    },
+                    child: coPaxController.isSubmitting.value
+                        ? const SizedBox(
+                            width: 16,
+                            height: 16,
+                            child: CircularProgressIndicator(
+                              color: flyternBackgroundWhite,
+                            ),
+                          )
+                        : Text(coPaxController.isCreation.value
+                            ? "add".tr
+                            : "update".tr)),
+              ),
             ),
           ),
         ));
@@ -262,26 +277,25 @@ class _ProfileAuditCopassengerPageState
         context: context,
         builder: (context) {
           return CountrySelector(
-            countrySelected: (Country? country){
-              if(country != null){
-                if(isNationality){
+            countrySelected: (Country? country) {
+              if (country != null) {
+                if (isNationality) {
                   coPaxController.changeNationality(country);
-                }else{
+                } else {
                   coPaxController.changePassportCountry(country);
                 }
               }
-
             },
           );
         });
-
   }
 
-  void showDOBPickerDialog(bool isDOB ) {
+  void showDOBPickerDialog(bool isDOB) {
     showModalBottomSheet(
         useSafeArea: false,
-        shape:   RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(flyternBorderRadiusSmall),
               topRight: Radius.circular(flyternBorderRadiusSmall)),
         ),
         isScrollControlled: true,
@@ -289,18 +303,16 @@ class _ProfileAuditCopassengerPageState
         context: context,
         builder: (context) {
           return CustomDatePicker(
-            dateSelected: (DateTime? dateTime){
-              if(dateTime != null){
-                if(isDOB){
+            dateSelected: (DateTime? dateTime) {
+              if (dateTime != null) {
+                if (isDOB) {
                   coPaxController.changeDateOfBirth(dateTime);
-                }else{
+                } else {
                   coPaxController.changePassportExpiry(dateTime);
                 }
               }
             },
           );
         });
-
   }
-
 }
