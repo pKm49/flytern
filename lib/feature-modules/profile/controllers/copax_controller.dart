@@ -37,6 +37,7 @@ class CoPaxController extends GetxController {
   var gender = "Male".obs;
   var nationalityCode = "".obs;
   var passportIssuedCountryCode = "".obs;
+  var isCreation = true.obs;
   var isSubmitting = true.obs;
   var isCopaxDataLoading = true.obs;
   var userCopaxes = <UserCoPax>[].obs;
@@ -74,7 +75,8 @@ class CoPaxController extends GetxController {
     isCopaxDataLoading.value = false;
   }
 
-  initializeAuditData() {
+  initializeAuditData(bool mode) {
+    isCreation.value = mode;
     gender.value = "Male";
     nationalityController.value.text = "";
     passportCountryController.value.text = "";
