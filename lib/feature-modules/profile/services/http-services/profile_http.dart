@@ -29,6 +29,29 @@ class ProfileHttpServices{
 
   }
 
+  Future<bool> updatePassword(String newPassword) async {
+    print("updateUserDetails");
+
+    try{
+      FlyternHttpResponse response = await patchRequest(ProfileHttpRequestEndpointUpdateUserPassword,
+          {
+            "newPassword":newPassword
+          });
+
+
+      if(response.success && response.statusCode == 200){
+        return true;
+      }else{
+        throw Exception(response.errors[0]);
+      }
+
+    }catch (e){
+      rethrow;
+    }
+
+  }
+
+
   getUserDetails() async {
 
     FlyternHttpResponse response = await getRequest(ProfileHttpRequestEndpointGetUserDetails,null);
