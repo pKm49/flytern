@@ -136,7 +136,7 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                   child: PrePostIconButton(
                     specialColor: 0,
                     onPressed: () {
-                      Get.toNamed(Approute_profileResetPassword);
+                      Get.toNamed(Approute_profileEditMobile);
 
                     },
                     theme: 'dark',
@@ -152,7 +152,7 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                   child: PrePostIconButton(
                     specialColor: 0,
                     onPressed: () {
-                      Get.toNamed(Approute_profileResetPassword);
+                      Get.toNamed(Approute_profileEditEmail);
                     },
                     theme: 'dark',
                     border: 'bottom',
