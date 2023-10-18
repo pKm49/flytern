@@ -147,7 +147,7 @@ class CoPaxController extends GetxController {
         showSnackbar("copax_created".tr,"info");
         print("copax_created completed 2");
 
-        initializeAuditData();
+        initializeAuditData(true);
         print("copax_created completed 3");
 
         await getUserCoPassengers();
