@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flytern/core/controllers/core_controller.dart';
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
 import 'package:flytern/feature-modules/profile/controllers/copax_controller.dart';
 import 'package:flytern/feature-modules/profile/controllers/travel_story_controller.dart';
@@ -211,17 +212,10 @@ class ProfileController extends GetxController {
           await profileHttpServices.updatePassword(passwordController.value.text);
 
       if (isSuccess) {
-        Get.back();
-        print("user update completed");
-        isProfileSubmitting.value = false;
-        print("user update completed 1");
-
+        isPasswordSubmitting.value = false;
         showSnackbar("password_updated".tr, "info");
-        print("user update completed 2");
-
-        print("user update completed 3");
-
-        await getUserDetails();
+        final coreController = Get.find<CoreController>();
+        coreController.handleLogout();
       }
     } catch (e) {
       print("user update failed");
