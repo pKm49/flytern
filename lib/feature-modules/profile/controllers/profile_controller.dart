@@ -37,7 +37,8 @@ class ProfileController extends GetxController {
   Rx<TextEditingController> emailController = TextEditingController().obs;
   Rx<TextEditingController> mobileController = TextEditingController().obs;
   Rx<TextEditingController> passwordController = TextEditingController().obs;
-  Rx<TextEditingController> confirmPasswordController = TextEditingController().obs;
+  Rx<TextEditingController> confirmPasswordController =
+      TextEditingController().obs;
 
   var selectedCountry = Country(
           countryName: "India",
@@ -204,12 +205,67 @@ class ProfileController extends GetxController {
     }
   }
 
+  sendOTP(bool isMobile) async {
+    if (isMobile) {
+      isMobileSubmitting.value = true;
+    } else {
+      isEmailSubmitting.value = true;
+    }
+    try {
+      late String userId;
+
+      if (isMobile) {
+        userId = await profileHttpServices.changeMobile(
+            selectedCountry.value.code, mobileController.value.text);
+      } else {
+        userId =
+            await profileHttpServices.changeEmail(emailController.value.text);
+      }
+
+      if (userId != "") {
+        Get.toNamed(
+            isMobile
+                ? Approute_profileEditMobileOTP
+                : Approute_profileEditEmailOTP,
+            arguments: [
+              isMobile ? Approute_profileEditMobile : Approute_profileEditEmail,
+              isMobile ?"${selectedCountry.value.code} ${mobileController.value.text}":
+              "${emailController.value.text}",
+              userId
+            ])?.then((value) async {
+              if(value is AuthToken){
+
+                showSnackbar(isMobile?"mobile_updated".tr:
+                    "email_updated", "info");
+                final coreController = Get.find<CoreController>();
+                coreController.handleLogout();
+              }
+          print("value");
+          print(value.toString());
+        });
+        if (isMobile) {
+          isMobileSubmitting.value = false;
+        } else {
+          isEmailSubmitting.value = false;
+        }
+      }
+    } catch (e,stackk) {
+      print("user update failed");
+      print(stackk);
+      showSnackbar(e.toString(), "error");
+      if (isMobile) {
+        isMobileSubmitting.value = false;
+      } else {
+        isEmailSubmitting.value = false;
+      }
+    }
+  }
+
   updatePassword() async {
     isPasswordSubmitting.value = true;
     try {
-
-      bool isSuccess =
-          await profileHttpServices.updatePassword(passwordController.value.text);
+      bool isSuccess = await profileHttpServices
+          .updatePassword(passwordController.value.text);
 
       if (isSuccess) {
         isPasswordSubmitting.value = false;

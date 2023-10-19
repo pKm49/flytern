@@ -70,7 +70,15 @@ class _ProfileEditEmailPageState extends State<ProfileEditEmailPage> {
                 width: double.infinity,
                 child: ElevatedButton(style: getElevatedButtonStyle(context),
                     onPressed: () {
-                      Navigator.pop(context);
+                      print("email changed");
+                      print(profileController.emailController.value.text);
+                      print(profileController.userDetails.value.email);
+                      if (profileController.emailController.value.text
+                          != profileController.userDetails.value.email &&
+                          !profileController.isEmailSubmitting.value) {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        profileController.sendOTP(false);
+                      }
                     },
                     child: profileController.isEmailSubmitting.value
                         ? const SizedBox(

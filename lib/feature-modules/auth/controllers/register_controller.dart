@@ -65,7 +65,22 @@ class RegisterController extends GetxController {
 
       if(userIdFromApi != ""){
         userId.value = userIdFromApi;
-        Get.toNamed(Approute_registerOtp,arguments: [Approute_registerPersonalData]);
+        Get.toNamed(Approute_registerOtp,arguments: [Approute_registerPersonalData,
+          "${emailFieldController.value.text}",userId.value])
+            ?.then((value) async {
+          print("valueee is");
+          print(value);
+          if(value is AuthToken){
+
+            if(value.accessToken != ""){
+              saveAuthTokenToSharedPreference(value);
+              Get.offAllNamed(Approute_landingpage);
+            }
+
+          }
+          print("value");
+          print(value.toString());
+        });
       }else{
         throw Exception("Something Went wrong, Please Try Again");
       }
@@ -78,46 +93,46 @@ class RegisterController extends GetxController {
 
   }
 
-  resendOtp( ) async {
-
-    if(userId.value !=""){
-      isSubmitting.value = true;
-      try{
-
-        await authHttpService.resendOtp(userId.value);
-        showSnackbar("otp_resend".tr,"info");
-
-        isSubmitting.value = false;
-      }catch (e,t){
-        print(t);
-        showSnackbar( e.toString(),"error");
-        isSubmitting.value = false;
-      }
-
-    }
-
-  }
-
-  verifyOtp(String otp) async {
-
-    if(userId.value != ""){
-      isSubmitting.value = true;
-      try{
-
-        AuthToken authToken  = await authHttpService.verifyOtp(userId.value,otp);
-
-        if(authToken.accessToken != ""){
-          saveAuthTokenToSharedPreference(authToken);
-          Get.offAllNamed(Approute_landingpage);
-        }
-        isSubmitting.value = false;
-      }catch (e){
-        showSnackbar( e.toString(),"error");
-        isSubmitting.value = false;
-      }
-    }
-
-  }
+  // resendOtp( ) async {
+  //
+  //   if(userId.value !=""){
+  //     isSubmitting.value = true;
+  //     try{
+  //
+  //       await authHttpService.resendOtp(userId.value);
+  //       showSnackbar("otp_resend".tr,"info");
+  //
+  //       isSubmitting.value = false;
+  //     }catch (e,t){
+  //       print(t);
+  //       showSnackbar( e.toString(),"error");
+  //       isSubmitting.value = false;
+  //     }
+  //
+  //   }
+  //
+  // }
+  //
+  // verifyOtp(String otp) async {
+  //
+  //   if(userId.value != ""){
+  //     isSubmitting.value = true;
+  //     try{
+  //
+  //       AuthToken authToken  = await authHttpService.verifyOtp(userId.value,otp);
+  //
+  //       if(authToken.accessToken != ""){
+  //         saveAuthTokenToSharedPreference(authToken);
+  //         Get.offAllNamed(Approute_landingpage);
+  //       }
+  //       isSubmitting.value = false;
+  //     }catch (e){
+  //       showSnackbar( e.toString(),"error");
+  //       isSubmitting.value = false;
+  //     }
+  //   }
+  //
+  // }
 
   void updateOtp(String otpString) {
     otp.value = otpString;

@@ -5,6 +5,7 @@ import 'package:flytern/shared/data/constants/business_constants/available_count
 import 'package:flytern/shared/data/constants/business_constants/available_genders.dart';
 import 'package:flytern/shared/data/constants/business_constants/available_languages.dart';
 import 'package:flytern/shared/data/models/app_specific/set_device_info_request_body.dart';
+import 'package:flytern/shared/data/models/business_models/auth_token.dart';
 import 'package:flytern/shared/data/models/business_models/business_doc.dart';
 import 'package:flytern/shared/data/models/business_models/country.dart';
 import 'package:flytern/shared/data/models/business_models/gender.dart';
@@ -12,10 +13,14 @@ import 'package:flytern/shared/data/models/business_models/general_item.dart';
 import 'package:flytern/shared/data/models/business_models/language.dart';
 import 'package:flytern/shared/data/models/business_models/support_info.dart';
 import 'package:flytern/shared/services/http-services/shared_http_services.dart';
+import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedController extends GetxController {
+
+  var otp = "".obs;
+  var isOtpSubmitting = false.obs;
 
   var isSetDeviceLanguageAndCountrySubmitting = false.obs;
   var sharedHttpService = SharedHttpService();
@@ -97,6 +102,52 @@ class SharedController extends GetxController {
     // print('fcm : ' + firebaseMessagingToken);
     // return firebaseMessagingToken;
     return "123456896";
+  }
+
+  resendOtp(String userId) async {
+
+    if(userId !=""){
+      isOtpSubmitting.value = true;
+      try{
+
+        await sharedHttpService.resendOtp(userId);
+        showSnackbar("otp_resend".tr,"info");
+        isOtpSubmitting.value = false;
+      }catch (e,t){
+        print(t);
+        showSnackbar( e.toString(),"error");
+        isOtpSubmitting.value = false;
+      }
+
+    }
+
+  }
+
+  verifyOtp(String otp, String userId) async {
+
+    if(userId != ""){
+      isOtpSubmitting.value = true;
+      try{
+
+        AuthToken authToken  = await sharedHttpService.verifyOtp(userId,otp);
+
+        if(authToken.accessToken != ""){
+          Get.back(result: authToken);
+          isOtpSubmitting.value = false;
+        }
+
+      }catch (e,stack){
+        print( "stack");
+        print( stack);
+        showSnackbar( e.toString(),"error");
+        isOtpSubmitting.value = false;
+      }
+    }
+
+  }
+
+  void updateOtp(String otpString) {
+    otp.value = otpString;
   }
 
 }

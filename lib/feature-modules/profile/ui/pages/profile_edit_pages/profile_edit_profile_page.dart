@@ -77,10 +77,12 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
                               height: screenwidth * .25,
                               width: screenwidth * .25,
                               child: Center(
-                                child: profileController.profilePicture.value==''?
+                                child: profileController.profilePicture.value == '' &&
+                                    profileController.userDetails.value.imgUrl == ''?
                                 Icon(Icons.camera_alt_outlined,
                                     size: screenwidth * .08,
                                     color: flyternGrey40):
+                                profileController.profilePicture.value !='' ?
                                 Image.memory(
                                   base64Decode(profileController.profilePicture.value)  ,
                                   height: screenwidth *  .35,
@@ -99,7 +101,12 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
                                     );
                                   },
                                   fit: BoxFit.cover,
-                                ),
+                                ):Image.network(profileController.userDetails.value.imgUrl,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return  Icon(Icons.camera_alt_outlined,
+                                        size: screenwidth * .08,
+                                        color: flyternGrey40);
+                                  },),
                               ),
                             ),
                           ),

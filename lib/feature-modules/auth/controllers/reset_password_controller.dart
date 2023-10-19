@@ -52,7 +52,24 @@ class ResetPasswordController extends GetxController {
 
       if(userIdFromApi != ""){
         userId.value = userIdFromApi;
-        Get.toNamed(Approute_resetPasswordOtp,arguments: [Approute_resetPasswordMobile]);
+        Get.toNamed(Approute_resetPasswordOtp,arguments: [Approute_resetPasswordMobile,
+          "${selectedCountry.value.code} ${mobileController.value.text}",userId.value])
+            ?.then((value) async {
+              print("valueee is");
+              print(value);
+          if(value is AuthToken){
+
+                  if(value.accessToken != ""){
+                    showSnackbar(
+                        "password_updated".tr, "info");
+                    saveAuthTokenToSharedPreference(value);
+                    Get.offNamed(Approute_resetPasswordNewpassword);
+                  }
+
+          }
+          print("value");
+          print(value.toString());
+        });
       }else{
         throw Exception("Something Went wrong, Please Try Again");
       }
@@ -65,46 +82,46 @@ class ResetPasswordController extends GetxController {
 
   }
 
-  resendOtp( ) async {
-
-    if(userId.value !=""){
-      isSubmitting.value = true;
-      try{
-
-        await authHttpService.resendOtp(userId.value);
-        showSnackbar("otp_resend".tr,"info");
-
-        isSubmitting.value = false;
-      }catch (e,t){
-        print(t);
-        showSnackbar( e.toString(),"error");
-        isSubmitting.value = false;
-      }
-
-    }
-
-  }
-
-  verifyOtp(String otp) async {
-
-    if(userId.value != ""){
-      isSubmitting.value = true;
-      try{
-
-        AuthToken authToken  = await authHttpService.verifyOtp(userId.value,otp);
-
-        if(authToken.accessToken != ""){
-          saveAuthTokenToSharedPreference(authToken);
-          Get.offNamed(Approute_resetPasswordNewpassword);
-        }
-        isSubmitting.value = false;
-      }catch (e){
-        showSnackbar( e.toString(),"error");
-        isSubmitting.value = false;
-      }
-    }
-
-  }
+  // resendOtp( ) async {
+  //
+  //   if(userId.value !=""){
+  //     isSubmitting.value = true;
+  //     try{
+  //
+  //       await authHttpService.resendOtp(userId.value);
+  //       showSnackbar("otp_resend".tr,"info");
+  //
+  //       isSubmitting.value = false;
+  //     }catch (e,t){
+  //       print(t);
+  //       showSnackbar( e.toString(),"error");
+  //       isSubmitting.value = false;
+  //     }
+  //
+  //   }
+  //
+  // }
+  //
+  // verifyOtp(String otp) async {
+  //
+  //   if(userId.value != ""){
+  //     isSubmitting.value = true;
+  //     try{
+  //
+  //       AuthToken authToken  = await authHttpService.verifyOtp(userId.value,otp);
+  //
+  //       if(authToken.accessToken != ""){
+  //         saveAuthTokenToSharedPreference(authToken);
+  //         Get.offNamed(Approute_resetPasswordNewpassword);
+  //       }
+  //       isSubmitting.value = false;
+  //     }catch (e){
+  //       showSnackbar( e.toString(),"error");
+  //       isSubmitting.value = false;
+  //     }
+  //   }
+  //
+  // }
 
   updatePassword() async {
 

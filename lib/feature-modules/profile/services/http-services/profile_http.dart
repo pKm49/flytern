@@ -51,6 +51,58 @@ class ProfileHttpServices{
 
   }
 
+  Future<String> changeMobile(String countryCode,String mobile) async {
+    print("updateUserDetails");
+
+    try{
+      FlyternHttpResponse response = await postRequest(ProfileHttpRequestEndpointUpdateUserMobile,
+          {
+            "countryCode":countryCode,
+            "mobile":mobile,
+          });
+
+
+      if(response.success && response.statusCode == 100){
+        if (response.data.containsKey('userID')) {
+          String userId = response.data["userID"] ?? "";
+          return userId;
+        }
+        return "";
+      }else{
+        throw Exception(response.errors[0]);
+      }
+
+    }catch (e){
+      rethrow;
+    }
+
+  }
+
+  Future<String> changeEmail(String email) async {
+
+    try{
+      FlyternHttpResponse response = await postRequest(ProfileHttpRequestEndpointUpdateUserEmail,
+          {
+            "email":email
+          });
+
+
+      if(response.success && response.statusCode == 100){
+        if (response.data.containsKey('userID')) {
+          String userId = response.data["userID"] ?? "";
+          return userId;
+        }
+        return "";
+      }else{
+        throw Exception(response.errors[0]);
+      }
+
+    }catch (e){
+      rethrow;
+    }
+
+  }
+
 
   getUserDetails() async {
 
