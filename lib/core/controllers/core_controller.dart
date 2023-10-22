@@ -52,10 +52,11 @@ class CoreController extends GetxController {
       if(authToken.accessToken != ""){
         saveAuthTokenToSharedPreference(authToken);
       }
+      isAuthTokenSet.value = true;
     }
 
 
-    isAuthTokenSet.value = true;
+
     final sharedController = Get.find<SharedController>();
     sharedController.getInitialInfo();
     sharedController.getPreRegisterInfo();
