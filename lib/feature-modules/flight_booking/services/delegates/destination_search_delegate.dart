@@ -1,37 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class DestinationSearchDelegate extends SearchDelegate {
 
-  final flightBookingController =  Get.put(FlightBookingController());
-
-  List<String> searchTerms = [
-    "Restaurants",
-        "Hotels",
-        "Cafes",
-        "Shopping malls",
-        "Parks",
-        "Hospitals",
-        "Banks",
-        "Movie theaters",
-        "Gas stations",
-        "Supermarkets",
-        "Schools",
-        "Gyms",
-        "Pharmacies",
-        "Museums",
-        "Libraries",
-        "Car repair shops",
-        "Beauty salons",
-        "Bars",
-        "Tourist attractions",
-        "Airports"
-  ];
+  final flightBookingController = Get.find<FlightBookingController>();
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -59,26 +38,43 @@ class DestinationSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
 
-    List<String> matchQuery = [];
-
-    for(var item in searchTerms){
-      if(item.toLowerCase().contains(query.toLowerCase())){
-        matchQuery.add(item);
-      }
-    }
-    
-    return ListView.builder(
-        itemCount:matchQuery.length,
-        itemBuilder:(context,index){
-          var result = matchQuery[index];
-          return ListTile(
-
-            onTap: (){
-              Navigator.pop(context);
+    return FutureBuilder<List<FlightDestination>>(
+      future: flightBookingController.getFlightDestinations(query),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: (){
+                  close(context, snapshot.data![index]);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border(bottom: BorderSide(width: .5,color: flyternGrey40))
+                  ),
+                  padding: flyternLargePaddingAll,
+                  child: Row(children: [
+                    Image.network(snapshot.data![index].flag, width: 40),
+                    addHorizontalSpace(flyternSpaceMedium),
+                    Expanded(
+                        child: Text(
+                            "${snapshot.data![index].uniqueCombination}",
+                            maxLines: 2,
+                            style: getBodyMediumStyle(context))),
+                  ],),
+                ),
+              );
             },
-            title: Text(result),
+            itemCount: snapshot.data?.length,
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(
+              color: flyternSecondaryColor,
+            ),
           );
         }
+      },
     );
 
   }
@@ -86,51 +82,54 @@ class DestinationSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
 
-    double screenwidth = MediaQuery.of(context).size.width;
-    double screenheight = MediaQuery.of(context).size.height;
-    List<String> matchQuery = [];
-
-    for(var item in searchTerms){
-      if(item.toLowerCase().contains(query.toLowerCase())){
-        matchQuery.add(item);
-      }
-    }
-
-    return Container(
-      height: screenheight,
-      child: Column(
-        children: [
-          Padding(
-
-            padding: const EdgeInsets.symmetric(vertical: flyternSpaceMedium, horizontal: flyternSpaceLarge),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-              Text("recent_searches".tr,style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold)),
-              Text("clear_history".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey40)),
-
-            ],),
-          ),
-          Expanded(
-            child: ListView.builder(
-                itemCount:matchQuery.length,
-                itemBuilder:(context,index){
-                  var result = matchQuery[index];
-                  return ListTile(
-                    leading: Icon(Ionicons.search_outline,color: flyternSecondaryColor),
-                    trailing: Icon(Ionicons.close,color: flyternGrey40),
-                    onTap: (){
-                      Navigator.pop(context);
-                    },
-                    title: Text(result),
-                  );
-                }
+    return FutureBuilder<List<FlightDestination>>(
+      future: flightBookingController.getFlightDestinations(query),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: (){
+                  close(context, snapshot.data![index]);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border(bottom: BorderSide(width: .5,color: flyternGrey40))
+                  ),
+                  padding: flyternLargePaddingAll,
+                  child: Row(children: [
+                    Image.network(snapshot.data![index].flag, width: 40),
+                    addHorizontalSpace(flyternSpaceMedium),
+                    Expanded(
+                        child: Text(
+                            "${snapshot.data![index].uniqueCombination}",
+                            maxLines: 2,
+                            style: getBodyMediumStyle(context))),
+                  ],),
+                ),
+              );
+            },
+            itemCount: snapshot.data?.length,
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(
+              color: flyternSecondaryColor,
             ),
-          ),
-        ],
-      ),
+          );
+        }
+      },
     );
 
+  }
+
+  bool checkSearchCondition(){
+  return  flightBookingController.flightDestinations.value.where(
+          (element) =>
+              element.airportCode.toLowerCase().contains(query.toLowerCase()) ||
+              element.airportName.toLowerCase().contains(query.toLowerCase())
+
+  ).toList().isNotEmpty;
   }
 
 }
