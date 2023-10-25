@@ -4,6 +4,7 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_item.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
+import 'package:get/get.dart';
 
 class FlightBookingHelperServices {
 
@@ -159,6 +160,16 @@ class FlightBookingHelperServices {
         allowedCabins: flightSearchData.allowedCabins,
         mode: flightSearchData.mode,
         isDirectFlight: flightSearchData.isDirectFlight);
+  }
+
+  String getPassengerCabinData(FlightBookingController flightBookingController) {
+    int numberOfPassengers = flightBookingController.flightSearchData.value.adults + flightBookingController.flightSearchData.value.infants +
+        flightBookingController.flightSearchData.value.child;
+    if(numberOfPassengers>0){
+      return  "$numberOfPassengers ${'passengers'.tr}";
+    }else{
+      return "select_passenger_cabin".tr;
+    }
   }
 
 }
