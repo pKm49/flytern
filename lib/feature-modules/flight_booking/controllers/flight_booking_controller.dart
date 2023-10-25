@@ -25,8 +25,6 @@ class FlightBookingController extends GetxController {
   var flightSearchItems = <FlightSearchItem>[].obs;
   var flightSearchData = getDefaultFlightSearchData().obs;
 
-
-
   @override
   void onInit() {
     super.onInit();
@@ -49,28 +47,25 @@ class FlightBookingController extends GetxController {
 
   Future<List<FlightDestination>> getFlightDestinations(
       String searchQuery) async {
-
-    if(searchQuery !=""){
+    if (searchQuery != "") {
       flightDestinations.value =
-      await flightBookingHttpService.getFlightDestinations(searchQuery);
+          await flightBookingHttpService.getFlightDestinations(searchQuery);
       isFlightDestinationsLoading.value = false;
       return flightDestinations.value;
-    }else{
+    } else {
       return [];
     }
-
   }
 
-  setDestination(FlightDestination flightDestination, bool isArrival,
-      int index) {
+  setDestination(
+      FlightDestination flightDestination, bool isArrival, int index) {
     FlightSearchData newFlightSearchData = FlightSearchData(
         promoCode: flightSearchData.value.promoCode,
         adults: flightSearchData.value.adults,
         child: flightSearchData.value.child,
         infants: flightSearchData.value.infants,
         searchList: flightBookingHelperServices.getUpdatedSearchList(
-            flightSearchData.value,
-            flightDestination, isArrival, index),
+            flightSearchData.value, flightDestination, isArrival, index),
         allowedCabins: flightSearchData.value.allowedCabins,
         mode: flightSearchData.value.mode,
         isDirectFlight: flightSearchData.value.isDirectFlight);
@@ -78,19 +73,25 @@ class FlightBookingController extends GetxController {
     flightSearchData.value = newFlightSearchData;
   }
 
-  setFlightMode(FlightMode newMode){
+  setFlightMode(FlightMode newMode) {
 
-    FlightSearchData newFlightSearchData = FlightSearchData(
-        promoCode: flightSearchData.value.promoCode,
-        adults: flightSearchData.value.adults,
-        child: flightSearchData.value.child,
-        infants: flightSearchData.value.infants,
-        searchList: flightSearchData.value.searchList,
-        allowedCabins: flightSearchData.value.allowedCabins,
-        mode: newMode,
-        isDirectFlight: flightSearchData.value.isDirectFlight);
-
+    FlightSearchData newFlightSearchData = flightBookingHelperServices
+        .setFlightMode(flightSearchData.value, newMode);
     flightSearchData.value = newFlightSearchData;
+
+  }
+
+  updateFlightCount(int index){
+
+    if(index == -1){
+      FlightSearchData newFlightSearchData = flightBookingHelperServices
+          .addFlightSearchItem(flightSearchData.value);
+      flightSearchData.value = newFlightSearchData;
+    }else{
+      FlightSearchData newFlightSearchData = flightBookingHelperServices
+          .removeFlightSearchItem(flightSearchData.value, index);
+      flightSearchData.value = newFlightSearchData;
+    }
 
   }
 
