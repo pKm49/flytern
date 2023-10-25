@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/cabin_class.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
@@ -10,14 +11,31 @@ import 'package:ionicons/ionicons.dart';
 class BookingOptionsSelector extends StatefulWidget {
 
   int bookingServiceNumber;
-  BookingOptionsSelector({super.key, required this.bookingServiceNumber});
+  int selectedAdultCount;
+  int selectedChildCount;
+  int selectedInfantCount;
+  List<String> selectedCabinClasses;
+  List<CabinClass> cabinClasses;
+  final Function(int adultCount, int childCount, int infantCount, List<String> cabinClasses) dataSubmitted;
+
+  BookingOptionsSelector({super.key,
+  required this.bookingServiceNumber,
+  required this.selectedAdultCount,
+  required this.selectedChildCount,
+  required this.selectedInfantCount,
+  required this.selectedCabinClasses,
+    required this.dataSubmitted,
+    required this.cabinClasses,
+  });
 
   @override
   State<BookingOptionsSelector> createState() => _BookingOptionsSelectorState();
 }
 
 class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
+
   int selectedCabinClass = 1;
+  List<String> selectedCabinClasses = [];
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +44,8 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
 
     return Container(
       width: screenwidth,
-      height:   widget.bookingServiceNumber==1?(screenheight*.65):(screenheight*.5),
+      height:   widget.bookingServiceNumber==1?((screenheight*.65)+widget.cabinClasses.length*33)
+          :(screenheight*.5),
       padding: flyternSmallPaddingAll,
       child: Column(
         children: [
@@ -204,60 +223,38 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                   ),
                   Visibility(
                       visible: widget.bookingServiceNumber==1,child: addVerticalSpace(flyternSpaceMedium)),
-                  Visibility(
+                  for(var i =0; i<widget.cabinClasses.length;i++)
+
+                    Visibility(
                     visible: widget.bookingServiceNumber==1,
-                    child: Padding(
-                      padding: flyternLargePaddingHorizontal,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                    child:   Padding(
+                        padding:flyternLargePaddingHorizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(widget.cabinClasses[i].name,
+                                style: getBodyMediumStyle(context) ),
+                            Checkbox(
+                              checkColor: Colors.white,
+                              fillColor: MaterialStateProperty.resolveWith(getColor),
+                              value: selectedCabinClasses.contains(widget.cabinClasses[i].value),
+                              onChanged: (bool? value) {
+                                if(value !=null){
+                                  if(value){
+                                    selectedCabinClasses.contains(widget.cabinClasses[i].value)?null:
+                                    selectedCabinClasses.add(widget.cabinClasses[i].value);
+                                  }else{
+                                    selectedCabinClasses.contains(widget.cabinClasses[i].value)?
+                                    selectedCabinClasses.remove(widget.cabinClasses[i].value): null;
+                                  }
 
-                          Expanded(
-                              flex: 1,
-                              child: Row(
-                                children: [
+                                  setState(() { });
+                                }
 
-                                  Text("economy".tr,
-                                      style: getBodyMediumStyle(context)
-                                          .copyWith(color: flyternGrey80)),
-                                  Radio(
-                                    activeColor: flyternSecondaryColor,
-                                    value: 1,
-                                    groupValue: selectedCabinClass,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        print(value);
-                                        selectedCabinClass = value!;
-                                      });
-                                    },
-                                  ),
-                                ],
-                              )),
-                          Expanded(
-                              flex: 1,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-
-                                  Text("business".tr,
-                                      style: getBodyMediumStyle(context)
-                                          .copyWith(color: flyternGrey80)),
-                                  Radio(
-                                    activeColor: flyternSecondaryColor,
-                                    value: 2,
-                                    groupValue: selectedCabinClass,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        print(value);
-                                        selectedCabinClass = value!;
-                                      });
-                                    },
-                                  ),
-                                ],
-                              )),
-                        ],
-                      ),
-                    ),
+                              },
+                            ),
+                          ],
+                        )),
                   ),
                 ],
               ),
