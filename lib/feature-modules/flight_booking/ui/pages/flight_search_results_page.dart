@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_form.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_search_result_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type_tab.dart';
@@ -21,6 +22,7 @@ class FlightSearchResultPage extends StatefulWidget {
 }
 
 class _FlightSearchResultPageState extends State<FlightSearchResultPage> with SingleTickerProviderStateMixin{
+  final flightBookingController = Get.find<FlightBookingController>();
 
   late TabController tabController;
   bool isModifySearchVisible =false;
@@ -230,6 +232,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
                       decoration: flyternShadowedContainerSmallDecoration,
                       margin: flyternLargePaddingAll,
                       child: FlightBookingForm(
+                          flightBookingController:flightBookingController,
                           onCityAdded:(){
                             print("onCityAdded");
                             print(multicityCount);

@@ -86,6 +86,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                         child: Container(
                           margin: EdgeInsets.only(top: flyternSpaceLarge),
                           child: FlightBookingForm(
+                              flightBookingController:flightBookingController,
                               onCityAdded:(){
                                 print("onCityAdded");
                                 print(multicityCount);
