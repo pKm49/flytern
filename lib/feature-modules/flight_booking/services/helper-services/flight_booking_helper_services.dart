@@ -115,8 +115,8 @@ class FlightBookingHelperServices {
         FlightSearchItem flightSearchItem = FlightSearchItem(
             departure: flightSearchData.searchList[i].arrival,
             arrival: flightSearchData.searchList[i].departure,
-            departureDate: DateTime.now(),
-            returnDate: DateTime.now());
+            departureDate: flightSearchData.searchList[i].departureDate,
+            returnDate: flightSearchData.searchList[i].returnDate);
         flightSearchItems.add(flightSearchItem);
       }
     }
