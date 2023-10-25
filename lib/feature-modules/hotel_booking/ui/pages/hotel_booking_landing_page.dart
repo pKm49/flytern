@@ -329,7 +329,16 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
         context: context,
         builder: (context) {
           return BookingOptionsSelector(
+            selectedAdultCount: 1,
+            selectedChildCount: 1,
+            selectedInfantCount: 1,
+            dataSubmitted: (int adultCount, int childCount, int infantCount, List<String> cabinClasses) {
+
+            },
             bookingServiceNumber: 2,
+            cabinClasses:[],
+            selectedCabinClasses:  [],
+
           );
         });
 

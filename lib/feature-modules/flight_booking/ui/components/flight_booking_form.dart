@@ -562,7 +562,15 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
         context: context,
         builder: (context) {
           return BookingOptionsSelector(
+            selectedAdultCount: widget.flightBookingController.flightSearchData.value.adults,
+            selectedChildCount: widget.flightBookingController.flightSearchData.value.child,
+            selectedInfantCount: widget.flightBookingController.flightSearchData.value.infants,
+            dataSubmitted: (int adultCount, int childCount, int infantCount, List<String> cabinClasses) {
+
+            },
             bookingServiceNumber: 1,
+              cabinClasses:widget.flightBookingController.cabinClasses.value,
+            selectedCabinClasses:  widget.flightBookingController.flightSearchData.value.allowedCabins.map((e) => e.value).toList(),
           );
         });
   }
