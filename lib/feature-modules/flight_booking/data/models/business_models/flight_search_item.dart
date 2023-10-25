@@ -6,24 +6,34 @@ class FlightSearchItem {
   final FlightDestination departure;
   final FlightDestination arrival;
   final DateTime departureDate;
-  final DateTime returnDate; 
+  final DateTime returnDate;
 
   FlightSearchItem({
     required this.departure,
-    required this.arrival, 
+    required this.arrival,
     required this.departureDate,
-    required this.returnDate 
+    required this.returnDate
   });
 
-  Map toJson() => {
-    'departure': departure.airportCode,
-    'arrival': arrival.airportCode,
-    'departureDate': getFormattedDate(departureDate),
-    'returnDate': getFormattedDate(returnDate)
-  };
+  Map toJson() =>
+      {
+        'departure': departure.airportCode,
+        'arrival': arrival.airportCode,
+        'departureDate': getFormattedDate(departureDate),
+        'returnDate': getFormattedDate(returnDate)
+      };
 
-  String getFormattedDate(DateTime dateTime){
+  String getFormattedDate(DateTime dateTime) {
     final f = DateFormat('dd-MM-yyyy');
     return f.format(dateTime);
   }
-} 
+}
+
+FlightSearchItem getDefaultFlightSearchItem() {
+  return FlightSearchItem(
+      departure: getDefaultFlightDestination(false),
+      arrival: getDefaultFlightDestination(true),
+      departureDate: DateTime.now(),
+      returnDate: DateTime.now()
+  );
+}
