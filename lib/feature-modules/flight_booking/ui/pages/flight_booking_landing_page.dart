@@ -80,7 +80,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                       Container(
                         height: screenheight * .675+(((
                             flightBookingController.flightSearchData.value.searchList.length
-                        )-1)*230)+(flightBookingController.flightSearchData.value.mode == FlightMode.MULTICITY?65:0),
+                        )-1)*235)+(flightBookingController.flightSearchData.value.mode == FlightMode.MULTICITY?65:0),
                         decoration: flyternShadowedContainerSmallDecoration,
                         width: screenwidth - (flyternSpaceLarge * 2),
                         padding: flyternMediumPaddingAll,
@@ -136,7 +136,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                           )),
                       Container(
                         height: screenheight * .65 +
-                            ( ((flightBookingController.flightSearchData.value.searchList.length)-1)*230  )+(flightBookingController.flightSearchData.value.mode == FlightMode.MULTICITY?65:0),
+                            ( ((flightBookingController.flightSearchData.value.searchList.length)-1)*235  )+(flightBookingController.flightSearchData.value.mode == FlightMode.MULTICITY?65:0),
                         width: screenwidth - (flyternSpaceLarge * 2),
                       )
                     ],
