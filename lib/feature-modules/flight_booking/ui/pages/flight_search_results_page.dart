@@ -233,15 +233,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
                       margin: flyternLargePaddingAll,
                       child: FlightBookingForm(
                           flightBookingController:flightBookingController,
-                          onCityAdded:(){
-                            print("onCityAdded");
-                            print(multicityCount);
-                            setState(() {
-                              multicityCount = 2;
-                            });
-                            print(multicityCount);
-                          },
-                          selectedTab: selectedTab),
+                           ),
                     ),
                   ),
                    FlightSearchResultCard(

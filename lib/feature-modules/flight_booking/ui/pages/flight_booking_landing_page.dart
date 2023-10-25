@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
+import 'package:flytern/feature-modules/flight_booking/data/constants/business_specific/flight_mode.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/popular_destinations_container.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/popular_destinations_loader.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_for_you_container.dart';
@@ -86,16 +87,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                         child: Container(
                           margin: EdgeInsets.only(top: flyternSpaceLarge),
                           child: FlightBookingForm(
-                              flightBookingController:flightBookingController,
-                              onCityAdded:(){
-                                print("onCityAdded");
-                                print(multicityCount);
-                                setState(() {
-                                  multicityCount = 2;
-                                });
-                                print(multicityCount);
-                              },
-                              selectedTab: selectedTab),
+                              flightBookingController:flightBookingController),
                         ),
                       )
                     ],
@@ -111,44 +103,33 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                               Expanded(
                                 child: FlightTypeTab(
                                   onPressed: () {
-                                    setState(() {
-                                      selectedTab = 1;
-                                      multicityCount = 1;
-                                    });
+
                                   },
-                                  index: 1,
                                   icon: Ionicons.arrow_forward_outline,
                                   label: 'one_way'.tr,
-                                  selectedTab: selectedTab,
+                                  isSelected: flightBookingController.flightSearchData.value.mode == FlightMode.ONEWAY,
                                 ),
                               ),
                               addHorizontalSpace(flyternSpaceSmall),
                               Expanded(
                                 child: FlightTypeTab(
                                   onPressed: () {
-                                    setState(() {
-                                      selectedTab = 2;
-                                      multicityCount = 1;
-                                    });
+
                                   },
-                                  index: 2,
                                   icon: Ionicons.swap_horizontal_outline,
                                   label: 'round_trip'.tr,
-                                  selectedTab: selectedTab,
+                                  isSelected: flightBookingController.flightSearchData.value.mode == FlightMode.ROUNDTRIP,
                                 ),
                               ),
                               addHorizontalSpace(flyternSpaceSmall),
                               Expanded(
                                 child: FlightTypeTab(
                                   onPressed: () {
-                                    setState(() {
-                                      selectedTab = 3;
-                                    });
+
                                   },
-                                  index: 3,
                                   icon: Ionicons.share_social_outline,
                                   label: 'multi_city'.tr,
-                                  selectedTab: selectedTab,
+                                  isSelected: flightBookingController.flightSearchData.value.mode == FlightMode.MULTICITY,
                                 ),
                               )
                             ],

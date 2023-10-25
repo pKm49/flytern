@@ -1,3 +1,4 @@
+import 'package:flytern/feature-modules/flight_booking/data/constants/business_specific/flight_mode.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_allowed_cabin.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_item.dart';
@@ -10,7 +11,7 @@ class FlightSearchData {
   final int infants;
   final List<FlightSearchItem> searchList;
   final List<FlightAllowedCabin> allowedCabins;
-  final String mode;
+  final FlightMode mode;
   final bool isDirectFlight;
 
   FlightSearchData({
@@ -32,7 +33,7 @@ class FlightSearchData {
         'infants': infants,
         'searchList': getSearchList(searchList),
         'allowedCabins': getAllowedCabins(allowedCabins),
-        'mode': mode,
+        'mode': mode.name,
         'isDirectFlight': isDirectFlight,
       };
 
@@ -66,7 +67,7 @@ FlightSearchData getDefaultFlightSearchData() {
       infants: 0,
       searchList: [getDefaultFlightSearchItem()],
       allowedCabins: [],
-      mode: "ROUNDTRIP",
+      mode: FlightMode.ONEWAY,
       isDirectFlight: false
   );
 }

@@ -8,15 +8,13 @@ class FlightTypeTab extends StatelessWidget {
   final IconData icon;
   final String label;
   final GestureTapCallback onPressed;
-  final int selectedTab;
-  final int index;
+  final bool isSelected;
 
     FlightTypeTab({super.key,
       required this.onPressed,
       required this.icon,
-      required this.index,
       required this.label,
-      required this.selectedTab});
+      required this.isSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class FlightTypeTab extends StatelessWidget {
             horizontal: flyternSpaceExtraSmall,
             vertical  : flyternSpaceSmall),
         decoration: BoxDecoration(
-          color: selectedTab == index
+          color: isSelected
               ? flyternSecondaryColor
               : flyternBackgroundWhite,
           boxShadow: flyternContainerShadow,
@@ -40,13 +38,13 @@ class FlightTypeTab extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon,
-                color: selectedTab == index
+                color: isSelected
                     ? flyternBackgroundWhite
                     : flyternGrey60,
                 size: flyternFontSize20),
             Text(label,
               style: TextStyle(
-                color: selectedTab == index
+                color: isSelected
                     ? flyternBackgroundWhite
                     : flyternGrey60,
               ),)

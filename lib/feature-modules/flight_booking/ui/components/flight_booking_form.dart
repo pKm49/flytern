@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
+import 'package:flytern/feature-modules/flight_booking/data/constants/business_specific/flight_mode.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/services/delegates/destination_search_delegate.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_airport_lable_card.dart';
 import 'package:flytern/shared/ui/components/booking_options_selector.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
-import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
-import 'package:flytern/shared/services/delegates/custom_search_delegate.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/custom_date_picker.dart';
@@ -17,12 +16,11 @@ import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 
 class FlightBookingForm extends StatefulWidget {
-  final int selectedTab;
-  final GestureTapCallback onCityAdded;
+
   FlightBookingController flightBookingController;
 
   FlightBookingForm(
-      {super.key, required this.selectedTab, required this.onCityAdded,
+      {super.key,
         required this.flightBookingController});
 
   @override
@@ -209,10 +207,10 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                 ),
                               )),
                           Visibility(
-                              visible: widget.selectedTab == 2,
+                              visible:widget.flightBookingController.flightSearchData.value.mode == FlightMode.ROUNDTRIP,
                               child: addHorizontalSpace(flyternSpaceSmall)),
                           Visibility(
-                            visible: widget.selectedTab == 2,
+                            visible: widget.flightBookingController.flightSearchData.value.mode == FlightMode.ROUNDTRIP,
                             child: Expanded(
                                 flex: 1,
                                 child: InkWell(
@@ -266,16 +264,13 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
         ),
 
         Visibility(
-            visible: widget.selectedTab == 3,
+            visible: widget.flightBookingController.flightSearchData.value.mode == FlightMode.MULTICITY,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical:flyternSpaceMedium),
+              padding: const EdgeInsets.only(bottom:flyternSpaceMedium),
               child: SizedBox(
                 width: double.infinity,
                 child: InkWell(
                   onTap: () {
-                    widget.onCityAdded();
-                    multicityCount = 2;
-                    setState(() {});
                   },
                   child: Container(
                     decoration: flyternBorderedContainerSmallDecoration.copyWith(
