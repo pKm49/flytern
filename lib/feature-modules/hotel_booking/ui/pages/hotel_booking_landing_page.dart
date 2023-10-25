@@ -309,6 +309,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
         context: context,
         builder: (context) {
           return CustomDatePicker(
+            selectedDate: DateTime.now(),
             dateSelected: (DateTime? dateTime){
 
             },

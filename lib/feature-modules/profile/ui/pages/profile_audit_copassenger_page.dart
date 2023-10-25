@@ -134,7 +134,7 @@ class _ProfileAuditCopassengerPageState
                           child: TextFormField(
                               readOnly: true,
                               onTap: () {
-                                showDOBPickerDialog(true);
+                                showDOBPickerDialog(true,coPaxController.dob.value);
                               },
                               controller: coPaxController.dobController.value,
                               validator: (value) =>
@@ -204,7 +204,7 @@ class _ProfileAuditCopassengerPageState
                     child: TextFormField(
                         readOnly: true,
                         onTap: () {
-                          showDOBPickerDialog(false);
+                          showDOBPickerDialog(false,coPaxController.passportExpiry.value);
                         },
                         controller:
                             coPaxController.passportExpiryController.value,
@@ -290,7 +290,7 @@ class _ProfileAuditCopassengerPageState
         });
   }
 
-  void showDOBPickerDialog(bool isDOB) {
+  void showDOBPickerDialog(bool isDOB, DateTime dateTime) {
     showModalBottomSheet(
         useSafeArea: false,
         shape: RoundedRectangleBorder(
@@ -303,6 +303,7 @@ class _ProfileAuditCopassengerPageState
         context: context,
         builder: (context) {
           return CustomDatePicker(
+            selectedDate: dateTime,
             dateSelected: (DateTime? dateTime) {
               if (dateTime != null) {
                 if (isDOB) {

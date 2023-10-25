@@ -237,7 +237,12 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                     flex: 1,
                                     child: InkWell(
                                       onTap: () {
-                                        showCustomDatePicker(index,false);
+                                        showCustomDatePicker(index,widget
+                                            .flightBookingController
+                                            .flightSearchData
+                                            .value
+                                            .searchList[index]
+                                            .departureDate,false);
                                       },
                                       child: Container(
                                         decoration:
@@ -309,7 +314,12 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                       flex: 1,
                                       child: InkWell(
                                         onTap: () {
-                                          showCustomDatePicker(index,true);
+                                          showCustomDatePicker(index,widget
+                                              .flightBookingController
+                                              .flightSearchData
+                                              .value
+                                              .searchList[index]
+                                              .returnDate,true);
                                         },
                                         child: Container(
                                           decoration:
@@ -518,7 +528,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
     return flyternBackgroundWhite;
   }
 
-  void showCustomDatePicker(int index, bool isReturn) {
+  void showCustomDatePicker(int index,DateTime currentDateTime, bool isReturn) {
     showModalBottomSheet(
         useSafeArea: false,
         shape: const RoundedRectangleBorder(
@@ -531,6 +541,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
         context: context,
         builder: (context) {
           return CustomDatePicker(
+              selectedDate:currentDateTime,
             dateSelected: (DateTime? dateTime) {
               if (dateTime != null && dateTime.isAfter(DateTime.now())) {
                 widget.flightBookingController

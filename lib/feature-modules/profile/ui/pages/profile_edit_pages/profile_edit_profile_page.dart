@@ -209,7 +209,7 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
                           child: TextFormField(
                               readOnly: true,
                               onTap: () {
-                                showDOBPickerDialog(true);
+                                showDOBPickerDialog(true,profileController.dob.value);
                               },
                               controller: profileController.dobController.value,
                               validator: (value) =>
@@ -280,7 +280,7 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
                     child: TextFormField(
                         readOnly: true,
                         onTap: () {
-                          showDOBPickerDialog(false);
+                          showDOBPickerDialog(false,profileController.passportExpiry.value);
                         },
                         controller:
                             profileController.passportExpiryController.value,
@@ -362,7 +362,7 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
         });
   }
 
-  void showDOBPickerDialog(bool isDOB) {
+  void showDOBPickerDialog(bool isDOB, DateTime dateTime) {
     showModalBottomSheet(
         useSafeArea: false,
         shape: RoundedRectangleBorder(
@@ -375,6 +375,7 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
         context: context,
         builder: (context) {
           return CustomDatePicker(
+            selectedDate: dateTime,
             dateSelected: (DateTime? dateTime) {
               if (dateTime != null) {
                 if (isDOB) {
