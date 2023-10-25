@@ -18,8 +18,8 @@ class FlightBookingHelperServices {
             230) +
         (flightBookingController.flightSearchData.value.mode ==
                 FlightMode.MULTICITY
-            ? 65
-            : 0);
+            ? 75
+            : 10);
   }
 
   double getFlightBookingFormItemHeight(int length) {
