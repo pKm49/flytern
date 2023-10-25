@@ -3,6 +3,7 @@ import 'package:flytern/feature-modules/flight_booking/controllers/flight_bookin
 import 'package:flytern/feature-modules/flight_booking/data/constants/business_specific/flight_mode.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/services/delegates/destination_search_delegate.dart';
+import 'package:flytern/feature-modules/flight_booking/services/helper-services/flight_booking_helper_services.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_airport_lable_card.dart';
 import 'package:flytern/shared/ui/components/booking_options_selector.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
@@ -29,6 +30,7 @@ class FlightBookingForm extends StatefulWidget {
 
 class _FlightBookingFormState extends State<FlightBookingForm> {
   bool isDirectFlight = false;
+  var flightBookingHelperServices = FlightBookingHelperServices();
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +41,16 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
       children: [
         Obx(
         ()=> Container(
-            height: widget.flightBookingController.flightSearchData.value.searchList.length*240,
+            height: flightBookingHelperServices
+                .getFlightBookingFormItemHeight(
+                widget.flightBookingController.flightSearchData
+                    .value.searchList.length ) ,
             child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               itemCount: widget.flightBookingController.flightSearchData.value.searchList.length,
                 itemBuilder: (context, index) =>
               Container(
-                height: index !=0?235:222,
+                height: index !=0?230:215,
                 width:screenwidth,
                 child: Column(
                   children: [
