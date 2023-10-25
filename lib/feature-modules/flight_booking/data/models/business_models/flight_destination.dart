@@ -37,3 +37,14 @@ FlightDestination mapFlightDestination(dynamic payload){
     flag :payload["flag"]??"",
   );
 }
+
+FlightDestination getDefaultFlightDestination(bool isArrival){
+  return FlightDestination(
+    airportCode :isArrival?"KBL":"IST",
+    airportName :isArrival?"Kabul":"Istanbul",
+    uniqueCombination :isArrival?"KBL":"IST",
+    sort :isArrival?1:2,
+    countryISOCode :isArrival?"Pakistan":"Pakistan",
+    flag :isArrival?"":"",
+  );
+}
