@@ -95,4 +95,13 @@ class FlightBookingController extends GetxController {
 
   }
 
+  reverseTrip(int index) {
+
+    FlightSearchData newFlightSearchData = flightBookingHelperServices
+        .reverseTrip(flightSearchData.value, index);
+    flightSearchData.value = newFlightSearchData;
+
+  }
+
+
 }

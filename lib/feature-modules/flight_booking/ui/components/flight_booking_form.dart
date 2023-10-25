@@ -131,10 +131,15 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                             ),
                           ),
                           addHorizontalSpace(flyternSpaceMedium),
-                          Icon(
-                            Ionicons.sync_circle,
-                            size: 35,
-                            color: flyternTertiaryColor,
+                          InkWell(
+                            onTap: (){
+                              widget.flightBookingController.reverseTrip(index);
+                            },
+                            child: Icon(
+                              Ionicons.sync_circle,
+                              size: 35,
+                              color: flyternTertiaryColor,
+                            ),
                           ),
                           addHorizontalSpace(flyternSpaceMedium),
                           Expanded(
@@ -196,7 +201,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                               flex: 1,
                               child: InkWell(
                                 onTap: () {
-                                  showCustomDatePicker();
+                                  showCustomDatePicker(false);
                                 },
                                 child: Container(
                                   decoration:
@@ -243,7 +248,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                 flex: 1,
                                 child: InkWell(
                                   onTap: () {
-                                    showCustomDatePicker();
+                                    showCustomDatePicker(true);
                                   },
                                   child: Container(
                                     decoration:
@@ -430,10 +435,10 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
     return flyternBackgroundWhite;
   }
 
-  void showCustomDatePicker() {
+  void showCustomDatePicker(bool isReturn) {
     showModalBottomSheet(
         useSafeArea: false,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(flyternBorderRadiusSmall),
               topRight: Radius.circular(flyternBorderRadiusSmall)),
@@ -443,13 +448,15 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
         context: context,
         builder: (context) {
           return CustomDatePicker(
-            dateSelected: (DateTime? dateTime) {},
+            dateSelected: (DateTime? dateTime) {
+
+            },
           );
         });
   }
 
   String getFormattedDate(DateTime dateTime) {
-    final f = DateFormat.yMMMMd('en_US');
+    final f = DateFormat.yMMMd('en_US');
     return f.format(dateTime);
   }
 
