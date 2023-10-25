@@ -8,9 +8,11 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class CustomDatePicker extends StatefulWidget {
+
+  DateTime selectedDate;
   final Function(DateTime? dateTime) dateSelected;
 
-  CustomDatePicker({super.key, required this.dateSelected});
+  CustomDatePicker({super.key, required this.dateSelected, required this.selectedDate});
 
   @override
   State<CustomDatePicker> createState() => _CustomDatePickerState();
@@ -53,8 +55,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                             },
                           child: Text("cancel".tr,
                               style: getHeadlineMediumStyle(context).copyWith(
-                                  color: flyternSecondaryColor,
-                                  fontWeight: flyternFontWeightBold),
+                                  color: flyternSecondaryColor ),
                               textAlign: TextAlign.center),
                         ),
                       ],
@@ -65,7 +66,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   Expanded(
                     child: CupertinoDatePicker(
                       mode: CupertinoDatePickerMode.date,
-                      initialDateTime: DateTime(1969, 1, 1),
+                      initialDateTime: widget.selectedDate,
                       onDateTimeChanged: (DateTime newDateTime) {
                         setState(() {
                           selectedDOB = newDateTime;
@@ -90,7 +91,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               child: Center(
                 child: Text("done".tr,
                     style: getHeadlineMediumStyle(context)
-                        .copyWith(color: flyternPrimaryColor)),
+                        .copyWith(color: flyternPrimaryColor,fontWeight: flyternFontWeightBold)),
               ),
             ),
           )
