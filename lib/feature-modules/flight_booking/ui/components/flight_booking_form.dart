@@ -5,6 +5,7 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/services/delegates/destination_search_delegate.dart';
 import 'package:flytern/feature-modules/flight_booking/services/helper-services/flight_booking_helper_services.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_airport_lable_card.dart';
+import 'package:flytern/shared/services/utility-services/element_style_helpers.dart';
 import 'package:flytern/shared/ui/components/booking_options_selector.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -28,6 +29,8 @@ class FlightBookingForm extends StatefulWidget {
 class _FlightBookingFormState extends State<FlightBookingForm> {
   bool isDirectFlight = false;
   var flightBookingHelperServices = FlightBookingHelperServices();
+  var elementStyleHelpers = ElementStyleHelpers();
+
 
   @override
   Widget build(BuildContext context) {
@@ -437,7 +440,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                             color: flyternGrey40, fontWeight: FontWeight.w400),
                       ),
                       addVerticalSpace(flyternSpaceExtraSmall * 1.5),
-                      Text('2 Passengers, Economy',
+                      Text(flightBookingHelperServices.getPassengerCabinData(widget.flightBookingController),
                           style: getLabelLargeStyle(context).copyWith(
                             color: flyternGrey80,
                           )),
@@ -470,7 +473,8 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                           color: flyternGrey40, fontWeight: FontWeight.w400),
                     ),
                     addVerticalSpace(flyternSpaceExtraSmall * 1.5),
-                    Text('VXS234',
+                    Text(widget.flightBookingController.flightSearchData.value.promoCode ==""?"enter_promo_code".tr:
+                    widget.flightBookingController.flightSearchData.value.promoCode,
                         style: getLabelLargeStyle(context).copyWith(
                           color: flyternGrey80,
                         )),
@@ -487,7 +491,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
           children: [
             Checkbox(
               checkColor: Colors.white,
-              fillColor: MaterialStateProperty.resolveWith(getColor),
+              fillColor: MaterialStateProperty.resolveWith(elementStyleHelpers.getColor),
               value: isDirectFlight,
               onChanged: (bool? value) {
                 setState(() {
@@ -515,18 +519,6 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
     );
   }
 
-  Color getColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
-      MaterialState.pressed,
-      MaterialState.hovered,
-      MaterialState.focused,
-      MaterialState.selected
-    };
-    if (states.any(interactiveStates.contains)) {
-      return flyternSecondaryColor;
-    }
-    return flyternBackgroundWhite;
-  }
 
   void showCustomDatePicker(int index,DateTime currentDateTime, bool isReturn) {
     showModalBottomSheet(
