@@ -64,7 +64,7 @@ FlightSearchData getDefaultFlightSearchData() {
       adults: 0,
       child: 0,
       infants: 0,
-      searchList: [],
+      searchList: [getDefaultFlightSearchItem()],
       allowedCabins: [],
       mode: "ROUNDTRIP",
       isDirectFlight: false
