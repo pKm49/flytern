@@ -215,4 +215,28 @@ class FlightBookingHelperServices {
         mode: flightSearchData.mode,
         isDirectFlight: flightSearchData.isDirectFlight);
   }
+
+  FlightSearchData updatePromoCode(FlightSearchData flightSearchData, String promoCode) {
+    return FlightSearchData(
+        promoCode: promoCode,
+        adults: flightSearchData.adults,
+        child: flightSearchData.child,
+        infants: flightSearchData.infants,
+        searchList: flightSearchData.searchList,
+        allowedCabins: flightSearchData.allowedCabins,
+        mode: flightSearchData.mode,
+        isDirectFlight: flightSearchData.isDirectFlight);
+  }
+
+  FlightSearchData updateDirectFlight(FlightSearchData flightSearchData, bool isDirectFlight) {
+    return FlightSearchData(
+        promoCode: flightSearchData.promoCode,
+        adults: flightSearchData.adults,
+        child: flightSearchData.child,
+        infants: flightSearchData.infants,
+        searchList: flightSearchData.searchList,
+        allowedCabins: flightSearchData.allowedCabins,
+        mode: flightSearchData.mode,
+        isDirectFlight: isDirectFlight);
+  }
 }
