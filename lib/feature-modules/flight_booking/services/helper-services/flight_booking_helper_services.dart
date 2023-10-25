@@ -132,4 +132,33 @@ class FlightBookingHelperServices {
         isDirectFlight: flightSearchData.isDirectFlight);
   }
 
+  FlightSearchData changeDate(
+      FlightSearchData flightSearchData, int index, DateTime dateTime, bool isReturnDate) {
+    List<FlightSearchItem> flightSearchItems = [];
+
+    for (var i = 0; i < flightSearchData.searchList.length; i++) {
+      if (index != i) {
+        flightSearchItems.add(flightSearchData.searchList[i]);
+      }else{
+        FlightSearchItem flightSearchItem = FlightSearchItem(
+            departure: flightSearchData
+                .searchList[i].departure,
+            arrival: flightSearchData
+                .searchList[i].arrival,
+            departureDate:isReturnDate?flightSearchData.searchList[i].departureDate : dateTime,
+            returnDate:!isReturnDate?flightSearchData.searchList[i].returnDate : dateTime );
+        flightSearchItems.add(flightSearchItem);
+      }
+    }
+    return FlightSearchData(
+        promoCode: flightSearchData.promoCode,
+        adults: flightSearchData.adults,
+        child: flightSearchData.child,
+        infants: flightSearchData.infants,
+        searchList: flightSearchItems,
+        allowedCabins: flightSearchData.allowedCabins,
+        mode: flightSearchData.mode,
+        isDirectFlight: flightSearchData.isDirectFlight);
+  }
+
 }
