@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/cabin_class.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_form.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type_tab.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
@@ -332,7 +333,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
             selectedAdultCount: 1,
             selectedChildCount: 1,
             selectedInfantCount: 1,
-            dataSubmitted: (int adultCount, int childCount, int infantCount, List<String> cabinClasses) {
+            dataSubmitted: (int adultCount, int childCount, int infantCount, List<CabinClass> cabinClasses) {
 
             },
             bookingServiceNumber: 2,
