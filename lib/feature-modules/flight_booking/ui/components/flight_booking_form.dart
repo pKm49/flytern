@@ -6,6 +6,7 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/services/delegates/destination_search_delegate.dart';
 import 'package:flytern/feature-modules/flight_booking/services/helper-services/flight_booking_helper_services.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_airport_lable_card.dart';
+import 'package:flytern/shared/services/delegates/input_getter_delegate.dart';
 import 'package:flytern/shared/services/utility-services/element_style_helpers.dart';
 import 'package:flytern/shared/ui/components/booking_options_selector.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
@@ -454,36 +455,41 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
           ),
         ),
         addVerticalSpace(flyternSpaceMedium),
-        Container(
-          decoration: flyternBorderedContainerSmallDecoration.copyWith(
-              border: Border.all(color: flyternGrey20, width: .5)),
-          padding: flyternMediumPaddingAll,
-          child: Row(
-            children: [
-              Icon(Icons.discount_outlined,
-                  color: flyternSecondaryColor, size: flyternFontSize20),
-              addHorizontalSpace(flyternSpaceSmall * 1.5),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'promo_code'.tr,
-                      style: getLabelLargeStyle(context).copyWith(
-                          color: flyternGrey40, fontWeight: FontWeight.w400),
-                    ),
-                    addVerticalSpace(flyternSpaceExtraSmall * 1.5),
-                    Text(widget.flightBookingController.flightSearchData.value.promoCode ==""?"enter_promo_code".tr:
-                    widget.flightBookingController.flightSearchData.value.promoCode,
+        InkWell(
+          onTap: (){
+            showPromoCodeInput();
+          },
+          child: Container(
+            decoration: flyternBorderedContainerSmallDecoration.copyWith(
+                border: Border.all(color: flyternGrey20, width: .5)),
+            padding: flyternMediumPaddingAll,
+            child: Row(
+              children: [
+                Icon(Icons.discount_outlined,
+                    color: flyternSecondaryColor, size: flyternFontSize20),
+                addHorizontalSpace(flyternSpaceSmall * 1.5),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'promo_code'.tr,
                         style: getLabelLargeStyle(context).copyWith(
-                          color: flyternGrey80,
-                        )),
-                  ],
-                ),
-              )
-            ],
+                            color: flyternGrey40, fontWeight: FontWeight.w400),
+                      ),
+                      addVerticalSpace(flyternSpaceExtraSmall * 1.5),
+                      Text(widget.flightBookingController.flightSearchData.value.promoCode ==""?"enter_promo_code".tr:
+                      widget.flightBookingController.flightSearchData.value.promoCode,
+                          style: getLabelLargeStyle(context).copyWith(
+                            color: flyternGrey80,
+                          )),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
         addVerticalSpace(flyternSpaceSmall),
@@ -494,11 +500,11 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
             Checkbox(
               checkColor: Colors.white,
               fillColor: MaterialStateProperty.resolveWith(elementStyleHelpers.getColor),
-              value: isDirectFlight,
+              value: widget.flightBookingController.flightSearchData.value.isDirectFlight,
               onChanged: (bool? value) {
-                setState(() {
-                  isDirectFlight = value ?? false;
-                });
+                if(value !=null){
+                  widget.flightBookingController.updateDirectFlight(value);
+                }
               },
             ),
             addHorizontalSpace(flyternSpaceSmall),
@@ -578,4 +584,27 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
           );
         });
   }
+
+
+  void showPromoCodeInput( ) {
+    showModalBottomSheet(
+        useSafeArea: true,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setModalState /*You can rename this!*/) {
+                return InputGetterDelegate(
+                    hintText:"enter_promo_code".tr,
+                    textSubmitted:(String text){
+                      widget.flightBookingController.updatePromoCode(text);
+                     Navigator.pop(context);
+                    }
+                );
+              });
+        });
+
+  }
+
 }
