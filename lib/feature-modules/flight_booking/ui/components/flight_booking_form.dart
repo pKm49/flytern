@@ -29,7 +29,6 @@ class FlightBookingForm extends StatefulWidget {
 
 class _FlightBookingFormState extends State<FlightBookingForm> {
   bool isDirectFlight = false;
-  int multicityCount = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -40,15 +39,39 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
       children: [
         Obx(
         ()=> Container(
-            height: widget.flightBookingController.flightSearchData.value.searchList.length*222,
+            height: widget.flightBookingController.flightSearchData.value.searchList.length*240,
             child: ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
               itemCount: widget.flightBookingController.flightSearchData.value.searchList.length,
                 itemBuilder: (context, index) =>
               Container(
-                height: 220,
+                height: index !=0?235:222,
                 width:screenwidth,
                 child: Column(
                   children: [
+                    Visibility(
+                      visible: index !=0,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom:flyternSpaceSmall),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            InkWell(
+                              onTap: (){
+                                widget.flightBookingController.updateFlightCount(index);
+                              },
+                              child: Text(
+                                "remove".tr,
+
+                                style: getLabelLargeStyle(context)
+                                    .copyWith(color: flyternGuideRed,
+                                decoration: TextDecoration.underline),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     Container(
                       decoration: flyternBorderedContainerSmallDecoration.copyWith(
                           border: Border.all(color: flyternSecondaryColor, width: .5)),
