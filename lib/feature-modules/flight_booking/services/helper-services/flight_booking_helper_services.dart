@@ -102,4 +102,34 @@ class FlightBookingHelperServices {
         mode: flightSearchData.mode,
         isDirectFlight: flightSearchData.isDirectFlight);
   }
+
+  FlightSearchData reverseTrip(
+      FlightSearchData flightSearchData, int index) {
+    List<FlightSearchItem> flightSearchItems = [];
+
+    for (var i = 0; i < flightSearchData.searchList.length; i++) {
+      if (index != i) {
+        flightSearchItems.add(flightSearchData.searchList[i]);
+      }else{
+        FlightSearchItem flightSearchItem = FlightSearchItem(
+            departure: flightSearchData
+                .searchList[i].arrival,
+            arrival: flightSearchData
+                .searchList[i].departure,
+            departureDate: DateTime.now(),
+            returnDate: DateTime.now());
+        flightSearchItems.add(flightSearchItem);
+      }
+    }
+    return FlightSearchData(
+        promoCode: flightSearchData.promoCode,
+        adults: flightSearchData.adults,
+        child: flightSearchData.child,
+        infants: flightSearchData.infants,
+        searchList: flightSearchItems,
+        allowedCabins: flightSearchData.allowedCabins,
+        mode: flightSearchData.mode,
+        isDirectFlight: flightSearchData.isDirectFlight);
+  }
+
 }
