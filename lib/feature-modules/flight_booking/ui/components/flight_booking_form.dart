@@ -17,12 +17,9 @@ import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 
 class FlightBookingForm extends StatefulWidget {
-
   FlightBookingController flightBookingController;
 
-  FlightBookingForm(
-      {super.key,
-        required this.flightBookingController});
+  FlightBookingForm({super.key, required this.flightBookingController});
 
   @override
   State<FlightBookingForm> createState() => _FlightBookingFormState();
@@ -40,266 +37,351 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
     return Wrap(
       children: [
         Obx(
-        ()=> Container(
-            height: flightBookingHelperServices
-                .getFlightBookingFormItemHeight(
-                widget.flightBookingController.flightSearchData
-                    .value.searchList.length ) ,
+          () => Container(
+            height: flightBookingHelperServices.getFlightBookingFormItemHeight(
+                widget.flightBookingController.flightSearchData.value.searchList
+                    .length),
             child: ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: widget.flightBookingController.flightSearchData.value.searchList.length,
-                itemBuilder: (context, index) =>
-              Container(
-                height: index !=0?230:215,
-                width:screenwidth,
-                child: Column(
-                  children: [
-                    Visibility(
-                      visible: index !=0,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom:flyternSpaceSmall),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            InkWell(
-                              onTap: (){
-                                widget.flightBookingController.updateFlightCount(index);
-                              },
-                              child: Text(
-                                "remove".tr,
-
-                                style: getLabelLargeStyle(context)
-                                    .copyWith(color: flyternGuideRed,
-                                decoration: TextDecoration.underline),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                          border: Border.all(color: flyternSecondaryColor, width: .5)),
-                      padding: flyternMediumPaddingAll,
-                      child: Row(
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: widget.flightBookingController.flightSearchData.value
+                    .searchList.length,
+                itemBuilder: (context, index) => Container(
+                      height: index != 0 ? 230 : 215,
+                      width: screenwidth,
+                      child: Column(
                         children: [
-                          Expanded(
-                            flex: 1,
-                            child: InkWell(
-                              onTap: () async {
-                                FlightDestination destination = await showSearch(
-                                    context: context,
-                                    delegate: DestinationSearchDelegate());
-
-                                widget.flightBookingController.setDestination(destination, false,index);
-
-                              },
-                              child: Row(
-                                children: [
-                                  Wrap(
-                                    alignment: WrapAlignment.center,
-                                    crossAxisAlignment: WrapCrossAlignment.center,
-                                    direction: Axis.vertical,
-                                    children: [
-                                      for (var i = 0; i < 10; i++)
-                                        Container(
-                                          color: i % 2 == 0
-                                              ? flyternSecondaryColor
-                                              : Colors.transparent,
-                                          width: 1,
-                                          height: 3,
-                                        ),
-                                      Icon(Icons.flight_takeoff_outlined,
-                                          color: flyternSecondaryColor),
-                                    ],
-                                  ),
-                                  addHorizontalSpace(flyternSpaceSmall),
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(),
-                                      clipBehavior: Clip.hardEdge,
-                                      child: FlightAirportLabelCard(
-                                        topLabel: "from".tr,
-                                        midLabel: widget.flightBookingController.flightSearchData.value.searchList[index].departure.airportCode,
-                                        bottomLabel: widget.flightBookingController.flightSearchData.value.searchList[index].departure.airportName,
-                                        sideNumber: 1,
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          addHorizontalSpace(flyternSpaceMedium),
-                          InkWell(
-                            onTap: (){
-                              widget.flightBookingController.reverseTrip(index);
-                            },
-                            child: Icon(
-                              Ionicons.sync_circle,
-                              size: 35,
-                              color: flyternTertiaryColor,
-                            ),
-                          ),
-                          addHorizontalSpace(flyternSpaceMedium),
-                          Expanded(
-                            flex: 1,
-                            child: InkWell(
-                              onTap: () async {
-                                FlightDestination destination = await showSearch(
-                                    context: context,
-                                    delegate: DestinationSearchDelegate());
-
-                                widget.flightBookingController.setDestination(destination, true,index);
-
-                              },
+                          Visibility(
+                            visible: index != 0,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  bottom: flyternSpaceSmall),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Wrap(
-                                    alignment: WrapAlignment.center,
-                                    crossAxisAlignment: WrapCrossAlignment.center,
-                                    direction: Axis.vertical,
-                                    children: [
-                                      for (var i = 0; i < 10; i++)
-                                        Container(
-                                          color: i % 2 == 0
-                                              ? flyternSecondaryColor
-                                              : Colors.transparent,
-                                          width: 1,
-                                          height: 3,
-                                        ),
-                                      Icon(Icons.flight_land_outlined,
-                                          color: flyternSecondaryColor),
-                                    ],
-                                  ),
-                                  addHorizontalSpace(flyternSpaceSmall),
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(),
-                                      clipBehavior: Clip.hardEdge,
-                                      child: FlightAirportLabelCard(
-                                        topLabel: "to".tr,
-                                        midLabel: widget.flightBookingController.flightSearchData.value.searchList[index].arrival.airportCode,
-                                        bottomLabel: widget.flightBookingController.flightSearchData.value.searchList[index].arrival.airportName,
-                                        sideNumber: 1,
-                                      ),
+                                  InkWell(
+                                    onTap: () {
+                                      widget.flightBookingController
+                                          .updateFlightCount(index);
+                                    },
+                                    child: Text(
+                                      "remove".tr,
+                                      style: getLabelLargeStyle(context)
+                                          .copyWith(
+                                              color: flyternGuideRed,
+                                              decoration:
+                                                  TextDecoration.underline),
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top:flyternSpaceMedium),
-                      child: Row(
-                        children: [
-                          Expanded(
-                              flex: 1,
-                              child: InkWell(
-                                onTap: () {
-                                  showCustomDatePicker(false);
-                                },
-                                child: Container(
-                                  decoration:
-                                  flyternBorderedContainerSmallDecoration.copyWith(
-                                      border:
-                                      Border.all(color: flyternGrey20, width: .5)),
-                                  padding: flyternMediumPaddingAll,
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.calendar_month,
-                                          color: flyternSecondaryColor,
-                                          size: flyternFontSize20),
-                                      addHorizontalSpace(flyternSpaceSmall * 1.5),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'travel_date'.tr,
-                                              style: getLabelLargeStyle(context).copyWith(
-                                                  color: flyternGrey40,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                            addVerticalSpace(flyternSpaceExtraSmall * 1.5),
-                                            Text(getFormattedDate(widget.flightBookingController.flightSearchData.value.searchList[index].departureDate),
-                                                style: getLabelLargeStyle(context).copyWith(
-                                                  color: flyternGrey80,
-                                                )),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )),
-                          Visibility(
-                              visible:widget.flightBookingController.flightSearchData.value.mode == FlightMode.ROUNDTRIP,
-                              child: addHorizontalSpace(flyternSpaceSmall)),
-                          Visibility(
-                            visible: widget.flightBookingController.flightSearchData.value.mode == FlightMode.ROUNDTRIP,
-                            child: Expanded(
-                                flex: 1,
-                                child: InkWell(
-                                  onTap: () {
-                                    showCustomDatePicker(true);
-                                  },
-                                  child: Container(
-                                    decoration:
-                                    flyternBorderedContainerSmallDecoration.copyWith(
-                                        border:
-                                        Border.all(color: flyternGrey20, width: .5)),
-                                    padding: flyternMediumPaddingAll,
+                          ),
+                          Container(
+                            decoration: flyternBorderedContainerSmallDecoration
+                                .copyWith(
+                                    border: Border.all(
+                                        color: flyternSecondaryColor,
+                                        width: .5)),
+                            padding: flyternMediumPaddingAll,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      FlightDestination destination =
+                                          await showSearch(
+                                              context: context,
+                                              delegate:
+                                                  DestinationSearchDelegate());
+
+                                      widget.flightBookingController
+                                          .setDestination(
+                                              destination, false, index);
+                                    },
                                     child: Row(
                                       children: [
-                                        Icon(Icons.calendar_month,
-                                            color: flyternSecondaryColor,
-                                            size: flyternFontSize20),
-                                        addHorizontalSpace(flyternSpaceSmall * 1.5),
-                                        Expanded(
-                                          flex: 1,
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'return_date'.tr,
-                                                style: getLabelLargeStyle(context).copyWith(
-                                                    color: flyternGrey40,
-                                                    fontWeight: FontWeight.w400),
+                                        Wrap(
+                                          alignment: WrapAlignment.center,
+                                          crossAxisAlignment:
+                                              WrapCrossAlignment.center,
+                                          direction: Axis.vertical,
+                                          children: [
+                                            for (var i = 0; i < 10; i++)
+                                              Container(
+                                                color: i % 2 == 0
+                                                    ? flyternSecondaryColor
+                                                    : Colors.transparent,
+                                                width: 1,
+                                                height: 3,
                                               ),
-                                              addVerticalSpace(flyternSpaceExtraSmall * 1.5),
-                                              Text(getFormattedDate(widget.flightBookingController.flightSearchData.value.searchList[index].returnDate),
-                                                  style: getLabelLargeStyle(context)
-                                                      .copyWith(color: flyternGrey80)),
-                                            ],
+                                            Icon(Icons.flight_takeoff_outlined,
+                                                color: flyternSecondaryColor),
+                                          ],
+                                        ),
+                                        addHorizontalSpace(flyternSpaceSmall),
+                                        Expanded(
+                                          child: Container(
+                                            decoration: BoxDecoration(),
+                                            clipBehavior: Clip.hardEdge,
+                                            child: FlightAirportLabelCard(
+                                              topLabel: "from".tr,
+                                              midLabel: widget
+                                                  .flightBookingController
+                                                  .flightSearchData
+                                                  .value
+                                                  .searchList[index]
+                                                  .departure
+                                                  .airportCode,
+                                              bottomLabel: widget
+                                                  .flightBookingController
+                                                  .flightSearchData
+                                                  .value
+                                                  .searchList[index]
+                                                  .departure
+                                                  .airportName,
+                                              sideNumber: 1,
+                                            ),
                                           ),
                                         )
                                       ],
                                     ),
                                   ),
-                                )),
+                                ),
+                                addHorizontalSpace(flyternSpaceMedium),
+                                InkWell(
+                                  onTap: () {
+                                    widget.flightBookingController
+                                        .reverseTrip(index);
+                                  },
+                                  child: Icon(
+                                    Ionicons.sync_circle,
+                                    size: 35,
+                                    color: flyternTertiaryColor,
+                                  ),
+                                ),
+                                addHorizontalSpace(flyternSpaceMedium),
+                                Expanded(
+                                  flex: 1,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      FlightDestination destination =
+                                          await showSearch(
+                                              context: context,
+                                              delegate:
+                                                  DestinationSearchDelegate());
+
+                                      widget.flightBookingController
+                                          .setDestination(
+                                              destination, true, index);
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Wrap(
+                                          alignment: WrapAlignment.center,
+                                          crossAxisAlignment:
+                                              WrapCrossAlignment.center,
+                                          direction: Axis.vertical,
+                                          children: [
+                                            for (var i = 0; i < 10; i++)
+                                              Container(
+                                                color: i % 2 == 0
+                                                    ? flyternSecondaryColor
+                                                    : Colors.transparent,
+                                                width: 1,
+                                                height: 3,
+                                              ),
+                                            Icon(Icons.flight_land_outlined,
+                                                color: flyternSecondaryColor),
+                                          ],
+                                        ),
+                                        addHorizontalSpace(flyternSpaceSmall),
+                                        Expanded(
+                                          child: Container(
+                                            decoration: BoxDecoration(),
+                                            clipBehavior: Clip.hardEdge,
+                                            child: FlightAirportLabelCard(
+                                              topLabel: "to".tr,
+                                              midLabel: widget
+                                                  .flightBookingController
+                                                  .flightSearchData
+                                                  .value
+                                                  .searchList[index]
+                                                  .arrival
+                                                  .airportCode,
+                                              bottomLabel: widget
+                                                  .flightBookingController
+                                                  .flightSearchData
+                                                  .value
+                                                  .searchList[index]
+                                                  .arrival
+                                                  .airportName,
+                                              sideNumber: 1,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: flyternSpaceMedium),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    flex: 1,
+                                    child: InkWell(
+                                      onTap: () {
+                                        showCustomDatePicker(index,false);
+                                      },
+                                      child: Container(
+                                        decoration:
+                                            flyternBorderedContainerSmallDecoration
+                                                .copyWith(
+                                                    border: Border.all(
+                                                        color: flyternGrey20,
+                                                        width: .5)),
+                                        padding: flyternMediumPaddingAll,
+                                        child: Row(
+                                          children: [
+                                            Icon(Icons.calendar_month,
+                                                color: flyternSecondaryColor,
+                                                size: flyternFontSize20),
+                                            addHorizontalSpace(
+                                                flyternSpaceSmall * 1.5),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'travel_date'.tr,
+                                                    style: getLabelLargeStyle(
+                                                            context)
+                                                        .copyWith(
+                                                            color:
+                                                                flyternGrey40,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
+                                                  ),
+                                                  addVerticalSpace(
+                                                      flyternSpaceExtraSmall *
+                                                          1.5),
+                                                  Text(
+                                                      getFormattedDate(widget
+                                                          .flightBookingController
+                                                          .flightSearchData
+                                                          .value
+                                                          .searchList[index]
+                                                          .departureDate),
+                                                      style: getLabelLargeStyle(
+                                                              context)
+                                                          .copyWith(
+                                                        color: flyternGrey80,
+                                                      )),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    )),
+                                Visibility(
+                                    visible: widget.flightBookingController
+                                            .flightSearchData.value.mode ==
+                                        FlightMode.ROUNDTRIP,
+                                    child:
+                                        addHorizontalSpace(flyternSpaceSmall)),
+                                Visibility(
+                                  visible: widget.flightBookingController
+                                          .flightSearchData.value.mode ==
+                                      FlightMode.ROUNDTRIP,
+                                  child: Expanded(
+                                      flex: 1,
+                                      child: InkWell(
+                                        onTap: () {
+                                          showCustomDatePicker(index,true);
+                                        },
+                                        child: Container(
+                                          decoration:
+                                              flyternBorderedContainerSmallDecoration
+                                                  .copyWith(
+                                                      border: Border.all(
+                                                          color: flyternGrey20,
+                                                          width: .5)),
+                                          padding: flyternMediumPaddingAll,
+                                          child: Row(
+                                            children: [
+                                              Icon(Icons.calendar_month,
+                                                  color: flyternSecondaryColor,
+                                                  size: flyternFontSize20),
+                                              addHorizontalSpace(
+                                                  flyternSpaceSmall * 1.5),
+                                              Expanded(
+                                                flex: 1,
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'return_date'.tr,
+                                                      style: getLabelLargeStyle(
+                                                              context)
+                                                          .copyWith(
+                                                              color:
+                                                                  flyternGrey40,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400),
+                                                    ),
+                                                    addVerticalSpace(
+                                                        flyternSpaceExtraSmall *
+                                                            1.5),
+                                                    Text(
+                                                        getFormattedDate(widget
+                                                            .flightBookingController
+                                                            .flightSearchData
+                                                            .value
+                                                            .searchList[index]
+                                                            .returnDate),
+                                                        style: getLabelLargeStyle(
+                                                                context)
+                                                            .copyWith(
+                                                                color:
+                                                                    flyternGrey80)),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-              )
-            ),
+                    )),
           ),
         ),
-
         Visibility(
-            visible: widget.flightBookingController.flightSearchData.value.mode == FlightMode.MULTICITY,
+            visible:
+                widget.flightBookingController.flightSearchData.value.mode ==
+                    FlightMode.MULTICITY,
             child: Padding(
-              padding: const EdgeInsets.only(bottom:flyternSpaceMedium),
+              padding: const EdgeInsets.only(bottom: flyternSpaceMedium),
               child: SizedBox(
                 width: double.infinity,
                 child: InkWell(
@@ -307,9 +389,10 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                     widget.flightBookingController.updateFlightCount(-1);
                   },
                   child: Container(
-                    decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                        border:
-                        Border.all(color: flyternSecondaryColor, width: .5)),
+                    decoration:
+                        flyternBorderedContainerSmallDecoration.copyWith(
+                            border: Border.all(
+                                color: flyternSecondaryColor, width: .5)),
                     padding: flyternMediumPaddingAll,
                     child: Center(
                         child: Text("+ " + "add_another_city".tr,
@@ -435,7 +518,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
     return flyternBackgroundWhite;
   }
 
-  void showCustomDatePicker(bool isReturn) {
+  void showCustomDatePicker(int index, bool isReturn) {
     showModalBottomSheet(
         useSafeArea: false,
         shape: const RoundedRectangleBorder(
@@ -449,7 +532,10 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
         builder: (context) {
           return CustomDatePicker(
             dateSelected: (DateTime? dateTime) {
-
+              if (dateTime != null && dateTime.isAfter(DateTime.now())) {
+                widget.flightBookingController
+                    .changeDate(index, isReturn, dateTime);
+              }
             },
           );
         });

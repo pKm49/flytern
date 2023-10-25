@@ -103,5 +103,12 @@ class FlightBookingController extends GetxController {
 
   }
 
+  changeDate(int index, bool isReturnDate, DateTime dateTime){
+
+    FlightSearchData newFlightSearchData = flightBookingHelperServices
+        .changeDate(flightSearchData.value, index, dateTime, isReturnDate );
+    flightSearchData.value = newFlightSearchData;
+
+  }
 
 }
