@@ -271,6 +271,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                 width: double.infinity,
                 child: InkWell(
                   onTap: () {
+                    widget.flightBookingController.updateFlightCount(-1);
                   },
                   child: Container(
                     decoration: flyternBorderedContainerSmallDecoration.copyWith(
