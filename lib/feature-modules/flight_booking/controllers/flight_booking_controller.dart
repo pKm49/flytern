@@ -111,4 +111,10 @@ class FlightBookingController extends GetxController {
 
   }
 
+  void updatePassengerCountAndCabinClass(int adultCount, int childCount, int infantCount, List<CabinClass> cabinClasses) {
+    FlightSearchData newFlightSearchData = flightBookingHelperServices
+        .updatePassengerCountAndCabinClass(flightSearchData.value, adultCount, childCount, infantCount, cabinClasses );
+    flightSearchData.value = newFlightSearchData;
+  }
+
 }

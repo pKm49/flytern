@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
 import 'package:flytern/feature-modules/flight_booking/data/constants/business_specific/flight_mode.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/cabin_class.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/services/delegates/destination_search_delegate.dart';
 import 'package:flytern/feature-modules/flight_booking/services/helper-services/flight_booking_helper_services.dart';
@@ -30,6 +31,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
   bool isDirectFlight = false;
   var flightBookingHelperServices = FlightBookingHelperServices();
   var elementStyleHelpers = ElementStyleHelpers();
+
 
 
   @override
@@ -565,8 +567,10 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
             selectedAdultCount: widget.flightBookingController.flightSearchData.value.adults,
             selectedChildCount: widget.flightBookingController.flightSearchData.value.child,
             selectedInfantCount: widget.flightBookingController.flightSearchData.value.infants,
-            dataSubmitted: (int adultCount, int childCount, int infantCount, List<String> cabinClasses) {
-
+            dataSubmitted: (int adultCount, int childCount, int infantCount, List<CabinClass> cabinClasses) {
+                widget.flightBookingController.updatePassengerCountAndCabinClass( adultCount,
+                childCount, infantCount, cabinClasses);
+                Navigator.pop(context);
             },
             bookingServiceNumber: 1,
               cabinClasses:widget.flightBookingController.cabinClasses.value,
