@@ -117,4 +117,16 @@ class FlightBookingController extends GetxController {
     flightSearchData.value = newFlightSearchData;
   }
 
+  void updatePromoCode(String promoCode) {
+    FlightSearchData newFlightSearchData = flightBookingHelperServices
+        .updatePromoCode(flightSearchData.value, promoCode);
+    flightSearchData.value = newFlightSearchData;
+  }
+
+  void updateDirectFlight(bool isDirectFlight) {
+    FlightSearchData newFlightSearchData = flightBookingHelperServices
+        .updateDirectFlight(flightSearchData.value, isDirectFlight);
+    flightSearchData.value = newFlightSearchData;
+  }
+
 }
