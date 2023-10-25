@@ -49,10 +49,9 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                 color: flyternGrey80,
                                 fontWeight: flyternFontWeightBold),
                             textAlign: TextAlign.center),
-                        Text("done".tr,
+                        Text("cancel".tr,
                             style: getHeadlineMediumStyle(context).copyWith(
-                                color: flyternPrimaryColor,
-                                fontWeight: flyternFontWeightBold),
+                                color: flyternSecondaryColor ),
                             textAlign: TextAlign.center),
                       ],
                     ),
@@ -270,7 +269,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
             padding: flyternMediumPaddingAll,
             decoration: flyternBorderedContainerSmallDecoration,
             child: Center(
-              child: Text("cancel".tr,style: getHeadlineMediumStyle(context).copyWith(color: flyternSecondaryColor)),
+              child: Text("done".tr,style: getHeadlineMediumStyle(context).copyWith(color: flyternPrimaryColor,fontWeight: flyternFontWeightBold)),
             ),
           )
         ],
