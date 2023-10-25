@@ -26,13 +26,14 @@ class FlightBookingHttpService {
 
   Future<List<FlightDestination>> getFlightDestinations(String searchQuery ) async {
     FlyternHttpResponse response = await getRequest(
-        FlightBookingHttpRequestEndpointGetDestinations+searchQuery, null);
+        FlightBookingHttpRequestEndpointGetDestinations, {"search":searchQuery});
     List<FlightDestination> flightDestinations =[];
     if(response.success){
       if(response.data != null){
         for(var i =0; i<response.data.length;i++) {
           flightDestinations.add(mapFlightDestination(response.data[i]));
         }
+        flightDestinations.sort((a, b) => a.sort.compareTo(b.sort));
       }
     }
 
