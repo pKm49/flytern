@@ -164,12 +164,25 @@ class FlightBookingHelperServices {
 
   String getPassengerCabinData(
       FlightBookingController flightBookingController) {
+
+    String returnString = "";
     int numberOfPassengers =
         flightBookingController.flightSearchData.value.adults +
             flightBookingController.flightSearchData.value.infants +
             flightBookingController.flightSearchData.value.child;
     if (numberOfPassengers > 0) {
-      return "$numberOfPassengers ${'passengers'.tr}";
+       returnString = "$numberOfPassengers ${'passengers'.tr}";
+       if(flightBookingController.flightSearchData.value.allowedCabins.isNotEmpty){
+         returnString +=" - ";
+         for(var i =0; i<flightBookingController.flightSearchData.value.allowedCabins.length;i++){
+           returnString += flightBookingController.flightSearchData.value.allowedCabins[i].value;
+           if(i!=flightBookingController.flightSearchData.value.allowedCabins.length-1){
+             returnString +=", ";
+           }
+         }
+
+       }
+       return returnString;
     } else {
       return "select_passenger_cabin".tr;
     }
