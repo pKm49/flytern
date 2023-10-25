@@ -65,7 +65,7 @@ class FlightBookingHelperServices{
 
   FlightSearchData removeFlightSearchItem(FlightSearchData flightSearchData, int index ){
 
-    List<FlightSearchItem> flightSearchItems = flightSearchData.searchList;
+    List<FlightSearchItem> flightSearchItems = [];
 
     for (var i = 0; i < flightSearchData.searchList.length; i++) {
       if (index != i) {
