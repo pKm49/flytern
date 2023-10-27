@@ -4,15 +4,18 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_item.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_response.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/popular_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/recommended_package.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/travel_story.dart';
 import 'package:flytern/feature-modules/flight_booking/services/helper-services/flight_booking_helper_services.dart';
 import 'package:flytern/feature-modules/flight_booking/services/http-services/flight_booking_http_services.dart';
+import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:get/get.dart';
 
 class FlightBookingController extends GetxController {
   var isFlightDestinationsLoading = true.obs;
+  var isFlightSearchResponsesLoading = true.obs;
   var isInitialDataLoading = true.obs;
   var flightBookingHttpService = FlightBookingHttpService();
   var flightBookingHelperServices = FlightBookingHelperServices();
@@ -23,6 +26,7 @@ class FlightBookingController extends GetxController {
   var travelStories = <TravelStory>[].obs;
   var flightDestinations = <FlightDestination>[].obs;
   var flightSearchItems = <FlightSearchItem>[].obs;
+  var flightSearchResponses = <FlightSearchResponse>[].obs;
   var flightSearchData = getDefaultFlightSearchData().obs;
 
   @override
@@ -55,6 +59,15 @@ class FlightBookingController extends GetxController {
     } else {
       return [];
     }
+  }
+
+  Future<void> getSearchResults() async {
+
+    isFlightSearchResponsesLoading.value = true;
+    flightSearchResponses.value  = await flightBookingHttpService.getFlightSearchResults(flightSearchData.value);
+    isFlightSearchResponsesLoading.value = false;
+    Get.toNamed(Approute_flightsSearchResult);
+
   }
 
   setDestination(
