@@ -51,7 +51,6 @@ class FlightBookingHttpService {
     FlyternHttpResponse response = await postRequest(
         FlightBookingHttpRequestEndpointSearchFlights,
         flightSearchData.toJson());
-    List<FlightSearchResponse> flightSearchResponses = [];
 
     List<FlightSearchResponse> searchResponses = [];
     List<SortingDcs> sortingDcs = [];
@@ -65,7 +64,7 @@ class FlightBookingHttpService {
       if (response.data != null  ) {
         if (  response.data["searchResponses"] != null) {
           for (var i = 0; i < response.data["searchResponses"].length; i++) {
-            flightSearchResponses.add(
+            searchResponses.add(
                 mapFlightSearchResponse(response.data["searchResponses"][i]));
           }
         }
