@@ -375,6 +375,9 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
     if(element.returnDate == null){
       return "  ${ getFormattedDate(element.departureDate)}";
     }
+    if(element.returnDate?.day == element.departureDate.day){
+      return "  ${ getFormattedDate(element.departureDate)}";
+    }
     return " ${element.departureDate.day}-${getFormattedDate(element.returnDate)}";
   }
 }
