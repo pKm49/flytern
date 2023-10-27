@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_item.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_form.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_search_result_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type_tab.dart';
@@ -12,6 +13,7 @@ import 'package:flytern/shared/services/utility-services/widget_properties_gener
 import 'package:flytern/shared/ui/components/filter_option_selector.dart';
 import 'package:flytern/shared/ui/components/sort_option_selector.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 
 class FlightSearchResultPage extends StatefulWidget {
@@ -67,18 +69,19 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
         width: screenwidth,
         height: screenheight,
         child: Column(
+
           children: [
             addVerticalSpace(flyternSpaceMedium),
             Visibility(
               visible: !isModifySearchVisible,
               child: Container(
-                padding: flyternMediumPaddingHorizontal,
-                child: Text(
-                    'KWI-DXB - 04-06 July, 23 - Round Trip - 1 Adults 1 Child',
+                width: screenwidth,
+                padding: flyternLargePaddingHorizontal,
+                child: Text(getSearchParamsPreview(),
                     textAlign: TextAlign.start,
                     style: getLabelLargeStyle(context).copyWith(
                         fontWeight: flyternFontWeightLight,
-                        color: flyternGrey40)),
+                        color: flyternGrey60)),
               ),
             ),
             Visibility(
@@ -269,24 +272,23 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
             // ),
             Expanded(
                 child: Container(
-              color: flyternGrey10,
-              child:
-              ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: flightBookingController.flightSearchResponses.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: const EdgeInsets.only(top: flyternSpaceMedium),
-                      child:FlightSearchResultCard(
-                          flightSearchResponse:flightBookingController.flightSearchResponses[index],
-                        onPressed: () {
-                          Get.toNamed(Approute_flightsDetails);
-                        },
-                      )
-                    );
-                  }
-              )
-            ))
+                    color: flyternGrey10,
+                    child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: flightBookingController
+                            .flightSearchResponses.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                              margin: const EdgeInsets.only(
+                                  top: flyternSpaceMedium),
+                              child: FlightSearchResultCard(
+                                flightSearchResponse: flightBookingController
+                                    .flightSearchResponses[index],
+                                onPressed: () {
+                                  Get.toNamed(Approute_flightsDetails);
+                                },
+                              ));
+                        })))
           ],
         ),
       ),
@@ -334,5 +336,45 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                 });
           });
         });
+  }
+
+  String getSearchParamsPreview() {
+    String searchParamsPreviewString = "";
+
+    if (flightBookingController.flightSearchData.value.searchList.isNotEmpty) {
+      flightBookingController.flightSearchData.value.searchList.forEach((element) {
+        searchParamsPreviewString +="${element.departure.airportCode}-${element.arrival.airportCode}${getDateString(element)} -";
+      });
+    }
+     searchParamsPreviewString +=" ${flightBookingController.flightSearchData.value.mode.name}";
+
+    if (flightBookingController.flightSearchData.value.adults>0) {
+      searchParamsPreviewString +=" -${flightBookingController.flightSearchData.value.adults} ${'adults'.tr}";
+    }
+
+    if (flightBookingController.flightSearchData.value.child>0) {
+      searchParamsPreviewString +=" -${flightBookingController.flightSearchData.value.child} ${'children'.tr}";
+    }
+
+    if (flightBookingController.flightSearchData.value.infants>0) {
+      searchParamsPreviewString +=" -${flightBookingController.flightSearchData.value.infants} ${'infants'.tr}";
+    }
+      return searchParamsPreviewString;
+  }
+
+  String getFormattedDate(DateTime? dateTime) {
+    if(dateTime == null){
+      return "";
+    }
+    final f = DateFormat('dd-MMM-yy');
+    return f.format(dateTime);
+  }
+
+  getDateString(FlightSearchItem element) {
+
+    if(element.returnDate == null){
+      return "  ${ getFormattedDate(element.departureDate)}";
+    }
+    return " ${element.departureDate.day}-${getFormattedDate(element.returnDate)}";
   }
 }
