@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_response.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_airport_lable_card.dart';
 import 'package:flytern/shared/ui/components/data_capsule_card.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
@@ -11,8 +12,9 @@ import 'package:get/get.dart';
 
 class FlightSearchResultCard extends StatelessWidget {
   final GestureTapCallback onPressed;
+  FlightSearchResponse flightSearchResponse;
 
-    FlightSearchResultCard({super.key, required this.onPressed});
+    FlightSearchResultCard({super.key, required this.flightSearchResponse, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
