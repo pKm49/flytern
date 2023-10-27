@@ -63,10 +63,13 @@ class FlightBookingController extends GetxController {
 
   Future<void> getSearchResults() async {
 
-    isFlightSearchResponsesLoading.value = true;
-    flightSearchResponses.value  = await flightBookingHttpService.getFlightSearchResults(flightSearchData.value);
-    isFlightSearchResponsesLoading.value = false;
-    Get.toNamed(Approute_flightsSearchResult);
+    if(flightSearchData.value.allowedCabins.isNotEmpty && flightSearchData.value.adults>0){
+      isFlightSearchResponsesLoading.value = true;
+      flightSearchResponses.value  = await flightBookingHttpService.getFlightSearchResults(flightSearchData.value);
+      isFlightSearchResponsesLoading.value = false;
+      Get.toNamed(Approute_flightsSearchResult);
+    }
+
 
   }
 
