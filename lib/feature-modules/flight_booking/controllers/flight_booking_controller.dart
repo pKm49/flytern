@@ -31,7 +31,7 @@ class FlightBookingController extends GetxController {
   var flightSearchItems = <FlightSearchItem>[].obs;
   var flightSearchResponses = <FlightSearchResponse>[].obs;
   var sortingDcs = <SortingDcs>[].obs;
-  var currentSort = SortingDcs(
+  var sortingDc = SortingDcs(
     value: "-1",
     name: "",
     isDefault: false
@@ -84,7 +84,7 @@ class FlightBookingController extends GetxController {
       sortingDcs.value = flightSearchResult.sortingDcs;
       if(sortingDcs.isNotEmpty ){
         List<SortingDcs> defaultSort = sortingDcs.where((p0) => p0.isDefault).toList();
-        currentSort.value = defaultSort.isNotEmpty?defaultSort[0]:sortingDcs[0];
+        sortingDc.value = defaultSort.isNotEmpty?defaultSort[0]:sortingDcs[0];
       }
       priceDcs.value = flightSearchResult.priceDcs;
       airlineDcs.value = flightSearchResult.airlineDcs;

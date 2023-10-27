@@ -112,10 +112,10 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                                     color: flyternGrey60)),
                             Visibility(
                               visible: flightBookingController.sortingDcs.value.isNotEmpty &&
-                                  flightBookingController.currentSort.value.value !="-1",
+                                  flightBookingController.sortingDc.value.value !="-1",
                               child: Padding(
                                 padding: const EdgeInsets.only(top:flyternSpaceExtraSmall),
-                                child: Text( flightBookingController.currentSort.value.name,
+                                child: Text( flightBookingController.sortingDc.value.name,
                                     style: getBodyMediumStyle(context)
                                         .copyWith(color: flyternGrey80)),
                               ),
