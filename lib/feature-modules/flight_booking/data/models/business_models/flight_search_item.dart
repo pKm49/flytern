@@ -24,7 +24,7 @@ class FlightSearchItem {
       };
 
   String getFormattedDate(DateTime dateTime) {
-    final f = DateFormat('dd-MM-yyyy');
+    final f = DateFormat('yyyy-MM-dd');
     return f.format(dateTime);
   }
 }
