@@ -12,22 +12,23 @@ class ProfileFlightBookingsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        addVerticalSpace(flyternSpaceLarge),
-        FlightSearchResultCard(
-          onPressed: (){
-            Get.toNamed(Approute_flightsConfirmation,arguments: [
-                {"mode": "edit"}
-                ] );
-          },
-        ),
-        addVerticalSpace(flyternSpaceLarge),
-        FlightSearchResultCard(
-          onPressed: (){
-            Get.toNamed(Approute_flightsConfirmation,arguments: [
-              {"mode": "edit"}
-            ] );
-          },
-        ),
+        // addVerticalSpace(flyternSpaceLarge),
+        // FlightSearchResultCard(
+        // flightSearchResponses:,
+        //   onPressed: (){
+        //     Get.toNamed(Approute_flightsConfirmation,arguments: [
+        //         {"mode": "edit"}
+        //         ] );
+        //   },
+        // ),
+        // addVerticalSpace(flyternSpaceLarge),
+        // FlightSearchResultCard(
+        //   onPressed: (){
+        //     Get.toNamed(Approute_flightsConfirmation,arguments: [
+        //       {"mode": "edit"}
+        //     ] );
+        //   },
+        // ),
       ],
     );
   }
