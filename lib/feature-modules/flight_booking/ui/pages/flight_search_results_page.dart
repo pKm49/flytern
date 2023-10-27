@@ -69,7 +69,6 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
         width: screenwidth,
         height: screenheight,
         child: Column(
-
           children: [
             addVerticalSpace(flyternSpaceMedium),
             Visibility(
@@ -117,11 +116,12 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                                     .copyWith(color: flyternGrey80)),
                           ],
                         ),
-                        Icon(Ionicons.chevron_down,size: flyternFontSize20, color: flyternGrey40)
+                        Icon(Ionicons.chevron_down,
+                            size: flyternFontSize20, color: flyternGrey40)
                       ],
                     ),
                   )),
-                  addHorizontalSpace(flyternSpaceLarge*1.5),
+                  addHorizontalSpace(flyternSpaceLarge * 1.5),
                   Expanded(
                       child: InkWell(
                     onTap: () {
@@ -144,7 +144,8 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                                     .copyWith(color: flyternGrey80)),
                           ],
                         ),
-                        Icon(Ionicons.chevron_down,size: flyternFontSize20, color: flyternGrey40)
+                        Icon(Ionicons.chevron_down,
+                            size: flyternFontSize20, color: flyternGrey40)
                       ],
                     ),
                   ))
@@ -159,8 +160,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                     BoxDecoration(border: flyternDefaultBorderBottomOnly),
                 child: TabBar(
                     indicatorSize: TabBarIndicatorSize.tab,
-                    indicatorPadding: EdgeInsets.zero,
-                    labelPadding: flyternSmallPaddingAll,
+                    labelPadding: EdgeInsets.zero,
                     // indicator: new BubbleTabIndicator(
                     //   indicatorHeight: 30.0,
                     //   indicatorColor: AppColors.PrimaryColor,
@@ -172,79 +172,19 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                     controller: tabController,
                     labelColor: flyternSecondaryColor,
                     labelStyle: TextStyle(
-                        color: flyternPrimaryColor,
+                        color: flyternSecondaryColor,
                         fontWeight: FontWeight.bold),
-                    unselectedLabelColor: flyternGrey20,
-                    tabs: <Container>[
-                      Container(
-                        padding: flyternExtraSmallPaddingVertical,
-                        child: Wrap(
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          direction: Axis.vertical,
-                          spacing: flyternSpaceExtraSmall,
-                          children: [
-                            Text("Tue July 4, 2023",
-                                style: getLabelLargeStyle(context).copyWith(
-                                    color: tabController.index == 0
-                                        ? flyternSecondaryColor
-                                        : flyternGrey40)),
-                            Text(
-                              "AED 15,000",
-                              style: getBodyMediumStyle(context).copyWith(
-                                  fontWeight: flyternFontWeightBold,
-                                  color: tabController.index == 0
-                                      ? flyternSecondaryColor
-                                      : flyternGrey40),
-                            ),
-                          ],
+                    unselectedLabelColor: flyternGrey40,
+                    tabs: <Tab>[
+                      for (var i = 0; i < 3; i++)
+                        Tab(
+                          text: getLargeFormattedDate(flightBookingController
+                              .flightSearchData
+                              .value
+                              .searchList[0]
+                              .departureDate
+                              .add(Duration(days: i))),
                         ),
-                      ),
-                      Container(
-                        padding: flyternExtraSmallPaddingVertical,
-                        child: Wrap(
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          direction: Axis.vertical,
-                          spacing: flyternSpaceExtraSmall,
-                          children: [
-                            Text("Wed July 5, 2023",
-                                style: getLabelLargeStyle(context).copyWith(
-                                    color: tabController.index == 1
-                                        ? flyternSecondaryColor
-                                        : flyternGrey40)),
-                            Text(
-                              "AED 15,000",
-                              style: getBodyMediumStyle(context).copyWith(
-                                  fontWeight: flyternFontWeightBold,
-                                  color: tabController.index == 1
-                                      ? flyternSecondaryColor
-                                      : flyternGrey40),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: flyternExtraSmallPaddingVertical,
-                        child: Wrap(
-                          direction: Axis.vertical,
-                          spacing: flyternSpaceExtraSmall,
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          children: [
-                            Text("Thu July 6, 2023",
-                                style: getLabelLargeStyle(context).copyWith(
-                                    color: tabController.index == 2
-                                        ? flyternSecondaryColor
-                                        : flyternGrey40)),
-                            Text(
-                              "AED 15,000",
-                              style: getBodyMediumStyle(context).copyWith(
-                                  fontWeight: flyternFontWeightBold,
-                                  color: tabController.index == 2
-                                      ? flyternSecondaryColor
-                                      : flyternGrey40),
-                            ),
-                          ],
-                        ),
-                      ),
                     ])),
 
             // addVerticalSpace(flyternSpaceLarge),
@@ -342,28 +282,42 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
     String searchParamsPreviewString = "";
 
     if (flightBookingController.flightSearchData.value.searchList.isNotEmpty) {
-      flightBookingController.flightSearchData.value.searchList.forEach((element) {
-        searchParamsPreviewString +="${element.departure.airportCode}-${element.arrival.airportCode}${getDateString(element)} -";
+      flightBookingController.flightSearchData.value.searchList
+          .forEach((element) {
+        searchParamsPreviewString +=
+            "${element.departure.airportCode}-${element.arrival.airportCode}${getDateString(element)} -";
       });
     }
-     searchParamsPreviewString +=" ${flightBookingController.flightSearchData.value.mode.name}";
+    searchParamsPreviewString +=
+        " ${flightBookingController.flightSearchData.value.mode.name}";
 
-    if (flightBookingController.flightSearchData.value.adults>0) {
-      searchParamsPreviewString +=" -${flightBookingController.flightSearchData.value.adults} ${'adults'.tr}";
+    if (flightBookingController.flightSearchData.value.adults > 0) {
+      searchParamsPreviewString +=
+          " -${flightBookingController.flightSearchData.value.adults} ${'adults'.tr}";
     }
 
-    if (flightBookingController.flightSearchData.value.child>0) {
-      searchParamsPreviewString +=" -${flightBookingController.flightSearchData.value.child} ${'children'.tr}";
+    if (flightBookingController.flightSearchData.value.child > 0) {
+      searchParamsPreviewString +=
+          " -${flightBookingController.flightSearchData.value.child} ${'children'.tr}";
     }
 
-    if (flightBookingController.flightSearchData.value.infants>0) {
-      searchParamsPreviewString +=" -${flightBookingController.flightSearchData.value.infants} ${'infants'.tr}";
+    if (flightBookingController.flightSearchData.value.infants > 0) {
+      searchParamsPreviewString +=
+          " -${flightBookingController.flightSearchData.value.infants} ${'infants'.tr}";
     }
-      return searchParamsPreviewString;
+    return searchParamsPreviewString;
+  }
+
+  String getLargeFormattedDate(DateTime? dateTime) {
+    if (dateTime == null) {
+      return "";
+    }
+    final f = DateFormat('E, dd-MMM yy');
+    return f.format(dateTime);
   }
 
   String getFormattedDate(DateTime? dateTime) {
-    if(dateTime == null){
+    if (dateTime == null) {
       return "";
     }
     final f = DateFormat('dd-MMM-yy');
@@ -371,12 +325,11 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
   }
 
   getDateString(FlightSearchItem element) {
-
-    if(element.returnDate == null){
-      return "  ${ getFormattedDate(element.departureDate)}";
+    if (element.returnDate == null) {
+      return "  ${getFormattedDate(element.departureDate)}";
     }
-    if(element.returnDate?.day == element.departureDate.day){
-      return "  ${ getFormattedDate(element.departureDate)}";
+    if (element.returnDate?.day == element.departureDate.day) {
+      return "  ${getFormattedDate(element.departureDate)}";
     }
     return " ${element.departureDate.day}-${getFormattedDate(element.returnDate)}";
   }
