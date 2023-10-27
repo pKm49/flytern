@@ -110,10 +110,16 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                                 style: getLabelLargeStyle(context).copyWith(
                                     fontWeight: flyternFontWeightLight,
                                     color: flyternGrey60)),
-                            addVerticalSpace(flyternSpaceExtraSmall),
-                            Text("price".tr,
-                                style: getBodyMediumStyle(context)
-                                    .copyWith(color: flyternGrey80)),
+                            Visibility(
+                              visible: flightBookingController.sortingDcs.value.isNotEmpty &&
+                                  flightBookingController.currentSort.value.value !="-1",
+                              child: Padding(
+                                padding: const EdgeInsets.only(top:flyternSpaceExtraSmall),
+                                child: Text( flightBookingController.currentSort.value.name,
+                                    style: getBodyMediumStyle(context)
+                                        .copyWith(color: flyternGrey80)),
+                              ),
+                            ),
                           ],
                         ),
                         Icon(Ionicons.chevron_down,
