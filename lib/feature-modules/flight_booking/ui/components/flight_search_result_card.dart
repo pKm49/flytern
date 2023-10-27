@@ -9,12 +9,14 @@ import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 
 class FlightSearchResultCard extends StatelessWidget {
   final GestureTapCallback onPressed;
   FlightSearchResponse flightSearchResponse;
 
-    FlightSearchResultCard({super.key, required this.flightSearchResponse, required this.onPressed});
+  FlightSearchResultCard(
+      {super.key, required this.flightSearchResponse, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -27,99 +29,123 @@ class FlightSearchResultCard extends StatelessWidget {
       width: screenwidth - (flyternSpaceLarge * 2),
       margin: flyternLargePaddingHorizontal,
       child: Wrap(
-        runSpacing: flyternSpaceLarge,
+        runSpacing: flyternSpaceSmall,
         children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: flyternSpaceSmall),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(
+                      flyternBorderRadiusExtraSmall)),
+                  child: Image.network(flightSearchResponse.airlineImageUrl, height: 30,
+                      errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      height: 20,
+                      width: screenwidth * .2,
+                    );
+                  }),
+                ),
+                Expanded(child: Container()),
+                DataCapsuleCard(
+                  label: "${flightSearchResponse.dTOSegments.length} Stops",
+                  theme: 2,
+                ),
+                addHorizontalSpace(flyternSpaceSmall),
+                DataCapsuleCard(
+                  label: flightSearchResponse.isRefund
+                      ? "refundable".tr
+                      : "non_refundable".tr,
+                  theme: flightSearchResponse.isRefund ? 1 : 3,
+                ),
+              ],
+            ),
+          ),
+          for (var i = 0; i < flightSearchResponse.dTOSegments.length; i++)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                    child: Container(
+                  decoration: BoxDecoration(),
+                  clipBehavior: Clip.hardEdge,
+                  child: FlightAirportLabelCard(
+                    topLabel: flightSearchResponse.dTOSegments[i].fromCountry,
+                    midLabel: flightSearchResponse.dTOSegments[i].from,
+                    bottomLabel:
+                        flightSearchResponse.dTOSegments[i].departureTime,
+                    sideNumber: 1,
+                  ),
+                )),
+                Padding(
+                  padding: flyternSmallPaddingHorizontal,
+                  child: Image.asset(
+                    ASSETS_FLIGHT_CHART_ICON,
+                    width: screenwidth * .3,
+                  ),
+                ),
+                Expanded(
+                    child: Container(
+                  decoration: BoxDecoration(),
+                  clipBehavior: Clip.hardEdge,
+                  child: FlightAirportLabelCard(
+                    topLabel: flightSearchResponse.dTOSegments[i].toCountry,
+                    midLabel: flightSearchResponse.dTOSegments[i].to,
+                    bottomLabel:
+                        flightSearchResponse.dTOSegments[i].arrivalTime,
+                    sideNumber: 2,
+                  ),
+                ))
+              ],
+            ),
+          Padding(
+            padding: const EdgeInsets.only(top: flyternSpaceSmall),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                for (var i = 0; i < (screenwidth - (screenwidth / 1.3)); i++)
+                  Container(
+                    color: i % 2 == 0 ? flyternGrey40 : Colors.transparent,
+                    height: 1,
+                    width: 3,
+                  ),
+              ],
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(ASSETS_FLIGHT_1_SAMPLE, width: screenwidth * .2),
-              Expanded(child: Container()),
-              DataCapsuleCard(
-                label: "2 Stops",
-                theme: 2,
+              Visibility(
+                visible: flightSearchResponse.isSale,
+                child: Text(
+                  "${flightSearchResponse.totalPrc.toStringAsFixed(2)} ${flightSearchResponse.currency}",
+                  style: getBodyMediumStyle(context).copyWith(
+                      decoration: TextDecoration.lineThrough,
+                      fontWeight: flyternFontWeightBold,
+                      color: flyternGrey40),
+                ),
               ),
               addHorizontalSpace(flyternSpaceSmall),
-              DataCapsuleCard(
-                label: "Refundable",
-                theme: 1,
+              Text(
+                "${flightSearchResponse.finalPrc.toStringAsFixed(2)} ${flightSearchResponse.currency}",
+                style: getHeadlineMediumStyle(context).copyWith(
+                    fontWeight: flyternFontWeightBold,
+                    color: flyternSecondaryColor),
               ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                  child: FlightAirportLabelCard(
-                topLabel: "Istanbul, TR",
-                midLabel: "IST",
-                bottomLabel: "08:00 AM",
-                    sideNumber: 1,
-              )),
-              Padding(
-                padding: flyternSmallPaddingHorizontal,
-                child: Image.asset(ASSETS_FLIGHT_CHART_ICON,width: screenwidth*.35, ),
-              ),
-              Expanded(
-                  child: FlightAirportLabelCard(
-                    topLabel: "Istanbul, TR",
-                    midLabel: "IST",
-                    bottomLabel: "08:00 AM",
-                    sideNumber: 2,
-                  ))
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                  child: FlightAirportLabelCard(
-                topLabel: "Istanbul, TR",
-                midLabel: "IST",
-                bottomLabel: "08:00 AM",
-                    sideNumber: 1,
-              )),
-              Padding(
-                padding: flyternSmallPaddingHorizontal,
-                child: Image.asset(ASSETS_FLIGHT_CHART_ICON,width: screenwidth*.35, ),
-              ),
-              Expanded(
-                  child: FlightAirportLabelCard(
-                    topLabel: "Istanbul, TR",
-                    midLabel: "IST",
-                    bottomLabel: "08:00 AM",
-                    sideNumber: 2,
-                  ))
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              for (var i = 0; i < (screenwidth -  (screenwidth/1.3)); i++)
-                Container(
-                  color: i % 2 == 0
-                      ? flyternGrey40
-                      : Colors.transparent,
-                  height: 1,
-                  width: 3,
-                ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("AED 15,000",style: getHeadlineMediumStyle(context).copyWith(
-                  fontWeight: flyternFontWeightBold,
-                  color: flyternSecondaryColor),),
               Expanded(child: Container()),
-              Expanded(
+              ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(
+                    flyternBorderRadiusExtraSmall)),
                 child: ElevatedButton(
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.symmetric(
-                            horizontal: flyternSpaceLarge,
-                            vertical: flyternSpaceSmall)),
-                  ),
-                    onPressed:onPressed , child: Text("select".tr)),
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                          EdgeInsets.symmetric(
+                              horizontal: 0, vertical: flyternSpaceExtraSmall)),
+                    ),
+                    onPressed: onPressed,
+                    child: Icon(Ionicons.chevron_forward)),
               ),
             ],
           )
