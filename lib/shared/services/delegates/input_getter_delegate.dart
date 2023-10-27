@@ -5,11 +5,15 @@ import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:ionicons/ionicons.dart';
 
 class InputGetterDelegate extends StatefulWidget {
+  String currentText;
   String hintText;
   final Function(String text) textSubmitted;
 
   InputGetterDelegate(
-      {super.key, required this.hintText, required this.textSubmitted});
+      {super.key,
+      required this.hintText,
+      required this.currentText,
+      required this.textSubmitted});
 
   @override
   State<InputGetterDelegate> createState() => _InputGetterDelegateState();
@@ -17,6 +21,16 @@ class InputGetterDelegate extends StatefulWidget {
 
 class _InputGetterDelegateState extends State<InputGetterDelegate> {
   TextEditingController textEditingController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    textEditingController.text = widget.currentText;
+    setState(() {
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,23 +42,20 @@ class _InputGetterDelegateState extends State<InputGetterDelegate> {
         elevation: 2,
         title: TextFormField(
             autofocus: true,
-            onFieldSubmitted: (String s){
+            onFieldSubmitted: (String s) {
               widget.textSubmitted(textEditingController.text);
             },
             controller: textEditingController,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               fillColor: flyternBackgroundWhite,
-
               hintText: widget.hintText,
             )),
         actions: [
           InkWell(
-              onTap: (){
+              onTap: () {
                 textEditingController.text = "";
-                setState(() {
-
-                });
+                setState(() {});
               },
               child: Icon(Ionicons.close)),
           addHorizontalSpace(flyternSpaceSmall)
