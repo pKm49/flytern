@@ -5,8 +5,11 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_item.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_response.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_result.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/popular_destination.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/range_dcs.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/recommended_package.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/sorting_dcs.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/travel_story.dart';
 import 'package:flytern/feature-modules/flight_booking/services/helper-services/flight_booking_helper_services.dart';
 import 'package:flytern/feature-modules/flight_booking/services/http-services/flight_booking_http_services.dart';
@@ -27,8 +30,13 @@ class FlightBookingController extends GetxController {
   var flightDestinations = <FlightDestination>[].obs;
   var flightSearchItems = <FlightSearchItem>[].obs;
   var flightSearchResponses = <FlightSearchResponse>[].obs;
+  var sortingDcs = <SortingDcs>[].obs;
+  var airlineDcs = <SortingDcs>[].obs;
+  var departureTimeDcs = <SortingDcs>[].obs;
+  var arrivalTimeDcs = <SortingDcs>[].obs;
+  var stopDcs = <SortingDcs>[].obs;
+  var priceDcs = <RangeDcs>[].obs;
   var flightSearchData = getDefaultFlightSearchData().obs;
-
   @override
   void onInit() {
     super.onInit();
@@ -65,7 +73,15 @@ class FlightBookingController extends GetxController {
 
     if(flightSearchData.value.allowedCabins.isNotEmpty && flightSearchData.value.adults>0){
       isFlightSearchResponsesLoading.value = true;
-      flightSearchResponses.value  = await flightBookingHttpService.getFlightSearchResults(flightSearchData.value);
+      FlightSearchResult flightSearchResult = await flightBookingHttpService.getFlightSearchResults(flightSearchData.value);
+      flightSearchResponses.value = flightSearchResult.searchResponses;
+      sortingDcs.value = flightSearchResult.sortingDcs;
+      priceDcs.value = flightSearchResult.priceDcs;
+      airlineDcs.value = flightSearchResult.airlineDcs;
+      arrivalTimeDcs.value = flightSearchResult.arrivalTimeDcs;
+      departureTimeDcs.value = flightSearchResult.departureTimeDcs;
+      stopDcs.value = flightSearchResult.stopDcs;
+
       isFlightSearchResponsesLoading.value = false;
       Get.toNamed(Approute_flightsSearchResult);
     }
