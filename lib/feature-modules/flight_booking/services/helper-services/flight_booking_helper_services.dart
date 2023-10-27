@@ -52,12 +52,26 @@ class FlightBookingHelperServices {
 
   FlightSearchData setFlightMode(
       FlightSearchData flightSearchData, FlightMode newMode) {
+
+    List<FlightSearchItem> flightSearchItems = [];
+
+    FlightSearchItem flightSearchItem = FlightSearchItem(
+        departure: flightSearchData
+            .searchList[0].departure,
+        arrival: flightSearchData
+            .searchList[0].arrival,
+        departureDate: flightSearchData
+            .searchList[0].departureDate,
+        returnDate: newMode == FlightMode.ROUNDTRIP?flightSearchData.searchList[0].departureDate:null);
+    flightSearchItems.add(flightSearchItem);
+
     return FlightSearchData(
+
         promoCode: flightSearchData.promoCode,
         adults: flightSearchData.adults,
         child: flightSearchData.child,
         infants: flightSearchData.infants,
-        searchList: flightSearchData.searchList,
+        searchList: flightSearchItems,
         allowedCabins: flightSearchData.allowedCabins,
         mode: newMode,
         isDirectFlight: flightSearchData.isDirectFlight);
