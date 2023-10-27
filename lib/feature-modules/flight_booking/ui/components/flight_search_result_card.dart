@@ -68,10 +68,11 @@ class FlightSearchResultCard extends StatelessWidget {
               children: [
                 Expanded(
                     child: Container(
+                      alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(),
                   clipBehavior: Clip.hardEdge,
                   child: FlightAirportLabelCard(
-                    topLabel: flightSearchResponse.dTOSegments[i].fromCountry,
+                    topLabel:getTopLabel( flightSearchResponse.dTOSegments[i].fromCountry),
                     midLabel: flightSearchResponse.dTOSegments[i].from,
                     bottomLabel:
                         flightSearchResponse.dTOSegments[i].departureTime,
@@ -87,10 +88,11 @@ class FlightSearchResultCard extends StatelessWidget {
                 ),
                 Expanded(
                     child: Container(
+                      alignment: Alignment.centerRight,
                   decoration: BoxDecoration(),
                   clipBehavior: Clip.hardEdge,
                   child: FlightAirportLabelCard(
-                    topLabel: flightSearchResponse.dTOSegments[i].toCountry,
+                    topLabel:getTopLabel( flightSearchResponse.dTOSegments[i].toCountry),
                     midLabel: flightSearchResponse.dTOSegments[i].to,
                     bottomLabel:
                         flightSearchResponse.dTOSegments[i].arrivalTime,
@@ -152,5 +154,15 @@ class FlightSearchResultCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  getTopLabel(String toCountry) {
+    if(toCountry.split(",").toList().length>1){
+      return toCountry.split(",").toList()[1];
+    }
+    if(toCountry.split(",").toList().length==1){
+      return toCountry.split(",").toList()[0];
+    }
+    return toCountry;
   }
 }
