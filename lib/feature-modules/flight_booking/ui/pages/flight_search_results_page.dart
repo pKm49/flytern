@@ -21,13 +21,15 @@ class FlightSearchResultPage extends StatefulWidget {
   State<FlightSearchResultPage> createState() => _FlightSearchResultPageState();
 }
 
-class _FlightSearchResultPageState extends State<FlightSearchResultPage> with SingleTickerProviderStateMixin{
+class _FlightSearchResultPageState extends State<FlightSearchResultPage>
+    with SingleTickerProviderStateMixin {
   final flightBookingController = Get.find<FlightBookingController>();
 
   late TabController tabController;
-  bool isModifySearchVisible =false;
+  bool isModifySearchVisible = false;
   int selectedTab = 1;
   int multicityCount = 1;
+
   @override
   void initState() {
     super.initState();
@@ -43,18 +45,16 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
 
   @override
   Widget build(BuildContext context) {
-
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-
       appBar: AppBar(
         elevation: 0.5,
         title: Text("search_results".tr),
         actions: [
           InkWell(
-              onTap: (){
+              onTap: () {
                 setState(() {
                   isModifySearchVisible = !isModifySearchVisible;
                 });
@@ -73,47 +73,55 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
               visible: !isModifySearchVisible,
               child: Container(
                 padding: flyternMediumPaddingHorizontal,
-                child: Text('KWI-DXB - 04-06 July, 23 - Round Trip - 1 Adults 1 Child',
+                child: Text(
+                    'KWI-DXB - 04-06 July, 23 - Round Trip - 1 Adults 1 Child',
                     textAlign: TextAlign.start,
                     style: getLabelLargeStyle(context).copyWith(
-                        fontWeight: flyternFontWeightLight,color: flyternGrey40)),
+                        fontWeight: flyternFontWeightLight,
+                        color: flyternGrey40)),
               ),
             ),
             Visibility(
-                visible: !isModifySearchVisible,child: addVerticalSpace(flyternSpaceSmall)),
+                visible: !isModifySearchVisible,
+                child: addVerticalSpace(flyternSpaceSmall)),
+            Visibility(visible: !isModifySearchVisible, child: Divider()),
             Visibility(
-                visible: !isModifySearchVisible,child: Divider()),
-            Visibility(
-                visible: !isModifySearchVisible,child: addVerticalSpace(flyternSpaceSmall)),
+                visible: !isModifySearchVisible,
+                child: addVerticalSpace(flyternSpaceSmall)),
             Container(
               padding: flyternMediumPaddingHorizontal,
-              child:  Row(
+              child: Row(
                 children: [
                   Expanded(
                       child: InkWell(
-                        onTap: (){
-                          showSortOptions();
-                        },
-                        child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+                    onTap: () {
+                      showSortOptions();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                             Text("sort".tr,style: getLabelLargeStyle(context).copyWith(fontWeight: flyternFontWeightLight,color: flyternGrey40)),
+                            Text("sort".tr,
+                                style: getLabelLargeStyle(context).copyWith(
+                                    fontWeight: flyternFontWeightLight,
+                                    color: flyternGrey40)),
                             addVerticalSpace(flyternSpaceExtraSmall),
-                            Text("price".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-
+                            Text("price".tr,
+                                style: getBodyMediumStyle(context)
+                                    .copyWith(color: flyternGrey80)),
                           ],
                         ),
-                        Icon(Ionicons.chevron_down,color: flyternGrey40)
-                    ],
-                  ),
-                      )),
+                        Icon(Ionicons.chevron_down, color: flyternGrey40)
+                      ],
+                    ),
+                  )),
                   addHorizontalSpace(flyternSpaceLarge),
-                  Expanded(child: InkWell(
-                    onTap: (){
+                  Expanded(
+                      child: InkWell(
+                    onTap: () {
                       showFilterOptions();
                     },
                     child: Row(
@@ -123,13 +131,17 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                             Text("filter".tr,style: getLabelLargeStyle(context).copyWith(fontWeight: flyternFontWeightLight,color: flyternGrey40)),
+                            Text("filter".tr,
+                                style: getLabelLargeStyle(context).copyWith(
+                                    fontWeight: flyternFontWeightLight,
+                                    color: flyternGrey40)),
                             addVerticalSpace(flyternSpaceExtraSmall),
-                            Text("all".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-
+                            Text("all".tr,
+                                style: getBodyMediumStyle(context)
+                                    .copyWith(color: flyternGrey80)),
                           ],
                         ),
-                        Icon(Ionicons.chevron_down,color: flyternGrey40)
+                        Icon(Ionicons.chevron_down, color: flyternGrey40)
                       ],
                     ),
                   ))
@@ -139,124 +151,141 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
             addVerticalSpace(flyternSpaceSmall),
             Divider(),
             Container(
-              padding: flyternMediumPaddingHorizontal,
-              decoration: BoxDecoration(
-                border: flyternDefaultBorderBottomOnly
-              ),
-              child:  TabBar(
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  indicatorPadding: EdgeInsets.zero,
-                  labelPadding: flyternSmallPaddingAll,
-                  // indicator: new BubbleTabIndicator(
-                  //   indicatorHeight: 30.0,
-                  //   indicatorColor: AppColors.PrimaryColor,
-                  //   tabBarIndicatorSize: TabBarIndicatorSize.tab,
-                  // ),
-                  indicatorColor: flyternSecondaryColor,
-                  indicatorWeight: 2,
-                  padding: EdgeInsets.zero,
-                  controller: tabController,
-                  labelColor: flyternSecondaryColor,
-                  labelStyle: TextStyle(color:flyternPrimaryColor,fontWeight: FontWeight.bold ),
-                  unselectedLabelColor: flyternGrey20,
-                  tabs: <Container>[
+                padding: flyternMediumPaddingHorizontal,
+                decoration:
+                    BoxDecoration(border: flyternDefaultBorderBottomOnly),
+                child: TabBar(
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    indicatorPadding: EdgeInsets.zero,
+                    labelPadding: flyternSmallPaddingAll,
+                    // indicator: new BubbleTabIndicator(
+                    //   indicatorHeight: 30.0,
+                    //   indicatorColor: AppColors.PrimaryColor,
+                    //   tabBarIndicatorSize: TabBarIndicatorSize.tab,
+                    // ),
+                    indicatorColor: flyternSecondaryColor,
+                    indicatorWeight: 2,
+                    padding: EdgeInsets.zero,
+                    controller: tabController,
+                    labelColor: flyternSecondaryColor,
+                    labelStyle: TextStyle(
+                        color: flyternPrimaryColor,
+                        fontWeight: FontWeight.bold),
+                    unselectedLabelColor: flyternGrey20,
+                    tabs: <Container>[
                       Container(
-                      padding:flyternExtraSmallPaddingVertical,
-                      child: Wrap(
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        direction: Axis.vertical,
-                        spacing: flyternSpaceExtraSmall,
-                        children: [
-                          Text("Tue July 4, 2023",style: getLabelLargeStyle(context).copyWith(
-                            color: tabController.index == 0?flyternSecondaryColor:flyternGrey40
-                          )),
-                          Text("AED 15,000",style: getBodyMediumStyle(context).copyWith(
-                              fontWeight: flyternFontWeightBold,
-                          color: tabController.index == 0?flyternSecondaryColor:flyternGrey40),),
-                        ],
+                        padding: flyternExtraSmallPaddingVertical,
+                        child: Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          direction: Axis.vertical,
+                          spacing: flyternSpaceExtraSmall,
+                          children: [
+                            Text("Tue July 4, 2023",
+                                style: getLabelLargeStyle(context).copyWith(
+                                    color: tabController.index == 0
+                                        ? flyternSecondaryColor
+                                        : flyternGrey40)),
+                            Text(
+                              "AED 15,000",
+                              style: getBodyMediumStyle(context).copyWith(
+                                  fontWeight: flyternFontWeightBold,
+                                  color: tabController.index == 0
+                                      ? flyternSecondaryColor
+                                      : flyternGrey40),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
                       Container(
-                      padding:flyternExtraSmallPaddingVertical,
-                      child: Wrap(
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        direction: Axis.vertical,
-                        spacing: flyternSpaceExtraSmall,
-                        children: [
-                          Text("Wed July 5, 2023",style: getLabelLargeStyle(context).copyWith(
-                            color: tabController.index == 1?flyternSecondaryColor:flyternGrey40
-                          )),
-                          Text("AED 15,000",style: getBodyMediumStyle(context).copyWith(
-                              fontWeight: flyternFontWeightBold,
-                          color: tabController.index == 1?flyternSecondaryColor:flyternGrey40),),
-                        ],
+                        padding: flyternExtraSmallPaddingVertical,
+                        child: Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          direction: Axis.vertical,
+                          spacing: flyternSpaceExtraSmall,
+                          children: [
+                            Text("Wed July 5, 2023",
+                                style: getLabelLargeStyle(context).copyWith(
+                                    color: tabController.index == 1
+                                        ? flyternSecondaryColor
+                                        : flyternGrey40)),
+                            Text(
+                              "AED 15,000",
+                              style: getBodyMediumStyle(context).copyWith(
+                                  fontWeight: flyternFontWeightBold,
+                                  color: tabController.index == 1
+                                      ? flyternSecondaryColor
+                                      : flyternGrey40),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
                       Container(
-                      padding:flyternExtraSmallPaddingVertical,
-                      child: Wrap(
-                        direction: Axis.vertical,
-                        spacing: flyternSpaceExtraSmall,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          Text("Thu July 6, 2023",style: getLabelLargeStyle(context).copyWith(
-                            color: tabController.index == 2?flyternSecondaryColor:flyternGrey40
-                          )),
-                          Text("AED 15,000",style: getBodyMediumStyle(context).copyWith(
-                              fontWeight: flyternFontWeightBold,
-                          color: tabController.index == 2?flyternSecondaryColor:flyternGrey40),),
-                        ],
+                        padding: flyternExtraSmallPaddingVertical,
+                        child: Wrap(
+                          direction: Axis.vertical,
+                          spacing: flyternSpaceExtraSmall,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            Text("Thu July 6, 2023",
+                                style: getLabelLargeStyle(context).copyWith(
+                                    color: tabController.index == 2
+                                        ? flyternSecondaryColor
+                                        : flyternGrey40)),
+                            Text(
+                              "AED 15,000",
+                              style: getBodyMediumStyle(context).copyWith(
+                                  fontWeight: flyternFontWeightBold,
+                                  color: tabController.index == 2
+                                      ? flyternSecondaryColor
+                                      : flyternGrey40),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ])
-            ),
+                    ])),
 
-            Expanded(child:
-            Container(
+            // addVerticalSpace(flyternSpaceLarge),
+            // Visibility(
+            //     visible: isModifySearchVisible,
+            //     child: Padding(
+            //       padding: flyternLargePaddingHorizontal,
+            //       child: Text("modify_search".tr,
+            //           style: getHeadlineMediumStyle(context).copyWith(
+            //               fontWeight: flyternFontWeightBold,
+            //               color: flyternGrey80)),
+            //     )),
+            // Visibility(
+            //   visible: isModifySearchVisible,
+            //   child: Container(
+            //     height: (screenheight * .65),
+            //     width: screenwidth - (flyternSpaceLarge * 2),
+            //     padding: flyternMediumPaddingAll,
+            //     decoration: flyternShadowedContainerSmallDecoration,
+            //     margin: flyternLargePaddingAll,
+            //     child: FlightBookingForm(
+            //       flightBookingController: flightBookingController,
+            //     ),
+            //   ),
+            // ),
+            Expanded(
+                child: Container(
               color: flyternGrey10,
-              child: ListView(
-                children: [
-                  addVerticalSpace(flyternSpaceLarge),
-                  Visibility(
-                      visible: isModifySearchVisible,
-                      child: Padding(
-                    padding:flyternLargePaddingHorizontal,
-                    child: Text("modify_search".tr,style:getHeadlineMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold,color: flyternGrey80) ),
-                  )),
-                  Visibility(
-                    visible: isModifySearchVisible,
-                    child: Container(
-                      height: (screenheight * .65) ,
-                      width: screenwidth - (flyternSpaceLarge * 2),
-                      padding: flyternMediumPaddingAll,
-                      decoration: flyternShadowedContainerSmallDecoration,
-                      margin: flyternLargePaddingAll,
-                      child: FlightBookingForm(
-                          flightBookingController:flightBookingController,
-                           ),
-                    ),
-                  ),
-                   FlightSearchResultCard(
-                     onPressed: (){
-                       Get.toNamed(Approute_flightsDetails);
-                     },
-                   ),
-                  addVerticalSpace(flyternSpaceLarge),
-                  FlightSearchResultCard(
-                    onPressed: (){
-                      Get.toNamed(Approute_flightsDetails);
-                    },
-                  ),
-                  addVerticalSpace(flyternSpaceLarge),
-                  FlightSearchResultCard(
-                    onPressed: (){
-                      Get.toNamed(Approute_flightsDetails);
-                    },
-                  ),
-                  addVerticalSpace(flyternSpaceLarge),
-                  addVerticalSpace(flyternSpaceLarge),
-                ],
-              ),
+              child:
+              ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: flightBookingController.flightSearchResponses.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      margin: const EdgeInsets.only(top: flyternSpaceMedium),
+                      child:FlightSearchResultCard(
+                          flightSearchResponse:flightBookingController.flightSearchResponses[index],
+                        onPressed: () {
+                          Get.toNamed(Approute_flightsDetails);
+                        },
+                      )
+                    );
+                  }
+              )
             ))
           ],
         ),
@@ -264,11 +293,12 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
     );
   }
 
-  void showSortOptions( ) {
+  void showSortOptions() {
     showModalBottomSheet(
         useSafeArea: false,
-        shape:   RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(flyternBorderRadiusSmall),
               topRight: Radius.circular(flyternBorderRadiusSmall)),
         ),
         isScrollControlled: true,
@@ -277,37 +307,32 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage> with Si
         builder: (context) {
           return SortOptionSelector(
             title: "sort_by".tr,
-            values: ["airline".tr,"price".tr],
+            values: ["airline".tr, "price".tr],
           );
         });
-
   }
 
-  void showFilterOptions( ) {
+  void showFilterOptions() {
     showModalBottomSheet(
         useSafeArea: false,
-        shape:   RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(flyternBorderRadiusSmall),
               topRight: Radius.circular(flyternBorderRadiusSmall)),
         ),
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
         context: context,
         builder: (context) {
-          return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setModalState /*You can rename this!*/) {
-                return FilterOptionSelector(
-                    bookingServiceNumber:1,
-                    setModalState:(){
-                      print('modalState Changed');
-                      setModalState(() {
-
-                      });
-                    }
-                );
-              });
+          return StatefulBuilder(builder: (BuildContext context,
+              StateSetter setModalState /*You can rename this!*/) {
+            return FilterOptionSelector(
+                bookingServiceNumber: 1,
+                setModalState: () {
+                  print('modalState Changed');
+                  setModalState(() {});
+                });
+          });
         });
-
   }
-
 }
