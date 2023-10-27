@@ -12,14 +12,15 @@ class DataCapsuleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: flyternSmallPaddingAll,
+      padding: flyternSmallPaddingHorizontal.copyWith(top: flyternSpaceExtraSmall,bottom: flyternSpaceExtraSmall),
       decoration: BoxDecoration(
-        color: theme==1?flyternPrimaryColorBg:flyternSecondaryColorBg,
+        color: theme==1?flyternPrimaryColorBg:theme==2?flyternSecondaryColorBg:flyternGuideRedLight,
         borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
       ),
       child: Center(
         child: Text(
-          label,style: getLabelLargeStyle(context).copyWith(color: theme ==1?flyternPrimaryColor:flyternSecondaryColor),
+          label,style: getLabelLargeStyle(context).copyWith(color:
+        theme==1?flyternPrimaryColor :theme==2?flyternSecondaryColor :flyternGuideRed ),
         ),
       ),
     );
