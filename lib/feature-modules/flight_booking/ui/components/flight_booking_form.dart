@@ -325,7 +325,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                               .flightSearchData
                                               .value
                                               .searchList[index]
-                                              .returnDate,true);
+                                              .returnDate!,true);
                                         },
                                         child: Container(
                                           decoration:
@@ -365,12 +365,18 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                                         flyternSpaceExtraSmall *
                                                             1.5),
                                                     Text(
+                                                        widget
+                                                            .flightBookingController
+                                                            .flightSearchData
+                                                            .value
+                                                            .searchList[index]
+                                                            .returnDate == null?"":
                                                         getFormattedDate(widget
                                                             .flightBookingController
                                                             .flightSearchData
                                                             .value
                                                             .searchList[index]
-                                                            .returnDate),
+                                                            .returnDate!),
                                                         style: getLabelLargeStyle(
                                                                 context)
                                                             .copyWith(
