@@ -6,7 +6,7 @@ class FlightSearchItem {
   final FlightDestination departure;
   final FlightDestination arrival;
   final DateTime departureDate;
-  final DateTime returnDate;
+  final DateTime? returnDate;
 
   FlightSearchItem({
     required this.departure,
@@ -20,7 +20,7 @@ class FlightSearchItem {
         'departure': departure.airportCode,
         'arrival': arrival.airportCode,
         'departureDate': getFormattedDate(departureDate),
-        'returnDate': getFormattedDate(returnDate)
+        'returnDate': returnDate == null?returnDate:getFormattedDate(returnDate!)
       };
 
   String getFormattedDate(DateTime dateTime) {
@@ -34,6 +34,6 @@ FlightSearchItem getDefaultFlightSearchItem() {
       departure: getDefaultFlightDestination(false),
       arrival: getDefaultFlightDestination(true),
       departureDate: DateTime.now(),
-      returnDate: DateTime.now()
+      returnDate: null
   );
 }
