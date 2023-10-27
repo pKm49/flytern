@@ -57,12 +57,26 @@ FlightSearchResponse mapFlightSearchResponse(dynamic payload) {
      airlinescode:payload["airlinescode"]??"",
      airlineName:payload["airlineName"]??"",
      currency:payload["currency"]??"",
-     isOneway:payload["isOneway"]??false,
+     isOneway:getBoolean(payload["isOneway"]),
      isRefund:payload["isRefund"]??false,
      cabin:payload["cabin"]??"",
      index:payload["index"]??-1,
      objectId:payload["objectId"]??-1,
      moreOptioncount:payload["moreOptioncount"]??0,
-      dTOSegments:payload["dTOSegments"]??[],
+      dTOSegments:flightSearchResponseDtoSegments,
   );
+}
+
+getBoolean(payload) {
+  if(payload ==null){
+    return false;
+  }
+  if(payload is bool){
+    return payload;
+  }
+
+  if (payload is String && (payload=="true"||payload =="false")){
+    return bool.parse(payload);
+  }
+  return false;
 }
