@@ -50,7 +50,7 @@ class FlightSearchData {
     allowedCabins.forEach((element) {
       allowedCabinsList.add(element.toJson());
     });
-    return allowedCabins;
+    return allowedCabinsList;
   }
 
 
