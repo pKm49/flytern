@@ -585,7 +585,6 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
         });
   }
 
-
   void showPromoCodeInput( ) {
     showModalBottomSheet(
         useSafeArea: true,
@@ -596,6 +595,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter setModalState /*You can rename this!*/) {
                 return InputGetterDelegate(
+                    currentText:widget.flightBookingController.flightSearchData.value.promoCode,
                     hintText:"enter_promo_code".tr,
                     textSubmitted:(String text){
                       widget.flightBookingController.updatePromoCode(text);
