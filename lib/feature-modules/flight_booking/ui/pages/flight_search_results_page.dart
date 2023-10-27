@@ -90,9 +90,9 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
             Visibility(visible: !isModifySearchVisible, child: Divider()),
             Visibility(
                 visible: !isModifySearchVisible,
-                child: addVerticalSpace(flyternSpaceSmall)),
+                child: addVerticalSpace(flyternSpaceExtraSmall)),
             Container(
-              padding: flyternMediumPaddingHorizontal,
+              padding: flyternLargePaddingHorizontal,
               child: Row(
                 children: [
                   Expanded(
@@ -110,18 +110,18 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                             Text("sort".tr,
                                 style: getLabelLargeStyle(context).copyWith(
                                     fontWeight: flyternFontWeightLight,
-                                    color: flyternGrey40)),
+                                    color: flyternGrey60)),
                             addVerticalSpace(flyternSpaceExtraSmall),
                             Text("price".tr,
                                 style: getBodyMediumStyle(context)
                                     .copyWith(color: flyternGrey80)),
                           ],
                         ),
-                        Icon(Ionicons.chevron_down, color: flyternGrey40)
+                        Icon(Ionicons.chevron_down,size: flyternFontSize20, color: flyternGrey40)
                       ],
                     ),
                   )),
-                  addHorizontalSpace(flyternSpaceLarge),
+                  addHorizontalSpace(flyternSpaceLarge*1.5),
                   Expanded(
                       child: InkWell(
                     onTap: () {
@@ -137,21 +137,21 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                             Text("filter".tr,
                                 style: getLabelLargeStyle(context).copyWith(
                                     fontWeight: flyternFontWeightLight,
-                                    color: flyternGrey40)),
+                                    color: flyternGrey60)),
                             addVerticalSpace(flyternSpaceExtraSmall),
                             Text("all".tr,
                                 style: getBodyMediumStyle(context)
                                     .copyWith(color: flyternGrey80)),
                           ],
                         ),
-                        Icon(Ionicons.chevron_down, color: flyternGrey40)
+                        Icon(Ionicons.chevron_down,size: flyternFontSize20, color: flyternGrey40)
                       ],
                     ),
                   ))
                 ],
               ),
             ),
-            addVerticalSpace(flyternSpaceSmall),
+            addVerticalSpace(flyternSpaceExtraSmall),
             Divider(),
             Container(
                 padding: flyternMediumPaddingHorizontal,
