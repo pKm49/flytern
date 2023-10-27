@@ -519,9 +519,18 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
           child: ElevatedButton(
               style: getElevatedButtonStyle(context),
               onPressed: () {
-                Get.toNamed(Approute_flightsSearchResult);
+                widget.flightBookingController.getSearchResults();
+
               },
-              child: Text("search_flights".tr)),
+              child:widget.flightBookingController.isFlightSearchResponsesLoading.value
+                  ? const SizedBox(
+                width: 16,
+                height: 16,
+                child: CircularProgressIndicator(
+                  color: flyternBackgroundWhite,
+                ),
+              )
+                  :  Text("search_flights".tr)),
         ),
       ],
     );
