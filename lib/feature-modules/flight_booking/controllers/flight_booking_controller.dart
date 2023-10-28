@@ -43,6 +43,7 @@ class FlightBookingController extends GetxController {
   ).obs;
 
   var pageId = 1.obs;
+  var objectId = 1.obs;
   var sortingDcs = <SortingDcs>[].obs;
   var airlineDcs = <SortingDcs>[].obs;
   var selectedAirlineDcs = <SortingDcs>[].obs;
@@ -96,6 +97,9 @@ class FlightBookingController extends GetxController {
       FlightSearchResult flightSearchResult = await flightBookingHttpService
           .getFlightSearchResults(flightSearchData.value);
       flightSearchResponses.value = flightSearchResult.searchResponses;
+      if(flightSearchResponses.isNotEmpty){
+        objectId.value = flightSearchResponses.value[0].objectId;
+      }
       sortingDcs.value = flightSearchResult.sortingDcs;
       if (sortingDcs.isNotEmpty) {
         List<SortingDcs> defaultSort = sortingDcs.where((p0) => p0.isDefault)
@@ -118,13 +122,12 @@ class FlightBookingController extends GetxController {
   }
 
   Future<void> filterSearchResults() async {
-    if (flightSearchResponses.value.isNotEmpty &&
-        !isFlightSearchFilterResponsesLoading.value) {
+    if ( !isFlightSearchFilterResponsesLoading.value) {
       isFlightSearchFilterResponsesLoading.value = true;
 
       FlightFilterBody flightFilterBody = FlightFilterBody(
           pageId: pageId.value,
-          objectID: flightSearchResponses.value[0].objectId,
+          objectID: objectId.value,
           priceMinMaxDc: selectedPriceDcs.value.isNotEmpty?
           "${selectedPriceDcs.value[0].max}, ${selectedPriceDcs.value[0].min}":"",
           arrivalTimeDc: selectedArrivalTimeDcs.value.isNotEmpty?
@@ -140,6 +143,7 @@ class FlightBookingController extends GetxController {
 
       List<FlightSearchResponse> flightSearchResponse = await flightBookingHttpService
           .getFlightSearchResultsFiltered(flightFilterBody);
+
       flightSearchResponses.value = flightSearchResponse;
       isFlightSearchFilterResponsesLoading.value = false;
     }

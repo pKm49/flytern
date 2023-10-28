@@ -2,6 +2,8 @@ part of 'flight_booking_controller.dart';
 
 extension FlightBookingControllerSetter on FlightBookingController {
 
+  // Search setters
+
   setDestination(
       FlightDestination flightDestination, bool isArrival, int index) {
     FlightSearchData newFlightSearchData = FlightSearchData(
@@ -70,6 +72,16 @@ extension FlightBookingControllerSetter on FlightBookingController {
     FlightSearchData newFlightSearchData = flightBookingHelperServices
         .updateDirectFlight(flightSearchData.value, isDirectFlight);
     flightSearchData.value = newFlightSearchData;
+  }
+
+  void updateSort(String sortingDcValue) {
+
+    List<SortingDcs> tempSortingDcs = sortingDcs.value.where((element) => element.value==sortingDcValue).toList();
+    if(tempSortingDcs.isNotEmpty){
+      sortingDc.value = tempSortingDcs[0];
+      filterSearchResults();
+    }
+
   }
 
 }
