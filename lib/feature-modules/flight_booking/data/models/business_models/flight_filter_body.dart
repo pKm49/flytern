@@ -1,4 +1,4 @@
-class FilterBody {
+class FlightFilterBody {
 
   final int pageId;
   final int objectID;
@@ -9,7 +9,7 @@ class FilterBody {
   final String stopDc;
   final String sortingDc;
 
-  FilterBody({
+  FlightFilterBody({
     required this.pageId,
     required this.objectID,
     required this.priceMinMaxDc,
