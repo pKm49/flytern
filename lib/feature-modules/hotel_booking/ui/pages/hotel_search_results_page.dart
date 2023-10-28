@@ -161,8 +161,10 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage> with Sing
         context: context,
         builder: (context) {
           return SortOptionSelector(
+            selectedSort: "",
+            sortChanged: (String selectedSort){},
             title: "sort_by".tr,
-            values: ["airline".tr,"price".tr],
+            sortingDcs: [ ],
           );
         });
 

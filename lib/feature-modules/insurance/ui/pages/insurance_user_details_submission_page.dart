@@ -503,8 +503,10 @@ class _InsuranceUserDetailsSubmissionPageState extends State<InsuranceUserDetail
         context: context,
         builder: (context) {
           return SortOptionSelector(
+            selectedSort: "",
+            sortChanged: (String selectedSort){},
             title: "select_user".tr,
-            values: ["John Murphy","Will Smith"],
+            sortingDcs: [ ],
           );
         });
 
