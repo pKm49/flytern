@@ -126,7 +126,7 @@ class FlightBookingHttpService {
   Future<List<FlightSearchResponse>> getFlightSearchResultsFiltered(
       FlightFilterBody flightFilterBody) async {
     FlyternHttpResponse response = await postRequest(
-        FlightBookingHttpRequestEndpointSearchFlights,
+        FlightBookingHttpRequestEndpointFilterFlights,
         flightFilterBody.toJson());
 
     List<FlightSearchResponse> searchResponses = [];
@@ -138,7 +138,6 @@ class FlightBookingHttpService {
                 mapFlightSearchResponse(response.data["searchResponses"][i]));
           }
         }
-
 
       }
     }
