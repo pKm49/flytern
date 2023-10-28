@@ -125,7 +125,7 @@ class FlightBookingController extends GetxController {
       departureTimeDcs.value = flightSearchResult.departureTimeDcs;
       stopDcs.value = flightSearchResult.stopDcs;
 
-      isFlightSearchResponsesLoading.value = false;
+      // isFlightSearchResponsesLoading.value = false;
       Get.toNamed(Approute_flightsSearchResult);
     }
 
