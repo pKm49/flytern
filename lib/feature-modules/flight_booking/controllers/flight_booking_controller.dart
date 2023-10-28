@@ -1,6 +1,7 @@
 import 'package:flytern/feature-modules/flight_booking/data/constants/business_specific/flight_mode.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/cabin_class.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/explore_data.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_filter_body.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_item.dart';
@@ -15,6 +16,7 @@ import 'package:flytern/feature-modules/flight_booking/services/helper-services/
 import 'package:flytern/feature-modules/flight_booking/services/http-services/flight_booking_http_services.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:get/get.dart';
+
 part 'flight_booking_controller_setter.dart';
 
 class FlightBookingController extends GetxController {
@@ -35,46 +37,23 @@ class FlightBookingController extends GetxController {
   var flightSearchResponses = <FlightSearchResponse>[].obs;
 
   var sortingDc = SortingDcs(
-    value: "-1",
-    name: "",
-    isDefault: false
-  ).obs;
-
-  var airlineDc = SortingDcs(
       value: "-1",
       name: "",
       isDefault: false
   ).obs;
 
-  var departureTimeDc = SortingDcs(
-      value: "-1",
-      name: "",
-      isDefault: false
-  ).obs;
-
-  var arrivalTimeDc = SortingDcs(
-      value: "-1",
-      name: "",
-      isDefault: false
-  ).obs;
-
-  var stopDc = SortingDcs(
-      value: "-1",
-      name: "",
-      isDefault: false
-  ).obs;
-
-  var priceDc = RangeDcs(
-      min: 0.0,
-      max: 100000.0,
-  ).obs;
-
+  var pageId = 1.obs;
   var sortingDcs = <SortingDcs>[].obs;
   var airlineDcs = <SortingDcs>[].obs;
+  var selectedAirlineDcs = <SortingDcs>[].obs;
   var departureTimeDcs = <SortingDcs>[].obs;
+  var selectedDepartureTimeDcs = <SortingDcs>[].obs;
   var arrivalTimeDcs = <SortingDcs>[].obs;
+  var selectedArrivalTimeDcs = <SortingDcs>[].obs;
   var stopDcs = <SortingDcs>[].obs;
+  var selectedStopDcs = <SortingDcs>[].obs;
   var priceDcs = <RangeDcs>[].obs;
+  var selectedPriceDcs = <RangeDcs>[].obs;
   var flightSearchData = getDefaultFlightSearchData().obs;
 
   @override
@@ -101,7 +80,7 @@ class FlightBookingController extends GetxController {
       String searchQuery) async {
     if (searchQuery != "") {
       flightDestinations.value =
-          await flightBookingHttpService.getFlightDestinations(searchQuery);
+      await flightBookingHttpService.getFlightDestinations(searchQuery);
       isFlightDestinationsLoading.value = false;
       return flightDestinations.value;
     } else {
@@ -109,17 +88,20 @@ class FlightBookingController extends GetxController {
     }
   }
 
-  Future<void> getSearchResults() async {
-
-    if(flightSearchData.value.allowedCabins.isNotEmpty && flightSearchData.value.adults>0 &&
-        !isFlightSearchResponsesLoading.value){
+  Future<void> getSearchResults(bool isNavigationRequired) async {
+    if (flightSearchData.value.allowedCabins.isNotEmpty &&
+        flightSearchData.value.adults > 0 &&
+        !isFlightSearchResponsesLoading.value) {
       isFlightSearchResponsesLoading.value = true;
-      FlightSearchResult flightSearchResult = await flightBookingHttpService.getFlightSearchResults(flightSearchData.value);
+      FlightSearchResult flightSearchResult = await flightBookingHttpService
+          .getFlightSearchResults(flightSearchData.value);
       flightSearchResponses.value = flightSearchResult.searchResponses;
       sortingDcs.value = flightSearchResult.sortingDcs;
-      if(sortingDcs.isNotEmpty ){
-        List<SortingDcs> defaultSort = sortingDcs.where((p0) => p0.isDefault).toList();
-        sortingDc.value = defaultSort.isNotEmpty?defaultSort[0]:sortingDcs[0];
+      if (sortingDcs.isNotEmpty) {
+        List<SortingDcs> defaultSort = sortingDcs.where((p0) => p0.isDefault)
+            .toList();
+        sortingDc.value =
+        defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
       }
       priceDcs.value = flightSearchResult.priceDcs;
       airlineDcs.value = flightSearchResult.airlineDcs;
@@ -129,36 +111,38 @@ class FlightBookingController extends GetxController {
 
       isFlightSearchResponsesLoading.value = false;
       isFlightSearchFilterResponsesLoading.value = false;
-      Get.toNamed(Approute_flightsSearchResult);
+      if(isNavigationRequired){
+        Get.toNamed(Approute_flightsSearchResult);
+      }
     }
-
-
   }
 
   Future<void> filterSearchResults() async {
-
-    if(flightSearchData.value.allowedCabins.isNotEmpty && flightSearchData.value.adults>0 &&
-        !isFlightSearchFilterResponsesLoading.value){
+    if (flightSearchResponses.value.isNotEmpty &&
+        !isFlightSearchFilterResponsesLoading.value) {
       isFlightSearchFilterResponsesLoading.value = true;
-      FlightSearchResult flightSearchResult = await flightBookingHttpService.getFlightSearchResultsFiltered(
-          flightSearchData.value);
-      flightSearchResponses.value = flightSearchResult.searchResponses;
-      sortingDcs.value = flightSearchResult.sortingDcs;
-      if(sortingDcs.isNotEmpty ){
-        List<SortingDcs> defaultSort = sortingDcs.where((p0) => p0.isDefault).toList();
-        sortingDc.value = defaultSort.isNotEmpty?defaultSort[0]:sortingDcs[0];
-      }
-      priceDcs.value = flightSearchResult.priceDcs;
-      airlineDcs.value = flightSearchResult.airlineDcs;
-      arrivalTimeDcs.value = flightSearchResult.arrivalTimeDcs;
-      departureTimeDcs.value = flightSearchResult.departureTimeDcs;
-      stopDcs.value = flightSearchResult.stopDcs;
 
+      FlightFilterBody flightFilterBody = FlightFilterBody(
+          pageId: pageId.value,
+          objectID: flightSearchResponses.value[0].objectId,
+          priceMinMaxDc: selectedPriceDcs.value.isNotEmpty?
+          "${selectedPriceDcs.value[0].max}, ${selectedPriceDcs.value[0].min}":"",
+          arrivalTimeDc: selectedArrivalTimeDcs.value.isNotEmpty?
+          selectedArrivalTimeDcs.value.map((e) => e.value).toString():"",
+          departureTimeDc: selectedDepartureTimeDcs.value.isNotEmpty?
+          selectedDepartureTimeDcs.value.map((e) => e.value).toString():"",
+          airlineDc: selectedAirlineDcs.value.isNotEmpty?
+          selectedAirlineDcs.value.map((e) => e.value).toString():"",
+          stopDc: selectedStopDcs.value.isNotEmpty?
+          selectedStopDcs.value.map((e) => e.value).toString():"",
+          sortingDc: sortingDc.value.value,
+      );
+
+      List<FlightSearchResponse> flightSearchResponse = await flightBookingHttpService
+          .getFlightSearchResultsFiltered(flightFilterBody);
+      flightSearchResponses.value = flightSearchResponse;
       isFlightSearchFilterResponsesLoading.value = false;
-      Get.toNamed(Approute_flightsSearchResult);
     }
-
-
   }
 
 }
