@@ -1,5 +1,6 @@
 import 'package:flytern/feature-modules/flight_booking/data/constants/app_specific/flight_booking_http_request_endpoints.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/explore_data.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_filter_body.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_response.dart';
@@ -122,20 +123,13 @@ class FlightBookingHttpService {
   }
 
 
-  Future<FlightSearchResult> getFlightSearchResultsFiltered(
-      FlightSearchData flightSearchData) async {
+  Future<List<FlightSearchResponse>> getFlightSearchResultsFiltered(
+      FlightFilterBody flightFilterBody) async {
     FlyternHttpResponse response = await postRequest(
         FlightBookingHttpRequestEndpointSearchFlights,
-        flightSearchData.toJson());
+        flightFilterBody.toJson());
 
     List<FlightSearchResponse> searchResponses = [];
-    List<SortingDcs> sortingDcs = [];
-    List<RangeDcs> priceDcs = [];
-    List<SortingDcs> airlineDcs = [];
-    List<SortingDcs> departureTimeDcs = [];
-    List<SortingDcs> arrivalTimeDcs = [];
-    List<SortingDcs> stopDcs = [];
-
     if (response.success) {
       if (response.data != null  ) {
         if (  response.data["searchResponses"] != null) {
@@ -144,57 +138,12 @@ class FlightBookingHttpService {
                 mapFlightSearchResponse(response.data["searchResponses"][i]));
           }
         }
-        if (  response.data["sortingDcs"] != null) {
-          for (var i = 0; i < response.data["sortingDcs"].length; i++) {
-            sortingDcs.add(
-                mapSortingDcs(response.data["sortingDcs"][i]));
-          }
-        }
-        if (  response.data["priceDcs"] != null) {
-          for (var i = 0; i < response.data["priceDcs"].length; i++) {
-            priceDcs.add(
-                mapRangeDcs(response.data["priceDcs"][i]));
-          }
-        }
-        if (  response.data["airlineDcs"] != null) {
-          for (var i = 0; i < response.data["airlineDcs"].length; i++) {
-            airlineDcs.add(
-                mapSortingDcs(response.data["airlineDcs"][i]));
-          }
-        }
-        if (  response.data["departureTimeDcs"] != null) {
-          for (var i = 0; i < response.data["departureTimeDcs"].length; i++) {
-            departureTimeDcs.add(
-                mapSortingDcs(response.data["departureTimeDcs"][i]));
-          }
-        }
-        if (  response.data["arrivalTimeDcs"] != null) {
-          for (var i = 0; i < response.data["arrivalTimeDcs"].length; i++) {
-            arrivalTimeDcs.add(
-                mapSortingDcs(response.data["arrivalTimeDcs"][i]));
-          }
-        }
-        if (  response.data["stopDcs"] != null) {
-          for (var i = 0; i < response.data["stopDcs"].length; i++) {
-            stopDcs.add(
-                mapSortingDcs(response.data["stopDcs"][i]));
-          }
-        }
+
 
       }
     }
 
-    FlightSearchResult flightSearchResult = FlightSearchResult(
-        searchResponses: searchResponses,
-        priceDcs: priceDcs,
-        sortingDcs: sortingDcs,
-        airlineDcs: airlineDcs,
-        departureTimeDcs: departureTimeDcs,
-        arrivalTimeDcs: arrivalTimeDcs,
-        stopDcs: stopDcs
-    );
-
-    return flightSearchResult;
+    return searchResponses;
   }
 
 
