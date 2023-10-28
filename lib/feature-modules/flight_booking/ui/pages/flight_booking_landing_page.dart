@@ -31,7 +31,7 @@ class FlightBookingLandingPage extends StatefulWidget {
 
 class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
     with SingleTickerProviderStateMixin {
-  final flightBookingController = Get.put(FlightBookingController());
+  final flightBookingController = Get.put(FlightBookingController()); 
   var flightBookingHelperServices = FlightBookingHelperServices();
 
   @override
@@ -88,7 +88,8 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                         child: Container(
                           margin: EdgeInsets.only(top: flyternSpaceLarge),
                           child: FlightBookingForm(
-                              flightBookingController: flightBookingController),
+                            flightBookingController: flightBookingController,
+                          ),
                         ),
                       )
                     ],

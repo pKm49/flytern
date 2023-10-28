@@ -15,6 +15,7 @@ import 'package:flytern/feature-modules/flight_booking/services/helper-services/
 import 'package:flytern/feature-modules/flight_booking/services/http-services/flight_booking_http_services.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:get/get.dart';
+part 'flight_booking_controller_setter.dart';
 
 class FlightBookingController extends GetxController {
 

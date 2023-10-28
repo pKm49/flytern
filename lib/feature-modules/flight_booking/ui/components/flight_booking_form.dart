@@ -20,9 +20,10 @@ import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 
 class FlightBookingForm extends StatefulWidget {
+   
   FlightBookingController flightBookingController;
 
-  FlightBookingForm({super.key, required this.flightBookingController});
+  FlightBookingForm({super.key,   required this.flightBookingController});
 
   @override
   State<FlightBookingForm> createState() => _FlightBookingFormState();
