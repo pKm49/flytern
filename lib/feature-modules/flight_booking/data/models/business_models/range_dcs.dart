@@ -14,6 +14,6 @@ class RangeDcs {
 RangeDcs mapRangeDcs(dynamic payload){
   return RangeDcs(
     min :payload["min"]??0.0,
-    max :payload["max"]??500.0,
+    max :payload["max"]??100000.0,
   );
 }
