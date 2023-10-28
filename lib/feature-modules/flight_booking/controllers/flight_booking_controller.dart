@@ -21,6 +21,7 @@ class FlightBookingController extends GetxController {
 
   var isFlightDestinationsLoading = false.obs;
   var isFlightSearchResponsesLoading = false.obs;
+  var isFlightSearchFilterResponsesLoading = false.obs;
   var isInitialDataLoading = true.obs;
   var flightBookingHttpService = FlightBookingHttpService();
   var flightBookingHelperServices = FlightBookingHelperServices();
@@ -110,7 +111,8 @@ class FlightBookingController extends GetxController {
 
   Future<void> getSearchResults() async {
 
-    if(flightSearchData.value.allowedCabins.isNotEmpty && flightSearchData.value.adults>0){
+    if(flightSearchData.value.allowedCabins.isNotEmpty && flightSearchData.value.adults>0 &&
+        !isFlightSearchResponsesLoading.value){
       isFlightSearchResponsesLoading.value = true;
       FlightSearchResult flightSearchResult = await flightBookingHttpService.getFlightSearchResults(flightSearchData.value);
       flightSearchResponses.value = flightSearchResult.searchResponses;
@@ -125,83 +127,38 @@ class FlightBookingController extends GetxController {
       departureTimeDcs.value = flightSearchResult.departureTimeDcs;
       stopDcs.value = flightSearchResult.stopDcs;
 
-      // isFlightSearchResponsesLoading.value = false;
+      isFlightSearchResponsesLoading.value = false;
+      isFlightSearchFilterResponsesLoading.value = false;
       Get.toNamed(Approute_flightsSearchResult);
     }
 
 
   }
 
-  setDestination(
-      FlightDestination flightDestination, bool isArrival, int index) {
-    FlightSearchData newFlightSearchData = FlightSearchData(
-        promoCode: flightSearchData.value.promoCode,
-        adults: flightSearchData.value.adults,
-        child: flightSearchData.value.child,
-        infants: flightSearchData.value.infants,
-        searchList: flightBookingHelperServices.getUpdatedSearchList(
-            flightSearchData.value, flightDestination, isArrival, index),
-        allowedCabins: flightSearchData.value.allowedCabins,
-        mode: flightSearchData.value.mode,
-        isDirectFlight: flightSearchData.value.isDirectFlight);
+  Future<void> filterSearchResults() async {
 
-    flightSearchData.value = newFlightSearchData;
-  }
+    if(flightSearchData.value.allowedCabins.isNotEmpty && flightSearchData.value.adults>0 &&
+        !isFlightSearchFilterResponsesLoading.value){
+      isFlightSearchFilterResponsesLoading.value = true;
+      FlightSearchResult flightSearchResult = await flightBookingHttpService.getFlightSearchResultsFiltered(
+          flightSearchData.value);
+      flightSearchResponses.value = flightSearchResult.searchResponses;
+      sortingDcs.value = flightSearchResult.sortingDcs;
+      if(sortingDcs.isNotEmpty ){
+        List<SortingDcs> defaultSort = sortingDcs.where((p0) => p0.isDefault).toList();
+        sortingDc.value = defaultSort.isNotEmpty?defaultSort[0]:sortingDcs[0];
+      }
+      priceDcs.value = flightSearchResult.priceDcs;
+      airlineDcs.value = flightSearchResult.airlineDcs;
+      arrivalTimeDcs.value = flightSearchResult.arrivalTimeDcs;
+      departureTimeDcs.value = flightSearchResult.departureTimeDcs;
+      stopDcs.value = flightSearchResult.stopDcs;
 
-  setFlightMode(FlightMode newMode) {
-
-    FlightSearchData newFlightSearchData = flightBookingHelperServices
-        .setFlightMode(flightSearchData.value, newMode);
-    flightSearchData.value = newFlightSearchData;
-
-  }
-
-  updateFlightCount(int index){
-
-    if(index == -1){
-      FlightSearchData newFlightSearchData = flightBookingHelperServices
-          .addFlightSearchItem(flightSearchData.value);
-      flightSearchData.value = newFlightSearchData;
-    }else{
-      FlightSearchData newFlightSearchData = flightBookingHelperServices
-          .removeFlightSearchItem(flightSearchData.value, index);
-      flightSearchData.value = newFlightSearchData;
+      isFlightSearchFilterResponsesLoading.value = false;
+      Get.toNamed(Approute_flightsSearchResult);
     }
 
-  }
 
-  reverseTrip(int index) {
-
-    FlightSearchData newFlightSearchData = flightBookingHelperServices
-        .reverseTrip(flightSearchData.value, index);
-    flightSearchData.value = newFlightSearchData;
-
-  }
-
-  changeDate(int index, bool isReturnDate, DateTime dateTime){
-
-    FlightSearchData newFlightSearchData = flightBookingHelperServices
-        .changeDate(flightSearchData.value, index, dateTime, isReturnDate );
-    flightSearchData.value = newFlightSearchData;
-
-  }
-
-  void updatePassengerCountAndCabinClass(int adultCount, int childCount, int infantCount, List<CabinClass> cabinClasses) {
-    FlightSearchData newFlightSearchData = flightBookingHelperServices
-        .updatePassengerCountAndCabinClass(flightSearchData.value, adultCount, childCount, infantCount, cabinClasses );
-    flightSearchData.value = newFlightSearchData;
-  }
-
-  void updatePromoCode(String promoCode) {
-    FlightSearchData newFlightSearchData = flightBookingHelperServices
-        .updatePromoCode(flightSearchData.value, promoCode);
-    flightSearchData.value = newFlightSearchData;
-  }
-
-  void updateDirectFlight(bool isDirectFlight) {
-    FlightSearchData newFlightSearchData = flightBookingHelperServices
-        .updateDirectFlight(flightSearchData.value, isDirectFlight);
-    flightSearchData.value = newFlightSearchData;
   }
 
 }

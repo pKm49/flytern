@@ -4,6 +4,7 @@ import 'package:flytern/feature-modules/flight_booking/controllers/flight_bookin
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_item.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_form.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_search_result_card.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/flight_search_result_card_loader.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type_tab.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -216,25 +217,47 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
             //     ),
             //   ),
             // ),
-            Expanded(
-                child: Container(
-                    color: flyternGrey10,
-                    child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: flightBookingController
-                            .flightSearchResponses.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                              margin: const EdgeInsets.only(
-                                  top: flyternSpaceMedium),
-                              child: FlightSearchResultCard(
-                                flightSearchResponse: flightBookingController
-                                    .flightSearchResponses[index],
-                                onPressed: () {
-                                  Get.toNamed(Approute_flightsDetails);
-                                },
-                              ));
-                        })))
+            Visibility(
+              visible: !flightBookingController.isFlightSearchResponsesLoading.value &&
+              !flightBookingController.isFlightSearchFilterResponsesLoading.value,
+              child: Expanded(
+                  child: Container(
+                      color: flyternGrey10,
+                      child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: flightBookingController
+                              .flightSearchResponses.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                                margin: const EdgeInsets.only(
+                                    top: flyternSpaceMedium),
+                                child: FlightSearchResultCard(
+                                  flightSearchResponse: flightBookingController
+                                      .flightSearchResponses[index],
+                                  onPressed: () {
+                                    Get.toNamed(Approute_flightsDetails);
+                                  },
+                                ));
+                          }))),
+            ),
+            Visibility(
+              visible:  flightBookingController.isFlightSearchResponsesLoading.value ||
+                  flightBookingController.isFlightSearchFilterResponsesLoading.value,
+              child: Expanded(
+                  child: Container(
+                      color: flyternGrey10,
+                      child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: 2,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                                margin: const EdgeInsets.only(
+                                    top: flyternSpaceMedium),
+                                child: FlightSearchResultCardLoader(
+
+                                ));
+                          }))),
+            ),
           ],
         ),
       ),
@@ -254,7 +277,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
         context: context,
         builder: (context) {
           return SortOptionSelector(
-            selectedSort: "",
+            selectedSort: flightBookingController.sortingDc.value.value,
             sortChanged: (String selectedSort){},
             title: "sort_by".tr,
             sortingDcs:flightBookingController.sortingDcs.value,
