@@ -17,6 +17,7 @@ import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart'
 import 'package:get/get.dart';
 
 class FlightBookingController extends GetxController {
+
   var isFlightDestinationsLoading = false.obs;
   var isFlightSearchResponsesLoading = false.obs;
   var isInitialDataLoading = true.obs;
@@ -30,12 +31,43 @@ class FlightBookingController extends GetxController {
   var flightDestinations = <FlightDestination>[].obs;
   var flightSearchItems = <FlightSearchItem>[].obs;
   var flightSearchResponses = <FlightSearchResponse>[].obs;
-  var sortingDcs = <SortingDcs>[].obs;
+
   var sortingDc = SortingDcs(
     value: "-1",
     name: "",
     isDefault: false
   ).obs;
+
+  var airlineDc = SortingDcs(
+      value: "-1",
+      name: "",
+      isDefault: false
+  ).obs;
+
+  var departureTimeDc = SortingDcs(
+      value: "-1",
+      name: "",
+      isDefault: false
+  ).obs;
+
+  var arrivalTimeDc = SortingDcs(
+      value: "-1",
+      name: "",
+      isDefault: false
+  ).obs;
+
+  var stopDc = SortingDcs(
+      value: "-1",
+      name: "",
+      isDefault: false
+  ).obs;
+
+  var priceDc = RangeDcs(
+      min: 0.0,
+      max: 100000.0,
+  ).obs;
+
+  var sortingDcs = <SortingDcs>[].obs;
   var airlineDcs = <SortingDcs>[].obs;
   var departureTimeDcs = <SortingDcs>[].obs;
   var arrivalTimeDcs = <SortingDcs>[].obs;
