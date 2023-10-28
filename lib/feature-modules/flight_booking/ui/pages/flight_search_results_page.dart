@@ -254,8 +254,10 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
         context: context,
         builder: (context) {
           return SortOptionSelector(
+            selectedSort: "",
+            sortChanged: (String selectedSort){},
             title: "sort_by".tr,
-            values: ["airline".tr, "price".tr],
+            sortingDcs:flightBookingController.sortingDcs.value,
           );
         });
   }
