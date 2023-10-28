@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/sorting_dcs.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
@@ -6,20 +7,32 @@ import 'package:flytern/shared/services/utility-services/widget_properties_gener
 import 'package:get/get.dart';
 
 class SortOptionSelector extends StatefulWidget {
-
+  String selectedSort;
   String title;
-  List<String> values;
+  List<SortingDcs> sortingDcs;
+  final Function(String selectedSort) sortChanged;      // <------------|
 
-    SortOptionSelector({super.key, required this.title, required this.values});
+  SortOptionSelector(
+      {super.key,
+      required this.title,
+      required this.selectedSort,
+      required this.sortChanged,
+      required this.sortingDcs});
 
   @override
   State<SortOptionSelector> createState() => _SortOptionSelectorState();
 }
 
 class _SortOptionSelectorState extends State<SortOptionSelector> {
+  String selectedSort = "1";
 
-  int selectedSort = 1;
-  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    selectedSort = widget.selectedSort;
+    setState(() {});
+  }
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -27,7 +40,7 @@ class _SortOptionSelectorState extends State<SortOptionSelector> {
 
     return Container(
       width: screenwidth,
-      height: screenheight*.4,
+      height: (widget.sortingDcs.length * 60)+200,
       padding: flyternSmallPaddingAll,
       child: Column(
         children: [
@@ -59,64 +72,53 @@ class _SortOptionSelectorState extends State<SortOptionSelector> {
                   addVerticalSpace(flyternSpaceSmall),
                   Divider(),
                   addVerticalSpace(flyternSpaceMedium),
-                  Padding(
-                    padding: flyternLargePaddingHorizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-
-                        Text(widget.values.length>0?widget.values[0]:'',
-                            style: getBodyMediumStyle(context)
-                                .copyWith(color: flyternGrey80)),
-                        Radio(
-                          activeColor: flyternSecondaryColor,
-                          value: 1,
-                          groupValue: selectedSort,
-                          onChanged: (value) {
-                            setState(() {
-                              print(value);
-                              selectedSort = value!;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  addVerticalSpace(flyternSpaceMedium),
-                  Padding(
-                    padding: flyternLargePaddingHorizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-
-                        Text(widget.values.length>1?widget.values[1]:'',
-                            style: getBodyMediumStyle(context)
-                                .copyWith(color: flyternGrey80)),
-                        Radio(
-                          activeColor: flyternSecondaryColor,
-                          value: 1,
-                          groupValue: selectedSort,
-                          onChanged: (value) {
-                            setState(() {
-                              print(value);
-                              selectedSort = value!;
-                            });
-                          },
-                        ),
-                      ],
-                    )
-                  ),
+                  Expanded(
+                      child: ListView.builder(
+                          itemCount: widget.sortingDcs.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: flyternLargePaddingHorizontal.copyWith(
+                                  bottom: flyternSpaceMedium),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(widget.sortingDcs[index].name,
+                                      style: getBodyMediumStyle(context)
+                                          .copyWith(color: flyternGrey80)),
+                                  Radio(
+                                    activeColor: flyternSecondaryColor,
+                                    value: widget.sortingDcs[index].value,
+                                    groupValue: selectedSort,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        selectedSort = value!;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          })),
                 ],
               ),
             ),
           ),
           addVerticalSpace(flyternSpaceSmall),
-          Container(
-            width: screenwidth,
-            padding: flyternMediumPaddingAll,
-            decoration: flyternBorderedContainerSmallDecoration,
-            child: Center(
-              child: Text("done".tr,style: getHeadlineMediumStyle(context).copyWith(color: flyternPrimaryColor,fontWeight: flyternFontWeightBold)),
+          InkWell(
+            onTap: (){
+              widget.sortChanged(selectedSort);
+            },
+            child: Container(
+              width: screenwidth,
+              padding: flyternMediumPaddingAll,
+              decoration: flyternBorderedContainerSmallDecoration,
+              child: Center(
+                child: Text("done".tr,
+                    style: getHeadlineMediumStyle(context).copyWith(
+                        color: flyternPrimaryColor,
+                        fontWeight: flyternFontWeightBold)),
+              ),
             ),
           )
         ],
