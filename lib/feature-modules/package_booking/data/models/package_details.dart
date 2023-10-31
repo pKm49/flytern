@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flytern/feature-modules/package_booking/data/models/package_data.dart';
 import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 
@@ -80,6 +82,7 @@ PackageDetails mapPackageDetails(dynamic payload) {
       termsConditions = element["termsConditions"];
       notes = element["notes"];
       offeredServices = element["offeredServices"];
+
     });
   }
 

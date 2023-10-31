@@ -29,7 +29,6 @@ class SharedHtmlViewerPage extends StatelessWidget {
           addVerticalSpace(flyternSpaceMedium),
           Expanded(child: SingleChildScrollView(
             child: Html(
-
               data: htmlData,
             ),
           ))

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
+import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
@@ -16,6 +17,7 @@ class PackageListCard extends StatelessWidget {
   final String sponsoredBy;
   final String currency;
   final double price;
+  final String ratings;
   final GestureTapCallback packageSelected;
 
     PackageListCard({
@@ -27,6 +29,7 @@ class PackageListCard extends StatelessWidget {
     required this.sponsoredBy,
     required this.price,
     required this.currency,
+    required this.ratings,
     required this.packageSelected,
     });
 
@@ -51,14 +54,16 @@ class PackageListCard extends StatelessWidget {
                 clipBehavior: Clip.hardEdge,
                 child:Image.network(imageUrl,width: screenwidth*.25, height:  screenwidth*.25,
                     errorBuilder: (context, error, stackTrace) {
-                      return Image.asset(imageUrl,width: screenwidth*.25, height:  screenwidth*.25);
+                      return Image.asset(ASSETS_PACKAGE_1_SAMPLE,width: screenwidth*.25, height:  screenwidth*.25);
                     }), ),
             addHorizontalSpace(flyternSpaceMedium),
             Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold),),
+                Text(title,
+                  maxLines: 2,
+                  style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold),),
 
                 addVerticalSpace(flyternSpaceSmall),
                 Row(
@@ -66,7 +71,23 @@ class PackageListCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text("${currency} ${price}",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold, color: flyternSecondaryColor),),
-
+                    Expanded(
+                        flex: 1,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(Ionicons.star,
+                                color: flyternAccentColor,
+                                size: flyternFontSize20),
+                            addHorizontalSpace(flyternSpaceExtraSmall),
+                            Text(
+                              ratings ,
+                              style: getBodyMediumStyle(context)
+                                  .copyWith(color: flyternGrey80),
+                            ),
+                          ],
+                        )),
 
                   ],
                 ),

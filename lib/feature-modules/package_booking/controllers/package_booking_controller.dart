@@ -41,7 +41,7 @@ class PackageBookingController extends GetxController {
   Future<void> getPackageDetails(int refId) async {
 
     isDetailsDataLoading.value = true;
-    PackageDetails? tempPackageDetails = await packageBookingHttpService.getPackageDetails(refId);
+    PackageDetails? tempPackageDetails = await packageBookingHttpService.getPackageDetails(66);
     if (tempPackageDetails != null) {
       packageDetails.value = tempPackageDetails;
     }

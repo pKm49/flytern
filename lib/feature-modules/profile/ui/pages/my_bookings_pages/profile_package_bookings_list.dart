@@ -23,6 +23,7 @@ class ProfilePackageBookingsList extends StatelessWidget {
           addVerticalSpace(flyternSpaceLarge),
           PackageListCard(
             currency: "KD",
+              ratings:"4.4",
             imageUrl: ASSETS_PACKAGE_1_SAMPLE,
             title: 'Kabul Holiday Package',
             flightName: 'KBL to IST',
@@ -37,6 +38,7 @@ class ProfilePackageBookingsList extends StatelessWidget {
             child: Divider(),
           ),
           PackageListCard(
+              ratings:"4.4",
             currency: "KD",
             imageUrl: ASSETS_PACKAGE_1_SAMPLE,
             title: 'Kabul Holiday Package',

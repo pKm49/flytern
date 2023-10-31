@@ -87,6 +87,8 @@ class _PackageBookingLandingPageState extends State<PackageBookingLandingPage> {
                                     .packages[index].price,
                                 currency: packageBookingController
                                     .packages[index].currency,
+                                ratings: packageBookingController
+                                        .packages[index].ratings,
                                 packageSelected: () {
                                   packageBookingController.getPackageDetails(packageBookingController.packages[index].refID);
                                   Get.toNamed(Approute_packagesDetails);
