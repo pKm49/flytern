@@ -11,6 +11,7 @@ import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/contact_details_getter.dart';
+import 'package:flytern/shared/ui/components/custom_media_carousel.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -44,33 +45,57 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
           color: flyternGrey10,
           child: ListView(
             children: [
-              Image.network(packageBookingController.packageDetails.value.headerimage,
-                  width: screenwidth ,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Image.asset(ASSETS_PACKAGE_1_SAMPLE,width: screenwidth  );
-                  }),
-              Padding(
-                padding: flyternLargePaddingAll,
-                child: Text("flight_details".tr,
-                    style: getBodyMediumStyle(context).copyWith(
-                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+              CustomMediaCarousel(
+                medias: packageBookingController.packageDetails.value.subImages,
               ),
-              FlightDetailsItineraryCard(),
-              addVerticalSpace(flyternSpaceLarge),
-              Padding(
-                padding: flyternLargePaddingAll,
-                child: Text("hotel_details".tr,
-                    style: getBodyMediumStyle(context).copyWith(
+              Container(
+                padding: flyternLargePaddingAll.copyWith(bottom: 0,top: 0),
+                color: flyternBackgroundWhite,
+                child: Text(packageBookingController.packageDetails.value.name,
+                    style: getHeadlineMediumStyle(context).copyWith(
                         color: flyternGrey80, fontWeight: flyternFontWeightBold)),
               ),
               Container(
-                  padding: flyternLargePaddingVertical,
-                  color: flyternBackgroundWhite,
-                  child: HotelSearchResultCard()),
+                padding: flyternLargePaddingAll.copyWith(top: flyternSpaceSmall ),
+                color: flyternBackgroundWhite,
+                child: Text(packageBookingController.packageDetails.value.shortDesc,
+                    style: getBodyMediumStyle(context).copyWith(
+                        color: flyternGrey60 )),
+              ),
+              addVerticalSpace(1),
+              Container(
+                padding: flyternLargePaddingAll.copyWith(top: flyternSpaceMedium,bottom: flyternSpaceMedium),
+                color: flyternBackgroundWhite,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("${packageBookingController.packageDetails.value.currency} ${
+                        packageBookingController.packageDetails.value.price}",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold, color: flyternSecondaryColor),),
+                    Expanded(
+                        flex: 1,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(Ionicons.star,
+                                color: flyternAccentColor,
+                                size: flyternFontSize20),
+                            addHorizontalSpace(flyternSpaceExtraSmall),
+                            Text(
+                              packageBookingController.packageDetails.value.ratings ,
+                              style: getBodyMediumStyle(context)
+                                  .copyWith(color: flyternGrey80),
+                            ),
+                          ],
+                        )),
 
+                  ],
+                ),
+              ),
               Padding(
                 padding: flyternLargePaddingAll,
-                child: Text("insurance".tr,
+                child: Text("flight_hotel_details".tr,
                     style: getBodyMediumStyle(context).copyWith(
                         color: flyternGrey80, fontWeight: flyternFontWeightBold)),
               ),
@@ -79,10 +104,12 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
                 padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
                 color: flyternBackgroundWhite,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("policy".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                    Text("COVID-19",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                     Icon(Ionicons.airplane_outline,color: flyternGrey60),
+                    addHorizontalSpace(flyternSpaceMedium),
+                    Text("${packageBookingController.packageDetails.value.fromTo} "
+                        "(${packageBookingController.packageDetails.value.airline})",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                   ],
                 ),
               ),
@@ -91,131 +118,18 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
                   color:flyternBackgroundWhite,
                   child: Divider()),
               Container(
-                padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
+                padding: flyternLargePaddingAll.copyWith(top: flyternSpaceSmall ),
                 color: flyternBackgroundWhite,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("policy_type".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                    Text("Individual",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                  ],
-                ),
-              ),
-              Container(
-                  padding: flyternLargePaddingHorizontal,
-                  color:flyternBackgroundWhite,
-                  child: Divider()),
-              Container(
-                padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-                color: flyternBackgroundWhite,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("policy_plan".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                    Text("Silver",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                  ],
-                ),
-              ),
-              Container(
-                  padding: flyternLargePaddingHorizontal,
-                  color:flyternBackgroundWhite,
-                  child: Divider()),
-              Container(
-                padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-                color: flyternBackgroundWhite,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("policy_period".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                    Text("One Week",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                  ],
-                ),
-              ),
-              Container(
-                  padding: flyternLargePaddingHorizontal,
-                  color:flyternBackgroundWhite,
-                  child: Divider()),
-              Container(
-                padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
-                color: flyternBackgroundWhite,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("policy_start_date".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                    Text("18 Apr 23",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                  ],
-                ),
-              ),
-
-              Padding(
-                padding: flyternLargePaddingAll,
-                child: Text("hotel_views".tr,
-                    style: getBodyMediumStyle(context).copyWith(
-                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-              ),
-              Container(
-                padding: flyternLargePaddingAll,
-                width: screenwidth,
-                height: screenwidth*.2 +(flyternSpaceLarge*2),
-                color: flyternBackgroundWhite,
-                child:  ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-
-                    Container(
-                        decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.circular(flyternBorderRadiusExtraSmall),
-
-                        ),
-                        clipBehavior: Clip.hardEdge,
-                        width: screenwidth*.2,
-                        child:  Image.asset(ASSETS_HOTEL_1_SAMPLE,width: screenwidth*.2)),
+                    Icon(Ionicons.bed_outline,color: flyternGrey60),
                     addHorizontalSpace(flyternSpaceMedium),
-                    Container(
-                        decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.circular(flyternBorderRadiusExtraSmall),
-
-                        ),
-                        clipBehavior: Clip.hardEdge,
-                        width: screenwidth*.2,
-                        child:  Image.asset(ASSETS_HOTEL_2_SAMPLE,width: screenwidth*.2)),
-
-                    addHorizontalSpace(flyternSpaceMedium),
-                    Container(
-                        decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.circular(flyternBorderRadiusExtraSmall),
-
-                        ),
-                        clipBehavior: Clip.hardEdge,
-                        width: screenwidth*.2,
-                        child:  Image.asset(ASSETS_HOTEL_3_SAMPLE,width: screenwidth*.2)),
-                    addHorizontalSpace(flyternSpaceMedium),
-                    Container(
-                        decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.circular(flyternBorderRadiusExtraSmall),
-
-                        ),
-                        clipBehavior: Clip.hardEdge,
-                        width: screenwidth*.2,
-                        child:  Image.asset(ASSETS_HOTEL_1_SAMPLE,width: screenwidth*.2)),
-                    addHorizontalSpace(flyternSpaceMedium),
-                    Container(
-                        decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.circular(flyternBorderRadiusExtraSmall),
-
-                        ),
-                        clipBehavior: Clip.hardEdge,
-                        width: screenwidth*.2,
-                        child:  Image.asset(ASSETS_HOTEL_2_SAMPLE,width: screenwidth*.2)),
-
+                    Text(packageBookingController.packageDetails.value.hotelName,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                   ],
                 ),
               ),
+
               Visibility(
                 visible: packageBookingController.packageDetails.value.inclusion!="",
                 child: Padding(

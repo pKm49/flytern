@@ -106,6 +106,7 @@
       "stops": "Stops",
       "modify_search": "Modify Search",
       "flight_details": "Flight Details",
+      "flight_hotel_details": "Flight & Hotel Details",
       "itinerary": "Itinerary",
       "baggage": "Baggage",
       "size": "Size",
@@ -619,6 +620,8 @@
       "stops": "توقف",
       "modify_search": "تعديل البحث",
       "flight_details": "تفاصيل الرحلة",
+      "flight_hotel_details": "تفاصيل الرحلة والفندق",
+
       "itinerary": "مسار الرحلة",
       "baggage": "أمتعة",
       "size": "مقاس",
