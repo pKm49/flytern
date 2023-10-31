@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flytern/core/controllers/core_controller.dart';
+import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
+import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/confirm_dialogue.dart';
 import 'package:flytern/shared/ui/components/preposticon_button.dart';
 import 'package:get/get.dart';
@@ -20,9 +22,14 @@ class CoreDrawerMenuPage extends StatefulWidget {
 class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
 
   final coreController = Get.find<CoreController>();
+  final profileController = Get.find<ProfileController>();
 
   @override
   Widget build(BuildContext context) {
+
+    double screenwidth = MediaQuery.of(context).size.width;
+    double screenheight = MediaQuery.of(context).size.height;
+
     return Container(
       padding: flyternLargePaddingAll,
       color: flyternBackgroundWhite,
@@ -142,7 +149,7 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
               onPressed: (){
               },
               theme: 'dark',
-              border: 'bottom',
+              border: profileController.userDetails.value.email !=""?'bottom':'',
               buttonTitle: "rating".tr,
               preIconData: Ionicons.star_outline,
               postIconData: Ionicons.chevron_forward,
@@ -150,20 +157,56 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
           ),
 
           addVerticalSpace(flyternSpaceSmall),
-          SizedBox(
-            width: double.infinity,
-            child: PrePostIconButton(
-                specialColor:1,
-              onPressed: (){
-                showConfirmDialog();
-              },
-              theme: 'dark',
-              border: '',
-              buttonTitle: "logout".tr,
-              preIconData: Ionicons.log_out_outline,
-              postIconData: Ionicons.chevron_forward,
+          Visibility(
+            visible: profileController.userDetails.value.email !="",
+            child: SizedBox(
+              width: double.infinity,
+              child: PrePostIconButton(
+                  specialColor:1,
+                onPressed: (){
+                  showConfirmDialog();
+                },
+                theme: 'dark',
+                border: '',
+                buttonTitle: "logout".tr,
+                preIconData: Ionicons.log_out_outline,
+                postIconData: Ionicons.chevron_forward,
+              ),
             ),
           ),
+
+          Visibility(
+            visible: profileController.userDetails.value.email =="",
+            child: Container(
+              padding: flyternLargePaddingVertical ,
+              color: flyternBackgroundWhite,
+              height: screenheight*.2,
+              child: Row(
+               crossAxisAlignment: CrossAxisAlignment.end,
+               children: [
+                 Expanded(
+                   child: ElevatedButton(
+                     child:   Text("sign_in".tr),
+                     onPressed: () async {
+                       Get.toNamed(Approute_login);
+                     },
+                     style: getElevatedButtonStyle(context).copyWith(
+                         backgroundColor: MaterialStateProperty.all<Color>(flyternSecondaryColor)
+                     ),),
+                 ),
+                 SizedBox(height: flyternSpaceMedium,width: 20,),
+                 Expanded(
+                   child: ElevatedButton(style: getElevatedButtonStyle(context),
+                       onPressed: () async {
+                         Get.toNamed(Approute_registerPersonalData);
+                       },
+                       child:Text("create_account".tr )),
+                 ),
+               ],
+                  ),
+            )
+          ),
+
         ],
       ),
     );
