@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flytern/feature-modules/package_booking/data/models/package_data.dart';
+import 'package:flytern/feature-modules/package_booking/data/models/package_itinerary.dart';
 import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 
 class PackageDetails extends PackageData {
@@ -8,7 +9,7 @@ class PackageDetails extends PackageData {
   final List<String> subImages;
   final DateTime validFrom;
   final DateTime validTo;
-  final String itinerary;
+  final List<PackageItinerary> itinerary;
   final String inclusion;
   final String notIncluded;
   final String termsConditions;
@@ -44,10 +45,9 @@ PackageDetails mapPackageDetails(dynamic payload) {
   String headerimage = "";
   List<String> subImages = [];
   List<PackageData> packages = [];
-
+  List<PackageItinerary> itinerary =[];
   DateTime validFrom = DefaultInvalidDate;
   DateTime validTo = DefaultInvalidDate;
-  String itinerary = "";
   String inclusion = "";
   String notIncluded = "";
   String termsConditions = "";
@@ -62,9 +62,11 @@ PackageDetails mapPackageDetails(dynamic payload) {
 
   if (payload["packageHeaderImage"] != null) {
     payload["packageHeaderImage"].forEach((element) {
-      headerimage = element["headerimage"] ?? "";
+      subImages.add(element["headerimage"] ?? "");
     });
   }
+
+
 
   if (payload["packageSubImages"] != null) {
     payload["packageSubImages"].forEach((element) {
@@ -76,13 +78,23 @@ PackageDetails mapPackageDetails(dynamic payload) {
     payload["packagesDtl"].forEach((element) {
       validFrom = DateTime.parse(element["validFrom"]);
       validTo = DateTime.parse(element["validTo"]);
-      itinerary = element["itinerary"];
       inclusion = element["inclusion"];
       notIncluded = element["notIncluded"];
       termsConditions = element["termsConditions"];
       notes = element["notes"];
       offeredServices = element["offeredServices"];
+      try{
+        var ite = jsonDecode(element["itinerary"]);
 
+        ite.forEach((element) {
+          itinerary.add(mapPackageItinerary(element ?? {}));
+        });
+        print("decoded itenerary is");
+        print("decoded itenerary is");
+      }catch (e,stac){
+        print(e);
+        print(stac);
+      }
     });
   }
 
@@ -116,10 +128,10 @@ PackageDetails getDefaultPackageDetails() {
   String headerimage = "";
   List<String> subImages = [];
   List<PackageData> packages = [];
+  List<PackageItinerary> itinerary = [];
 
   DateTime validFrom = DefaultInvalidDate;
   DateTime validTo = DefaultInvalidDate;
-  String itinerary = "";
   String inclusion = "";
   String notIncluded = "";
   String termsConditions = "";

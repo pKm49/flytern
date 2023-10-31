@@ -42,12 +42,10 @@ class UserDetailsCard extends StatelessWidget {
       child: Theme(
         data: ThemeData().copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
-
           tilePadding: EdgeInsets.zero,
           controller: controller,
           title:   Text(name),
           children: <Widget>[
-
             Padding(
               padding: flyternSmallPaddingVertical,
               child: Row(

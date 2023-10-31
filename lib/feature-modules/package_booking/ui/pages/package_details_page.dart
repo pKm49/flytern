@@ -3,6 +3,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_itinerary_card.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/components/hote_search_result_card.dart';
 import 'package:flytern/feature-modules/package_booking/controllers/package_booking_controller.dart';
+import 'package:flytern/feature-modules/package_booking/data/models/package_details.dart';
 import 'package:flytern/feature-modules/package_booking/ui/components/package_list_card.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
@@ -13,6 +14,7 @@ import 'package:flytern/shared/services/utility-services/widget_properties_gener
 import 'package:flytern/shared/ui/components/contact_details_getter.dart';
 import 'package:flytern/shared/ui/components/custom_media_carousel.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 
 class PackageDetailsPage extends StatefulWidget {
@@ -25,6 +27,7 @@ class PackageDetailsPage extends StatefulWidget {
 class _PackageDetailsPageState extends State<PackageDetailsPage> {
 
   final packageBookingController = Get.find<PackageBookingController>();
+  final List<ExpansionTileController> expansionTileControllers = [];
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +59,7 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
                         color: flyternGrey80, fontWeight: flyternFontWeightBold)),
               ),
               Container(
-                padding: flyternLargePaddingAll.copyWith(top: flyternSpaceSmall ),
+                padding: flyternLargePaddingAll.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall ),
                 color: flyternBackgroundWhite,
                 child: Text(packageBookingController.packageDetails.value.shortDesc,
                     style: getBodyMediumStyle(context).copyWith(
@@ -93,13 +96,33 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
                   ],
                 ),
               ),
+
+              Padding(
+                padding: flyternLargePaddingAll,
+                child: Text("validity".tr,
+                    style: getBodyMediumStyle(context).copyWith(
+                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+              ),
+              Container(
+                padding: flyternLargePaddingAll,
+                color: flyternBackgroundWhite,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(Ionicons.calendar_clear_outline,color: flyternGrey60),
+                    addHorizontalSpace(flyternSpaceMedium),
+                    Text("${getFormattedDate(packageBookingController.packageDetails.value.validFrom)} - "
+                        "${getFormattedDate(packageBookingController.packageDetails.value.validTo)} ",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  ],
+                ),
+              ),
+
               Padding(
                 padding: flyternLargePaddingAll,
                 child: Text("flight_hotel_details".tr,
                     style: getBodyMediumStyle(context).copyWith(
                         color: flyternGrey80, fontWeight: flyternFontWeightBold)),
               ),
-
               Container(
                 padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
                 color: flyternBackgroundWhite,
@@ -131,6 +154,42 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
               ),
 
               Visibility(
+                visible: packageBookingController.packageDetails.value.itinerary.isNotEmpty,
+                child: Padding(
+                  padding: flyternLargePaddingAll,
+                  child: Text("itinerary".tr,
+                      style: getBodyMediumStyle(context).copyWith(
+                          color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+                ),
+              ),
+              for(var ind=0;ind<packageBookingController.packageDetails.value.itinerary.length;ind++)
+              Container(
+                padding: flyternLargePaddingHorizontal,
+                decoration: BoxDecoration(
+                    color:flyternBackgroundWhite,
+                  border: flyternDefaultBorderBottomOnly
+                ),
+                child: Theme(
+                  data: ThemeData().copyWith(dividerColor: Colors.transparent),
+                  child: ExpansionTile(
+                    tilePadding: EdgeInsets.zero,
+                    title:   Text(
+                      packageBookingController.packageDetails.value.itinerary[ind].displayName,
+                      style: getLabelLargeStyle(context).copyWith(fontWeight: flyternFontWeightRegular),
+                    ),
+                    children: <Widget>[
+                      Padding(
+                        padding: flyternSmallPaddingVertical,
+                        child: Html(
+                          data: packageBookingController.packageDetails.value.itinerary[ind].content,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              Visibility(
                 visible: packageBookingController.packageDetails.value.inclusion!="",
                 child: Padding(
                   padding: flyternLargePaddingAll,
@@ -142,7 +201,7 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
               Visibility(
                 visible: packageBookingController.packageDetails.value.inclusion!="",
                 child: Container(
-                  padding: flyternLargePaddingAll,
+                  padding: flyternLargePaddingAll.copyWith(left: flyternSpaceMedium,right: flyternSpaceMedium),
                   width: screenwidth,
                   color: flyternBackgroundWhite,
                   child:  Html(
@@ -162,7 +221,7 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
               Visibility(
                 visible: packageBookingController.packageDetails.value.notIncluded!="",
                 child: Container(
-                    padding: flyternLargePaddingAll,
+                    padding: flyternLargePaddingAll.copyWith(left: flyternSpaceMedium,right: flyternSpaceMedium),
                     width: screenwidth,
                     color: flyternBackgroundWhite,
                     child:   Html(
@@ -182,7 +241,7 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
               Visibility(
                 visible: packageBookingController.packageDetails.value.termsConditions!="",
                 child: Container(
-                    padding: flyternLargePaddingAll,
+                    padding: flyternLargePaddingAll.copyWith(left: flyternSpaceMedium,right: flyternSpaceMedium),
                     width: screenwidth,
                     color: flyternBackgroundWhite,
                     child:   Html(
@@ -194,6 +253,7 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
                 height: 70+(flyternSpaceSmall*2),
                 padding: flyternLargePaddingAll,
               )
+
             ],
           ),
         ),
@@ -212,7 +272,6 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
                   },
                   child: Row(
                     children: [
-
                       Expanded(
                         child: Text(
                           "${packageBookingController.packageDetails.value.currency} "
@@ -221,7 +280,7 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
                       ),
                       Text("select".tr),
                       addHorizontalSpace(flyternSpaceSmall),
-                      Icon(Ionicons.chevron_forward,size: flyternFontSize20,)
+                      Icon(Ionicons.chevron_forward,size: flyternFontSize20)
                     ],
                   )) ,
             ),
@@ -244,4 +303,10 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
           return ContactDetailsGetter(route: Approute_packagesUserDetailsSubmission);
         });
   }
+
+  String getFormattedDate(DateTime dateTime) {
+    final f = DateFormat('E, dd-MMM yy');
+    return f.format(dateTime);
+  }
+
 }
