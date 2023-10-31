@@ -53,7 +53,7 @@ const flyternFontWeightBoldValue = 700;
 const double flyternSpaceLarge = 20; // 20 px
 const double flyternSpaceMedium = 16; // 16 px
 const double flyternSpaceSmall = 8; // 8 px
-const double flyternSpaceExtraSmall = 4; // 4 px
+const double flyternSpaceExtraSmall = 4; // flyternSpaceMedium px
 
 // sizing
 const double flyternItemHeightLarge = 60; // 60px

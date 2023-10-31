@@ -13,10 +13,11 @@ import 'package:ionicons/ionicons.dart';
 
 class FlightSearchResultCard extends StatelessWidget {
   final GestureTapCallback onPressed;
+  final GestureTapCallback onMoreOptionsPressed;
   FlightSearchResponse flightSearchResponse;
 
   FlightSearchResultCard(
-      {super.key, required this.flightSearchResponse, required this.onPressed});
+      {super.key, required this.flightSearchResponse, required this.onPressed,required this.onMoreOptionsPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +38,10 @@ class FlightSearchResultCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(
-                      flyternBorderRadiusExtraSmall)),
-                  child: Image.network(flightSearchResponse.airlineImageUrl, height: 30,
-                      errorBuilder: (context, error, stackTrace) {
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(flyternBorderRadiusExtraSmall)),
+                  child: Image.network(flightSearchResponse.airlineImageUrl,
+                      height: 30, errorBuilder: (context, error, stackTrace) {
                     return Container(
                       height: 20,
                       width: screenwidth * .2,
@@ -48,9 +49,13 @@ class FlightSearchResultCard extends StatelessWidget {
                   }),
                 ),
                 Expanded(child: Container()),
-                DataCapsuleCard(
-                  label: "${flightSearchResponse.dTOSegments.length} Stops",
-                  theme: 2,
+                Visibility(
+                  visible: flightSearchResponse.dTOSegments.isNotEmpty,
+                  child: DataCapsuleCard(
+                    label:
+                        "${flightSearchResponse.dTOSegments.isNotEmpty ? flightSearchResponse.dTOSegments[0].stops : 0} ${'stops'.tr}",
+                    theme: 2,
+                  ),
                 ),
                 addHorizontalSpace(flyternSpaceSmall),
                 DataCapsuleCard(
@@ -68,11 +73,12 @@ class FlightSearchResultCard extends StatelessWidget {
               children: [
                 Expanded(
                     child: Container(
-                      alignment: Alignment.centerLeft,
+                  alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(),
                   clipBehavior: Clip.hardEdge,
                   child: FlightAirportLabelCard(
-                    topLabel:getTopLabel( flightSearchResponse.dTOSegments[i].fromCountry),
+                    topLabel: getTopLabel(
+                        flightSearchResponse.dTOSegments[i].fromCountry),
                     midLabel: flightSearchResponse.dTOSegments[i].from,
                     bottomLabel:
                         flightSearchResponse.dTOSegments[i].departureTime,
@@ -88,11 +94,12 @@ class FlightSearchResultCard extends StatelessWidget {
                 ),
                 Expanded(
                     child: Container(
-                      alignment: Alignment.centerRight,
+                  alignment: Alignment.centerRight,
                   decoration: BoxDecoration(),
                   clipBehavior: Clip.hardEdge,
                   child: FlightAirportLabelCard(
-                    topLabel:getTopLabel( flightSearchResponse.dTOSegments[i].toCountry),
+                    topLabel: getTopLabel(
+                        flightSearchResponse.dTOSegments[i].toCountry),
                     midLabel: flightSearchResponse.dTOSegments[i].to,
                     bottomLabel:
                         flightSearchResponse.dTOSegments[i].arrivalTime,
@@ -138,8 +145,8 @@ class FlightSearchResultCard extends StatelessWidget {
               ),
               Expanded(child: Container()),
               ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(
-                    flyternBorderRadiusExtraSmall)),
+                borderRadius: BorderRadius.all(
+                    Radius.circular(flyternBorderRadiusExtraSmall)),
                 child: ElevatedButton(
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
@@ -150,17 +157,40 @@ class FlightSearchResultCard extends StatelessWidget {
                     child: Icon(Ionicons.chevron_forward)),
               ),
             ],
-          )
+          ),
+          Visibility(
+              visible: flightSearchResponse.moreOptioncount > 0,
+              child: Row(
+                children: [
+                  InkWell(
+                    onTap:onMoreOptionsPressed,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: const Border(
+                        bottom: BorderSide(
+                          color: flyternTertiaryColor,
+                          width: 1,
+                        ),
+                      )),
+                      child: Text(
+                          "other_option".tr.replaceAll('3',
+                              flightSearchResponse.moreOptioncount.toString()),
+                          style: getLabelLargeStyle(context)
+                              .copyWith(color: flyternTertiaryColor)),
+                    ),
+                  )
+                ],
+              ))
         ],
       ),
     );
   }
 
   getTopLabel(String toCountry) {
-    if(toCountry.split(",").toList().length>1){
+    if (toCountry.split(",").toList().length > 1) {
       return toCountry.split(",").toList()[1];
     }
-    if(toCountry.split(",").toList().length==1){
+    if (toCountry.split(",").toList().length == 1) {
       return toCountry.split(",").toList()[0];
     }
     return toCountry;

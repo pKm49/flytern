@@ -35,7 +35,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
   var flightBookingHelperServices = FlightBookingHelperServices();
 
   late TabController tabController;
- 
+
   int selectedTab = -1;
   int multicityCount = 1;
 
@@ -52,7 +52,6 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
         setState(() {});
       }
     });
-
   }
 
   @override
@@ -70,12 +69,13 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
     return Scaffold(
       appBar: AppBar(
         elevation: 0.5,
-        title: Text(flightBookingController.isModifySearchVisible.value?"modify_search".tr:"search_results".tr),
+        title: Text(flightBookingController.isModifySearchVisible.value
+            ? "modify_search".tr
+            : "search_results".tr),
         actions: [
           InkWell(
               onTap: () {
-                  flightBookingController.toggleModifierVisibility();
-
+                flightBookingController.toggleModifierVisibility();
               },
               child: flightBookingController.isModifySearchVisible.value
                   ? Center(
@@ -112,7 +112,9 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
               Visibility(
                   visible: !flightBookingController.isModifySearchVisible.value,
                   child: addVerticalSpace(flyternSpaceSmall)),
-              Visibility(visible: !flightBookingController.isModifySearchVisible.value, child: Divider()),
+              Visibility(
+                  visible: !flightBookingController.isModifySearchVisible.value,
+                  child: Divider()),
               Visibility(
                   visible: !flightBookingController.isModifySearchVisible.value,
                   child: addVerticalSpace(flyternSpaceExtraSmall)),
@@ -179,7 +181,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                                         fontWeight: flyternFontWeightLight,
                                         color: flyternGrey60)),
                                 addVerticalSpace(flyternSpaceExtraSmall),
-                                Text("all".tr,
+                                Text(getFilterTitle(),
                                     style: getBodyMediumStyle(context)
                                         .copyWith(color: flyternGrey80)),
                               ],
@@ -196,7 +198,9 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
               Visibility(
                   visible: !flightBookingController.isModifySearchVisible.value,
                   child: addVerticalSpace(flyternSpaceExtraSmall)),
-              Visibility(visible: !flightBookingController.isModifySearchVisible.value, child: Divider()),
+              Visibility(
+                  visible: !flightBookingController.isModifySearchVisible.value,
+                  child: Divider()),
               Visibility(
                 visible: !flightBookingController.isModifySearchVisible.value,
                 child: Container(
@@ -223,9 +227,9 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                         tabs: <Tab>[
                           for (var i = 0; i < 3; i++)
                             Tab(
-                              text: getLargeFormattedDate(flightBookingController
-                                  .startDate.value
-                                  .add(Duration(days: i))),
+                              text: getLargeFormattedDate(
+                                  flightBookingController.startDate.value
+                                      .add(Duration(days: i))),
                             ),
                         ])),
               ),
@@ -254,11 +258,12 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
               //   ),
               // ),
               Visibility(
-                visible: !flightBookingController
-                        .isFlightSearchResponsesLoading.value &&
+                visible:
                     !flightBookingController
-                        .isFlightSearchFilterResponsesLoading.value &&
-                    !flightBookingController.isModifySearchVisible.value,
+                            .isFlightSearchResponsesLoading.value &&
+                        !flightBookingController
+                            .isFlightSearchFilterResponsesLoading.value &&
+                        !flightBookingController.isModifySearchVisible.value,
                 child: Expanded(
                     child: Container(
                         color: flyternGrey10,
@@ -271,9 +276,15 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                                   margin: const EdgeInsets.only(
                                       top: flyternSpaceMedium),
                                   child: FlightSearchResultCard(
+                                    onMoreOptionsPressed: () {
+                                      flightBookingController.getMoreOptions(
+                                          flightBookingController
+                                              .flightSearchResponses[index]
+                                              .index);
+                                    },
                                     flightSearchResponse:
                                         flightBookingController
-                                            .flightSearchResponses[index],
+                                            .flightSearchResponses.value[index],
                                     onPressed: () {
                                       Get.toNamed(Approute_flightsDetails);
                                     },
@@ -282,10 +293,10 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
               ),
               Visibility(
                 visible: (flightBookingController
-                        .isFlightSearchResponsesLoading.value ||
-                    flightBookingController
-                        .isFlightSearchFilterResponsesLoading.value) &&
-                        !flightBookingController.isModifySearchVisible.value,
+                            .isFlightSearchResponsesLoading.value ||
+                        flightBookingController
+                            .isFlightSearchFilterResponsesLoading.value) &&
+                    !flightBookingController.isModifySearchVisible.value,
                 child: Expanded(
                     child: Container(
                         color: flyternGrey10,
@@ -301,14 +312,13 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
               ),
               Visibility(
                 visible: flightBookingController.isModifySearchVisible.value,
-                child:  Expanded(
+                child: Expanded(
                   child: Container(
                     padding: EdgeInsets.all(flyternSpaceLarge),
-                    height:
-                    flightBookingHelperServices.getFlightBookingContainerHeight(
-                        screenheight,
-                        flightBookingController ),
-                    width: screenwidth  ,
+                    height: flightBookingHelperServices
+                        .getFlightBookingContainerHeight(
+                            screenheight, flightBookingController),
+                    width: screenwidth,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(ASSETS_FLIGHTS_BG),
@@ -321,20 +331,25 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                           children: [
                             Container(
                               height: screenheight * .025,
-                              width: screenwidth ,
+                              width: screenwidth,
                             ),
                             Container(
-                              height:flightBookingHelperServices.getFlightBookingContainerHeight(
-                                  screenheight,
-                                  flightBookingController ) - (screenheight * .025) - (flyternSpaceLarge * 2),
-                              decoration: flyternShadowedContainerSmallDecoration,
+                              height: flightBookingHelperServices
+                                      .getFlightBookingContainerHeight(
+                                          screenheight,
+                                          flightBookingController) -
+                                  (screenheight * .025) -
+                                  (flyternSpaceLarge * 2),
+                              decoration:
+                                  flyternShadowedContainerSmallDecoration,
                               width: screenwidth - (flyternSpaceLarge * 2),
                               padding: flyternMediumPaddingAll,
                               child: Container(
                                 margin: EdgeInsets.only(top: flyternSpaceLarge),
                                 child: FlightBookingForm(
-                                  isRedirectionRequired:false,
-                                  flightBookingController: flightBookingController,
+                                  isRedirectionRequired: false,
+                                  flightBookingController:
+                                      flightBookingController,
                                 ),
                               ),
                             )
@@ -357,7 +372,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                                         icon: Ionicons.arrow_forward_outline,
                                         label: 'one_way'.tr,
                                         isSelected: flightBookingController
-                                            .flightSearchData.value.mode ==
+                                                .flightSearchData.value.mode ==
                                             FlightMode.ONEWAY,
                                       ),
                                     ),
@@ -365,13 +380,13 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                                     Expanded(
                                       child: FlightTypeTab(
                                         onPressed: () {
-                                          flightBookingController
-                                              .setFlightMode(FlightMode.ROUNDTRIP);
+                                          flightBookingController.setFlightMode(
+                                              FlightMode.ROUNDTRIP);
                                         },
                                         icon: Ionicons.swap_horizontal_outline,
                                         label: 'round_trip'.tr,
                                         isSelected: flightBookingController
-                                            .flightSearchData.value.mode ==
+                                                .flightSearchData.value.mode ==
                                             FlightMode.ROUNDTRIP,
                                       ),
                                     ),
@@ -379,22 +394,25 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                                     Expanded(
                                       child: FlightTypeTab(
                                         onPressed: () {
-                                          flightBookingController
-                                              .setFlightMode(FlightMode.MULTICITY);
+                                          flightBookingController.setFlightMode(
+                                              FlightMode.MULTICITY);
                                         },
                                         icon: Ionicons.share_social_outline,
                                         label: 'multi_city'.tr,
                                         isSelected: flightBookingController
-                                            .flightSearchData.value.mode ==
+                                                .flightSearchData.value.mode ==
                                             FlightMode.MULTICITY,
                                       ),
                                     )
                                   ],
                                 )),
                             Container(
-                              height:flightBookingHelperServices.getFlightBookingContainerHeight(
-                                  screenheight,
-                                  flightBookingController )- (screenheight * .05) - (flyternSpaceLarge * 2),
+                              height: flightBookingHelperServices
+                                      .getFlightBookingContainerHeight(
+                                          screenheight,
+                                          flightBookingController) -
+                                  (screenheight * .05) -
+                                  (flyternSpaceLarge * 2),
                               width: screenwidth - (flyternSpaceLarge * 2),
                             )
                           ],
@@ -404,6 +422,11 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                   ),
                 ),
               ),
+              Container(
+                height: flyternSpaceLarge,
+                width: screenwidth,
+                color: flyternGrey10,
+              )
             ],
           ),
         ),
@@ -558,5 +581,34 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
         false,
         flightBookingController.startDate.value.add(Duration(days: index)),
         true);
+  }
+
+  String getFilterTitle() {
+    String filterTitleAll = "all".tr;
+    int filterCount = 0;
+
+    if (flightBookingController.selectedPriceDcs.isNotEmpty) {
+      filterCount++;
+    }
+
+    if (flightBookingController.selectedAirlineDcs.isNotEmpty) {
+      filterCount++;
+    }
+
+    if (flightBookingController.selectedDepartureTimeDcs.isNotEmpty) {
+      filterCount++;
+    }
+
+    if (flightBookingController.selectedArrivalTimeDcs.isNotEmpty) {
+      filterCount++;
+    }
+    if (flightBookingController.selectedStopDcs.isNotEmpty) {
+      filterCount++;
+    }
+    if(filterCount>0){
+      return "filter_items".tr.replaceAll("2", filterCount.toString());
+    }else{
+      return filterTitleAll;
+    }
   }
 }

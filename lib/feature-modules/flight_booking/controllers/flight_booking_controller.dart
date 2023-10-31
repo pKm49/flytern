@@ -25,6 +25,7 @@ class FlightBookingController extends GetxController {
   var isModifySearchVisible = false.obs;
   var isFlightDestinationsLoading = false.obs;
   var isFlightSearchResponsesLoading = false.obs;
+  var isFlightMoreOptionsResponsesLoading = false.obs;
   var isFlightSearchFilterResponsesLoading = false.obs;
   var isInitialDataLoading = true.obs;
   var flightBookingHttpService = FlightBookingHttpService();
@@ -37,6 +38,7 @@ class FlightBookingController extends GetxController {
   var flightDestinations = <FlightDestination>[].obs;
   var flightSearchItems = <FlightSearchItem>[].obs;
   var flightSearchResponses = <FlightSearchResponse>[].obs;
+  var moreOptionFlights = <FlightSearchResponse>[].obs;
 
   var sortingDc = SortingDcs(
       value: "-1",
@@ -165,19 +167,21 @@ class FlightBookingController extends GetxController {
     }
   }
 
-  getFilterValues(List<SortingDcs> value) {
-    String filterString = "";
-    for (var i=0;i< value.length;i++) {
-      filterString +=  value[i].value;
-      if(i!=(value.length-1)  ){
-        filterString +=",";
-      }
+  Future<void> getMoreOptions(int index) async {
+    if (index> -1 &&
+        !isFlightMoreOptionsResponsesLoading.value) {
+      Get.toNamed(Approute_flightsMoreOptions);
+
+      print("getMoreOptions called ");
+      isFlightMoreOptionsResponsesLoading.value = true;
+      FlightSearchResult flightSearchResult = await flightBookingHttpService
+          .getMoreOptions(index, objectId.value);
+      moreOptionFlights.value = flightSearchResult.searchResponses;
+
+      isFlightMoreOptionsResponsesLoading.value = false;
+
     }
-    return filterString;
   }
 
-  void toggleModifierVisibility() {
-    isModifySearchVisible.value = !isModifySearchVisible.value;
-  }
 
 }

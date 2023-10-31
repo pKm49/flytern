@@ -3,6 +3,20 @@ part of 'flight_booking_controller.dart';
 extension FlightBookingControllerSetter on FlightBookingController {
 
   // Search setters
+  getFilterValues(List<SortingDcs> value) {
+    String filterString = "";
+    for (var i=0;i< value.length;i++) {
+      filterString +=  value[i].value;
+      if(i!=(value.length-1)  ){
+        filterString +=",";
+      }
+    }
+    return filterString;
+  }
+
+  void toggleModifierVisibility() {
+    isModifySearchVisible.value = !isModifySearchVisible.value;
+  }
 
   setDestination(
       FlightDestination flightDestination, bool isArrival, int index) {

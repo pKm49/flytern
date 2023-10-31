@@ -45,10 +45,14 @@ class _FlightFilterOptionSelectorState
     super.initState();
     selectedFilterOptions = widget.selectedFilterOptions;
     _currentSliderValue = RangeValues(
-      widget.availableFilterOptions.priceDcs.isNotEmpty
+      widget.selectedFilterOptions.priceDcs.isNotEmpty
+          ? widget.selectedFilterOptions.priceDcs[0].min
+          :  widget.availableFilterOptions.priceDcs.isNotEmpty
           ? widget.availableFilterOptions.priceDcs[0].min
           : 0,
-      widget.availableFilterOptions.priceDcs.isNotEmpty
+      widget.selectedFilterOptions.priceDcs.isNotEmpty
+          ? widget.selectedFilterOptions.priceDcs[0].max
+          :  widget.availableFilterOptions.priceDcs.isNotEmpty
           ? widget.availableFilterOptions.priceDcs[0].max
           : 0,
     );

@@ -145,5 +145,42 @@ class FlightBookingHttpService {
     return searchResponses;
   }
 
+  Future<FlightSearchResult> getMoreOptions(
+      int index, int objectId) async {
+
+    FlyternHttpResponse response = await postRequest(
+        FlightBookingHttpRequestEndpointGetMoreOptionFlights,
+        {
+          "objectID":objectId,
+          "index": index
+        });
+
+    List<FlightSearchResponse> searchResponses = [];
+
+    if (response.success) {
+      if (response.data != null  ) {
+        if (  response.data["searchResponses"] != null) {
+          for (var i = 0; i < response.data["searchResponses"].length; i++) {
+            searchResponses.add(
+                mapFlightSearchResponse(response.data["searchResponses"][i]));
+          }
+        }
+
+
+      }
+    }
+
+    FlightSearchResult flightSearchResult = FlightSearchResult(
+        searchResponses: searchResponses,
+        priceDcs: [],
+        sortingDcs: [],
+        airlineDcs: [],
+        departureTimeDcs:[],
+        arrivalTimeDcs: [],
+        stopDcs: []
+    );
+
+    return flightSearchResult;
+  }
 
 }
