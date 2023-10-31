@@ -88,6 +88,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                         child: Container(
                           margin: EdgeInsets.only(top: flyternSpaceLarge),
                           child: FlightBookingForm(
+                            isRedirectionRequired:true,
                             flightBookingController: flightBookingController,
                           ),
                         ),

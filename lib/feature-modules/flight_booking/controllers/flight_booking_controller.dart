@@ -22,6 +22,7 @@ part 'flight_booking_controller_setter.dart';
 
 class FlightBookingController extends GetxController {
 
+  var isModifySearchVisible = false.obs;
   var isFlightDestinationsLoading = false.obs;
   var isFlightSearchResponsesLoading = false.obs;
   var isFlightSearchFilterResponsesLoading = false.obs;
@@ -130,6 +131,8 @@ class FlightBookingController extends GetxController {
       isFlightSearchFilterResponsesLoading.value = false;
       if(isNavigationRequired){
         Get.toNamed(Approute_flightsSearchResult);
+      }else{
+        isModifySearchVisible.value = false;
       }
     }
   }
@@ -171,6 +174,10 @@ class FlightBookingController extends GetxController {
       }
     }
     return filterString;
+  }
+
+  void toggleModifierVisibility() {
+    isModifySearchVisible.value = !isModifySearchVisible.value;
   }
 
 }

@@ -22,8 +22,9 @@ import 'package:ionicons/ionicons.dart';
 class FlightBookingForm extends StatefulWidget {
    
   FlightBookingController flightBookingController;
-
-  FlightBookingForm({super.key,   required this.flightBookingController});
+  bool isRedirectionRequired;
+  FlightBookingForm({super.key,   required this.flightBookingController,
+    required this.isRedirectionRequired});
 
   @override
   State<FlightBookingForm> createState() => _FlightBookingFormState();
@@ -526,7 +527,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
             child: ElevatedButton(
                 style: getElevatedButtonStyle(context),
                 onPressed: () {
-                  widget.flightBookingController.getSearchResults(true);
+                  widget.flightBookingController.getSearchResults(widget.isRedirectionRequired);
                 },
                 child:widget.flightBookingController.isFlightSearchResponsesLoading.value
                     ? const SizedBox(
