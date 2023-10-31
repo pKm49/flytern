@@ -17,9 +17,8 @@ import 'package:flytern/feature-modules/flight_booking/services/http-services/fl
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:get/get.dart';
 
-part 'flight_booking_controller_setter.dart';
 
-class FlightBookingController extends GetxController {
+class InsuranceBookingController extends GetxController {
 
   var isFlightDestinationsLoading = false.obs;
   var isFlightSearchResponsesLoading = false.obs;

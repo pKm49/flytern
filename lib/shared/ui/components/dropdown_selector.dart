@@ -51,8 +51,18 @@ class _DropDownSelectorState extends State<DropDownSelector> {
       items: widget.items.map((GeneralItem value) {
         return DropdownMenuItem<String>(
           value: value.id.toString(),
-          child: Text(value.name,textAlign: TextAlign.center,
-            style: TextStyle(color:  flyternGrey60),),
+          child: Row(
+            children: [
+              Visibility(
+                  visible: value.imageUrl !="",
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: flyternSpaceMedium),
+                    child: Image.network(value.imageUrl??"", width: 40),
+                  )),
+              Text(value.name,textAlign: TextAlign.center,
+                style: TextStyle(color:  flyternGrey60),),
+            ],
+          ),
         );
       }).toList(),
     );

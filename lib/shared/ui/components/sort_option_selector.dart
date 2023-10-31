@@ -63,7 +63,7 @@ class _SortOptionSelectorState extends State<SortOptionSelector> {
                             textAlign: TextAlign.center),
                         Text("cancel".tr,
                             style: getBodyMediumStyle(context).copyWith(
-                                color: flyternGuideRed,
+                                color: flyternSecondaryColor,
                                 fontWeight: flyternFontWeightBold),
                             textAlign: TextAlign.center),
                       ],

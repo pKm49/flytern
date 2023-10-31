@@ -14,8 +14,9 @@ class PackageListCard extends StatelessWidget {
   final String flightName;
   final String hotelName;
   final String sponsoredBy;
+  final String currency;
   final double price;
-
+  final GestureTapCallback packageSelected;
 
     PackageListCard({
       super.key,
@@ -25,6 +26,8 @@ class PackageListCard extends StatelessWidget {
     required this.hotelName,
     required this.sponsoredBy,
     required this.price,
+    required this.currency,
+    required this.packageSelected,
     });
 
   @override
@@ -33,9 +36,7 @@ class PackageListCard extends StatelessWidget {
     double screenheight = MediaQuery.of(context).size.height;
 
     return InkWell(
-      onTap: (){
-        Get.toNamed(Approute_packagesDetails);
-      },
+      onTap: packageSelected,
       child: Container(
         decoration:  BoxDecoration(
           color: flyternBackgroundWhite,
@@ -48,7 +49,10 @@ class PackageListCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
                 ),
                 clipBehavior: Clip.hardEdge,
-                child: Image.asset(imageUrl,width: screenwidth*.25, height:  screenwidth*.25)),
+                child:Image.network(imageUrl,width: screenwidth*.25, height:  screenwidth*.25,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(imageUrl,width: screenwidth*.25, height:  screenwidth*.25);
+                    }), ),
             addHorizontalSpace(flyternSpaceMedium),
             Expanded(
                 child: Column(
@@ -61,7 +65,7 @@ class PackageListCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('AED 15,000',style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold, color: flyternSecondaryColor),),
+                    Text("${currency} ${price}",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold, color: flyternSecondaryColor),),
 
 
                   ],

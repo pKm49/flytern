@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_item.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_result.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_form.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/flight_filter_option_selector.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_search_result_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_search_result_card_loader.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type_tab.dart';
@@ -48,8 +50,14 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
 
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
-    double screenheight = MediaQuery.of(context).size.height;
+    double screenwidth = MediaQuery
+        .of(context)
+        .size
+        .width;
+    double screenheight = MediaQuery
+        .of(context)
+        .size
+        .height;
 
     return Scaffold(
       appBar: AppBar(
@@ -67,201 +75,221 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
         ],
       ),
       body: Obx(
-        ()=> Container(
-          width: screenwidth,
-          height: screenheight,
-          child: Column(
-            children: [
-              addVerticalSpace(flyternSpaceMedium),
-              Visibility(
-                visible: !isModifySearchVisible,
-                child: Container(
-                  width: screenwidth,
-                  padding: flyternLargePaddingHorizontal,
-                  child: Text(getSearchParamsPreview(),
-                      textAlign: TextAlign.start,
-                      style: getLabelLargeStyle(context).copyWith(
-                          fontWeight: flyternFontWeightLight,
-                          color: flyternGrey60)),
-                ),
-              ),
-              Visibility(
-                  visible: !isModifySearchVisible,
-                  child: addVerticalSpace(flyternSpaceSmall)),
-              Visibility(visible: !isModifySearchVisible, child: Divider()),
-              Visibility(
-                  visible: !isModifySearchVisible,
-                  child: addVerticalSpace(flyternSpaceExtraSmall)),
-              Container(
-                padding: flyternLargePaddingHorizontal,
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: InkWell(
-                      onTap: () {
-                        showSortOptions();
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("sort".tr,
-                                  style: getLabelLargeStyle(context).copyWith(
-                                      fontWeight: flyternFontWeightLight,
-                                      color: flyternGrey60)),
-                              Visibility(
-                                visible: flightBookingController.sortingDcs.value.isNotEmpty &&
-                                    flightBookingController.sortingDc.value.value !="-1",
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top:flyternSpaceExtraSmall),
-                                  child: Text( flightBookingController.sortingDc.value.name,
-                                      style: getBodyMediumStyle(context)
-                                          .copyWith(color: flyternGrey80)),
-                                ),
+            () =>
+            Container(
+              width: screenwidth,
+              height: screenheight,
+              child: Column(
+                children: [
+                  addVerticalSpace(flyternSpaceMedium),
+                  Visibility(
+                    visible: !isModifySearchVisible,
+                    child: Container(
+                      width: screenwidth,
+                      padding: flyternLargePaddingHorizontal,
+                      child: Text(getSearchParamsPreview(),
+                          textAlign: TextAlign.start,
+                          style: getLabelLargeStyle(context).copyWith(
+                              fontWeight: flyternFontWeightLight,
+                              color: flyternGrey60)),
+                    ),
+                  ),
+                  Visibility(
+                      visible: !isModifySearchVisible,
+                      child: addVerticalSpace(flyternSpaceSmall)),
+                  Visibility(visible: !isModifySearchVisible, child: Divider()),
+                  Visibility(
+                      visible: !isModifySearchVisible,
+                      child: addVerticalSpace(flyternSpaceExtraSmall)),
+                  Container(
+                    padding: flyternLargePaddingHorizontal,
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                showSortOptions();
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment
+                                        .start,
+                                    children: [
+                                      Text("sort".tr,
+                                          style: getLabelLargeStyle(context)
+                                              .copyWith(
+                                              fontWeight: flyternFontWeightLight,
+                                              color: flyternGrey60)),
+                                      Visibility(
+                                        visible: flightBookingController
+                                            .sortingDcs.value.isNotEmpty &&
+                                            flightBookingController.sortingDc
+                                                .value.value != "-1",
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: flyternSpaceExtraSmall),
+                                          child: Text(
+                                              flightBookingController.sortingDc
+                                                  .value.name,
+                                              style: getBodyMediumStyle(context)
+                                                  .copyWith(
+                                                  color: flyternGrey80)),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Icon(Ionicons.chevron_down,
+                                      size: flyternFontSize20,
+                                      color: flyternGrey40)
+                                ],
                               ),
-                            ],
-                          ),
-                          Icon(Ionicons.chevron_down,
-                              size: flyternFontSize20, color: flyternGrey40)
-                        ],
-                      ),
-                    )),
-                    addHorizontalSpace(flyternSpaceLarge * 1.5),
-                    Expanded(
-                        child: InkWell(
-                      onTap: () {
-                        showFilterOptions();
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("filter".tr,
-                                  style: getLabelLargeStyle(context).copyWith(
-                                      fontWeight: flyternFontWeightLight,
-                                      color: flyternGrey60)),
-                              addVerticalSpace(flyternSpaceExtraSmall),
-                              Text("all".tr,
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey80)),
-                            ],
-                          ),
-                          Icon(Ionicons.chevron_down,
-                              size: flyternFontSize20, color: flyternGrey40)
-                        ],
-                      ),
-                    ))
-                  ],
-                ),
-              ),
-              addVerticalSpace(flyternSpaceExtraSmall),
-              Divider(),
-              Container(
-                  padding: flyternMediumPaddingHorizontal,
-                  decoration:
+                            )),
+                        addHorizontalSpace(flyternSpaceLarge * 1.5),
+                        Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                showFilterOptions();
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment
+                                        .start,
+                                    children: [
+                                      Text("filter".tr,
+                                          style: getLabelLargeStyle(context)
+                                              .copyWith(
+                                              fontWeight: flyternFontWeightLight,
+                                              color: flyternGrey60)),
+                                      addVerticalSpace(flyternSpaceExtraSmall),
+                                      Text("all".tr,
+                                          style: getBodyMediumStyle(context)
+                                              .copyWith(color: flyternGrey80)),
+                                    ],
+                                  ),
+                                  Icon(Ionicons.chevron_down,
+                                      size: flyternFontSize20,
+                                      color: flyternGrey40)
+                                ],
+                              ),
+                            ))
+                      ],
+                    ),
+                  ),
+                  addVerticalSpace(flyternSpaceExtraSmall),
+                  Divider(),
+                  Container(
+                      padding: flyternMediumPaddingHorizontal,
+                      decoration:
                       BoxDecoration(border: flyternDefaultBorderBottomOnly),
-                  child: TabBar(
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      labelPadding: EdgeInsets.zero,
-                      // indicator: new BubbleTabIndicator(
-                      //   indicatorHeight: 30.0,
-                      //   indicatorColor: AppColors.PrimaryColor,
-                      //   tabBarIndicatorSize: TabBarIndicatorSize.tab,
-                      // ),
-                      indicatorColor: flyternSecondaryColor,
-                      indicatorWeight: 2,
-                      padding: EdgeInsets.zero,
-                      controller: tabController,
-                      labelColor: flyternSecondaryColor,
-                      labelStyle: TextStyle(
-                          color: flyternSecondaryColor,
-                          fontWeight: FontWeight.bold),
-                      unselectedLabelColor: flyternGrey40,
-                      tabs: <Tab>[
-                        for (var i = 0; i < 3; i++)
-                          Tab(
-                            text: getLargeFormattedDate(flightBookingController
-                                .flightSearchData
-                                .value
-                                .searchList[0]
-                                .departureDate
-                                .add(Duration(days: i))),
-                          ),
-                      ])),
+                      child: TabBar(
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          labelPadding: EdgeInsets.zero,
+                          // indicator: new BubbleTabIndicator(
+                          //   indicatorHeight: 30.0,
+                          //   indicatorColor: AppColors.PrimaryColor,
+                          //   tabBarIndicatorSize: TabBarIndicatorSize.tab,
+                          // ),
+                          indicatorColor: flyternSecondaryColor,
+                          indicatorWeight: 2,
+                          padding: EdgeInsets.zero,
+                          controller: tabController,
+                          labelColor: flyternSecondaryColor,
+                          labelStyle: TextStyle(
+                              color: flyternSecondaryColor,
+                              fontWeight: FontWeight.bold),
+                          unselectedLabelColor: flyternGrey40,
+                          tabs: <Tab>[
+                            for (var i = 0; i < 3; i++)
+                              Tab(
+                                text: getLargeFormattedDate(
+                                    flightBookingController
+                                        .flightSearchData
+                                        .value
+                                        .searchList[0]
+                                        .departureDate
+                                        .add(Duration(days: i))),
+                              ),
+                          ])),
 
-              // addVerticalSpace(flyternSpaceLarge),
-              // Visibility(
-              //     visible: isModifySearchVisible,
-              //     child: Padding(
-              //       padding: flyternLargePaddingHorizontal,
-              //       child: Text("modify_search".tr,
-              //           style: getHeadlineMediumStyle(context).copyWith(
-              //               fontWeight: flyternFontWeightBold,
-              //               color: flyternGrey80)),
-              //     )),
-              // Visibility(
-              //   visible: isModifySearchVisible,
-              //   child: Container(
-              //     height: (screenheight * .65),
-              //     width: screenwidth - (flyternSpaceLarge * 2),
-              //     padding: flyternMediumPaddingAll,
-              //     decoration: flyternShadowedContainerSmallDecoration,
-              //     margin: flyternLargePaddingAll,
-              //     child: FlightBookingForm(
-              //       flightBookingController: flightBookingController,
-              //     ),
-              //   ),
-              // ),
-              Visibility(
-                visible: !flightBookingController.isFlightSearchResponsesLoading.value &&
-                !flightBookingController.isFlightSearchFilterResponsesLoading.value,
-                child: Expanded(
-                    child: Container(
-                        color: flyternGrey10,
-                        child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: flightBookingController
-                                .flightSearchResponses.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Container(
-                                  margin: const EdgeInsets.only(
-                                      top: flyternSpaceMedium),
-                                  child: FlightSearchResultCard(
-                                    flightSearchResponse: flightBookingController
-                                        .flightSearchResponses[index],
-                                    onPressed: () {
-                                      Get.toNamed(Approute_flightsDetails);
-                                    },
-                                  ));
-                            }))),
-              ),
-              Visibility(
-                visible:  flightBookingController.isFlightSearchResponsesLoading.value ||
-                    flightBookingController.isFlightSearchFilterResponsesLoading.value,
-                child: Expanded(
-                    child: Container(
-                        color: flyternGrey10,
-                        child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: 2,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Container(
-                                  margin: const EdgeInsets.only(
-                                      top: flyternSpaceMedium),
-                                  child: FlightSearchResultCardLoader(
+                  // addVerticalSpace(flyternSpaceLarge),
+                  // Visibility(
+                  //     visible: isModifySearchVisible,
+                  //     child: Padding(
+                  //       padding: flyternLargePaddingHorizontal,
+                  //       child: Text("modify_search".tr,
+                  //           style: getHeadlineMediumStyle(context).copyWith(
+                  //               fontWeight: flyternFontWeightBold,
+                  //               color: flyternGrey80)),
+                  //     )),
+                  // Visibility(
+                  //   visible: isModifySearchVisible,
+                  //   child: Container(
+                  //     height: (screenheight * .65),
+                  //     width: screenwidth - (flyternSpaceLarge * 2),
+                  //     padding: flyternMediumPaddingAll,
+                  //     decoration: flyternShadowedContainerSmallDecoration,
+                  //     margin: flyternLargePaddingAll,
+                  //     child: FlightBookingForm(
+                  //       flightBookingController: flightBookingController,
+                  //     ),
+                  //   ),
+                  // ),
+                  Visibility(
+                    visible: !flightBookingController
+                        .isFlightSearchResponsesLoading.value &&
+                        !flightBookingController
+                            .isFlightSearchFilterResponsesLoading.value,
+                    child: Expanded(
+                        child: Container(
+                            color: flyternGrey10,
+                            child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                itemCount: flightBookingController
+                                    .flightSearchResponses.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                      margin: const EdgeInsets.only(
+                                          top: flyternSpaceMedium),
+                                      child: FlightSearchResultCard(
+                                        flightSearchResponse: flightBookingController
+                                            .flightSearchResponses[index],
+                                        onPressed: () {
+                                          Get.toNamed(Approute_flightsDetails);
+                                        },
+                                      ));
+                                }))),
+                  ),
+                  Visibility(
+                    visible: flightBookingController
+                        .isFlightSearchResponsesLoading.value ||
+                        flightBookingController
+                            .isFlightSearchFilterResponsesLoading.value,
+                    child: Expanded(
+                        child: Container(
+                            color: flyternGrey10,
+                            child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                itemCount: 2,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                      margin: const EdgeInsets.only(
+                                          top: flyternSpaceMedium),
+                                      child: FlightSearchResultCardLoader(
 
-                                  ));
-                            }))),
+                                      ));
+                                }))),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
       ),
     );
   }
@@ -280,12 +308,12 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
         builder: (context) {
           return SortOptionSelector(
             selectedSort: flightBookingController.sortingDc.value.value,
-            sortChanged: (String selectedSort){
+            sortChanged: (String selectedSort) {
               flightBookingController.updateSort(selectedSort);
               Navigator.pop(context);
             },
             title: "sort_by".tr,
-            sortingDcs:flightBookingController.sortingDcs.value,
+            sortingDcs: flightBookingController.sortingDcs.value,
           );
         });
   }
@@ -304,8 +332,13 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
         builder: (context) {
           return StatefulBuilder(builder: (BuildContext context,
               StateSetter setModalState /*You can rename this!*/) {
-            return FilterOptionSelector(
-                bookingServiceNumber: 1,
+            return FlightFilterOptionSelector(
+                currency:flightBookingController.currency.value,
+                availableFilterOptions: getAvailableFilterOptions(),
+                selectedFilterOptions: getSelectedFilterOptions(),
+                filterSubmitted:(FlightSearchResult selectedFilterOptions){
+
+                },
                 setModalState: () {
                   print('modalState Changed');
                   setModalState(() {});
@@ -321,25 +354,29 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
       flightBookingController.flightSearchData.value.searchList
           .forEach((element) {
         searchParamsPreviewString +=
-            "${element.departure.airportCode}-${element.arrival.airportCode}${getDateString(element)} -";
+        "${element.departure.airportCode}-${element.arrival
+            .airportCode}${getDateString(element)} -";
       });
     }
     searchParamsPreviewString +=
-        " ${flightBookingController.flightSearchData.value.mode.name}";
+    " ${flightBookingController.flightSearchData.value.mode.name}";
 
     if (flightBookingController.flightSearchData.value.adults > 0) {
       searchParamsPreviewString +=
-          " -${flightBookingController.flightSearchData.value.adults} ${'adults'.tr}";
+      " -${flightBookingController.flightSearchData.value.adults} ${'adults'
+          .tr}";
     }
 
     if (flightBookingController.flightSearchData.value.child > 0) {
       searchParamsPreviewString +=
-          " -${flightBookingController.flightSearchData.value.child} ${'children'.tr}";
+      " -${flightBookingController.flightSearchData.value.child} ${'children'
+          .tr}";
     }
 
     if (flightBookingController.flightSearchData.value.infants > 0) {
       searchParamsPreviewString +=
-          " -${flightBookingController.flightSearchData.value.infants} ${'infants'.tr}";
+      " -${flightBookingController.flightSearchData.value.infants} ${'infants'
+          .tr}";
     }
     return searchParamsPreviewString;
   }
@@ -367,6 +404,31 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
     if (element.returnDate?.day == element.departureDate.day) {
       return "  ${getFormattedDate(element.departureDate)}";
     }
-    return " ${element.departureDate.day}-${getFormattedDate(element.returnDate)}";
+    return " ${element.departureDate.day}-${getFormattedDate(
+        element.returnDate)}";
+  }
+
+  FlightSearchResult getAvailableFilterOptions() {
+    return FlightSearchResult(
+      searchResponses: [],
+      priceDcs: flightBookingController.priceDcs.value,
+      sortingDcs:  [],
+      airlineDcs:  flightBookingController.airlineDcs.value,
+      departureTimeDcs:  flightBookingController.departureTimeDcs.value,
+      arrivalTimeDcs:  flightBookingController.arrivalTimeDcs.value,
+      stopDcs:  flightBookingController.stopDcs.value,
+    );
+  }
+
+  FlightSearchResult getSelectedFilterOptions() {
+    return FlightSearchResult(
+        searchResponses: [],
+        priceDcs: flightBookingController.selectedPriceDcs.value,
+        sortingDcs:  [],
+        airlineDcs:  flightBookingController.selectedAirlineDcs.value,
+        departureTimeDcs:  flightBookingController.selectedDepartureTimeDcs.value,
+        arrivalTimeDcs:  flightBookingController.selectedArrivalTimeDcs.value,
+        stopDcs:  flightBookingController.selectedStopDcs.value,
+    );
   }
 }

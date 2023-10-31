@@ -22,24 +22,30 @@ class ProfilePackageBookingsList extends StatelessWidget {
           ),
           addVerticalSpace(flyternSpaceLarge),
           PackageListCard(
+            currency: "KD",
             imageUrl: ASSETS_PACKAGE_1_SAMPLE,
             title: 'Kabul Holiday Package',
             flightName: 'KBL to IST',
             hotelName: 'The Bank Hotel',
             sponsoredBy: 'Emirates',
             price: 15000,
+              packageSelected: () {
+              }
           ),
           Padding(
             padding: flyternLargePaddingHorizontal,
             child: Divider(),
           ),
           PackageListCard(
+            currency: "KD",
             imageUrl: ASSETS_PACKAGE_1_SAMPLE,
             title: 'Kabul Holiday Package',
             flightName: 'KBL to IST',
             hotelName: 'The Bank Hotel',
             sponsoredBy: 'Emirates',
             price: 15000,
+              packageSelected: () {
+              }
           ),
         ],
       ),

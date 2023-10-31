@@ -199,7 +199,8 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                                                   items: [
                                                      for(var i =0; i<sharedController.languages.length;i++)
                                                        GeneralItem(id: sharedController.languages[i].code,
-                                                           name: sharedController.languages[i].name)
+                                                           name: sharedController.languages[i].name,
+                                                       imageUrl: "")
                                                   ],
                                                   hintText:"" ,
                                                   valueChanged: (newLang) {
