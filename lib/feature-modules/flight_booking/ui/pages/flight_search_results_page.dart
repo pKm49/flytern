@@ -32,13 +32,23 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
 
   late TabController tabController;
   bool isModifySearchVisible = false;
-  int selectedTab = 1;
+  int selectedTab = -1;
   int multicityCount = 1;
 
   @override
   void initState() {
     super.initState();
     tabController = TabController(vsync: this, length: 3, initialIndex: 0);
+
+    tabController.addListener((){
+      print("addListener called");
+      if(selectedTab != tabController.index){
+        changeDate(tabController.index);
+        selectedTab = tabController.index;
+        setState(() {
+        });
+      }
+    });
   }
 
   @override
@@ -211,10 +221,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                               Tab(
                                 text: getLargeFormattedDate(
                                     flightBookingController
-                                        .flightSearchData
-                                        .value
-                                        .searchList[0]
-                                        .departureDate
+                                        .startDate.value
                                         .add(Duration(days: i))),
                               ),
                           ])),
@@ -337,7 +344,11 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                 availableFilterOptions: getAvailableFilterOptions(),
                 selectedFilterOptions: getSelectedFilterOptions(),
                 filterSubmitted:(FlightSearchResult selectedFilterOptions){
-
+                  print("setPriceRange 2");
+                  print(selectedFilterOptions.priceDcs[0].min);
+                  print(selectedFilterOptions.priceDcs[0].max);
+                  flightBookingController.setFilterValues(selectedFilterOptions);
+                  Navigator.pop(context);
                 },
                 setModalState: () {
                   print('modalState Changed');
@@ -430,5 +441,17 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
         arrivalTimeDcs:  flightBookingController.selectedArrivalTimeDcs.value,
         stopDcs:  flightBookingController.selectedStopDcs.value,
     );
+  }
+
+  changeDate(int index){
+
+    print("changedate 1");
+    print(index);
+
+    flightBookingController
+        .changeDate(0, false, flightBookingController
+        .startDate
+        .value
+        .add(Duration(days: index)),true);
   }
 }

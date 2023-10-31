@@ -15,6 +15,7 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/services/helper-services/flight_booking_helper_services.dart';
 import 'package:flytern/feature-modules/flight_booking/services/http-services/flight_booking_http_services.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
+import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 import 'package:get/get.dart';
 
 part 'flight_booking_controller_setter.dart';
@@ -57,6 +58,7 @@ class FlightBookingController extends GetxController {
   var priceDcs = <RangeDcs>[].obs;
   var selectedPriceDcs = <RangeDcs>[].obs;
   var flightSearchData = getDefaultFlightSearchData().obs;
+  var startDate = DefaultInvalidDate.obs;
 
   @override
   void onInit() {
@@ -94,6 +96,8 @@ class FlightBookingController extends GetxController {
     if (flightSearchData.value.allowedCabins.isNotEmpty &&
         flightSearchData.value.adults > 0 &&
         !isFlightSearchResponsesLoading.value) {
+
+      print("getSearchResults called ");
       isFlightSearchResponsesLoading.value = true;
       FlightSearchResult flightSearchResult = await flightBookingHttpService
           .getFlightSearchResults(flightSearchData.value);
@@ -101,6 +105,13 @@ class FlightBookingController extends GetxController {
       if(flightSearchResponses.isNotEmpty){
         objectId.value = flightSearchResponses.value[0].objectId;
         currency.value = flightSearchResponses.value[0].currency;
+        if(isNavigationRequired){
+          startDate.value = flightSearchData
+              .value
+              .searchList[0]
+              .departureDate;
+        }
+
       }
       sortingDcs.value = flightSearchResult.sortingDcs;
       if (sortingDcs.isNotEmpty) {
@@ -131,15 +142,15 @@ class FlightBookingController extends GetxController {
           pageId: pageId.value,
           objectID: objectId.value,
           priceMinMaxDc: selectedPriceDcs.value.isNotEmpty?
-          "${selectedPriceDcs.value[0].max}, ${selectedPriceDcs.value[0].min}":"",
+          "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0].max}":"",
           arrivalTimeDc: selectedArrivalTimeDcs.value.isNotEmpty?
-          selectedArrivalTimeDcs.value.map((e) => e.value).toString():"",
+          getFilterValues(selectedArrivalTimeDcs.value):"",
           departureTimeDc: selectedDepartureTimeDcs.value.isNotEmpty?
-          selectedDepartureTimeDcs.value.map((e) => e.value).toString():"",
+          getFilterValues(selectedDepartureTimeDcs.value) :"",
           airlineDc: selectedAirlineDcs.value.isNotEmpty?
-          selectedAirlineDcs.value.map((e) => e.value).toString():"",
+          getFilterValues(selectedAirlineDcs.value) :"",
           stopDc: selectedStopDcs.value.isNotEmpty?
-          selectedStopDcs.value.map((e) => e.value).toString():"",
+          getFilterValues(selectedStopDcs.value):"",
           sortingDc: sortingDc.value.value,
       );
 
@@ -149,6 +160,17 @@ class FlightBookingController extends GetxController {
       flightSearchResponses.value = flightSearchResponse;
       isFlightSearchFilterResponsesLoading.value = false;
     }
+  }
+
+  getFilterValues(List<SortingDcs> value) {
+    String filterString = "";
+    for (var i=0;i< value.length;i++) {
+      filterString +=  value[i].value;
+      if(i!=(value.length-1)  ){
+        filterString +=",";
+      }
+    }
+    return filterString;
   }
 
 }

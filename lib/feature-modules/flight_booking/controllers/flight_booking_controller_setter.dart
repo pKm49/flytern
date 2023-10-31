@@ -44,10 +44,18 @@ extension FlightBookingControllerSetter on FlightBookingController {
     flightSearchData.value = newFlightSearchData;
   }
 
-  changeDate(int index, bool isReturnDate, DateTime dateTime) {
+  changeDate(int index, bool isReturnDate, DateTime dateTime, bool isFilter) {
+    print("changedate");
+    print(index);
+    print(isReturnDate);
+    print(dateTime);
+    print(dateTime);
     FlightSearchData newFlightSearchData = flightBookingHelperServices
         .changeDate(flightSearchData.value, index, dateTime, isReturnDate);
     flightSearchData.value = newFlightSearchData;
+    if(isFilter){
+      getSearchResults(false);
+    }
   }
 
   void updatePassengerCountAndCabinClass(int adultCount, int childCount,
@@ -83,5 +91,20 @@ extension FlightBookingControllerSetter on FlightBookingController {
     }
 
   }
+
+  setFilterValues(FlightSearchResult selectedFilterOptions){
+
+    selectedPriceDcs.value = selectedFilterOptions.priceDcs;
+    selectedArrivalTimeDcs.value = selectedFilterOptions.arrivalTimeDcs;
+    selectedDepartureTimeDcs.value = selectedFilterOptions.departureTimeDcs;
+    selectedAirlineDcs.value = selectedFilterOptions.airlineDcs;
+    selectedStopDcs.value = selectedFilterOptions.stopDcs;
+
+    filterSearchResults();
+
+
+  }
+
+
 
 }

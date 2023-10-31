@@ -130,7 +130,7 @@ class FlightBookingHttpService {
         flightFilterBody.toJson());
 
     List<FlightSearchResponse> searchResponses = [];
-    if (response.success) {
+    if (response.success && response.statusCode==200) {
       if (response.data != null  ) {
         if (  response.data["searchResponses"] != null) {
           for (var i = 0; i < response.data["searchResponses"].length; i++) {

@@ -561,7 +561,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
             dateSelected: (DateTime? dateTime) {
               if (dateTime != null && dateTime.isAfter(DateTime.now())) {
                 widget.flightBookingController
-                    .changeDate(index, isReturn, dateTime);
+                    .changeDate(index, isReturn, dateTime,false);
               }
             },
           );
