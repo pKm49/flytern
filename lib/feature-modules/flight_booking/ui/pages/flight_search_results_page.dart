@@ -272,21 +272,25 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                             itemCount: flightBookingController
                                 .flightSearchResponses.length,
                             itemBuilder: (BuildContext context, int index) {
+
                               return Container(
                                   margin: const EdgeInsets.only(
                                       top: flyternSpaceMedium),
                                   child: FlightSearchResultCard(
+                                    flightBookingController:flightBookingController ,
                                     onMoreOptionsPressed: () {
                                       flightBookingController.getMoreOptions(
                                           flightBookingController
-                                              .flightSearchResponses[index]
+                                              .flightSearchResponses.value[index]
                                               .index);
                                     },
                                     flightSearchResponse:
                                         flightBookingController
                                             .flightSearchResponses.value[index],
                                     onPressed: () {
-                                      Get.toNamed(Approute_flightsDetails);
+                                      flightBookingController.getFlightDetails(flightBookingController
+                                          .flightSearchResponses.value[index]
+                                          .index);
                                     },
                                   ));
                             }))),

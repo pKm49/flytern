@@ -1,6 +1,7 @@
 import 'package:flytern/feature-modules/flight_booking/data/constants/business_specific/flight_mode.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/cabin_class.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/explore_data.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_details.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_filter_body.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_data.dart';
@@ -26,6 +27,7 @@ class FlightBookingController extends GetxController {
   var isFlightDestinationsLoading = false.obs;
   var isFlightSearchResponsesLoading = false.obs;
   var isFlightMoreOptionsResponsesLoading = false.obs;
+  var isFlightDetailsLoading = false.obs;
   var isFlightSearchFilterResponsesLoading = false.obs;
   var isInitialDataLoading = true.obs;
   var flightBookingHttpService = FlightBookingHttpService();
@@ -49,6 +51,7 @@ class FlightBookingController extends GetxController {
   var currency ="KWD".obs;
   var pageId = 1.obs;
   var objectId = 1.obs;
+  var currentFlightIndex = (-1).obs;
   var sortingDcs = <SortingDcs>[].obs;
   var airlineDcs = <SortingDcs>[].obs;
   var selectedAirlineDcs = <SortingDcs>[].obs;
@@ -62,6 +65,7 @@ class FlightBookingController extends GetxController {
   var selectedPriceDcs = <RangeDcs>[].obs;
   var flightSearchData = getDefaultFlightSearchData().obs;
   var startDate = DefaultInvalidDate.obs;
+  var flightDetails =getDefaultFlightDetails().obs;
 
   @override
   void onInit() {
@@ -181,6 +185,27 @@ class FlightBookingController extends GetxController {
       isFlightMoreOptionsResponsesLoading.value = false;
 
     }
+  }
+
+  Future<void> getFlightDetails(int index) async {
+
+    if (index> -1 &&
+        !isFlightDetailsLoading.value) {
+      currentFlightIndex.value = index;
+      isFlightDetailsLoading.value = true;
+      print("getMoreOptions called ");
+
+      print(isFlightDetailsLoading.value &&
+          currentFlightIndex.value
+              == index);
+      FlightDetails tempFlightDetails = await flightBookingHttpService
+          .getFlightDetails(index, objectId.value);
+      flightDetails.value = tempFlightDetails;
+      isFlightDetailsLoading.value = false;
+      Get.toNamed(Approute_flightsDetails);
+
+    }
+
   }
 
 

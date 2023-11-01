@@ -56,7 +56,7 @@ CabinInfo mapCabinInfo(dynamic payload){
   String infoTitle = "";
   String infoDescription = "";
   if(payload["infos"] != null){
-    Map<String,String> infos = payload["infos"];
+    Map<String,dynamic> infos = payload["infos"];
     int i =0;
     for (String value in infos.values){
       infoTitle = i==0? value:infoTitle;

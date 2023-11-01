@@ -1,5 +1,6 @@
 import 'package:flytern/feature-modules/flight_booking/data/constants/app_specific/flight_booking_http_request_endpoints.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/explore_data.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_details.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_filter_body.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_data.dart';
@@ -181,6 +182,28 @@ class FlightBookingHttpService {
     );
 
     return flightSearchResult;
+  }
+
+  Future<FlightDetails> getFlightDetails(
+      int index, int objectId) async {
+
+    FlyternHttpResponse response = await postRequest(
+        FlightBookingHttpRequestEndpointGetDetailFlights,
+        {
+          "objectID":objectId,
+          "index": index
+        });
+
+    FlightDetails flightDetails;
+
+    if (response.success && response.statusCode ==200) {
+      if (response.data != null  ) {
+        flightDetails = mapFlightDetails(response.data);
+        return flightDetails;
+      }
+    }
+
+    return mapFlightDetails({});
   }
 
 }

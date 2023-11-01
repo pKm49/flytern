@@ -78,6 +78,7 @@ class _FlightMoreOptionsPageState extends State<FlightMoreOptionsPage>
                                   margin: const EdgeInsets.only(
                                       top: flyternSpaceMedium),
                                   child: FlightSearchResultCard(
+                                    flightBookingController:flightBookingController ,
                                     flightSearchResponse:
                                         flightBookingController
                                             .moreOptionFlights[index],

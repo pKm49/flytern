@@ -1,7 +1,5 @@
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/cabin_info.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_segment.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_segment_buggage_details.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_segment_details.dart';
 
 class FlightDetails {
   final String priceChangedMessage;
@@ -65,7 +63,7 @@ FlightDetails mapFlightDetails(dynamic payload) {
       fareRule = payload["fareRule"];
     } else {
       payload["fareRule"].forEach((element) {
-        fareRule += payload["fareRule"];
+        fareRule += element;
       });
     }
   }
@@ -75,7 +73,7 @@ FlightDetails mapFlightDetails(dynamic payload) {
       errorMessage = payload["errorMessage"];
     } else {
       payload["errorMessage"].forEach((element) {
-        errorMessage += payload["errorMessage"];
+        errorMessage += element;
       });
     }
   }
@@ -85,7 +83,7 @@ FlightDetails mapFlightDetails(dynamic payload) {
       warningMessage = payload["warningMessage"];
     } else {
       payload["warningMessage"].forEach((element) {
-        warningMessage += payload["warningMessage"];
+        warningMessage += element;
       });
     }
   }
@@ -108,5 +106,34 @@ FlightDetails mapFlightDetails(dynamic payload) {
     adult: payload["adult"] ?? -1,
     child: payload["child"] ?? -1,
     infant: payload["infant"] ?? -1,
+  );
+}
+
+FlightDetails getDefaultFlightDetails() {
+  List<FlightSegment> flightSegments = [];
+  List<CabinInfo> cabinInfos = [];
+  String fareRule = "";
+  String errorMessage = "";
+  String warningMessage = "";
+
+
+  return FlightDetails(
+    priceChangedMessage:  "",
+    selectedCabinName: "",
+    selectedCabinId:   "",
+    scheduleChangedMessage:  "",
+    flightSegments: flightSegments,
+    cabinInfos: cabinInfos,
+    fareRule: fareRule,
+    errorMessage: errorMessage,
+    warningMessage: warningMessage,
+    isRefund:  false,
+    priceChanged: false,
+    scheduleChanged: false,
+    objectId:   -1,
+    detailId:  -1,
+    adult:  -1,
+    child:  -1,
+    infant:   -1,
   );
 }
