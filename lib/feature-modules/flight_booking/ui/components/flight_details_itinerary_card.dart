@@ -235,7 +235,7 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                       flightSegment.flightSegmentDetails[i].layover !="",
                   child: Container(
                     padding: flyternMediumPaddingAll.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-                    color: flyternTertiaryColor,
+                    color: flyternPrimaryColorBg,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -245,10 +245,10 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                           lineLength: double.infinity,
                           lineThickness: 1.0,
                           dashLength: 4.0,
-                          dashColor: flyternTertiaryColor,
+                          dashColor: flyternGrey60,
                           dashRadius: 0.0,
                           dashGapLength: 4.0,
-                          dashGapColor:flyternBackgroundWhite,
+                          dashGapColor:flyternPrimaryColorBg,
                           dashGapRadius: 0.0,
                         )),
                         Visibility(
@@ -257,7 +257,7 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
                             child: Text(
                                 '${'stopover'.tr} ${flightSegment.flightSegmentDetails[i].stopover}',
-                                style: getBodyMediumStyle(context).copyWith(color: flyternBackgroundWhite)),
+                                style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
                           ),
                         ),
                         Visibility(
@@ -266,7 +266,7 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
                             child: Text(
                                 "${'layover'.tr} ${flightSegment.flightSegmentDetails[i].layover}",
-                            style: getBodyMediumStyle(context).copyWith(color: flyternBackgroundWhite)),
+                            style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
                           ),
                         ),
                         const Expanded(child:DottedLine(
@@ -275,10 +275,10 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                           lineLength: double.infinity,
                           lineThickness: 1.0,
                           dashLength: 4.0,
-                          dashColor: flyternTertiaryColor,
+                          dashColor: flyternGrey60,
                           dashRadius: 0.0,
                           dashGapLength: 4.0,
-                          dashGapColor:flyternBackgroundWhite,
+                          dashGapColor:flyternPrimaryColorBg,
                           dashGapRadius: 0.0,
                         )),
                       ],
