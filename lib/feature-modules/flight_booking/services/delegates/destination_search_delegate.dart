@@ -7,6 +7,7 @@ import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class DestinationSearchDelegate extends SearchDelegate {
 
@@ -69,9 +70,10 @@ class DestinationSearchDelegate extends SearchDelegate {
           );
         } else {
           return Center(
-            child: CircularProgressIndicator(
+            child: LoadingAnimationWidget.prograssiveDots(
               color: flyternSecondaryColor,
-            ),
+              size: 50,
+            )
           );
         }
       },
@@ -113,9 +115,10 @@ class DestinationSearchDelegate extends SearchDelegate {
           );
         } else {
           return Center(
-            child: CircularProgressIndicator(
-              color: flyternSecondaryColor,
-            ),
+              child: LoadingAnimationWidget.prograssiveDots(
+                color: flyternSecondaryColor,
+                size: 50,
+              )
           );
         }
       },

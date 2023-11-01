@@ -16,6 +16,7 @@ import 'package:flytern/shared/ui/components/custom_date_picker.dart';
 import 'package:flytern/shared/ui/components/dropdown_selector.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ProfileAuditCopassengerPage extends StatefulWidget {
   const ProfileAuditCopassengerPage({super.key});
@@ -249,13 +250,10 @@ class _ProfileAuditCopassengerPageState
                       }
                     },
                     child: coPaxController.isSubmitting.value
-                        ? const SizedBox(
-                            width: 16,
-                            height: 16,
-                            child: CircularProgressIndicator(
-                              color: flyternBackgroundWhite,
-                            ),
-                          )
+                        ? LoadingAnimationWidget.prograssiveDots(
+                      color: flyternBackgroundWhite,
+                      size: 16,
+                    )
                         : Text(coPaxController.isCreation.value
                             ? "add".tr
                             : "update".tr)),

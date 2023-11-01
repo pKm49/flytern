@@ -10,6 +10,7 @@ import 'package:flytern/shared/services/utility-services/form_validator.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class AuthLoginPage extends StatefulWidget {
   const AuthLoginPage({super.key});
@@ -97,13 +98,10 @@ class _AuthLoginPageState extends State<AuthLoginPage> {
                             }
                           },
                           child: loginController.isSubmitting.value
-                              ? const SizedBox(
-                                  width: 16,
-                                  height: 16,
-                                  child: CircularProgressIndicator(
-                                    color: flyternBackgroundWhite,
-                                  ),
-                                )
+                              ? LoadingAnimationWidget.prograssiveDots(
+                            color: flyternBackgroundWhite,
+                            size: 16,
+                          )
                               : Text("sign_in".tr)),
                     ),
                     addVerticalSpace(flyternSpaceLarge),

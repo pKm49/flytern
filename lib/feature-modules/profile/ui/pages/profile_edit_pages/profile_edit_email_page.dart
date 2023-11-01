@@ -9,6 +9,7 @@ import 'package:flytern/shared/services/utility-services/form_validator.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ProfileEditEmailPage extends StatefulWidget {
   const ProfileEditEmailPage({super.key});
@@ -81,12 +82,9 @@ class _ProfileEditEmailPageState extends State<ProfileEditEmailPage> {
                       }
                     },
                     child: profileController.isEmailSubmitting.value
-                        ? const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(
-                        color: flyternBackgroundWhite,
-                      ),
+                        ? LoadingAnimationWidget.prograssiveDots(
+                      color: flyternBackgroundWhite,
+                      size: 16,
                     )
                         :Text("update".tr)),
               ),

@@ -20,6 +20,7 @@ import 'package:flytern/shared/ui/components/custom_date_picker.dart';
 import 'package:flytern/shared/ui/components/dropdown_selector.dart';
 import 'package:flytern/shared/ui/components/photo_selector.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ProfileEditProfilePage extends StatefulWidget {
   const ProfileEditProfilePage({super.key});
@@ -323,13 +324,10 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
                       }
                     },
                     child: profileController.isProfileSubmitting.value
-                        ? const SizedBox(
-                            width: 16,
-                            height: 16,
-                            child: CircularProgressIndicator(
-                              color: flyternBackgroundWhite,
-                            ),
-                          )
+                        ? LoadingAnimationWidget.prograssiveDots(
+                      color: flyternBackgroundWhite,
+                      size: 16,
+                    )
                         : Text("update".tr)),
               ),
             ),

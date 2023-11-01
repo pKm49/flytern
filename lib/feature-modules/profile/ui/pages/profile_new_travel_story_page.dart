@@ -15,6 +15,7 @@ import 'package:flytern/shared/services/utility-services/widget_properties_gener
 import 'package:flytern/shared/ui/components/photo_selector.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mime/mime.dart';
 import 'package:video_player/video_player.dart';
 
@@ -264,12 +265,9 @@ class _ProfileNewTravelStoryPageState extends State<ProfileNewTravelStoryPage> {
                       handleSubmission();
                     },
                     child:travelStoryController.isSubmitting.value
-                        ? const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(
-                        color: flyternBackgroundWhite,
-                      ),
+                        ?LoadingAnimationWidget.prograssiveDots(
+                      color: flyternBackgroundWhite,
+                      size: 16,
                     )
                         :  Text("submit".tr)),
               ),

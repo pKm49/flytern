@@ -7,6 +7,7 @@ import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:video_player/video_player.dart';
 
 class AuthSelectorPage extends StatefulWidget {
@@ -78,8 +79,9 @@ class _AuthSelectorPageState extends State<AuthSelectorPage> {
                     } else {
                       // If the VideoPlayerController is still initializing, show a
                       // loading spinner.
-                      return const Center(
-                        child: CircularProgressIndicator(),
+                      return LoadingAnimationWidget.prograssiveDots(
+                        color: flyternBackgroundWhite,
+                        size: 50,
                       );
                     }
                   },

@@ -10,6 +10,7 @@ import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ProfileResetPasswordPage extends StatefulWidget {
   const ProfileResetPasswordPage({super.key});
@@ -104,12 +105,9 @@ class _ProfileResetPasswordPageState extends State<ProfileResetPasswordPage> {
                       }
                     },
                     child:  profileController.isPasswordSubmitting.value
-                        ? const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(
-                        color: flyternBackgroundWhite,
-                      ),
+                        ? LoadingAnimationWidget.prograssiveDots(
+                      color: flyternBackgroundWhite,
+                      size: 16,
                     )
                         :Text("update".tr)),
               ),

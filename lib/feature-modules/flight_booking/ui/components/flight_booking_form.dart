@@ -18,6 +18,7 @@ import 'package:flytern/shared/ui/components/custom_date_picker.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class FlightBookingForm extends StatefulWidget {
    
@@ -530,13 +531,10 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                   widget.flightBookingController.getSearchResults(widget.isRedirectionRequired);
                 },
                 child:widget.flightBookingController.isFlightSearchResponsesLoading.value
-                    ? const SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(
-                    color: flyternBackgroundWhite,
-                  ),
-                )
+                    ?   LoadingAnimationWidget.prograssiveDots(
+                      color: flyternBackgroundWhite,
+                      size: 16,
+                    )
                     :  Text("search_flights".tr)),
           ),
         ],

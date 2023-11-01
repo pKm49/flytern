@@ -7,6 +7,7 @@ import 'package:flytern/shared/services/utility-services/form_validator.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class AuthResetPasswordNewPasswordPage extends StatefulWidget {
   const AuthResetPasswordNewPasswordPage({super.key});
@@ -75,12 +76,9 @@ class _AuthResetPasswordNewPasswordPageState
                           resetPasswordController.updatePassword();
                         }
                       }, child:resetPasswordController.isSubmitting.value
-                      ? const SizedBox(
-                    width: 16,
-                    height: 16,
-                    child: CircularProgressIndicator(
-                      color: flyternBackgroundWhite,
-                    ),
+                      ? LoadingAnimationWidget.prograssiveDots(
+                    color: flyternBackgroundWhite,
+                    size: 16,
                   ): Text("reset_password".tr)),
                 ),
                 addVerticalSpace(flyternSpaceLarge),

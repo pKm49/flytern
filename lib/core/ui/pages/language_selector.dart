@@ -16,6 +16,7 @@ import 'package:flytern/shared/ui/components/country_selector.dart';
 import 'package:flytern/shared/ui/components/dropdown_selector.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:video_player/video_player.dart';
 
 class CoreLanguageSelector extends StatefulWidget {
@@ -98,8 +99,11 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                         } else {
                           // If the VideoPlayerController is still initializing, show a
                           // loading spinner.
-                          return const Center(
-                            child: CircularProgressIndicator(),
+                          return   Center(
+                            child: LoadingAnimationWidget.prograssiveDots(
+                              color: flyternBackgroundWhite,
+                              size: 50,
+                            ),
                           );
                         }
                       },
@@ -237,12 +241,9 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                                       },
                                       style: getElevatedButtonStyle(context),
                                       child:sharedController.isSetDeviceLanguageAndCountrySubmitting.value?
-                                      const SizedBox(
-                                        width: 16,
-                                        height: 16,
-                                        child: CircularProgressIndicator(
-                                          color: flyternBackgroundWhite,
-                                        ),
+                                      LoadingAnimationWidget.prograssiveDots(
+                                        color: flyternBackgroundWhite,
+                                        size: 16,
                                       ):Text("continue".tr)),
                                 ),
                               ],

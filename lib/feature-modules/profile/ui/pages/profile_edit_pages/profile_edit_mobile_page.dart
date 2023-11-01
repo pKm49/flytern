@@ -11,6 +11,7 @@ import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/country_selector.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ProfileEditMobilePage extends StatefulWidget {
   const ProfileEditMobilePage({super.key});
@@ -119,12 +120,9 @@ class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
                       }
                     },
                     child:profileController.isMobileSubmitting.value
-                        ? const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(
-                        color: flyternBackgroundWhite,
-                      ),
+                        ?LoadingAnimationWidget.prograssiveDots(
+                      color: flyternBackgroundWhite,
+                      size: 16,
                     )
                         : Text("update".tr)),
               ),

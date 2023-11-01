@@ -17,6 +17,7 @@ import 'package:flytern/shared/ui/components/country_selector.dart';
 import 'package:flytern/shared/ui/components/photo_selector.dart';
 import 'package:flytern/shared/ui/components/html_viewer.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class AuthRegisterDetailsInputPage extends StatefulWidget {
   const AuthRegisterDetailsInputPage({super.key});
@@ -292,12 +293,9 @@ class _AuthRegisterDetailsInputPageState
                           registerController.submitRegisterForm(profilePictureFile);
                         }
                       }, child:registerController.isSubmitting.value
-                          ? const SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(
-                          color: flyternBackgroundWhite,
-                        ),
+                          ? LoadingAnimationWidget.prograssiveDots(
+                        color: flyternBackgroundWhite,
+                        size: 16,
                       ): Text("create_account".tr)),
                 ),
                 addVerticalSpace(flyternSpaceLarge),
