@@ -17,6 +17,7 @@ import 'package:flytern/feature-modules/flight_booking/services/helper-services/
 import 'package:flytern/feature-modules/flight_booking/services/http-services/flight_booking_http_services.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
+import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
 import 'package:get/get.dart';
 
 part 'flight_booking_controller_setter.dart';
@@ -203,7 +204,12 @@ class FlightBookingController extends GetxController {
       flightDetails.value = tempFlightDetails;
       isFlightDetailsLoading.value = false;
       Get.toNamed(Approute_flightsDetails);
-
+      if(!flightDetails.value.priceChanged){
+        showSnackbar(Get.context! ,flightDetails.value.priceChangedMessage,"info");
+       }
+      if(!flightDetails.value.scheduleChanged){
+         showSnackbar(Get.context! ,flightDetails.value.scheduleChangedMessage,"info");
+      }
     }
 
   }

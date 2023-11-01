@@ -191,7 +191,7 @@ class ProfileController extends GetxController {
         isProfileSubmitting.value = false;
         print("user update completed 1");
 
-        showSnackbar("profile_updated".tr, "info");
+        showSnackbar(Get.context!,"profile_updated".tr, "info");
         print("user update completed 2");
 
         print("user update completed 3");
@@ -200,7 +200,7 @@ class ProfileController extends GetxController {
       }
     } catch (e) {
       print("user update failed");
-      showSnackbar(e.toString(), "error");
+      showSnackbar(Get.context!,e.toString(), "error");
       isProfileSubmitting.value = false;
     }
   }
@@ -235,7 +235,7 @@ class ProfileController extends GetxController {
             ])?.then((value) async {
               if(value is AuthToken){
 
-                showSnackbar(isMobile?"mobile_updated".tr:
+                showSnackbar(Get.context!,isMobile?"mobile_updated".tr:
                     "email_updated", "info");
                 final coreController = Get.find<CoreController>();
                 coreController.handleLogout();
@@ -252,7 +252,7 @@ class ProfileController extends GetxController {
     } catch (e,stackk) {
       print("user update failed");
       print(stackk);
-      showSnackbar(e.toString(), "error");
+      showSnackbar(Get.context!,e.toString(), "error");
       if (isMobile) {
         isMobileSubmitting.value = false;
       } else {
@@ -269,13 +269,13 @@ class ProfileController extends GetxController {
 
       if (isSuccess) {
         isPasswordSubmitting.value = false;
-        showSnackbar("password_updated".tr, "info");
+        showSnackbar(Get.context!,"password_updated".tr, "info");
         final coreController = Get.find<CoreController>();
         coreController.handleLogout();
       }
     } catch (e) {
       print("user update failed");
-      showSnackbar(e.toString(), "error");
+      showSnackbar(Get.context!,e.toString(), "error");
       isPasswordSubmitting.value = false;
     }
   }

@@ -111,11 +111,11 @@ class SharedController extends GetxController {
       try{
 
         await sharedHttpService.resendOtp(userId);
-        showSnackbar("otp_resend".tr,"info");
+        showSnackbar(Get.context! ,"otp_resend".tr,"info");
         isOtpSubmitting.value = false;
       }catch (e,t){
         print(t);
-        showSnackbar( e.toString(),"error");
+        showSnackbar(Get.context!, e.toString(),"error");
         isOtpSubmitting.value = false;
       }
 
@@ -139,7 +139,7 @@ class SharedController extends GetxController {
       }catch (e,stack){
         print( "stack");
         print( stack);
-        showSnackbar( e.toString(),"error");
+        showSnackbar(Get.context!, e.toString(),"error");
         isOtpSubmitting.value = false;
       }
     }

@@ -68,7 +68,7 @@ class TravelStoryController extends GetxController {
        isSubmitting.value = false;
        print("createTravelStory completed 1");
 
-       showSnackbar("travel_story_created".tr,"info");
+       showSnackbar(Get.context!,"travel_story_created".tr,"info");
        print("createTravelStory completed 2");
 
 
@@ -80,7 +80,7 @@ class TravelStoryController extends GetxController {
 
     }catch (e){
       print("createTravelStory failed");
-      showSnackbar( e.toString(),"error");
+      showSnackbar(Get.context!, e.toString(),"error");
       isSubmitting.value = false;
     }
   }

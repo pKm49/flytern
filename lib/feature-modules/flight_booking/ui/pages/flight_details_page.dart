@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
 import 'package:flytern/shared/ui/components/data_capsule_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_addon_service_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_itinerary_card.dart';
@@ -19,6 +20,9 @@ class FlightDetailsPage extends StatefulWidget {
 }
 
 class _FlightDetailsPageState extends State<FlightDetailsPage> {
+
+  final flightBookingController = Get.find<FlightBookingController>();
+
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -29,97 +33,110 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
         elevation: 0.5,
         title: Text("flight_details".tr),
       ),
-      body: Container(
-        width: screenwidth,
-        height: screenheight,
-        color: flyternGrey10,
-        child: ListView(
-          children: [
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("itinerary".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            FlightDetailsItineraryCard(),
-            addVerticalSpace(flyternSpaceLarge),
-            FlightDetailsItineraryCard(),
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("baggage".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            FlightDetailsAddonServiceCard(
-              ImageUrl: ASSETS_LUGGAGE_ICON,
-              keyLabel: "baggage".tr,
-              valueLabel: "economy_budget".tr,
-            ),
-            Container(
-                color: flyternBackgroundWhite,
-                padding: flyternLargePaddingHorizontal,
-                child: Divider()),
-            FlightDetailsAddonServiceCard(
-              ImageUrl: ASSETS_LUGGAGE_SIZE_ICON,
-              keyLabel: "size".tr,
-              valueLabel: "one_piece_luggage".tr,
-            ),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingAll.copyWith(top: 0),
-              child: DataCapsuleCard(
-                label: "Note : " + "one_piece_luggage".tr,
-                theme: 2,
+      body: Obx(
+        ()=> Container(
+          width: screenwidth,
+          height: screenheight,
+          color: flyternGrey10,
+          child: ListView(
+            children: [
+              Visibility(
+                visible: !flightBookingController.flightDetails.value.priceChanged,
+                child: Container(
+                  padding: flyternMediumPaddingAll ,
+                  margin: flyternLargePaddingAll,
+                  decoration: BoxDecoration(
+                    color: flyternPrimaryColorBg,
+                    borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
+                  ),
+                  child:  Text(flightBookingController.flightDetails.value.priceChangedMessage),
+                ),
               ),
-            ),
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("fare_rule".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            FlightDetailsAddonServiceCard(
-              ImageUrl: ASSETS_CLOCK_ICON,
-              keyLabel: "time".tr,
-              valueLabel: "fare_rule_time_message".tr,
-            ),
-            Container(
+              Padding(
+                padding: flyternLargePaddingAll,
+                child: Text("itinerary".tr,
+                    style: getBodyMediumStyle(context).copyWith(
+                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+              ),
+              FlightDetailsItineraryCard(),
+              addVerticalSpace(flyternSpaceLarge),
+              FlightDetailsItineraryCard(),
+              Padding(
+                padding: flyternLargePaddingAll,
+                child: Text("baggage".tr,
+                    style: getBodyMediumStyle(context).copyWith(
+                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+              ),
+              FlightDetailsAddonServiceCard(
+                ImageUrl: ASSETS_LUGGAGE_ICON,
+                keyLabel: "baggage".tr,
+                valueLabel: "economy_budget".tr,
+              ),
+              Container(
+                  color: flyternBackgroundWhite,
+                  padding: flyternLargePaddingHorizontal,
+                  child: Divider()),
+              FlightDetailsAddonServiceCard(
+                ImageUrl: ASSETS_LUGGAGE_SIZE_ICON,
+                keyLabel: "size".tr,
+                valueLabel: "one_piece_luggage".tr,
+              ),
+              Container(
                 color: flyternBackgroundWhite,
-                padding: flyternLargePaddingHorizontal,
-                child: Divider()),
-            FlightDetailsAddonServiceCard(
-              ImageUrl: ASSETS_LUGGAGE_SIZE_ICON,
-              keyLabel: "fee".tr,
-              valueLabel:
-                  "${"no_baggage".tr} : AED 150\n${"standard_baggage".tr} : AED 150",
-            ),
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("price_details".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            FlightDetailsAddonServiceCard(
-              ImageUrl: ASSETS_COUPLE_ICON,
-              keyLabel: "adult".tr,
-              valueLabel: "${"base_fare".tr} : AED 150",
-            ),
-            Container(
-                color: flyternBackgroundWhite,
-                padding: flyternLargePaddingHorizontal,
-                child: Divider()),
-            FlightDetailsAddonServiceCard(
-              ImageUrl: ASSETS_KIDS_ICON,
-              keyLabel: "child".tr,
-              valueLabel:
-                  "${"base_fare".tr} : AED 150\n${"tax_fare".tr} : AED 150",
-            ),
-
-            Container(
-              height: 70+(flyternSpaceSmall*2),
-              padding: flyternLargePaddingAll,
-            )
-          ],
+                padding: flyternLargePaddingAll.copyWith(top: 0),
+                child: DataCapsuleCard(
+                  label: "Note : " + "one_piece_luggage".tr,
+                  theme: 2,
+                ),
+              ),
+              Padding(
+                padding: flyternLargePaddingAll,
+                child: Text("fare_rule".tr,
+                    style: getBodyMediumStyle(context).copyWith(
+                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+              ),
+              FlightDetailsAddonServiceCard(
+                ImageUrl: ASSETS_CLOCK_ICON,
+                keyLabel: "time".tr,
+                valueLabel: "fare_rule_time_message".tr,
+              ),
+              Container(
+                  color: flyternBackgroundWhite,
+                  padding: flyternLargePaddingHorizontal,
+                  child: Divider()),
+              FlightDetailsAddonServiceCard(
+                ImageUrl: ASSETS_LUGGAGE_SIZE_ICON,
+                keyLabel: "fee".tr,
+                valueLabel:
+                    "${"no_baggage".tr} : AED 150\n${"standard_baggage".tr} : AED 150",
+              ),
+              Padding(
+                padding: flyternLargePaddingAll,
+                child: Text("price_details".tr,
+                    style: getBodyMediumStyle(context).copyWith(
+                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+              ),
+              FlightDetailsAddonServiceCard(
+                ImageUrl: ASSETS_COUPLE_ICON,
+                keyLabel: "adult".tr,
+                valueLabel: "${"base_fare".tr} : AED 150",
+              ),
+              Container(
+                  color: flyternBackgroundWhite,
+                  padding: flyternLargePaddingHorizontal,
+                  child: Divider()),
+              FlightDetailsAddonServiceCard(
+                ImageUrl: ASSETS_KIDS_ICON,
+                keyLabel: "child".tr,
+                valueLabel:
+                    "${"base_fare".tr} : AED 150\n${"tax_fare".tr} : AED 150",
+              ),
+              Container(
+                height: 70+(flyternSpaceSmall*2),
+                padding: flyternLargePaddingAll,
+              )
+            ],
+          ),
         ),
       ),
       bottomSheet: Container(

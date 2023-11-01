@@ -145,7 +145,7 @@ class CoPaxController extends GetxController {
         isSubmitting.value = false;
         print("copax_created completed 1");
 
-        showSnackbar("copax_created".tr, "info");
+        showSnackbar(Get.context!,"copax_created".tr, "info");
         print("copax_created completed 2");
 
         initializeAuditData(true);
@@ -155,7 +155,7 @@ class CoPaxController extends GetxController {
       }
     } catch (e) {
       print("copax_created failed");
-      showSnackbar(e.toString(), "error");
+      showSnackbar(Get.context!,e.toString(), "error");
       isSubmitting.value = false;
     }
   }
@@ -184,7 +184,7 @@ class CoPaxController extends GetxController {
         isSubmitting.value = false;
         print("copax_updated completed 1");
 
-        showSnackbar("copax_updated".tr, "info");
+        showSnackbar(Get.context!,"copax_updated".tr, "info");
         print("copax_updated completed 2");
 
         initializeAuditData(true);
@@ -194,7 +194,7 @@ class CoPaxController extends GetxController {
       }
     } catch (e) {
       print("copax_created failed");
-      showSnackbar(e.toString(), "error");
+      showSnackbar(Get.context!,e.toString(), "error");
       isSubmitting.value = false;
     }
   }
@@ -212,11 +212,11 @@ class CoPaxController extends GetxController {
         isSubmitting.value = false;
         print("copax_created completed 1");
 
-        showSnackbar("copax_deleted".tr, "info");
+        showSnackbar(Get.context!,"copax_deleted".tr, "info");
       }
     } catch (e) {
       print("copax_created failed");
-      showSnackbar(e.toString(), "error");
+      showSnackbar(Get.context!,e.toString(), "error");
       isSubmitting.value = false;
     }
   }

@@ -3,14 +3,17 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:get/get.dart';
 
-showSnackbar(   text, type){
-  Get.snackbar(
-    text,
-    "",
-    colorText: flyternBackgroundWhite,
+showSnackbar( BuildContext context, String text, String type){
+
+  SnackBar snackBar = SnackBar(
+    content: Text(text),
+
     backgroundColor: type =='error'?flyternGuideRed:flyternGuideGreen,
-    snackPosition: SnackPosition.BOTTOM
   );
+
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.
+  ScaffoldMessenger.of(context).showSnackBar( snackBar);
 }
 
 showToaster( BuildContext context ,Color color,String text){

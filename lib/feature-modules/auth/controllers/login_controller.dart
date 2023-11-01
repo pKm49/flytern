@@ -56,7 +56,7 @@ class LoginController extends GetxController {
       }
       isSubmitting.value = false;
     }catch (e){
-      showSnackbar( e.toString(),"error");
+      showSnackbar(Get.context!, e.toString(),"error");
       isSubmitting.value = false;
     }
 
@@ -76,7 +76,7 @@ class LoginController extends GetxController {
   //       }
   //       isSubmitting.value = false;
   //     }catch (e){
-  //       showSnackbar( e.toString(),"error");
+  //       showSnackbar(Get.context!, e.toString(),"error");
   //       isSubmitting.value = false;
   //     }
   //   }
@@ -94,11 +94,11 @@ class LoginController extends GetxController {
   //     try{
   //
   //       await authHttpService.resendOtp(userId.value);
-  //       showSnackbar("otp_resend".tr,"info");
+  //       showSnackbar(Get.context!,"otp_resend".tr,"info");
   //       isSubmitting.value = false;
   //     }catch (e,t){
   //       print(t);
-  //       showSnackbar( e.toString(),"error");
+  //       showSnackbar(Get.context!, e.toString(),"error");
   //       isSubmitting.value = false;
   //     }
   //
