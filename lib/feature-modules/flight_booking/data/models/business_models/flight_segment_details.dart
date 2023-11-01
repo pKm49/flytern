@@ -58,7 +58,7 @@ FlightSegmentDetails mapFlightSegmentDetails(dynamic payload) {
   return FlightSegmentDetails(
     depaturecntry: payload["depaturecntry"] ?? "-1",
     promoCode: payload["promoCode"] ?? "",
-    layover: payload["class"] ?? "",
+    layover: payload["layover"] ?? "",
     arrivalcntry: payload["arrivalcntry"] ?? "",
     arrival: payload["arrival"] ?? "",
     depature:payload["depature"] ?? "",

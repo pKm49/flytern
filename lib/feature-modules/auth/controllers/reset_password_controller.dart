@@ -60,8 +60,6 @@ class ResetPasswordController extends GetxController {
           if(value is AuthToken){
 
                   if(value.accessToken != ""){
-                    showSnackbar(Get.context!,
-                        "password_updated".tr, "info");
                     saveAuthTokenToSharedPreference(value);
                     Get.offNamed(Approute_resetPasswordNewpassword);
                   }
@@ -129,6 +127,8 @@ class ResetPasswordController extends GetxController {
       isSubmitting.value = true;
       try{
        await authHttpService.updatePassword(passwordController.value.text);
+       showSnackbar(Get.context!,
+           "password_updated".tr, "info");
        Get.offAllNamed(Approute_authSelector);
        isSubmitting.value = false;
       }catch (e){

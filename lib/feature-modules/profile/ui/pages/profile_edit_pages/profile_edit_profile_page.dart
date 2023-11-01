@@ -191,6 +191,7 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
                                   i < sharedController.genders.length;
                                   i++)
                                 GeneralItem(
+                                  imageUrl: "",
                                     id: sharedController.genders[i].code,
                                     name: sharedController.genders[i].name)
                             ],

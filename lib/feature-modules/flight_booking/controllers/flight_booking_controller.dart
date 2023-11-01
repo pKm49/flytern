@@ -1,5 +1,6 @@
 import 'package:flytern/feature-modules/flight_booking/data/constants/business_specific/flight_mode.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/cabin_class.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/cabin_info.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/explore_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_details.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_filter_body.dart';
@@ -23,7 +24,6 @@ import 'package:get/get.dart';
 part 'flight_booking_controller_setter.dart';
 
 class FlightBookingController extends GetxController {
-
   var isModifySearchVisible = false.obs;
   var isFlightDestinationsLoading = false.obs;
   var isFlightSearchResponsesLoading = false.obs;
@@ -43,13 +43,9 @@ class FlightBookingController extends GetxController {
   var flightSearchResponses = <FlightSearchResponse>[].obs;
   var moreOptionFlights = <FlightSearchResponse>[].obs;
 
-  var sortingDc = SortingDcs(
-      value: "-1",
-      name: "",
-      isDefault: false
-  ).obs;
+  var sortingDc = SortingDcs(value: "-1", name: "", isDefault: false).obs;
 
-  var currency ="KWD".obs;
+  var currency = "KWD".obs;
   var pageId = 1.obs;
   var objectId = 1.obs;
   var currentFlightIndex = (-1).obs;
@@ -66,7 +62,8 @@ class FlightBookingController extends GetxController {
   var selectedPriceDcs = <RangeDcs>[].obs;
   var flightSearchData = getDefaultFlightSearchData().obs;
   var startDate = DefaultInvalidDate.obs;
-  var flightDetails =getDefaultFlightDetails().obs;
+  var flightDetails = getDefaultFlightDetails().obs;
+  var cabinInfo = mapCabinInfo({}).obs;
 
   @override
   void onInit() {
@@ -92,7 +89,7 @@ class FlightBookingController extends GetxController {
       String searchQuery) async {
     if (searchQuery != "") {
       flightDestinations.value =
-      await flightBookingHttpService.getFlightDestinations(searchQuery);
+          await flightBookingHttpService.getFlightDestinations(searchQuery);
       isFlightDestinationsLoading.value = false;
       return flightDestinations.value;
     } else {
@@ -104,29 +101,24 @@ class FlightBookingController extends GetxController {
     if (flightSearchData.value.allowedCabins.isNotEmpty &&
         flightSearchData.value.adults > 0 &&
         !isFlightSearchResponsesLoading.value) {
-
       print("getSearchResults called ");
       isFlightSearchResponsesLoading.value = true;
       FlightSearchResult flightSearchResult = await flightBookingHttpService
           .getFlightSearchResults(flightSearchData.value);
       flightSearchResponses.value = flightSearchResult.searchResponses;
-      if(flightSearchResponses.isNotEmpty){
+      if (flightSearchResponses.isNotEmpty) {
         objectId.value = flightSearchResponses.value[0].objectId;
         currency.value = flightSearchResponses.value[0].currency;
-        if(isNavigationRequired){
-          startDate.value = flightSearchData
-              .value
-              .searchList[0]
-              .departureDate;
+        if (isNavigationRequired) {
+          startDate.value = flightSearchData.value.searchList[0].departureDate;
         }
-
       }
       sortingDcs.value = flightSearchResult.sortingDcs;
       if (sortingDcs.isNotEmpty) {
-        List<SortingDcs> defaultSort = sortingDcs.where((p0) => p0.isDefault)
-            .toList();
+        List<SortingDcs> defaultSort =
+            sortingDcs.where((p0) => p0.isDefault).toList();
         sortingDc.value =
-        defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
+            defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
       }
       priceDcs.value = flightSearchResult.priceDcs;
       airlineDcs.value = flightSearchResult.airlineDcs;
@@ -136,36 +128,42 @@ class FlightBookingController extends GetxController {
 
       isFlightSearchResponsesLoading.value = false;
       isFlightSearchFilterResponsesLoading.value = false;
-      if(isNavigationRequired){
+      if (isNavigationRequired) {
         Get.toNamed(Approute_flightsSearchResult);
-      }else{
+      } else {
         isModifySearchVisible.value = false;
       }
     }
   }
 
   Future<void> filterSearchResults() async {
-    if ( !isFlightSearchFilterResponsesLoading.value) {
+    if (!isFlightSearchFilterResponsesLoading.value) {
       isFlightSearchFilterResponsesLoading.value = true;
 
       FlightFilterBody flightFilterBody = FlightFilterBody(
-          pageId: pageId.value,
-          objectID: objectId.value,
-          priceMinMaxDc: selectedPriceDcs.value.isNotEmpty?
-          "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0].max}":"",
-          arrivalTimeDc: selectedArrivalTimeDcs.value.isNotEmpty?
-          getFilterValues(selectedArrivalTimeDcs.value):"",
-          departureTimeDc: selectedDepartureTimeDcs.value.isNotEmpty?
-          getFilterValues(selectedDepartureTimeDcs.value) :"",
-          airlineDc: selectedAirlineDcs.value.isNotEmpty?
-          getFilterValues(selectedAirlineDcs.value) :"",
-          stopDc: selectedStopDcs.value.isNotEmpty?
-          getFilterValues(selectedStopDcs.value):"",
-          sortingDc: sortingDc.value.value,
+        pageId: pageId.value,
+        objectID: objectId.value,
+        priceMinMaxDc: selectedPriceDcs.value.isNotEmpty
+            ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0].max}"
+            : "",
+        arrivalTimeDc: selectedArrivalTimeDcs.value.isNotEmpty
+            ? getFilterValues(selectedArrivalTimeDcs.value)
+            : "",
+        departureTimeDc: selectedDepartureTimeDcs.value.isNotEmpty
+            ? getFilterValues(selectedDepartureTimeDcs.value)
+            : "",
+        airlineDc: selectedAirlineDcs.value.isNotEmpty
+            ? getFilterValues(selectedAirlineDcs.value)
+            : "",
+        stopDc: selectedStopDcs.value.isNotEmpty
+            ? getFilterValues(selectedStopDcs.value)
+            : "",
+        sortingDc: sortingDc.value.value,
       );
 
-      List<FlightSearchResponse> flightSearchResponse = await flightBookingHttpService
-          .getFlightSearchResultsFiltered(flightFilterBody);
+      List<FlightSearchResponse> flightSearchResponse =
+          await flightBookingHttpService
+              .getFlightSearchResultsFiltered(flightFilterBody);
 
       flightSearchResponses.value = flightSearchResponse;
       isFlightSearchFilterResponsesLoading.value = false;
@@ -173,46 +171,51 @@ class FlightBookingController extends GetxController {
   }
 
   Future<void> getMoreOptions(int index) async {
-    if (index> -1 &&
-        !isFlightMoreOptionsResponsesLoading.value) {
+    if (index > -1 && !isFlightMoreOptionsResponsesLoading.value) {
       Get.toNamed(Approute_flightsMoreOptions);
 
       print("getMoreOptions called ");
       isFlightMoreOptionsResponsesLoading.value = true;
-      FlightSearchResult flightSearchResult = await flightBookingHttpService
-          .getMoreOptions(index, objectId.value);
+      FlightSearchResult flightSearchResult =
+          await flightBookingHttpService.getMoreOptions(index, objectId.value);
       moreOptionFlights.value = flightSearchResult.searchResponses;
 
       isFlightMoreOptionsResponsesLoading.value = false;
-
     }
   }
 
   Future<void> getFlightDetails(int index) async {
-
-    if (index> -1 &&
-        !isFlightDetailsLoading.value) {
+    if (index > -1 && !isFlightDetailsLoading.value) {
       currentFlightIndex.value = index;
       isFlightDetailsLoading.value = true;
       print("getMoreOptions called ");
 
-      print(isFlightDetailsLoading.value &&
-          currentFlightIndex.value
-              == index);
+      print(isFlightDetailsLoading.value && currentFlightIndex.value == index);
       FlightDetails tempFlightDetails = await flightBookingHttpService
           .getFlightDetails(index, objectId.value);
       flightDetails.value = tempFlightDetails;
+      List<CabinInfo> selectedCabinInfo = flightDetails.value.cabinInfos
+          .where((element) => element.id == flightDetails.value.selectedCabinId)
+          .toList();
+      if (selectedCabinInfo.isNotEmpty) {
+        print("selectedCabinInfo.isNotEmpty");
+        cabinInfo.value = selectedCabinInfo[0];
+      }
       isFlightDetailsLoading.value = false;
       Get.toNamed(Approute_flightsDetails);
-      if(!flightDetails.value.priceChanged){
-        showSnackbar(Get.context! ,flightDetails.value.priceChangedMessage,"info");
-       }
-      if(!flightDetails.value.scheduleChanged){
-         showSnackbar(Get.context! ,flightDetails.value.scheduleChangedMessage,"info");
+      if (flightDetails.value.priceChanged) {
+        showSnackbar(
+            Get.context!, flightDetails.value.priceChangedMessage, "info");
+      }
+      if (flightDetails.value.scheduleChanged) {
+        showSnackbar(
+            Get.context!, flightDetails.value.scheduleChangedMessage, "info");
       }
     }
-
   }
 
+  void changeSelectedCabinClass(CabinInfo selectedCabinInfo) {
+    cabinInfo.value = selectedCabinInfo;
+  }
 
 }

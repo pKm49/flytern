@@ -16,6 +16,7 @@ import 'package:flytern/shared/ui/components/custom_media_carousel.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class PackageDetailsPage extends StatefulWidget {
   const PackageDetailsPage({super.key});
@@ -46,218 +47,233 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
           width: screenwidth,
           height: screenheight,
           color: flyternGrey10,
-          child: ListView(
+          child: Stack(
             children: [
-              CustomMediaCarousel(
-                medias: packageBookingController.packageDetails.value.subImages,
-              ),
-              Container(
-                padding: flyternLargePaddingAll.copyWith(bottom: 0,top: 0),
-                color: flyternBackgroundWhite,
-                child: Text(packageBookingController.packageDetails.value.name,
-                    style: getHeadlineMediumStyle(context).copyWith(
-                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-              ),
-              Container(
-                padding: flyternLargePaddingAll.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall ),
-                color: flyternBackgroundWhite,
-                child: Text(packageBookingController.packageDetails.value.shortDesc,
-                    style: getBodyMediumStyle(context).copyWith(
-                        color: flyternGrey60 )),
-              ),
-              addVerticalSpace(1),
-              Container(
-                padding: flyternLargePaddingAll.copyWith(top: flyternSpaceMedium,bottom: flyternSpaceMedium),
-                color: flyternBackgroundWhite,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Visibility(
+                visible: !packageBookingController.isDetailsDataLoading.value,
+                child: ListView(
                   children: [
-                    Text("${packageBookingController.packageDetails.value.currency} ${
-                        packageBookingController.packageDetails.value.price}",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold, color: flyternSecondaryColor),),
-                    Expanded(
-                        flex: 1,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(Ionicons.star,
-                                color: flyternAccentColor,
-                                size: flyternFontSize20),
-                            addHorizontalSpace(flyternSpaceExtraSmall),
-                            Text(
-                              packageBookingController.packageDetails.value.ratings ,
-                              style: getBodyMediumStyle(context)
-                                  .copyWith(color: flyternGrey80),
+                    CustomMediaCarousel(
+                      medias: packageBookingController.packageDetails.value.subImages,
+                    ),
+                    Container(
+                      padding: flyternLargePaddingAll.copyWith(bottom: 0,top: 0),
+                      color: flyternBackgroundWhite,
+                      child: Text(packageBookingController.packageDetails.value.name,
+                          style: getHeadlineMediumStyle(context).copyWith(
+                              color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+                    ),
+                    Container(
+                      padding: flyternLargePaddingAll.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall ),
+                      color: flyternBackgroundWhite,
+                      child: Text(packageBookingController.packageDetails.value.shortDesc,
+                          style: getBodyMediumStyle(context).copyWith(
+                              color: flyternGrey60 )),
+                    ),
+                    addVerticalSpace(1),
+                    Container(
+                      padding: flyternLargePaddingAll.copyWith(top: flyternSpaceMedium,bottom: flyternSpaceMedium),
+                      color: flyternBackgroundWhite,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("${packageBookingController.packageDetails.value.currency} ${
+                              packageBookingController.packageDetails.value.price}",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold, color: flyternSecondaryColor),),
+                          Expanded(
+                              flex: 1,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(Ionicons.star,
+                                      color: flyternAccentColor,
+                                      size: flyternFontSize20),
+                                  addHorizontalSpace(flyternSpaceExtraSmall),
+                                  Text(
+                                    packageBookingController.packageDetails.value.ratings ,
+                                    style: getBodyMediumStyle(context)
+                                        .copyWith(color: flyternGrey80),
+                                  ),
+                                ],
+                              )),
+
+                        ],
+                      ),
+                    ),
+
+                    Padding(
+                      padding: flyternLargePaddingAll,
+                      child: Text("validity".tr,
+                          style: getBodyMediumStyle(context).copyWith(
+                              color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+                    ),
+                    Container(
+                      padding: flyternLargePaddingAll,
+                      color: flyternBackgroundWhite,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(Ionicons.calendar_clear_outline,color: flyternGrey60),
+                          addHorizontalSpace(flyternSpaceMedium),
+                          Text("${getFormattedDate(packageBookingController.packageDetails.value.validFrom)} - "
+                              "${getFormattedDate(packageBookingController.packageDetails.value.validTo)} ",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                        ],
+                      ),
+                    ),
+
+                    Padding(
+                      padding: flyternLargePaddingAll,
+                      child: Text("flight_hotel_details".tr,
+                          style: getBodyMediumStyle(context).copyWith(
+                              color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+                    ),
+                    Container(
+                      padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
+                      color: flyternBackgroundWhite,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                           Icon(Ionicons.airplane_outline,color: flyternGrey60),
+                          addHorizontalSpace(flyternSpaceMedium),
+                          Text("${packageBookingController.packageDetails.value.fromTo} "
+                              "(${packageBookingController.packageDetails.value.airline})",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                        ],
+                      ),
+                    ),
+                    Container(
+                        padding: flyternLargePaddingHorizontal,
+                        color:flyternBackgroundWhite,
+                        child: Divider()),
+                    Container(
+                      padding: flyternLargePaddingAll.copyWith(top: flyternSpaceSmall ),
+                      color: flyternBackgroundWhite,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(Ionicons.bed_outline,color: flyternGrey60),
+                          addHorizontalSpace(flyternSpaceMedium),
+                          Text(packageBookingController.packageDetails.value.hotelName,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                        ],
+                      ),
+                    ),
+
+                    Visibility(
+                      visible: packageBookingController.packageDetails.value.itinerary.isNotEmpty,
+                      child: Padding(
+                        padding: flyternLargePaddingAll,
+                        child: Text("itinerary".tr,
+                            style: getBodyMediumStyle(context).copyWith(
+                                color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+                      ),
+                    ),
+                    for(var ind=0;ind<packageBookingController.packageDetails.value.itinerary.length;ind++)
+                    Container(
+                      padding: flyternLargePaddingHorizontal,
+                      decoration: BoxDecoration(
+                          color:flyternBackgroundWhite,
+                        border: flyternDefaultBorderBottomOnly
+                      ),
+                      child: Theme(
+                        data: ThemeData().copyWith(dividerColor: Colors.transparent),
+                        child: ExpansionTile(
+                          tilePadding: EdgeInsets.zero,
+                          title:   Text(
+                            packageBookingController.packageDetails.value.itinerary[ind].displayName,
+                            style: getLabelLargeStyle(context).copyWith(fontWeight: flyternFontWeightRegular),
+                          ),
+                          children: <Widget>[
+                            Padding(
+                              padding: flyternSmallPaddingVertical,
+                              child: Html(
+                                data: packageBookingController.packageDetails.value.itinerary[ind].content,
+                              ),
                             ),
                           ],
-                        )),
-
-                  ],
-                ),
-              ),
-
-              Padding(
-                padding: flyternLargePaddingAll,
-                child: Text("validity".tr,
-                    style: getBodyMediumStyle(context).copyWith(
-                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-              ),
-              Container(
-                padding: flyternLargePaddingAll,
-                color: flyternBackgroundWhite,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(Ionicons.calendar_clear_outline,color: flyternGrey60),
-                    addHorizontalSpace(flyternSpaceMedium),
-                    Text("${getFormattedDate(packageBookingController.packageDetails.value.validFrom)} - "
-                        "${getFormattedDate(packageBookingController.packageDetails.value.validTo)} ",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                  ],
-                ),
-              ),
-
-              Padding(
-                padding: flyternLargePaddingAll,
-                child: Text("flight_hotel_details".tr,
-                    style: getBodyMediumStyle(context).copyWith(
-                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-              ),
-              Container(
-                padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
-                color: flyternBackgroundWhite,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                     Icon(Ionicons.airplane_outline,color: flyternGrey60),
-                    addHorizontalSpace(flyternSpaceMedium),
-                    Text("${packageBookingController.packageDetails.value.fromTo} "
-                        "(${packageBookingController.packageDetails.value.airline})",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                  ],
-                ),
-              ),
-              Container(
-                  padding: flyternLargePaddingHorizontal,
-                  color:flyternBackgroundWhite,
-                  child: Divider()),
-              Container(
-                padding: flyternLargePaddingAll.copyWith(top: flyternSpaceSmall ),
-                color: flyternBackgroundWhite,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(Ionicons.bed_outline,color: flyternGrey60),
-                    addHorizontalSpace(flyternSpaceMedium),
-                    Text(packageBookingController.packageDetails.value.hotelName,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                  ],
-                ),
-              ),
-
-              Visibility(
-                visible: packageBookingController.packageDetails.value.itinerary.isNotEmpty,
-                child: Padding(
-                  padding: flyternLargePaddingAll,
-                  child: Text("itinerary".tr,
-                      style: getBodyMediumStyle(context).copyWith(
-                          color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-                ),
-              ),
-              for(var ind=0;ind<packageBookingController.packageDetails.value.itinerary.length;ind++)
-              Container(
-                padding: flyternLargePaddingHorizontal,
-                decoration: BoxDecoration(
-                    color:flyternBackgroundWhite,
-                  border: flyternDefaultBorderBottomOnly
-                ),
-                child: Theme(
-                  data: ThemeData().copyWith(dividerColor: Colors.transparent),
-                  child: ExpansionTile(
-                    tilePadding: EdgeInsets.zero,
-                    title:   Text(
-                      packageBookingController.packageDetails.value.itinerary[ind].displayName,
-                      style: getLabelLargeStyle(context).copyWith(fontWeight: flyternFontWeightRegular),
-                    ),
-                    children: <Widget>[
-                      Padding(
-                        padding: flyternSmallPaddingVertical,
-                        child: Html(
-                          data: packageBookingController.packageDetails.value.itinerary[ind].content,
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
+                    ),
 
-              Visibility(
-                visible: packageBookingController.packageDetails.value.inclusion!="",
-                child: Padding(
-                  padding: flyternLargePaddingAll,
-                  child: Text("inclusion".tr,
-                      style: getBodyMediumStyle(context).copyWith(
-                          color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+                    Visibility(
+                      visible: packageBookingController.packageDetails.value.inclusion!="",
+                      child: Padding(
+                        padding: flyternLargePaddingAll,
+                        child: Text("inclusion".tr,
+                            style: getBodyMediumStyle(context).copyWith(
+                                color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+                      ),
+                    ),
+                    Visibility(
+                      visible: packageBookingController.packageDetails.value.inclusion!="",
+                      child: Container(
+                        padding: flyternLargePaddingAll.copyWith(left: flyternSpaceMedium,right: flyternSpaceMedium),
+                        width: screenwidth,
+                        color: flyternBackgroundWhite,
+                        child:  Html(
+                          data: packageBookingController.packageDetails.value.inclusion,
+                        )
+                      ),
+                    ),
+                    Visibility(
+                      visible: packageBookingController.packageDetails.value.notIncluded!="",
+                      child: Padding(
+                        padding: flyternLargePaddingAll,
+                        child: Text("exclusion".tr,
+                            style: getBodyMediumStyle(context).copyWith(
+                                color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+                      ),
+                    ),
+                    Visibility(
+                      visible: packageBookingController.packageDetails.value.notIncluded!="",
+                      child: Container(
+                          padding: flyternLargePaddingAll.copyWith(left: flyternSpaceMedium,right: flyternSpaceMedium),
+                          width: screenwidth,
+                          color: flyternBackgroundWhite,
+                          child:   Html(
+                            data: packageBookingController.packageDetails.value.notIncluded,
+                          )
+                      ),
+                    ),
+                    Visibility(
+                      visible: packageBookingController.packageDetails.value.termsConditions!="",
+                      child: Padding(
+                        padding: flyternLargePaddingAll,
+                        child: Text("terms_n_conditions".tr,
+                            style: getBodyMediumStyle(context).copyWith(
+                                color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+                      ),
+                    ),
+                    Visibility(
+                      visible: packageBookingController.packageDetails.value.termsConditions!="",
+                      child: Container(
+                          padding: flyternLargePaddingAll.copyWith(left: flyternSpaceMedium,right: flyternSpaceMedium),
+                          width: screenwidth,
+                          color: flyternBackgroundWhite,
+                          child:   Html(
+                            data: packageBookingController.packageDetails.value.termsConditions,
+                          )
+                      ),
+                    ),
+                    Container(
+                      height: 70+(flyternSpaceSmall*2),
+                      padding: flyternLargePaddingAll,
+                    )
+
+                  ],
                 ),
               ),
               Visibility(
-                visible: packageBookingController.packageDetails.value.inclusion!="",
-                child: Container(
-                  padding: flyternLargePaddingAll.copyWith(left: flyternSpaceMedium,right: flyternSpaceMedium),
-                  width: screenwidth,
-                  color: flyternBackgroundWhite,
-                  child:  Html(
-                    data: packageBookingController.packageDetails.value.inclusion,
+                  visible:  packageBookingController.isDetailsDataLoading.value,
+                  child: Center(
+                  child: LoadingAnimationWidget.prograssiveDots(
+                    color: flyternSecondaryColor,
+                    size: 50,
                   )
-                ),
-              ),
-              Visibility(
-                visible: packageBookingController.packageDetails.value.notIncluded!="",
-                child: Padding(
-                  padding: flyternLargePaddingAll,
-                  child: Text("exclusion".tr,
-                      style: getBodyMediumStyle(context).copyWith(
-                          color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-                ),
-              ),
-              Visibility(
-                visible: packageBookingController.packageDetails.value.notIncluded!="",
-                child: Container(
-                    padding: flyternLargePaddingAll.copyWith(left: flyternSpaceMedium,right: flyternSpaceMedium),
-                    width: screenwidth,
-                    color: flyternBackgroundWhite,
-                    child:   Html(
-                      data: packageBookingController.packageDetails.value.notIncluded,
-                    )
-                ),
-              ),
-              Visibility(
-                visible: packageBookingController.packageDetails.value.termsConditions!="",
-                child: Padding(
-                  padding: flyternLargePaddingAll,
-                  child: Text("terms_n_conditions".tr,
-                      style: getBodyMediumStyle(context).copyWith(
-                          color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-                ),
-              ),
-              Visibility(
-                visible: packageBookingController.packageDetails.value.termsConditions!="",
-                child: Container(
-                    padding: flyternLargePaddingAll.copyWith(left: flyternSpaceMedium,right: flyternSpaceMedium),
-                    width: screenwidth,
-                    color: flyternBackgroundWhite,
-                    child:   Html(
-                      data: packageBookingController.packageDetails.value.termsConditions,
-                    )
-                ),
-              ),
-              Container(
-                height: 70+(flyternSpaceSmall*2),
-                padding: flyternLargePaddingAll,
-              )
-
+              ))
             ],
           ),
         ),
-        bottomSheet: Container(
+        bottomSheet:!packageBookingController.isDetailsDataLoading.value? Container(
           width: screenwidth,
           color: flyternBackgroundWhite,
           height: 60 + (flyternSpaceSmall * 2),
@@ -285,7 +301,7 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
                   )) ,
             ),
           ),
-        ),
+        ):Container( width: screenwidth, height: 60 + (flyternSpaceSmall * 2)),
       ),
     );
   }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/cabin_info.dart';
+import 'package:flytern/shared/data/models/business_models/general_item.dart';
 import 'package:flytern/shared/ui/components/data_capsule_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_addon_service_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_itinerary_card.dart';
@@ -9,6 +12,7 @@ import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared/ui/components/dropdown_selector.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -20,7 +24,6 @@ class FlightDetailsPage extends StatefulWidget {
 }
 
 class _FlightDetailsPageState extends State<FlightDetailsPage> {
-
   final flightBookingController = Get.find<FlightBookingController>();
 
   @override
@@ -28,143 +31,341 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0.5,
-        title: Text("flight_details".tr),
-      ),
-      body: Obx(
-        ()=> Container(
-          width: screenwidth,
-          height: screenheight,
-          color: flyternGrey10,
-          child: ListView(
-            children: [
-              Visibility(
-                visible: !flightBookingController.flightDetails.value.priceChanged,
-                child: Container(
-                  padding: flyternMediumPaddingAll ,
-                  margin: flyternLargePaddingAll,
-                  decoration: BoxDecoration(
-                    color: flyternPrimaryColorBg,
-                    borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
-                  ),
-                  child:  Text(flightBookingController.flightDetails.value.priceChangedMessage),
-                ),
-              ),
-              Padding(
-                padding: flyternLargePaddingAll,
-                child: Text("itinerary".tr,
-                    style: getBodyMediumStyle(context).copyWith(
-                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-              ),
-              FlightDetailsItineraryCard(),
-              addVerticalSpace(flyternSpaceLarge),
-              FlightDetailsItineraryCard(),
-              Padding(
-                padding: flyternLargePaddingAll,
-                child: Text("baggage".tr,
-                    style: getBodyMediumStyle(context).copyWith(
-                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-              ),
-              FlightDetailsAddonServiceCard(
-                ImageUrl: ASSETS_LUGGAGE_ICON,
-                keyLabel: "baggage".tr,
-                valueLabel: "economy_budget".tr,
-              ),
-              Container(
-                  color: flyternBackgroundWhite,
-                  padding: flyternLargePaddingHorizontal,
-                  child: Divider()),
-              FlightDetailsAddonServiceCard(
-                ImageUrl: ASSETS_LUGGAGE_SIZE_ICON,
-                keyLabel: "size".tr,
-                valueLabel: "one_piece_luggage".tr,
-              ),
-              Container(
-                color: flyternBackgroundWhite,
-                padding: flyternLargePaddingAll.copyWith(top: 0),
-                child: DataCapsuleCard(
-                  label: "Note : " + "one_piece_luggage".tr,
-                  theme: 2,
-                ),
-              ),
-              Padding(
-                padding: flyternLargePaddingAll,
-                child: Text("fare_rule".tr,
-                    style: getBodyMediumStyle(context).copyWith(
-                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-              ),
-              FlightDetailsAddonServiceCard(
-                ImageUrl: ASSETS_CLOCK_ICON,
-                keyLabel: "time".tr,
-                valueLabel: "fare_rule_time_message".tr,
-              ),
-              Container(
-                  color: flyternBackgroundWhite,
-                  padding: flyternLargePaddingHorizontal,
-                  child: Divider()),
-              FlightDetailsAddonServiceCard(
-                ImageUrl: ASSETS_LUGGAGE_SIZE_ICON,
-                keyLabel: "fee".tr,
-                valueLabel:
-                    "${"no_baggage".tr} : AED 150\n${"standard_baggage".tr} : AED 150",
-              ),
-              Padding(
-                padding: flyternLargePaddingAll,
-                child: Text("price_details".tr,
-                    style: getBodyMediumStyle(context).copyWith(
-                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-              ),
-              FlightDetailsAddonServiceCard(
-                ImageUrl: ASSETS_COUPLE_ICON,
-                keyLabel: "adult".tr,
-                valueLabel: "${"base_fare".tr} : AED 150",
-              ),
-              Container(
-                  color: flyternBackgroundWhite,
-                  padding: flyternLargePaddingHorizontal,
-                  child: Divider()),
-              FlightDetailsAddonServiceCard(
-                ImageUrl: ASSETS_KIDS_ICON,
-                keyLabel: "child".tr,
-                valueLabel:
-                    "${"base_fare".tr} : AED 150\n${"tax_fare".tr} : AED 150",
-              ),
-              Container(
-                height: 70+(flyternSpaceSmall*2),
-                padding: flyternLargePaddingAll,
-              )
-            ],
-          ),
+    return Obx(
+          () => Scaffold(
+        appBar: AppBar(
+          elevation: 0.5,
+          title: Text("flight_details".tr),
         ),
-      ),
-      bottomSheet: Container(
-        width: screenwidth,
-        color: flyternBackgroundWhite,
-        height: 60+(flyternSpaceSmall*2),
-        padding: flyternLargePaddingAll.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-        child: Center(
-          child: SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(style: getElevatedButtonStyle(context),
-                onPressed: () {
-                  Get.toNamed(Approute_flightsAddonServices);
-                },
-                child:Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-
-                    Expanded(
-                      child: Text(
-                        "AED 1500", 
+        body:  Container(
+            width: screenwidth,
+            height: screenheight,
+            color: flyternGrey10,
+            child: ListView(
+              children: [
+                Padding(
+                  padding: flyternLargePaddingAll,
+                  child: Text("itinerary".tr,
+                      style: getBodyMediumStyle(context).copyWith(
+                          color: flyternGrey80,
+                          fontWeight: flyternFontWeightBold)),
+                ),
+                for (var i = 0;
+                    i <
+                        flightBookingController
+                            .flightDetails.value.flightSegments.length;
+                    i++)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: flyternSpaceLarge),
+                    child: FlightDetailsItineraryCard(
+                        flightSegment: flightBookingController
+                            .flightDetails.value.flightSegments[i]),
+                  ),
+                Visibility(
+                  visible:
+                      flightBookingController.flightDetails.value.fareRule != "",
+                  child: Container(
+                    padding: flyternLargePaddingHorizontal,
+                    decoration: BoxDecoration(
+                        color: flyternBackgroundWhite,
+                        border: flyternDefaultBorderBottomOnly),
+                    child: Theme(
+                      data:
+                          ThemeData().copyWith(dividerColor: Colors.transparent),
+                      child: ExpansionTile(
+                        tilePadding: EdgeInsets.zero,
+                        title: Text("fare_rule".tr,
+                            style: getBodyMediumStyle(context)
+                                .copyWith(fontWeight: flyternFontWeightBold)),
+                        children: <Widget>[
+                          Padding(
+                            padding: flyternSmallPaddingVertical,
+                            child: Html(
+                              data: flightBookingController
+                                  .flightDetails.value.fareRule,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Text("next".tr ),
-                    addHorizontalSpace(flyternSpaceSmall),
-                    Icon(Ionicons.chevron_forward,size: flyternFontSize20,)
-                  ],
-                )),
+                  ),
+                ),
+
+
+                Padding(
+                  padding: flyternLargePaddingAll,
+                  child: Text("cabin_class".tr,
+                      style: getBodyMediumStyle(context).copyWith(
+                          color: flyternGrey80,
+                          fontWeight: flyternFontWeightBold)),
+                ),
+                  Container(
+                  padding: flyternLargePaddingHorizontal,
+                  decoration: BoxDecoration(
+                      color: flyternBackgroundWhite ),
+                  child: Container(
+                    width: screenwidth - flyternSpaceMedium * 2,
+                    padding: flyternMediumPaddingHorizontal,
+                    margin: flyternLargePaddingVertical,
+                    decoration: BoxDecoration(
+                      color: flyternBackgroundWhite,
+                      border: flyternDefaultBorderAll,
+                      borderRadius:
+                      BorderRadius.circular(flyternBorderRadiusExtraSmall),
+                    ),
+                    child: DropDownSelector(
+                      titleText: "select_cabin_class".tr,
+                      selected:flightBookingController.cabinInfo.value.id != "-1"?
+                      flightBookingController.cabinInfo.value.id: null,
+                      items: [
+                        for(var ind=0;ind<flightBookingController.flightDetails.value.cabinInfos.length;ind++)
+
+                          GeneralItem(
+                              id: flightBookingController.flightDetails.value.cabinInfos[ind].id,
+                              name: flightBookingController.flightDetails.value.cabinInfos[ind].cabinClass,
+                              imageUrl: ""),
+                      ],
+                      hintText: "select_cabin_class".tr,
+                      valueChanged: (newZone) {
+                        List<CabinInfo> selectedCabinInfo = flightBookingController.flightDetails.value.cabinInfos
+                            .where((element) => element.id == newZone)
+                            .toList();
+                        if (selectedCabinInfo.isNotEmpty) {
+                          print("selectedCabinInfo.isNotEmpty");
+                          flightBookingController.changeSelectedCabinClass( selectedCabinInfo[0]);
+
+                        }
+                      },
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: flyternLargePaddingHorizontal.copyWith(bottom: flyternSpaceLarge),
+                  decoration: BoxDecoration(
+                      color: flyternBackgroundWhite,
+                      border: flyternDefaultBorderBottomOnly),
+                  child: Html(
+                    data: flightBookingController.cabinInfo.value.infoDescription,
+                  ),
+                ),
+
+
+                Padding(
+                  padding: flyternLargePaddingAll,
+                  child: Text("price_details".tr,
+                      style: getBodyMediumStyle(context).copyWith(
+                          color: flyternGrey80,
+                          fontWeight: flyternFontWeightBold)),
+                ),
+                Visibility(
+                  visible: flightBookingController.cabinInfo.value.id != "-1" &&
+                      flightBookingController.flightDetails.value.adult > 0,
+                  child: FlightDetailsAddonServiceCard(
+                    ImageUrl: ASSETS_COUPLE_ICON,
+                    keyLabel: "adult".tr,
+                    valueLabel:
+                        "${"base_fare".tr} : ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.adultBase}",
+                  ),
+                ),
+                Visibility(
+                  visible: flightBookingController.cabinInfo.value.id != "-1" &&
+                      flightBookingController.flightDetails.value.child > 0,
+                  child: Container(
+                      color: flyternBackgroundWhite,
+                      padding: flyternLargePaddingHorizontal,
+                      child: Divider()),
+                ),
+                Visibility(
+                  visible: flightBookingController.cabinInfo.value.id != "-1" &&
+                      flightBookingController.flightDetails.value.child > 0,
+                  child: FlightDetailsAddonServiceCard(
+                    ImageUrl: ASSETS_COUPLE_ICON,
+                    keyLabel: "child".tr,
+                    valueLabel:
+                        "${"base_fare".tr} : ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.childBase}",
+                  ),
+                ),
+                Visibility(
+                  visible: flightBookingController.cabinInfo.value.id != "-1" &&
+                      flightBookingController.flightDetails.value.infant > 0,
+                  child: Container(
+                      color: flyternBackgroundWhite,
+                      padding: flyternLargePaddingHorizontal,
+                      child: Divider()),
+                ),
+                Visibility(
+                  visible: flightBookingController.cabinInfo.value.id != "-1" &&
+                      flightBookingController.flightDetails.value.infant > 0,
+                  child: FlightDetailsAddonServiceCard(
+                    ImageUrl: ASSETS_COUPLE_ICON,
+                    keyLabel: "infant".tr,
+                    valueLabel:
+                        "${"base_fare".tr} : ${flightBookingController.cabinInfo.value.currency}"
+                            " ${flightBookingController.cabinInfo.value.infantBase}",
+                  ),
+                ),
+                Visibility(
+                  visible: flightBookingController.cabinInfo.value.id != "-1",
+                  child: Container(
+                      padding: flyternLargePaddingHorizontal,
+                      color: flyternBackgroundWhite,
+                      child: Divider()),
+                ),
+                Visibility(
+                  visible: flightBookingController.cabinInfo.value.id != "-1",
+                  child: Container(
+                    padding: flyternLargePaddingHorizontal.copyWith(
+                        top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+                    color: flyternBackgroundWhite,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("base_fare".tr,
+                            style: getBodyMediumStyle(context)
+                                .copyWith(color: flyternGrey60)),
+                        Text(
+                            "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.totalBase}",
+                            style: getBodyMediumStyle(context).copyWith(
+                                color: flyternGrey80 )),
+                      ],
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: flightBookingController.cabinInfo.value.id != "-1",
+                  child: Container(
+                      padding: flyternLargePaddingHorizontal,
+                      color: flyternBackgroundWhite,
+                      child: Divider()),
+                ),
+                Visibility(
+                  visible: flightBookingController.cabinInfo.value.id != "-1",
+                  child: Container(
+                    padding: flyternLargePaddingHorizontal.copyWith(
+                        top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+                    color: flyternBackgroundWhite,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("tax_fare".tr,
+                            style: getBodyMediumStyle(context)
+                                .copyWith(color: flyternGrey60)),
+                        Text(
+                            "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.totalTax}",
+                            style: getBodyMediumStyle(context).copyWith(
+                                color: flyternGrey80 )),
+                      ],
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: flightBookingController.cabinInfo.value.id != "-1" &&
+                      flightBookingController.cabinInfo.value.discount > 0.0,
+                  child: Container(
+                      padding: flyternLargePaddingHorizontal,
+                      color: flyternBackgroundWhite,
+                      child: Divider()),
+                ),
+                Visibility(
+                  visible: flightBookingController.cabinInfo.value.id != "-1" &&
+                      flightBookingController.cabinInfo.value.discount > 0.0,
+                  child: Container(
+                    padding: flyternLargePaddingHorizontal.copyWith(
+                        top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+                    color: flyternBackgroundWhite,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                            "${'discount'.tr} (${'promo_code'.tr}-${flightBookingController.cabinInfo.value.promoCode})",
+                            style: getBodyMediumStyle(context)
+                                .copyWith(color: flyternGrey60)),
+                        Text(
+                            "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.discount}",
+                            style: getBodyMediumStyle(context).copyWith(
+                                color: flyternGuideGreen )),
+                      ],
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: flightBookingController.cabinInfo.value.id != "-1",
+                  child: Container(
+                      padding: flyternLargePaddingHorizontal,
+                      color: flyternBackgroundWhite,
+                      child: Divider()),
+                ),
+                Visibility(
+                  visible: flightBookingController.cabinInfo.value.id != "-1" ,
+                  child: Container(
+                    padding: flyternLargePaddingHorizontal.copyWith(
+                        top: flyternSpaceSmall, bottom: flyternSpaceLarge),
+                    color: flyternBackgroundWhite,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                            "${'total'.tr} ",
+                            style: getBodyMediumStyle(context)
+                                .copyWith(color: flyternGrey60)),
+                        Text(
+                            "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.finalAmount}",
+                            style: getBodyMediumStyle(context).copyWith(
+                                color: flyternGrey80,
+                                fontWeight: flyternFontWeightBold)),
+                      ],
+                    ),
+                  ),
+                ),
+                // Visibility(
+                //   visible:  flightBookingController.flightDetails.value.warningMessage !="",
+                //   child: Container(
+                //     color: flyternBackgroundWhite,
+                //     padding: flyternLargePaddingAll.copyWith(top: 0),
+                //     child: DataCapsuleCard(
+                //       label: flightBookingController.flightDetails.value.warningMessage,
+                //       theme: 3,
+                //     ),
+                //   ),
+                // ),
+                Container(
+                  height: 70 + (flyternSpaceSmall * 2),
+                  padding: flyternLargePaddingAll,
+                )
+              ],
+            ),
+          ), 
+        bottomSheet: Container(
+          width: screenwidth,
+          color: flyternBackgroundWhite,
+          height: 60 + (flyternSpaceSmall * 2),
+          padding: flyternLargePaddingAll.copyWith(
+              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+          child: Center(
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                  style: getElevatedButtonStyle(context),
+                  onPressed: () {
+                    Get.toNamed(Approute_flightsAddonServices);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.finalAmount}"
+                        ),
+                      ),
+                      Text("next".tr),
+                      addHorizontalSpace(flyternSpaceSmall),
+                      Icon(
+                        Ionicons.chevron_forward,
+                        size: flyternFontSize20,
+                      )
+                    ],
+                  )),
+            ),
           ),
         ),
       ),

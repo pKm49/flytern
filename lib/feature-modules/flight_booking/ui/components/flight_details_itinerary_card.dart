@@ -1,4 +1,6 @@
+import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_segment.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_airport_lable_card.dart';
 import 'package:flytern/shared/ui/components/data_capsule_card.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
@@ -10,7 +12,8 @@ import 'package:flytern/shared/services/utility-services/widget_properties_gener
 import 'package:get/get.dart';
 
 class FlightDetailsItineraryCard extends StatelessWidget {
-  const FlightDetailsItineraryCard({super.key});
+  FlightSegment flightSegment;
+    FlightDetailsItineraryCard({super.key, required this.flightSegment});
 
   @override
   Widget build(BuildContext context) {
@@ -19,203 +22,285 @@ class FlightDetailsItineraryCard extends StatelessWidget {
 
     return Container(
       decoration: flyternBorderedContainerSmallDecoration,
-      padding: flyternMediumPaddingAll,
       width: screenwidth - (flyternSpaceLarge * 2),
       margin: flyternLargePaddingHorizontal,
       child: Wrap(
-        runSpacing: flyternSpaceLarge,
+        runSpacing: 0,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Image.asset(ASSETS_FLIGHT_1_SAMPLE, width: screenwidth * .2),
-
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                  child: FlightAirportLabelCard(
-                topLabel: "Istanbul, TR",
-                midLabel: "IST",
-                bottomLabel: "08:00 AM",
-                    sideNumber: 1,
-              )),
-              Padding(
-                padding: flyternSmallPaddingHorizontal,
-                child: Image.asset(ASSETS_FLIGHT_CHART_ICON,width: screenwidth*.35, ),
-              ),
-              Expanded(
-                  child: FlightAirportLabelCard(
-                    topLabel: "Istanbul, TR",
-                    midLabel: "IST",
-                    bottomLabel: "08:00 AM",
-                    sideNumber: 2,
-                  ))
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              for (var i = 0; i < (screenwidth -  (screenwidth/1.3)); i++)
-                Container(
-                  color: i % 2 == 0
-                      ? flyternGrey40
-                      : Colors.transparent,
-                  height: 1,
-                  width: 3,
-                ),
-            ],
-          ),
+          for(var i=0;i<flightSegment.flightSegmentDetails.length;i++)
           Container(
-            height: 100,
+            width: screenwidth - (flyternSpaceLarge * 2),
+            height:flightSegment.flightSegmentDetails[i].stopover !=""||
+                flightSegment.flightSegmentDetails[i].layover !=""? 285:250,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: Row(
+                Expanded(child:
+                Container(
+                  padding: flyternMediumPaddingAll ,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                              child: FlightAirportLabelCard(
+                                topLabel: getTopLabel(
+                                    flightSegment.flightSegmentDetails[i].depaturecntry),
+                                midLabel: flightSegment.flightSegmentDetails[i].depature,
+                                bottomLabel: flightSegment.flightSegmentDetails[i].depaturetime,
+                                sideNumber: 1,
+                              )),
+                          Padding(
+                            padding: flyternSmallPaddingHorizontal,
+                            child: Image.asset(ASSETS_FLIGHT_CHART_ICON,width: screenwidth*.35, ),
+                          ),
+                          Expanded(
+                              child: FlightAirportLabelCard(
+                                topLabel: getTopLabel(
+                                    flightSegment.flightSegmentDetails[i].arrivalcntry),
+                                midLabel: flightSegment.flightSegmentDetails[i].arrival,
+                                bottomLabel: flightSegment.flightSegmentDetails[i].arrivaltime,
+                                sideNumber: 2,
+                              ))
+                        ],
+                      ),
+                      addVerticalSpace(flyternSpaceMedium),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          for (var i = 0; i < (screenwidth -  (screenwidth/1.3)); i++)
+                            Container(
+                              color: i % 2 == 0
+                                  ? flyternGrey40
+                                  : Colors.transparent,
+                              height: 1,
+                              width: 3,
+                            ),
+                        ],
+                      ),
+                      addVerticalSpace(flyternSpaceMedium),
+                      Container(
+                        height: 100,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "Flight No.",
-                              style: getLabelLargeStyle(context).copyWith(
-                                  color: flyternGrey40,
-                                  fontWeight: FontWeight.  w400),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Flight No.",
+                                          style: getLabelLargeStyle(context).copyWith(
+                                              color: flyternGrey40,
+                                              fontWeight: FontWeight.  w400),
+                                        ),
+                                        addVerticalSpace(flyternSpaceExtraSmall),
+                                        Text(
+                                          flightSegment.flightSegmentDetails[i].flightNumber,
+                                          style: getLabelLargeStyle(context).copyWith(
+                                              color: flyternGrey80,
+                                              fontWeight: flyternFontWeightBold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Cabin Class",
+                                          style: getLabelLargeStyle(context).copyWith(
+                                              color: flyternGrey40,
+                                              fontWeight: FontWeight.  w400),
+                                        ),
+                                        addVerticalSpace(flyternSpaceExtraSmall),
+                                        Text(
+                                          flightSegment.flightSegmentDetails[i].cabin,
+                                          style: getLabelLargeStyle(context).copyWith(
+                                              color: flyternGrey80,
+                                              fontWeight: flyternFontWeightBold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          "Flight Date",
+                                          style: getLabelLargeStyle(context).copyWith(
+                                              color: flyternGrey40,
+                                              fontWeight: FontWeight.  w400),
+                                        ),
+                                        addVerticalSpace(flyternSpaceExtraSmall),
+                                        Text(
+                                          flightSegment.flightSegmentDetails[i].depaturedt,
+                                          style: getLabelLargeStyle(context).copyWith(
+                                              color: flyternGrey80,
+                                              fontWeight: flyternFontWeightBold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                            addVerticalSpace(flyternSpaceExtraSmall),
-                            Text(
-                              "PF-134",
-                              style: getLabelLargeStyle(context).copyWith(
-                                  color: flyternGrey80,
-                                  fontWeight: flyternFontWeightBold),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Cabin Class",
-                              style: getLabelLargeStyle(context).copyWith(
-                                  color: flyternGrey40,
-                                  fontWeight: FontWeight.  w400),
-                            ),
-                            addVerticalSpace(flyternSpaceExtraSmall),
-                            Text(
-                              "Economy",
-                              style: getLabelLargeStyle(context).copyWith(
-                                  color: flyternGrey80,
-                                  fontWeight: flyternFontWeightBold),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              "Flight Date",
-                              style: getLabelLargeStyle(context).copyWith(
-                                  color: flyternGrey40,
-                                  fontWeight: FontWeight.  w400),
-                            ),
-                            addVerticalSpace(flyternSpaceExtraSmall),
-                            Text(
-                              "July 4, 2023",
-                              style: getLabelLargeStyle(context).copyWith(
-                                  color: flyternGrey80,
-                                  fontWeight: flyternFontWeightBold),
+                            addVerticalSpace(flyternSpaceLarge),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Airline",
+                                          style: getLabelLargeStyle(context).copyWith(
+                                              color: flyternGrey40,
+                                              fontWeight: FontWeight.  w400),
+                                        ),
+                                        addVerticalSpace(flyternSpaceExtraSmall),
+                                        Text(
+                                          flightSegment.flightSegmentDetails[i].flightName,
+                                          style: getLabelLargeStyle(context).copyWith(
+                                              color: flyternGrey80,
+                                              fontWeight: flyternFontWeightBold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Baggage",
+                                          style: getLabelLargeStyle(context).copyWith(
+                                              color: flyternGrey40,
+                                              fontWeight: FontWeight.  w400),
+                                        ),
+                                        addVerticalSpace(flyternSpaceExtraSmall),
+                                        Text(
+                                          "20kg",
+                                          style: getLabelLargeStyle(context).copyWith(
+                                              color: flyternGrey80,
+                                              fontWeight: flyternFontWeightBold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          "Duration",
+                                          style: getLabelLargeStyle(context).copyWith(
+                                              color: flyternGrey40,
+                                              fontWeight: FontWeight.  w400),
+                                        ),
+                                        addVerticalSpace(flyternSpaceExtraSmall),
+                                        Text(
+                                          flightSegment.flightSegmentDetails[i].duration,
+                                          style: getLabelLargeStyle(context).copyWith(
+                                              color: flyternGrey80,
+                                              fontWeight: flyternFontWeightBold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
                       ),
                     ],
                   ),
-                ),
-                addVerticalSpace(flyternSpaceLarge),
-                Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Airline",
-                              style: getLabelLargeStyle(context).copyWith(
-                                  color: flyternGrey40,
-                                  fontWeight: FontWeight.  w400),
-                            ),
-                            addVerticalSpace(flyternSpaceExtraSmall),
-                            Text(
-                              "Emirates",
-                              style: getLabelLargeStyle(context).copyWith(
-                                  color: flyternGrey80,
-                                  fontWeight: flyternFontWeightBold),
-                            ),
-                          ],
+                )),
+                Visibility(
+                  visible: flightSegment.flightSegmentDetails[i].stopover !=""||
+                      flightSegment.flightSegmentDetails[i].layover !="",
+                  child: Container(
+                    padding: flyternMediumPaddingAll.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
+                    color: flyternTertiaryColor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(child:DottedLine(
+                          direction: Axis.horizontal,
+                          alignment: WrapAlignment.center,
+                          lineLength: double.infinity,
+                          lineThickness: 1.0,
+                          dashLength: 4.0,
+                          dashColor: flyternTertiaryColor,
+                          dashRadius: 0.0,
+                          dashGapLength: 4.0,
+                          dashGapColor:flyternBackgroundWhite,
+                          dashGapRadius: 0.0,
+                        )),
+                        Visibility(
+                          visible: flightSegment.flightSegmentDetails[i].stopover !="" ,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
+                            child: Text(
+                                '${'stopover'.tr} ${flightSegment.flightSegmentDetails[i].stopover}',
+                                style: getBodyMediumStyle(context).copyWith(color: flyternBackgroundWhite)),
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Baggage",
-                              style: getLabelLargeStyle(context).copyWith(
-                                  color: flyternGrey40,
-                                  fontWeight: FontWeight.  w400),
-                            ),
-                            addVerticalSpace(flyternSpaceExtraSmall),
-                            Text(
-                              "20kg",
-                              style: getLabelLargeStyle(context).copyWith(
-                                  color: flyternGrey80,
-                                  fontWeight: flyternFontWeightBold),
-                            ),
-                          ],
+                        Visibility(
+                          visible: flightSegment.flightSegmentDetails[i].layover !="" ,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
+                            child: Text(
+                                "${'layover'.tr} ${flightSegment.flightSegmentDetails[i].layover}",
+                            style: getBodyMediumStyle(context).copyWith(color: flyternBackgroundWhite)),
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              "Duration",
-                              style: getLabelLargeStyle(context).copyWith(
-                                  color: flyternGrey40,
-                                  fontWeight: FontWeight.  w400),
-                            ),
-                            addVerticalSpace(flyternSpaceExtraSmall),
-                            Text(
-                              "2h 35m",
-                              style: getLabelLargeStyle(context).copyWith(
-                                  color: flyternGrey80,
-                                  fontWeight: flyternFontWeightBold),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                        const Expanded(child:DottedLine(
+                          direction: Axis.horizontal,
+                          alignment: WrapAlignment.center,
+                          lineLength: double.infinity,
+                          lineThickness: 1.0,
+                          dashLength: 4.0,
+                          dashColor: flyternTertiaryColor,
+                          dashRadius: 0.0,
+                          dashGapLength: 4.0,
+                          dashGapColor:flyternBackgroundWhite,
+                          dashGapRadius: 0.0,
+                        )),
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
-          )
+          ),
+
         ],
       ),
     );
+  }
+
+  getTopLabel(String toCountry) {
+    if (toCountry.split(",").toList().length > 1) {
+      return toCountry.split(",").toList()[1];
+    }
+    if (toCountry.split(",").toList().length == 1) {
+      return toCountry.split(",").toList()[0];
+    }
+    return toCountry;
   }
 }
