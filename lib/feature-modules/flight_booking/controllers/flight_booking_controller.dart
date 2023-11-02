@@ -65,6 +65,10 @@ class FlightBookingController extends GetxController {
   var flightDetails = getDefaultFlightDetails().obs;
   var cabinInfo = mapCabinInfo({}).obs;
 
+  var mobileCntry = "".obs;
+  var mobileNumber = "".obs;
+  var email = "".obs;
+
   @override
   void onInit() {
     super.onInit();

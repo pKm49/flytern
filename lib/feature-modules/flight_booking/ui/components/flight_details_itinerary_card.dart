@@ -192,7 +192,7 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                                         ),
                                         addVerticalSpace(flyternSpaceExtraSmall),
                                         Text(
-                                          "20kg",
+                                          getBaggageWeight(flightSegment) ==""?flightSegment.flightSegmentDetails[i].cabin:getBaggageWeight(flightSegment),
                                           style: getLabelLargeStyle(context).copyWith(
                                               color: flyternGrey80,
                                               fontWeight: flyternFontWeightBold),
@@ -302,5 +302,13 @@ class FlightDetailsItineraryCard extends StatelessWidget {
       return toCountry.split(",").toList()[0];
     }
     return toCountry;
+  }
+
+  String getBaggageWeight(FlightSegment flightSegment) {
+    String baggage = "";
+    if(flightSegment.flightSegmentBaggages.isNotEmpty){
+      baggage = flightSegment.flightSegmentBaggages[0].cabin;
+    }
+    return baggage;
   }
 }
