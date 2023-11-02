@@ -32,10 +32,14 @@ class _FlightUserDetailsSubmissionPageState extends State<FlightUserDetailsSubmi
   @override
   void initState() {
     // TODO: implement initState
+
+    super.initState();
+    print("argumentData");
+    print(argumentData[0]);
+    print(argumentData[0]['mobileNumber']);
     mobileCntry = argumentData[0]['mobileCntry'];
     mobileNumber = argumentData[0]['mobileNumber'];
     email = argumentData[0]['email'];
-    super.initState();
   }
 
 

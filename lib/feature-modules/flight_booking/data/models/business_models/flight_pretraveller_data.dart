@@ -72,26 +72,32 @@ FlightPretravellerData mapFlightPretravellerData(dynamic payload) {
     child: payload["child"] ?? 0,
     infant: payload["infant"] ?? 0,
     adultMinDOB: payload["adultMinDOB"] != null
-        ? DateTime.parse(payload["adultMinDOB"])
+        ? DateTime.parse(getParsableDateString(payload["adultMinDOB"] ))
         : DefaultAdultMinimumDate,
     adultMaxDOB: payload["adultMaxDOB"] != null
-        ? DateTime.parse(payload["adultMaxDOB"])
+        ? DateTime.parse(  getParsableDateString(payload["adultMaxDOB"] ))
         : DefaultAdultMaximumDate,
     infantMinDOB: payload["infantMinDOB"] != null
-        ? DateTime.parse(payload["infantMinDOB"])
+        ? DateTime.parse(   getParsableDateString(payload["infantMinDOB"] ))
         : DefaultAdultMaximumDate,
     infantMaxDOB: payload["infantMaxDOB"] != null
-        ? DateTime.parse(payload["infantMaxDOB"])
+        ? DateTime.parse( getParsableDateString(payload["infantMaxDOB"] ))
         : DefaultAdultMaximumDate,
     childMinDOB: payload["childMinDOB"] != null
-        ? DateTime.parse(payload["childMinDOB"])
+        ? DateTime.parse(  getParsableDateString(payload["childMinDOB"]) )
         : DefaultAdultMaximumDate,
     childMaxDOB: payload["childMaxDOB"] != null
-        ? DateTime.parse(payload["childMaxDOB"])
+        ? DateTime.parse( getParsableDateString(payload["childMaxDOB"])  )
         : DefaultAdultMaximumDate,
     countriesList: countriesList,
     mobileCountryList: mobileCountryList,
     genderList: genderList,
     titleList: titleList,
   );
+
+
+
+}
+String getParsableDateString(String payload) {
+  return payload.split("-").toList().reversed.join("-");
 }

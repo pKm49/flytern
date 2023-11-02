@@ -5,6 +5,7 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_details.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_filter_body.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_pretraveller_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_item.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_response.dart';
@@ -64,6 +65,7 @@ class FlightBookingController extends GetxController {
   var startDate = DefaultInvalidDate.obs;
   var flightDetails = getDefaultFlightDetails().obs;
   var cabinInfo = mapCabinInfo({}).obs;
+  var flightPretravellerData = mapFlightPretravellerData({}).obs;
 
   var mobileCntry = "".obs;
   var mobileNumber = "".obs;
@@ -222,8 +224,18 @@ class FlightBookingController extends GetxController {
     cabinInfo.value = selectedCabinInfo;
   }
 
-  void getPreTravellerData(int detailId) {
-    Get.toNamed(Approute_flightsAddonServices);
+  Future<void> getPreTravellerData(int detailId) async {
+
+     FlightPretravellerData tempFlightPretravellerData = await flightBookingHttpService
+        .getPreTravellerData(detailId );
+     if(tempFlightPretravellerData.countriesList.length>0){
+       flightPretravellerData.value = tempFlightPretravellerData;
+       Get.toNamed(Approute_flightsAddonServices);
+     }else{
+       showSnackbar(Get.context!, "something_went_wrong".tr,"error");
+     }
+
+
 
   }
 

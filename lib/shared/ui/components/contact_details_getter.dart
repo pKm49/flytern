@@ -137,9 +137,10 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
                       if (setContactDetailsFormKey.currentState!.validate()  ){
                         Get.toNamed(widget.route,
                             arguments: [
-                              {"mobileCntry":selectedCountry.code},
-                              {"mobileNumber":profileController.mobileController.value.text},
-                              {"email":profileController.emailController.value.text},
+                              {"mobileCntry":selectedCountry.code,
+                                "mobileNumber":profileController.mobileController.value.text,
+                                "email":profileController.emailController.value.text
+                              },
                             ]);
                       }
                     }, child: profileController.userDetails.value.isGuest?

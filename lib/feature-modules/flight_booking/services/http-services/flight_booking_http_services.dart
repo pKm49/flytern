@@ -3,6 +3,7 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_details.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_filter_body.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_pretraveller_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_response.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_result.dart';
@@ -207,7 +208,7 @@ class FlightBookingHttpService {
   }
 
 
-  Future<FlightDetails> getPreTravellerData(
+  Future<FlightPretravellerData> getPreTravellerData(
       int detailId ) async {
 
     FlyternHttpResponse response = await getRequest(
@@ -216,16 +217,16 @@ class FlightBookingHttpService {
           "detail_id":detailId
         });
 
-    FlightDetails flightDetails;
+    FlightPretravellerData flightPretravellerData;
 
     if (response.success && response.statusCode ==200) {
       if (response.data != null  ) {
-        flightDetails = mapFlightDetails(response.data);
-        return flightDetails;
+        flightPretravellerData = mapFlightPretravellerData(response.data);
+        return flightPretravellerData;
       }
     }
 
-    return mapFlightDetails({});
+    return mapFlightPretravellerData({});
   }
 
 
