@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
@@ -8,11 +9,18 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class CustomDatePicker extends StatefulWidget {
-
   DateTime selectedDate;
+  DateTime? minimumDate;
+  DateTime? maximumDate;
+
   final Function(DateTime? dateTime) dateSelected;
 
-  CustomDatePicker({super.key, required this.dateSelected, required this.selectedDate});
+  CustomDatePicker(
+      {super.key,
+      required this.dateSelected,
+      this.minimumDate,
+      this.maximumDate,
+      required this.selectedDate});
 
   @override
   State<CustomDatePicker> createState() => _CustomDatePickerState();
@@ -50,12 +58,12 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                                 fontWeight: flyternFontWeightBold),
                             textAlign: TextAlign.center),
                         InkWell(
-                            onTap: (){
-                              Navigator.pop(context);
-                            },
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
                           child: Text("cancel".tr,
-                              style: getHeadlineMediumStyle(context).copyWith(
-                                  color: flyternSecondaryColor ),
+                              style: getHeadlineMediumStyle(context)
+                                  .copyWith(color: flyternSecondaryColor),
                               textAlign: TextAlign.center),
                         ),
                       ],
@@ -67,6 +75,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                     child: CupertinoDatePicker(
                       mode: CupertinoDatePickerMode.date,
                       initialDateTime: widget.selectedDate,
+                      minimumDate: widget.minimumDate ?? DefaultMinimumDate,
+                      maximumDate: widget.maximumDate ?? DefaultMaximumDate,
                       onDateTimeChanged: (DateTime newDateTime) {
                         setState(() {
                           selectedDOB = newDateTime;
@@ -80,18 +90,19 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           ),
           addVerticalSpace(flyternSpaceSmall),
           InkWell(
-            onTap:() {
+            onTap: () {
               widget.dateSelected(selectedDOB);
               Navigator.pop(context);
-              },
+            },
             child: Container(
               width: screenwidth,
               padding: flyternMediumPaddingAll,
               decoration: flyternBorderedContainerSmallDecoration,
               child: Center(
                 child: Text("done".tr,
-                    style: getHeadlineMediumStyle(context)
-                        .copyWith(color: flyternPrimaryColor,fontWeight: flyternFontWeightBold)),
+                    style: getHeadlineMediumStyle(context).copyWith(
+                        color: flyternPrimaryColor,
+                        fontWeight: flyternFontWeightBold)),
               ),
             ),
           )

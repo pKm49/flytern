@@ -32,9 +32,19 @@ class _AuthRegisterDetailsInputPageState
 
   final sharedController = Get.find<SharedController>();
   final registerController = Get.find<RegisterController>();
-
+  var getArguments = Get.arguments;
+  var isDirectFlow = true;
   final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
   late File profilePictureFile;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isDirectFlow =getArguments !=null?getArguments[0]:true;
+    print("AuthRegisterDetailsInputPage");
+    print(isDirectFlow);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -290,7 +300,7 @@ class _AuthRegisterDetailsInputPageState
                             !registerController.isSubmitting.value &&
                           registerController.isTermsAndPrivacyAgreed.value) {
                           FocusManager.instance.primaryFocus?.unfocus();
-                          registerController.submitRegisterForm(profilePictureFile);
+                          registerController.submitRegisterForm(isDirectFlow,profilePictureFile);
                         }
                       }, child:registerController.isSubmitting.value
                           ? LoadingAnimationWidget.prograssiveDots(
@@ -310,7 +320,8 @@ class _AuthRegisterDetailsInputPageState
                     addHorizontalSpace(flyternSpaceSmall),
                     InkWell(
                       onTap: (){
-                        Get.toNamed(Approute_login);
+                        Get.toNamed(Approute_login,
+                            arguments: [true]);
                       },
                       child: Text(
                         "sign_in".tr,

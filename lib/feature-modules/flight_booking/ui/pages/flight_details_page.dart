@@ -391,7 +391,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
               child: ElevatedButton(
                   style: getElevatedButtonStyle(context),
                   onPressed: () {
-                    Get.toNamed(Approute_flightsAddonServices);
+                    flightBookingController.getPreTravellerData(flightBookingController.flightDetails.value.detailId);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

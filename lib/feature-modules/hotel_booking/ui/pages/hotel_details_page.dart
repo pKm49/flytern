@@ -359,6 +359,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
 
 
   void openContactDetailsGetterBottomSheet( ) {
+
     showModalBottomSheet(
         useSafeArea: false,
         shape:   RoundedRectangleBorder(
@@ -368,8 +369,9 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
         isScrollControlled: true,
         context: context,
         builder: (context) {
-          return ContactDetailsGetter(route: Approute_userDetailsSubmission,
-              secondRoute:Approute_hotelsSummary);
+          return ContactDetailsGetter(route: Approute_userDetailsSubmission );
         });
+
   }
+
 }

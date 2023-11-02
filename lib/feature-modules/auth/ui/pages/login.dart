@@ -21,7 +21,9 @@ class AuthLoginPage extends StatefulWidget {
 
 class _AuthLoginPageState extends State<AuthLoginPage> {
 
+  var getArguments = Get.arguments;
   final loginController = Get.find<LoginController>();
+  var isDirectFlow = true;
 
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
@@ -29,6 +31,10 @@ class _AuthLoginPageState extends State<AuthLoginPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    isDirectFlow =getArguments !=null?getArguments[0]:true;
+
+    print("AuthLoginPage");
+    print(isDirectFlow);
   }
 
   @override
@@ -94,7 +100,7 @@ class _AuthLoginPageState extends State<AuthLoginPage> {
                                 !loginController.isSubmitting.value) {
                               FocusManager.instance.primaryFocus?.unfocus();
 
-                              loginController.submitLoginForm();
+                              loginController.submitLoginForm(isDirectFlow);
                             }
                           },
                           child: loginController.isSubmitting.value

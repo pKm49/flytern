@@ -4,4 +4,5 @@ const String FlightBookingHttpRequestEndpointGetMoreOptionFlights = "/coreapi/ap
 const String FlightBookingHttpRequestEndpointFilterFlights = "/coreapi/api/Flights/FilterFlights";
 const String FlightBookingHttpRequestEndpointSearchFlights = "/coreapi/api/Flights/SearchFlights";
 const String FlightBookingHttpRequestEndpointGetDetailFlights = "/coreapi/api/Flights/DetailFlights";
+const String FlightBookingHttpRequestEndpointGetPreTravellerData = "/coreapi/api/Flights/PreTraveller";
 

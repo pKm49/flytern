@@ -109,8 +109,8 @@ class _FlightAddonServicesPageState extends State<FlightAddonServicesPage> {
         isScrollControlled: true,
         context: context,
         builder: (context) {
-          return ContactDetailsGetter(route: Approute_userDetailsSubmission,
-              secondRoute:Approute_flightsSummary);
+          return ContactDetailsGetter(
+              route: Approute_flightsUserSelection );
         });
   }
 }

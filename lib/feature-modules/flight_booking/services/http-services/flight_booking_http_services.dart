@@ -206,4 +206,27 @@ class FlightBookingHttpService {
     return mapFlightDetails({});
   }
 
+
+  Future<FlightDetails> getPreTravellerData(
+      int detailId ) async {
+
+    FlyternHttpResponse response = await getRequest(
+        FlightBookingHttpRequestEndpointGetPreTravellerData,
+        {
+          "detail_id":detailId
+        });
+
+    FlightDetails flightDetails;
+
+    if (response.success && response.statusCode ==200) {
+      if (response.data != null  ) {
+        flightDetails = mapFlightDetails(response.data);
+        return flightDetails;
+      }
+    }
+
+    return mapFlightDetails({});
+  }
+
+
 }

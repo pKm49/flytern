@@ -296,6 +296,7 @@ class ProfileController extends GetxController {
     gender.value = userDetails.gender == "" ? "Male" : userDetails.gender;
     nationalityController.value.text = userDetails.nationalityName;
     mobileController.value.text = userDetails.phoneNumber;
+
     emailController.value.text = userDetails.email;
     passportCountryController.value.text =
         userDetails.passportIssuerCountryName;

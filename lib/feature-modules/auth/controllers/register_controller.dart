@@ -46,7 +46,7 @@ class RegisterController extends GetxController {
     super.onInit();
   }
 
-  submitRegisterForm(File? file) async {
+  submitRegisterForm(bool isDirectFlow,File? file) async {
 
     isSubmitting.value = true;
     try{
@@ -74,7 +74,11 @@ class RegisterController extends GetxController {
 
             if(value.accessToken != ""){
               saveAuthTokenToSharedPreference(value);
-              Get.offAllNamed(Approute_landingpage);
+              if(!isDirectFlow){
+                Get.back(result: true);
+              }else{
+                Get.offAllNamed(Approute_landingpage);
+              }
             }
 
           }

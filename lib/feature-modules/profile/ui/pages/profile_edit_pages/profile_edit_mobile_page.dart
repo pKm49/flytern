@@ -23,7 +23,6 @@ class ProfileEditMobilePage extends StatefulWidget {
 class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
   final profileController = Get.find<ProfileController>();
   final GlobalKey<FormState> updateProfileFormKey = GlobalKey<FormState>();
-  final sharedController = Get.find<SharedController>();
 
   @override
   Widget build(BuildContext context) {
@@ -65,12 +64,12 @@ class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.network(
-                                    sharedController.selectedCountry.value.flag,
+                                    profileController.selectedCountry.value.flag,
                                     width: 20),
                                 addHorizontalSpace(flyternSpaceMedium),
                                 Expanded(
                                   child: Text(
-                                      sharedController.selectedCountry.value.code,
+                                      profileController.selectedCountry.value.code,
                                       style: getBodyMediumStyle(context)),
                                 ),
                               ],
@@ -83,7 +82,7 @@ class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
                         flex: 4,
                         child: TextFormField(
                             controller: profileController.mobileController.value,
-                            validator: (value) => checkIfEmailValid(value),
+                            validator: (value) => checkIfMobileNumberValid(value),
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               labelText: "mobile".tr,

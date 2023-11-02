@@ -222,4 +222,9 @@ class FlightBookingController extends GetxController {
     cabinInfo.value = selectedCabinInfo;
   }
 
+  void getPreTravellerData(int detailId) {
+    Get.toNamed(Approute_flightsAddonServices);
+
+  }
+
 }

@@ -19,8 +19,9 @@ class LoginController extends GetxController {
 
   var authHttpService = AuthHttpService();
 
-  submitLoginForm() async {
-
+  submitLoginForm(bool isDirectFlow) async {
+  print("submitLoginForm");
+  print(isDirectFlow);
     isSubmitting.value = true;
 
     try{
@@ -33,11 +34,18 @@ class LoginController extends GetxController {
       AuthToken authToken  = await authHttpService.login(loginCredential);
 
       if(authToken.accessToken != ""){
+        print("accessToken not empty");
+        print(isDirectFlow);
         saveAuthTokenToSharedPreference(authToken);
-        Get.offAllNamed(Approute_landingpage);
+        if(!isDirectFlow){
+          Get.back(result: true);
+        }else{
+          Get.offAllNamed(Approute_landingpage);
+        }
       }else{
         userId.value = authToken.refreshToken;
-        Get.toNamed(Approute_registerOtp,arguments: [Approute_login,
+        Get.toNamed(Approute_registerOtp,
+            arguments: [Approute_login,
           "your_mobile".tr,userId.value])
             ?.then((value) async {
           print("valueee is");
@@ -46,7 +54,11 @@ class LoginController extends GetxController {
 
             if(value.accessToken != ""){
               saveAuthTokenToSharedPreference(value);
-              Get.offAllNamed(Approute_landingpage);
+              if(!isDirectFlow){
+                Get.back(result: true);
+              }else{
+                Get.offAllNamed(Approute_landingpage);
+              }
             }
 
           }

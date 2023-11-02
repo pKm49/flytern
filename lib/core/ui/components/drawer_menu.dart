@@ -188,7 +188,8 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
                    child: ElevatedButton(
                      child:   Text("sign_in".tr),
                      onPressed: () async {
-                       Get.toNamed(Approute_login);
+                       Get.toNamed(Approute_login,
+                           arguments: [true]);
                      },
                      style: getElevatedButtonStyle(context).copyWith(
                          backgroundColor: MaterialStateProperty.all<Color>(flyternSecondaryColor)

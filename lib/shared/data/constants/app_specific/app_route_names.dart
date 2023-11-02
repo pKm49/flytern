@@ -26,6 +26,7 @@
   const String Approute_flightsSeatSelection = '/flights-seat-selection';
   const String Approute_flightsMealSelection = '/flights-meal-selection';
   const String Approute_flightsBaggageSelection = '/flights-baggage-selection';
+  const String Approute_flightsUserSelection = '/flights-user-selection';
   const String Approute_flightsSummary = '/flights-summary';
   const String Approute_flightsConfirmation = '/flights-confirmation';
 
