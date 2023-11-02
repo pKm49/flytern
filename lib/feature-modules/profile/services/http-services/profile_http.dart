@@ -110,12 +110,12 @@ class ProfileHttpServices{
 
     if(response.success){
       if(response.data != null){
-        UserDetails userDetails =  mapUserDetails(response.data);
+        UserDetails userDetails =  mapUserDetails(response.data,false);
         return userDetails;
       }
     }
 
-    return mapUserDetails({});
+    return mapUserDetails({},true);
 
   }
 

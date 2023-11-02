@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 class UserDetails {
 
-
+  final bool isGuest;
   final String  userName;
   final String  email;
   final String phoneNumber;
@@ -25,6 +25,7 @@ class UserDetails {
 
 
   UserDetails({
+    required this.isGuest,
     required this.gender, required this.firstName, required this.lastName,
     required this.phoneCountryCode, required this.imgUrl, required this.passportNumber,
     required this.dateOfBirth, required this.passportIssuerCountryCode, required this.passportIssuerCountryName,
@@ -50,7 +51,7 @@ class UserDetails {
 
 }
 
-UserDetails mapUserDetails(dynamic payload){
+UserDetails mapUserDetails(dynamic payload,bool isGuest){
 
   List<Gender> tempGenders = [];
   if(payload["genderList"] != null){
@@ -59,6 +60,7 @@ UserDetails mapUserDetails(dynamic payload){
     });
   }
   return UserDetails(
+    isGuest:isGuest,
     phoneNumber:payload["phoneNumber"]??"",
     userName :payload["userName"]??"",
     email :payload["email"]??"",

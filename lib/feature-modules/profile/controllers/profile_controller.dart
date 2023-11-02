@@ -64,6 +64,7 @@ class ProfileController extends GetxController {
   var isGuest = true.obs;
   var isProfileDataLoading = true.obs;
   var userDetails = UserDetails(
+      isGuest : true,
       gender: "",
       firstName: "",
       lastName: "",
@@ -165,6 +166,7 @@ class ProfileController extends GetxController {
     isProfileSubmitting.value = true;
     try {
       UserDetails userDetails = UserDetails(
+          isGuest:false,
           gender: gender.value,
           firstName: firsNameController.value.text,
           lastName: lastNameController.value.text,
