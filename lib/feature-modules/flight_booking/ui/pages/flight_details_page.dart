@@ -401,7 +401,15 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                           "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.finalAmount}"
                         ),
                       ),
-                      Text("next".tr),
+                      Visibility(
+                          visible: !flightBookingController.isFlightPretravellerDataLoading.value,
+                          child: Text("next".tr)),
+                      Visibility(
+                          visible: flightBookingController.isFlightPretravellerDataLoading.value,
+                          child:  LoadingAnimationWidget.prograssiveDots(
+                            color: flyternBackgroundWhite,
+                            size: 20,
+                          )),
                       addHorizontalSpace(flyternSpaceSmall),
                       Icon(
                         Ionicons.chevron_forward,

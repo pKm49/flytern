@@ -74,7 +74,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   Expanded(
                     child: CupertinoDatePicker(
                       mode: CupertinoDatePickerMode.date,
-                      initialDateTime: widget.selectedDate,
+                      initialDateTime: getInitialDate(),
                       minimumDate: widget.minimumDate ?? DefaultMinimumDate,
                       maximumDate: widget.maximumDate ?? DefaultMaximumDate,
                       onDateTimeChanged: (DateTime newDateTime) {
@@ -122,5 +122,20 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       return flyternSecondaryColor;
     }
     return flyternBackgroundWhite;
+  }
+
+  getInitialDate() {
+
+     if (widget.selectedDate
+            .isBefore(widget.maximumDate ?? DefaultMaximumDate) &&
+        widget.selectedDate.isAfter(widget.minimumDate ?? DefaultMinimumDate)) {
+      return widget.selectedDate;
+     } else if (widget.selectedDate
+        .isAfter(widget.maximumDate ?? DefaultMaximumDate)) {
+      return widget.maximumDate;
+    } else {
+      return widget.minimumDate;
+    }
+
   }
 }

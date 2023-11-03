@@ -120,5 +120,172 @@ extension FlightBookingControllerSetter on FlightBookingController {
   }
 
 
+  void saveTravellersData(List<TravelInfo> travelInfo) {
+    String validityString = "";
+    for (var i = 0; i < travelInfo.length; i++) {
+      print("traveller data $i" );
+      print(travelInfo[i].toJson().toString());
+    }
+    for (var i = 0; i < travelInfo.length; i++) {
+
+      print("travelInfo "+i.toString());
+      print("title");
+      print(travelInfo[i].title);
+
+      if (travelInfo[i].title == "Title"|| travelInfo[i].title == "") {
+        validityString = "enter_title_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
+            travelInfo[i].travellerType == "Adult"
+                ? 0
+                : travelInfo[i].travellerType == "Child"
+                ? 1
+                : 2,
+            travelInfo[i].no)}");
+
+        break;
+      }
+      print("firstName");
+      print(travelInfo[i].firstName);
+
+      if (travelInfo[i].firstName == "") {
+        validityString = "enter_firstname_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
+            travelInfo[i].travellerType == "Adult"
+                ? 0
+                : travelInfo[i].travellerType == "Child"
+                ? 1
+                : 2,
+            travelInfo[i].no)}");
+
+        break;
+      }
+      print("lastName");
+      print(travelInfo[i].lastName);
+      if (travelInfo[i].lastName == "") {
+        validityString = "enter_lastname_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
+            travelInfo[i].travellerType == "Adult"
+                ? 0
+                : travelInfo[i].travellerType == "Child"
+                ? 1
+                : 2,
+            travelInfo[i].no)}");
+
+        break;
+      }
+      print("gender");
+      print(travelInfo[i].gender);
+      if (travelInfo[i].gender == "Select" || travelInfo[i].gender == "") {
+        validityString = "enter_gender_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
+            travelInfo[i].travellerType == "Adult"
+                ? 0
+                : travelInfo[i].travellerType == "Child"
+                ? 1
+                : 2,
+            travelInfo[i].no)}");
+
+        break;
+      }
+      print("dateOfBirth");
+      print(travelInfo[i].dateOfBirth);
+      print(DefaultInvalidDate);
+
+      if (travelInfo[i].dateOfBirth == DefaultInvalidDate) {
+        validityString = "enter_dob_copax".tr.replaceAll(
+            "user","${travelInfo[i].travellerType} ${getIndex(
+            travelInfo[i].travellerType == "Adult"
+                ? 0
+                : travelInfo[i].travellerType == "Child"
+                ? 1
+                : 2,
+            travelInfo[i].no)}");
+
+        break;
+      }
+      print(travelInfo[i].nationalityCode);
+
+      if (travelInfo[i].nationalityCode == "") {
+        validityString = "enter_nationality_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
+            travelInfo[i].travellerType == "Adult"
+                ? 0
+                : travelInfo[i].travellerType == "Child"
+                ? 1
+                : 2,
+            travelInfo[i].no)}");
+
+        break;
+      }
+      print(travelInfo[i].passportNumber);
+
+      if (travelInfo[i].passportNumber == "") {
+        validityString = "enter_passportnumber_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
+            travelInfo[i].travellerType == "Adult"
+                ? 0
+                : travelInfo[i].travellerType == "Child"
+                ? 1
+                : 2,
+            travelInfo[i].no)}");
+
+        break;
+      }
+      print(travelInfo[i].passportIssuedCountryCode);
+
+      if (travelInfo[i].passportIssuedCountryCode == "") {
+        validityString = "enter_passportcountry_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
+            travelInfo[i].travellerType == "Adult"
+                ? 0
+                : travelInfo[i].travellerType == "Child"
+                ? 1
+                : 2,
+            travelInfo[i].no)}");
+
+        break;
+      }
+      print(travelInfo[i].passportExpiryDate);
+
+      if (travelInfo[i].passportExpiryDate == DefaultInvalidDate) {
+        validityString = "enter_passportexpiry_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
+            travelInfo[i].travellerType == "Adult"
+                ? 0
+                : travelInfo[i].travellerType == "Child"
+                ? 1
+                : 2,
+            travelInfo[i].no)}");
+
+        break;
+      }
+
+    }
+
+    if(validityString!=""){
+      showSnackbar(Get.context!, validityString,"error");
+    }else{
+      showSnackbar(Get.context!, "success","info");
+    }
+
+    // Get.toNamed(Approute_flightsSummary);
+  }
+
+  getIndex(int itemTypeIndex, int localIndex) {
+    int total = flightPretravellerData.value.adult +
+        flightPretravellerData.value.child +
+        flightPretravellerData.value.infant;
+
+    switch (itemTypeIndex) {
+      case 0:
+        {
+          return localIndex  ;
+        }
+      case 1:
+        {
+          return ((total - flightPretravellerData.value.adult) -
+              (localIndex  ))+1;
+        }
+      case 2:
+        {
+          return ((total -
+              (flightPretravellerData.value.adult +
+                  flightPretravellerData.value.child)) -
+              (localIndex  ))+1;
+        }
+    }
+  }
 
 }

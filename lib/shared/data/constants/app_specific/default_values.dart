@@ -1,5 +1,5 @@
- final DateTime DefaultInvalidDate = DateTime(1995, 1, 1);
- final DateTime DefaultMinimumDate = DateTime(1923, 11, 18);
+ final DateTime DefaultInvalidDate = DateTime(1900, 11, 12);
+ final DateTime DefaultMinimumDate = DateTime(1900, 11, 11);
  final DateTime DefaultMaximumDate = DateTime(2023, 11, 16);
 
  final DateTime DefaultAdultMinimumDate = DateTime(1923, 11, 18);

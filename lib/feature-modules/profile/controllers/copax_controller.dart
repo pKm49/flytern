@@ -226,7 +226,7 @@ class CoPaxController extends GetxController {
     isCreation.value = false;
     gender.value =userCopax.gender;
     nationalityController.value.text =userCopax.nationalityName;
-    passportCountryController.value.text =userCopax.passportIssuedCountryName;
+    passportCountryController.value.text = userCopax.passportIssuedCountryName;
     passportExpiryController.value.text = getFormattedDate(userCopax.passportExp);
     dobController.value.text = getFormattedDate(userCopax.dateOfBirth);
     firsNameController.value.text =userCopax.firstName;

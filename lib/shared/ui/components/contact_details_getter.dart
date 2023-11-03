@@ -135,6 +135,7 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
                 child: ElevatedButton(style: getElevatedButtonStyle(context),
                     onPressed: ()   {
                       if (setContactDetailsFormKey.currentState!.validate()  ){
+                        Navigator.pop(context);
                         Get.toNamed(widget.route,
                             arguments: [
                               {"mobileCntry":selectedCountry.code,

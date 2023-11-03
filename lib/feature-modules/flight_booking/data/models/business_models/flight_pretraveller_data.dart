@@ -63,7 +63,7 @@ FlightPretravellerData mapFlightPretravellerData(dynamic payload) {
 
   if (payload["titleList"] != null) {
     payload["titleList"].forEach((element) {
-      genderList.add(mapGender(element));
+      titleList.add(mapGender(element));
     });
   }
 

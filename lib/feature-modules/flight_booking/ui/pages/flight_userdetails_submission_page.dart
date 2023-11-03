@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/core/data/constants/ui-specific/theme_data.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/traveller_info.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/flight_userdetails_submission_form.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -18,13 +20,21 @@ class FlightUserDetailsSubmissionPage extends StatefulWidget {
   State<FlightUserDetailsSubmissionPage> createState() => _FlightUserDetailsSubmissionPageState();
 }
 
-class _FlightUserDetailsSubmissionPageState extends State<FlightUserDetailsSubmissionPage> {
+class _FlightUserDetailsSubmissionPageState extends State<FlightUserDetailsSubmissionPage>
+    with SingleTickerProviderStateMixin{
 
-  final ExpansionTileController controller = ExpansionTileController();
-  final ExpansionTileController controller2 = ExpansionTileController();
+  final List<ExpansionTileController> adultExpansionControllers = [];
+  final List<PageStorageKey> adultExpansionControllerKeys = [];
+  final List<ExpansionTileController> childExpansionControllers = [];
+  final List<PageStorageKey> childExpansionControllerKeys = [];
+  final List<ExpansionTileController> infantExpansionControllers = [];
+  final List<PageStorageKey> infantExpansionControllerKeys = [];
+
   dynamic argumentData = Get.arguments;
   final flightBookingController = Get.find<FlightBookingController>();
-
+  late TabController tabController;
+  List<TravelInfo> travelInfo = [];
+  
   String mobileCntry = "";
   String mobileNumber = "";
   String email = "";
@@ -34,14 +44,20 @@ class _FlightUserDetailsSubmissionPageState extends State<FlightUserDetailsSubmi
     // TODO: implement initState
 
     super.initState();
-    print("argumentData");
-    print(argumentData[0]);
-    print(argumentData[0]['mobileNumber']);
     mobileCntry = argumentData[0]['mobileCntry'];
     mobileNumber = argumentData[0]['mobileNumber'];
     email = argumentData[0]['email'];
+
+    initializeForms();
+
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    tabController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,228 +67,127 @@ class _FlightUserDetailsSubmissionPageState extends State<FlightUserDetailsSubmi
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("user_details".tr),
+        title: Text("submit_traveller_details".tr),
+        elevation: .3,
       ),
       body: Container(
         width: screenwidth,
         height: screenheight,
         color: flyternGrey10,
-        child: ListView(
+        child: Column(
           children: [
             Container(
-              margin: flyternLargePaddingVertical.copyWith(bottom: 0),
-              padding: flyternLargePaddingHorizontal,
-              color: flyternBackgroundWhite,
-              child: ExpansionTile(
-
-                tilePadding: EdgeInsets.zero,
-                controller: controller,
-                title:   Text('adult'.tr),
-                children: <Widget>[
-
-                  TextFormField(
-                    onTap: (){
-                      showPassengerSelector();
+                padding: flyternMediumPaddingHorizontal,
+                decoration:
+                BoxDecoration(border: flyternDefaultBorderBottomOnly,
+                color: flyternBackgroundWhite),
+                child: TabBar(
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    labelPadding: EdgeInsets.zero,
+                    indicatorColor: flyternSecondaryColor,
+                    indicatorWeight: 2,
+                    padding: EdgeInsets.zero,
+                    controller: tabController,
+                    labelColor: flyternSecondaryColor,
+                    labelStyle: const TextStyle(
+                        color: flyternSecondaryColor,
+                        fontWeight: FontWeight.bold),
+                    unselectedLabelColor: flyternGrey40,
+                    tabs: <Tab>[
+                      for (var i = 0; i < 3; i++)
+                        Tab(
+                          text: i==0?"${'adults'.tr} (${adultExpansionControllers.length})":
+                          i==1?"${'children'.tr} (${childExpansionControllers.length})"
+                              :"${'infants'.tr} (${infantExpansionControllers.length})" ),
+                    ])),
+            Expanded(
+              child:TabBarView(
+                controller: tabController,
+                children: [
+                  ListView.builder(
+                    itemBuilder: (context, index) {
+                      return  Container(
+                        padding: flyternLargePaddingHorizontal,
+                        color: flyternBackgroundWhite,
+                        child: ExpansionTile(
+                          maintainState: true,
+                          initiallyExpanded: index==0,
+                          tilePadding: EdgeInsets.zero,
+                          controller: adultExpansionControllers[index],
+                          title:   Text("${'adult'.tr} ${index+1}"),
+                          children: <Widget>[
+                            FlightUserDetailsSubmissionForm(
+                              index: getIndex(0,index),
+                              itemTypeIndex:0,
+                              flightBookingController: flightBookingController,
+                              dataSubmitted: (TravelInfo travelInfo) { 
+                                updateTravellerInfor(getIndex(0,index),travelInfo);
+                              },
+                            )
+                          ],
+                        ),
+                      );
                     },
-                      keyboardType: TextInputType.emailAddress,
-                      readOnly: true,
-                      decoration: InputDecoration(
-                        labelText: "select_passenger".tr,
-                      )),
-                  addVerticalSpace(flyternSpaceMedium),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: "enter_prefix".tr,
-                            )),
-                      ),
-                      addHorizontalSpace(flyternSpaceMedium),
-                      Expanded(
-                        flex: 1,
-                        child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: "select_gender".tr,
-                            )),
-                      ),
-                    ],
+                    itemCount: adultExpansionControllers.length,
                   ),
-                  addVerticalSpace(flyternSpaceMedium),
+                  ListView.builder(
+                    itemBuilder: (context, index) {
+                      return  Container(
+                        padding: flyternLargePaddingHorizontal,
+                        color: flyternBackgroundWhite,
+                        child: ExpansionTile(
+                          maintainState: true,
+                          initiallyExpanded: index==0,
+                          tilePadding: EdgeInsets.zero,
+                          controller: childExpansionControllers[index],
+                          title:   Text("${'child'.tr} ${index+1}"),
+                          children: <Widget>[
+                            FlightUserDetailsSubmissionForm(
+                              index: getIndex(1,index),
+                              itemTypeIndex:1,
+                              flightBookingController: flightBookingController,
+                              dataSubmitted: (TravelInfo travelInfo) {
+                                updateTravellerInfor(getIndex(1,index),travelInfo);
 
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: "enter_firstname".tr,
-                            )),
-                      ),
-                      addHorizontalSpace(flyternSpaceMedium),
-                      Expanded(
-                        flex: 1,
-                        child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: "enter_lastname".tr,
-                            )),
-                      ),
-                    ],
-                  ),
-                  addVerticalSpace(flyternSpaceMedium),
-
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: "enter_dob".tr,
-                            )),
-                      ),
-                      addHorizontalSpace(flyternSpaceMedium),
-                      Expanded(
-                        flex: 1,
-                        child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: "enter_nationality".tr,
-                            )),
-                      ),
-                    ],
-                  ),
-                  addVerticalSpace(flyternSpaceMedium),
-
-                  TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: "enter_passport".tr,
-                      )),
-                  addVerticalSpace(flyternSpaceMedium),
-                  TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: "enter_frequent_flyer".tr,
-                      )),
-                  addVerticalSpace(flyternSpaceLarge),
-                ],
-              ),
-            ),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal,
-              child: Divider(),
-            ),
-            Container(
-              padding: flyternLargePaddingHorizontal,
-              color: flyternBackgroundWhite,
-              child: ExpansionTile(
-
-                tilePadding: EdgeInsets.zero,
-                controller: controller2,
-                title:   Text('child'.tr),
-                children: <Widget>[
-
-                  TextFormField(
-                    onTap: (){
-                      showPassengerSelector();
+                              },
+                            )
+                          ],
+                        ),
+                      );
                     },
-                      keyboardType: TextInputType.emailAddress,
-                      readOnly: true,
-                      decoration: InputDecoration(
-                        labelText: "select_passenger".tr,
-                      )),
-                  addVerticalSpace(flyternSpaceMedium),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: "enter_prefix".tr,
-                            )),
-                      ),
-                      addHorizontalSpace(flyternSpaceMedium),
-                      Expanded(
-                        flex: 1,
-                        child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: "select_gender".tr,
-                            )),
-                      ),
-                    ],
+                    itemCount: adultExpansionControllers.length,
                   ),
-                  addVerticalSpace(flyternSpaceMedium),
+                  ListView.builder(
+                    itemBuilder: (context, index) {
+                      return  Container(
+                        padding: flyternLargePaddingHorizontal,
+                        color: flyternBackgroundWhite,
+                        child: ExpansionTile(
+                          maintainState: true,
+                          initiallyExpanded: index==0,
+                          tilePadding: EdgeInsets.zero,
+                          controller: infantExpansionControllers[index],
+                          title:   Text("${'infant'.tr} ${index+1}"),
+                          children: <Widget>[
+                            FlightUserDetailsSubmissionForm(
+                              index: getIndex(2,index),
+                              itemTypeIndex:2,
+                              flightBookingController: flightBookingController,
+                              dataSubmitted: (TravelInfo travelInfo) {
+                                updateTravellerInfor(getIndex(2,index),travelInfo);
 
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: "enter_firstname".tr,
-                            )),
-                      ),
-                      addHorizontalSpace(flyternSpaceMedium),
-                      Expanded(
-                        flex: 1,
-                        child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: "enter_lastname".tr,
-                            )),
-                      ),
-                    ],
+                              },
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                    itemCount: infantExpansionControllers.length,
                   ),
-                  addVerticalSpace(flyternSpaceMedium),
-
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: "enter_dob".tr,
-                            )),
-                      ),
-                      addHorizontalSpace(flyternSpaceMedium),
-                      Expanded(
-                        flex: 1,
-                        child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: "enter_nationality".tr,
-                            )),
-                      ),
-                    ],
-                  ),
-                  addVerticalSpace(flyternSpaceMedium),
-
-                  TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: "enter_passport".tr,
-                      )),
-                  addVerticalSpace(flyternSpaceMedium),
-                  TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: "enter_frequent_flyer".tr,
-                      )),
-                  addVerticalSpace(flyternSpaceLarge),
                 ],
-              ),
+              )
             ),
+            addVerticalSpace(flyternSpaceLarge*4)
 
           ],
         ),
@@ -287,7 +202,7 @@ class _FlightUserDetailsSubmissionPageState extends State<FlightUserDetailsSubmi
             width: double.infinity,
             child: ElevatedButton(style: getElevatedButtonStyle(context),
                 onPressed: () {
-                  Get.toNamed(Approute_flightsSummary);
+                 flightBookingController.saveTravellersData(travelInfo);
                  },
                 child:Text("proceed".tr)),
           ),
@@ -296,25 +211,100 @@ class _FlightUserDetailsSubmissionPageState extends State<FlightUserDetailsSubmi
     );
   }
 
-  void showPassengerSelector( ) {
-    showModalBottomSheet(
-        useSafeArea: false,
-        shape:   RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
-              topRight: Radius.circular(flyternBorderRadiusSmall)),
-        ),
-        isScrollControlled: true,
-        backgroundColor: Colors.transparent,
-        context: context,
-        builder: (context) {
-          return SortOptionSelector(
-            selectedSort: "",
-            sortChanged: (String selectedSort){},
-            title: "select_user".tr,
-            sortingDcs: [ ],
-          );
-        });
 
+  getIndex(int itemTypeIndex, int localIndex){
+
+    switch (itemTypeIndex){
+      case 0:{
+        return localIndex+1;
+      }
+      case 1:{
+        return flightBookingController.flightPretravellerData.value.adult+(localIndex+1);
+      }
+      case 2:{
+        return flightBookingController.flightPretravellerData.value.adult+
+            flightBookingController.flightPretravellerData.value.child+(localIndex+1);
+      }
+    }
+
+  }
+
+  void initializeForms() {
+    print("initializeForms");
+    print(flightBookingController.flightPretravellerData.value.adult);
+    print(flightBookingController.flightPretravellerData.value.child);
+    print(flightBookingController.flightPretravellerData.value.infant);
+   
+    int tabLength = 0;
+   
+    int total = flightBookingController.flightPretravellerData.value.adult+
+        flightBookingController.flightPretravellerData.value.child+
+        flightBookingController.flightPretravellerData.value.infant;
+    
+    if(flightBookingController.flightPretravellerData.value.adult>0){
+      tabLength++;
+      for(var i=0;i<flightBookingController.flightPretravellerData.value.adult;i++){
+        adultExpansionControllers.add(ExpansionTileController());
+        adultExpansionControllerKeys.add(PageStorageKey("adult$i"));
+      }
+    }
+
+    if(flightBookingController.flightPretravellerData.value.child>0){
+      tabLength++;
+      for(var i=0;i<flightBookingController.flightPretravellerData.value.child;i++){
+        childExpansionControllers.add(ExpansionTileController());
+        childExpansionControllerKeys.add(PageStorageKey("child$i"));
+      }
+    }
+
+    if(flightBookingController.flightPretravellerData.value.infant>0){
+      tabLength++;
+      for(var i=0;i<flightBookingController.flightPretravellerData.value.infant;i++){
+        infantExpansionControllers.add(ExpansionTileController());
+        infantExpansionControllerKeys.add(PageStorageKey("infant$i"));
+      }
+    }
+
+    tabController = TabController(vsync: this, length: tabLength, initialIndex: 0);
+
+    for(var i=0;i<total;i++){
+      print(" add default travelInfo");
+      print(i);
+      print(total);
+      print(flightBookingController.flightPretravellerData.value.adult);
+      print(flightBookingController.flightPretravellerData.value.child);
+      print(flightBookingController.flightPretravellerData.value.infant);
+      travelInfo.add(mapTravelInfo({
+        "no":i+1,
+        "travellerType":((i+1)<=flightBookingController.flightPretravellerData.value.adult)?"Adult":
+        ((i+1)>flightBookingController.flightPretravellerData.value.adult &&
+            (i+1)<=(flightBookingController.flightPretravellerData.value.child +
+                flightBookingController.flightPretravellerData.value.adult))?"Child": "Infant"
+      }));
+    }
+    
+    setState(() {
+
+    });
+    
+  }
+
+  void updateTravellerInfor(index, TravelInfo newTravelInfo) {
+    print("updateTravellerInfor");
+    print(index);
+    print(newTravelInfo.title);
+    print(newTravelInfo.firstName);
+    print(newTravelInfo.gender);
+    print(travelInfo.length);
+    List<TravelInfo> tempTravelInfo = [];
+    for(var i=0;i<travelInfo.length;i++){
+      if((i+1)!=index){
+        tempTravelInfo.add(travelInfo[i]);
+      }else{
+        tempTravelInfo.add(newTravelInfo);
+      }
+    }
+    travelInfo = tempTravelInfo;
   }
 
 }

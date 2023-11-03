@@ -15,6 +15,7 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/recommended_package.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/sorting_dcs.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/travel_story.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/traveller_info.dart';
 import 'package:flytern/feature-modules/flight_booking/services/helper-services/flight_booking_helper_services.dart';
 import 'package:flytern/feature-modules/flight_booking/services/http-services/flight_booking_http_services.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
@@ -28,6 +29,7 @@ class FlightBookingController extends GetxController {
   var isModifySearchVisible = false.obs;
   var isFlightDestinationsLoading = false.obs;
   var isFlightSearchResponsesLoading = false.obs;
+  var isFlightPretravellerDataLoading = false.obs;
   var isFlightMoreOptionsResponsesLoading = false.obs;
   var isFlightDetailsLoading = false.obs;
   var isFlightSearchFilterResponsesLoading = false.obs;
@@ -225,18 +227,18 @@ class FlightBookingController extends GetxController {
   }
 
   Future<void> getPreTravellerData(int detailId) async {
+    isFlightPretravellerDataLoading.value = true;
+    FlightPretravellerData tempFlightPretravellerData =
+        await flightBookingHttpService.getPreTravellerData(detailId);
+    isFlightPretravellerDataLoading.value = false;
 
-     FlightPretravellerData tempFlightPretravellerData = await flightBookingHttpService
-        .getPreTravellerData(detailId );
-     if(tempFlightPretravellerData.countriesList.length>0){
-       flightPretravellerData.value = tempFlightPretravellerData;
-       Get.toNamed(Approute_flightsAddonServices);
-     }else{
-       showSnackbar(Get.context!, "something_went_wrong".tr,"error");
-     }
+    if (tempFlightPretravellerData.countriesList.length > 0) {
+      flightPretravellerData.value = tempFlightPretravellerData;
 
-
-
+      Get.toNamed(Approute_flightsAddonServices);
+    } else {
+      showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+    }
   }
 
 }
