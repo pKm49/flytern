@@ -6,10 +6,10 @@ class InsuranceTravellerData {
 
   final String covid;
   final String policyType;
-  final String contributor;
-  final String son;
-  final String daughter;
-  final String spouse;
+  final int contributor;
+  final int son;
+  final int daughter;
+  final int spouse;
   final String policyPlan;
   final String policyDuration;
   final String policyDate;

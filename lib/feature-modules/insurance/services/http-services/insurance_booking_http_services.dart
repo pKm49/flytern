@@ -11,7 +11,7 @@ import 'package:flytern/shared/services/http-services/http_request_handler.dart'
 
 class InsuranceBookingHttpService {
 
-  Future<InsuranceInitialData?> getInitialInfo() async {
+  Future<InsuranceInitialData> getInitialInfo() async {
     FlyternHttpResponse response =
     await getRequest(InsuranceBookingHttpRequestEndpointGetInitalInfo, null);
     InsuranceInitialData insuranceInitialData;
@@ -25,7 +25,7 @@ class InsuranceBookingHttpService {
     return mapInsuranceInitialData({});
   }
 
-  Future<InsurancePriceData?> getPrice(InsurancePriceGetBody insurancePriceGetBody) async {
+  Future<InsurancePriceData> getPrice(InsurancePriceGetBody insurancePriceGetBody) async {
     FlyternHttpResponse response =
     await getRequest(InsuranceBookingHttpRequestEndpointGetPrice, insurancePriceGetBody.toJson());
 
