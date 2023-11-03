@@ -7,6 +7,7 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_response.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_result.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_traveller_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/range_dcs.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/sorting_dcs.dart';
 import 'package:flytern/shared/data/constants/app_specific/shared_http_request_endpoints.dart';
@@ -227,6 +228,25 @@ class FlightBookingHttpService {
     }
 
     return mapFlightPretravellerData({});
+  }
+
+  Future<String> setTravellerData(
+      FlightTravellerData flightTravellerData) async {
+
+    FlyternHttpResponse response = await postRequest(
+        FlightBookingHttpRequestEndpointGetSaveTravellerData,
+        flightTravellerData.toJson());
+
+    String bookingRef;
+
+    if (response.success && response.statusCode ==200) {
+      if (response.data != null  ) {
+        bookingRef = response.data["bookingRef"]??"";
+        return bookingRef;
+      }
+    }
+
+    return "";
   }
 
 

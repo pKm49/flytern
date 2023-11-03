@@ -119,13 +119,14 @@ extension FlightBookingControllerSetter on FlightBookingController {
 
   }
 
+  void saveContactInfo(String tMobileCntry, String tMobileNumber, String tEmail) {
+    mobileCntry.value =tMobileCntry;
+    mobileNumber.value =tMobileNumber;
+    email.value =tEmail;
+  }
 
   void saveTravellersData(List<TravelInfo> travelInfo) {
     String validityString = "";
-    for (var i = 0; i < travelInfo.length; i++) {
-      print("traveller data $i" );
-      print(travelInfo[i].toJson().toString());
-    }
     for (var i = 0; i < travelInfo.length; i++) {
 
       print("travelInfo "+i.toString());
@@ -257,7 +258,7 @@ extension FlightBookingControllerSetter on FlightBookingController {
     if(validityString!=""){
       showSnackbar(Get.context!, validityString,"error");
     }else{
-      showSnackbar(Get.context!, "success","info");
+      setPreTravellerData(travelInfo);
     }
 
     // Get.toNamed(Approute_flightsSummary);

@@ -5,4 +5,5 @@ const String FlightBookingHttpRequestEndpointFilterFlights = "/coreapi/api/Fligh
 const String FlightBookingHttpRequestEndpointSearchFlights = "/coreapi/api/Flights/SearchFlights";
 const String FlightBookingHttpRequestEndpointGetDetailFlights = "/coreapi/api/Flights/DetailFlights";
 const String FlightBookingHttpRequestEndpointGetPreTravellerData = "/coreapi/api/Flights/PreTraveller";
+const String FlightBookingHttpRequestEndpointGetSaveTravellerData = "/coreapi/api/Flights/SaveTraveller";
 
