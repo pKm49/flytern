@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flytern/feature-modules/insurance/data/constants/app_specific/insurance_booking_http_request_endpoints.dart';
 import 'package:http/http.dart' as httpForMultipart;
 import 'package:http_interceptor/http/http.dart';
 import 'package:flytern/config/env.dart' as env;
@@ -70,7 +71,8 @@ postRequest(endpoint, body) async {
   print(endpoint.toString().contains('postRequest'));
     final httpResponse = await http.post(
         Uri.https(env.apiEndPoint, "$endpoint"),
-        body:body!=null?json.encode(body):body
+        body:endpoint == InsuranceBookingHttpRequestEndpointGetPrice?null:body!=null?json.encode(body):body,
+        params:endpoint == InsuranceBookingHttpRequestEndpointGetPrice?body:null
     );
     print("postRequest called pass 2");
 

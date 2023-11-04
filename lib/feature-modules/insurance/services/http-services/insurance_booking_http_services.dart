@@ -27,7 +27,7 @@ class InsuranceBookingHttpService {
 
   Future<InsurancePriceData> getPrice(InsurancePriceGetBody insurancePriceGetBody) async {
     FlyternHttpResponse response =
-    await getRequest(InsuranceBookingHttpRequestEndpointGetPrice, insurancePriceGetBody.toJson());
+    await postRequest(InsuranceBookingHttpRequestEndpointGetPrice, insurancePriceGetBody.toJson());
 
     if (response.success) {
       if (response.data != null) {
