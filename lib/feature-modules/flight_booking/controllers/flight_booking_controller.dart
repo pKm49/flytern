@@ -29,6 +29,14 @@ import 'package:get/get.dart';
 part 'flight_booking_controller_setter.dart';
 
 class FlightBookingController extends GetxController {
+
+  var isTravelStoriesLoading = false.obs;
+  var isRecommendedLoading = false.obs;
+  var isPopularDestinationsLoading = false.obs;
+  var travelStoriesPage = 1.obs;
+  var popularDestinationsPage = 1.obs;
+  var recommendedPage = 1.obs;
+
   var isModifySearchVisible = false.obs;
   var isFlightDestinationsLoading = false.obs;
   var isFlightSearchResponsesLoading = false.obs;
@@ -277,6 +285,39 @@ class FlightBookingController extends GetxController {
   }
 
 
+
+  Future<void> getRecommendedForyou() async {
+
+    recommendedPage.value = recommendedPage.value+1;
+    isRecommendedLoading.value = true;
+
+    List<RecommendedPackage> tRecommendedPackages = await flightBookingHttpService.getRecommended(recommendedPage.value);
+    recommendedPackages.value = tRecommendedPackages;
+
+    isRecommendedLoading.value = false;
+  }
+
+  Future<void> getTravelStories() async {
+
+    travelStoriesPage.value = travelStoriesPage.value+1;
+    isTravelStoriesLoading.value = true;
+
+    List<TravelStory> tTravelStories = await flightBookingHttpService.getTravelStories(travelStoriesPage.value);
+    travelStories.value = tTravelStories;
+
+    isTravelStoriesLoading.value = false;
+  }
+
+  Future<void> getPopularPackages() async {
+
+    popularDestinationsPage.value = popularDestinationsPage.value+1;
+    isPopularDestinationsLoading.value  = true;
+
+    List<PopularDestination> tPopularDestinations = await flightBookingHttpService.getPopularDestinations(travelStoriesPage.value);
+    popularDestinations.value = tPopularDestinations;
+
+    isPopularDestinationsLoading.value = false;
+  }
 
 
 }

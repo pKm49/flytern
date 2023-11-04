@@ -17,6 +17,9 @@
 
   //landing page
   const String Approute_landingpage = '/landing-page';
+  const String Approute_alltravelstories = '/all-travel-stories';
+  const String Approute_allpopulardestinations = '/all-popular-destinations';
+  const String Approute_allrecommendedpackages = '/all-recommended-packages';
 
   //flights booking
   const String Approute_flightsSearchResult = '/flights-search-result';

@@ -9,6 +9,9 @@ import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booki
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_details_page.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/auth_selector.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/login.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/pages/explore_section/all_popular_destinations_page.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/pages/explore_section/all_recommended_items_page.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/pages/explore_section/all_travel_stories_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_more_options_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_userdetails_submission_page.dart';
 import 'package:flytern/feature-modules/package_booking/ui/pages/package_booking_confirmation_page.dart';
@@ -93,6 +96,24 @@ getAppRoutes() => [
       GetPage(
         name: Approute_landingpage,
         page: () => const CoreLandingPage(),
+        middlewares: [MyMiddelware()],
+      ),
+
+      GetPage(
+        name: Approute_allpopulardestinations,
+        page: () => const AllPopularDestinationsPage(),
+        middlewares: [MyMiddelware()],
+      ),
+
+      GetPage(
+        name: Approute_allrecommendedpackages,
+        page: () => const AllRecommendedItemsPage(),
+        middlewares: [MyMiddelware()],
+      ),
+
+      GetPage(
+        name: Approute_alltravelstories,
+        page: () => const AllTravellStoriesPage(),
         middlewares: [MyMiddelware()],
       ),
 

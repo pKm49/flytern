@@ -8,8 +8,11 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_response.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_result.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_traveller_data.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/popular_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/range_dcs.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/recommended_package.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/sorting_dcs.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/travel_story.dart';
 import 'package:flytern/shared/data/constants/app_specific/shared_http_request_endpoints.dart';
 import 'package:flytern/shared/data/models/app_specific/flytern_http_response.dart';
 import 'package:flytern/shared/data/models/app_specific/set_device_info_request_body.dart';
@@ -250,4 +253,62 @@ class FlightBookingHttpService {
   }
 
 
+  Future<List<RecommendedPackage>> getRecommended(int pageId) async {
+    FlyternHttpResponse response =
+    await getRequest(FlightBookingHttpRequestEndpointGetViewAllRecommeded,
+        {"pageid":pageId.toString()});
+    List<RecommendedPackage>  recommendedPackages = [];
+    if (response.success) {
+      if (response.data != null) {
+        if (response.data["records"] != null) {
+
+          response.data["records"].forEach((element) {
+            recommendedPackages.add(mapRecommendedPackage(element));
+          });
+          return recommendedPackages;
+        }
+      }
+    }
+
+    return [];
+  }
+
+  Future<List<TravelStory>> getTravelStories(int pageId) async {
+    FlyternHttpResponse response =
+    await getRequest(FlightBookingHttpRequestEndpointGetViewAllRecommeded,
+        {"pageid":pageId.toString()});
+    List<TravelStory>  travelStories = [];
+    if (response.success) {
+      if (response.data != null) {
+        if (response.data["records"] != null) {
+
+          response.data["records"].forEach((element) {
+            travelStories.add(mapTravelStory(element));
+          });
+          return travelStories;
+        }
+      }
+    }
+
+    return [];
+  }
+
+  Future<List<PopularDestination>> getPopularDestinations(int pageId) async {
+    FlyternHttpResponse response =
+    await getRequest(FlightBookingHttpRequestEndpointGetViewAllRecommeded,
+        {"pageid":pageId.toString()});
+    List<PopularDestination>  popularDestination = [];
+    if (response.success) {
+      if (response.data != null) {
+        if (response.data["records"] != null) {
+          response.data["records"].forEach((element) {
+            popularDestination.add(mapPopularDestination(element));
+          });
+          return popularDestination;
+        }
+      }
+    }
+
+    return [];
+  }
 }
