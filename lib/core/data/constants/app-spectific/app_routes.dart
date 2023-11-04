@@ -10,6 +10,7 @@ import 'package:flytern/feature-modules/auth/ui/pages/auth_selector.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/login.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_more_options_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_userdetails_submission_page.dart';
+import 'package:flytern/feature-modules/package_booking/ui/pages/package_booking_confirmation_page.dart';
 import 'package:flytern/shared/ui/pages/otp_input.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/register/register_details_input.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_credentials.dart';
@@ -197,8 +198,8 @@ getAppRoutes() => [
       ),
 
       GetPage(
-        name: Approute_packagesUserDetailsSubmission,
-        page: () => const PackageUserDetailsSubmissionPage(),
+        name: Approute_packagesConfirmation,
+        page: () => const PackageBookingConfirmationPage(),
         middlewares: [MyMiddelware()],
       ),
 

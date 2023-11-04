@@ -38,7 +38,7 @@
 
   //packages enquiry
   const String Approute_packagesDetails = '/packages-details';
-  const String Approute_packagesUserDetailsSubmission = '/packages-userdetails-submission';
+  const String Approute_packagesConfirmation = '/packages-confirmation';
 
   //activities booking
   const String Approute_activitiesDetails = '/activities-details';

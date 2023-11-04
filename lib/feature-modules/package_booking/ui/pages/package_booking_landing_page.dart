@@ -47,6 +47,11 @@ class _PackageBookingLandingPageState extends State<PackageBookingLandingPage> {
                   titleText: "select_destination".tr,
                   selected: packageBookingController.countryisocode.value,
                   items: [
+
+                    GeneralItem(
+                        id: "ALL",
+                        name: "all".tr,
+                        imageUrl:  ""),
                     for (var i = 0;
                         i < packageBookingController.destinations.value.length;
                         i++)

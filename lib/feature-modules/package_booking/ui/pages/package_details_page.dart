@@ -306,7 +306,7 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
     );
   }
 
-  void openContactDetailsGetterBottomSheet( ) {
+  void openContactDetailsGetterBottomSheet() {
     showModalBottomSheet(
         useSafeArea: false,
         shape:   RoundedRectangleBorder(
@@ -316,7 +316,7 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
         isScrollControlled: true,
         context: context,
         builder: (context) {
-          return ContactDetailsGetter(route: Approute_packagesUserDetailsSubmission);
+          return ContactDetailsGetter(route: Approute_packagesConfirmation);
         });
   }
 
