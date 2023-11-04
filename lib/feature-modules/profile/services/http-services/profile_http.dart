@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flytern/feature-modules/profile/data/constants/app-specific/profile_http_request_endpoints.dart';
+import 'package:flytern/feature-modules/profile/data/models/business-models/my_booking_response.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/user-copax.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/user-travelstory.dart';
 import 'package:flytern/shared/data/models/app_specific/flytern_http_response.dart';
@@ -102,7 +103,6 @@ class ProfileHttpServices{
     }
 
   }
-
 
   getUserDetails() async {
 
@@ -226,6 +226,24 @@ class ProfileHttpServices{
     }
 
     return [];
+
+  }
+
+  Future<MyBookingResponse> getMyBookings(int pageId,String servicetype) async {
+    FlyternHttpResponse response = await getRequest(ProfileHttpRequestEndpointGetUserBookings,
+        {
+          "pageid":pageId.toString(),
+          "servicetype":servicetype,
+        });
+
+    if(response.success){
+      if(response.data != null){
+        MyBookingResponse myBookingResponse = mapMyBookingResponse(response.data);
+        return myBookingResponse;
+      }
+    }
+
+    return mapMyBookingResponse({});
 
   }
 }

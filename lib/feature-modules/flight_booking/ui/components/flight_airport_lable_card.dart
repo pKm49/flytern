@@ -33,7 +33,7 @@ class FlightAirportLabelCard extends StatelessWidget {
             style: getHeadlineLargeStyle(context)
                 .copyWith(fontSize: flyternFontSize24 * 1.5)),
         addVerticalSpace(flyternSpaceExtraSmall),
-        Text(bottomLabel),
+        Text(bottomLabel,maxLines: 2),
       ],
     );
   }

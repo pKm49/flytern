@@ -1,0 +1,1 @@
+enum BookingCategory { FLIGHT, HOTEL, INSURANCE, PACKAGE, ACTIVITY }

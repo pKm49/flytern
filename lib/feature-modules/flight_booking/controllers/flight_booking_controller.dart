@@ -268,6 +268,8 @@ class FlightBookingController extends GetxController {
       isFlightTravellerDataSaveLoading.value = false;
       if (tempBookingRef != "") {
         bookingRef.value = tempBookingRef;
+        Get.toNamed(Approute_flightsSummary);
+
       } else {
         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
       }

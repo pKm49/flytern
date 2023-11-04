@@ -39,6 +39,7 @@ class _FlightUserDetailsSubmissionPageState
   String mobileCntry = "";
   String mobileNumber = "";
   String email = "";
+  int tabLength = 0;
 
   @override
   void initState() {
@@ -65,7 +66,7 @@ class _FlightUserDetailsSubmissionPageState
     double screenheight = MediaQuery.of(context).size.height;
 
     return Obx(
-        ()=> Scaffold(
+      () => Scaffold(
         appBar: AppBar(
           title: Text("submit_traveller_details".tr),
           elevation: .3,
@@ -106,87 +107,92 @@ class _FlightUserDetailsSubmissionPageState
                   child: TabBarView(
                 controller: tabController,
                 children: [
-                  ListView.builder(
-                    itemBuilder: (context, index) {
-                      return Container(
-                        padding: flyternLargePaddingHorizontal,
-                        color: flyternBackgroundWhite,
-                        child: ExpansionTile(
-                          maintainState: true,
-                          initiallyExpanded: index == 0,
-                          tilePadding: EdgeInsets.zero,
-                          controller: adultExpansionControllers[index],
-                          title: Text("${'adult'.tr} ${index + 1}"),
-                          children: <Widget>[
-                            FlightUserDetailsSubmissionForm(
-                              index: getIndex(0, index),
-                              itemTypeIndex: 0,
-                              flightBookingController: flightBookingController,
-                              dataSubmitted: (TravelInfo travelInfo) {
-                                updateTravellerInfor(
-                                    getIndex(0, index), travelInfo);
-                              },
-                            )
-                          ],
-                        ),
-                      );
-                    },
-                    itemCount: adultExpansionControllers.length,
-                  ),
-                  ListView.builder(
-                    itemBuilder: (context, index) {
-                      return Container(
-                        padding: flyternLargePaddingHorizontal,
-                        color: flyternBackgroundWhite,
-                        child: ExpansionTile(
-                          maintainState: true,
-                          initiallyExpanded: index == 0,
-                          tilePadding: EdgeInsets.zero,
-                          controller: childExpansionControllers[index],
-                          title: Text("${'child'.tr} ${index + 1}"),
-                          children: <Widget>[
-                            FlightUserDetailsSubmissionForm(
-                              index: getIndex(1, index),
-                              itemTypeIndex: 1,
-                              flightBookingController: flightBookingController,
-                              dataSubmitted: (TravelInfo travelInfo) {
-                                updateTravellerInfor(
-                                    getIndex(1, index), travelInfo);
-                              },
-                            )
-                          ],
-                        ),
-                      );
-                    },
-                    itemCount: adultExpansionControllers.length,
-                  ),
-                  ListView.builder(
-                    itemBuilder: (context, index) {
-                      return Container(
-                        padding: flyternLargePaddingHorizontal,
-                        color: flyternBackgroundWhite,
-                        child: ExpansionTile(
-                          maintainState: true,
-                          initiallyExpanded: index == 0,
-                          tilePadding: EdgeInsets.zero,
-                          controller: infantExpansionControllers[index],
-                          title: Text("${'infant'.tr} ${index + 1}"),
-                          children: <Widget>[
-                            FlightUserDetailsSubmissionForm(
-                              index: getIndex(2, index),
-                              itemTypeIndex: 2,
-                              flightBookingController: flightBookingController,
-                              dataSubmitted: (TravelInfo travelInfo) {
-                                updateTravellerInfor(
-                                    getIndex(2, index), travelInfo);
-                              },
-                            )
-                          ],
-                        ),
-                      );
-                    },
-                    itemCount: infantExpansionControllers.length,
-                  ),
+                  for (var i = 0; i < tabLength; i++)
+                    ListView.builder(
+                      itemBuilder: (context, index) {
+                        return i == 0
+                            ? Container(
+                                padding: flyternLargePaddingHorizontal,
+                                color: flyternBackgroundWhite,
+                                child: ExpansionTile(
+                                  maintainState: true,
+                                  initiallyExpanded: index == 0,
+                                  tilePadding: EdgeInsets.zero,
+                                  controller: adultExpansionControllers[index],
+                                  title: Text("${'adult'.tr} ${index + 1}"),
+                                  children: <Widget>[
+                                    FlightUserDetailsSubmissionForm(
+                                      index: getIndex(0, index),
+                                      itemTypeIndex: 0,
+                                      flightBookingController:
+                                          flightBookingController,
+                                      dataSubmitted: (TravelInfo travelInfo) {
+                                        updateTravellerInfor(
+                                            getIndex(0, index), travelInfo);
+                                      },
+                                    )
+                                  ],
+                                ),
+                              )
+                            : i == 1
+                                ? Container(
+                                    padding: flyternLargePaddingHorizontal,
+                                    color: flyternBackgroundWhite,
+                                    child: ExpansionTile(
+                                      maintainState: true,
+                                      initiallyExpanded: index == 0,
+                                      tilePadding: EdgeInsets.zero,
+                                      controller:
+                                          childExpansionControllers[index],
+                                      title: Text("${'child'.tr} ${index + 1}"),
+                                      children: <Widget>[
+                                        FlightUserDetailsSubmissionForm(
+                                          index: getIndex(1, index),
+                                          itemTypeIndex: 1,
+                                          flightBookingController:
+                                              flightBookingController,
+                                          dataSubmitted:
+                                              (TravelInfo travelInfo) {
+                                            updateTravellerInfor(
+                                                getIndex(1, index), travelInfo);
+                                          },
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                : Container(
+                                    padding: flyternLargePaddingHorizontal,
+                                    color: flyternBackgroundWhite,
+                                    child: ExpansionTile(
+                                      maintainState: true,
+                                      initiallyExpanded: index == 0,
+                                      tilePadding: EdgeInsets.zero,
+                                      controller:
+                                          infantExpansionControllers[index],
+                                      title:
+                                          Text("${'infant'.tr} ${index + 1}"),
+                                      children: <Widget>[
+                                        FlightUserDetailsSubmissionForm(
+                                          index: getIndex(2, index),
+                                          itemTypeIndex: 2,
+                                          flightBookingController:
+                                              flightBookingController,
+                                          dataSubmitted:
+                                              (TravelInfo travelInfo) {
+                                            updateTravellerInfor(
+                                                getIndex(2, index), travelInfo);
+                                          },
+                                        )
+                                      ],
+                                    ),
+                                  );
+                      },
+                      itemCount: i == 0
+                          ? adultExpansionControllers.length
+                          : i == 1
+                              ? childExpansionControllers.length
+                              : infantExpansionControllers.length,
+                    ),
                 ],
               )),
               addVerticalSpace(flyternSpaceLarge * 4)
@@ -247,7 +253,6 @@ class _FlightUserDetailsSubmissionPageState
     print(flightBookingController.flightPretravellerData.value.child);
     print(flightBookingController.flightPretravellerData.value.infant);
     flightBookingController.saveContactInfo(mobileCntry, mobileNumber, email);
-    int tabLength = 0;
 
     int total = flightBookingController.flightPretravellerData.value.adult +
         flightBookingController.flightPretravellerData.value.child +

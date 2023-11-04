@@ -6,6 +6,12 @@ import 'package:flytern/core/controllers/core_controller.dart';
 import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
 import 'package:flytern/feature-modules/profile/controllers/copax_controller.dart';
 import 'package:flytern/feature-modules/profile/controllers/travel_story_controller.dart';
+import 'package:flytern/feature-modules/profile/data/enums/booking_categories.dart';
+import 'package:flytern/feature-modules/profile/data/models/business-models/my_booking_response.dart';
+import 'package:flytern/feature-modules/profile/data/models/business-models/my_flight_booking.dart';
+import 'package:flytern/feature-modules/profile/data/models/business-models/my_hotel_booking.dart';
+import 'package:flytern/feature-modules/profile/data/models/business-models/my_insurance_booking.dart';
+import 'package:flytern/feature-modules/profile/data/models/business-models/my_package_booking.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/user-copax.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/user-travelstory.dart';
 import 'package:flytern/feature-modules/profile/services/http-services/profile_http.dart';
@@ -55,6 +61,7 @@ class ProfileController extends GetxController {
   var gender = "Male".obs;
   var nationalityCode = "".obs;
   var passportIssuedCountryCode = "".obs;
+  var isMyBookingsLoading = false.obs;
   var isProfileSubmitting = false.obs;
   var isPasswordSubmitting = false.obs;
   var isEmailSubmitting = false.obs;
@@ -64,7 +71,7 @@ class ProfileController extends GetxController {
   var isGuest = true.obs;
   var isProfileDataLoading = true.obs;
   var userDetails = UserDetails(
-      isGuest : true,
+      isGuest: true,
       gender: "",
       firstName: "",
       lastName: "",
@@ -84,6 +91,16 @@ class ProfileController extends GetxController {
   final coPaxController = Get.put(CoPaxController());
   final travelStoryController = Get.put(TravelStoryController());
   var profileHttpServices = ProfileHttpServices();
+
+  var myFlightBookingResponse = <MyFlightBooking>[].obs;
+  var myHotelBookingResponse = <MyHotelBooking>[].obs;
+  var myInsuranceBookingResponse = <MyInsuranceBooking>[].obs;
+  var myPackageBookingResponse = <MyPackageBooking>[].obs;
+  var myActivityBookingResponse = <dynamic>[].obs;
+  var totalPages = 1.obs;
+  var currentPage = 1.obs;
+  var pageSize = 10.obs;
+  var currentService = BookingCategory.FLIGHT.obs;
 
   @override
   void onInit() {
@@ -166,7 +183,7 @@ class ProfileController extends GetxController {
     isProfileSubmitting.value = true;
     try {
       UserDetails userDetails = UserDetails(
-          isGuest:false,
+          isGuest: false,
           gender: gender.value,
           firstName: firsNameController.value.text,
           lastName: lastNameController.value.text,
@@ -193,7 +210,7 @@ class ProfileController extends GetxController {
         isProfileSubmitting.value = false;
         print("user update completed 1");
 
-        showSnackbar(Get.context!,"profile_updated".tr, "info");
+        showSnackbar(Get.context!, "profile_updated".tr, "info");
         print("user update completed 2");
 
         print("user update completed 3");
@@ -202,7 +219,7 @@ class ProfileController extends GetxController {
       }
     } catch (e) {
       print("user update failed");
-      showSnackbar(Get.context!,e.toString(), "error");
+      showSnackbar(Get.context!, e.toString(), "error");
       isProfileSubmitting.value = false;
     }
   }
@@ -231,17 +248,17 @@ class ProfileController extends GetxController {
                 : Approute_profileEditEmailOTP,
             arguments: [
               isMobile ? Approute_profileEditMobile : Approute_profileEditEmail,
-              isMobile ?"${selectedCountry.value.code} ${mobileController.value.text}":
-              "${emailController.value.text}",
+              isMobile
+                  ? "${selectedCountry.value.code} ${mobileController.value.text}"
+                  : "${emailController.value.text}",
               userId
             ])?.then((value) async {
-              if(value is AuthToken){
-
-                showSnackbar(Get.context!,isMobile?"mobile_updated".tr:
-                    "email_updated", "info");
-                final coreController = Get.find<CoreController>();
-                coreController.handleLogout();
-              }
+          if (value is AuthToken) {
+            showSnackbar(Get.context!,
+                isMobile ? "mobile_updated".tr : "email_updated", "info");
+            final coreController = Get.find<CoreController>();
+            coreController.handleLogout();
+          }
           print("value");
           print(value.toString());
         });
@@ -251,10 +268,10 @@ class ProfileController extends GetxController {
           isEmailSubmitting.value = false;
         }
       }
-    } catch (e,stackk) {
+    } catch (e, stackk) {
       print("user update failed");
       print(stackk);
-      showSnackbar(Get.context!,e.toString(), "error");
+      showSnackbar(Get.context!, e.toString(), "error");
       if (isMobile) {
         isMobileSubmitting.value = false;
       } else {
@@ -271,13 +288,13 @@ class ProfileController extends GetxController {
 
       if (isSuccess) {
         isPasswordSubmitting.value = false;
-        showSnackbar(Get.context!,"password_updated".tr, "info");
+        showSnackbar(Get.context!, "password_updated".tr, "info");
         final coreController = Get.find<CoreController>();
         coreController.handleLogout();
       }
     } catch (e) {
       print("user update failed");
-      showSnackbar(Get.context!,e.toString(), "error");
+      showSnackbar(Get.context!, e.toString(), "error");
       isPasswordSubmitting.value = false;
     }
   }
@@ -315,5 +332,41 @@ class ProfileController extends GetxController {
   String getFormattedDate(DateTime dateTime) {
     final f = DateFormat('dd-MM-yyyy');
     return f.format(dateTime);
+  }
+
+  Future<void> getMyBookings(int pageId, BookingCategory servicetype) async {
+    currentPage.value = 1;
+    currentService.value = servicetype;
+    isMyBookingsLoading.value = true;
+    MyBookingResponse myBookingResponse =
+        await profileHttpServices.getMyBookings(pageId, servicetype.name);
+    totalPages.value = myBookingResponse.totalPages;
+    pageSize.value = myBookingResponse.pageSize;
+    switch (servicetype){
+      case BookingCategory.FLIGHT:{
+        myFlightBookingResponse.value = myBookingResponse.myFlightBookingResponse;
+        break;
+      }
+      case BookingCategory.HOTEL:{
+        myHotelBookingResponse.value = myBookingResponse.myHotelBookingResponse;
+        break;
+      }
+      case  BookingCategory.INSURANCE:{
+        myInsuranceBookingResponse.value =
+            myBookingResponse.myInsuranceBookingResponse;
+        break;
+      }
+      case BookingCategory.PACKAGE:{
+        myPackageBookingResponse.value = myBookingResponse.myPackageBookingResponse;
+        break;
+      }
+      case BookingCategory.ACTIVITY:{
+        myActivityBookingResponse.value =
+            myBookingResponse.myActivityBookingResponse;
+        break;
+      }
+    }
+
+    isMyBookingsLoading.value = false;
   }
 }
