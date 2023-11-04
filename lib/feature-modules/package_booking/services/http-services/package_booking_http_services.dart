@@ -7,9 +7,12 @@ import 'package:flytern/shared/services/http-services/http_request_handler.dart'
 
 class PackageBookingHttpService {
 
-  Future<PackageResponse?> getPackages() async {
+  Future<PackageResponse?> getPackages(int pageid, String countryisocode) async {
     FlyternHttpResponse response =
-    await getRequest(PackageBookingHttpRequestEndpointGetPackages, null);
+    await getRequest(PackageBookingHttpRequestEndpointGetPackages, {
+      "pageid":pageid,
+      "countryisocode":countryisocode
+    });
 
     if (response.success) {
       if (response.data != null) {

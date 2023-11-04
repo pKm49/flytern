@@ -17,6 +17,8 @@ class PackageBookingController extends GetxController {
   var packages = <PackageData>[].obs;
   var destinations = <Country>[].obs;
   var packageDetails = getDefaultPackageDetails().obs;
+  var pageId = 1.obs;
+  var countryisocode = "ALL".obs;
 
   @override
   void onInit() {
@@ -25,16 +27,23 @@ class PackageBookingController extends GetxController {
   }
 
   Future<void> getInitialInfo() async {
-    PackageResponse? packageResponse = await packageBookingHttpService.getPackages();
-    print("getInitialInfo completed");
-    print(packageResponse != null);
+    getPackages(1,"ALL");
+  }
+
+  Future<void> getPackages(int newPageId, String newCountryisocode) async {
+    isInitialDataLoading.value = true;
+
+    pageId.value = newPageId;
+    countryisocode.value = newCountryisocode;
+
+    PackageResponse? packageResponse = await packageBookingHttpService.getPackages(newPageId,newCountryisocode);
+
     if (packageResponse != null) {
       packages.value = packageResponse.packages;
-      destinations.value = packageResponse.destinations;
+      if(newCountryisocode == "ALL"){
+        destinations.value = packageResponse.destinations;
+      }
     }
-    print(destinations.value[0].countryName);
-    print(destinations.value[0].flag);
-    print(destinations.value[0].countryISOCode);
     isInitialDataLoading.value = false;
   }
 

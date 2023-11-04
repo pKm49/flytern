@@ -45,7 +45,7 @@ class _PackageBookingLandingPageState extends State<PackageBookingLandingPage> {
                 ),
                 child: DropDownSelector(
                   titleText: "select_destination".tr,
-                  selected: null,
+                  selected: packageBookingController.countryisocode.value,
                   items: [
                     for (var i = 0;
                         i < packageBookingController.destinations.value.length;
@@ -59,7 +59,9 @@ class _PackageBookingLandingPageState extends State<PackageBookingLandingPage> {
                               .destinations.value[i].flag),
                   ],
                   hintText: "select_destination".tr,
-                  valueChanged: (newZone) {},
+                  valueChanged: (newZone) {
+                    packageBookingController.getPackages(1, newZone);
+                  },
                 )),
             Visibility(
               visible: !packageBookingController.isInitialDataLoading.value,
