@@ -1,3 +1,4 @@
+import 'package:flytern/core/ui/pages/drawer_pages/document_page.dart';
 import 'package:flytern/core/ui/pages/drawer_pages/info_page.dart';
 import 'package:flytern/core/ui/pages/landing_page.dart';
 import 'package:flytern/core/ui/pages/language_selector.dart';
@@ -306,6 +307,11 @@ getAppRoutes() => [
       GetPage(
         name: Approute_coreAppInfo,
         page: () => const CoreInfoPage(),
+        middlewares: [MyMiddelware()],
+      ),
+      GetPage(
+        name: Approute_coreInfoDoc,
+        page: () => const DocumentPage(),
         middlewares: [MyMiddelware()],
       ),
 

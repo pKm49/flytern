@@ -4,6 +4,7 @@ import 'package:flytern/shared/data/models/app_specific/set_device_info_request_
 import 'package:flytern/shared/data/models/business_models/auth_token.dart';
 import 'package:flytern/shared/data/models/business_models/business_doc.dart';
 import 'package:flytern/shared/data/models/business_models/general_item.dart';
+import 'package:flytern/shared/data/models/business_models/info_response_data.dart';
 import 'package:flytern/shared/data/models/business_models/language.dart';
 import 'package:flytern/shared/data/models/business_models/support_info.dart';
 import 'package:flytern/shared/services/http-services/http_request_handler.dart';
@@ -37,6 +38,25 @@ class SharedHttpService {
 
     return null;
   }
+
+  Future<InfoResponseData> getInfo(String type ) async {
+    FlyternHttpResponse response = await getRequest(
+        SharedHttpRequestEndpointGetBusinessInfo, {"type":type});
+
+    if(response.success && response.statusCode==200){
+      if(response.data != null){
+        if(response.data["information"] != null){
+          if(response.data["information"][0] != null){
+            InfoResponseData infoResponseData = mapInfoResponseData(response.data["information"][0]);
+            return infoResponseData;
+          }
+        }
+      }
+    }
+
+    return mapInfoResponseData({});
+  }
+
 
   setDeviceInfo(SetDeviceInfoRequestBody setDeviceInfoRequestBody ) async {
 

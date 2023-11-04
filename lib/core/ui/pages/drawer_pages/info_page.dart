@@ -1,14 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flytern/shared/controllers/shared_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/data/enums/info_types.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/confirm_dialogue.dart';
 import 'package:flytern/shared/ui/components/preposticon_button.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CoreInfoPage extends StatefulWidget {
   const CoreInfoPage({super.key});
@@ -18,6 +22,16 @@ class CoreInfoPage extends StatefulWidget {
 }
 
 class _CoreInfoPageState extends State<CoreInfoPage> {
+  final sharedController = Get.find<SharedController>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("initstate info");
+    sharedController.getBusinessInfo(InfoType.SOCIAL);
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -28,137 +42,199 @@ class _CoreInfoPageState extends State<CoreInfoPage> {
         title: Text("info".tr),
         elevation: 0.5,
       ),
-      body: Container(
-        height: screenheight,
-        color: flyternBackgroundWhite,
-        child: Column(
+      body: Obx(
+        ()=> Stack(
           children: [
-            Expanded(
-              child: ListView(
-                children: [
-                  Container(
-                    width: screenwidth  ,
-                    padding: flyternLargePaddingAll,
-                    height: flyternSpaceLarge,
-                    decoration: BoxDecoration(
-                      color: flyternGrey10,
-                    ),
-                  ),
-                  addVerticalSpace(flyternSpaceSmall),
+            Visibility(
+                visible:
+                sharedController.isInfoLoading.value,
+                child: Container(
+                  width: screenwidth,
+                  height: screenheight * .9,
+                  color: flyternGrey10,
+                  child: Center(
+                      child: LoadingAnimationWidget.prograssiveDots(
+                        color: flyternSecondaryColor,
+                        size: 50,
+                      )),
+                )),
+            Visibility(
+              visible:  !sharedController.isInfoLoading.value,
 
-                  Padding(
-                    padding: flyternLargePaddingHorizontal,
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: PrePostIconButton(
-                        specialColor:0,
-                        onPressed: (){
-                        },
-                        theme: 'dark',
-                        border: 'bottom',
-                        buttonTitle: "about_us".tr,
-                        preIconData: Ionicons.information_circle_outline,
-                        postIconData: Ionicons.chevron_forward,
-                      ),
-                    ),
-                  ),
-
-
-                  addVerticalSpace(flyternSpaceSmall),
-                  Padding(
-                    padding: flyternLargePaddingHorizontal,
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: PrePostIconButton(
-                        specialColor:0,
-                        onPressed: (){
-                        },
-                        theme: 'dark',
-                        border: 'bottom',
-                        buttonTitle: "contact_us".tr,
-                        preIconData: Ionicons.call_outline,
-                        postIconData: Ionicons.chevron_forward,
-                      ),
-                    ),
-                  ),
-                  addVerticalSpace(flyternSpaceSmall),
-
-                  Padding(
-                    padding: flyternLargePaddingHorizontal,
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: PrePostIconButton(
-                        specialColor:0,
-                        onPressed: (){
-                        },
-                        theme: 'dark',
-                        border: 'bottom',
-                        buttonTitle: "terms_n_conditions".tr,
-                        preIconData: Ionicons.document_outline,
-                        postIconData: Ionicons.chevron_forward,
-                      ),
-                    ),
-                  ),
-                  addVerticalSpace(flyternSpaceSmall),
-
-                  Padding(
-                    padding: flyternLargePaddingHorizontal,
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: PrePostIconButton(
-                        specialColor:0,
-                        onPressed: (){
-                        },
-                        theme: 'dark',
-                        border: 'bottom',
-                        buttonTitle: "privacy_policy".tr,
-                        preIconData: Ionicons.lock_closed_outline,
-                        postIconData: Ionicons.chevron_forward,
-                      ),
-                    ),
-                  ),
-                  addVerticalSpace(flyternSpaceLarge),
-
-                  Padding(
-                      padding: flyternLargePaddingHorizontal,
-                      child: Row(
+              child: Container(
+                height: screenheight,
+                color: flyternBackgroundWhite,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: ListView(
                         children: [
-                          Expanded(child: Text("social_account".tr,style: getBodyMediumStyle(context))),
-                          Icon(Ionicons.logo_facebook,color: flyternGrey60,),
-                          addHorizontalSpace(flyternSpaceSmall),
-                          Icon(Ionicons.logo_twitter,color: flyternGrey60),
-                          addHorizontalSpace(flyternSpaceSmall),
-                          Icon(Ionicons.logo_instagram,color: flyternGrey60),
-                        ],
-                      )
-                  ),
+                          Container(
+                            width: screenwidth,
+                            padding: flyternLargePaddingAll,
+                            height: flyternSpaceLarge,
+                            decoration: BoxDecoration(
+                              color: flyternGrey10,
+                            ),
+                          ),
+                          addVerticalSpace(flyternSpaceSmall),
+                          Padding(
+                            padding: flyternLargePaddingHorizontal,
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: PrePostIconButton(
+                                specialColor: 0,
+                                onPressed: () {
+                                  sharedController.getBusinessInfo(InfoType.ABOUTUS);
+                                },
+                                theme: 'dark',
+                                border: 'bottom',
+                                buttonTitle: "about_us".tr,
+                                preIconData: Ionicons.information_circle_outline,
+                                postIconData: Ionicons.chevron_forward,
+                              ),
+                            ),
+                          ),
+                          addVerticalSpace(flyternSpaceSmall),
+                          Padding(
+                            padding: flyternLargePaddingHorizontal,
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: PrePostIconButton(
+                                specialColor: 0,
+                                onPressed: () {
+                                  sharedController.getBusinessInfo(InfoType.CONTACTUS);
 
-                ],
+                                },
+                                theme: 'dark',
+                                border: 'bottom',
+                                buttonTitle: "contact_us".tr,
+                                preIconData: Ionicons.call_outline,
+                                postIconData: Ionicons.chevron_forward,
+                              ),
+                            ),
+                          ),
+                          addVerticalSpace(flyternSpaceSmall),
+                          Padding(
+                            padding: flyternLargePaddingHorizontal,
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: PrePostIconButton(
+                                specialColor: 0,
+                                onPressed: () {
+                                  sharedController.getBusinessInfo(InfoType.TERMS);
+
+                                },
+                                theme: 'dark',
+                                border: 'bottom',
+                                buttonTitle: "terms_n_conditions".tr,
+                                preIconData: Ionicons.document_outline,
+                                postIconData: Ionicons.chevron_forward,
+                              ),
+                            ),
+                          ),
+                          addVerticalSpace(flyternSpaceSmall),
+                          Padding(
+                            padding: flyternLargePaddingHorizontal,
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: PrePostIconButton(
+                                specialColor: 0,
+                                onPressed: () {
+                                  sharedController.getBusinessInfo(InfoType.PRIVACY);
+
+                                },
+                                theme: 'dark',
+                                border: 'bottom',
+                                buttonTitle: "privacy_policy".tr,
+                                preIconData: Ionicons.lock_closed_outline,
+                                postIconData: Ionicons.chevron_forward,
+                              ),
+                            ),
+                          ),
+                          addVerticalSpace(flyternSpaceLarge),
+                          Visibility(
+                            visible: sharedController.twitterLink.value != "" ||
+                                sharedController.facebookLink.value != "" ||
+                                sharedController.instagramLink.value != "",
+                            child: Padding(
+                                padding: flyternLargePaddingHorizontal,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: Text("social_account".tr,
+                                            style: getBodyMediumStyle(context))),
+                                    Visibility(
+                                        visible:
+                                            sharedController.facebookLink.value != "",
+                                        child: InkWell(
+                                          onTap: (){
+                                            _launchUrl(sharedController.facebookLink.value);
+                                          },
+                                          child: const Icon(
+                                            Ionicons.logo_facebook,
+                                            color: flyternGrey60, size: flyternFontSize24*1.4
+                                          ),
+                                        )),
+                                    Visibility(
+                                        visible:
+                                            sharedController.twitterLink.value != "",
+                                        child: addHorizontalSpace(flyternSpaceMedium)),
+                                    Visibility(
+                                        visible:
+                                            sharedController.twitterLink.value != "",
+                                        child: InkWell(
+                                          onTap: (){
+                                            _launchUrl(sharedController.twitterLink.value);
+                                          },
+                                          child: Icon(Ionicons.logo_twitter,
+                                              color: flyternGrey60,size: flyternFontSize24*1.4),
+                                        )),
+                                    Visibility(
+                                        visible:
+                                            sharedController.instagramLink.value != "",
+                                        child: addHorizontalSpace(flyternSpaceMedium)),
+                                    Visibility(
+                                        visible:
+                                            sharedController.instagramLink.value != "",
+                                        child: InkWell(
+                                          onTap: (){
+                                            _launchUrl(sharedController.instagramLink.value);
+                                          },
+                                          child: Icon(Ionicons.logo_instagram,
+                                              color: flyternGrey60,size: flyternFontSize24*1.4),
+                                        )),
+                                  ],
+                                )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: flyternLargePaddingAll,
+                      child: Text(
+                        'app_version'.tr + " 1.0.0",
+                        textAlign: TextAlign.center,
+                        style: getBodyMediumStyle(context).copyWith(
+                          color: flyternPrimaryColor,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text('app_version'.tr + " 1.0.0",
-                textAlign: TextAlign.center,
-                style: getBodyMediumStyle(context).copyWith(  color: flyternPrimaryColor,
-                ),),
-            )
           ],
         ),
       ),
     );
   }
+  Future<void> _launchUrl(String urlString) async {
+    final Uri _url = Uri.parse(urlString);
 
-  showConfirmDialog() async {
-
-    showDialog(
-      context: context,
-      builder: (_) => ConfirmDialogue(
-          onClick:() async {
-            Get.offAllNamed(Approute_langaugeSelector);
-          },
-          titleKey: 'logout'.tr+" ?", subtitleKey: 'logout_confirm'.tr),
-    );
-
+    if (!await launchUrl(_url)) {
+      print('Could not launch $_url');
+    }
   }
+
 }
