@@ -5,9 +5,11 @@ import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart'
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/data/models/business_models/general_item.dart';
+import 'package:flytern/shared/services/utility-services/form_validator.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/contact_details_getter.dart';
+import 'package:flytern/shared/ui/components/custom_date_picker.dart';
 import 'package:flytern/shared/ui/components/dropdown_selector.dart';
 import 'package:flytern/shared/ui/components/selectable_text_pill.dart';
 import 'package:get/get.dart';
@@ -27,6 +29,7 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
   final insuranceBookingController = Get.put(InsuranceBookingController());
   final GlobalKey<FormState> policyPlanDropDownKey = GlobalKey<FormState>();
   final GlobalKey<FormState> policyTimeDropDownKey = GlobalKey<FormState>();
+
 
   @override
   void initState() {
@@ -237,40 +240,45 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
                                   fontWeight: flyternFontWeightBold)),
                         ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          openInsuranceFamilyMemberSelector();
-                        },
-                        child: Container(
-                          color: flyternBackgroundWhite,
-                          padding: flyternLargePaddingAll,
-                          child: Row(
-                            children: [
-                              Icon(Ionicons.person_outline,
-                                  color: flyternSecondaryColor, size: flyternFontSize20),
-                              addHorizontalSpace(flyternSpaceSmall * 1.5),
-                              Expanded(
-                                flex: 1,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'number_family_members'.tr,
-                                      style: getLabelLargeStyle(context).copyWith(
-                                          color: flyternGrey40, fontWeight: FontWeight.w400),
-                                    ),
-                                    addVerticalSpace(flyternSpaceExtraSmall * 1.5),
-                                    Text("${insuranceBookingController.spouse.value.toString()} ${'spouse'.tr}, "
-                                        "${insuranceBookingController.daughter.value.toString()} ${'daughter'.tr}, "
-                                        "${insuranceBookingController.son.value.toString()} ${'son'.tr}",
+                      Visibility(
+                        visible: insuranceBookingController
+                            .insurancePriceGetBody.value.policy_type ==
+                            "2",
+                        child: InkWell(
+                          onTap: () {
+                            openInsuranceFamilyMemberSelector();
+                          },
+                          child: Container(
+                            color: flyternBackgroundWhite,
+                            padding: flyternLargePaddingAll,
+                            child: Row(
+                              children: [
+                                Icon(Ionicons.person_outline,
+                                    color: flyternSecondaryColor, size: flyternFontSize20),
+                                addHorizontalSpace(flyternSpaceSmall * 1.5),
+                                Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'number_family_members'.tr,
                                         style: getLabelLargeStyle(context).copyWith(
-                                          color: flyternGrey80,
-                                        )),
-                                  ],
-                                ),
-                              )
-                            ],
+                                            color: flyternGrey40, fontWeight: FontWeight.w400),
+                                      ),
+                                      addVerticalSpace(flyternSpaceExtraSmall * 1.5),
+                                      Text("${insuranceBookingController.spouse.value.toString()} ${'spouse'.tr}, "
+                                          "${insuranceBookingController.daughter.value.toString()} ${'daughter'.tr}, "
+                                          "${insuranceBookingController.son.value.toString()} ${'son'.tr}",
+                                          style: getLabelLargeStyle(context).copyWith(
+                                            color: flyternGrey80,
+                                          )),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -341,52 +349,75 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
                       Container(
                         color: flyternBackgroundWhite,
                         padding: flyternLargePaddingAll,
-                        child: Container(
-                          decoration:
-                              flyternBorderedContainerSmallDecoration.copyWith(
-                                  color: flyternGrey10,
-                                  border: Border.all(
-                                      color: flyternGrey10, width: .2)),
-                          padding: flyternMediumPaddingHorizontal.copyWith(
-                              top: flyternSpaceExtraSmall,
-                              bottom: flyternSpaceExtraSmall),
-                          child: DropDownSelector(
-                            key: policyTimeDropDownKey,
-                            titleText: "policy_time".tr,
-                            selected: insuranceBookingController
-                                .insurancePriceGetBody.value.policyperiod,
-                            items: [
-                              GeneralItem(
-                                  imageUrl: "",
-                                  id: "0",
-                                  name: "select_policy_period".tr),
-                              for (var i = 0;
-                                  i <
-                                      insuranceBookingController
-                                          .insuranceInitialData
-                                          .value
-                                          .lstPolicyPeriod
-                                          .length;
-                                  i++)
-                                GeneralItem(
-                                    imageUrl: "",
-                                    id: insuranceBookingController
-                                        .insuranceInitialData
-                                        .value
-                                        .lstPolicyPeriod[i]
-                                        .id
-                                        .toString(),
-                                    name:
-                                        "${insuranceBookingController.insuranceInitialData.value.lstPolicyPeriod[i].name}")
-                            ],
-                            hintText: "select_policy_period".tr,
-                            valueChanged: (newPlan) {
-                              insuranceBookingController
-                                  .changePolicyPeriod((newPlan));
-                            },
-                          ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                decoration:
+                                flyternBorderedContainerSmallDecoration.copyWith(
+                                    color: flyternGrey10,
+                                    border: Border.all(
+                                        color: flyternGrey10, width: .2)),
+                                padding: flyternMediumPaddingHorizontal.copyWith(
+                                    top: flyternSpaceExtraSmall,
+                                    bottom: flyternSpaceExtraSmall),
+                                child: DropDownSelector(
+                                  key: policyTimeDropDownKey,
+                                  titleText: "policy_time".tr,
+                                  selected: insuranceBookingController
+                                      .insurancePriceGetBody.value.policyperiod,
+                                  items: [
+                                    GeneralItem(
+                                        imageUrl: "",
+                                        id: "0",
+                                        name: "select_policy_period".tr),
+                                    for (var i = 0;
+                                    i <
+                                        insuranceBookingController
+                                            .insuranceInitialData
+                                            .value
+                                            .lstPolicyPeriod
+                                            .length;
+                                    i++)
+                                      GeneralItem(
+                                          imageUrl: "",
+                                          id: insuranceBookingController
+                                              .insuranceInitialData
+                                              .value
+                                              .lstPolicyPeriod[i]
+                                              .id
+                                              .toString(),
+                                          name:
+                                          "${insuranceBookingController.insuranceInitialData.value.lstPolicyPeriod[i].name}")
+                                  ],
+                                  hintText: "select_policy_period".tr,
+                                  valueChanged: (newPlan) {
+                                    insuranceBookingController
+                                        .changePolicyPeriod((newPlan));
+                                  },
+                                ),
+                              ),
+                            ),
+                            addHorizontalSpace(flyternSpaceMedium),
+                            Expanded(
+                              child: TextFormField(
+                                  readOnly: true,
+                                  onTap: () {
+                                    showDatePickerDialog(insuranceBookingController.policyDate.value);
+                                  },
+                                  controller: insuranceBookingController.policyDateController.value,
+                                  validator: (value) =>
+                                      checkIfNameFormValid(value, "policy_date".tr),
+                                  keyboardType: TextInputType.name,
+                                  decoration: InputDecoration(
+                                    hintText: "DD-MM-YY",
+                                    labelText: "select_policy_date".tr,
+                                  )),
+                            )
+                          ],
                         ),
                       ),
+
                       Container(
                         height: 70 + (flyternSpaceSmall * 2),
                         padding: flyternLargePaddingAll,
@@ -496,6 +527,31 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
               Navigator.pop(context);
             },
                  );
+        });
+  }
+
+  void showDatePickerDialog( DateTime dateTime) {
+    showModalBottomSheet(
+        useSafeArea: false,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(flyternBorderRadiusSmall),
+              topRight: Radius.circular(flyternBorderRadiusSmall)),
+        ),
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (context) {
+          return CustomDatePicker(
+            selectedDate: dateTime,
+            maximumDate: insuranceBookingController.insuranceInitialData.value.maxPolicyDate,
+            minimumDate: insuranceBookingController.insuranceInitialData.value.minPolicyDate,
+            dateSelected: (DateTime? dateTime) {
+              if (dateTime != null) {
+                insuranceBookingController.changePolicyDate(dateTime);
+              }
+            },
+          );
         });
   }
 

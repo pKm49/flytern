@@ -1,7 +1,7 @@
- import 'package:flytern/feature-modules/insurance/data/models/insurance_traveller_info.dart';
+import 'package:flytern/feature-modules/insurance/data/models/insurance_traveller_info.dart';
+import 'package:intl/intl.dart';
 
 class InsuranceTravellerData {
-
   final List<InsuranceTravellerInfo> travellerinfo;
 
   final String covid;
@@ -12,7 +12,7 @@ class InsuranceTravellerData {
   final int spouse;
   final String policyPlan;
   final String policyDuration;
-  final String policyDate;
+  final DateTime policyDate;
 
   final String mobileCntry;
   final String mobileNumber;
@@ -35,25 +35,29 @@ class InsuranceTravellerData {
   });
 
   Map toJson() => {
-    '_Travellerinfo': getTravellerInfo(),
+        '_Travellerinfo': getTravellerInfo(),
+        '_PolicyInfo': {
+          'covid': covid,
+          'policyType': policyType,
+          'contributor': contributor,
+          'son': son,
+          'daughter': daughter,
+          'spouse': spouse,
+          'policyPlan': policyPlan,
+          'policyDuration': policyDuration,
+          'policyDate': getFormattedDate(policyDate),
+        },
+        '_ContactInfo': {
+          'mobileCntry': mobileCntry,
+          'mobileNumber': mobileNumber,
+          'email': email,
+        }
+      };
 
-    '_PolicyInfo':{
-      'covid': covid,
-      'policyType': policyType,
-      'contributor': contributor,
-      'son': son,
-      'daughter': daughter,
-      'spouse': spouse,
-      'policyPlan': policyPlan,
-      'policyDuration': policyDuration,
-      'policyDate': policyDate,
-    },
-    '_ContactInfo':{
-      'mobileCntry': mobileCntry,
-      'mobileNumber': mobileNumber,
-      'email': email,
-    }
-  };
+  String getFormattedDate(DateTime dateTime) {
+    final f = DateFormat('yyyy-MM-dd');
+    return f.format(dateTime);
+  }
 
   getTravellerInfo() {
     List<dynamic> travellers = [];
@@ -62,6 +66,4 @@ class InsuranceTravellerData {
     });
     return travellers;
   }
-
 }
-

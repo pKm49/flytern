@@ -3,13 +3,14 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_item.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_response_dto_segment.dart';
+import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 import 'package:flytern/shared/data/models/business_models/general_item.dart';
 
 class InsuranceInitialData {
-  final String maxPolicyDate;
-  final String minPolicyDate;
-  final String maxDateOfBirth;
-  final String minDateOfBirth;
+  final DateTime maxPolicyDate;
+  final DateTime minPolicyDate;
+  final DateTime maxDateOfBirth;
+  final DateTime minDateOfBirth;
   final String knowYourPolicy;
   final List<GeneralItem> lstPolicyRelationship;
   final List<GeneralItem> lstPolicyHeaderType;
@@ -87,10 +88,21 @@ InsuranceInitialData mapInsuranceInitialData(dynamic payload) {
   }
 
   return InsuranceInitialData(
-    maxPolicyDate: payload["maxPolicyDate"] ?? "",
-    minPolicyDate: payload["minPolicyDate"] ?? "",
-    maxDateOfBirth: payload["maxDateOfBirth"] ?? "",
-    minDateOfBirth: payload["minDateOfBirth"] ?? "",
+    maxPolicyDate: payload["maxPolicyDate"] != null
+        ? DateTime.parse(getParsableDateString(payload["maxPolicyDate"] ))
+        : DateTime.now().add(Duration(days: 180)),
+
+    minPolicyDate: payload["minPolicyDate"] != null
+        ? DateTime.parse(getParsableDateString(payload["minPolicyDate"] ))
+        : DateTime.now() ,
+
+    maxDateOfBirth: payload["maxDateOfBirth"] != null
+        ? DateTime.parse(getParsableDateString(payload["maxDateOfBirth"] ))
+        : DefaultMaximumDate ,
+    minDateOfBirth: payload["minDateOfBirth"] != null
+        ? DateTime.parse(getParsableDateString(payload["minDateOfBirth"] ))
+        : DefaultMinimumDate ,
+
     knowYourPolicy: payload["knowYourPolicy"] ?? "",
     lstPolicyRelationship: lstPolicyRelationship,
     lstPolicyHeaderType: lstPolicyHeaderType,
@@ -99,4 +111,7 @@ InsuranceInitialData mapInsuranceInitialData(dynamic payload) {
     lstPolicyPeriod: lstPolicyPeriod,
     lstPolicyNationality: lstPolicyNationality,
   );
+}
+String getParsableDateString(String payload) {
+  return payload.split("-").toList().reversed.join("-");
 }

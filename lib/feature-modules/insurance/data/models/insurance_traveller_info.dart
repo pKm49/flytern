@@ -35,6 +35,24 @@ class InsuranceTravellerInfo {
       };
 }
 
+InsuranceTravellerInfo mapInsuranceTravellerInfo(dynamic payload) {
+  return InsuranceTravellerInfo(
+    firstName: payload["firstName"] ?? "",
+    lastName: payload["lastName"] ?? "",
+    gender: payload["gender"] ?? "",
+    dateOfBirth: payload["dateOfBirth"] != null
+        ? DateTime.parse(getParsableDateString(payload["dateOfBirth"]))
+        : DefaultAdultMinimumDate,
+    passportNumber: payload["passportNumber"] ?? "",
+    nationalityCode: payload["nationalityCode"] ?? "",
+    relationshipCode: payload["relationshipCode"] ?? "",
+    civilID: payload["civilID"] ?? "",
+  );
+}
+
+String getParsableDateString(String payload) {
+  return payload.split("-").toList().reversed.join("-");
+}
 
 String getFormattedDate(DateTime dateTime) {
   final f = DateFormat('dd-MM-yyyy');

@@ -1,12 +1,16 @@
+import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/insurance/data/models/insurance_initial_data.dart';
 import 'package:flytern/feature-modules/insurance/data/models/insurance_price_data.dart';
 import 'package:flytern/feature-modules/insurance/data/models/insurance_price_get_body.dart';
 import 'package:flytern/feature-modules/insurance/data/models/insurance_traveller_data.dart';
 import 'package:flytern/feature-modules/insurance/data/models/insurance_traveller_info.dart';
 import 'package:flytern/feature-modules/insurance/services/http-services/insurance_booking_http_services.dart';
+import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
+import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 
 import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class InsuranceBookingController extends GetxController {
   var isInitialDataLoading = true.obs;
@@ -23,13 +27,14 @@ class InsuranceBookingController extends GetxController {
   var email = "".obs;
   var covid = "".obs;
   var policyType = "".obs;
-  var contributor = 0.obs;
+  var contributor = 1.obs;
   var son = 0.obs;
   var daughter = 0.obs;
   var spouse = 0.obs;
   var policyPlan = "".obs;
   var policyDuration = "".obs;
-  var policyDate = "".obs;
+  var policyDate = DefaultInvalidDate.obs;
+  Rx<TextEditingController> policyDateController = TextEditingController().obs;
 
   @override
   void onInit() {
@@ -59,6 +64,70 @@ class InsuranceBookingController extends GetxController {
     isInsurancePriceGetterLoading.value = false;
   }
 
+
+  void saveTravellersData(List<InsuranceTravellerInfo> travelInfo) {
+    String validityString = "";
+    for (var i = 0; i < travelInfo.length; i++) {
+      print("travelInfo "+i.toString());
+      print(travelInfo[i].toJson());
+    }
+    for (var i = 0; i < travelInfo.length; i++) {
+
+      print("travelInfo "+i.toString());
+      print("firstName");
+      print(travelInfo[i].firstName);
+
+      if (travelInfo[i].firstName == "") {
+        validityString = "enter_firstname_copax".tr.replaceAll("user",
+            "  ${getUserId(travelInfo[i],i)}");
+
+        break;
+      }
+      print("lastName");
+      print(travelInfo[i].lastName);
+      if (travelInfo[i].lastName == "") {
+        validityString = "enter_lastname_copax".tr.replaceAll("user","${getUserId(travelInfo[i],i)} ");
+
+        break;
+      }
+      print("dateOfBirth");
+      print(travelInfo[i].dateOfBirth);
+      print(DefaultInvalidDate);
+
+      if (travelInfo[i].dateOfBirth == DefaultInvalidDate) {
+        validityString = "enter_dob_copax".tr.replaceAll(
+            "user","${getUserId(travelInfo[i],i)}  ");
+
+        break;
+      }
+      print(travelInfo[i].nationalityCode);
+
+      if (travelInfo[i].nationalityCode == "") {
+        validityString = "enter_nationality_copax".tr.replaceAll("user","${getUserId(travelInfo[i],i)} ");
+
+        break;
+      }
+       print( "civilID");
+       print(travelInfo[i].civilID);
+      if (travelInfo[i].civilID == "") {
+        validityString = "enter_civilid_copax".tr.replaceAll("user","${getUserId(travelInfo[i],i)}  ");
+
+        break;
+      }
+
+
+    }
+
+    if(validityString!=""){
+      showSnackbar(Get.context!, validityString,"error");
+    }else{
+      setTravellerData(travelInfo);
+    }
+
+    // Get.toNamed(Approute_flightsSummary);
+  }
+
+
   Future<void> setTravellerData(List<InsuranceTravellerInfo> travelInfo) async {
     if (!isInsuranceSaveTravellerLoading.value) {
       isInsuranceSaveTravellerLoading.value = true;
@@ -82,6 +151,7 @@ class InsuranceBookingController extends GetxController {
       isInsuranceSaveTravellerLoading.value = false;
       if (tempBookingRef != "") {
         bookingRef.value = tempBookingRef;
+        Get.toNamed(Approute_insuranceSummary);
       } else {
         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
       }
@@ -118,7 +188,6 @@ class InsuranceBookingController extends GetxController {
         policyperiod: insurancePriceGetBody.value.policyperiod));
   }
 
-
   void changePolicyType(String? value) {
     getPrice(InsurancePriceGetBody(
         covidtype: insurancePriceGetBody.value.covidtype,
@@ -141,5 +210,33 @@ class InsuranceBookingController extends GetxController {
     son.value = sonCount;
   }
 
+  void saveContactInfo(String tMobileCntry, String tMobileNumber, String tEmail) {
+    mobileCntry.value =tMobileCntry;
+    mobileNumber.value =tMobileNumber;
+    email.value =tEmail;
+  }
+
+  getUserId(InsuranceTravellerInfo travelInfo, int index) {
+
+    print("travelInfo.relationshipCode");
+    print(travelInfo.relationshipCode);
+
+    for (var element in insuranceInitialData.value.lstPolicyRelationship) {
+      if (element.id == travelInfo.relationshipCode) {
+        return element.name;
+      }
+    }
+
+  }
+
+  void changePolicyDate(DateTime dateTime) {
+    policyDate.value =dateTime;
+    policyDateController.value.text =getFormattedDate(dateTime);
+  }
+
+  String getFormattedDate(DateTime dateTime){
+    final f = DateFormat('dd-MM-yyyy');
+    return f.format(dateTime);
+  }
 
 }
