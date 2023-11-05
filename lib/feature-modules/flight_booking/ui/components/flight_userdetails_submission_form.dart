@@ -524,8 +524,14 @@ class _FlightUserDetailsSubmissionFormState
       lastNameController.text =    coPax[0].lastName;
       passportNumberController.text =    coPax[0].passportNumber;
       final f = DateFormat('dd-MM-yyyy');
-      dobController.text = f.format(coPax[0].dateOfBirth);
-      dateOfBirth = coPax[0].dateOfBirth;
+      if(coPax[0].dateOfBirth == DefaultInvalidDate){
+        dobController.text = f.format(getMinimumDate());
+        dateOfBirth = getMinimumDate();
+      }else{
+        dobController.text = f.format(coPax[0].dateOfBirth);
+        dateOfBirth = coPax[0].dateOfBirth;
+      }
+
       passportExpiryDateController.text = f.format(coPax[0].passportExp);
       final sharedController = Get.find<SharedController>();
       passportExpiryDate = coPax[0].passportExp;

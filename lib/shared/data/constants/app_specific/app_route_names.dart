@@ -13,6 +13,7 @@
 
   //common
   const String Approute_userDetailsSubmission = '/booking-userdetails-submission';
+  const String Approute_paymentPage = '/payment-page';
 
 
   //landing page

@@ -22,8 +22,7 @@ class FlightBookingSummaryPage extends StatefulWidget {
 }
 
 class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
-  final ExpansionTileController controller = ExpansionTileController();
-  final ExpansionTileController controller2 = ExpansionTileController();
+
   final flightBookingController = Get.find<FlightBookingController>();
 
   @override
@@ -382,9 +381,10 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                     child: ElevatedButton(
                         style: getElevatedButtonStyle(context),
                         onPressed: () {
-                          Get.toNamed(Approute_flightsConfirmation, arguments: [
-                            {"mode": "view"}
-                          ]);
+                          flightBookingController.setPaymentGateway();
+                          // Get.toNamed(Approute_flightsConfirmation, arguments: [
+                          //   {"mode": "view"}
+                          // ]);
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -397,10 +397,10 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                               ),
                             ),
                             Visibility(
-                                visible: !flightBookingController.isFlightPretravellerDataLoading.value,
+                                visible: !flightBookingController.isFlightSavePaymentGatewayLoading.value,
                                 child: Text("next".tr)),
                             Visibility(
-                                visible: flightBookingController.isFlightPretravellerDataLoading.value,
+                                visible: flightBookingController.isFlightSavePaymentGatewayLoading.value,
                                 child:  LoadingAnimationWidget.prograssiveDots(
                                   color: flyternBackgroundWhite,
                                   size: 20,

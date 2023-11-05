@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_airport_lable_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_summary_card.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_itinerary_card.dart';
 import 'package:flytern/shared/ui/components/user_details_card.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
@@ -9,6 +11,8 @@ import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FlightBookingConfirmationPage extends StatefulWidget {
   const FlightBookingConfirmationPage({super.key});
@@ -27,6 +31,7 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
 
   int selectedPaymentMethod = 1;
   dynamic argumentData = Get.arguments;
+  final flightBookingController = Get.find<FlightBookingController>();
 
   String mode = "view";
 
@@ -43,403 +48,387 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(mode=="view"?'booking_confirmation'.tr:
-        'booking_details'.tr),
-        elevation: 0.5,
-      ),
-      body: Container(
-        width: screenwidth,
-        height: screenheight,
-        color: flyternGrey10,
-        child: ListView(
-          children: [
-
-
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("booking_details".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("booking_status".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("Confirmed",style: getBodyMediumStyle(context).copyWith(color: flyternPrimaryColor,fontWeight: flyternFontWeightBold)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("booking_id".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("123123",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-
-
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("payment_summary".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("ticket_price".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("AED 10,000",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("meal".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("AED 25",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("baggage".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("AED 20",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("tax".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("AED 200",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("total".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("AED 1520",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("payment_method".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("apple_pay".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("payment_status".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("captured".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("payment_reference".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("123123",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-
-
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("flight_summary".tr,
-                      style: getBodyMediumStyle(context).copyWith(
-                          color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-                  Text("flight_details".tr,
-                      style: getBodyMediumStyle(context).copyWith(
-                          decoration: TextDecoration.underline,
-                          color: flyternTertiaryColor )),
-                ],
-              ),
-            ),
-            FlightBookingSummaryCard(
-              mode: mode,
-              onCancel: (){
-                setState(() {
-                  isCancelling =!isCancelling;
-                });
-              },
-              onDateChange: (){
-                setState(() {
-                  isDateChanging = !isDateChanging;
-                });
-              },
-            ),
-
-            Visibility(
-              visible: isCancelling || isDateChanging,
-              child: Padding(
-                padding: flyternLargePaddingAll,
-                child: Text("reason".tr,
-                    style: getBodyMediumStyle(context).copyWith(
-                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-              ),
-            ),
-        Visibility(
-            visible: isCancelling || isDateChanging,
-              child: Container(
-                padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceLarge),
-                color: flyternBackgroundWhite,
-                child: TextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      labelText: "reason_for_cancel".tr,
-                    )),
-              ),
-            ),
-        Visibility(
-          visible: isCancelling || isDateChanging,
-              child: Padding(
-                padding: flyternLargePaddingAll,
-                child: Text("refund_details".tr,
-                    style: getBodyMediumStyle(context).copyWith(
-                        color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-              ),
-            ),
-        Visibility(
-            visible: isCancelling || isDateChanging,
-              child: Container(
-                padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
-                color: flyternBackgroundWhite,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("total_paid".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                    Text("AED 15,000",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold)),
-                  ],
-                ),
-              ),
-            ),
-        Visibility(
-            visible: isCancelling || isDateChanging,
-              child: Container(
-                  padding: flyternLargePaddingHorizontal,
-                  color:flyternBackgroundWhite,
-                  child: Divider()),
-            ),
-        Visibility(
-            visible: isCancelling || isDateChanging,
-              child: Container(
-                padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-                color: flyternBackgroundWhite,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("cancellation_charge".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                    Text("AED 5000",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                  ],
-                ),
-              ),
-            ),
-        Visibility(
-            visible: isCancelling || isDateChanging,
-              child: Container(
-                  padding: flyternLargePaddingHorizontal,
-                  color:flyternBackgroundWhite,
-                  child: Divider()),
-            ),
-        Visibility(
-            visible: isCancelling || isDateChanging,
-              child: Container(
-                padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
-                color: flyternBackgroundWhite,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("refundable_amount".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                    Text("AED 1000",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                  ],
-                ),
-              ),
-            ),
-
-
-
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("passengers".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-
-            UserDetailsCard(
-              onDelete: (){},
-              onEdit: (){},
-              isActionAllowed:false,
-              name: "adult".tr,
-              age: "Andrew Martin",
-              gender: "andrewmartin@gmail.com",
-              passportNumber: "+92 334431234",
-            ),
-
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal,
-              child: Divider(),
-            ),
-            UserDetailsCard(
-              onDelete: (){},
-              onEdit: (){},
-              isActionAllowed:false,
-              name: "adult".tr,
-              age: "Andrew Martin",
-              gender: "andrewmartin@gmail.com",
-              passportNumber: "+92 334431234",
-            ),
-
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("add_on_services".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("seats".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("15D",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("meal".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("Burger",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("baggage".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("23 Kg",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-
-            // Payment summary
-
-            Container(
-              height: 70+(flyternSpaceSmall*2),
-              padding: flyternLargePaddingAll,
-            )
-          ],
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(mode=="view"?'booking_confirmation'.tr:
+          'booking_details'.tr),
+          elevation: 0.5,
         ),
-      ),
-      bottomSheet: Container(
-        width: screenwidth,
-        color: flyternBackgroundWhite,
-        height: 60+(flyternSpaceSmall*2),
-        padding: flyternLargePaddingAll.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-        child: Center(
-          child: SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(style: getElevatedButtonStyle(context),
-                onPressed: () {
-                  mode=="edit"?
-                  Navigator.pop(context)
-                  :Get.offAllNamed(Approute_landingpage);
-                },
-                child:Text(isCancelling || isDateChanging? "confirm".tr :"get_eticket".tr )),
+        body: Obx(
+            ()=> Stack(
+            children: [
+              Visibility(
+                  visible: flightBookingController
+                      .isFlightConfirmationDataLoading.value,
+                  child: Container(
+                    width: screenwidth,
+                    height: screenheight * .8,
+                    color: flyternGrey10,
+                    child: Center(
+                        child: LoadingAnimationWidget.prograssiveDots(
+                          color: flyternSecondaryColor,
+                          size: 50,
+                        )),
+                  )),
+              Visibility(
+                visible:
+                !flightBookingController.isFlightConfirmationDataLoading.value,
+                child: Container(
+                  width: screenwidth,
+                  height: screenheight,
+                  color: flyternGrey10,
+                  child: ListView(
+                    children: [
+
+                      Padding(
+                        padding: flyternLargePaddingAll,
+                        child: Text("booking_details".tr,
+                            style: getBodyMediumStyle(context).copyWith(
+                                color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+                      ),
+                      Container(
+                        padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
+                        color: flyternBackgroundWhite,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("booking_status".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                            Text("Confirmed",style: getBodyMediumStyle(context).copyWith(color: flyternPrimaryColor,fontWeight: flyternFontWeightBold)),
+                          ],
+                        ),
+                      ),
+                      Container(
+                          padding: flyternLargePaddingHorizontal,
+                          color:flyternBackgroundWhite,
+                          child: Divider()),
+                      Container(
+                        padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
+                        color: flyternBackgroundWhite,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("booking_id".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                            Text(flightBookingController.bookingRef.value,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                          ],
+                        ),
+                      ),
+                      InkWell(
+                        onTap: (){
+                          launchUrl(Uri.parse(flightBookingController.pdfLink.value));
+                        },
+                        child: Container(
+                          padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
+                          color: flyternBackgroundWhite,
+                          child:  Text("get_eticket".tr,
+                              style: getBodyMediumStyle(context).copyWith(
+                                  decoration: TextDecoration.underline,
+                                  color: flyternTertiaryColor)),
+                        ),
+                      ),
+                      Padding(
+                        padding: flyternLargePaddingAll,
+                        child: Text("payment_summary".tr,
+                            style: getBodyMediumStyle(context).copyWith(
+                                color: flyternGrey80,
+                                fontWeight: flyternFontWeightBold)),
+                      ),
+                      Visibility(
+                        visible: flightBookingController.cabinInfo.value.id != "-1",
+                        child: Container(
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              top: flyternSpaceLarge, bottom: flyternSpaceSmall),
+                          color: flyternBackgroundWhite,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("base_fare".tr,
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey60)),
+                              Text(
+                                  "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.totalBase}",
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey80)),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: flightBookingController.cabinInfo.value.id != "-1",
+                        child: Container(
+                            padding: flyternLargePaddingHorizontal,
+                            color: flyternBackgroundWhite,
+                            child: Divider()),
+                      ),
+                      Visibility(
+                        visible: flightBookingController.cabinInfo.value.id != "-1",
+                        child: Container(
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+                          color: flyternBackgroundWhite,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("tax_fare".tr,
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey60)),
+                              Text(
+                                  "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.totalTax}",
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey80)),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: flightBookingController.processingFee.value != 0.0,
+                        child: Container(
+                            padding: flyternLargePaddingHorizontal,
+                            color: flyternBackgroundWhite,
+                            child: Divider()),
+                      ),
+
+                      Visibility(
+                        visible: flightBookingController.cabinInfo.value.id != "-1",
+                        child: Container(
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+                          color: flyternBackgroundWhite,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("total_fare".tr,
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey60)),
+                              Text(
+                                  "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.totalPrice}",
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey80)),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: flightBookingController.processingFee.value !=
+                            0.0,
+                        child: Container(
+                            padding: flyternLargePaddingHorizontal,
+                            color: flyternBackgroundWhite,
+                            child: Divider()),
+                      ),
+                      Visibility(
+                        visible: flightBookingController.processingFee.value  != 0.0,
+                        child: Container(
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+                          color: flyternBackgroundWhite,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("processing_fee".tr,
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey60)),
+                              Text(
+                                  "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.processingFee.value}",
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey80)),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      Visibility(
+                        visible: flightBookingController.cabinInfo.value.id !=
+                            "-1" &&
+                            flightBookingController.cabinInfo.value.totalBase > 0.0,
+                        child: Container(
+                            padding: flyternLargePaddingHorizontal,
+                            color: flyternBackgroundWhite,
+                            child: Divider()),
+                      ),
+                      Visibility(
+                        visible: flightBookingController.cabinInfo.value.id !=
+                            "-1" &&
+                            flightBookingController.cabinInfo.value.discount > 0.0,
+                        child: Container(
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+                          color: flyternBackgroundWhite,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                  "${'discount'.tr} (${'promo_code'.tr}-${flightBookingController.cabinInfo.value.promoCode})",
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey60)),
+                              Text(
+                                  "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.discount}",
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGuideGreen)),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: flightBookingController.cabinInfo.value.id != "-1",
+                        child: Container(
+                            padding: flyternLargePaddingHorizontal,
+                            color: flyternBackgroundWhite,
+                            child: Divider()),
+                      ),
+                      Visibility(
+                        visible: flightBookingController.cabinInfo.value.id != "-1",
+                        child: Container(
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+                          color: flyternBackgroundWhite,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("${'grand_total'.tr} ",
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey60)),
+                              Text(
+                                  "${flightBookingController.cabinInfo.value.currency}"
+                                      " ${(flightBookingController.cabinInfo.value.finalAmount +
+                                      flightBookingController.processingFee.value)}",
+                                  style: getBodyMediumStyle(context).copyWith(
+                                      color: flyternGrey80,
+                                      fontWeight: flyternFontWeightBold)),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: flightBookingController.paymentCode.value !="",
+                        child: Container(
+                            padding: flyternLargePaddingHorizontal,
+                            color: flyternBackgroundWhite,
+                            child: Divider()),
+                      ),
+                      Visibility(
+                        visible: flightBookingController.processingFee.value  != 0.0,
+                        child: Container(
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              top: flyternSpaceSmall, bottom: flyternSpaceLarge),
+                          color: flyternBackgroundWhite,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("payment_gateway".tr,
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey60)),
+                              Text(
+                                  "${flightBookingController.paymentCode.value}",
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey80)),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: flyternLargePaddingAll,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("flight_summary".tr,
+                                style: getBodyMediumStyle(context).copyWith(
+                                    color: flyternGrey80,
+                                    fontWeight: flyternFontWeightBold)),
+                            Text("flight_details".tr,
+                                style: getBodyMediumStyle(context).copyWith(
+                                    decoration: TextDecoration.underline,
+                                    color: flyternTertiaryColor)),
+                          ],
+                        ),
+                      ),
+                      for (var i = 0;
+                      i <
+                          flightBookingController
+                              .flightDetails.value.flightSegments.length;
+                      i++)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: flyternSpaceLarge),
+                          child: FlightDetailsItineraryCard(
+                              flightSegment: flightBookingController
+                                  .flightDetails.value.flightSegments[i]),
+                        ),
+                      Padding(
+                        padding: flyternLargePaddingAll,
+                        child: Text("passengers".tr,
+                            style: getBodyMediumStyle(context).copyWith(
+                                color: flyternGrey80,
+                                fontWeight: flyternFontWeightBold)),
+                      ),
+                      for (var i = 0;
+                      i <
+                          flightBookingController
+                              .selectedTravelInfo.value.length;
+                      i++)
+                        Container(
+                          decoration: BoxDecoration(
+                            border: flyternDefaultBorderBottomOnly,
+                            color: flyternBackgroundWhite,
+                          ),
+                          child: UserDetailsCard(
+                            onDelete: () {},
+                            onEdit: () {},
+                            isActionAllowed: false,
+                            name:
+                            "${flightBookingController.selectedTravelInfo[i].firstName} ${flightBookingController.selectedTravelInfo[i].lastName}",
+                            age: getAge(flightBookingController
+                                .selectedTravelInfo[i].dateOfBirth),
+                            gender: flightBookingController
+                                .selectedTravelInfo[i].gender,
+                            passportNumber: flightBookingController
+                                .selectedTravelInfo[i].passportNumber,
+                          ),
+                        ),
+                      Container(
+                        height: 70 + (flyternSpaceSmall * 2),
+                        padding: flyternLargePaddingAll,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        bottomSheet: Container(
+          width: screenwidth,
+          color: flyternBackgroundWhite,
+          height: 60+(flyternSpaceSmall*2),
+          padding: flyternLargePaddingAll.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
+          child: Center(
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(style: getElevatedButtonStyle(context),
+                  onPressed: () {
+                    mode=="edit"?
+                    Navigator.pop(context)
+                    :flightBookingController.resetAndNavigateToHome();
+                  },
+                  child:Text(isCancelling || isDateChanging? "confirm".tr :"continue".tr )),
+            ),
           ),
         ),
       ),
     );
+  }
+  //"get_eticket".tr
+  Future<void> _launchUrl(String urlString) async {
+    final Uri _url = Uri.parse(urlString);
+
+    if (!await launchUrl(_url)) {
+      print('Could not launch $_url');
+    }
+  }
+
+  getAge(DateTime dateOfBirth) {
+    return "${DateTime.now().year - dateOfBirth.year} years";
   }
 }

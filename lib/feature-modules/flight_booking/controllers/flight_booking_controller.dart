@@ -23,6 +23,7 @@ import 'package:flytern/feature-modules/flight_booking/services/helper-services/
 import 'package:flytern/feature-modules/flight_booking/services/http-services/flight_booking_http_services.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
+import 'package:flytern/shared/data/models/business_models/payment_confirmation_data.dart';
 import 'package:flytern/shared/data/models/business_models/payment_gateway.dart';
 import 'package:flytern/shared/data/models/business_models/payment_gateway_url_data.dart';
 import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
@@ -31,7 +32,6 @@ import 'package:get/get.dart';
 part 'flight_booking_controller_setter.dart';
 
 class FlightBookingController extends GetxController {
-
   var isTravelStoriesLoading = false.obs;
   var isRecommendedLoading = false.obs;
   var isPopularDestinationsLoading = false.obs;
@@ -41,9 +41,13 @@ class FlightBookingController extends GetxController {
 
   var isModifySearchVisible = false.obs;
   var isFlightDestinationsLoading = false.obs;
-  var isFlightSearchResponsesLoading = false.obs;
   var isFlightPretravellerDataLoading = false.obs;
   var isFlightTravellerDataSaveLoading = false.obs;
+  var isFlightSearchResponsesLoading = false.obs;
+
+  var isFlightGatewayStatusCheckLoading = false.obs;
+  var isFlightConfirmationDataLoading = false.obs;
+  var isFlightSavePaymentGatewayLoading = false.obs;
   var isFlightMoreOptionsResponsesLoading = false.obs;
   var isFlightDetailsLoading = false.obs;
   var isFlightSearchFilterResponsesLoading = false.obs;
@@ -72,6 +76,8 @@ class FlightBookingController extends GetxController {
   var paymentCode = "".obs;
   var gatewayUrl = "".obs;
   var confirmationUrl = "".obs;
+  var confirmationMessage = "".obs;
+  var pdfLink = "".obs;
 
   var processingFee = (0.0).obs;
 
@@ -122,7 +128,7 @@ class FlightBookingController extends GetxController {
       String searchQuery) async {
     if (searchQuery != "") {
       flightDestinations.value =
-      await flightBookingHttpService.getFlightDestinations(searchQuery);
+          await flightBookingHttpService.getFlightDestinations(searchQuery);
       isFlightDestinationsLoading.value = false;
       return flightDestinations.value;
     } else {
@@ -149,9 +155,9 @@ class FlightBookingController extends GetxController {
       sortingDcs.value = flightSearchResult.sortingDcs;
       if (sortingDcs.isNotEmpty) {
         List<SortingDcs> defaultSort =
-        sortingDcs.where((p0) => p0.isDefault).toList();
+            sortingDcs.where((p0) => p0.isDefault).toList();
         sortingDc.value =
-        defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
+            defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
       }
       priceDcs.value = flightSearchResult.priceDcs;
       airlineDcs.value = flightSearchResult.airlineDcs;
@@ -177,8 +183,7 @@ class FlightBookingController extends GetxController {
         pageId: pageId.value,
         objectID: objectId.value,
         priceMinMaxDc: selectedPriceDcs.value.isNotEmpty
-            ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0]
-            .max}"
+            ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0].max}"
             : "",
         arrivalTimeDc: selectedArrivalTimeDcs.value.isNotEmpty
             ? getFilterValues(selectedArrivalTimeDcs.value)
@@ -196,8 +201,8 @@ class FlightBookingController extends GetxController {
       );
 
       List<FlightSearchResponse> flightSearchResponse =
-      await flightBookingHttpService
-          .getFlightSearchResultsFiltered(flightFilterBody);
+          await flightBookingHttpService
+              .getFlightSearchResultsFiltered(flightFilterBody);
 
       flightSearchResponses.value = flightSearchResponse;
       isFlightSearchFilterResponsesLoading.value = false;
@@ -211,7 +216,7 @@ class FlightBookingController extends GetxController {
       print("getMoreOptions called ");
       isFlightMoreOptionsResponsesLoading.value = true;
       FlightSearchResult flightSearchResult =
-      await flightBookingHttpService.getMoreOptions(index, objectId.value);
+          await flightBookingHttpService.getMoreOptions(index, objectId.value);
       moreOptionFlights.value = flightSearchResult.searchResponses;
 
       isFlightMoreOptionsResponsesLoading.value = false;
@@ -255,9 +260,9 @@ class FlightBookingController extends GetxController {
   Future<void> getPreTravellerData(int tempDetailId) async {
     if (!isFlightPretravellerDataLoading.value) {
       isFlightPretravellerDataLoading.value = true;
-      detailId.value =tempDetailId;
+      detailId.value = tempDetailId;
       FlightPretravellerData tempFlightPretravellerData =
-      await flightBookingHttpService.getPreTravellerData(tempDetailId);
+          await flightBookingHttpService.getPreTravellerData(tempDetailId);
       isFlightPretravellerDataLoading.value = false;
 
       if (tempFlightPretravellerData.countriesList.length > 0) {
@@ -271,19 +276,20 @@ class FlightBookingController extends GetxController {
   }
 
   Future<void> setPreTravellerData(List<TravelInfo> travelInfo) async {
-    if ( !isFlightTravellerDataSaveLoading.value) {
+    if (!isFlightTravellerDataSaveLoading.value) {
       isFlightTravellerDataSaveLoading.value = true;
       selectedTravelInfo.value = travelInfo;
       String tempBookingRef = "";
       FlightTravellerData flightTravellerData = FlightTravellerData(
           travellerinfo: travelInfo,
-          objectID: objectId.value ,
+          objectID: objectId.value,
           detailID: detailId.value,
           cabinID: int.parse(cabinInfo.value.id),
           mobileCntry: mobileCntry.value,
           mobileNumber: mobileNumber.value,
           email: email.value);
-      tempBookingRef = await flightBookingHttpService.setTravellerData(flightTravellerData);
+      tempBookingRef =
+          await flightBookingHttpService.setTravellerData(flightTravellerData);
       isFlightTravellerDataSaveLoading.value = false;
       if (tempBookingRef != "") {
         bookingRef.value = tempBookingRef;
@@ -295,91 +301,209 @@ class FlightBookingController extends GetxController {
   }
 
   Future<void> getPaymentGateways() async {
-
     isFlightTravellerDataSaveLoading.value = true;
 
-    List<PaymentGateway> tempPaymentGateway = await flightBookingHttpService.getPaymentGateways(
-        bookingRef.value);
+    List<PaymentGateway> tempPaymentGateway =
+        await flightBookingHttpService.getPaymentGateways(bookingRef.value);
 
-  print("tempPaymentGateway");
-  print(tempPaymentGateway.length);
-  print(tempPaymentGateway[0]);
+    print("tempPaymentGateway");
+    print(tempPaymentGateway.length);
+    print(tempPaymentGateway[0]);
     paymentGateways.value = tempPaymentGateway;
-    if(tempPaymentGateway.isNotEmpty){
+    if (tempPaymentGateway.isNotEmpty) {
       updateProcessId(tempPaymentGateway[0].processID);
+      Get.toNamed(Approute_flightsSummary);
+    } else {
+      showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
-    Get.toNamed(Approute_flightsSummary);
 
     isFlightTravellerDataSaveLoading.value = false;
   }
 
   Future<void> setPaymentGateway() async {
+    isFlightSavePaymentGatewayLoading.value = true;
 
-    isFlightTravellerDataSaveLoading.value = true;
-
-    PaymentGatewayUrlData paymentGatewayUrlData = await flightBookingHttpService.setPaymentGateway (
-        bookingRef.value,bookingRef.value,bookingRef.value);
+    PaymentGatewayUrlData paymentGatewayUrlData =
+        await flightBookingHttpService.setPaymentGateway(
+            bookingRef.value, bookingRef.value, bookingRef.value);
 
     print("paymentGatewayUrlData");
     print(paymentGatewayUrlData.isOkRedirection);
+
     gatewayUrl.value = paymentGatewayUrlData.gatewayUrl;
     confirmationUrl.value = paymentGatewayUrlData.confirmationUrl;
 
-    Get.toNamed(Approute_flightsSummary);
+    if (gatewayUrl.value != "") {
+      // Get.toNamed(Approute_paymentPage,
+      //         arguments: [gatewayUrl.value, confirmationUrl.value])
+      //     ?.then((value) {
+      //       if(value){
+      //         checkGatewayStatus();
+      //       }else{
+      //         Get.offAllNamed(Approute_flightsSummary,
+      //             predicate: (route) => Get.currentRoute == Approute_userDetailsSubmission);
+      //         showSnackbar(Get.context!, "payment_capture_error".tr,"error");
+      //       }
+      //
+      // });
 
-    isFlightTravellerDataSaveLoading.value = false;
+      checkGatewayStatus();
+    } else {
+      showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+    }
+
+    isFlightSavePaymentGatewayLoading.value = false;
+  }
+
+  Future<void> checkGatewayStatus() async {
+    isFlightGatewayStatusCheckLoading.value = true;
+    bool isSuccess =
+        await flightBookingHttpService.checkGatewayStatus(bookingRef.value);
+
+    print("checkGatewayStatus isSuccess");
+    print(isSuccess);
+
+    if (isSuccess) {
+      showSnackbar(Get.context!, "payment_capture_success".tr, "error");
+      getConfirmationData();
+    } else {
+      Get.offAllNamed(Approute_flightsSummary,
+          predicate: (route) =>
+              Get.currentRoute == Approute_userDetailsSubmission);
+
+      showSnackbar(Get.context!, "payment_capture_error".tr, "error");
+    }
+
+    isFlightGatewayStatusCheckLoading.value = false;
+  }
+
+  Future<void> getConfirmationData() async {
+    isFlightConfirmationDataLoading.value = true;
+
+    PaymentConfirmationData paymentConfirmationData =
+        await flightBookingHttpService.getConfirmationData(bookingRef.value);
+
+    print("getConfirmationData");
+    print(paymentConfirmationData.isIssued);
+    print(paymentConfirmationData.pdfLink);
+    print(paymentConfirmationData.alertMsg);
+
+    if (paymentConfirmationData.isIssued) {
+      pdfLink.value = paymentConfirmationData.pdfLink;
+      confirmationMessage.value = paymentConfirmationData.alertMsg;
+      showSnackbar(Get.context!, "flight_booking_success".tr, "error");
+
+      Get.offAllNamed(Approute_flightsConfirmation,
+          arguments: [
+            {"mode": "view"}
+          ],
+          predicate: (route) => Get.currentRoute == Approute_flightsAddonServices);
+
+    } else {
+      showSnackbar(Get.context!, "flight_booking_failed".tr, "error");
+
+      Get.offAllNamed(Approute_flightsSummary,
+          predicate: (route) =>
+              Get.currentRoute == Approute_userDetailsSubmission);
+
+      showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+    }
+
+    isFlightConfirmationDataLoading.value = false;
   }
 
   Future<void> getRecommendedForyou() async {
-
-    recommendedPage.value = recommendedPage.value+1;
+    recommendedPage.value = recommendedPage.value + 1;
     isRecommendedLoading.value = true;
 
-    List<RecommendedPackage> tRecommendedPackages = await flightBookingHttpService.getRecommended(recommendedPage.value);
+    List<RecommendedPackage> tRecommendedPackages =
+        await flightBookingHttpService.getRecommended(recommendedPage.value);
     recommendedPackages.value = tRecommendedPackages;
 
     isRecommendedLoading.value = false;
   }
 
   Future<void> getTravelStories() async {
-
-    travelStoriesPage.value = travelStoriesPage.value+1;
+    travelStoriesPage.value = travelStoriesPage.value + 1;
     isTravelStoriesLoading.value = true;
 
-    List<TravelStory> tTravelStories = await flightBookingHttpService.getTravelStories(travelStoriesPage.value);
+    List<TravelStory> tTravelStories = await flightBookingHttpService
+        .getTravelStories(travelStoriesPage.value);
     travelStories.value = tTravelStories;
 
     isTravelStoriesLoading.value = false;
   }
 
   Future<void> getPopularPackages() async {
+    popularDestinationsPage.value = popularDestinationsPage.value + 1;
+    isPopularDestinationsLoading.value = true;
 
-    popularDestinationsPage.value = popularDestinationsPage.value+1;
-    isPopularDestinationsLoading.value  = true;
-
-    List<PopularDestination> tPopularDestinations = await flightBookingHttpService.getPopularDestinations(travelStoriesPage.value);
+    List<PopularDestination> tPopularDestinations =
+        await flightBookingHttpService
+            .getPopularDestinations(travelStoriesPage.value);
     popularDestinations.value = tPopularDestinations;
 
     isPopularDestinationsLoading.value = false;
   }
 
   void updateProcessId(String? value) {
+    if (value != null) {
+      List<PaymentGateway> tempPaymentGateways = paymentGateways.value
+          .where((element) => element.processID == value)
+          .toList();
 
-
-    if(value !=null){
-      List<PaymentGateway> tempPaymentGateways = paymentGateways.value.where((element) =>
-      element.processID == value
-      ).toList();
-
-      if(tempPaymentGateways.isNotEmpty){
+      if (tempPaymentGateways.isNotEmpty) {
         processId.value = value;
         paymentCode.value = tempPaymentGateways[0].paymentCode;
         processingFee.value = tempPaymentGateways[0].processingFee;
       }
-
     }
   }
 
+  void resetAndNavigateToHome() {
+    isModifySearchVisible.value = false;
+    isFlightDestinationsLoading.value = false;
+    isFlightPretravellerDataLoading.value = false;
+    isFlightTravellerDataSaveLoading.value = false;
+    isFlightSearchResponsesLoading.value = false;
 
+    isFlightGatewayStatusCheckLoading.value = false;
+    isFlightConfirmationDataLoading.value = false;
+    isFlightSavePaymentGatewayLoading.value = false;
+    isFlightMoreOptionsResponsesLoading.value = false;
+    isFlightDetailsLoading.value = false;
+    isFlightSearchFilterResponsesLoading.value = false;
+    isInitialDataLoading.value = false;
 
+    flightDestinations.value = [];
+    flightSearchItems.value = [];
+    flightSearchResponses.value = [];
+
+    sortingDc.value = SortingDcs(value: "-1", name: "", isDefault: false);
+
+    bookingRef.value = "";
+    currency.value = "KWD";
+
+    currentFlightIndex.value = (-1);
+    sortingDcs.value = [];
+    airlineDcs.value = [];
+    selectedAirlineDcs.value = [];
+    departureTimeDcs.value = [];
+    selectedDepartureTimeDcs.value = [];
+    arrivalTimeDcs.value = [];
+    selectedArrivalTimeDcs.value = [];
+    stopDcs.value = [];
+    selectedStopDcs.value = [];
+    priceDcs.value = [];
+    selectedPriceDcs.value = [];
+    selectedTravelInfo.value = [];
+    flightSearchData.value = getDefaultFlightSearchData();
+    startDate.value = DefaultInvalidDate;
+    flightDetails.value = getDefaultFlightDetails();
+    cabinInfo.value = mapCabinInfo({});
+    flightPretravellerData.value = mapFlightPretravellerData({});
+
+    Get.offAllNamed(Approute_landingpage,
+        predicate: (route) => Get.currentRoute == Approute_landingpage);
+  }
 }

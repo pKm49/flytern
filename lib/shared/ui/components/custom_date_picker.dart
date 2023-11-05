@@ -27,7 +27,14 @@ class CustomDatePicker extends StatefulWidget {
 }
 
 class _CustomDatePickerState extends State<CustomDatePicker> {
-  DateTime selectedDOB = DateTime.now();
+  DateTime selectedDOB = DateTime( DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +98,21 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           addVerticalSpace(flyternSpaceSmall),
           InkWell(
             onTap: () {
-              widget.dateSelected(selectedDOB);
+              print("date selected");
+              print(selectedDOB.year);
+              print(selectedDOB.month);
+              print(selectedDOB.day);
+              print(DateTime.now().year);
+              print(DateTime.now().month);
+              print(DateTime.now().day);
+              if(
+              selectedDOB.year == DateTime.now().year &&
+              selectedDOB.month == DateTime.now().month &&
+              selectedDOB.day == DateTime.now().day   ){
+                widget.dateSelected(widget.minimumDate);
+              }else{
+                widget.dateSelected(selectedDOB);
+              }
               Navigator.pop(context);
             },
             child: Container(

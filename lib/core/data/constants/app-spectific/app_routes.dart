@@ -47,6 +47,7 @@ import 'package:flytern/feature-modules/profile/ui/pages/profile_my_travel_stori
 import 'package:flytern/feature-modules/profile/ui/pages/profile_new_travel_story_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_edit_pages/profile_reset_password_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_view_profile_page.dart';
+import 'package:flytern/shared/ui/pages/payment_gateway_webview.dart';
 import 'package:flytern/shared/ui/pages/userdetails_submission_page.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:get/get.dart';
@@ -121,6 +122,12 @@ getAppRoutes() => [
       GetPage(
         name: Approute_userDetailsSubmission,
         page: () => const UserDetailsSubmissionPage(),
+        middlewares: [MyMiddelware()],
+      ),
+
+      GetPage(
+        name: Approute_paymentPage,
+        page: () => const PaymentGatewayWebView(),
         middlewares: [MyMiddelware()],
       ),
 

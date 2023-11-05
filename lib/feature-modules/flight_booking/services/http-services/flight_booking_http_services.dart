@@ -17,6 +17,7 @@ import 'package:flytern/shared/data/constants/app_specific/shared_http_request_e
 import 'package:flytern/shared/data/models/app_specific/flytern_http_response.dart';
 import 'package:flytern/shared/data/models/app_specific/set_device_info_request_body.dart';
 import 'package:flytern/shared/data/models/business_models/language.dart';
+import 'package:flytern/shared/data/models/business_models/payment_confirmation_data.dart';
 import 'package:flytern/shared/data/models/business_models/payment_gateway.dart';
 import 'package:flytern/shared/data/models/business_models/payment_gateway_url_data.dart';
 import 'package:flytern/shared/data/models/business_models/support_info.dart';
@@ -253,6 +254,50 @@ class FlightBookingHttpService {
 
     return [];
   }
+
+  Future<bool> checkGatewayStatus(
+      String bookingRef) async {
+    FlyternHttpResponse response = await postRequest(
+        FlightBookingHttpRequestEndpointCheckGatewayStatus,
+        {
+          "bookingRef": bookingRef
+        });
+
+    print("getPaymentGateways");
+    print(response.data["isGateway"]);
+    print(response.data["_gatewaylist"]);
+    if (response.success && response.statusCode == 200) {
+      if (response.data != null) {
+        if (response.data["isSuccess"] !=null) {
+          return response.data["isSuccess"];
+        }
+      }
+    }
+
+    return false;
+  }
+
+  Future<PaymentConfirmationData> getConfirmationData(
+      String bookingRef) async {
+    FlyternHttpResponse response = await postRequest(
+        FlightBookingHttpRequestEndpointConfirmation,
+        {
+          "bookingRef": bookingRef
+        });
+
+    print("getConfirmationData");
+    print(response.data["isIssued"]);
+    print(response.data["pdfLink"]);
+    if (response.success && response.statusCode == 200) {
+      if (response.data != null) {
+        PaymentConfirmationData paymentConfirmationData = mapPaymentpdfLinkData(response.data);
+        return paymentConfirmationData;
+      }
+    }
+
+    return mapPaymentpdfLinkData({});
+  }
+
 
   Future<PaymentGatewayUrlData> setPaymentGateway(String processID,
       String paymentCode,

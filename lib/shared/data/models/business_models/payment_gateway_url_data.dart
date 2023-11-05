@@ -16,6 +16,6 @@ PaymentGatewayUrlData mapPaymentGatewayUrlData(dynamic payload) {
   return PaymentGatewayUrlData(
       gatewayUrl: payload["gatewayUrl"] ?? "",
       confirmationUrl: payload["confirmationUrl"] ?? "",
-      isOkRedirection: payload["isOkRedirection"] ?? "",
+      isOkRedirection: payload["isOkRedirection"] ?? false,
       bookingRef: payload["bookingRef"] ?? "");
 }
