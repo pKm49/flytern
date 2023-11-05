@@ -17,13 +17,15 @@ import 'package:flytern/shared/data/constants/app_specific/shared_http_request_e
 import 'package:flytern/shared/data/models/app_specific/flytern_http_response.dart';
 import 'package:flytern/shared/data/models/app_specific/set_device_info_request_body.dart';
 import 'package:flytern/shared/data/models/business_models/language.dart';
+import 'package:flytern/shared/data/models/business_models/payment_gateway.dart';
+import 'package:flytern/shared/data/models/business_models/payment_gateway_url_data.dart';
 import 'package:flytern/shared/data/models/business_models/support_info.dart';
 import 'package:flytern/shared/services/http-services/http_request_handler.dart';
 
 class FlightBookingHttpService {
   Future<ExploreData?> getInitialInfo() async {
     FlyternHttpResponse response =
-    await getRequest(FlightBookingHttpRequestEndpointGetInitalInfo, null);
+        await getRequest(FlightBookingHttpRequestEndpointGetInitalInfo, null);
 
     if (response.success) {
       if (response.data != null) {
@@ -68,50 +70,45 @@ class FlightBookingHttpService {
     List<SortingDcs> stopDcs = [];
 
     if (response.success) {
-      if (response.data != null  ) {
-        if (  response.data["searchResponses"] != null) {
+      if (response.data != null) {
+        if (response.data["searchResponses"] != null) {
           for (var i = 0; i < response.data["searchResponses"].length; i++) {
             searchResponses.add(
                 mapFlightSearchResponse(response.data["searchResponses"][i]));
           }
         }
-        if (  response.data["sortingDcs"] != null) {
+        if (response.data["sortingDcs"] != null) {
           for (var i = 0; i < response.data["sortingDcs"].length; i++) {
-            sortingDcs.add(
-                mapSortingDcs(response.data["sortingDcs"][i]));
+            sortingDcs.add(mapSortingDcs(response.data["sortingDcs"][i]));
           }
         }
-        if (  response.data["priceDcs"] != null) {
+        if (response.data["priceDcs"] != null) {
           for (var i = 0; i < response.data["priceDcs"].length; i++) {
-            priceDcs.add(
-                mapRangeDcs(response.data["priceDcs"][i]));
+            priceDcs.add(mapRangeDcs(response.data["priceDcs"][i]));
           }
         }
-        if (  response.data["airlineDcs"] != null) {
+        if (response.data["airlineDcs"] != null) {
           for (var i = 0; i < response.data["airlineDcs"].length; i++) {
-            airlineDcs.add(
-                mapSortingDcs(response.data["airlineDcs"][i]));
+            airlineDcs.add(mapSortingDcs(response.data["airlineDcs"][i]));
           }
         }
-        if (  response.data["departureTimeDcs"] != null) {
+        if (response.data["departureTimeDcs"] != null) {
           for (var i = 0; i < response.data["departureTimeDcs"].length; i++) {
-            departureTimeDcs.add(
-                mapSortingDcs(response.data["departureTimeDcs"][i]));
+            departureTimeDcs
+                .add(mapSortingDcs(response.data["departureTimeDcs"][i]));
           }
         }
-        if (  response.data["arrivalTimeDcs"] != null) {
+        if (response.data["arrivalTimeDcs"] != null) {
           for (var i = 0; i < response.data["arrivalTimeDcs"].length; i++) {
-            arrivalTimeDcs.add(
-                mapSortingDcs(response.data["arrivalTimeDcs"][i]));
+            arrivalTimeDcs
+                .add(mapSortingDcs(response.data["arrivalTimeDcs"][i]));
           }
         }
-        if (  response.data["stopDcs"] != null) {
+        if (response.data["stopDcs"] != null) {
           for (var i = 0; i < response.data["stopDcs"].length; i++) {
-            stopDcs.add(
-                mapSortingDcs(response.data["stopDcs"][i]));
+            stopDcs.add(mapSortingDcs(response.data["stopDcs"][i]));
           }
         }
-
       }
     }
 
@@ -122,12 +119,10 @@ class FlightBookingHttpService {
         airlineDcs: airlineDcs,
         departureTimeDcs: departureTimeDcs,
         arrivalTimeDcs: arrivalTimeDcs,
-        stopDcs: stopDcs
-    );
+        stopDcs: stopDcs);
 
     return flightSearchResult;
   }
-
 
   Future<List<FlightSearchResponse>> getFlightSearchResultsFiltered(
       FlightFilterBody flightFilterBody) async {
@@ -136,43 +131,35 @@ class FlightBookingHttpService {
         flightFilterBody.toJson());
 
     List<FlightSearchResponse> searchResponses = [];
-    if (response.success && response.statusCode==200) {
-      if (response.data != null  ) {
-        if (  response.data["searchResponses"] != null) {
+    if (response.success && response.statusCode == 200) {
+      if (response.data != null) {
+        if (response.data["searchResponses"] != null) {
           for (var i = 0; i < response.data["searchResponses"].length; i++) {
             searchResponses.add(
                 mapFlightSearchResponse(response.data["searchResponses"][i]));
           }
         }
-
       }
     }
 
     return searchResponses;
   }
 
-  Future<FlightSearchResult> getMoreOptions(
-      int index, int objectId) async {
-
+  Future<FlightSearchResult> getMoreOptions(int index, int objectId) async {
     FlyternHttpResponse response = await postRequest(
         FlightBookingHttpRequestEndpointGetMoreOptionFlights,
-        {
-          "objectID":objectId,
-          "index": index
-        });
+        {"objectID": objectId, "index": index});
 
     List<FlightSearchResponse> searchResponses = [];
 
     if (response.success) {
-      if (response.data != null  ) {
-        if (  response.data["searchResponses"] != null) {
+      if (response.data != null) {
+        if (response.data["searchResponses"] != null) {
           for (var i = 0; i < response.data["searchResponses"].length; i++) {
             searchResponses.add(
                 mapFlightSearchResponse(response.data["searchResponses"][i]));
           }
         }
-
-
       }
     }
 
@@ -181,28 +168,22 @@ class FlightBookingHttpService {
         priceDcs: [],
         sortingDcs: [],
         airlineDcs: [],
-        departureTimeDcs:[],
+        departureTimeDcs: [],
         arrivalTimeDcs: [],
-        stopDcs: []
-    );
+        stopDcs: []);
 
     return flightSearchResult;
   }
 
-  Future<FlightDetails> getFlightDetails(
-      int index, int objectId) async {
-
+  Future<FlightDetails> getFlightDetails(int index, int objectId) async {
     FlyternHttpResponse response = await postRequest(
         FlightBookingHttpRequestEndpointGetDetailFlights,
-        {
-          "objectID":objectId,
-          "index": index
-        });
+        {"objectID": objectId, "index": index});
 
     FlightDetails flightDetails;
 
-    if (response.success && response.statusCode ==200) {
-      if (response.data != null  ) {
+    if (response.success && response.statusCode == 200) {
+      if (response.data != null) {
         flightDetails = mapFlightDetails(response.data);
         return flightDetails;
       }
@@ -211,20 +192,15 @@ class FlightBookingHttpService {
     return mapFlightDetails({});
   }
 
-
-  Future<FlightPretravellerData> getPreTravellerData(
-      int detailId ) async {
-
+  Future<FlightPretravellerData> getPreTravellerData(int detailId) async {
     FlyternHttpResponse response = await getRequest(
         FlightBookingHttpRequestEndpointGetPreTravellerData,
-        {
-          "detail_id":detailId
-        });
+        {"detail_id": detailId});
 
     FlightPretravellerData flightPretravellerData;
 
-    if (response.success && response.statusCode ==200) {
-      if (response.data != null  ) {
+    if (response.success && response.statusCode == 200) {
+      if (response.data != null) {
         flightPretravellerData = mapFlightPretravellerData(response.data);
         return flightPretravellerData;
       }
@@ -235,16 +211,15 @@ class FlightBookingHttpService {
 
   Future<String> setTravellerData(
       FlightTravellerData flightTravellerData) async {
-
     FlyternHttpResponse response = await postRequest(
         FlightBookingHttpRequestEndpointGetSaveTravellerData,
         flightTravellerData.toJson());
 
     String bookingRef;
 
-    if (response.success && response.statusCode ==200) {
-      if (response.data != null  ) {
-        bookingRef = response.data["bookingRef"]??"";
+    if (response.success && response.statusCode == 200) {
+      if (response.data != null) {
+        bookingRef = response.data["bookingRef"] ?? "";
         return bookingRef;
       }
     }
@@ -252,16 +227,62 @@ class FlightBookingHttpService {
     return "";
   }
 
+  Future<List<PaymentGateway>> getPaymentGateways(
+      String bookingRef) async {
+    FlyternHttpResponse response = await postRequest(
+        FlightBookingHttpRequestEndpointGetGateways,
+        {
+          "bookingRef": bookingRef
+        });
+
+    List<PaymentGateway> paymentGateways = [];
+
+    print("getPaymentGateways");
+    print(response.data["isGateway"]);
+    print(response.data["_gatewaylist"]);
+    if (response.success && response.statusCode == 200) {
+      if (response.data != null) {
+        if (response.data["isGateway"]) {
+          response.data["_gatewaylist"].forEach((element) {
+            paymentGateways.add(mapPaymentGateway(element));
+          });
+          return paymentGateways;
+        }
+      }
+    }
+
+    return [];
+  }
+
+  Future<PaymentGatewayUrlData> setPaymentGateway(String processID,
+      String paymentCode,
+      String bookingRef) async {
+    FlyternHttpResponse response = await postRequest(
+        FlightBookingHttpRequestEndpointSetGateway,
+        {
+          "processID": processID,
+          "paymentCode": paymentCode,
+          "bookingRef": bookingRef
+        });
+
+    if (response.success && response.statusCode == 200) {
+      if (response.data != null) {
+        PaymentGatewayUrlData paymentGatewayUrlData = mapPaymentGatewayUrlData(response.data);
+        return paymentGatewayUrlData;
+      }
+    }
+
+    return mapPaymentGatewayUrlData({});
+  }
 
   Future<List<RecommendedPackage>> getRecommended(int pageId) async {
-    FlyternHttpResponse response =
-    await getRequest(FlightBookingHttpRequestEndpointGetViewAllRecommeded,
-        {"pageid":pageId.toString()});
-    List<RecommendedPackage>  recommendedPackages = [];
+    FlyternHttpResponse response = await getRequest(
+        FlightBookingHttpRequestEndpointGetViewAllRecommeded,
+        {"pageid": pageId.toString()});
+    List<RecommendedPackage> recommendedPackages = [];
     if (response.success) {
       if (response.data != null) {
         if (response.data["records"] != null) {
-
           response.data["records"].forEach((element) {
             recommendedPackages.add(mapRecommendedPackage(element));
           });
@@ -274,14 +295,13 @@ class FlightBookingHttpService {
   }
 
   Future<List<TravelStory>> getTravelStories(int pageId) async {
-    FlyternHttpResponse response =
-    await getRequest(FlightBookingHttpRequestEndpointGetViewAllRecommeded,
-        {"pageid":pageId.toString()});
-    List<TravelStory>  travelStories = [];
+    FlyternHttpResponse response = await getRequest(
+        FlightBookingHttpRequestEndpointGetViewAllRecommeded,
+        {"pageid": pageId.toString()});
+    List<TravelStory> travelStories = [];
     if (response.success) {
       if (response.data != null) {
         if (response.data["records"] != null) {
-
           response.data["records"].forEach((element) {
             travelStories.add(mapTravelStory(element));
           });
@@ -294,10 +314,10 @@ class FlightBookingHttpService {
   }
 
   Future<List<PopularDestination>> getPopularDestinations(int pageId) async {
-    FlyternHttpResponse response =
-    await getRequest(FlightBookingHttpRequestEndpointGetViewAllRecommeded,
-        {"pageid":pageId.toString()});
-    List<PopularDestination>  popularDestination = [];
+    FlyternHttpResponse response = await getRequest(
+        FlightBookingHttpRequestEndpointGetViewAllRecommeded,
+        {"pageid": pageId.toString()});
+    List<PopularDestination> popularDestination = [];
     if (response.success) {
       if (response.data != null) {
         if (response.data["records"] != null) {

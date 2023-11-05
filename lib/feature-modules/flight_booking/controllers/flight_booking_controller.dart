@@ -23,6 +23,8 @@ import 'package:flytern/feature-modules/flight_booking/services/helper-services/
 import 'package:flytern/feature-modules/flight_booking/services/http-services/flight_booking_http_services.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
+import 'package:flytern/shared/data/models/business_models/payment_gateway.dart';
+import 'package:flytern/shared/data/models/business_models/payment_gateway_url_data.dart';
 import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
 import 'package:get/get.dart';
 
@@ -57,6 +59,7 @@ class FlightBookingController extends GetxController {
   var flightSearchItems = <FlightSearchItem>[].obs;
   var flightSearchResponses = <FlightSearchResponse>[].obs;
   var moreOptionFlights = <FlightSearchResponse>[].obs;
+  var paymentGateways = <PaymentGateway>[].obs;
 
   var sortingDc = SortingDcs(value: "-1", name: "", isDefault: false).obs;
 
@@ -65,6 +68,12 @@ class FlightBookingController extends GetxController {
   var pageId = 1.obs;
   var objectId = 1.obs;
   var detailId = 1.obs;
+  var processId = "-1".obs;
+  var paymentCode = "".obs;
+  var gatewayUrl = "".obs;
+  var confirmationUrl = "".obs;
+
+  var processingFee = (0.0).obs;
 
   var currentFlightIndex = (-1).obs;
   var sortingDcs = <SortingDcs>[].obs;
@@ -78,6 +87,7 @@ class FlightBookingController extends GetxController {
   var selectedStopDcs = <SortingDcs>[].obs;
   var priceDcs = <RangeDcs>[].obs;
   var selectedPriceDcs = <RangeDcs>[].obs;
+  var selectedTravelInfo = <TravelInfo>[].obs;
   var flightSearchData = getDefaultFlightSearchData().obs;
   var startDate = DefaultInvalidDate.obs;
   var flightDetails = getDefaultFlightDetails().obs;
@@ -261,8 +271,9 @@ class FlightBookingController extends GetxController {
   }
 
   Future<void> setPreTravellerData(List<TravelInfo> travelInfo) async {
-    if (!isFlightTravellerDataSaveLoading.value) {
+    if ( !isFlightTravellerDataSaveLoading.value) {
       isFlightTravellerDataSaveLoading.value = true;
+      selectedTravelInfo.value = travelInfo;
       String tempBookingRef = "";
       FlightTravellerData flightTravellerData = FlightTravellerData(
           travellerinfo: travelInfo,
@@ -276,15 +287,48 @@ class FlightBookingController extends GetxController {
       isFlightTravellerDataSaveLoading.value = false;
       if (tempBookingRef != "") {
         bookingRef.value = tempBookingRef;
-        Get.toNamed(Approute_flightsSummary);
-
+        getPaymentGateways();
       } else {
         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
       }
     }
   }
 
+  Future<void> getPaymentGateways() async {
 
+    isFlightTravellerDataSaveLoading.value = true;
+
+    List<PaymentGateway> tempPaymentGateway = await flightBookingHttpService.getPaymentGateways(
+        bookingRef.value);
+
+  print("tempPaymentGateway");
+  print(tempPaymentGateway.length);
+  print(tempPaymentGateway[0]);
+    paymentGateways.value = tempPaymentGateway;
+    if(tempPaymentGateway.isNotEmpty){
+      updateProcessId(tempPaymentGateway[0].processID);
+    }
+    Get.toNamed(Approute_flightsSummary);
+
+    isFlightTravellerDataSaveLoading.value = false;
+  }
+
+  Future<void> setPaymentGateway() async {
+
+    isFlightTravellerDataSaveLoading.value = true;
+
+    PaymentGatewayUrlData paymentGatewayUrlData = await flightBookingHttpService.setPaymentGateway (
+        bookingRef.value,bookingRef.value,bookingRef.value);
+
+    print("paymentGatewayUrlData");
+    print(paymentGatewayUrlData.isOkRedirection);
+    gatewayUrl.value = paymentGatewayUrlData.gatewayUrl;
+    confirmationUrl.value = paymentGatewayUrlData.confirmationUrl;
+
+    Get.toNamed(Approute_flightsSummary);
+
+    isFlightTravellerDataSaveLoading.value = false;
+  }
 
   Future<void> getRecommendedForyou() async {
 
@@ -318,6 +362,24 @@ class FlightBookingController extends GetxController {
 
     isPopularDestinationsLoading.value = false;
   }
+
+  void updateProcessId(String? value) {
+
+
+    if(value !=null){
+      List<PaymentGateway> tempPaymentGateways = paymentGateways.value.where((element) =>
+      element.processID == value
+      ).toList();
+
+      if(tempPaymentGateways.isNotEmpty){
+        processId.value = value;
+        paymentCode.value = tempPaymentGateways[0].paymentCode;
+        processingFee.value = tempPaymentGateways[0].processingFee;
+      }
+
+    }
+  }
+
 
 
 }
