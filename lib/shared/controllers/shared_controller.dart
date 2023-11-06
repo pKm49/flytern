@@ -40,6 +40,7 @@ class SharedController extends GetxController {
   var genders = <Gender>[].obs;
   var languages = <Language>[].obs;
   var countries = <Country>[].obs;
+  var countriesToShow = <Country>[].obs;
 
   var termsHtml = "".obs;
   var privacyHtml = "".obs;
@@ -57,6 +58,8 @@ class SharedController extends GetxController {
     genders.value = availableGenders;
     languages.value = availableLanguages;
     countries.value = availableCountries;
+    countriesToShow.value = availableCountries;
+
   }
 
   changeLanguage(Language language) async {
@@ -70,10 +73,32 @@ class SharedController extends GetxController {
     selectedCountry.value = country;
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString('selectedCountry', country.countryCode);
+     updateCountryListByQuery("");
+
   }
 
   updateGenders(List<Gender> newGendersList) {
     genders.value = newGendersList;
+  }
+
+  updateCountryListByQuery(String query){
+
+    print("updateCountryListByQuery");
+    print(query);
+    if(query ==""){
+      countriesToShow.value = countries.value;
+    }else{
+
+      List<Country> tempCountries = countries.value.where((element) =>
+      element.countryName.toLowerCase().contains(query.toLowerCase()) ||
+      element.countryName_Ar.toLowerCase().contains(query.toLowerCase()) ||
+      element.code.toLowerCase().contains(query.toLowerCase()) ||
+      element.countryISOCode.toLowerCase().contains(query.toLowerCase()) ||
+      element.countryCode.toLowerCase().contains(query.toLowerCase())
+      ).toList();
+
+      countriesToShow.value = tempCountries;
+    }
   }
 
   Future<void> getInitialInfo() async {
@@ -81,6 +106,7 @@ class SharedController extends GetxController {
 
     languages.value = supportInfo.languages;
     countries.value = supportInfo.countries;
+    countriesToShow.value = supportInfo.countries;
   }
 
   Future<void> getPreRegisterInfo() async {
