@@ -442,6 +442,7 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
                           style: getElevatedButtonStyle(context),
                           onPressed: () {
                             openContactDetailsGetterBottomSheet();
+
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

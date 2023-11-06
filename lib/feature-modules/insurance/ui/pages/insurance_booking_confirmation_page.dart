@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/components/activity_list_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_airport_lable_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_summary_card.dart';
+import 'package:flytern/feature-modules/insurance/controllers/insurance_controller.dart';
 import 'package:flytern/shared/ui/components/user_details_card.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/components/hote_search_result_card.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
@@ -11,6 +12,10 @@ import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:ionicons/ionicons.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class InsuranceBookingConfirmationPage extends StatefulWidget {
   const InsuranceBookingConfirmationPage({super.key});
@@ -21,10 +26,7 @@ class InsuranceBookingConfirmationPage extends StatefulWidget {
 
 class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfirmationPage> {
 
-  final ExpansionTileController controller = ExpansionTileController();
-  final ExpansionTileController controller2 = ExpansionTileController();
-
-  int selectedPaymentMethod = 1;
+  final insuranceBookingController = Get.find<InsuranceBookingController>();
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +45,27 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
         color: flyternGrey10,
         child: ListView(
           children: [
-
-
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("booking_details".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+            Container(
+              width: screenwidth,
+              height: screenwidth*.6,
+              child: Center(
+                child: Column(
+                  children: [
+                    Icon(Ionicons.checkmark_circle_outline,size: screenwidth*.4,color: flyternGuideGreen),
+                    Padding(
+                      padding: EdgeInsets.only(top: flyternSpaceLarge),
+                      child: Text(
+                          insuranceBookingController.bookingRef.value !=""?
+                          "success".tr:"failed".tr,
+                          textAlign: TextAlign.center,
+                          style: getHeadlineLargeStyle(context).copyWith(
+                              color: flyternGuideGreen, fontWeight: flyternFontWeightBold)),
+                    ),
+                  ],
+                ),
+              ),
             ),
+            addVerticalSpace(flyternSpaceMedium),
             Container(
               padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
               color: flyternBackgroundWhite,
@@ -73,42 +88,57 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("booking_id".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("123123",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text(insuranceBookingController.bookingRef.value,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
-
-
+            InkWell(
+              onTap: (){
+                _launchUrl(insuranceBookingController.pdfLink.value);
+              },
+              child: Container(
+                padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
+                color: flyternBackgroundWhite,
+                child:  Text("get_eticket".tr,
+                    style: getBodyMediumStyle(context).copyWith(
+                        decoration: TextDecoration.underline,
+                        color: flyternTertiaryColor)),
+              ),
+            ),
             Padding(
               padding: flyternLargePaddingAll,
-              child: Text("payment_summary".tr,
+              child: Text("price_details".tr,
                   style: getBodyMediumStyle(context).copyWith(
                       color: flyternGrey80, fontWeight: flyternFontWeightBold)),
             ),
+
             Container(
               padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
               color: flyternBackgroundWhite,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("ticket_price".tr ,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("AED 10,000",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text("total_fare".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text("${insuranceBookingController.selectedPaymentGateway.value.currencyCode}"
+                      " ${insuranceBookingController.selectedPaymentGateway.value.totalAmount}",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
+            Container(
+                padding: flyternLargePaddingHorizontal,
+                color:flyternBackgroundWhite,
+                child: Divider()),
 
             Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
               padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
               color: flyternBackgroundWhite,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("tax".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("AED 200",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text("discount".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text("${insuranceBookingController.selectedPaymentGateway.value.currencyCode}"
+                      " ${insuranceBookingController.selectedPaymentGateway.value.discount}",
+                      style: getBodyMediumStyle(context).copyWith(color: flyternGuideGreen)),
                 ],
               ),
             ),
@@ -116,44 +146,17 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
                 padding: flyternLargePaddingHorizontal,
                 color:flyternBackgroundWhite,
                 child: Divider()),
+
             Container(
               padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
               color: flyternBackgroundWhite,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("total".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("AED 1520",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("payment_method".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("apple_pay".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("payment_status".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("captured".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text("processing_fee".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text("${insuranceBookingController.selectedPaymentGateway.value.currencyCode}"
+                      " ${insuranceBookingController.selectedPaymentGateway.value.processingFee}",
+                      style: getBodyMediumStyle(context).copyWith(color: flyternGrey80 )),
                 ],
               ),
             ),
@@ -167,70 +170,15 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("payment_reference".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("123123",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text("grand_total".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text("${insuranceBookingController.selectedPaymentGateway.value.currencyCode}"
+                      " ${insuranceBookingController.selectedPaymentGateway.value.finalAmount}",
+                      style: getBodyMediumStyle(context).copyWith(color: flyternGrey80,
+                          fontWeight: flyternFontWeightBold)),
                 ],
               ),
             ),
 
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("user_details".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            UserDetailsCard(
-              onDelete: (){},
-              onEdit: (){},
-              isActionAllowed:false,
-              name: "adult".tr,
-              age: "Andrew Martin",
-              gender: "andrewmartin@gmail.com",
-              passportNumber: "+92 334431234",
-            ),
-
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal,
-              child: Divider(),
-            ),
-            UserDetailsCard(
-              onDelete: (){},
-              onEdit: (){},
-              isActionAllowed:false,
-              name: "adult".tr,
-              age: "Andrew Martin",
-              gender: "andrewmartin@gmail.com",
-              passportNumber: "+92 334431234",
-            ),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal,
-              child: Divider(),
-            ),
-            UserDetailsCard(
-              onDelete: (){},
-              onEdit: (){},
-              isActionAllowed:false,
-              name: "adult".tr,
-              age: "Andrew Martin",
-              gender: "andrewmartin@gmail.com",
-              passportNumber: "+92 334431234",
-            ),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal,
-              child: Divider(),
-            ),
-            UserDetailsCard(
-              onDelete: (){},
-              onEdit: (){},
-              isActionAllowed:false,
-              name: "adult".tr,
-              age: "Andrew Martin",
-              gender: "andrewmartin@gmail.com",
-              passportNumber: "+92 334431234",
-            ),
             Padding(
               padding: flyternLargePaddingAll,
               child: Text("insurance_details".tr,
@@ -244,7 +192,7 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("policy".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("COVID-19",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text(insuranceBookingController.policyHeaderObj.value.name,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
@@ -259,7 +207,7 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("policy_type".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("Individual",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text(insuranceBookingController.policyTypeObj.value.name,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
@@ -274,7 +222,7 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("policy_plan".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("Silver",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text(insuranceBookingController.policyOptionObj.value.name,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
@@ -289,7 +237,7 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("policy_period".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("One Week",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text(insuranceBookingController.policyPeriodObj.value.name,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
@@ -304,11 +252,41 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("policy_start_date".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("18 Apr 23",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  Text(getFormattedDOB(insuranceBookingController.policyDate.value),style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
                 ],
               ),
             ),
 
+            Padding(
+              padding: flyternLargePaddingAll,
+              child: Text("user_details".tr,
+                  style: getBodyMediumStyle(context).copyWith(
+                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+            ),
+            for (var i = 0;
+            i <
+                insuranceBookingController
+                    .selectedTravelInfo.value.length;
+            i++)
+              Container(
+                decoration: BoxDecoration(
+                  border: flyternDefaultBorderBottomOnly,
+                  color: flyternBackgroundWhite,
+                ),
+                child: UserDetailsCard(
+                  onDelete: () {},
+                  onEdit: () {},
+                  isActionAllowed: false,
+                  name:
+                  "${insuranceBookingController.selectedTravelInfo[i].firstName} ${insuranceBookingController.selectedTravelInfo[i].lastName}",
+                  age: getAge(insuranceBookingController
+                      .selectedTravelInfo[i].dateOfBirth),
+                  gender: insuranceBookingController
+                      .selectedTravelInfo[i].gender,
+                  passportNumber: insuranceBookingController
+                      .selectedTravelInfo[i].passportNumber,
+                ),
+              ),
 
             Container(
               height: 70+(flyternSpaceSmall*2),
@@ -327,12 +305,30 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
             width: double.infinity,
             child: ElevatedButton(style: getElevatedButtonStyle(context),
                 onPressed: () {
-                  Get.offAllNamed(Approute_landingpage);
+                  insuranceBookingController.resetAndNavigateToHome();
                 },
-                child:Text("get_insurance".tr )),
+                child:Text( "continue".tr )),
           ),
         ),
       ),
     );
   }
+
+  getAge(DateTime dateOfBirth) {
+    return "${DateTime.now().year - dateOfBirth.year} years";
+  }
+
+  Future<void> _launchUrl(String urlString) async {
+    final Uri _url = Uri.parse(urlString);
+
+    if (!await launchUrl(_url)) {
+      print('Could not launch $_url');
+    }
+  }
+
+  String getFormattedDOB(DateTime dateOfBirth) {
+    final f = DateFormat.yMMMMd('en_US');
+    return f.format(dateOfBirth);
+  }
+
 }

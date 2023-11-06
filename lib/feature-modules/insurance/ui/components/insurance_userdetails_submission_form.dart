@@ -205,8 +205,7 @@ class _InsuranceUserDetailsSubmissionFormState
                 padding: EdgeInsets.only(bottom: flyternSpaceMedium),
                 color: flyternBackgroundWhite,
                 child: TextFormField(
-                    onChanged: updateData(),
-
+                    onTap: updateData(),
                     controller: civilIdController,
                     validator: (value) =>
                         checkIfNameFormValid(value, "civil_id".tr),
@@ -339,6 +338,13 @@ class _InsuranceUserDetailsSubmissionFormState
       dobController.text = f.format(coPax[0].dateOfBirth);
       dateOfBirth = coPax[0].dateOfBirth;
       final sharedController = Get.find<SharedController>();
+      if(coPax[0].dateOfBirth == DefaultInvalidDate){
+        dobController.text = f.format(DefaultMinimumDate);
+        dateOfBirth = DefaultMinimumDate;
+      }else{
+        dobController.text = f.format(coPax[0].dateOfBirth);
+        dateOfBirth = coPax[0].dateOfBirth;
+      }
 
       List<Country> nationCountry = sharedController.countries.value.where((element) =>
       element.countryISOCode == coPax[0].nationalityCode).toList();

@@ -248,7 +248,10 @@ class _InsuranceUserDetailsSubmissionPageState
                   width: double.infinity,
                   child: ElevatedButton(
                       style: getElevatedButtonStyle(context),
-                      onPressed: () {
+                      onPressed: () async {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        await Future.delayed(const Duration(seconds: 1));
+
                         insuranceBookingController.saveTravellersData(
                             travelInfo);
                       },

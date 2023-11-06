@@ -11,6 +11,7 @@ import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -84,12 +85,27 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
                   child: ListView(
                     children: [
 
-                      Padding(
-                        padding: flyternLargePaddingAll,
-                        child: Text("booking_details".tr,
-                            style: getBodyMediumStyle(context).copyWith(
-                                color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+                      Container(
+                        width: screenwidth,
+                        height: screenwidth*.6,
+                        child: Center(
+                          child: Column(
+                            children: [
+                              Icon(Ionicons.checkmark_circle_outline,size: screenwidth*.4,color: flyternGuideGreen),
+                              Padding(
+                                padding: EdgeInsets.only(top: flyternSpaceLarge),
+                                child: Text(
+                                    flightBookingController.bookingRef.value !=""?
+                                    "success".tr:"failed".tr,
+                                    textAlign: TextAlign.center,
+                                    style: getHeadlineLargeStyle(context).copyWith(
+                                        color: flyternGuideGreen, fontWeight: flyternFontWeightBold)),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
+                      addVerticalSpace(flyternSpaceMedium),
                       Container(
                         padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
                         color: flyternBackgroundWhite,
@@ -118,7 +134,7 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
                       ),
                       InkWell(
                         onTap: (){
-                          launchUrl(Uri.parse(flightBookingController.pdfLink.value));
+                          _launchUrl(flightBookingController.pdfLink.value);
                         },
                         child: Container(
                           padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),

@@ -91,12 +91,8 @@ class _PackageBookingConfirmationPageState extends State<PackageBookingConfirmat
                     addVerticalSpace(flyternSpaceLarge),
 
                     Container(
-                        padding: flyternLargePaddingHorizontal,
-                        color:flyternBackgroundWhite,
-                        child: Divider()),
-
-                    Container(
-                      padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
+                      padding: flyternLargePaddingHorizontal.copyWith(
+                          top: flyternSpaceLarge,bottom: flyternSpaceLarge),
                       color: flyternBackgroundWhite,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

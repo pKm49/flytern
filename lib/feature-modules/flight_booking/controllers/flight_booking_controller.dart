@@ -325,7 +325,7 @@ class FlightBookingController extends GetxController {
 
     PaymentGatewayUrlData paymentGatewayUrlData =
         await flightBookingHttpService.setPaymentGateway(
-            bookingRef.value, bookingRef.value, bookingRef.value);
+            processId.value, paymentCode.value, bookingRef.value);
 
     print("paymentGatewayUrlData");
     print(paymentGatewayUrlData.isOkRedirection);
@@ -364,13 +364,16 @@ class FlightBookingController extends GetxController {
     print(isSuccess);
 
     if (isSuccess) {
-      showSnackbar(Get.context!, "payment_capture_success".tr, "error");
+      showSnackbar(Get.context!, "payment_capture_success".tr, "info");
       getConfirmationData();
     } else {
-      Get.offAllNamed(Approute_flightsSummary,
-          predicate: (route) =>
-              Get.currentRoute == Approute_userDetailsSubmission);
 
+      int iter = 0;
+      Get.offNamedUntil(Approute_flightsSummary, (route) {
+        print("Get.currentRoute");
+        print(Get.currentRoute);
+        return ++iter ==1;
+      });
       showSnackbar(Get.context!, "payment_capture_error".tr, "error");
     }
 
@@ -391,21 +394,27 @@ class FlightBookingController extends GetxController {
     if (paymentConfirmationData.isIssued) {
       pdfLink.value = paymentConfirmationData.pdfLink;
       confirmationMessage.value = paymentConfirmationData.alertMsg;
-      showSnackbar(Get.context!, "flight_booking_success".tr, "error");
+      showSnackbar(Get.context!, "flight_booking_success".tr, "info");
 
-      Get.offAllNamed(Approute_flightsConfirmation,
+      int iter = 0;
+      Get.offNamedUntil(Approute_flightsConfirmation,
           arguments: [
             {"mode": "view"}
-          ],
-          predicate: (route) => Get.currentRoute == Approute_flightsAddonServices);
-
+          ],(route) {
+        print("Get.currentRoute");
+        print(Get.currentRoute);
+        return ++iter ==4;
+      });
     } else {
-      showSnackbar(Get.context!, "flight_booking_failed".tr, "error");
+      showSnackbar(Get.context!, "booking_failed".tr, "error");
 
-      Get.offAllNamed(Approute_flightsSummary,
-          predicate: (route) =>
-              Get.currentRoute == Approute_userDetailsSubmission);
 
+      int iter = 0;
+      Get.offNamedUntil(Approute_flightsSummary, (route) {
+        print("Get.currentRoute");
+        print(Get.currentRoute);
+        return ++iter ==1;
+      });
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
 
@@ -503,7 +512,6 @@ class FlightBookingController extends GetxController {
     cabinInfo.value = mapCabinInfo({});
     flightPretravellerData.value = mapFlightPretravellerData({});
 
-    Get.offAllNamed(Approute_landingpage,
-        predicate: (route) => Get.currentRoute == Approute_landingpage);
+    Get.offAllNamed(Approute_landingpage);
   }
 }

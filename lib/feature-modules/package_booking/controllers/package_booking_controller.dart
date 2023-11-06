@@ -114,8 +114,7 @@ class PackageBookingController extends GetxController {
     mobileNumber.value = "";
     email.value = "";
 
-    Get.offAllNamed(Approute_landingpage, predicate: (route) => Get.currentRoute == Approute_landingpage);
-
+     Get.offAllNamed(Approute_landingpage);
   }
 
 }
