@@ -1,6 +1,7 @@
 import 'package:flytern/feature-modules/activity_booking/data/constants/app_specific/activity_booking_http_request_endpoints.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_data.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_details.dart';
+import 'package:flytern/feature-modules/activity_booking/data/models/activity_filter_body.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_response.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_submission_data.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/destination_response.dart';
@@ -36,7 +37,7 @@ class ActivityBookingHttpService {
   }
 
 
-  Future<ActivityResponse> getActivities(int cityId) async {
+  Future<ActivityResponse> getActivities(String cityId) async {
     FlyternHttpResponse response =
     await getRequest(ActivityBookingHttpRequestEndpointGetActivities, {
       "cityId": cityId
@@ -94,6 +95,40 @@ class ActivityBookingHttpService {
     return activityResponse;
 
   }
+
+  Future<ActivityResponse> filterActivities(ActivityFilterBody activityFilterBody) async {
+    FlyternHttpResponse response =
+    await postRequest(ActivityBookingHttpRequestEndpointFilterActivities,activityFilterBody.toJson());
+
+    List<ActivityData> activities = [];
+    int objectID = -1;
+    List<RangeDcs> priceDcs = [];
+    List<SortingDcs> sortingDcs = [];
+    List<SortingDcs> tourCategoryDcs = [];
+    List<SortingDcs> bestDealsDcs = [];
+
+    if (response.success) {
+      if (response.data != null) {
+        if (response.data["results"] != null) {
+          for (var i = 0; i < response.data["results"].length; i++) {
+            activities.add(
+                mapActivityData(response.data["results"][i]));
+          }
+        }
+      }
+    }
+    ActivityResponse activityResponse = ActivityResponse(
+        activities: activities,
+        objectID: objectID,
+        priceDcs: priceDcs,
+        sortingDcs: sortingDcs,
+        tourCategoryDcs: tourCategoryDcs,
+        bestDealsDcs: bestDealsDcs
+    );
+    return activityResponse;
+
+  }
+
 
   Future<ActivityDetails?> getActivityDetails(int refId) async {
     FlyternHttpResponse response =

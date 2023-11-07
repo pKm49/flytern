@@ -45,6 +45,7 @@
   const String Approute_packagesConfirmation = '/packages-confirmation';
 
   //activities booking
+  const String Approute_activitiesList = '/activities-list';
   const String Approute_activitiesDetails = '/activities-details';
   const String Approute_activitiesSummary = '/activities-summary';
   const String Approute_activitiesConfirmation = '/activities-confirmation';

@@ -4,6 +4,7 @@ import 'package:flytern/core/ui/pages/landing_page.dart';
 import 'package:flytern/core/ui/pages/language_selector.dart';
 import 'package:flytern/core/ui/pages/drawer_pages/settings_page.dart';
 import 'package:flytern/core/ui/pages/drawer_pages/smart_payment_page.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/pages/activities_list_page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_confirmation_page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_summary_page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_details_page.dart';
@@ -234,7 +235,15 @@ getAppRoutes() => [
 
 //  activities Booking
 
-      GetPage(
+
+  GetPage(
+    name: Approute_activitiesList,
+    page: () => const ActivitiesListPage(),
+    middlewares: [MyMiddelware()],
+  ),
+
+
+  GetPage(
         name: Approute_activitiesDetails,
         page: () => const ActivityDetailsPage(),
         middlewares: [MyMiddelware()],

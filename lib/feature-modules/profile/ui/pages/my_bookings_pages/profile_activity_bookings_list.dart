@@ -30,32 +30,17 @@ class _ProfileActivityBookingsListState extends State<ProfileActivityBookingsLis
             height: flyternSpaceLarge,
           ),
           addVerticalSpace(flyternSpaceLarge),
-           ActivityListCard(
-             onPressed: (){
-
-             },
-            imageUrl: ASSETS_PACKAGE_1_SAMPLE,
-            title: 'Shrek\'s Adventure',
-            flightName: 'Ticket (PP)',
-            hotelName: 'The Bank Hotel',
-            sponsoredBy: 'Central London',
-            price: 15000,
-          ),
-          Padding(
-            padding: flyternLargePaddingHorizontal,
-            child: Divider(),
-          ),
-          ActivityListCard(
-            onPressed: (){
-
-            },
-            imageUrl: ASSETS_PACKAGE_1_SAMPLE,
-            title: 'Shrek\'s Adventure',
-            flightName: 'Ticket (PP)',
-            hotelName: 'The Bank Hotel',
-            sponsoredBy: 'Central London',
-            price: 15000,
-          ),
+          //  ActivityListCard(
+          //    onPressed: (){
+          //
+          //    },
+          //   imageUrl: ASSETS_PACKAGE_1_SAMPLE,
+          //   title: 'Shrek\'s Adventure',
+          //   flightName: 'Ticket (PP)',
+          //   hotelName: 'The Bank Hotel',
+          //   sponsoredBy: 'Central London',
+          //   price: 15000,
+          // ),
         ],
       ),
     );

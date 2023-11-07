@@ -1,6 +1,6 @@
 class ActivityCity {
 
-  final int cityID;
+  final String cityID;
   final String cityName;
   final String imageUrl;
 
@@ -15,7 +15,7 @@ class ActivityCity {
 
 ActivityCity mapActivityCity(dynamic payload){
   return ActivityCity(
-    cityID :payload["cityID"]??-1,
+    cityID :payload["cityID"].toString()??"-1",
     cityName :payload["cityName"]??"",
     imageUrl :payload["imageUrl"]??""
   );

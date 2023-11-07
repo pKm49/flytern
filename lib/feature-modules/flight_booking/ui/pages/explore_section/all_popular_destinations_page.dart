@@ -29,44 +29,46 @@ class _AllPopularDestinationsPageState extends State<AllPopularDestinationsPage>
       appBar: AppBar(
         title: Text("popular_destinations".tr),
       ),
-      body: Stack(
-        children: [
-          Visibility(
-              visible: flightBookingController.isPopularDestinationsLoading.value,
-              child: Container(
-                width: screenwidth,
-                height: screenheight * .9,
-                color: flyternGrey10,
-                child: Center(
-                    child: LoadingAnimationWidget.prograssiveDots(
-                  color: flyternSecondaryColor,
-                  size: 50,
+      body: Obx(
+          ()=> Stack(
+          children: [
+            Visibility(
+                visible: flightBookingController.isPopularDestinationsLoading.value,
+                child: Container(
+                  width: screenwidth,
+                  height: screenheight * .9,
+                  color: flyternGrey10,
+                  child: Center(
+                      child: LoadingAnimationWidget.prograssiveDots(
+                    color: flyternSecondaryColor,
+                    size: 50,
+                  )),
                 )),
-              )),
-          Visibility(
-              visible: !flightBookingController.isPopularDestinationsLoading.value,
-              child: Container(
-                width: screenwidth,
-                height: screenheight * .9,
-                child: ListView.builder(
-                    itemCount:
-                        flightBookingController.popularDestinations.length,
-                    itemBuilder: (context, i) {
-                      return Container(
-                        decoration: BoxDecoration(border:
-                        i==(flightBookingController.popularDestinations.length-1)?null:
-                        flyternDefaultBorderBottomOnly),
-                        child: PopularPackageListCard(
-                          imageUrl: flightBookingController.popularDestinations[i].url,
-                          title: flightBookingController.popularDestinations[i].name,
-                          destination: flightBookingController.popularDestinations[i].destinations,
-                          rating: flightBookingController.popularDestinations[i].ratings,
-                          price: flightBookingController.popularDestinations[i].price,
-                        ),
-                      );
-                    }),
-              ))
-        ],
+            Visibility(
+                visible: !flightBookingController.isPopularDestinationsLoading.value,
+                child: Container(
+                  width: screenwidth,
+                  height: screenheight * .9,
+                  child: ListView.builder(
+                      itemCount:
+                          flightBookingController.popularDestinations.length,
+                      itemBuilder: (context, i) {
+                        return Container(
+                          decoration: BoxDecoration(border:
+                          i==(flightBookingController.popularDestinations.length-1)?null:
+                          flyternDefaultBorderBottomOnly),
+                          child: PopularPackageListCard(
+                            imageUrl: flightBookingController.popularDestinations[i].url,
+                            title: flightBookingController.popularDestinations[i].name,
+                            destination: flightBookingController.popularDestinations[i].destinations,
+                            rating: flightBookingController.popularDestinations[i].ratings,
+                            price: flightBookingController.popularDestinations[i].price,
+                          ),
+                        );
+                      }),
+                ))
+          ],
+        ),
       ),
     );
   }

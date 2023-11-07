@@ -28,48 +28,50 @@ class _AllTravellStoriesPageState extends State<AllTravellStoriesPage> {
       appBar: AppBar(
         title: Text("travel_stories".tr),
       ),
-      body: Stack(
-        children: [
-          Visibility(
-              visible:
-              flightBookingController.isTravelStoriesLoading.value,
-              child: Container(
-                width: screenwidth,
+      body: Obx(
+            ()=> Stack(
+          children: [
+            Visibility(
+                visible:
+                flightBookingController.isTravelStoriesLoading.value,
+                child: Container(
+                  width: screenwidth,
+                  height: screenheight * .9,
+                  color: flyternGrey10,
+                  child: Center(
+                      child: LoadingAnimationWidget.prograssiveDots(
+                        color: flyternSecondaryColor,
+                        size: 50,
+                      )),
+                )),
+            Visibility(
+                visible:
+                !flightBookingController.isTravelStoriesLoading.value,
+                child: Container(
+              width: screenwidth,
                 height: screenheight * .9,
-                color: flyternGrey10,
-                child: Center(
-                    child: LoadingAnimationWidget.prograssiveDots(
-                      color: flyternSecondaryColor,
-                      size: 50,
-                    )),
-              )),
-          Visibility(
-              visible:
-              !flightBookingController.isTravelStoriesLoading.value,
-              child: Container(
-            width: screenwidth,
-              height: screenheight * .9,
-            child: ListView.builder(
-                itemCount: flightBookingController.travelStories.length,
-                itemBuilder: (context,i){
-              return Container(
-                decoration: BoxDecoration(border:
-                i==(flightBookingController.travelStories.length-1)?null:
-                flyternDefaultBorderBottomOnly),
-                child: TravelStoriesItemCard(
-                  createdOn: DefaultInvalidDate,
-                  title: "",
-                  status: "",
-                  profilePicUrl: flightBookingController.travelStories[i].profileUrl,
-                  name: flightBookingController.travelStories[i].name,
-                  ratings:flightBookingController.travelStories[i].ratings,
-                  description: flightBookingController.travelStories[i].shortDesc,
-                  imageUrl: flightBookingController.travelStories[i].url,
-                ),
-              );
-            }),
-          ))
-        ],
+              child: ListView.builder(
+                  itemCount: flightBookingController.travelStories.length,
+                  itemBuilder: (context,i){
+                return Container(
+                  decoration: BoxDecoration(border:
+                  i==(flightBookingController.travelStories.length-1)?null:
+                  flyternDefaultBorderBottomOnly),
+                  child: TravelStoriesItemCard(
+                    createdOn: DefaultInvalidDate,
+                    title: "",
+                    status: "",
+                    profilePicUrl: flightBookingController.travelStories[i].profileUrl,
+                    name: flightBookingController.travelStories[i].name,
+                    ratings:flightBookingController.travelStories[i].ratings,
+                    description: flightBookingController.travelStories[i].shortDesc,
+                    imageUrl: flightBookingController.travelStories[i].url,
+                  ),
+                );
+              }),
+            ))
+          ],
+        ),
       ),
     );
   }

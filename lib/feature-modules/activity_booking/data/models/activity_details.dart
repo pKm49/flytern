@@ -174,7 +174,7 @@ ActivityDetails getDefaultActivityDetails() {
       tourShortDescription: "",
       imagePath: "",
       imageCaptionName: "",
-      rating: "",
+      rating: 0.0,
       isSlot: false,
       onlyChild: false,
       headerimage: headerimage,

@@ -28,42 +28,44 @@ class _AllRecommendedItemsPageState extends State<AllRecommendedItemsPage> {
       appBar: AppBar(
         title: Text("recommended_for_you".tr),
       ),
-      body: Stack(
-        children: [
-          Visibility(
-              visible: flightBookingController.isRecommendedLoading.value,
-              child: Container(
-                width: screenwidth,
-                height: screenheight * .9,
-                color: flyternGrey10,
-                child: Center(
-                    child: LoadingAnimationWidget.prograssiveDots(
-                  color: flyternSecondaryColor,
-                  size: 50,
+      body: Obx(
+            ()=> Stack(
+          children: [
+            Visibility(
+                visible: flightBookingController.isRecommendedLoading.value,
+                child: Container(
+                  width: screenwidth,
+                  height: screenheight * .9,
+                  color: flyternGrey10,
+                  child: Center(
+                      child: LoadingAnimationWidget.prograssiveDots(
+                    color: flyternSecondaryColor,
+                    size: 50,
+                  )),
                 )),
-              )),
-          Visibility(
-              visible: !flightBookingController.isRecommendedLoading.value,
-              child: Container(
-                width: screenwidth,
-                height: screenheight * .9,
-                child: ListView.builder(
-                    itemCount:
-                        flightBookingController.recommendedPackages.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: flyternLargePaddingAll.copyWith(bottom: index == (flightBookingController.recommendedPackages.length-1)?flyternSpaceLarge:0),
-                        child: FlightRecommendedItemCard(
-                            imageUrl: flightBookingController
-                                .recommendedPackages[index].url,
-                            title: flightBookingController
-                                .recommendedPackages[index].name,
-                            rating: flightBookingController
-                                .recommendedPackages[index].ratings),
-                      );
-                    }),
-              ))
-        ],
+            Visibility(
+                visible: !flightBookingController.isRecommendedLoading.value,
+                child: Container(
+                  width: screenwidth,
+                  height: screenheight * .9,
+                  child: ListView.builder(
+                      itemCount:
+                          flightBookingController.recommendedPackages.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: flyternLargePaddingAll.copyWith(bottom: index == (flightBookingController.recommendedPackages.length-1)?flyternSpaceLarge:0),
+                          child: FlightRecommendedItemCard(
+                              imageUrl: flightBookingController
+                                  .recommendedPackages[index].url,
+                              title: flightBookingController
+                                  .recommendedPackages[index].name,
+                              rating: flightBookingController
+                                  .recommendedPackages[index].ratings),
+                        );
+                      }),
+                ))
+          ],
+        ),
       ),
     );
   }

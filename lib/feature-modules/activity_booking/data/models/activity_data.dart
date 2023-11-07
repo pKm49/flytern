@@ -20,7 +20,7 @@ class ActivityData {
   final double price;
   final String currency;
   final String imagePath;
-  final String rating;
+  final double rating;
 
   ActivityData(
       {required this.tourId,
@@ -66,7 +66,7 @@ ActivityData mapActivityData(dynamic payload) {
     tourShortDescription: payload["tourShortDescription"] ?? "",
     imagePath: payload["imagePath"] ?? "",
     imageCaptionName: payload["imageCaptionName"] ?? "",
-    rating: payload["rating"] ?? "",
+    rating: payload["rating"] ?? 0.0,
     isSlot: payload["isSlot"] ?? false,
     onlyChild: payload["onlyChild"] ?? false,
   );

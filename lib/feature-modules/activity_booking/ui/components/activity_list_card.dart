@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/activity_booking/data/models/activity_data.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -8,26 +9,15 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class ActivityListCard extends StatelessWidget {
+  final ActivityData activityData;
 
-  final String imageUrl;
-  final String title;
-  final String flightName;
-  final String hotelName;
-  final String sponsoredBy;
-  final double price;
   final GestureTapCallback onPressed;
 
-
-    ActivityListCard({
+  ActivityListCard({
     super.key,
-    required this.imageUrl,
-    required this.title,
-    required this.flightName,
-    required this.hotelName,
-    required this.sponsoredBy,
-    required this.price,
+    required this.activityData,
     required this.onPressed,
-    });
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,38 +25,82 @@ class ActivityListCard extends StatelessWidget {
     double screenheight = MediaQuery.of(context).size.height;
 
     return InkWell(
-      onTap:onPressed ,
+      onTap: onPressed,
       child: Container(
-        decoration:  BoxDecoration(
+        decoration: BoxDecoration(
           color: flyternBackgroundWhite,
         ),
         padding: flyternMediumPaddingAll,
         child: Row(
           children: [
             Container(
+                width: screenwidth * .25,
+                height: screenwidth * .25,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
+                  borderRadius:
+                      BorderRadius.circular(flyternBorderRadiusExtraSmall),
                 ),
                 clipBehavior: Clip.hardEdge,
-                child: Image.asset(imageUrl,width: screenwidth*.25, height:  screenwidth*.25)),
+                child: Image.network(activityData.imagePath,
+                    width: screenwidth * .25, height: screenwidth * .25,
+                    errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                      color: flyternGrey10,
+                      width: screenwidth * .25,
+                      height: screenwidth * .25);
+                })),
             addHorizontalSpace(flyternSpaceMedium),
             Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold),),
-
+                Text(
+                  activityData.tourName,
+                  style: getBodyMediumStyle(context)
+                      .copyWith(fontWeight: flyternFontWeightBold),
+                ),
                 addVerticalSpace(flyternSpaceSmall),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('AED 15,000',style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold, color: flyternSecondaryColor),),
-
-
+                    Expanded(
+                      child:      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '${activityData.currency} ${activityData.price}',
+                            style: getBodyMediumStyle(context).copyWith(
+                                fontWeight: flyternFontWeightBold,
+                                color: flyternSecondaryColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                    addHorizontalSpace(flyternSpaceSmall),
+                    Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(Ionicons.star,
+                                color: flyternAccentColor,
+                                size: flyternFontSize20),
+                            addHorizontalSpace(flyternSpaceExtraSmall),
+                            Text(
+                              activityData.rating.toString(),
+                              style: getBodyMediumStyle(context)
+                                  .copyWith(color: flyternGrey80),
+                            ),
+                            addHorizontalSpace(flyternSpaceExtraSmall),
+                            Text(
+                              "(${activityData.reviewCount.toString()})",
+                              style: getBodyMediumStyle(context)
+                                  .copyWith(color: flyternGrey80),
+                            ),
+                          ],
+                        )),
                   ],
                 ),
-
                 addVerticalSpace(flyternSpaceSmall),
                 Row(
                   children: [
@@ -86,16 +120,21 @@ class ActivityListCard extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                        Icon(Ionicons.location_outline,color: flyternGrey40),
-                        addHorizontalSpace(flyternSpaceSmall),
-                        Text(sponsoredBy,style: getBodyMediumStyle(context).copyWith(color: flyternGrey40),),
-                      ],
-                    )),
+                            Icon(Ionicons.time_outline,
+                                color: flyternGrey40,
+                            size: flyternFontSize20),
+                            addHorizontalSpace(flyternSpaceSmall),
+                            Text(
+                              activityData.duration,
+                              style: getBodyMediumStyle(context)
+                                  .copyWith(color: flyternGrey40),
+                            ),
+                          ],
+                        )),
                   ],
                 )
               ],
             ))
-
           ],
         ),
       ),

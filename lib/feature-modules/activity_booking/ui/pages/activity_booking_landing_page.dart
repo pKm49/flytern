@@ -95,7 +95,8 @@ class _ActivityBookingLandingPageState
                                         InkWell(
                                           onTap: (){
                                             activityBookingController.getActivities(activityBookingController
-                                                .cities[index].cityID);
+                                                .cities[index].cityID,true);
+
                                           },
                                           child: Row(
                                             children: [

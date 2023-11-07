@@ -2,6 +2,7 @@
  import 'package:flytern/feature-modules/activity_booking/data/models/activity_city.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_data.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_details.dart';
+import 'package:flytern/feature-modules/activity_booking/data/models/activity_filter_body.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_response.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_submission_data.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/destination_response.dart';
@@ -15,12 +16,13 @@ import 'package:get/get.dart';
 
 class ActivityBookingController extends GetxController {
 
-  var isActivitysLoading = false.obs;
+  var isActivitiesLoading = false.obs;
   var isInitialDataLoading = true.obs;
   var isDetailsDataLoading = true.obs;
   var isSaveContactLoading = true.obs;
   var packageBookingHttpService = ActivityBookingHttpService();
 
+  var currency = "KWD".obs;
   var selectedDestination = "".obs;
   var selectedActivity = "".obs;
   var activities = <ActivityData>[].obs;
@@ -29,7 +31,7 @@ class ActivityBookingController extends GetxController {
   var packageDetails = getDefaultActivityDetails().obs;
   var pageId = 1.obs;
   var packageId = 1.obs;
-  var cityId = 1.obs;
+  var cityId = "-1".obs;
   var objectID = 1.obs;
   var countryisocode = "ALL".obs;
   var bookingRef = "".obs;
@@ -74,20 +76,28 @@ class ActivityBookingController extends GetxController {
     isInitialDataLoading.value = false;
   }
 
-  Future<void> getActivities(int cityID ) async {
+  Future<void> getActivities(String cityID, bool isRedirection ) async {
 
-    isInitialDataLoading.value = true;
-
+    isActivitiesLoading.value = true;
+    if(isRedirection){
+      Get.toNamed(Approute_activitiesList);
+    }
     cityId.value = cityID;
-
     ActivityResponse activityResponse = await packageBookingHttpService.getActivities(cityID);
 
     activities.value = activityResponse.activities;
+    if(activities.value.isNotEmpty){
+      currency.value = activities[0].currency;
+    }
     sortingDcs.value = activityResponse.sortingDcs;
     objectID.value = activityResponse.objectID;
     priceDcs.value = activityResponse.priceDcs;
     tourCategoryDcs.value = activityResponse.tourCategoryDcs;
     bestDealsDcs.value = activityResponse.bestDealsDcs;
+
+    selectedPriceDcs.value = [];
+    selectedTourCategoryDcs.value = [];
+    selectedBestDealsDcs.value = [];
 
     if (sortingDcs.isNotEmpty) {
       List<SortingDcs> defaultSort =
@@ -95,8 +105,69 @@ class ActivityBookingController extends GetxController {
       sortingDc.value =
       defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
     }
-      isInitialDataLoading.value = false;
+    isActivitiesLoading.value = false;
 
+  }
+
+  void updateSort(String sortingDcValue) {
+
+    List<SortingDcs> tempSortingDcs = sortingDcs.value.where((element) => element.value==sortingDcValue).toList();
+    if(tempSortingDcs.isNotEmpty){
+      sortingDc.value = tempSortingDcs[0];
+      filterSearchResults();
+    }
+
+  }
+
+  setFilterValues(ActivityResponse selectedFilterOptions){
+
+    selectedPriceDcs.value = selectedFilterOptions.priceDcs;
+    selectedTourCategoryDcs.value = selectedFilterOptions.tourCategoryDcs;
+    selectedBestDealsDcs.value = selectedFilterOptions.bestDealsDcs;
+
+    filterSearchResults();
+
+
+  }
+
+
+  Future<void> filterSearchResults() async {
+    if (!isActivitiesLoading.value) {
+      isActivitiesLoading.value = true;
+
+      ActivityFilterBody flightFilterBody = ActivityFilterBody(
+        pageId: pageId.value,
+        objectID: objectID.value,
+        priceMinMaxDc: selectedPriceDcs.value.isNotEmpty
+            ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0].max}"
+            : "",
+        tourCategoryDc: selectedTourCategoryDcs.value.isNotEmpty
+            ? getFilterValues(selectedTourCategoryDcs.value)
+            : "",
+        bestDealsDc: selectedBestDealsDcs.value.isNotEmpty
+            ? getFilterValues(selectedBestDealsDcs.value)
+            : "",
+
+        sortingDc: sortingDc.value.value,
+      );
+
+      ActivityResponse activityResponse = await packageBookingHttpService.filterActivities( flightFilterBody);
+
+      activities.value = activityResponse.activities;
+
+      isActivitiesLoading.value = false;
+    }
+  }
+
+  getFilterValues(List<SortingDcs> value) {
+    String filterString = "";
+    for (var i=0;i< value.length;i++) {
+      filterString +=  value[i].value;
+      if(i!=(value.length-1)  ){
+        filterString +=",";
+      }
+    }
+    return filterString;
   }
 
   Future<void> getActivityDetails(int refId) async {
@@ -107,6 +178,7 @@ class ActivityBookingController extends GetxController {
     if (tempActivityDetails != null) {
       packageDetails.value = tempActivityDetails;
     }
+
     isDetailsDataLoading.value = false;
 
   }
@@ -139,7 +211,7 @@ class ActivityBookingController extends GetxController {
 
   void resetAndNavigateToHome() {
 
-    isActivitysLoading.value = false;
+    isActivitiesLoading.value = false;
     isInitialDataLoading.value = true;
     isDetailsDataLoading.value = true;
     isSaveContactLoading.value = true;
