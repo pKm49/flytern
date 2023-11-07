@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/sorting_dcs.dart';
+import 'package:flytern/shared/data/models/business_models/sorting_dcs.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';

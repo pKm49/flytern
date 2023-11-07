@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/sorting_dcs.dart';
+import 'package:flytern/shared/data/models/business_models/sorting_dcs.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/traveller_info.dart';
 import 'package:flytern/feature-modules/profile/controllers/copax_controller.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/user-copax.dart';

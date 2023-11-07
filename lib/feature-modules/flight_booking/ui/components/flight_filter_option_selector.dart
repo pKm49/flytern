@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/data/enums/flight_filter_options.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_result.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/range_dcs.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/sorting_dcs.dart';
+import 'package:flytern/shared/data/models/business_models/range_dcs.dart';
+ import 'package:flytern/shared/data/models/business_models/sorting_dcs.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/element_style_helpers.dart';

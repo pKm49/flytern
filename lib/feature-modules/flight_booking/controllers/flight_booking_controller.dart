@@ -14,9 +14,9 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_result.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_traveller_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/popular_destination.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/range_dcs.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/recommended_package.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/sorting_dcs.dart';
+ import 'package:flytern/feature-modules/flight_booking/data/models/business_models/recommended_package.dart';
+import 'package:flytern/shared/data/models/business_models/range_dcs.dart';
+import 'package:flytern/shared/data/models/business_models/sorting_dcs.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/travel_story.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/traveller_info.dart';
 import 'package:flytern/feature-modules/flight_booking/services/helper-services/flight_booking_helper_services.dart';

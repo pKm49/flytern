@@ -31,7 +31,7 @@ Country mapCountry(dynamic payload){
   return Country(
     countryName :payload["countryName"]??"",
     countryCode :payload["countryCode"]??"",
-    countryISOCode :payload["countryISOCode"]??"",
+    countryISOCode :payload["countryISOCode"].toString()??"",
     countryName_Ar :payload["countryName_Ar"]??"",
     flag :payload["flag"]??"",
     code :payload["code"] ??"",
