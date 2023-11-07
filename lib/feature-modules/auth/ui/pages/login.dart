@@ -144,11 +144,16 @@ class _AuthLoginPageState extends State<AuthLoginPage> {
                       style: getBodyMediumStyle(context).copyWith(),
                     ),
                     addHorizontalSpace(flyternSpaceSmall),
-                    Text(
-                      "guest_user".tr,
-                      style: getBodyMediumStyle(context).copyWith(
-                          fontWeight: flyternFontWeightBold,
-                          color: flyternSecondaryColor),
+                    InkWell(
+                      onTap: (){
+                        Get.offAllNamed(Approute_landingpage);
+                      },
+                      child: Text(
+                        "guest_user".tr,
+                        style: getBodyMediumStyle(context).copyWith(
+                            fontWeight: flyternFontWeightBold,
+                            color: flyternSecondaryColor),
+                      ),
                     ),
                   ],
                 ),

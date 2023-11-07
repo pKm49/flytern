@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyC61NEDcjEQeYU5gHwV_-odRui3lUZeRWg',
-    appId: '1:207684064486:android:46d45746418144e96b5727',
+    appId: '1:207684064486:android:2aa26a3e66a35d2b6b5727',
     messagingSenderId: '207684064486',
     projectId: 'flytern-62154',
     storageBucket: 'flytern-62154.appspot.com',
@@ -59,7 +59,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBBdtHwdq29OEv56G_imhE0zDsc55s7T_g',
-    appId: '1:207684064486:ios:bbda4667cd8eca386b5727',
+    appId: '1:207684064486:ios:ad589062ea1aa8176b5727',
     messagingSenderId: '207684064486',
     projectId: 'flytern-62154',
     storageBucket: 'flytern-62154.appspot.com',

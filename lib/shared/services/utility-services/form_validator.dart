@@ -16,7 +16,7 @@ String? checkIfMobileNumberValid(String? mobile) {
   RegExp validMobileRegex = new RegExp(validMobilePattern);
 
   if (mobile!.isEmpty || !validMobileRegex.hasMatch(mobile)) {
-    return "Provide valid mobile number";
+    return "Provide valid mobile";
   }
 
   return null;
@@ -60,7 +60,7 @@ checkIfLoginFormValid(mobile, password) {
   RegExp validPasswordRegex = RegExp(validPasswordPattern);
 
   if (mobile.isEmpty || !validMobileRegex.hasMatch(mobile)) {
-    return "Please provide a valid mobile number";
+    return "Provide valid mobile";
   }
 
   if (password.isEmpty || !validPasswordRegex.hasMatch(password)) {
@@ -139,7 +139,7 @@ String? checkIfOtpFormValid(String? otp) {
 String? checkIfNameFormValid(String? name, String fieldName) {
 
   if ( name!.isEmpty) {
-    return "Provide a valid "+fieldName;
+    return "Provide valid "+fieldName;
   }
 
   return null;

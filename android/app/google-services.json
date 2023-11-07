@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:207684064486:android:46d45746418144e96b5727",
+        "mobilesdk_app_id": "1:207684064486:android:2aa26a3e66a35d2b6b5727",
         "android_client_info": {
-          "package_name": "com.flytern.flytern"
+          "package_name": "com.oneglobal.flytern"
         }
       },
       "oauth_client": [],
