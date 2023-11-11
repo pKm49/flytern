@@ -1,32 +1,45 @@
-import 'package:flytern/feature-modules/insurance/data/models/insurance_traveller_info.dart';
+
+import 'package:flytern/feature-modules/activity_booking/data/models/activity_price_fetch_body.dart';
+import 'package:flytern/feature-modules/activity_booking/data/models/activity_traveller_info.dart';
 import 'package:intl/intl.dart';
 
 class ActivitySubmissionData {
 
-  final int packageID;
-  final String mobileCntry;
-  final String mobileNumber;
-  final String email;
+  final List<ActivityPriceFetchBody> eventlstInfo;
+  final ActivityTravellerInfo  leadInfo;
 
   ActivitySubmissionData({
-    required this.packageID,
-    required this.mobileCntry,
-    required this.mobileNumber,
-    required this.email,
+    required this.eventlstInfo,
+    required this.leadInfo,
   });
 
   Map toJson() => {
-        'packageID': packageID,
-        '_CntDc': {
-          'mobileCntry': mobileCntry,
-          'mobileNumber': mobileNumber,
-          'email': email,
+        '_eventlstInfo': getEventlstInfo(),
+        '_leadInfo': {
+          "prefix": leadInfo.prefix,
+          "firstName":leadInfo.firstName,
+          "lastName": leadInfo.lastName,
+          "email": leadInfo.email,
+          "nationalityCode": leadInfo.nationalityCode,
+          "mobile": leadInfo.mobile,
+          "mobileCountryCode": leadInfo.mobileCountryCode,
+          "specialRequest": leadInfo.specialRequest
         }
       };
 
   String getFormattedDate(DateTime dateTime) {
     final f = DateFormat('yyyy-MM-dd');
     return f.format(dateTime);
+  }
+
+  List<dynamic> getEventlstInfo() {
+
+    List<dynamic>  tEventlstInfo = [];
+    eventlstInfo.forEach((element) {
+      tEventlstInfo.add(element.toTravelDataJson());
+    });
+
+    return tEventlstInfo;
   }
 
 }

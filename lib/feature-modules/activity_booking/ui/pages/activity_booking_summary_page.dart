@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/activity_booking/controllers/activity_booking_controller.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/components/activity_list_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_airport_lable_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_summary_card.dart';
@@ -11,6 +12,7 @@ import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ActivityBookingSummaryPage extends StatefulWidget {
   const ActivityBookingSummaryPage({super.key});
@@ -23,6 +25,7 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
 
   final ExpansionTileController controller = ExpansionTileController();
   final ExpansionTileController controller2 = ExpansionTileController();
+  final activityBookingController = Get.put(ActivityBookingController());
 
   int selectedPaymentMethod = 1;
 
@@ -43,212 +46,230 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
         color: flyternGrey10,
         child: ListView(
           children: [
-
             Padding(
               padding: flyternLargePaddingAll,
-              child: Text("price_details".tr,
+              child: Text("payment_summary".tr,
                   style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+                      color: flyternGrey80,
+                      fontWeight: flyternFontWeightBold)),
             ),
-
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("ticket_price".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("AED 10,000",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
+            Visibility(
+              visible: activityBookingController.selectedActivityTransferType.value.tourId != "",
+              child: Container(
+                padding: flyternLargePaddingHorizontal.copyWith(
+                    top: flyternSpaceLarge, bottom: flyternSpaceSmall),
+                color: flyternBackgroundWhite,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("base_fare".tr,
+                        style: getBodyMediumStyle(context)
+                            .copyWith(color: flyternGrey60)),
+                    Text(
+                        "${activityBookingController.selectedActivityTransferType.value.currency} "
+                            "${activityBookingController.selectedActivityTransferType.value.finalAmount}",
+                        style: getBodyMediumStyle(context)
+                            .copyWith(color: flyternGrey80)),
+                  ],
+                ),
               ),
             ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("tax".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("AED 200",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
-              ),
+            Visibility(
+              visible: activityBookingController.selectedActivityTransferType.value.tourId != "",
+              child: Container(
+                  padding: flyternLargePaddingHorizontal,
+                  color: flyternBackgroundWhite,
+                  child: Divider()),
             ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
-              color: flyternBackgroundWhite,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("total".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text("AED 1520",style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
+
+            Visibility(
+              visible: activityBookingController.processingFee.value  != 0.0,
+              child: Container(
+                padding: flyternLargePaddingHorizontal.copyWith(
+                    top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+                color: flyternBackgroundWhite,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("processing_fee".tr,
+                        style: getBodyMediumStyle(context)
+                            .copyWith(color: flyternGrey60)),
+                    Text(
+                        "${activityBookingController.selectedActivityTransferType.value.currency} ${activityBookingController.processingFee.value}",
+                        style: getBodyMediumStyle(context)
+                            .copyWith(color: flyternGrey80)),
+                  ],
+                ),
               ),
             ),
 
+            Visibility(
+              visible: activityBookingController.selectedActivityTransferType.value.tourId != "",
+              child: Container(
+                  padding: flyternLargePaddingHorizontal,
+                  color: flyternBackgroundWhite,
+                  child: Divider()),
+            ),
+            Visibility(
+              visible: activityBookingController.selectedActivityTransferType.value.tourId != "",
+              child: Container(
+                padding: flyternLargePaddingHorizontal.copyWith(
+                    top: flyternSpaceSmall, bottom: flyternSpaceLarge),
+                color: flyternBackgroundWhite,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("${'grand_total'.tr} ",
+                        style: getBodyMediumStyle(context)
+                            .copyWith(color: flyternGrey60)),
+                    Text(
+                        "${activityBookingController.selectedActivityTransferType.value.currency}"
+                            " ${(double.parse(activityBookingController.selectedActivityTransferType.value.finalAmount) +
+                            activityBookingController.processingFee.value)}",
+                        style: getBodyMediumStyle(context).copyWith(
+                            color: flyternGrey80,
+                            fontWeight: flyternFontWeightBold)),
+                  ],
+                ),
+              ),
+            ),
             Padding(
               padding: flyternLargePaddingAll,
               child: Text("select_payment_method".tr,
                   style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
+                      color: flyternGrey80,
+                      fontWeight: flyternFontWeightBold)),
             ),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceMedium,bottom: flyternSpaceSmall),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-
-                  Expanded(
-                    child: Row(
-                      children: [
-
-                        Container(
-                            decoration: flyternBorderedContainerSmallDecoration,
-                            clipBehavior: Clip.hardEdge,
-                            width: screenwidth*.15,
-                            height: screenwidth*.15,
-                            child: Center(child: Image.asset(ASSETS_APPLE_PAY_ICON,width: screenwidth*.1))),
-
-                        addHorizontalSpace(flyternSpaceMedium),
-
-                        Text("apple_pay".tr,
-                            style: getBodyMediumStyle(context)
-                                .copyWith(color: flyternGrey80)),
-                      ],
+            for (var i = 0;
+            i < activityBookingController.paymentGateways.length;
+            i++)
+              Container(
+                decoration: BoxDecoration(
+                  border: flyternDefaultBorderBottomOnly,
+                  color: flyternBackgroundWhite,
+                ),
+                padding: flyternLargePaddingHorizontal.copyWith(
+                    top: flyternSpaceMedium,
+                    bottom: i==activityBookingController.paymentGateways.length-1?
+                    flyternSpaceLarge: flyternSpaceMedium),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Container(
+                              decoration:
+                              flyternBorderedContainerSmallDecoration,
+                              clipBehavior: Clip.hardEdge,
+                              width: screenwidth * .15,
+                              height: screenwidth * .15,
+                              child: Center(
+                                  child: Image.network(
+                                    activityBookingController.paymentGateways
+                                        .value[i].gatewayImageUrl,
+                                    width: screenwidth * .1,
+                                    height: screenwidth * .1,
+                                    errorBuilder:
+                                        (context, error, stackTrace) {
+                                      return Container(
+                                          width: screenwidth * .1,
+                                          height: screenwidth * .1);
+                                    },
+                                  ))),
+                          addHorizontalSpace(flyternSpaceMedium),
+                          Text(
+                              activityBookingController
+                                  .paymentGateways.value[i].displayName,
+                              style: getBodyMediumStyle(context)
+                                  .copyWith(color: flyternGrey80)),
+                        ],
+                      ),
                     ),
-                  ),
-                  Radio(
-                    activeColor: flyternSecondaryColor,
-                    value: 1,
-                    groupValue: selectedPaymentMethod,
-                    onChanged: (value) {
-                      setState(() {
-                        print(value);
-                        selectedPaymentMethod = value!;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-
-                  Expanded(
-                    child: Row(
-                      children: [
-
-                        Container(
-                            decoration: flyternBorderedContainerSmallDecoration,
-                            clipBehavior: Clip.hardEdge,
-                            width: screenwidth*.15,
-                            height: screenwidth*.15,
-                            child: Center(child: Image.asset(ASSETS_PAYPAL_ICON,width: screenwidth*.08))),
-
-                        addHorizontalSpace(flyternSpaceMedium),
-
-                        Text("pay_pal".tr,
-                            style: getBodyMediumStyle(context)
-                                .copyWith(color: flyternGrey80)),
-                      ],
+                    Radio(
+                      activeColor: flyternSecondaryColor,
+                      value: activityBookingController
+                          .paymentGateways.value[i].processID,
+                      groupValue: activityBookingController.processId.value,
+                      onChanged: (value) {
+                        activityBookingController.updateProcessId(value);
+                      },
                     ),
-                  ),
-                  Radio(
-                    activeColor: flyternSecondaryColor,
-                    value: 2,
-                    groupValue: selectedPaymentMethod,
-                    onChanged: (value) {
-                      setState(() {
-                        print(value);
-                        selectedPaymentMethod = value!;
-                      });
-                    },
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Container(
-                padding: flyternLargePaddingHorizontal,
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-
-                  Expanded(
-                    child: Row(
-                      children: [
-
-
-                        Container(
-                            decoration: flyternBorderedContainerSmallDecoration,
-                            clipBehavior: Clip.hardEdge,
-                            width: screenwidth*.15,
-                            height: screenwidth*.15,
-                            child: Center(child: Image.asset(ASSETS_VISA_ICON,width: screenwidth*.08))),
-                        addHorizontalSpace(flyternSpaceMedium),
-
-                        Text("visa".tr,
-                            style: getBodyMediumStyle(context)
-                                .copyWith(color: flyternGrey80)),
-                      ],
-                    ),
-                  ),
-                  Radio(
-                    activeColor: flyternSecondaryColor,
-                    value: 3,
-                    groupValue: selectedPaymentMethod,
-                    onChanged: (value) {
-                      setState(() {
-                        print(value);
-                        selectedPaymentMethod = value!;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-
             Padding(
               padding: flyternLargePaddingAll,
               child: Text("activity_details".tr,
                   style: getBodyMediumStyle(context).copyWith(
                       color: flyternGrey80, fontWeight: flyternFontWeightBold)),
             ),
-            // Container(
-            //   color: flyternBackgroundWhite,
-            //   child: ActivityListCard(
-            //     onPressed: (){
-            //       Get.toNamed(Approute_activitiesDetails);
-            //     },
-            //     imageUrl: ASSETS_PACKAGE_1_SAMPLE,
-            //     title: 'Shrek\'s Adventure',
-            //     flightName: 'Ticket (PP)',
-            //     hotelName: 'The Bank Hotel',
-            //     sponsoredBy: 'Central London',
-            //     price: 15000,
-            //   ),),
-
+            Container(
+              padding: flyternLargePaddingHorizontal.copyWith(
+                  top: flyternSpaceLarge, bottom: flyternSpaceSmall),
+              color: flyternBackgroundWhite,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                      "${activityBookingController.activityDetails.value.tourName}" ,
+                      maxLines: 2,
+                      style: getBodyMediumStyle(context)
+                          .copyWith(color: flyternGrey80)),
+                ],
+              ),
+            ),
+            Container(
+                padding: flyternLargePaddingHorizontal,
+                color: flyternBackgroundWhite,
+                child: Divider()),
+            Container(
+              padding: flyternLargePaddingHorizontal.copyWith(
+                  top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+              color: flyternBackgroundWhite,
+              child: Text(
+                  "${activityBookingController
+                      .selectedActivityOption.value.optionName}" ,
+                  maxLines: 2,
+                  style: getBodyMediumStyle(context)
+                      .copyWith(color: flyternGrey80)),
+            ),
+            Container(
+                padding: flyternLargePaddingHorizontal,
+                color: flyternBackgroundWhite,
+                child: Divider()),
+            Container(
+              padding: flyternLargePaddingHorizontal.copyWith(
+                  top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+              color: flyternBackgroundWhite,
+              width: screenwidth,
+              child:Text(
+                  activityBookingController
+                      .selectedActivityTransferType.value.transferName ,
+                  maxLines: 2,
+                  style: getBodyMediumStyle(context)
+                      .copyWith(color: flyternGrey80)),
+            ),
+            Container(
+                padding: flyternLargePaddingHorizontal,
+                color: flyternBackgroundWhite,
+                child: Divider()),
+            Container(
+              padding: flyternLargePaddingHorizontal.copyWith(
+                  top: flyternSpaceSmall, bottom: flyternSpaceLarge),
+              color: flyternBackgroundWhite,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                      getFormattedDate(activityBookingController.travelDate.value)+
+                      " - ${activityBookingController.selectedActivityTime.value.timeSlot}",
+                      maxLines: 2,
+                      style: getBodyMediumStyle(context)
+                          .copyWith(color: flyternGrey80)),
+                ],
+              ),
+            ),
             Container(
               height: 70+(flyternSpaceSmall*2),
               padding: flyternLargePaddingAll,
@@ -266,12 +287,17 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
             width: double.infinity,
             child: ElevatedButton(style: getElevatedButtonStyle(context),
                 onPressed: () {
-                  Get.toNamed(Approute_activitiesConfirmation);
+                    activityBookingController.setPaymentGateway();
                  },
                 child:Text("proceed".tr )),
           ),
         ),
       ),
     );
+  }
+
+  String getFormattedDate(DateTime dateTime) {
+    final f = DateFormat.yMMMMd();
+    return f.format(dateTime);
   }
 }

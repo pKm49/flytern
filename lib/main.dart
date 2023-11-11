@@ -5,14 +5,12 @@ import 'package:flytern/core/controllers/localization_controller.dart';
 import 'package:flytern/core/data/constants/app-spectific/app_routes.dart';
 import 'package:flytern/core/data/constants/ui-specific/theme_data.dart';
 import 'package:flytern/core/data/constants/ui-specific/theme_manager.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flytern/feature-modules/auth/controllers/login_controller.dart';
 import 'package:flytern/feature-modules/auth/controllers/register_controller.dart';
 import 'package:flytern/feature-modules/auth/controllers/reset_password_controller.dart';
 import 'package:flytern/shared/controllers/shared_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 

@@ -9,6 +9,7 @@ import 'package:flytern/feature-modules/flight_booking/ui/components/explore_sec
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_item_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_filter_option_selector.dart';
+import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -44,7 +45,7 @@ class _ActivitiesListPageState extends State<ActivitiesListPage> {
               (activityBookingController.activities.isNotEmpty?
               " - ${activityBookingController.activities[0].cityName}"
                   :
-              "activities".tr)),
+              "")),
         ),
         body: Container(
           width: screenwidth,
@@ -191,6 +192,7 @@ class _ActivitiesListPageState extends State<ActivitiesListPage> {
                           child: ActivityListCard(
                             activityData: activityBookingController.activities.value[i],
                             onPressed: (){
+                              activityBookingController.getActivityDetails(activityBookingController.activities.value[i].tourId);
 
                             },
                           ),

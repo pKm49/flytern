@@ -65,36 +65,36 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
       padding: flyternSmallPaddingAll,
       child: Column(
         children: [
+
           Expanded(
             child: Container(
               width: screenwidth,
               padding: flyternLargePaddingVertical,
               decoration: flyternBorderedContainerSmallDecoration,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: flyternLargePaddingHorizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                            widget.bookingServiceNumber == 1
-                                ? "select_options".tr
-                                : "select_users".tr,
-                            style: getHeadlineMediumStyle(context).copyWith(
-                                color: flyternGrey80,
-                                fontWeight: flyternFontWeightBold),
-                            textAlign: TextAlign.center),
-                        Text("cancel".tr,
-                            style: getHeadlineMediumStyle(context)
-                                .copyWith(color: flyternSecondaryColor),
-                            textAlign: TextAlign.center),
-                      ],
-                    ),
-                  ),
-                  addVerticalSpace(flyternSpaceSmall),
-                  Divider(),
+              child: ListView(
+                 children: [
+                   Padding(
+                     padding: flyternLargePaddingHorizontal,
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: [
+                         Text(
+                             widget.bookingServiceNumber == 1
+                                 ? "select_options".tr
+                                 : "select_users".tr,
+                             style: getHeadlineMediumStyle(context).copyWith(
+                                 color: flyternGrey80,
+                                 fontWeight: flyternFontWeightBold),
+                             textAlign: TextAlign.center),
+                         Text("cancel".tr,
+                             style: getHeadlineMediumStyle(context)
+                                 .copyWith(color: flyternSecondaryColor),
+                             textAlign: TextAlign.center),
+                       ],
+                     ),
+                   ),
+                   addVerticalSpace(flyternSpaceSmall),
+                   Divider(),
                   Visibility(
                       visible: widget.bookingServiceNumber == 1,
                       child: addVerticalSpace(flyternSpaceLarge)),
@@ -353,7 +353,9 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
               ),
             ),
           ),
+
           addVerticalSpace(flyternSpaceSmall),
+
           InkWell(
             onTap: (){
               widget.dataSubmitted(
@@ -373,6 +375,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
               ),
             ),
           )
+
         ],
       ),
     );

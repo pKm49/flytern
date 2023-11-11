@@ -47,8 +47,9 @@
   //activities booking
   const String Approute_activitiesList = '/activities-list';
   const String Approute_activitiesDetails = '/activities-details';
-  const String Approute_activitiesSummary = '/activities-summary';
-  const String Approute_activitiesConfirmation = '/activities-confirmation';
+  const String Approute_activitiesUserDataSubmission = '/activities-user-submission';
+const String Approute_activitiesSummary = '/activities-summary';
+const String Approute_activitiesConfirmation = '/activities-confirmation';
 
   //profile
   const String Approute_profileViewProfile = '/profile-view';

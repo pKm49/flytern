@@ -5,30 +5,76 @@ import 'package:flytern/feature-modules/activity_booking/data/models/activity_it
 import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 
 class ActivityDetails extends ActivityData {
-  final String headerimage;
-  final List<String> subImages;
-  final DateTime validFrom;
-  final DateTime validTo;
-  final List<ActivityItinerary> itinerary;
-  final String inclusion;
-  final String notIncluded;
-  final String termsConditions;
-  final String notes;
-  final String offeredServices;
 
-  ActivityDetails({
-    required this.headerimage,
-    required this.subImages,
-    required this.validFrom,
-    required this.validTo,
-    required this.itinerary,
-    required this.inclusion,
-    required this.notIncluded,
-    required this.termsConditions,
-    required this.notes,
-    required this.offeredServices,
-    required super.currency,
-    required super.price,
+  final String departurePoint;
+  final String reportingTime;
+  final String tourLanguage;
+  final String tourDescription;
+  final String tourInclusion;
+  final String raynaToursAdvantage;
+  final String whatsInThisTour;
+  final String importantInformation;
+  final String itenararyDescription;
+  final String usefulInformation;
+  final String faqDetails;
+  final String termsAndConditions;
+  final String cancellationPolicyDescription;
+  final String childCancellationPolicyName;
+  final String childCancellationPolicyDescription;
+  final String childAge;
+  final String infantAge;
+  final String infantCount;
+  final String isSeat;
+  final String latitude;
+  final String longitude;
+  final String startTime;
+  final String meal;
+  final String videoUrl;
+  final String googleMapUrl;
+  final String tourExclusion;
+  final String howToRedeem;
+  final String questions;
+  final int amount;
+  final int discount;
+  final int rewardPoints;
+  final List<String> subImages;
+  final int result_Id;
+  final int root_Id;
+
+  ActivityDetails({required this.subImages,
+    required this.departurePoint,
+    required this.reportingTime,
+    required this.tourLanguage,
+    required this.tourDescription,
+    required this.tourInclusion,
+    required this.raynaToursAdvantage,
+    required this.whatsInThisTour,
+    required this.importantInformation,
+    required this.itenararyDescription,
+    required this.usefulInformation,
+    required this.faqDetails,
+    required this.termsAndConditions,
+    required this.cancellationPolicyDescription,
+    required this.childCancellationPolicyName,
+    required this.childCancellationPolicyDescription,
+    required this.childAge,
+    required this.infantAge,
+    required this.infantCount,
+    required this.isSeat,
+    required this.latitude,
+    required this.longitude,
+    required this.startTime,
+    required this.meal,
+    required this.videoUrl,
+    required this.googleMapUrl,
+    required this.tourExclusion,
+    required this.howToRedeem,
+    required this.result_Id,
+    required this.questions,
+    required this.root_Id,
+    required this.amount,
+    required this.discount,
+    required this.rewardPoints,
     required super.tourId,
     required super.countryId,
     required super.cityId,
@@ -46,145 +92,138 @@ class ActivityDetails extends ActivityData {
     required super.cancellationPolicyName,
     required super.tourShortDescription,
     required super.imageCaptionName,
+    required super.price,
+    required super.currency,
     required super.imagePath,
-    required super.rating,
-  });
+    required super.rating});
 }
 
-ActivityDetails mapActivityDetails(dynamic payload) {
-  String headerimage = "";
+ActivityDetails mapActivityDetails(dynamic payload, List<dynamic> tSubImages) {
+
   List<String> subImages = [];
-  List<ActivityData> packages = [];
-  List<ActivityItinerary> itinerary = [];
-  DateTime validFrom = DefaultInvalidDate;
-  DateTime validTo = DefaultInvalidDate;
-  String inclusion = "";
-  String notIncluded = "";
-  String termsConditions = "";
-  String notes = "";
-  String offeredServices = "";
 
-  if (payload["packages"] != null) {
-    payload["packages"].forEach((element) {
-      packages.add(mapActivityData(element));
-    });
-  }
-
-  if (payload["packageHeaderImage"] != null) {
-    payload["packageHeaderImage"].forEach((element) {
-      subImages.add(element["headerimage"] ?? "");
-    });
-  }
-
-  if (payload["packageSubImages"] != null) {
-    payload["packageSubImages"].forEach((element) {
-      subImages.add(element["image"] ?? "");
-    });
-  }
-
-  if (payload["packagesDtl"] != null) {
-    payload["packagesDtl"].forEach((element) {
-      validFrom = DateTime.parse(element["validFrom"]);
-      validTo = DateTime.parse(element["validTo"]);
-      inclusion = element["inclusion"];
-      notIncluded = element["notIncluded"];
-      termsConditions = element["termsConditions"];
-      notes = element["notes"];
-      offeredServices = element["offeredServices"];
-      try {
-        var ite = jsonDecode(element["itinerary"]);
-
-        ite.forEach((element) {
-          itinerary.add(mapActivityItinerary(element ?? {}));
-        });
-        print("decoded itenerary is");
-        print("decoded itenerary is");
-      } catch (e, stac) {
-        print(e);
-        print(stac);
-      }
-    });
+  for (var element in tSubImages) {
+    subImages.add(element["imagePath"] ?? "");
   }
 
   return ActivityDetails(
-    currency: packages.isNotEmpty ? packages[0].currency : "",
-    price: packages.isNotEmpty ? packages[0].price : 0.0,
-    headerimage: headerimage,
-    subImages: subImages,
-    validFrom: validFrom,
-    validTo: validTo,
-    itinerary: itinerary,
-    inclusion: inclusion,
-    notIncluded: notIncluded,
-    termsConditions: termsConditions,
-    notes: notes,
-    offeredServices: offeredServices,
-    tourId: payload["tourId"] ?? -1,
-    countryId: payload["countryId"] ?? -1,
-    cityId: payload["cityId"] ?? -1,
-    cityTourTypeId: payload["cityTourTypeId"] ?? -1,
-    contractId: payload["contractId"] ?? -1,
-    reviewCount: payload["reviewCount"] ?? -1,
-    bestdeals: payload["bestdeals"] ?? "",
+    subImages:  subImages,
+    departurePoint: payload["departurePoint"] ?? "",
+    reportingTime: payload["reportingTime"] ?? "",
+    tourLanguage: payload["tourLanguage"] ?? "",
+    tourDescription: payload["tourDescription"] ?? "",
+    tourInclusion: payload["tourInclusion"] ?? "",
+    raynaToursAdvantage: payload["raynaToursAdvantage"] ?? "",
+    whatsInThisTour: payload["whatsInThisTour"] ?? "",
+    importantInformation: payload["importantInformation"] ?? "",
+    itenararyDescription: payload["itenararyDescription"] ?? "",
+    usefulInformation: payload["usefulInformation"] ?? "",
+    faqDetails: payload["faqDetails"] ?? "",
+    termsAndConditions: payload["termsAndConditions"] ?? "",
+    cancellationPolicyDescription: payload["cancellationPolicyDescription"] ?? "",
+    childCancellationPolicyName: payload["childCancellationPolicyName"] ?? "",
+    childCancellationPolicyDescription: payload["childCancellationPolicyDescription"] ?? "",
+    childAge: payload["childAge"] ?? "",
+    infantAge: payload["infantAge"] ?? "",
+    infantCount: payload["infantCount"] ?? "",
+    isSeat: payload["isSeat"] ?? "",
+    latitude: payload["latitude"] ?? "",
+    longitude: payload["longitude"] ?? "",
+    startTime: payload["startTime"] ?? "",
+    meal: payload["meal"] ?? "",
+    videoUrl: payload["videoUrl"] ?? "",
+    googleMapUrl: payload["googleMapUrl"] ?? "",
+    tourExclusion: payload["tourExclusion"] ?? "",
+    howToRedeem: payload["howToRedeem"] ?? "",
+    result_Id: payload["result_Id"] ?? -1,
+    questions: payload["questions"] ?? "",
+    root_Id: payload["root_Id"] ?? -1,
+    amount:int.parse(payload["amount"].toString()),
+    discount: payload["discount"] ?? 0,
+    rewardPoints: payload["rewardPoints"] ?? 0,
+    tourId: int.parse(payload["tourId"].toString()),
+    countryId: int.parse(payload["countryId"].toString()),
+    cityId: int.parse(payload["cityId"].toString()),
+    cityTourTypeId: int.parse(payload["cityTourTypeId"].toString()),
+    contractId: int.parse(payload["contractId"].toString()),
+      reviewCount: int.parse(payload["reviewCount"].toString()),
+    isSlot: bool.parse(payload["isSlot"].toString()),
+    onlyChild: bool.parse(payload["onlyChild"].toString()),
     countryName: payload["countryName"] ?? "",
+    bestdeals: payload["bestdeals"] ?? "",
     cityTourType: payload["cityTourType"] ?? "",
     cityName: payload["cityName"] ?? "",
     tourName: payload["tourName"] ?? "",
     duration: payload["duration"] ?? "",
     cancellationPolicyName: payload["cancellationPolicyName"] ?? "",
     tourShortDescription: payload["tourShortDescription"] ?? "",
-    imagePath: payload["imagePath"] ?? "",
     imageCaptionName: payload["imageCaptionName"] ?? "",
-    rating: payload["rating"] ?? "",
-    isSlot: payload["isSlot"] ?? false,
-    onlyChild: payload["onlyChild"] ?? false,
+    price:double.parse(payload["amount"].toString()),
+    currency: payload["currency"] ?? "",
+    imagePath: payload["imagePath"] ?? "",
+    rating:double.parse(payload["rating"].toString()),
+
   );
 }
 
 ActivityDetails getDefaultActivityDetails() {
-  String headerimage = "";
-  List<String> subImages = [];
-  List<ActivityData> packages = [];
-  List<ActivityItinerary> itinerary = [];
-
-  DateTime validFrom = DefaultInvalidDate;
-  DateTime validTo = DefaultInvalidDate;
-  String inclusion = "";
-  String notIncluded = "";
-  String termsConditions = "";
-  String notes = "";
-  String offeredServices = "";
 
   return ActivityDetails(
+    subImages: [],
+      departurePoint: "",
+      reportingTime: "",
+      tourLanguage: "",
+      tourDescription: "",
+      tourInclusion: "",
+      raynaToursAdvantage: "",
+      whatsInThisTour: "",
+      importantInformation: "",
+      itenararyDescription: "",
+      usefulInformation: "",
+      faqDetails: "",
+      termsAndConditions: "",
+      cancellationPolicyDescription: "",
+      childCancellationPolicyName: "",
+      childCancellationPolicyDescription: "",
+      childAge: "",
+      infantAge: "",
+      infantCount: "",
+      isSeat: "",
+      latitude: "",
+      longitude: "",
+      startTime: "",
+      meal: "",
+      videoUrl: "",
+      googleMapUrl: "",
+      tourExclusion: "",
+      howToRedeem: "",
+      result_Id: -1,
+      questions: "",
+      root_Id: -1,
+      amount: -1,
+      discount: -1,
+      rewardPoints: -1,
       tourId: -1,
       countryId: -1,
       cityId: -1,
       cityTourTypeId: -1,
       contractId: -1,
       reviewCount: -1,
-      bestdeals: "",
+      isSlot: false,
+      onlyChild: false,
       countryName: "",
+      bestdeals: "",
       cityTourType: "",
       cityName: "",
       tourName: "",
-      currency: "",
-      price: 0.0,
       duration: "",
       cancellationPolicyName: "",
       tourShortDescription: "",
-      imagePath: "",
       imageCaptionName: "",
-      rating: 0.0,
-      isSlot: false,
-      onlyChild: false,
-      headerimage: headerimage,
-      subImages: subImages,
-      validFrom: validFrom,
-      validTo: validTo,
-      itinerary: itinerary,
-      inclusion: inclusion,
-      notIncluded: notIncluded,
-      termsConditions: termsConditions,
-      notes: notes,
-      offeredServices: offeredServices);
+      price: -1,
+      currency: "",
+      imagePath: "",
+      rating: 0.0
+  );
+
 }

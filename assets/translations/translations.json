@@ -329,6 +329,9 @@
       "booking_failed": "We couldn't complete the booking, please try again",
       "payment_gateway": "Payment Gateway",
       "categories": "Categories",
+      "yes": "Yes",
+      "no": "No",
+      "cancellation_policy": "Cancellation Policy",
 
       "lorem_ipsum_description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "price": "Price",
@@ -547,8 +550,7 @@
       "Selected_problem_deleted_successfully": "Selected problem deleted successfully",
       "remove_address_question": "You really want to remove this address?",
       "remove_reported_problem": "You really want to remove this reported problem?",
-      "yes": "Yes",
-      "no": "No",
+
       "view_all": "View All",
 
       "order_successfully_placed": "Order Successfully Placed",
@@ -888,6 +890,7 @@
       "booking_failed": "We couldn't complete the booking, please try again",
       "payment_gateway": "Payment Gateway",
       "categories": "Categories",
+      "cancellation_policy": "سياسة الإلغاء",
 
 
       "lorem_ipsum_description": "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة، ولكن بفضل هؤلاء الأشخاص الذين لا يدركون بأن السعادة لا بد أن نستشعرها بصورة أكثر عقلانية ومنطقية فيعرضهم هذا لمواجهة الظروف الأليمة، وأكرر بأنه لا يوجد من يرغب في الحب ونيل المنال ويتلذذ بالآلام، الألم هو الألم ولكن نتيجة لظروف ما قد تكمن السعاده فيما نتحمله من كد وأسي.",

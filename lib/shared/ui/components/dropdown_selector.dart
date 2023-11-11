@@ -57,10 +57,13 @@ class _DropDownSelectorState extends State<DropDownSelector> {
                   visible: value.imageUrl !="",
                   child: Padding(
                     padding: const EdgeInsets.only(right: flyternSpaceMedium),
-                    child: Image.network(value.imageUrl??"", width: 40),
+                    child: Image.network(value.imageUrl??"", width: 30),
                   )),
-              Text(value.name,textAlign: TextAlign.center,
-                style: TextStyle(color:  flyternGrey60),),
+              Expanded(
+                child: Text(value.name,textAlign: TextAlign.start,
+                  maxLines: 2,
+                  style: TextStyle(color:  flyternGrey60),),
+              ),
             ],
           ),
         );

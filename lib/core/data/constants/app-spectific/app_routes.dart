@@ -8,6 +8,7 @@ import 'package:flytern/feature-modules/activity_booking/ui/pages/activities_lis
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_confirmation_page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_summary_page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_details_page.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_userdetails_submission_page.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/auth_selector.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/login.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/explore_section/all_popular_destinations_page.dart';
@@ -235,17 +236,21 @@ getAppRoutes() => [
 
 //  activities Booking
 
+      GetPage(
+        name: Approute_activitiesList,
+        page: () => const ActivitiesListPage(),
+        middlewares: [MyMiddelware()],
+      ),
 
-  GetPage(
-    name: Approute_activitiesList,
-    page: () => const ActivitiesListPage(),
-    middlewares: [MyMiddelware()],
-  ),
-
-
-  GetPage(
+      GetPage(
         name: Approute_activitiesDetails,
         page: () => const ActivityDetailsPage(),
+        middlewares: [MyMiddelware()],
+      ),
+
+      GetPage(
+        name: Approute_activitiesUserDataSubmission,
+        page: () => const ActivityUserDetailsSubmissionPage(),
         middlewares: [MyMiddelware()],
       ),
 

@@ -1,26 +1,38 @@
+import 'dart:ffi';
 
- import 'package:flytern/feature-modules/activity_booking/data/models/activity_city.dart';
+import 'package:flytern/feature-modules/activity_booking/data/models/activity_city.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_data.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_details.dart';
+import 'package:flytern/feature-modules/activity_booking/data/models/activity_details_response.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_filter_body.dart';
+import 'package:flytern/feature-modules/activity_booking/data/models/activity_option.dart';
+import 'package:flytern/feature-modules/activity_booking/data/models/activity_price_fetch_body.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_response.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_submission_data.dart';
+import 'package:flytern/feature-modules/activity_booking/data/models/activity_timing_option.dart';
+import 'package:flytern/feature-modules/activity_booking/data/models/activity_transfer_type.dart';
+import 'package:flytern/feature-modules/activity_booking/data/models/activity_traveller_info.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/destination_response.dart';
 import 'package:flytern/feature-modules/activity_booking/services/http-services/activity_booking_http_services.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
+import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 import 'package:flytern/shared/data/models/business_models/country.dart';
+import 'package:flytern/shared/data/models/business_models/payment_confirmation_data.dart';
+import 'package:flytern/shared/data/models/business_models/payment_gateway.dart';
+import 'package:flytern/shared/data/models/business_models/payment_gateway_url_data.dart';
 import 'package:flytern/shared/data/models/business_models/range_dcs.dart';
 import 'package:flytern/shared/data/models/business_models/sorting_dcs.dart';
 import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
 import 'package:get/get.dart';
 
 class ActivityBookingController extends GetxController {
-
   var isActivitiesLoading = false.obs;
   var isInitialDataLoading = true.obs;
   var isDetailsDataLoading = true.obs;
-  var isSaveContactLoading = true.obs;
-  var packageBookingHttpService = ActivityBookingHttpService();
+  var isPriceDataLoading = true.obs;
+  var isActivityTravellerDataSaveLoading = true.obs;
+  var isSaveContactLoading = false.obs;
+  var activityBookingHttpService = ActivityBookingHttpService();
 
   var currency = "KWD".obs;
   var selectedDestination = "".obs;
@@ -28,9 +40,16 @@ class ActivityBookingController extends GetxController {
   var activities = <ActivityData>[].obs;
   var destinations = <Country>[].obs;
   var cities = <ActivityCity>[].obs;
-  var packageDetails = getDefaultActivityDetails().obs;
+  var activityDetails = getDefaultActivityDetails().obs;
+  var selectedActivityOption = mapActivityOption({}).obs;
+  var selectedActivityTransferType = mapActivityTransferType({}).obs;
+  var selectedActivityTime = mapActivityTimingOption({}).obs;
+  var activityOptions = <ActivityOption>[].obs;
+  var activityTransferTypes = <ActivityTransferType>[].obs;
+  var activityTimingOptions = <ActivityTimingOption>[].obs;
+
   var pageId = 1.obs;
-  var packageId = 1.obs;
+  var activityId = 1.obs;
   var cityId = "-1".obs;
   var objectID = 1.obs;
   var countryisocode = "ALL".obs;
@@ -38,6 +57,16 @@ class ActivityBookingController extends GetxController {
   var mobileCntry = "".obs;
   var mobileNumber = "".obs;
   var email = "".obs;
+
+  var transferId = (-1).obs;
+  var tourid = (-1).obs;
+  var cityid = (-1).obs;
+  var touroptionid = (-1).obs;
+  var contractId = (-1).obs;
+  var noOfAdult = 0.obs;
+  var noOfChildren = 0.obs;
+  var noOfInfant = 0.obs;
+  var travelDate = DefaultInvalidDate.obs;
 
   var tourCategoryDcs = <SortingDcs>[].obs;
   var selectedTourCategoryDcs = <SortingDcs>[].obs;
@@ -48,6 +77,18 @@ class ActivityBookingController extends GetxController {
   var priceDcs = <RangeDcs>[].obs;
   var selectedPriceDcs = <RangeDcs>[].obs;
   var sortingDc = SortingDcs(value: "-1", name: "", isDefault: false).obs;
+  var paymentGateways = <PaymentGateway>[].obs;
+  var processId = "-1".obs;
+  var paymentCode = "".obs;
+  var gatewayUrl = "".obs;
+  var confirmationUrl = "".obs;
+  var confirmationMessage = "".obs;
+  var pdfLink = "".obs;
+  var processingFee = (0.0).obs;
+
+  var isActivityGatewayStatusCheckLoading = false.obs;
+  var isActivityConfirmationDataLoading = false.obs;
+  var isActivitySavePaymentGatewayLoading = false.obs;
 
   @override
   void onInit() {
@@ -56,7 +97,7 @@ class ActivityBookingController extends GetxController {
   }
 
   Future<void> getInitialInfo() async {
-    getCities(1,"ALL");
+    getCities(1, "ALL");
   }
 
   Future<void> getCities(int newPageId, String newCountryisocode) async {
@@ -65,28 +106,29 @@ class ActivityBookingController extends GetxController {
     pageId.value = newPageId;
     countryisocode.value = newCountryisocode;
 
-    DestinationResponse destinationResponse = await packageBookingHttpService.getDestinations(newPageId,newCountryisocode);
+    DestinationResponse destinationResponse = await activityBookingHttpService
+        .getDestinations(newPageId, newCountryisocode);
 
     if (destinationResponse != null) {
       cities.value = destinationResponse.cities;
-      if(newCountryisocode == "ALL"){
+      if (newCountryisocode == "ALL") {
         destinations.value = destinationResponse.destinations;
       }
     }
     isInitialDataLoading.value = false;
   }
 
-  Future<void> getActivities(String cityID, bool isRedirection ) async {
-
+  Future<void> getActivities(String cityID, bool isRedirection) async {
     isActivitiesLoading.value = true;
-    if(isRedirection){
+    if (isRedirection) {
       Get.toNamed(Approute_activitiesList);
     }
     cityId.value = cityID;
-    ActivityResponse activityResponse = await packageBookingHttpService.getActivities(cityID);
+    ActivityResponse activityResponse =
+    await activityBookingHttpService.getActivities(cityID);
 
     activities.value = activityResponse.activities;
-    if(activities.value.isNotEmpty){
+    if (activities.value.isNotEmpty) {
       currency.value = activities[0].currency;
     }
     sortingDcs.value = activityResponse.sortingDcs;
@@ -102,34 +144,28 @@ class ActivityBookingController extends GetxController {
     if (sortingDcs.isNotEmpty) {
       List<SortingDcs> defaultSort =
       sortingDcs.where((p0) => p0.isDefault).toList();
-      sortingDc.value =
-      defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
+      sortingDc.value = defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
     }
     isActivitiesLoading.value = false;
-
   }
 
   void updateSort(String sortingDcValue) {
-
-    List<SortingDcs> tempSortingDcs = sortingDcs.value.where((element) => element.value==sortingDcValue).toList();
-    if(tempSortingDcs.isNotEmpty){
+    List<SortingDcs> tempSortingDcs = sortingDcs.value
+        .where((element) => element.value == sortingDcValue)
+        .toList();
+    if (tempSortingDcs.isNotEmpty) {
       sortingDc.value = tempSortingDcs[0];
       filterSearchResults();
     }
-
   }
 
-  setFilterValues(ActivityResponse selectedFilterOptions){
-
+  setFilterValues(ActivityResponse selectedFilterOptions) {
     selectedPriceDcs.value = selectedFilterOptions.priceDcs;
     selectedTourCategoryDcs.value = selectedFilterOptions.tourCategoryDcs;
     selectedBestDealsDcs.value = selectedFilterOptions.bestDealsDcs;
 
     filterSearchResults();
-
-
   }
-
 
   Future<void> filterSearchResults() async {
     if (!isActivitiesLoading.value) {
@@ -139,7 +175,8 @@ class ActivityBookingController extends GetxController {
         pageId: pageId.value,
         objectID: objectID.value,
         priceMinMaxDc: selectedPriceDcs.value.isNotEmpty
-            ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0].max}"
+            ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0]
+            .max}"
             : "",
         tourCategoryDc: selectedTourCategoryDcs.value.isNotEmpty
             ? getFilterValues(selectedTourCategoryDcs.value)
@@ -147,11 +184,11 @@ class ActivityBookingController extends GetxController {
         bestDealsDc: selectedBestDealsDcs.value.isNotEmpty
             ? getFilterValues(selectedBestDealsDcs.value)
             : "",
-
         sortingDc: sortingDc.value.value,
       );
 
-      ActivityResponse activityResponse = await packageBookingHttpService.filterActivities( flightFilterBody);
+      ActivityResponse activityResponse =
+      await activityBookingHttpService.filterActivities(flightFilterBody);
 
       activities.value = activityResponse.activities;
 
@@ -161,56 +198,208 @@ class ActivityBookingController extends GetxController {
 
   getFilterValues(List<SortingDcs> value) {
     String filterString = "";
-    for (var i=0;i< value.length;i++) {
-      filterString +=  value[i].value;
-      if(i!=(value.length-1)  ){
-        filterString +=",";
+    for (var i = 0; i < value.length; i++) {
+      filterString += value[i].value;
+      if (i != (value.length - 1)) {
+        filterString += ",";
       }
     }
     return filterString;
   }
 
-  Future<void> getActivityDetails(int refId) async {
-
+  Future<void> getActivityDetails(int tourId) async {
     isDetailsDataLoading.value = true;
-    packageId.value = refId;
-    ActivityDetails? tempActivityDetails = await packageBookingHttpService.getActivityDetails(refId);
-    if (tempActivityDetails != null) {
-      packageDetails.value = tempActivityDetails;
+    Get.toNamed(Approute_activitiesDetails);
+    activityId.value = tourId;
+    ActivityDetailsResponse activityDetailsResponse =
+    await activityBookingHttpService.getActivityDetails(
+        objectID.value, tourId);
+    activityDetails.value = activityDetailsResponse.activityDetails;
+    activityOptions.value =
+        activityDetailsResponse.activityOptions.toSet().toList();
+    final ids = Set();
+    List<ActivityTransferType> tActivityTransferTypes =
+        activityDetailsResponse.activityTransferTypes;
+    tActivityTransferTypes.retainWhere((x) => ids.add(x.transferId));
+    activityTransferTypes.value = tActivityTransferTypes;
+
+    getInitialPrice();
+  }
+
+  Future<void> setTravellerData(
+      ActivityTravellerInfo activityTravellerInfo) async {
+    isSaveContactLoading.value = true;
+    String tempBookingRef = "";
+
+    List<ActivityPriceFetchBody> eventlstInfo = [];
+    eventlstInfo.add(ActivityPriceFetchBody(
+        contractId: contractId.value,
+        objectID: objectID.value,
+        transferId: transferId.value,
+        tourid: tourid.value,
+        cityid: cityid.value,
+        touroptionid: touroptionid.value,
+        travelDate: travelDate.value,
+        noOfAdult: noOfAdult.value.toString(),
+        noOfChildren: noOfChildren.value.toString(),
+        noOfInfant: noOfInfant.value.toString(),
+        tourGuide: objectID.value.toString(),
+        startTime:  "",
+        timeSlotId: selectedActivityTime.value.timeSlotId.toString()));
+
+    ActivitySubmissionData activitySubmissionData = ActivitySubmissionData(
+        leadInfo: activityTravellerInfo,
+        eventlstInfo: eventlstInfo);
+
+    tempBookingRef =
+    await activityBookingHttpService.setUserData(activitySubmissionData);
+    isSaveContactLoading.value = false;
+    if (tempBookingRef != "") {
+      bookingRef.value = tempBookingRef;
+      getPaymentGateways();
+    } else {
+      showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+    }
+  }
+ 
+  Future<void> getPaymentGateways() async {
+    isSaveContactLoading.value = true;
+
+    List<PaymentGateway> tempPaymentGateway =
+    await activityBookingHttpService.getPaymentGateways(bookingRef.value);
+
+    print("tempPaymentGateway");
+    print(tempPaymentGateway.length);
+    print(tempPaymentGateway[0]);
+    paymentGateways.value = tempPaymentGateway;
+    if (tempPaymentGateway.isNotEmpty) {
+      updateProcessId(tempPaymentGateway[0].processID);
+      Get.toNamed(Approute_activitiesSummary);
+    } else {
+      showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
 
-    isDetailsDataLoading.value = false;
-
+    isSaveContactLoading.value = false;
   }
 
-  Future<void> setTravellerData() async {
-      isSaveContactLoading.value = true;
-      String tempBookingRef = "";
-      ActivitySubmissionData packageSubmissionData = ActivitySubmissionData(
-          packageID: packageId.value,
-          mobileCntry: mobileCntry.value,
-          mobileNumber: mobileNumber.value,
-          email: email.value);
-      tempBookingRef =
-      await packageBookingHttpService.setUserData(packageSubmissionData);
-      isSaveContactLoading.value = false;
-      if (tempBookingRef != "") {
-        bookingRef.value = tempBookingRef;
-      } else {
-        showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+  void updateProcessId(String? value) {
+    if (value != null) {
+      List<PaymentGateway> tempPaymentGateways = paymentGateways.value
+          .where((element) => element.processID == value)
+          .toList();
+
+      if (tempPaymentGateways.isNotEmpty) {
+        processId.value = value;
+        paymentCode.value = tempPaymentGateways[0].paymentCode;
+        processingFee.value = tempPaymentGateways[0].processingFee;
       }
-
+    }
   }
 
-  void saveContactInfo(String tMobileCntry, String tMobileNumber, String tEmail) {
-    mobileCntry.value =tMobileCntry;
-    mobileNumber.value =tMobileNumber;
-    email.value =tEmail;
-    setTravellerData();
+
+  Future<void> setPaymentGateway() async {
+    isActivitySavePaymentGatewayLoading.value = true;
+
+    PaymentGatewayUrlData paymentGatewayUrlData =
+    await activityBookingHttpService.setPaymentGateway(
+        processId.value, paymentCode.value, bookingRef.value);
+
+    print("paymentGatewayUrlData");
+    print(paymentGatewayUrlData.isOkRedirection);
+
+    gatewayUrl.value = paymentGatewayUrlData.gatewayUrl;
+    confirmationUrl.value = paymentGatewayUrlData.confirmationUrl;
+
+    if (gatewayUrl.value != "") {
+      // Get.toNamed(Approute_paymentPage,
+      //         arguments: [gatewayUrl.value, confirmationUrl.value])
+      //     ?.then((value) {
+      //       if(value){
+      //         checkGatewayStatus();
+      //       }else{
+      //         Get.offAllNamed(Approute_flightsSummary,
+      //             predicate: (route) => Get.currentRoute == Approute_userDetailsSubmission);
+      //         showSnackbar(Get.context!, "payment_capture_error".tr,"error");
+      //       }
+      //
+      // });
+
+      checkGatewayStatus();
+    } else {
+      showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+    }
+
+    isActivitySavePaymentGatewayLoading.value = false;
   }
+
+  Future<void> checkGatewayStatus() async {
+    isActivityGatewayStatusCheckLoading.value = true;
+    bool isSuccess =
+    await activityBookingHttpService.checkGatewayStatus(bookingRef.value);
+
+    print("checkGatewayStatus isSuccess");
+    print(isSuccess);
+
+    if (isSuccess) {
+      showSnackbar(Get.context!, "payment_capture_success".tr, "info");
+      getConfirmationData();
+    } else {
+
+      int iter = 0;
+      Get.offNamedUntil(Approute_activitiesSummary, (route) {
+        print("Get.currentRoute");
+        print(Get.currentRoute);
+        return ++iter ==1;
+      });
+      showSnackbar(Get.context!, "payment_capture_error".tr, "error");
+    }
+
+    isActivityGatewayStatusCheckLoading.value = false;
+  }
+
+  Future<void> getConfirmationData() async {
+    isActivityConfirmationDataLoading.value = true;
+
+    PaymentConfirmationData paymentConfirmationData =
+    await activityBookingHttpService.getConfirmationData(bookingRef.value);
+
+    print("getConfirmationData");
+    print(paymentConfirmationData.isIssued);
+    print(paymentConfirmationData.pdfLink);
+    print(paymentConfirmationData.alertMsg);
+
+    if (paymentConfirmationData.isIssued) {
+      pdfLink.value = paymentConfirmationData.pdfLink;
+      confirmationMessage.value = paymentConfirmationData.alertMsg;
+      showSnackbar(Get.context!, "flight_booking_success".tr, "info");
+
+      int iter = 0;
+      Get.offNamedUntil(Approute_activitiesConfirmation,
+          arguments: [
+            {"mode": "view"}
+          ],(route) {
+            print("Get.currentRoute");
+            print(Get.currentRoute);
+            return ++iter ==4;
+          });
+    } else {
+      showSnackbar(Get.context!, "booking_failed".tr, "error");
+
+
+      int iter = 0;
+      Get.offNamedUntil(Approute_flightsSummary, (route) {
+        print("Get.currentRoute");
+        print(Get.currentRoute);
+        return ++iter ==1;
+      });
+      showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+    }
+
+    isActivityConfirmationDataLoading.value = false;
+  }
+
 
   void resetAndNavigateToHome() {
-
     isActivitiesLoading.value = false;
     isInitialDataLoading.value = true;
     isDetailsDataLoading.value = true;
@@ -220,16 +409,148 @@ class ActivityBookingController extends GetxController {
     selectedActivity.value = "";
     activities.value = <ActivityData>[];
     destinations.value = <Country>[];
-    packageDetails.value = getDefaultActivityDetails();
+    activityDetails.value = getDefaultActivityDetails();
     pageId.value = 1;
-    packageId.value = 1;
+    activityId.value = 1;
     countryisocode.value = "ALL";
     bookingRef.value = "";
     mobileCntry.value = "";
     mobileNumber.value = "";
     email.value = "";
+    Get.offAllNamed(Approute_landingpage);
 
-     Get.offAllNamed(Approute_landingpage);
+  }
+
+  void changeSelectedActivityOption(ActivityOption selectedItem) {
+    selectedActivityOption.value = selectedItem;
+    getActivityPriceInfo();
+  }
+
+  void changeSelectedActivityTransferType(
+      ActivityTransferType tSelectedActivityTransferType) {
+    selectedActivityTransferType.value = tSelectedActivityTransferType;
+    if (selectedActivityTransferType.value.isSlot) {
+      getActivityTimingList();
+    } else {
+      getActivityPriceInfo();
+    }
+  }
+
+  void updatePassengerCount(int tAdultCount, int tChildCount,
+      int tInfantCount) {
+    noOfAdult.value = tAdultCount;
+    noOfChildren.value = tChildCount;
+    noOfInfant.value = tInfantCount;
+    getActivityPriceInfo();
+  }
+
+  void changeTravelDate(DateTime dateTime) {
+    travelDate.value = dateTime;
+    getActivityPriceInfo();
+  }
+
+  void getInitialPrice() {
+    if (activityOptions.isNotEmpty && activityTransferTypes.isNotEmpty) {
+      selectedActivityTransferType.value = activityTransferTypes[0];
+      selectedActivityOption.value = activityOptions.value[0];
+      transferId.value =
+          int.parse(activityTransferTypes.value[0].transferId.toString());
+      tourid.value = int.parse(activityOptions.value[0].tourId.toString());
+      cityid.value = int.parse(activityOptions.value[0].cityId.toString());
+      contractId.value =
+          int.parse(activityTransferTypes.value[0].contractId.toString());
+      touroptionid.value =
+          int.parse(activityOptions.value[0].tourOptionId.toString());
+
+      noOfAdult.value = 1;
+      noOfChildren.value = 0;
+      noOfInfant.value = 0;
+      travelDate.value = DateTime.now().add(Duration(days: 1));
+      getActivityPriceInfo();
+      getActivityTimingList();
+    }
+  }
+
+
+  Future<void> getActivityPriceInfo() async {
+    isPriceDataLoading.value = true;
+
+    ActivityTransferType activityTransferType = await activityBookingHttpService
+        .getActivityPriceInfo(ActivityPriceFetchBody(
+        transferId: transferId.value,
+        tourid: tourid.value,
+        cityid: cityid.value,
+        touroptionid: touroptionid.value,
+        travelDate: travelDate.value,
+        noOfAdult: noOfAdult.value.toString(),
+        noOfChildren: noOfChildren.value.toString(),
+        noOfInfant: noOfInfant.value.toString(),
+        contractId: -1,
+        objectID: objectID.value,
+        tourGuide: '0',
+        startTime: '0',
+        timeSlotId: ''));
+
+    print("transferId before update");
+    print(selectedActivityTransferType.value.transferId);
+    activityTransferTypes.value.forEach((element) {
+      print("element.transferId i");
+      print(element.transferId);
+    });
+    selectedActivityTransferType.value = activityTransferType;
+    print("transferId after update");
+    print(selectedActivityTransferType.value.transferId);
+    isDetailsDataLoading.value = false;
+    isPriceDataLoading.value = false;
+    confirmActivity();
+  }
+
+  Future<void> getActivityTimingList() async {
+    isPriceDataLoading.value = true;
+
+    activityTimingOptions.value = await activityBookingHttpService
+        .getActivityTimingList(ActivityPriceFetchBody(
+        transferId: transferId.value,
+        tourid: tourid.value,
+        cityid: cityid.value,
+        touroptionid: touroptionid.value,
+        travelDate: travelDate.value,
+        noOfAdult: noOfAdult.value.toString(),
+        noOfChildren: noOfChildren.value.toString(),
+        noOfInfant: noOfInfant.value.toString(),
+        contractId: contractId.value,
+        objectID: objectID.value,
+        tourGuide: '0',
+        startTime: '0',
+        timeSlotId: ''));
+
+
+    if (activityTimingOptions.isNotEmpty) {
+      selectedActivityTime.value = activityTimingOptions.value[0];
+      getActivityPriceInfo();
+    }
+  }
+
+  Future<void> confirmActivity() async {
+    String msg = await activityBookingHttpService
+        .confirmActivity(ActivityPriceFetchBody(
+        transferId: transferId.value,
+        tourid: tourid.value,
+        cityid: cityid.value,
+        touroptionid: touroptionid.value,
+        travelDate: travelDate.value,
+        noOfAdult: noOfAdult.value.toString(),
+        noOfChildren: noOfChildren.value.toString(),
+        noOfInfant: noOfInfant.value.toString(),
+        contractId: contractId.value,
+        objectID: objectID.value,
+        tourGuide: '0',
+        startTime: '0',
+        timeSlotId: selectedActivityTime.value.timeSlotId.toString()));
+  }
+
+  void changeActivityTime(ActivityTimingOption activityTimingOption) {
+    selectedActivityTime.value = activityTimingOption;
   }
 
 }
