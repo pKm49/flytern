@@ -21,6 +21,9 @@ class RegisterController extends GetxController {
   Rx<TextEditingController> confirmPasswordController = TextEditingController().obs;
   Rx<TextEditingController> mobileController = TextEditingController().obs;
 
+  var isPasswordVisible = false.obs;
+  var isConfirmPasswordVisible = false.obs;
+
   var selectedCountry = Country(
       isDefault: 1,
       countryName: "Kuwait",
@@ -34,8 +37,6 @@ class RegisterController extends GetxController {
   var otp = "".obs;
   var profilePicture = "".obs;
   var errorMessage = "".obs;
-  var isPasswordVisible = false.obs;
-  var isConfirmPasswordVisible = false.obs;
   var isTermsAndPrivacyAgreed = false.obs;
   var isSubscribedToEmail = false.obs;
   var isSubmitting = false.obs;
@@ -138,6 +139,14 @@ class RegisterController extends GetxController {
   //   }
   //
   // }
+
+  updatePasswordVisibility(){
+    isPasswordVisible.value = !isPasswordVisible.value;
+  }
+
+  updateConfirmPasswordVisibility(){
+    isConfirmPasswordVisible.value = !isConfirmPasswordVisible.value;
+  }
 
   void updateOtp(String otpString) {
     otp.value = otpString;

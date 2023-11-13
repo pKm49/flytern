@@ -166,18 +166,36 @@ class _AuthRegisterDetailsInputPageState
                     )),
                 addVerticalSpace(flyternSpaceMedium),
                 TextFormField(
+                    obscureText: registerController.isPasswordVisible.value,
                     controller: registerController.passwordController.value,
                     validator: (value) => checkIfPasswordFieldValid(value),
                     decoration: InputDecoration(
-                      suffixIcon: const Icon(Icons.remove_red_eye_outlined),
+                      suffixIcon: InkWell(
+                        onTap: (){
+                          registerController.updatePasswordVisibility();
+                        },
+                        child:   Icon(
+                            registerController.isPasswordVisible.value?
+                            Icons.visibility_off_outlined:Icons.visibility_outlined),
+                      ),
                       labelText: "password".tr,
                     )),
                 addVerticalSpace(flyternSpaceMedium),
                 TextFormField(
+                  obscureText: registerController.isConfirmPasswordVisible.value,
                     controller: registerController.confirmPasswordController.value,
                     validator: (value) => checkIfConfirmPasswordFieldValid(value,registerController.passwordController.value.text),
                     decoration: InputDecoration(
-                      suffixIcon: const Icon(Icons.remove_red_eye_outlined),
+
+                      suffixIcon: InkWell(
+                        onTap: (){
+                          registerController.updateConfirmPasswordVisibility();
+                        },
+                        child:   Icon(
+                            registerController.isConfirmPasswordVisible.value?
+                            Icons.visibility_off_outlined:Icons.visibility_outlined),
+                      ),
+
                       labelText: "confirm_password".tr,
                     )),
                 addVerticalSpace(flyternSpaceMedium),
