@@ -35,6 +35,7 @@ class FlightBookingController extends GetxController {
   var isTravelStoriesLoading = false.obs;
   var isRecommendedLoading = false.obs;
   var isPopularDestinationsLoading = false.obs;
+  var isPassengersSelected = false.obs;
   var travelStoriesPage = 1.obs;
   var popularDestinationsPage = 1.obs;
   var recommendedPage = 1.obs;
@@ -119,6 +120,7 @@ class FlightBookingController extends GetxController {
       recommendedPackages.value = exploreData.recommendedPackages;
       popularDestinations.value = exploreData.popularDestinations;
       travelStories.value = exploreData.travelStories;
+      setDefaultSearchData();
     }
 
     isInitialDataLoading.value = false;
@@ -171,6 +173,12 @@ class FlightBookingController extends GetxController {
         Get.toNamed(Approute_flightsSearchResult);
       } else {
         isModifySearchVisible.value = false;
+      }
+    }else{
+      if(flightSearchData.value.allowedCabins.isEmpty ||
+          flightSearchData.value.adults == 0){
+        showSnackbar(
+            Get.context!, flightDetails.value.priceChangedMessage, "error");
       }
     }
   }
@@ -513,5 +521,13 @@ class FlightBookingController extends GetxController {
     flightPretravellerData.value = mapFlightPretravellerData({});
 
     Get.offAllNamed(Approute_landingpage);
+  }
+
+  void setDefaultSearchData() {
+    if(cabinClasses.isNotEmpty){
+      List<CabinClass> allowedCabinClasses = [];
+      allowedCabinClasses.add(cabinClasses.value[0]);
+      updatePassengerCountAndCabinClass(1,0,0,allowedCabinClasses);
+    }
   }
 }

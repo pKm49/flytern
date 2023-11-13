@@ -60,10 +60,10 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
           children: [
             Container(
               padding: EdgeInsets.all(flyternSpaceLarge),
-              height:
-                  flightBookingHelperServices.getFlightBookingContainerHeight(
-                      screenheight,
-                      flightBookingController ),
+              // height:
+              //     flightBookingHelperServices.getFlightBookingContainerHeight(
+              //         screenheight,
+              //         flightBookingController ),
               width: screenwidth - (flyternSpaceLarge * 2),
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -76,13 +76,14 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                   Column(
                     children: [
                       Container(
-                        height: screenheight * .025,
+                        // height: screenheight * .025,
+                        height:25,
                         width: screenwidth - (flyternSpaceLarge * 2),
                       ),
                       Container(
-                        height:flightBookingHelperServices.getFlightBookingContainerHeight(
-                            screenheight,
-                            flightBookingController ) - (screenheight * .025) - (flyternSpaceLarge * 2),
+                        // height:flightBookingHelperServices.getFlightBookingContainerHeight(
+                        //     screenheight,
+                        //     flightBookingController ) - (screenheight * .025) - (flyternSpaceLarge * 2),
                         decoration: flyternShadowedContainerSmallDecoration,
                         width: screenwidth - (flyternSpaceLarge * 2),
                         padding: flyternMediumPaddingAll,
@@ -99,7 +100,8 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                   Column(
                     children: [
                       Container(
-                          height: screenheight * .05,
+                          // height: screenheight * .05,
+                          height:50,
                           width: screenwidth - (flyternSpaceLarge * 2),
                           padding: flyternMediumPaddingHorizontal,
                           child: Row(
@@ -138,7 +140,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                                     flightBookingController
                                         .setFlightMode(FlightMode.MULTICITY);
                                   },
-                                  icon: Ionicons.share_social_outline,
+                                  icon: Ionicons.git_branch_outline,
                                   label: 'multi_city'.tr,
                                   isSelected: flightBookingController
                                           .flightSearchData.value.mode ==
@@ -148,9 +150,9 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                             ],
                           )),
                       Container(
-                        height:flightBookingHelperServices.getFlightBookingContainerHeight(
-                            screenheight,
-                            flightBookingController )- (screenheight * .05) - (flyternSpaceLarge * 2),
+                        // height:flightBookingHelperServices.getFlightBookingContainerHeight(
+                        //     screenheight,
+                        //     flightBookingController )- (screenheight * .05) - (flyternSpaceLarge * 2),
                         width: screenwidth - (flyternSpaceLarge * 2),
                       )
                     ],

@@ -41,13 +41,18 @@ class FlightTypeTab extends StatelessWidget {
                 color: isSelected
                     ? flyternBackgroundWhite
                     : flyternGrey60,
-                size: flyternFontSize20),
-            Text(label,
-              style: TextStyle(
-                color: isSelected
-                    ? flyternBackgroundWhite
-                    : flyternGrey60,
-              ),)
+                size: flyternFontSize16),
+            Expanded(
+              child:FittedBox(
+                fit: BoxFit.scaleDown,
+                child:  Text(label,
+                  style: TextStyle(
+                    color: isSelected
+                        ? flyternBackgroundWhite
+                        : flyternGrey60,
+                  ),)
+              ),
+            )
           ],
         ),
       ),

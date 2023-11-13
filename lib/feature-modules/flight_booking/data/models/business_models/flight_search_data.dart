@@ -62,7 +62,7 @@ class FlightSearchData {
 FlightSearchData getDefaultFlightSearchData() {
   return FlightSearchData(
       promoCode: "",
-      adults: 0,
+      adults:1,
       child: 0,
       infants: 0,
       searchList: [getDefaultFlightSearchItem()],
