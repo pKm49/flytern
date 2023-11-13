@@ -1,11 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/auth/data/models/business_models/login_credential.dart';
 import 'package:flytern/feature-modules/auth/data/models/business_models/register_credential.dart';
 import 'package:flytern/feature-modules/auth/services/http-services/auth_http_services.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
-import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/models/business_models/auth_token.dart';
 import 'package:flytern/shared/data/models/business_models/country.dart';
 import 'package:flytern/shared/services/utility-services/shared_preference_handler.dart';
@@ -22,7 +20,10 @@ class RegisterController extends GetxController {
   Rx<TextEditingController> mobileController = TextEditingController().obs;
 
   var isPasswordVisible = false.obs;
+  var isProfilePictureSelected = false.obs;
   var isConfirmPasswordVisible = false.obs;
+
+  late File profilePictureFile;
 
   var selectedCountry = Country(
       isDefault: 1,
@@ -48,7 +49,7 @@ class RegisterController extends GetxController {
     super.onInit();
   }
 
-  submitRegisterForm(bool isDirectFlow,File? file) async {
+  submitRegisterForm(bool isDirectFlow ) async {
 
     isSubmitting.value = true;
     try{
@@ -63,7 +64,8 @@ class RegisterController extends GetxController {
           IsEmailSubscription:isSubscribedToEmail.value
       );
 
-      String userIdFromApi  = await authHttpService.register(registerCredential,file);
+      String userIdFromApi  = await authHttpService.register(registerCredential,isProfilePictureSelected.value?
+      profilePictureFile:null);
 
       if(userIdFromApi != ""){
         userId.value = userIdFromApi;
@@ -160,8 +162,10 @@ class RegisterController extends GetxController {
     isTermsAndPrivacyAgreed.value = bool;
   }
 
-  void updateProfilePicture(String base64encode) {
+  void updateProfilePicture(String base64encode, File pictureFile) {
     profilePicture.value = base64encode;
+    profilePictureFile = pictureFile;
+    isProfilePictureSelected.value = true;
   }
 
 }

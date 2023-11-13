@@ -318,7 +318,7 @@ class _AuthRegisterDetailsInputPageState
                             !registerController.isSubmitting.value &&
                           registerController.isTermsAndPrivacyAgreed.value) {
                           FocusManager.instance.primaryFocus?.unfocus();
-                          registerController.submitRegisterForm(isDirectFlow,profilePictureFile);
+                          registerController.submitRegisterForm(isDirectFlow);
                         }
                       }, child:registerController.isSubmitting.value
                           ? LoadingAnimationWidget.prograssiveDots(
@@ -433,7 +433,7 @@ class _AuthRegisterDetailsInputPageState
               if (pictureFile != null) {
                 profilePictureFile = pictureFile;
                 Uint8List imageBytes = profilePictureFile.readAsBytesSync();
-                registerController.updateProfilePicture(base64Encode(imageBytes));
+                registerController.updateProfilePicture(base64Encode(imageBytes),pictureFile);
 
               }
               setState(() {});
