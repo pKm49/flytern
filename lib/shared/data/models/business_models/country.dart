@@ -6,6 +6,7 @@ class Country {
   final String countryName_Ar;
   final String flag;
   final String code;
+  final int isDefault;
 
   Country({
     required this.countryName,
@@ -14,6 +15,7 @@ class Country {
     required this.countryName_Ar,
     required this.flag,
     required this.code,
+    required this.isDefault,
   });
 
   Map toJson() => {
@@ -28,6 +30,12 @@ class Country {
 }
 
 Country mapCountry(dynamic payload){
+
+  print("isDefault");
+  print(payload["countryName"]);
+  if(payload["countryName"] == "Kuwait"){
+    print(payload);
+  }
   return Country(
     countryName :payload["countryName"]??"",
     countryCode :payload["countryCode"]??"",
@@ -35,5 +43,6 @@ Country mapCountry(dynamic payload){
     countryName_Ar :payload["countryName_Ar"]??"",
     flag :payload["flag"]??"",
     code :payload["code"] ??"",
+    isDefault :payload["isDefault"] ??0,
   );
 }

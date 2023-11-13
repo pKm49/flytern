@@ -71,6 +71,7 @@ class _FlightUserDetailsSubmissionFormState
   final coPaxController = Get.find<CoPaxController>();
 
   var nationality = Country(
+      isDefault: 1,
       countryName: "",
       countryCode: "",
       countryISOCode: "",
@@ -79,6 +80,7 @@ class _FlightUserDetailsSubmissionFormState
       code: "");
 
   var passportIssuedCountryCode = Country(
+      isDefault: 1,
       countryName: "",
       countryCode: "",
       countryISOCode: "",

@@ -2,6 +2,7 @@ import 'package:flytern/shared/data/models/business_models/country.dart';
 
 final List<Country> availableCountries = [
   Country(
+      isDefault: 1,
       countryName: "Kuwait",
       countryCode: "KWT",
       countryISOCode: "KW",
@@ -10,6 +11,7 @@ final List<Country> availableCountries = [
       code: "+965"),
 
   Country(
+      isDefault: 1,
       countryName: "India",
       countryCode: "IND",
       countryISOCode: "IN",

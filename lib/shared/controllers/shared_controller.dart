@@ -29,15 +29,15 @@ class SharedController extends GetxController {
   var sharedHttpService = SharedHttpService();
   var selectedLanguage = Language(name: "English", code: "en").obs;
   var selectedCountry = Country(
-          countryName: "India",
-          countryCode: "IND",
-          countryISOCode: "IN",
-          countryName_Ar: "الهند",
-          flag: "https://flagcdn.com/48x36/in.png",
-          code: "+91")
+          isDefault: 1,
+          countryName: "Kuwait",
+          countryCode: "KWT",
+          countryISOCode: "KW",
+          countryName_Ar: "الكويت",
+          flag: "https://flagcdn.com/48x36/kw.png",
+          code: "+965")
       .obs;
-
-  var genders = <Gender>[].obs;
+   var genders = <Gender>[].obs;
   var languages = <Language>[].obs;
   var countries = <Country>[].obs;
   var countriesToShow = <Country>[].obs;
@@ -59,7 +59,6 @@ class SharedController extends GetxController {
     languages.value = availableLanguages;
     countries.value = availableCountries;
     countriesToShow.value = availableCountries;
-
   }
 
   changeLanguage(Language language) async {
@@ -73,29 +72,31 @@ class SharedController extends GetxController {
     selectedCountry.value = country;
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString('selectedCountry', country.countryCode);
-     updateCountryListByQuery("");
-
+    updateCountryListByQuery("");
   }
 
   updateGenders(List<Gender> newGendersList) {
     genders.value = newGendersList;
   }
 
-  updateCountryListByQuery(String query){
-
+  updateCountryListByQuery(String query) {
     print("updateCountryListByQuery");
     print(query);
-    if(query ==""){
+    if (query == "") {
       countriesToShow.value = countries.value;
-    }else{
-
-      List<Country> tempCountries = countries.value.where((element) =>
-      element.countryName.toLowerCase().contains(query.toLowerCase()) ||
-      element.countryName_Ar.toLowerCase().contains(query.toLowerCase()) ||
-      element.code.toLowerCase().contains(query.toLowerCase()) ||
-      element.countryISOCode.toLowerCase().contains(query.toLowerCase()) ||
-      element.countryCode.toLowerCase().contains(query.toLowerCase())
-      ).toList();
+    } else {
+      List<Country> tempCountries = countries.value
+          .where((element) =>
+              element.countryName.toLowerCase().contains(query.toLowerCase()) ||
+              element.countryName_Ar
+                  .toLowerCase()
+                  .contains(query.toLowerCase()) ||
+              element.code.toLowerCase().contains(query.toLowerCase()) ||
+              element.countryISOCode
+                  .toLowerCase()
+                  .contains(query.toLowerCase()) ||
+              element.countryCode.toLowerCase().contains(query.toLowerCase()))
+          .toList();
 
       countriesToShow.value = tempCountries;
     }
@@ -107,6 +108,11 @@ class SharedController extends GetxController {
     languages.value = supportInfo.languages;
     countries.value = supportInfo.countries;
     countriesToShow.value = supportInfo.countries;
+
+    List<Country> defaultCountry = countries.value.where((element) => element.isDefault==1).toList();
+    if(defaultCountry.isNotEmpty){
+      changeCountry(defaultCountry[0]);
+    }
   }
 
   Future<void> getPreRegisterInfo() async {
@@ -218,7 +224,7 @@ class SharedController extends GetxController {
           }
       }
       isInfoLoading.value = true;
-      if(infoType != InfoType.SOCIAL){
+      if (infoType != InfoType.SOCIAL) {
         Get.toNamed(Approute_coreInfoDoc);
       }
 

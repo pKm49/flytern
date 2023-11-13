@@ -66,6 +66,7 @@ class _ActivityUserDetailsSubmissionPageState
   final coPaxController = Get.find<CoPaxController>();
 
   var nationality = Country(
+      isDefault: 1,
       countryName: "",
       countryCode: "",
       countryISOCode: "",

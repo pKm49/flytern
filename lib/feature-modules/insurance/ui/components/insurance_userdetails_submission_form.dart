@@ -65,6 +65,7 @@ class _InsuranceUserDetailsSubmissionFormState
   final coPaxController = Get.find<CoPaxController>();
 
   var nationality = Country(
+      isDefault: 1,
       countryName: "",
       countryCode: "",
       countryISOCode: "",
@@ -73,6 +74,7 @@ class _InsuranceUserDetailsSubmissionFormState
       code: "");
 
   var passportIssuedCountryCode = Country(
+      isDefault: 1,
       countryName: "",
       countryCode: "",
       countryISOCode: "",

@@ -29,6 +29,7 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
   final sharedController = Get.find<SharedController>();
 
   var selectedCountry = Country(
+      isDefault: 1,
       countryName: "India",
       countryCode: "IND",
       countryISOCode: "IN",

@@ -53,6 +53,8 @@ class CountrySelector extends StatelessWidget {
                   for(var i =0; i<sharedController.countriesToShow.length;i++)
                     InkWell(
                       onTap: () async {
+                        print("countriesToShow");
+                        print(sharedController.countriesToShow[i].toJson());
                         countrySelected(sharedController.countriesToShow[i]);
                         await sharedController.changeCountry(sharedController.countriesToShow[i]);
                         Navigator.pop(context);
