@@ -1,11 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/auth/data/models/business_models/login_credential.dart';
-import 'package:flytern/feature-modules/auth/data/models/business_models/register_credential.dart';
 import 'package:flytern/feature-modules/auth/services/http-services/auth_http_services.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
-import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/models/business_models/auth_token.dart';
 import 'package:flytern/shared/data/models/business_models/country.dart';
 import 'package:flytern/shared/services/utility-services/shared_preference_handler.dart';

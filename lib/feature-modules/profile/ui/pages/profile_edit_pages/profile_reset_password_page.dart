@@ -56,11 +56,20 @@ class _ProfileResetPasswordPageState extends State<ProfileResetPasswordPage> {
                     padding: flyternLargePaddingAll,
                     color: flyternBackgroundWhite,
                     child: TextFormField(
+                        obscureText: profileController.isPasswordVisible.value,
+
                         controller: profileController.passwordController.value,
                         validator: (value) => checkIfPasswordFieldValid(value),
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                          suffixIcon: Icon(Ionicons.eye_outline),
+                          suffixIcon: InkWell(
+                            onTap: (){
+                              profileController.updatePasswordVisibility();
+                            },
+                            child:   Icon(
+                                profileController.isPasswordVisible.value?
+                                Icons.visibility_off_outlined:Icons.visibility_outlined),
+                          ),
                           labelText: "set_new_password".tr,
                         )),
                   ),
@@ -68,11 +77,19 @@ class _ProfileResetPasswordPageState extends State<ProfileResetPasswordPage> {
                     padding: flyternLargePaddingHorizontal.copyWith(top:0,bottom: flyternSpaceLarge),
                     color: flyternBackgroundWhite,
                     child: TextFormField(
+                        obscureText: profileController.isConfirmPasswordVisible.value,
                         controller: profileController.confirmPasswordController.value,
                         validator: (value) => checkIfConfirmPasswordFieldValid(value,profileController.passwordController.value.text),
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                          suffixIcon: Icon(Ionicons.eye_outline),
+                          suffixIcon: InkWell(
+                            onTap: (){
+                              profileController.updateConfirmPasswordVisibility();
+                            },
+                            child:   Icon(
+                                profileController.isConfirmPasswordVisible.value?
+                                Icons.visibility_off_outlined:Icons.visibility_outlined),
+                          ),
                           labelText: "confirm_password".tr,
                         )),
                   ),

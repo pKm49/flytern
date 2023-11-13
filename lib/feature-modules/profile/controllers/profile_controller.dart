@@ -102,6 +102,8 @@ class ProfileController extends GetxController {
   var currentPage = 1.obs;
   var pageSize = 10.obs;
   var currentService = BookingCategory.FLIGHT.obs;
+  var isPasswordVisible = false.obs;
+  var isConfirmPasswordVisible = false.obs;
 
   @override
   void onInit() {
@@ -109,6 +111,15 @@ class ProfileController extends GetxController {
     getUserDetails();
     travelStoryController.getUserTravelStories();
     coPaxController.getUserCoPassengers();
+  }
+
+
+  updatePasswordVisibility(){
+    isPasswordVisible.value = !isPasswordVisible.value;
+  }
+
+  updateConfirmPasswordVisibility(){
+    isConfirmPasswordVisible.value = !isConfirmPasswordVisible.value;
   }
 
   Future<void> getUserDetails() async {
