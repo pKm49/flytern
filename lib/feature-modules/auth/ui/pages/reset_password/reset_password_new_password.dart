@@ -46,22 +46,36 @@ class _AuthResetPasswordNewPasswordPageState
                     style: getBodyMediumStyle(context)),
                 addVerticalSpace(flyternSpaceLarge * 2),
                 TextFormField(
-                    controller:
-                        resetPasswordController.passwordController.value,
+                    obscureText: resetPasswordController.isPasswordVisible.value,
+                    controller: resetPasswordController.passwordController.value,
                     validator: (value) => checkIfPasswordFieldValid(value),
                     decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                      suffixIcon: InkWell(
+                        onTap: (){
+                          resetPasswordController.updatePasswordVisibility();
+                        },
+                        child:   Icon(
+                            resetPasswordController.isPasswordVisible.value?
+                            Icons.visibility_off_outlined:Icons.visibility_outlined),
+                      ),
                       labelText: "password".tr,
                     )),
                 addVerticalSpace(flyternSpaceMedium),
                 TextFormField(
-                    controller:
-                        resetPasswordController.confirmPasswordController.value,
-                    validator: (value) => checkIfConfirmPasswordFieldValid(
-                        value,
-                        resetPasswordController.passwordController.value.text),
+                    obscureText: resetPasswordController.isConfirmPasswordVisible.value,
+                    controller: resetPasswordController.confirmPasswordController.value,
+                    validator: (value) => checkIfConfirmPasswordFieldValid(value,resetPasswordController.passwordController.value.text),
                     decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.remove_red_eye_outlined),
+
+                      suffixIcon: InkWell(
+                        onTap: (){
+                          resetPasswordController.updateConfirmPasswordVisibility();
+                        },
+                        child:   Icon(
+                            resetPasswordController.isConfirmPasswordVisible.value?
+                            Icons.visibility_off_outlined:Icons.visibility_outlined),
+                      ),
+
                       labelText: "confirm_password".tr,
                     )),
                 addVerticalSpace(flyternSpaceLarge),

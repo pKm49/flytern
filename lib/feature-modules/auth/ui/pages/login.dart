@@ -71,10 +71,19 @@ class _AuthLoginPageState extends State<AuthLoginPage> {
                         )),
                     addVerticalSpace(flyternSpaceMedium),
                     TextFormField(
+                        obscureText: loginController.isPasswordVisible.value,
                         controller: loginController.passwordController.value,
                         validator: (value) => checkIfPasswordFieldValid(value),
                         decoration: InputDecoration(
-                          suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                          suffixIcon: InkWell(
+                            onTap: (){
+                              loginController.updatePasswordVisibility();
+                            },
+                            child:   Icon(
+                                loginController.isPasswordVisible.value?
+                                Icons.visibility_off_outlined:Icons.visibility_outlined),
+                          ),
+
                           labelText: "password".tr,
                         )),
                     addVerticalSpace(flyternSpaceLarge),

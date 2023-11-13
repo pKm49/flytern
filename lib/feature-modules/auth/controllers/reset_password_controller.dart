@@ -42,6 +42,14 @@ class ResetPasswordController extends GetxController {
     super.onInit();
   }
 
+  updatePasswordVisibility(){
+    isPasswordVisible.value = !isPasswordVisible.value;
+  }
+
+  updateConfirmPasswordVisibility(){
+    isConfirmPasswordVisible.value = !isConfirmPasswordVisible.value;
+  }
+
   sendOtp() async {
 
     isSubmitting.value = true;
