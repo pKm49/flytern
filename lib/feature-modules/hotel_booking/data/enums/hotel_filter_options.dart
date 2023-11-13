@@ -1,0 +1,8 @@
+
+enum HotelFilterOptions {
+PRICERANGE,
+AIRLINE,
+DEPARTURETIME,
+ARRIVALTIME,
+STOPS,
+}
