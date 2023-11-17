@@ -1,78 +1,60 @@
-
-import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_search_response_dto_segment.dart';
-
 class HotelSearchResponse {
+  final int hotelId;
+  final String imageUrl;
+  final String hotelName;
+  final double fromPrice;
+  final String priceUnit;
+  final double rating;
+  final String description;
+  final String location;
+  final String locationFilter;
+  final List<String> information;
 
-  final bool isSale;
-  final double finalPrc;
-  final double totalPrc;
-  final String airlineImageUrl;
-  final String airlinescode;
-  final String airlineName;
-  final String currency;
-  final bool isOneway;
-  final bool isRefund;
-  final String cabin;
-  final int index;
-  final int objectId;
-  final int moreOptioncount;
-  final List<HotelSearchResponseDtoSegment> dTOSegments;
-
-
-  HotelSearchResponse({
-   required this.isSale,
-   required this.finalPrc,
-   required this.totalPrc,
-   required this.airlineImageUrl,
-   required this.airlinescode,
-   required this.airlineName,
-   required this.currency,
-   required this.isOneway,
-   required this.isRefund,
-   required this.cabin,
-   required this.index,
-   required this.objectId,
-   required this.moreOptioncount,
-   required this. dTOSegments
-  });
-
+  HotelSearchResponse(
+      {required this.locationFilter,
+      required this.fromPrice,
+      required this.rating,
+      required this.imageUrl,
+      required this.location,
+      required this.hotelName,
+      required this.priceUnit,
+      required this.description,
+      required this.hotelId,
+      required this.information});
 }
 
 HotelSearchResponse mapHotelSearchResponse(dynamic payload) {
+  List<String> information = [];
 
-  List<HotelSearchResponseDtoSegment> flightSearchResponseDtoSegments = [];
-  if(payload["dTOSegments"] != null){
-    payload["dTOSegments"].forEach((element) {
-      flightSearchResponseDtoSegments.add(mapHotelSearchResponseDtoSegment(element));
+  if(payload["information"] !=null){
+    payload["information"].forEach((element) {
+      information.add(element);
     });
   }
+
   return HotelSearchResponse(
-     isSale:payload["isSale"]??false,
-     finalPrc:payload["finalPrc"]??0.0,
-     totalPrc:payload["totalPrc"]??0.0,
-     airlineImageUrl:payload["airlineImageUrl"]??"",
-     airlinescode:payload["airlinescode"]??"",
-     airlineName:payload["airlineName"]??"",
-     currency:payload["currency"]??"",
-     isOneway:getBoolean(payload["isOneway"]),
-     isRefund:payload["isRefund"]??false,
-     cabin:payload["cabin"]??"",
-     index:payload["index"]??-1,
-     objectId:payload["objectId"]??-1,
-     moreOptioncount:payload["moreOptioncount"]??0,
-      dTOSegments:flightSearchResponseDtoSegments,
+    locationFilter: payload["locationFilter"] ?? "",
+    fromPrice: payload["fromPrice"] ?? 0.0,
+    rating: payload["rating"] ?? 0.0,
+    imageUrl: payload["imageUrl"] ?? "",
+    location: payload["location"] ?? "",
+    hotelName: payload["hotelName"] ?? "",
+    priceUnit: payload["priceUnit"] ?? "",
+    description: payload["description"] ?? "",
+    hotelId: payload["hotelId"] ?? -1,
+    information:information,
   );
 }
 
 getBoolean(payload) {
-  if(payload ==null){
+  if (payload == null) {
     return false;
   }
-  if(payload is bool){
+  if (payload is bool) {
     return payload;
   }
 
-  if (payload is String && (payload=="true"||payload =="false")){
+  if (payload is String && (payload == "true" || payload == "false")) {
     return bool.parse(payload);
   }
   return false;

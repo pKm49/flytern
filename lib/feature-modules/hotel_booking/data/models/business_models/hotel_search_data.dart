@@ -1,6 +1,5 @@
 
-import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_allowed_cabin.dart';
-import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_search_item_room_data.dart';
+ import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_search_item_room_data.dart';
 import 'package:intl/intl.dart';
 
 class HotelSearchData {
@@ -51,6 +50,6 @@ HotelSearchData getDefaultHotelSearchData() {
       checkInDate: DateTime.now(),
       checkOutDate: DateTime.now().add(Duration(days: 1)),
       nationalityCode: "KWT",
-      rooms:[]
+      rooms:[getDefaultHotelSearchItem()]
   );
 }

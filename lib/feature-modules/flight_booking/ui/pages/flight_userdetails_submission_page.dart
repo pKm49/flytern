@@ -95,7 +95,7 @@ class _FlightUserDetailsSubmissionPageState
                           fontWeight: FontWeight.bold),
                       unselectedLabelColor: flyternGrey40,
                       tabs: <Tab>[
-                        for (var i = 0; i < 3; i++)
+                        for (var i = 0; i < tabLength; i++)
                           Tab(
                               text: i == 0
                                   ? "${'adults'.tr} (${adultExpansionControllers.length})"

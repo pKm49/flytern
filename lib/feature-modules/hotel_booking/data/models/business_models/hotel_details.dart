@@ -1,140 +1,117 @@
-
-import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/h_cabin_info.dart';
-import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_segment.dart';
+import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_amenitys.dart';
+import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_basic_detail.dart';
+import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_room.dart';
 
 class HotelDetails {
-  final String priceChangedMessage;
-  final String scheduleChangedMessage;
-  final String selectedCabinId;
-  final String selectedCabinName;
-  final String errorMessage;
-  final String fareRule;
-  final String warningMessage;
-  final bool isRefund;
-  final bool priceChanged;
-  final bool scheduleChanged;
-  final int objectId;
-  final int detailId;
-  final int adult;
-  final int child;
-  final int infant;
-  final List<HotelSegment> flightSegments;
-  final List<HotelCabinInfo> cabinInfos;
+
+  final double fromPrice;
+  final double rating;
+  final String priceUnit;
+  final String checkIn;
+  final String checkOut;
+  final String duration;
+  final String cancellationpolicy;
+  final String descriptionInfo;
+  final String hotelName;
+  final String address;
+  final String location;
+  final String locationurl;
+  final int hotelId;
+  final List<HotelBasicDetail> basicDetails;
+  final List<HotelAmenity> amenitys;
+  final List<HotelRoom> rooms;
+  final List<String> imageUrls;
 
   HotelDetails(
-      {required this.priceChangedMessage,
-      required this.scheduleChangedMessage,
-      required this.selectedCabinId,
-      required this.selectedCabinName,
-      required this.errorMessage,
-      required this.warningMessage,
-      required this.fareRule,
-      required this.isRefund,
-      required this.priceChanged,
-      required this.scheduleChanged,
-      required this.objectId,
-      required this.detailId,
-      required this.adult,
-      required this.child,
-      required this.infant,
-      required this.flightSegments,
-      required this.cabinInfos});
+      {required this.priceUnit,
+      required this.fromPrice,
+      required this.rating,
+      required this.checkIn,
+      required this.checkOut,
+      required this.duration,
+      required this.cancellationpolicy,
+      required this.hotelName,
+      required this.descriptionInfo,
+      required this.address,
+      required this.location,
+      required this.locationurl,
+      required this.hotelId,
+      required this.imageUrls,
+      required this.basicDetails,
+      required this.amenitys,
+      required this.rooms});
+
 }
 
 HotelDetails mapHotelDetails(dynamic payload) {
-  List<HotelSegment> flightSegments = [];
-  List<HotelCabinInfo> cabinInfos = [];
-  String fareRule = "";
-  String errorMessage = "";
-  String warningMessage = "";
+  List<HotelBasicDetail> basicDetails = [];
+  List<HotelAmenity> amenitys = [];
+  List<HotelRoom> rooms = [];
+  List<String> imageUrls = [];
 
-  if (payload["flightSegments"] != null) {
-    payload["flightSegments"].forEach((element) {
-      flightSegments.add(mapHotelSegment(element));
+  payload["imageUrl"].forEach((element) {
+    imageUrls.add(element);
+  });
+
+  if (payload["_lstBasicDetails"] != null) {
+    payload["_lstBasicDetails"].forEach((element) {
+      basicDetails.add(mapHotelBasicDetail(element));
     });
   }
-  if (payload["_lstCabinInfos"] != null) {
-    payload["_lstCabinInfos"].forEach((element) {
-      cabinInfos.add(mapHotelCabinInfo(element));
+
+  if (payload["_lstamenitys"] != null) {
+    payload["_lstamenitys"].forEach((element) {
+      amenitys.add(mapHotelAmenity(element));
     });
   }
 
-  if (payload["fareRule"] != null) {
-    if (payload["fareRule"] is String) {
-      fareRule = payload["fareRule"];
-    } else {
-      payload["fareRule"].forEach((element) {
-        fareRule += element;
-      });
-    }
-  }
-
-  if (payload["errorMessage"] != null) {
-    if (payload["errorMessage"] is String) {
-      errorMessage = payload["errorMessage"];
-    } else {
-      payload["errorMessage"].forEach((element) {
-        errorMessage += element;
-      });
-    }
-  }
-
-  if (payload["warningMessage"] != null) {
-    if (payload["warningMessage"] is String) {
-      warningMessage = payload["warningMessage"];
-    } else {
-      payload["warningMessage"].forEach((element) {
-        warningMessage += element;
-      });
-    }
+  if (payload["_lstRooms"] != null) {
+    payload["_lstRooms"].forEach((element) {
+      rooms.add(mapHotelRoom(element));
+    });
   }
 
   return HotelDetails(
-    priceChangedMessage: payload["priceChangedMessage"] ?? "",
-    selectedCabinName: payload["selectedCabinName"] ?? "",
-    selectedCabinId: payload["selectedCabinId"] ?? "",
-    scheduleChangedMessage: payload["scheduleChangedMessage"] ?? "",
-    flightSegments: flightSegments,
-    cabinInfos: cabinInfos,
-    fareRule: fareRule,
-    errorMessage: errorMessage,
-    warningMessage: warningMessage,
-    isRefund: payload["isRefund"] ?? false,
-    priceChanged: payload["priceChanged"] ?? false,
-    scheduleChanged: payload["scheduleChanged"] ?? false,
-    objectId: payload["objectId"] ?? -1,
-    detailId: payload["detailId"] ?? -1,
-    adult: payload["adult"] ?? -1,
-    child: payload["child"] ?? -1,
-    infant: payload["infant"] ?? -1,
+    rating: payload["rating"] ?? 0.0,
+    fromPrice: payload["fromPrice"] ?? 0.0,
+    priceUnit: payload["priceUnit"] ?? "",
+    duration: payload["duration"] ?? "",
+    checkOut: payload["checkOut"] ?? "",
+    checkIn: payload["checkIn"] ?? "",
+    address: payload["address"] ?? "",
+    location: payload["location"] ?? "",
+    locationurl: payload["locationurl"] ?? "",
+    hotelId: payload["hotelId"] ?? -1,
+    cancellationpolicy:payload["cancellationpolicy"] ?? "",
+    hotelName: payload["hotelName"] ?? "",
+    descriptionInfo: payload["descriptionInfo"] ?? "",
+    imageUrls: imageUrls,
+    basicDetails: basicDetails,
+    amenitys: amenitys,
+    rooms: rooms,
   );
 }
 
 HotelDetails getDefaultHotelDetails() {
-  List<HotelSegment> flightSegments = [];
-  List<HotelCabinInfo> cabinInfos = [];
-  String fareRule = "";
-  String errorMessage = "";
-  String warningMessage = "";
 
 
   return HotelDetails(
-    priceChangedMessage:  "",
-    selectedCabinName: "",
-    selectedCabinId:   "",
-    scheduleChangedMessage:  "",
-    flightSegments: flightSegments,
-    cabinInfos: cabinInfos,
-    fareRule: fareRule,
-    errorMessage: errorMessage,
-    warningMessage: warningMessage,
-    isRefund:  false,
-    priceChanged: false,
-    scheduleChanged: false,
-    objectId:   -1,
-    detailId:  -1,
-    adult:  -1,
-    child:  -1,
-    infant:   -1,
+    priceUnit: "",
+    rating: 0.0,
+    fromPrice: 0.0,
+    duration: "",
+    checkOut: "",
+    checkIn: "",
+    cancellationpolicy: '',
+    hotelName: '',
+    descriptionInfo: '',
+    imageUrls: [],
+    basicDetails: [],
+    amenitys: [],
+    rooms: [],
+    address: '',
+    location: '',
+    locationurl: '',
+    hotelId: -1,
   );
 }

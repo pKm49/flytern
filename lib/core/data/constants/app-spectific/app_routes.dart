@@ -4,6 +4,7 @@ import 'package:flytern/core/ui/pages/landing_page.dart';
 import 'package:flytern/core/ui/pages/language_selector.dart';
 import 'package:flytern/core/ui/pages/drawer_pages/settings_page.dart';
 import 'package:flytern/core/ui/pages/drawer_pages/smart_payment_page.dart';
+import 'package:flytern/core/ui/pages/notifications_page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activities_list_page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_confirmation_page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_summary_page.dart';
@@ -16,6 +17,7 @@ import 'package:flytern/feature-modules/flight_booking/ui/pages/explore_section/
 import 'package:flytern/feature-modules/flight_booking/ui/pages/explore_section/all_travel_stories_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_more_options_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_userdetails_submission_page.dart';
+import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_userdetails_submission_page.dart';
 import 'package:flytern/feature-modules/package_booking/ui/pages/package_booking_confirmation_page.dart';
 import 'package:flytern/shared/ui/pages/otp_input.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/register/register_details_input.dart';
@@ -99,6 +101,11 @@ getAppRoutes() => [
       GetPage(
         name: Approute_landingpage,
         page: () => const CoreLandingPage(),
+        middlewares: [MyMiddelware()],
+      ),
+      GetPage(
+        name: Approute_notificationspage,
+        page: () => const NotificationsPage(),
         middlewares: [MyMiddelware()],
       ),
 
@@ -206,6 +213,12 @@ getAppRoutes() => [
       GetPage(
         name: Approute_hotelsDetails,
         page: () => const HotelDetailsPage(),
+        middlewares: [MyMiddelware()],
+      ),
+
+      GetPage(
+        name: Approute_hotelsUserSelection,
+        page: () => const HotelUserDetailsSubmissionPage(),
         middlewares: [MyMiddelware()],
       ),
 

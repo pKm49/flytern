@@ -11,8 +11,8 @@ import 'package:ionicons/ionicons.dart';
 class CountrySelector extends StatelessWidget {
 
   final Function(Country? country) countrySelected;
-
-  CountrySelector({super.key, required this.countrySelected});
+  final bool? isGlobal;
+  CountrySelector({super.key, required this.countrySelected, this.isGlobal});
   TextEditingController searchController = TextEditingController();
 
   final sharedController = Get.find<SharedController>();
@@ -56,7 +56,9 @@ class CountrySelector extends StatelessWidget {
                         print("countriesToShow");
                         print(sharedController.countriesToShow[i].toJson());
                         countrySelected(sharedController.countriesToShow[i]);
-                        await sharedController.changeCountry(sharedController.countriesToShow[i]);
+                        if(isGlobal == null || isGlobal == true){
+                          await sharedController.changeCountry(sharedController.countriesToShow[i]);
+                        }
                         Navigator.pop(context);
                       },
                       child: Container(

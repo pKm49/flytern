@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/cabin_class.dart';
 import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking_controller.dart';
+import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_destination.dart';
 import 'package:flytern/feature-modules/hotel_booking/services/delegates/hotel_destination_search_delegate.dart';
 import 'package:flytern/feature-modules/hotel_booking/services/helper-services/hotel_booking_helper_services.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/data/models/business_models/country.dart';
 import 'package:flytern/shared/services/delegates/custom_search_delegate.dart';
+import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/booking_options_selector.dart';
+import 'package:flytern/shared/ui/components/country_selector.dart';
 import 'package:flytern/shared/ui/components/custom_date_picker.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HotelBookingLandingPage extends StatefulWidget {
   const HotelBookingLandingPage({super.key});
@@ -26,10 +31,8 @@ class HotelBookingLandingPage extends StatefulWidget {
 
 class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
     with SingleTickerProviderStateMixin {
-
   final hotelBookingController = Get.put(HotelBookingController());
   final hotelBookingHelperServices = HotelBookingHelperServices();
-
 
   @override
   void initState() {
@@ -48,7 +51,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
     double screenheight = MediaQuery.of(context).size.height;
 
     return Obx(
-      ()=> Container(
+      () => Container(
         height: screenheight,
         width: screenwidth,
         decoration: BoxDecoration(
@@ -67,18 +70,24 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
               child: Wrap(
                 children: [
                   InkWell(
-                    onTap: (){
-                      showSearch(context: context, delegate: HotelDestinationSearchDelegate());
+                    onTap: () async {
+                      HotelDestination destination = await showSearch(
+                          context: context,
+                          delegate: HotelDestinationSearchDelegate());
+                      hotelBookingController.setDestination(destination);
                     },
                     child: Container(
-                      decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                          border: Border.all(color: flyternGrey20, width: .5)),
+                      decoration:
+                          flyternBorderedContainerSmallDecoration.copyWith(
+                              border:
+                                  Border.all(color: flyternGrey20, width: .5)),
                       padding: flyternMediumPaddingAll,
                       child: Row(
                         children: [
                           Icon(Ionicons.location_outline,
-                              color: flyternSecondaryColor,size: flyternFontSize20),
-                          addHorizontalSpace(flyternSpaceSmall*1.5),
+                              color: flyternSecondaryColor,
+                              size: flyternFontSize20),
+                          addHorizontalSpace(flyternSpaceSmall * 1.5),
                           Expanded(
                             flex: 1,
                             child: Column(
@@ -89,12 +98,14 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                                   'destination'.tr,
                                   style: getLabelLargeStyle(context).copyWith(
                                       color: flyternGrey40,
-                                      fontWeight: FontWeight.  w400),
+                                      fontWeight: FontWeight.w400),
                                 ),
-                                addVerticalSpace(flyternSpaceExtraSmall*1.5),
-                                Text(hotelBookingController.selectedDestination.value.cityName,
-                                    style: getLabelLargeStyle(context)
-                                        .copyWith(color: flyternGrey80, )),
+                                addVerticalSpace(flyternSpaceExtraSmall * 1.5),
+                                Text(
+                                    "${hotelBookingController.selectedDestination.value.uniqueCombination} ",
+                                    style: getLabelLargeStyle(context).copyWith(
+                                      color: flyternGrey80,
+                                    )),
                               ],
                             ),
                           )
@@ -108,34 +119,49 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                       Expanded(
                           flex: 1,
                           child: InkWell(
-                            onTap: (){
-                              showCustomDatePicker();
+                            onTap: () {
+                              showCustomDatePicker(false);
                             },
                             child: Container(
-                              decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                                  border: Border.all(color: flyternGrey20, width: .5)),
+                              decoration:
+                                  flyternBorderedContainerSmallDecoration
+                                      .copyWith(
+                                          border: Border.all(
+                                              color: flyternGrey20, width: .5)),
                               padding: flyternMediumPaddingAll,
                               child: Row(
                                 children: [
                                   Icon(Icons.calendar_month,
-                                      color: flyternSecondaryColor,size: flyternFontSize20),
-                                  addHorizontalSpace(flyternSpaceSmall*1.5),
+                                      color: flyternSecondaryColor,
+                                      size: flyternFontSize20),
+                                  addHorizontalSpace(flyternSpaceSmall * 1.5),
                                   Expanded(
                                     flex: 1,
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           'checkin'.tr,
-                                          style: getLabelLargeStyle(context).copyWith(
-                                              color: flyternGrey40,
-                                              fontWeight: FontWeight.  w400),
+                                          style: getLabelLargeStyle(context)
+                                              .copyWith(
+                                                  color: flyternGrey40,
+                                                  fontWeight: FontWeight.w400),
                                         ),
-                                        addVerticalSpace(flyternSpaceExtraSmall*1.5),
-                                        Text(DateFormat.yMMMd('en_US').format(hotelBookingController.hotelSearchData.value.checkInDate),
+                                        addVerticalSpace(
+                                            flyternSpaceExtraSmall * 1.5),
+                                        Text(
+                                            DateFormat.yMMMd('en_US').format(
+                                                hotelBookingController
+                                                    .hotelSearchData
+                                                    .value
+                                                    .checkInDate),
                                             style: getLabelLargeStyle(context)
-                                                .copyWith(color: flyternGrey80, )),
+                                                .copyWith(
+                                              color: flyternGrey80,
+                                            )),
                                       ],
                                     ),
                                   )
@@ -147,34 +173,48 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                       Expanded(
                           flex: 1,
                           child: InkWell(
-                            onTap: (){
-                              showCustomDatePicker();
+                            onTap: () {
+                              showCustomDatePicker(true);
                             },
                             child: Container(
-                              decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                                  border: Border.all(color: flyternGrey20, width: .5)),
-                              padding: flyternMediumPaddingAll ,
+                              decoration:
+                                  flyternBorderedContainerSmallDecoration
+                                      .copyWith(
+                                          border: Border.all(
+                                              color: flyternGrey20, width: .5)),
+                              padding: flyternMediumPaddingAll,
                               child: Row(
                                 children: [
                                   Icon(Icons.calendar_month,
-                                      color: flyternSecondaryColor,size: flyternFontSize20),
-                                  addHorizontalSpace(flyternSpaceSmall*1.5),
+                                      color: flyternSecondaryColor,
+                                      size: flyternFontSize20),
+                                  addHorizontalSpace(flyternSpaceSmall * 1.5),
                                   Expanded(
                                     flex: 1,
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           'checkout'.tr,
-                                          style: getLabelLargeStyle(context).copyWith(
-                                              color: flyternGrey40,
-                                              fontWeight: FontWeight.  w400),
+                                          style: getLabelLargeStyle(context)
+                                              .copyWith(
+                                                  color: flyternGrey40,
+                                                  fontWeight: FontWeight.w400),
                                         ),
-                                        addVerticalSpace(flyternSpaceExtraSmall*1.5),
-                                        Text(DateFormat.yMMMd('en_US').format(hotelBookingController.hotelSearchData.value.checkOutDate),
+                                        addVerticalSpace(
+                                            flyternSpaceExtraSmall * 1.5),
+                                        Text(
+                                            DateFormat.yMMMd('en_US').format(
+                                                hotelBookingController
+                                                    .hotelSearchData
+                                                    .value
+                                                    .checkOutDate),
                                             style: getLabelLargeStyle(context)
-                                                .copyWith( color: flyternGrey80)),
+                                                .copyWith(
+                                                    color: flyternGrey80)),
                                       ],
                                     ),
                                   )
@@ -186,88 +226,152 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                   ),
                   addVerticalSpace(flyternSpaceMedium),
                   Container(
-                    decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                        border: Border.all(color: flyternGrey20, width: .5)),
-                    padding: flyternMediumPaddingAll,
-                    child: Row(
-                      children: [
-                        Icon(Ionicons.bed_outline,
-                            color: flyternSecondaryColor,size: flyternFontSize20),
-                        addHorizontalSpace(flyternSpaceSmall*1.5),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'no_of_rooms'.tr,
-                                style: getLabelLargeStyle(context).copyWith(
-                                    color: flyternGrey40,
-                                    fontWeight: FontWeight.  w400),
+                    height: hotelBookingController
+                                .hotelSearchData.value.rooms.length ==
+                            1
+                        ? 80
+                        : ((hotelBookingController
+                                        .hotelSearchData.value.rooms.length -
+                                    1) *
+                                120) +
+                            80,
+                    child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: hotelBookingController
+                            .hotelSearchData.value.rooms.length,
+                        itemBuilder: (context, index) => Container(
+                              height: index != 0 ? 120 : 80,
+                              width: screenwidth,
+                              child: Column(
+                                children: [
+                                  Visibility(
+                                    visible: index != 0,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: flyternSpaceSmall,
+                                          bottom: flyternSpaceSmall),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              hotelBookingController
+                                                  .updateHotelRoomCount(index);
+                                            },
+                                            child: Text(
+                                              "remove".tr,
+                                              style: getLabelLargeStyle(context)
+                                                  .copyWith(
+                                                      color: flyternGuideRed,
+                                                      decoration: TextDecoration
+                                                          .underline),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      openHotelOptionsSelector(index);
+                                    },
+                                    child: Container(
+                                      height: 75,
+                                      decoration:
+                                          flyternBorderedContainerSmallDecoration
+                                              .copyWith(
+                                                  border: Border.all(
+                                                      color: flyternGrey20,
+                                                      width: .5)),
+                                      padding: flyternMediumPaddingAll,
+                                      child: Row(
+                                        children: [
+                                          const Icon(Ionicons.bed_outline,
+                                              color: flyternSecondaryColor,
+                                              size: flyternFontSize20),
+                                          addHorizontalSpace(
+                                              flyternSpaceSmall * 1.5),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'no_of_guests'.tr,
+                                                  style: getLabelLargeStyle(
+                                                          context)
+                                                      .copyWith(
+                                                          color: flyternGrey40,
+                                                          fontWeight:
+                                                              FontWeight.w400),
+                                                ),
+                                                addVerticalSpace(
+                                                    flyternSpaceExtraSmall *
+                                                        1.5),
+                                                Text(
+                                                    hotelBookingHelperServices
+                                                        .getPassengerCabinData(
+                                                            hotelBookingController
+                                                                .hotelSearchData
+                                                                .value,
+                                                            index),
+                                                    style: getLabelLargeStyle(
+                                                            context)
+                                                        .copyWith(
+                                                      color: flyternGrey80,
+                                                    )),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              addVerticalSpace(flyternSpaceExtraSmall*1.5),
-                              Text(hotelBookingHelperServices.getPassengerCabinData(hotelBookingController.hotelSearchData.value, 0),
-                                  style: getLabelLargeStyle(context)
-                                      .copyWith(color: flyternGrey80, )),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                            )),
                   ),
                   addVerticalSpace(flyternSpaceMedium),
-                  InkWell(
-                    onTap: (){
-                      openHotelOptionsSelector();
-                    },
-                    child: Container(
-                      decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                          border: Border.all(color: flyternGrey20, width: .5)),
-                      padding: flyternMediumPaddingAll ,
-                      child: Row(
-                        children: [
-                          Icon(Ionicons.person_outline,
-                              color: flyternSecondaryColor,size: flyternFontSize20),
-                          addHorizontalSpace(flyternSpaceSmall*1.5),
-                          Expanded(
-                            flex: 1,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'users'.tr,
-                                  style: getLabelLargeStyle(context).copyWith(
-                                      color: flyternGrey40,
-                                      fontWeight: FontWeight.  w400),
-                                ),
-                                addVerticalSpace(flyternSpaceExtraSmall*1.5),
-                                Text('1 Adult',
-                                    style: getLabelLargeStyle(context)
-                                        .copyWith( color: flyternGrey80)),
-                              ],
-                            ),
-                          )
-                        ],
+                  SizedBox(
+                    width: double.infinity,
+                    child: InkWell(
+                      onTap: () {
+                        hotelBookingController.updateHotelRoomCount(-1);
+                      },
+                      child: Container(
+                        decoration:
+                            flyternBorderedContainerSmallDecoration.copyWith(
+                                border: Border.all(
+                                    color: flyternSecondaryColor, width: .5)),
+                        padding: flyternMediumPaddingAll,
+                        child: Center(
+                            child: Text("+ " + "add_another_room".tr,
+                                style: getBodyMediumStyle(context)
+                                    .copyWith(color: flyternSecondaryColor))),
                       ),
                     ),
                   ),
                   addVerticalSpace(flyternSpaceMedium),
-
                   InkWell(
-                    onTap: (){
-
+                    onTap: () {
+                      openCountrySelector();
                     },
                     child: Container(
-                      decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                          border: Border.all(color: flyternGrey20, width: .5)),
+                      decoration:
+                          flyternBorderedContainerSmallDecoration.copyWith(
+                              border:
+                                  Border.all(color: flyternGrey20, width: .5)),
                       padding: flyternMediumPaddingAll,
                       child: Row(
                         children: [
                           Icon(Icons.flag_outlined,
-                              color: flyternSecondaryColor,size: flyternFontSize20),
-                          addHorizontalSpace(flyternSpaceSmall*1.5),
+                              color: flyternSecondaryColor,
+                              size: flyternFontSize20),
+                          addHorizontalSpace(flyternSpaceSmall * 1.5),
                           Expanded(
                             flex: 1,
                             child: Column(
@@ -278,12 +382,15 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                                   'nationality'.tr,
                                   style: getLabelLargeStyle(context).copyWith(
                                       color: flyternGrey40,
-                                      fontWeight: FontWeight.  w400),
+                                      fontWeight: FontWeight.w400),
                                 ),
-                                addVerticalSpace(flyternSpaceExtraSmall*1.5),
-                                Text('Indian',
-                                    style: getLabelLargeStyle(context)
-                                        .copyWith( color: flyternGrey80, )),
+                                addVerticalSpace(flyternSpaceExtraSmall * 1.5),
+                                Text(
+                                    hotelBookingController
+                                        .nationality.value.countryName,
+                                    style: getLabelLargeStyle(context).copyWith(
+                                      color: flyternGrey80,
+                                    )),
                               ],
                             ),
                           )
@@ -292,15 +399,32 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                     ),
                   ),
                   addVerticalSpace(flyternSpaceMedium),
-
                   SizedBox(
                     width: double.infinity,
-                    child: ElevatedButton(style: getElevatedButtonStyle(context),
-                        onPressed: ()   {
-                          Get.toNamed(Approute_hotelsSearchResult);
-                        }, child: Text("search_hotels".tr )),
+                    child: ElevatedButton(
+                        style: getElevatedButtonStyle(context),
+                        onPressed: () {
+                          if (hotelBookingController.selectedDestination.value
+                                      .uniqueCombination !=
+                                  "select_destination".tr &&
+                              hotelBookingController
+                                      .nationality.value.countryName !=
+                                  "select_nationality".tr) {
+                            hotelBookingController.getSearchResults(true);
+                          } else {
+                            showSnackbar(context,
+                                "hotel_form_validation_message".tr, "error");
+                          }
+                        },
+                        //isHotelSearchResponsesLoading
+                        child: hotelBookingController
+                                .isHotelSearchResponsesLoading.value
+                            ? LoadingAnimationWidget.prograssiveDots(
+                                color: flyternBackgroundWhite,
+                                size: 16,
+                              )
+                            : Text("search_hotels".tr)),
                   ),
-
                 ],
               ),
             )
@@ -310,11 +434,46 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
     );
   }
 
-  void showCustomDatePicker( ) {
+  void openCountrySelector() {
     showModalBottomSheet(
         useSafeArea: false,
-        shape:   RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(flyternBorderRadiusSmall),
+              topRight: Radius.circular(flyternBorderRadiusSmall)),
+        ),
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return CountrySelector(
+            isGlobal: false,
+            countrySelected: (Country? country) {
+              if (country != null) {
+                hotelBookingController.updateNationality(country);
+              }
+            },
+          );
+        });
+    // Get.bottomSheet(
+    //     Container(
+    //       child:  SharedTermsConditionsPage(),
+    //       height: 1000
+    //     ),
+    //
+    //   backgroundColor: flyternBackgroundWhite,
+    //   elevation: 0,
+    //   shape: RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.circular(10),
+    //   ),
+    // );
+  }
+
+  void showCustomDatePicker(bool isCheckoutDate) {
+    showModalBottomSheet(
+        useSafeArea: false,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(flyternBorderRadiusSmall),
               topRight: Radius.circular(flyternBorderRadiusSmall)),
         ),
         isScrollControlled: true,
@@ -322,19 +481,28 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
         context: context,
         builder: (context) {
           return CustomDatePicker(
-            selectedDate: DateTime.now(),
-            dateSelected: (DateTime? dateTime){
-
+            minimumDate: DateTime.now(),
+            maximumDate: hotelBookingController
+                .hotelSearchData.value.checkInDate
+                .add(const Duration(days: 365)),
+            selectedDate: isCheckoutDate
+                ? hotelBookingController.hotelSearchData.value.checkOutDate
+                : hotelBookingController.hotelSearchData.value.checkInDate,
+            dateSelected: (DateTime? dateTime) {
+              if (dateTime != null) {
+                hotelBookingController.changeDate(isCheckoutDate, dateTime);
+              }
             },
           );
         });
-
   }
-  void openHotelOptionsSelector( ) {
+
+  void openHotelOptionsSelector(int index) {
     showModalBottomSheet(
         useSafeArea: false,
-        shape:   RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(flyternBorderRadiusSmall),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(flyternBorderRadiusSmall),
               topRight: Radius.circular(flyternBorderRadiusSmall)),
         ),
         isScrollControlled: true,
@@ -342,19 +510,22 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
         context: context,
         builder: (context) {
           return BookingOptionsSelector(
-            selectedAdultCount: 1,
-            selectedChildCount: 1,
-            selectedInfantCount: 1,
-            dataSubmitted: (int adultCount, int childCount, int infantCount, List<CabinClass> cabinClasses) {
-
-            },
-            bookingServiceNumber: 2,
-            cabinClasses:[],
-            selectedCabinClasses:  [],
-
-          );
+              selectedAdultCount: hotelBookingController
+                  .hotelSearchData.value.rooms[index].adults,
+              selectedChildCount: hotelBookingController
+                  .hotelSearchData.value.rooms[index].childs,
+              selectedInfantCount: 0,
+              dataSubmitted: (int adultCount, int childCount, int infantCount,
+                  List<CabinClass> cabinClasses, List<int> childAges) {
+                hotelBookingController.updatePassengerCount(
+                    index, adultCount, childCount, childAges);
+                Navigator.pop(context);
+              },
+              bookingServiceNumber: 2,
+              cabinClasses: [],
+              selectedCabinClasses: [],
+              childAges: hotelBookingController
+                  .hotelSearchData.value.rooms[index].childAges);
         });
-
   }
-
 }

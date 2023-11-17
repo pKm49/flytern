@@ -7,6 +7,7 @@ import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_booking_lan
 import 'package:flytern/feature-modules/package_booking/ui/pages/package_booking_landing_page.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_landing_page.dart';
+import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -71,17 +72,21 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
         title: pageTitle == "flights"?
         Image.asset(ASSETS_NAMELOGO,width: screenwidth*.33):Text(pageTitle),
       actions: [
+        // Visibility(
+        //     visible:  pageTitle == "flights" || pageTitle == "hotels".tr,
+        //     child: InkWell(
+        //         onTap: (){
+        //           showSearch(context: context, delegate: CustomSearchDelegate());
+        //         },
+        //         child: Icon(CupertinoIcons.search,color: flyternGrey80))),
+        // addHorizontalSpace(flyternSpaceMedium),
         Visibility(
-            visible:  pageTitle == "flights" || pageTitle == "hotels".tr,
             child: InkWell(
                 onTap: (){
-                  showSearch(context: context, delegate: CustomSearchDelegate());
+                  Get.toNamed(Approute_notificationspage);
                 },
-                child: Icon(CupertinoIcons.search,color: flyternGrey80))),
+                child: Icon(CupertinoIcons.bell,color: flyternGrey80))),
         addHorizontalSpace(flyternSpaceMedium),
-        // Visibility(
-        //     child: Icon(CupertinoIcons.bell,color: flyternGrey80)),
-        // addHorizontalSpace(flyternSpaceMedium),
 
       ],
       ),

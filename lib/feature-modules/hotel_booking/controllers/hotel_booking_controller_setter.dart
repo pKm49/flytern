@@ -48,18 +48,14 @@ extension HotelBookingControllerSetter on HotelBookingController {
   }
 
 
-  changeDate(int index, bool isReturnDate, DateTime dateTime, bool isFilter) {
+  changeDate(  bool isCheckoutDate, DateTime dateTime ) {
     print("changedate");
-    print(index);
-    print(isReturnDate);
-    print(dateTime);
+    print(isCheckoutDate);
     print(dateTime);
     HotelSearchData newHotelSearchData = hotelBookingHelperServices
-        .changeDate(hotelSearchData.value,dateTime, isReturnDate);
+        .changeDate(hotelSearchData.value,dateTime, isCheckoutDate);
     hotelSearchData.value = newHotelSearchData;
-    if(isFilter){
-      getSearchResults(false);
-    }
+
   }
 
   void updatePassengerCount(int index,int adultCount, int childCount,
@@ -73,13 +69,14 @@ extension HotelBookingControllerSetter on HotelBookingController {
     hotelSearchData.value = newHotelSearchData;
   }
 
-  void updatePromoCode(Country nationality) {
 
+  void updateNationality(Country tNationality) {
+    nationality.value = tNationality;
     hotelSearchData.value = HotelSearchData(
         destination: hotelSearchData.value.destination,
         checkInDate: hotelSearchData.value.checkInDate,
         checkOutDate: hotelSearchData.value.checkOutDate,
-        nationalityCode: nationality.countryISOCode,
+        nationalityCode: tNationality.countryISOCode,
         rooms: hotelSearchData.value.rooms);
   }
 
@@ -96,10 +93,8 @@ extension HotelBookingControllerSetter on HotelBookingController {
   setFilterValues(HotelSearchResult selectedFilterOptions){
 
     selectedPriceDcs.value = selectedFilterOptions.priceDcs;
-    selectedArrivalTimeDcs.value = selectedFilterOptions.arrivalTimeDcs;
-    selectedDepartureTimeDcs.value = selectedFilterOptions.departureTimeDcs;
-    selectedAirlineDcs.value = selectedFilterOptions.airlineDcs;
-    selectedStopDcs.value = selectedFilterOptions.stopDcs;
+    selectedratingDcs.value = selectedFilterOptions.ratingDcs;
+    selectedlocationDcs.value = selectedFilterOptions.locationDcs;
 
     filterSearchResults();
 
@@ -121,13 +116,8 @@ extension HotelBookingControllerSetter on HotelBookingController {
       print(travelInfo[i].title);
 
       if (travelInfo[i].title == "Title"|| travelInfo[i].title == "") {
-        validityString = "enter_title_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
-            travelInfo[i].travellerType == "Adult"
-                ? 0
-                : travelInfo[i].travellerType == "Child"
-                ? 1
-                : 2,
-            travelInfo[i].no)}");
+        validityString = "enter_title_hotel_room_adult".tr.replaceAll("1",
+            "${i+1}");
 
         break;
       }
@@ -135,110 +125,29 @@ extension HotelBookingControllerSetter on HotelBookingController {
       print(travelInfo[i].firstName);
 
       if (travelInfo[i].firstName == "") {
-        validityString = "enter_firstname_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
-            travelInfo[i].travellerType == "Adult"
-                ? 0
-                : travelInfo[i].travellerType == "Child"
-                ? 1
-                : 2,
-            travelInfo[i].no)}");
+        
+        validityString = "enter_firstname_hotel_room_adult".tr.replaceAll("1",
+            "${i+1}");
 
         break;
       }
       print("lastName");
       print(travelInfo[i].lastName);
       if (travelInfo[i].lastName == "") {
-        validityString = "enter_lastname_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
-            travelInfo[i].travellerType == "Adult"
-                ? 0
-                : travelInfo[i].travellerType == "Child"
-                ? 1
-                : 2,
-            travelInfo[i].no)}");
-
+       
+        validityString = "enter_lastname_hotel_room_adult".tr.replaceAll("1",
+            "${i+1}");
         break;
       }
       print("gender");
       print(travelInfo[i].gender);
       if (travelInfo[i].gender == "Select" || travelInfo[i].gender == "") {
-        validityString = "enter_gender_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
-            travelInfo[i].travellerType == "Adult"
-                ? 0
-                : travelInfo[i].travellerType == "Child"
-                ? 1
-                : 2,
-            travelInfo[i].no)}");
-
+        
+        validityString = "enter_gender_hotel_room_adult".tr.replaceAll("1",
+            "${i+1}");
         break;
       }
-      print("dateOfBirth");
-      print(travelInfo[i].dateOfBirth);
-      print(DefaultInvalidDate);
 
-      if (travelInfo[i].dateOfBirth == DefaultInvalidDate) {
-        validityString = "enter_dob_copax".tr.replaceAll(
-            "user","${travelInfo[i].travellerType} ${getIndex(
-            travelInfo[i].travellerType == "Adult"
-                ? 0
-                : travelInfo[i].travellerType == "Child"
-                ? 1
-                : 2,
-            travelInfo[i].no)}");
-
-        break;
-      }
-      print(travelInfo[i].nationalityCode);
-
-      if (travelInfo[i].nationalityCode == "") {
-        validityString = "enter_nationality_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
-            travelInfo[i].travellerType == "Adult"
-                ? 0
-                : travelInfo[i].travellerType == "Child"
-                ? 1
-                : 2,
-            travelInfo[i].no)}");
-
-        break;
-      }
-      print(travelInfo[i].passportNumber);
-
-      if (travelInfo[i].passportNumber == "") {
-        validityString = "enter_passportnumber_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
-            travelInfo[i].travellerType == "Adult"
-                ? 0
-                : travelInfo[i].travellerType == "Child"
-                ? 1
-                : 2,
-            travelInfo[i].no)}");
-
-        break;
-      }
-      print(travelInfo[i].passportIssuedCountryCode);
-
-      if (travelInfo[i].passportIssuedCountryCode == "") {
-        validityString = "enter_passportcountry_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
-            travelInfo[i].travellerType == "Adult"
-                ? 0
-                : travelInfo[i].travellerType == "Child"
-                ? 1
-                : 2,
-            travelInfo[i].no)}");
-
-        break;
-      }
-      print(travelInfo[i].passportExpiryDate);
-
-      if (travelInfo[i].passportExpiryDate == DefaultInvalidDate) {
-        validityString = "enter_passportexpiry_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
-            travelInfo[i].travellerType == "Adult"
-                ? 0
-                : travelInfo[i].travellerType == "Child"
-                ? 1
-                : 2,
-            travelInfo[i].no)}");
-
-        break;
-      }
 
     }
 
@@ -251,29 +160,38 @@ extension HotelBookingControllerSetter on HotelBookingController {
     // Get.toNamed(Approute_hotelsSummary);
   }
 
-  getIndex(int itemTypeIndex, int localIndex) {
-    int total = hotelPretravellerData.value.adult +
-        hotelPretravellerData.value.child +
-        hotelPretravellerData.value.infant;
 
-    switch (itemTypeIndex) {
-      case 0:
-        {
-          return localIndex  ;
-        }
-      case 1:
-        {
-          return ((total - hotelPretravellerData.value.adult) -
-              (localIndex  ))+1;
-        }
-      case 2:
-        {
-          return ((total -
-              (hotelPretravellerData.value.adult +
-                  hotelPretravellerData.value.child)) -
-              (localIndex  ))+1;
-        }
-    }
+
+  void changeSelectedRoomSelectionIndex(int i) {
+    selectedRoomSelectionIndex.value = i;
+
   }
 
+  void changeSelectedRoomForIndex(String roomId) {
+    List<HotelRoom> hotelRooms =  hotelDetails.value.rooms.where((element) =>
+    element.roomid.toString() == roomId
+    ).toList();
+    if(hotelRooms.isNotEmpty){
+      selectedRoom.value[selectedRoomSelectionIndex.value]= hotelRooms[0];
+      if(hotelRooms[0].roomOptions.isNotEmpty){
+        changeSelectedRoomOptionForIndex(hotelRooms[0].roomOptions[0]);
+      }
+    }
+
+  }
+
+  void changeSelectedRoomOptionForIndex(HotelRoomOption hotelRoomOption) {
+      List<HotelRoomOption> tHotelRoomOptions = [];
+
+      for(var i=0;i<selectedRoomOption.value.length;i++){
+        selectedRoom.value.add(hotelDetails.value.rooms[0]) ;
+        if(i==selectedRoomSelectionIndex.value){
+          tHotelRoomOptions.add(hotelRoomOption);
+        }else{
+          tHotelRoomOptions.add(selectedRoomOption.value[i]);
+        }
+      }
+      selectedRoomOption.value =  tHotelRoomOptions;
+
+  }
 }

@@ -5,8 +5,7 @@ class HotelTravellerData {
 
   final List<HotelTravelInfo> travellerinfo;
   final int objectID;
-  final int detailID;
-  final int cabinID;
+  final int hotelID;
   final String mobileCntry;
   final String mobileNumber;
   final String email;
@@ -14,8 +13,7 @@ class HotelTravellerData {
   HotelTravellerData({
     required this.travellerinfo,
     required this.objectID,
-    required this.detailID,
-    required this.cabinID,
+    required this.hotelID,
     required this.mobileCntry,
     required this.mobileNumber,
     required this.email,
@@ -24,8 +22,7 @@ class HotelTravellerData {
   Map toJson() => {
     '_Travellerinfo': getTravellerInfo(),
     'objectID': objectID,
-    'detailID': detailID,
-    'cabinID': cabinID,
+    'hotelID': hotelID,
     '_CntDc':{
       'mobileCntry': mobileCntry,
       'mobileNumber': mobileNumber,

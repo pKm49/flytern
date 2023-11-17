@@ -801,13 +801,14 @@ class _ActivityDetailsPageState extends State<ActivityDetailsPage> {
               selectedChildCount: activityBookingController.noOfChildren.value,
               selectedInfantCount: activityBookingController.noOfInfant.value,
               dataSubmitted: (int adultCount, int childCount, int infantCount,
-                  List<CabinClass> cabinClasses) {
+                  List<CabinClass> cabinClasses, List<int> childAges) {
                 activityBookingController.updatePassengerCount(
                     adultCount, childCount, infantCount);
                 Navigator.pop(context);
               },
-              bookingServiceNumber: 2,
+              bookingServiceNumber: 3,
               cabinClasses: [],
+              childAges:[],
               selectedCabinClasses: []);
         });
   }

@@ -1,8 +1,9 @@
-    import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/h_cabin_info.dart';
-import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_destination.dart';
+ import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_destination.dart';
 import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_details.dart';
 import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_filter_body.dart';
 import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_pretraveller_data.dart';
+import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_room.dart';
+import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_room_option.dart';
 import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_search_data.dart';
 import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_search_item_room_data.dart';
 import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_search_response.dart';
@@ -52,16 +53,18 @@ class HotelBookingController extends GetxController {
   var hotelSearchResponses = <HotelSearchResponse>[].obs;
   var moreOptionHotels = <HotelSearchResponse>[].obs;
   var paymentGateways = <PaymentGateway>[].obs;
+  var selectedPaymentGateway = mapPaymentGateway({}).obs;
 
   var sortingDc = SortingDcs(value: "-1", name: "", isDefault: false).obs;
 
   var selectedDestination = mapHotelDestination({}).obs;
   var destination = "".obs;
   var bookingRef = "".obs;
-  var currency = "KWD".obs;
+  var priceUnit = "KWD".obs;
+  var selectedRoomSelectionIndex = 0.obs;
   var pageId = 1.obs;
-  var objectId = 1.obs;
-  var detailId = 1.obs;
+  var hotelId =  (-1).obs;
+  var objectId = (-1).obs;
   var processId = "-1".obs;
   var paymentCode = "".obs;
   var gatewayUrl = "".obs;
@@ -71,24 +74,28 @@ class HotelBookingController extends GetxController {
 
   var processingFee = (0.0).obs;
 
-  var currentHotelIndex = (-1).obs;
   var sortingDcs = <SortingDcs>[].obs;
-  var airlineDcs = <SortingDcs>[].obs;
-  var selectedAirlineDcs = <SortingDcs>[].obs;
-  var departureTimeDcs = <SortingDcs>[].obs;
-  var selectedDepartureTimeDcs = <SortingDcs>[].obs;
-  var arrivalTimeDcs = <SortingDcs>[].obs;
-  var selectedArrivalTimeDcs = <SortingDcs>[].obs;
-  var stopDcs = <SortingDcs>[].obs;
-  var selectedStopDcs = <SortingDcs>[].obs;
+  var ratingDcs = <SortingDcs>[].obs;
+  var selectedratingDcs = <SortingDcs>[].obs;
+  var locationDcs = <SortingDcs>[].obs;
+  var selectedlocationDcs = <SortingDcs>[].obs;
   var priceDcs = <RangeDcs>[].obs;
   var selectedPriceDcs = <RangeDcs>[].obs;
   var selectedTravelInfo = <HotelTravelInfo>[].obs;
   var hotelSearchData = getDefaultHotelSearchData().obs;
   var startDate = DefaultInvalidDate.obs;
   var hotelDetails = getDefaultHotelDetails().obs;
-  var cabinInfo = mapHotelCabinInfo({}).obs;
+  var selectedRoom = <HotelRoom>[].obs;
+  var selectedRoomOption = <HotelRoomOption>[].obs;
   var hotelPretravellerData = mapHotelPretravellerData({}).obs;
+  var nationality = Country(
+      isDefault: 1,
+      countryName: "select_nationality".tr,
+      countryCode: "",
+      countryISOCode: "",
+      countryName_Ar: "",
+      flag: "",
+      code: "").obs;
 
   var mobileCntry = "".obs;
   var mobileNumber = "".obs;
@@ -117,14 +124,25 @@ class HotelBookingController extends GetxController {
     if (hotelSearchData.value.rooms.isNotEmpty &&
         hotelSearchData.value.destination !="" &&
         !isHotelSearchResponsesLoading.value) {
+      objectId.value = -1;
       print("getSearchResults called ");
       isHotelSearchResponsesLoading.value = true;
+      if (isNavigationRequired) {
+        Get.toNamed(Approute_hotelsSearchResult);
+      } else {
+        isModifySearchVisible.value = false;
+      }
+
       HotelSearchResult hotelSearchResult = await hotelBookingHttpService
           .getHotelSearchResults(hotelSearchData.value);
       hotelSearchResponses.value = hotelSearchResult.searchResponses;
+      print("hotelSearchResponses value ");
+      print(hotelSearchResponses.isNotEmpty);
+      objectId.value = hotelSearchResult.objectID;
+
       if (hotelSearchResponses.isNotEmpty) {
-        objectId.value = hotelSearchResponses.value[0].objectId;
-        currency.value = hotelSearchResponses.value[0].currency;
+        hotelId.value = hotelSearchResponses.value[0].hotelId;
+        priceUnit.value = hotelSearchResponses.value[0].priceUnit;
         if (isNavigationRequired) {
           startDate.value = hotelSearchData.value.checkInDate;
         }
@@ -137,18 +155,12 @@ class HotelBookingController extends GetxController {
             defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
       }
       priceDcs.value = hotelSearchResult.priceDcs;
-      airlineDcs.value = hotelSearchResult.airlineDcs;
-      arrivalTimeDcs.value = hotelSearchResult.arrivalTimeDcs;
-      departureTimeDcs.value = hotelSearchResult.departureTimeDcs;
-      stopDcs.value = hotelSearchResult.stopDcs;
+      ratingDcs.value = hotelSearchResult.ratingDcs;
+      locationDcs.value = hotelSearchResult.locationDcs;
 
       isHotelSearchResponsesLoading.value = false;
       isHotelSearchFilterResponsesLoading.value = false;
-      if (isNavigationRequired) {
-        Get.toNamed(Approute_hotelsSearchResult);
-      } else {
-        isModifySearchVisible.value = false;
-      }
+
     }
   }
 
@@ -162,17 +174,11 @@ class HotelBookingController extends GetxController {
         priceMinMaxDc: selectedPriceDcs.value.isNotEmpty
             ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0].max}"
             : "",
-        arrivalTimeDc: selectedArrivalTimeDcs.value.isNotEmpty
-            ? getFilterValues(selectedArrivalTimeDcs.value)
+        locationDcs: selectedlocationDcs.value.isNotEmpty
+            ? getFilterValues(selectedlocationDcs.value)
             : "",
-        departureTimeDc: selectedDepartureTimeDcs.value.isNotEmpty
-            ? getFilterValues(selectedDepartureTimeDcs.value)
-            : "",
-        airlineDc: selectedAirlineDcs.value.isNotEmpty
-            ? getFilterValues(selectedAirlineDcs.value)
-            : "",
-        stopDc: selectedStopDcs.value.isNotEmpty
-            ? getFilterValues(selectedStopDcs.value)
+        ratingDcs: selectedratingDcs.value.isNotEmpty
+            ? getFilterValues(selectedratingDcs.value)
             : "",
         sortingDc: sortingDc.value.value,
       );
@@ -186,55 +192,55 @@ class HotelBookingController extends GetxController {
     }
   }
 
-
-  Future<void> getHotelDetails(int index) async {
-    if (index > -1 && !isHotelDetailsLoading.value) {
-      currentHotelIndex.value = index;
+  Future<void> getHotelDetails(int tHotelid) async {
+    print(tHotelid);
+    print(tHotelid > -1);
+    print(!isHotelDetailsLoading.value);
+    if (tHotelid > -1 && !isHotelDetailsLoading.value) {
+      print("inside");
+      hotelId.value = tHotelid;
       isHotelDetailsLoading.value = true;
       print("getMoreOptions called ");
+      selectedRoom.value =[];
+      selectedRoomOption.value =[];
+      selectedRoomSelectionIndex.value = 0;
 
-      print(isHotelDetailsLoading.value && currentHotelIndex.value == index);
       HotelDetails tempHotelDetails =
-          await hotelBookingHttpService.getHotelDetails(index, objectId.value);
+          await hotelBookingHttpService.getHotelDetails(hotelId.value, objectId.value);
       hotelDetails.value = tempHotelDetails;
-      List<HotelCabinInfo> selectedCabinInfo = hotelDetails.value.cabinInfos
-          .where((element) => element.id == hotelDetails.value.selectedCabinId)
-          .toList();
-      if (selectedCabinInfo.isNotEmpty) {
-        print("selectedCabinInfo.isNotEmpty");
-        cabinInfo.value = selectedCabinInfo[0];
+
+      if(hotelDetails.value.rooms.isNotEmpty){
+        for(var i=0;i<hotelSearchData.value.rooms.length;i++){
+          selectedRoom.value.add(hotelDetails.value.rooms[0]) ;
+        }
+        if(hotelDetails.value.rooms[0].roomOptions.isNotEmpty){
+          for(var i=0;i<hotelSearchData.value.rooms.length;i++){
+            selectedRoomOption.value.add(hotelDetails.value.rooms[0].roomOptions[0]);
+          }
+        }
       }
+
+      print("selectedRoom length");
+      print(hotelSearchData.value.rooms.length);
+      print(selectedRoom.length);
+      print(selectedRoomOption.length);
+
       isHotelDetailsLoading.value = false;
       Get.toNamed(Approute_hotelsDetails);
-      if (hotelDetails.value.priceChanged) {
-        showSnackbar(
-            Get.context!, hotelDetails.value.priceChangedMessage, "info");
-      }
-      if (hotelDetails.value.scheduleChanged) {
-        showSnackbar(
-            Get.context!, hotelDetails.value.scheduleChangedMessage, "info");
-      }
+      getPreTravellerData();
     }
   }
 
-  void changeSelectedCabinClass(HotelCabinInfo selectedCabinInfo) {
-    cabinInfo.value = selectedCabinInfo;
-  }
 
-  Future<void> getPreTravellerData(int tempDetailId) async {
+  Future<void> getPreTravellerData() async {
     if (!isHotelPretravellerDataLoading.value) {
       isHotelPretravellerDataLoading.value = true;
-      detailId.value = tempDetailId;
       HotelPretravellerData tempHotelPretravellerData =
-          await hotelBookingHttpService.getPreTravellerData(tempDetailId);
+          await hotelBookingHttpService.getPreTravellerData();
       isHotelPretravellerDataLoading.value = false;
 
-      if (tempHotelPretravellerData.countriesList.length > 0) {
+      if (tempHotelPretravellerData.genderList.isNotEmpty) {
         hotelPretravellerData.value = tempHotelPretravellerData;
-
-        // Get.toNamed(Approute_hotelsAddonServices);
-      } else {
-        showSnackbar(Get.context!, "something_went_wrong".tr, "error");
       }
     }
   }
@@ -246,9 +252,8 @@ class HotelBookingController extends GetxController {
       String tempBookingRef = "";
       HotelTravellerData hotelTravellerData = HotelTravellerData(
           travellerinfo: travelInfo,
+          hotelID: hotelId.value,
           objectID: objectId.value,
-          detailID: detailId.value,
-          cabinID: int.parse(cabinInfo.value.id),
           mobileCntry: mobileCntry.value,
           mobileNumber: mobileNumber.value,
           email: email.value);
@@ -389,6 +394,7 @@ class HotelBookingController extends GetxController {
           .toList();
 
       if (tempPaymentGateways.isNotEmpty) {
+        selectedPaymentGateway.value = tempPaymentGateways[0];
         processId.value = value;
         paymentCode.value = tempPaymentGateways[0].paymentCode;
         processingFee.value = tempPaymentGateways[0].processingFee;
@@ -397,6 +403,7 @@ class HotelBookingController extends GetxController {
   }
 
   void resetAndNavigateToHome() {
+
     isModifySearchVisible.value = false;
     isHotelDestinationsLoading.value = false;
     isHotelPretravellerDataLoading.value = false;
@@ -418,27 +425,26 @@ class HotelBookingController extends GetxController {
     sortingDc.value = SortingDcs(value: "-1", name: "", isDefault: false);
 
     bookingRef.value = "";
-    currency.value = "KWD";
+    priceUnit.value = "KWD";
 
-    currentHotelIndex.value = (-1);
+    hotelId.value = (-1);
     sortingDcs.value = [];
-    airlineDcs.value = [];
-    selectedAirlineDcs.value = [];
-    departureTimeDcs.value = [];
-    selectedDepartureTimeDcs.value = [];
-    arrivalTimeDcs.value = [];
-    selectedArrivalTimeDcs.value = [];
-    stopDcs.value = [];
-    selectedStopDcs.value = [];
+    ratingDcs.value = [];
+    selectedratingDcs.value = [];
+    locationDcs.value = [];
+    selectedlocationDcs.value = [];
     priceDcs.value = [];
     selectedPriceDcs.value = [];
     selectedTravelInfo.value = [];
     hotelSearchData.value = getDefaultHotelSearchData();
     startDate.value = DefaultInvalidDate;
     hotelDetails.value = getDefaultHotelDetails();
-    cabinInfo.value = mapHotelCabinInfo({});
     hotelPretravellerData.value = mapHotelPretravellerData({});
 
     Get.offAllNamed(Approute_landingpage);
   }
+
+
+
+
 }

@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 class HotelBookingHelperServices {
 
   HotelSearchData addHotelRoom(HotelSearchData hotelSearchData) {
-    List<HotelSearchItemRoomData> hotelRooms = hotelSearchData.rooms;
+    List<HotelSearchItemRoomData> hotelRooms = [];
 
     HotelSearchItemRoomData hotelRoom =
     HotelSearchItemRoomData(adults: 1, childs: 0, childAges: []);
@@ -60,7 +60,7 @@ class HotelBookingHelperServices {
 
       return returnString;
     }
-    return "select_passenger_cabin".tr;
+    return "select_number_of_guests".tr;
   }
 
   HotelSearchData updatePassengerCount(
@@ -69,6 +69,14 @@ class HotelBookingHelperServices {
       int adultCount,
       int childCount,
       List<int> childAges) {
+
+    print("updatePassengerCount");
+    print(index.toString());
+    print(adultCount.toString());
+    print(childCount.toString());
+    print(childAges.toString());
+    print(hotelSearchData.rooms.length );
+    print(hotelSearchData.rooms.length >= index + 1);
 
     if (hotelSearchData.rooms.length >= index + 1) {
       List<HotelSearchItemRoomData> hotelRooms = [];

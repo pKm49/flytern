@@ -33,7 +33,7 @@ HotelDestination mapHotelDestination(dynamic payload){
   return HotelDestination(
     cityCode :payload["cityCode"]??"",
     cityName :payload["cityName"]??"select_destination".tr,
-    uniqueCombination :payload["uniqueCombination"]??"",
+    uniqueCombination :payload["uniqueCombination"]??"select_destination".tr,
     sort :payload["sort"]??-1,
     countryCode :payload["countryCode"]??"",
     flag :payload["flag"]??"",

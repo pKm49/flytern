@@ -142,6 +142,11 @@ class FlightBookingController extends GetxController {
     if (flightSearchData.value.allowedCabins.isNotEmpty &&
         flightSearchData.value.adults > 0 &&
         !isFlightSearchResponsesLoading.value) {
+      if (isNavigationRequired) {
+        Get.toNamed(Approute_flightsSearchResult);
+      } else {
+        isModifySearchVisible.value = false;
+      }
       print("getSearchResults called ");
       isFlightSearchResponsesLoading.value = true;
       FlightSearchResult flightSearchResult = await flightBookingHttpService
@@ -169,11 +174,7 @@ class FlightBookingController extends GetxController {
 
       isFlightSearchResponsesLoading.value = false;
       isFlightSearchFilterResponsesLoading.value = false;
-      if (isNavigationRequired) {
-        Get.toNamed(Approute_flightsSearchResult);
-      } else {
-        isModifySearchVisible.value = false;
-      }
+
     }else{
       if(flightSearchData.value.allowedCabins.isEmpty ||
           flightSearchData.value.adults == 0){

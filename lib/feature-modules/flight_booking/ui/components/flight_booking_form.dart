@@ -557,6 +557,8 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
         builder: (context) {
           return CustomDatePicker(
               selectedDate:currentDateTime,
+            minimumDate: DateTime.now(),
+            maximumDate: DateTime.now().add(Duration(days: 365)),
             dateSelected: (DateTime? dateTime) {
               if (dateTime != null && dateTime.isAfter(DateTime.now())) {
                 widget.flightBookingController
@@ -588,11 +590,13 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
             selectedAdultCount: widget.flightBookingController.flightSearchData.value.adults,
             selectedChildCount: widget.flightBookingController.flightSearchData.value.child,
             selectedInfantCount: widget.flightBookingController.flightSearchData.value.infants,
-            dataSubmitted: (int adultCount, int childCount, int infantCount, List<CabinClass> cabinClasses) {
+            dataSubmitted: (int adultCount, int childCount, int infantCount, List<CabinClass> cabinClasses,
+                List<int> childAges) {
                 widget.flightBookingController.updatePassengerCountAndCabinClass( adultCount,
                 childCount, infantCount, cabinClasses);
                 Navigator.pop(context);
             },
+            childAges:[],
             bookingServiceNumber: 1,
               cabinClasses:widget.flightBookingController.cabinClasses.value,
             selectedCabinClasses:  widget.flightBookingController.flightSearchData.value.allowedCabins.map((e) => e.value).toList(),

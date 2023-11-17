@@ -56,30 +56,42 @@ class UserDetailsCard extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Padding(
-              padding: flyternSmallPaddingVertical,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("age".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                  Text(age,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-                ],
+            Visibility(
+              visible: age !="",
+              child: Container(
+                  color:flyternBackgroundWhite,
+                  child: Divider()),
+            ),
+            Visibility(
+              visible: age !="",
+              child: Padding(
+                padding: flyternSmallPaddingVertical,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("age".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                    Text(age,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                  ],
+                ),
               ),
             ),
-            Container(
-                color:flyternBackgroundWhite,
-                child: Divider()),
-            Padding(
-              padding: flyternSmallPaddingVertical,                    child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("passport_number".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                Text(passportNumber,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
-              ],
+            Visibility(
+              visible: passportNumber !="",
+              child: Container(
+                  color:flyternBackgroundWhite,
+                  child: Divider()),
             ),
+            Visibility(
+              visible: passportNumber !="",
+              child: Padding(
+                padding: flyternSmallPaddingVertical,                    child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("passport_number".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                  Text(passportNumber,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                ],
+              ),
+              ),
             ),
 
             Visibility(

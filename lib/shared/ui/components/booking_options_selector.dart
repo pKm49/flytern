@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/cabin_class.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/data/models/business_models/general_item.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared/ui/components/dropdown_selector.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -14,9 +16,10 @@ class BookingOptionsSelector extends StatefulWidget {
   int selectedChildCount;
   int selectedInfantCount;
   List<String> selectedCabinClasses;
+  List<int> childAges;
   List<CabinClass> cabinClasses;
   final Function(int adultCount, int childCount, int infantCount,
-      List<CabinClass> cabinClasses) dataSubmitted;
+      List<CabinClass> cabinClasses, List<int> childAges) dataSubmitted;
 
   BookingOptionsSelector({
     super.key,
@@ -27,6 +30,7 @@ class BookingOptionsSelector extends StatefulWidget {
     required this.selectedCabinClasses,
     required this.dataSubmitted,
     required this.cabinClasses,
+    required this.childAges,
   });
 
   @override
@@ -38,6 +42,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
   int childCount = 0;
   int infantCount = 0;
   List<String> selectedCabinClasses = [];
+  List<int> childAges = [];
 
   @override
   void initState() {
@@ -47,9 +52,8 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
     childCount = widget.selectedChildCount;
     infantCount = widget.selectedInfantCount;
     selectedCabinClasses = widget.selectedCabinClasses;
-    setState(() {
-
-    });
+    childAges = widget.childAges;
+    setState(() {});
   }
 
   @override
@@ -65,36 +69,35 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
       padding: flyternSmallPaddingAll,
       child: Column(
         children: [
-
           Expanded(
             child: Container(
               width: screenwidth,
               padding: flyternLargePaddingVertical,
               decoration: flyternBorderedContainerSmallDecoration,
               child: ListView(
-                 children: [
-                   Padding(
-                     padding: flyternLargePaddingHorizontal,
-                     child: Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                       children: [
-                         Text(
-                             widget.bookingServiceNumber == 1
-                                 ? "select_options".tr
-                                 : "select_users".tr,
-                             style: getHeadlineMediumStyle(context).copyWith(
-                                 color: flyternGrey80,
-                                 fontWeight: flyternFontWeightBold),
-                             textAlign: TextAlign.center),
-                         Text("cancel".tr,
-                             style: getHeadlineMediumStyle(context)
-                                 .copyWith(color: flyternSecondaryColor),
-                             textAlign: TextAlign.center),
-                       ],
-                     ),
-                   ),
-                   addVerticalSpace(flyternSpaceSmall),
-                   Divider(),
+                children: [
+                  Padding(
+                    padding: flyternLargePaddingHorizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                            widget.bookingServiceNumber == 1
+                                ? "select_options".tr
+                                : "select_users".tr,
+                            style: getHeadlineMediumStyle(context).copyWith(
+                                color: flyternGrey80,
+                                fontWeight: flyternFontWeightBold),
+                            textAlign: TextAlign.center),
+                        Text("cancel".tr,
+                            style: getHeadlineMediumStyle(context)
+                                .copyWith(color: flyternSecondaryColor),
+                            textAlign: TextAlign.center),
+                      ],
+                    ),
+                  ),
+                  addVerticalSpace(flyternSpaceSmall),
+                  Divider(),
                   Visibility(
                       visible: widget.bookingServiceNumber == 1,
                       child: addVerticalSpace(flyternSpaceLarge)),
@@ -134,12 +137,11 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                 Expanded(
                                     child: InkWell(
                                   onTap: () {
-                                    if(adultCount>0){
+                                    if (adultCount > 1) {
                                       setState(() {
                                         adultCount--;
                                       });
                                     }
-
                                   },
                                   child: Icon(CupertinoIcons.minus_square,
                                       color: adultCount > 0
@@ -152,15 +154,15 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                         getBodyMediumStyle(context).copyWith()),
                                 Expanded(
                                     child: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          adultCount++;
-                                        });
-                                      },
-                                      child: Icon(CupertinoIcons.plus_square,
-                                          color: flyternSecondaryColor,
-                                          size: flyternFontSize24 * 1.2),
-                                    ))
+                                  onTap: () {
+                                    setState(() {
+                                      adultCount++;
+                                    });
+                                  },
+                                  child: Icon(CupertinoIcons.plus_square,
+                                      color: flyternSecondaryColor,
+                                      size: flyternFontSize24 * 1.2),
+                                ))
                               ],
                             ))
                       ],
@@ -169,7 +171,6 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                   addVerticalSpace(flyternSpaceExtraSmall),
                   Padding(
                       padding: flyternLargePaddingHorizontal, child: Divider()),
-                  addVerticalSpace(flyternSpaceExtraSmall),
                   Padding(
                     padding: flyternLargePaddingHorizontal,
                     child: Row(
@@ -195,109 +196,179 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                               children: [
                                 Expanded(
                                     child: InkWell(
-                                      onTap: () {
-                                        if(childCount>0){
-                                          setState(() {
-                                            childCount--;
-                                          });
+                                  onTap: () {
+                                    if (childCount > 0) {
+                                      setState(() {
+                                        if(widget.bookingServiceNumber==2){
+                                          childAges.removeAt(childCount--);
                                         }
-
-                                      },
-                                      child: Icon(CupertinoIcons.minus_square,
-                                          color: childCount > 0
-                                              ? flyternSecondaryColor
-                                              : flyternGrey40,
-                                          size: flyternFontSize24 * 1.2),
-                                    )),
+                                      });
+                                    }
+                                  },
+                                  child: Icon(CupertinoIcons.minus_square,
+                                      color: childCount > 0
+                                          ? flyternSecondaryColor
+                                          : flyternGrey40,
+                                      size: flyternFontSize24 * 1.2),
+                                )),
                                 Text(childCount.toString(),
                                     style:
-                                    getBodyMediumStyle(context).copyWith()),
+                                        getBodyMediumStyle(context).copyWith()),
                                 Expanded(
                                     child: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          childCount++;
-                                        });
-                                      },
-                                      child: Icon(CupertinoIcons.plus_square,
-                                          color: flyternSecondaryColor,
-                                          size: flyternFontSize24 * 1.2),
-                                    ))
+                                  onTap: () {
+                                    setState(() {
+                                      childCount++;
+                                      childAges.add(2);
+                                    });
+                                  },
+                                  child: Icon(CupertinoIcons.plus_square,
+                                      color: flyternSecondaryColor,
+                                      size: flyternFontSize24 * 1.2),
+                                ))
                               ],
                             ))
                       ],
                     ),
                   ),
-                  addVerticalSpace(flyternSpaceExtraSmall),
-                  Padding(
-                      padding: flyternLargePaddingHorizontal, child: Divider()),
-                  Padding(
-                    padding: flyternLargePaddingHorizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                            flex: 2,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("infants".tr,
-                                    style:
-                                        getBodyMediumStyle(context).copyWith()),
-                                addVerticalSpace(flyternSpaceExtraSmall),
-                                Text("infant_description".tr,
-                                    style: getBodyMediumStyle(context)
-                                        .copyWith(color: flyternGrey40)),
-                              ],
-                            )),
-                        Expanded(
-                            flex: 1,
-                            child:Row(
-                              children: [
-                                Expanded(
-                                    child: InkWell(
-                                      onTap: () {
-                                        if(infantCount>0){
-                                          setState(() {
-                                            infantCount--;
-                                          });
-                                        }
-
-                                      },
-                                      child: Icon(CupertinoIcons.minus_square,
-                                          color: infantCount > 0
-                                              ? flyternSecondaryColor
-                                              : flyternGrey40,
-                                          size: flyternFontSize24 * 1.2),
-                                    )),
-                                Text(infantCount.toString(),
-                                    style:
-                                    getBodyMediumStyle(context).copyWith()),
-                                Expanded(
-                                    child: InkWell(
-                                      onTap: () {
+                  Visibility(
+                      visible: widget.bookingServiceNumber != 2,
+                      child: addVerticalSpace(flyternSpaceExtraSmall)),
+                  Visibility(
+                      visible: widget.bookingServiceNumber != 2,
+                      child: const Padding(
+                          padding: flyternLargePaddingHorizontal,
+                          child: Divider())),
+                  Visibility(
+                    visible: widget.bookingServiceNumber != 2,
+                    child: Padding(
+                      padding: flyternLargePaddingHorizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                              flex: 2,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("infants".tr,
+                                      style: getBodyMediumStyle(context)
+                                          .copyWith()),
+                                  addVerticalSpace(flyternSpaceExtraSmall),
+                                  Text("infant_description".tr,
+                                      style: getBodyMediumStyle(context)
+                                          .copyWith(color: flyternGrey40)),
+                                ],
+                              )),
+                          Expanded(
+                              flex: 1,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      child: InkWell(
+                                    onTap: () {
+                                      if (infantCount > 0) {
                                         setState(() {
-                                          infantCount++;
+                                          infantCount--;
                                         });
-                                      },
-                                      child: Icon(CupertinoIcons.plus_square,
-                                          color: flyternSecondaryColor,
-                                          size: flyternFontSize24 * 1.2),
-                                    ))
-                              ],
-                            ))
-                      ],
+                                      }
+                                    },
+                                    child: Icon(CupertinoIcons.minus_square,
+                                        color: infantCount > 0
+                                            ? flyternSecondaryColor
+                                            : flyternGrey40,
+                                        size: flyternFontSize24 * 1.2),
+                                  )),
+                                  Text(infantCount.toString(),
+                                      style: getBodyMediumStyle(context)
+                                          .copyWith()),
+                                  Expanded(
+                                      child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        infantCount++;
+                                      });
+                                    },
+                                    child: Icon(CupertinoIcons.plus_square,
+                                        color: flyternSecondaryColor,
+                                        size: flyternFontSize24 * 1.2),
+                                  ))
+                                ],
+                              ))
+                        ],
+                      ),
                     ),
                   ),
                   Visibility(
                       visible: widget.bookingServiceNumber == 1,
                       child: addVerticalSpace(flyternSpaceExtraSmall)),
+
                   Visibility(
-                      visible: widget.bookingServiceNumber == 1,
+                      visible:
+                      widget.bookingServiceNumber == 1  ,
                       child: Padding(
                           padding: flyternLargePaddingHorizontal,
                           child: Divider())),
-                  addVerticalSpace(flyternSpaceLarge),
+                  Visibility(
+                      visible: widget.bookingServiceNumber == 1  ,
+                      child: addVerticalSpace(flyternSpaceLarge)),
+                  Visibility(
+                      visible:   childCount>0,
+                      child: addVerticalSpace(flyternSpaceLarge*2)),
+                  for (var i = 0; i < childCount; i++)
+                    Visibility(
+                      visible: widget.bookingServiceNumber == 2,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: flyternDefaultBorderBottomOnly
+                        ),
+                          padding: flyternLargePaddingHorizontal.copyWith(bottom: flyternSpaceSmall,
+                          top: flyternSpaceSmall),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                flex:2,
+                                child: Text("age_for_child".tr.replaceAll("1",(i+1).toString()),
+                                    style: getBodyMediumStyle(context)),
+                              ),
+                              Expanded(
+                                flex:1,
+                                child: Container(
+                                  decoration:
+                                  flyternBorderedContainerSmallDecoration,
+                                  padding: flyternMediumPaddingHorizontal,
+                                  child: DropDownSelector(
+                                    titleText: "",
+                                    selected:"2",
+                                    items: [
+                                      for(var ind =2; ind<12;ind++)
+                                        GeneralItem(id: ind.toString(),
+                                            name: ind.toString(),
+                                            imageUrl: "")
+                                    ],
+                                    hintText:"" ,
+                                    valueChanged: (newLang) {
+                                      List<int> tChildAges = [];
+                                      for(var indx=0;indx<childCount;indx++){
+                                        if(i==indx){
+                                          tChildAges.add(int.parse(newLang));
+                                        }else{
+                                          tChildAges.add(childAges[i]);
+                                        }
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                    ),
+
+
+                  Visibility(
+                      visible: widget.bookingServiceNumber == 1,
+                      child: addVerticalSpace(flyternSpaceLarge)),
                   Visibility(
                     visible: widget.bookingServiceNumber == 1,
                     child: Padding(
@@ -353,15 +424,18 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
               ),
             ),
           ),
-
           addVerticalSpace(flyternSpaceSmall),
-
           InkWell(
-            onTap: (){
+            onTap: () {
               widget.dataSubmitted(
-                  adultCount, childCount, infantCount,
-                  widget.cabinClasses.where((element) => selectedCabinClasses.contains(element.value)).toList()
-              );
+                  adultCount,
+                  childCount,
+                  infantCount,
+                  widget.cabinClasses
+                      .where((element) =>
+                          selectedCabinClasses.contains(element.value))
+                      .toList(),
+                  childAges);
             },
             child: Container(
               width: screenwidth,
@@ -375,7 +449,6 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
               ),
             ),
           )
-
         ],
       ),
     );

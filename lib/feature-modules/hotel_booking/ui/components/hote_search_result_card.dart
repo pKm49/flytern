@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_search_response.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -9,7 +10,14 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
 class HotelSearchResultCard extends StatefulWidget {
-  const HotelSearchResultCard({super.key});
+  HotelSearchResponse hotelSearchResponse;
+  final GestureTapCallback onPressed;
+
+  HotelSearchResultCard(  {super.key,
+    required this.hotelSearchResponse,
+    required this.onPressed
+
+  });
 
   @override
   State<HotelSearchResultCard> createState() => _HotelSearchResultCardState();
@@ -24,11 +32,9 @@ class _HotelSearchResultCardState extends State<HotelSearchResultCard> {
     double screenheight = MediaQuery.of(context).size.height;
 
     return InkWell(
-      onTap: (){
-        Get.toNamed(Approute_hotelsDetails);
-      },
+      onTap:widget.onPressed,
       child: Container(
-        padding: flyternLargePaddingAll.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
+        padding: flyternMediumPaddingVertical,
         child: Row(
           children: [
             Container(
@@ -39,27 +45,38 @@ class _HotelSearchResultCardState extends State<HotelSearchResultCard> {
                 ),
                 clipBehavior: Clip.hardEdge,
                 width: screenwidth*.2,
-                child: Image.asset(ASSETS_HOTEL_1_SAMPLE,width: screenwidth*.2)),
+                child: Image.network(widget.hotelSearchResponse.imageUrl,
+                      height: screenwidth * .2,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                          color: flyternGrey10,
+                          height: screenwidth * .2);
+                    })  ),
             addHorizontalSpace(flyternSpaceMedium),
             Expanded(child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text("${widget.hotelSearchResponse.hotelName} ",style: getBodyMediumStyle(context).copyWith(
+                    fontWeight: flyternFontWeightBold),),
+
+
+                addVerticalSpace(flyternSpaceExtraSmall),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                        flex:4,
-                        child: Text('Rixos Premium Dubai JBR',style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold),)),
+                        child:                 Text("${widget.hotelSearchResponse.priceUnit} ${widget.hotelSearchResponse.fromPrice}",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold, color: flyternSecondaryColor),),
+                    ),
 
                     Expanded(
-                        flex: 1,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(Ionicons.star, color: flyternAccentColor,size: flyternFontSize20,),
+                            Icon(Ionicons.star, color: flyternAccentColor,size: flyternFontSize16,),
                             addHorizontalSpace(flyternSpaceExtraSmall),
                             Text(
-                              "4",
+                              widget.hotelSearchResponse.rating.toString(),
                               style: getBodyMediumStyle(context),
                             ),
                           ],
@@ -67,9 +84,9 @@ class _HotelSearchResultCardState extends State<HotelSearchResultCard> {
                   ],
                 ),
                 addVerticalSpace(flyternSpaceExtraSmall),
-                Text('AED 1500',style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold, color: flyternSecondaryColor),),
-                addVerticalSpace(flyternSpaceExtraSmall),
-                Text('Free Wifi - Free Cancellation',style: getBodyMediumStyle(context) ),
+                Text(widget.hotelSearchResponse.location,
+                    maxLines: 1,
+                    style: getBodyMediumStyle(context) ),
 
               ],
             ))

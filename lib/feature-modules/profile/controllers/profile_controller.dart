@@ -132,6 +132,12 @@ class ProfileController extends GetxController {
     final String? refreshToken = prefs.getString('refreshToken');
     final String? expiryOnString = prefs.getString('expiryOn');
 
+    print("isGuest");
+    print(isGuest);
+    print(accessToken);
+    print(refreshToken);
+    print(expiryOnString);
+
     if (accessToken != null &&
         accessToken != '' &&
         refreshToken != null &&

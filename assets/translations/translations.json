@@ -82,6 +82,7 @@
       "recent_searches": "Recent Searches",
       "clear_history": "Clear History",
       "no_of_rooms": "No. Of Rooms",
+      "rooms_no": "2 Rooms",
       "select_options": "Select Options",
       "done": "Done",
       "passengers": "Passengers",
@@ -181,7 +182,7 @@
       "amenities": "Amenities",
       "location": "Location",
       "room_details": "Room Details",
-      "popular_facilities": "Popular Facilities",
+      "basic_details": "Basic Details",
       "free_wifi": "Free Wifi",
       "room_service": "Room Service",
       "free_parking": "Free Parking",
@@ -314,6 +315,11 @@
       "enter_civilid_copax": "Enter Civil Id for user",
       "enter_passportcountry_copax": "Enter Passport Country for user",
       "enter_passportexpiry_copax": "Enter Passport Expiry for user",
+      "enter_title_hotel_room_adult": "Enter Title for adult in Room 1",
+      "enter_firstname_hotel_room_adult": "Enter Firstname for adult in Room 1",
+      "enter_lastname_hotel_room_adult": "Enter Lastname for adult in Room 1",
+      "enter_gender_hotel_room_adult": "Enter Gender for adult in Room 1",
+
       "enter_civil_id": "Enter Civil Id",
       "civil_id": "Civil Id",
       "confirmation": "Confirmation",
@@ -332,6 +338,14 @@
       "yes": "Yes",
       "no": "No",
       "cancellation_policy": "Cancellation Policy",
+      "no_of_guests": "No. Of Guests",
+      "add_another_room": "Add Another Room",
+      "select_nationality": "Select Nationality",
+      "select_number_of_guests": "Select No. Of Guests",
+      "children_ages": "Ages of the Children",
+      "age_for_child": "Age of child 1",
+      "hotel_form_validation_message": "Please select destination & nationality to continue",
+      "options": "Options",
 
       "lorem_ipsum_description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "price": "Price",
@@ -479,7 +493,7 @@
       "read_more": "...Read More",
       "read_less": "Read Less",
       "pick_your_presentation": "Pick your presentation",
-      "options": "Options",
+
       "quantity": "Quantity",
       "maximum_quantity": "Max",
       "minimum_quantity": "Min",
@@ -642,6 +656,7 @@
       "recent_searches": "عمليات البحث الأخيرة",
       "clear_history": "تاريخ واضح",
       "no_of_rooms": "عدد الغرف",
+      "rooms_no": "2 Rooms",
       "select_options": "اختر الخيارات",
       "done": "انتهى",
       "passengers": "ركاب",
@@ -742,7 +757,7 @@
       "amenities": "وسائل الراحة",
       "location": "موقع",
       "room_details": "تفاصيل الغرفة",
-      "popular_facilities": "المرافق الشعبية",
+      "basic_details": "تفاصيل أساسية",
       "free_wifi": "واى فاى مجانى",
       "room_service": "خدمة الغرف",
       "free_parking": "موقف سيارات مجاني",
@@ -875,6 +890,13 @@
       "enter_civilid_copax": "Enter Civil Id for user",
       "enter_passportcountry_copax": "Enter Passport Country for user",
       "enter_passportexpiry_copax": "Enter Passport Expiry for user",
+
+      "enter_title_hotel_room_adult": "Enter Title for adult in Room 1",
+      "enter_firstname_hotel_room_adult": "Enter Firstname for adult in Room 1",
+      "enter_lastname_hotel_room_adult": "Enter Lastname for adult in Room 1",
+      "enter_gender_hotel_room_adult": "Enter Gender for adult in Room 1",
+
+
       "enter_civil_id": "أدخل الهوية المدنية",
       "civil_id": "الهوية المدنية",
       "confirmation": "Confirmation",
@@ -891,6 +913,14 @@
       "payment_gateway": "Payment Gateway",
       "categories": "Categories",
       "cancellation_policy": "سياسة الإلغاء",
+      "no_of_guests": "No. Of Guests",
+      "add_another_room": "Add Another Room",
+      "select_nationality": "Select Nationality",
+      "select_number_of_guests": "Select No. Of Guests",
+      "children_ages": "Ages of the Children",
+      "age_for_child": "Age of child 1",
+      "hotel_form_validation_message": "Please select destination & nationality to continue",
+      "options": "الخيارات",
 
 
       "lorem_ipsum_description": "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة، ولكن بفضل هؤلاء الأشخاص الذين لا يدركون بأن السعادة لا بد أن نستشعرها بصورة أكثر عقلانية ومنطقية فيعرضهم هذا لمواجهة الظروف الأليمة، وأكرر بأنه لا يوجد من يرغب في الحب ونيل المنال ويتلذذ بالآلام، الألم هو الألم ولكن نتيجة لظروف ما قد تكمن السعاده فيما نتحمله من كد وأسي.",
@@ -1042,7 +1072,7 @@
 
 
       "pick_your_presentation": "اختر العرض",
-      "options": "الخيارات",
+
 
       "quantity": "الكمية",
       "maximum_quantity": "الحد الاقصى",
