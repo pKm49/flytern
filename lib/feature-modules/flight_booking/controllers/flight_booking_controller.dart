@@ -13,6 +13,7 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_response.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_result.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_traveller_data.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/get_gateway_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/popular_destination.dart';
  import 'package:flytern/feature-modules/flight_booking/data/models/business_models/recommended_package.dart';
 import 'package:flytern/shared/data/models/business_models/range_dcs.dart';
@@ -44,6 +45,7 @@ class FlightBookingController extends GetxController {
   var isFlightDestinationsLoading = false.obs;
   var isFlightPretravellerDataLoading = false.obs;
   var isFlightTravellerDataSaveLoading = false.obs;
+  var isSmartPaymentCheckLoading = false.obs;
   var isFlightSearchResponsesLoading = false.obs;
 
   var isFlightGatewayStatusCheckLoading = false.obs;
@@ -306,30 +308,55 @@ class FlightBookingController extends GetxController {
       isFlightTravellerDataSaveLoading.value = false;
       if (tempBookingRef != "") {
         bookingRef.value = tempBookingRef;
-        getPaymentGateways();
+        getPaymentGateways(false);
       } else {
         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
       }
     }
   }
 
-  Future<void> getPaymentGateways() async {
+  checkSmartPayment(String tempBookingRef) async {
+    isSmartPaymentCheckLoading.value = true;
+
+    bool isSuccess =
+        await flightBookingHttpService.checkSmartPayment(tempBookingRef);
+
+
+    if (isSuccess) {
+      bookingRef.value = tempBookingRef;
+      getPaymentGateways(true);
+    } else {
+      isSmartPaymentCheckLoading.value = false;
+      showSnackbar(Get.context!, "couldnt_find_booking".tr, "error");
+    }
+
+  }
+
+  Future<void> getPaymentGateways(bool isSmartpayment) async {
     isFlightTravellerDataSaveLoading.value = true;
-
-    List<PaymentGateway> tempPaymentGateway =
+    GetGatewayData getGatewayData =
         await flightBookingHttpService.getPaymentGateways(bookingRef.value);
-
+    List<PaymentGateway> tempPaymentGateway = getGatewayData.paymentGateways;
     print("tempPaymentGateway");
     print(tempPaymentGateway.length);
     print(tempPaymentGateway[0]);
     paymentGateways.value = tempPaymentGateway;
+
+    if(isSmartpayment){
+      flightDetails.value = getGatewayData.flightDetails;
+      if (flightDetails.value.cabinInfos.isNotEmpty && cabinInfo.value.id =="-1") {
+        print("selectedCabinInfo.isNotEmpty");
+        cabinInfo.value = flightDetails.value.cabinInfos[0];
+      }
+    }
+
     if (tempPaymentGateway.isNotEmpty) {
       updateProcessId(tempPaymentGateway[0].processID);
       Get.toNamed(Approute_flightsSummary);
     } else {
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
-
+    isSmartPaymentCheckLoading.value = false;
     isFlightTravellerDataSaveLoading.value = false;
   }
 
@@ -535,4 +562,5 @@ class FlightBookingController extends GetxController {
       updatePassengerCountAndCabinClass(1,0,0,allowedCabinClasses);
     }
   }
+
 }

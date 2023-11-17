@@ -325,12 +325,16 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                             flightSegment: flightBookingController
                                 .flightDetails.value.flightSegments[i]),
                       ),
-                    Padding(
-                      padding: flyternLargePaddingAll,
-                      child: Text("passengers".tr,
-                          style: getBodyMediumStyle(context).copyWith(
-                              color: flyternGrey80,
-                              fontWeight: flyternFontWeightBold)),
+                    Visibility(
+                      visible: flightBookingController
+                          .selectedTravelInfo.value.isNotEmpty,
+                      child: Padding(
+                        padding: flyternLargePaddingAll,
+                        child: Text("passengers".tr,
+                            style: getBodyMediumStyle(context).copyWith(
+                                color: flyternGrey80,
+                                fontWeight: flyternFontWeightBold)),
+                      ),
                     ),
                     for (var i = 0;
                         i <

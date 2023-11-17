@@ -562,32 +562,40 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                       )
                     : Text("search_flights".tr)),
           ),
-          Padding(
-              padding: EdgeInsets.only(top: flyternSpaceLarge),
-              child: Text("recent_searches".tr,
-                  style: getBodyMediumStyle(context)
-                      .copyWith(fontWeight: flyternFontWeightBold))),
+          Visibility(
+            visible: !widget.flightBookingController.isInitialDataLoading.value &&
+                widget.flightBookingController.quickSearch.isNotEmpty,
+            child: Padding(
+                padding: EdgeInsets.only(top: flyternSpaceLarge),
+                child: Text("recent_searches".tr,
+                    style: getBodyMediumStyle(context)
+                        .copyWith(fontWeight: flyternFontWeightBold))),
+          ),
 
-          SizedBox(
-            width: double.infinity,
-            height: 50,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-                itemCount: widget.flightBookingController.quickSearch.length,
-                itemBuilder: (context, i) {
-                  return Container(
-                    width: screenwidth*.25,
-                    margin: EdgeInsets.only(right: flyternSpaceMedium),
-                    child: Row(
-                      children: [
-                        Icon(Ionicons.time_outline,size: flyternFontSize20,color: flyternSecondaryColor),
-                        addHorizontalSpace(flyternSpaceSmall),
-                        Expanded(
-                            child: Text(getSearchParamsPreview(widget.flightBookingController.quickSearch[i])))
-                      ],
-                    ),
-                  );
-                }),
+          Visibility(
+            visible: !widget.flightBookingController.isInitialDataLoading.value &&
+                widget.flightBookingController.quickSearch.isNotEmpty,
+            child: SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                  itemCount: widget.flightBookingController.quickSearch.length,
+                  itemBuilder: (context, i) {
+                    return Container(
+                      width: screenwidth*.25,
+                      margin: EdgeInsets.only(right: flyternSpaceMedium),
+                      child: Row(
+                        children: [
+                          Icon(Ionicons.time_outline,size: flyternFontSize20,color: flyternSecondaryColor),
+                          addHorizontalSpace(flyternSpaceSmall),
+                          Expanded(
+                              child: Text(getSearchParamsPreview(widget.flightBookingController.quickSearch[i])))
+                        ],
+                      ),
+                    );
+                  }),
+            ),
           ),
         ],
       ),

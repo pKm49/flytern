@@ -8,13 +8,14 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_response.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_result.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_traveller_data.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/get_gateway_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/popular_destination.dart';
- import 'package:flytern/feature-modules/flight_booking/data/models/business_models/recommended_package.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/recommended_package.dart';
 import 'package:flytern/shared/data/models/business_models/range_dcs.dart';
 import 'package:flytern/shared/data/models/business_models/sorting_dcs.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/travel_story.dart';
- import 'package:flytern/shared/data/models/app_specific/flytern_http_response.dart';
- import 'package:flytern/shared/data/models/business_models/payment_confirmation_data.dart';
+import 'package:flytern/shared/data/models/app_specific/flytern_http_response.dart';
+import 'package:flytern/shared/data/models/business_models/payment_confirmation_data.dart';
 import 'package:flytern/shared/data/models/business_models/payment_gateway.dart';
 import 'package:flytern/shared/data/models/business_models/payment_gateway_url_data.dart';
 import 'package:flytern/shared/data/models/business_models/support_info.dart';
@@ -225,15 +226,30 @@ class FlightBookingHttpService {
     return "";
   }
 
-  Future<List<PaymentGateway>> getPaymentGateways(
-      String bookingRef) async {
+  Future<bool> checkSmartPayment(String bookingRef) async {
+    FlyternHttpResponse response = await postRequest(
+        FlightBookingHttpRequestEndpointSmartPayment,
+        {"bookingRef": bookingRef});
+
+    print("getPaymentGateways");
+    if (response.success && response.statusCode == 200) {
+      if (response.data != null) {
+        if (response.data["isSuccess"] != null) {
+          return response.data["isSuccess"];
+        }
+      }
+    }
+
+    return false;
+  }
+
+  Future<GetGatewayData> getPaymentGateways(String bookingRef) async {
     FlyternHttpResponse response = await postRequest(
         FlightBookingHttpRequestEndpointGetGateways,
-        {
-          "bookingRef": bookingRef
-        });
+        {"bookingRef": bookingRef});
 
     List<PaymentGateway> paymentGateways = [];
+    FlightDetails flightDetails = mapFlightDetails({});
 
     print("getPaymentGateways");
     print(response.data["isGateway"]);
@@ -244,28 +260,36 @@ class FlightBookingHttpService {
           response.data["_gatewaylist"].forEach((element) {
             paymentGateways.add(mapPaymentGateway(element));
           });
-          return paymentGateways;
+        }
+        print("flightDetails");
+        print(response.data["_flightservice"]);
+        print(response.data["_flightservice"]["_flightDetail"]);
+        if (response.data["_flightservice"] != null) {
+          if (response.data["_flightservice"]["_flightDetail"] != null) {
+            flightDetails = mapFlightDetails(
+                response.data["_flightservice"]["_flightDetail"]);
+            print("flightDetails");
+            print(flightDetails.objectId);
+          }
         }
       }
     }
 
-    return [];
+    return GetGatewayData(
+        paymentGateways: paymentGateways, flightDetails: flightDetails);
   }
 
-  Future<bool> checkGatewayStatus(
-      String bookingRef) async {
+  Future<bool> checkGatewayStatus(String bookingRef) async {
     FlyternHttpResponse response = await postRequest(
         FlightBookingHttpRequestEndpointCheckGatewayStatus,
-        {
-          "bookingRef": bookingRef
-        });
+        {"bookingRef": bookingRef});
 
     print("getPaymentGateways");
     print(response.data["isGateway"]);
     print(response.data["_gatewaylist"]);
     if (response.success && response.statusCode == 200) {
       if (response.data != null) {
-        if (response.data["isSuccess"] !=null) {
+        if (response.data["isSuccess"] != null) {
           return response.data["isSuccess"];
         }
       }
@@ -274,20 +298,18 @@ class FlightBookingHttpService {
     return false;
   }
 
-  Future<PaymentConfirmationData> getConfirmationData(
-      String bookingRef) async {
+  Future<PaymentConfirmationData> getConfirmationData(String bookingRef) async {
     FlyternHttpResponse response = await postRequest(
         FlightBookingHttpRequestEndpointConfirmation,
-        {
-          "bookingRef": bookingRef
-        });
+        {"bookingRef": bookingRef});
 
     print("getConfirmationData");
     print(response.data["isIssued"]);
     print(response.data["pdfLink"]);
     if (response.success && response.statusCode == 200) {
       if (response.data != null) {
-        PaymentConfirmationData paymentConfirmationData = mapPaymentpdfLinkData(response.data);
+        PaymentConfirmationData paymentConfirmationData =
+            mapPaymentpdfLinkData(response.data);
         return paymentConfirmationData;
       }
     }
@@ -295,21 +317,19 @@ class FlightBookingHttpService {
     return mapPaymentpdfLinkData({});
   }
 
-
-  Future<PaymentGatewayUrlData> setPaymentGateway(String processID,
-      String paymentCode,
-      String bookingRef) async {
+  Future<PaymentGatewayUrlData> setPaymentGateway(
+      String processID, String paymentCode, String bookingRef) async {
     FlyternHttpResponse response = await postRequest(
-        FlightBookingHttpRequestEndpointSetGateway,
-        {
-          "processID": processID,
-          "paymentCode": paymentCode,
-          "bookingRef": bookingRef
-        });
+        FlightBookingHttpRequestEndpointSetGateway, {
+      "processID": processID,
+      "paymentCode": paymentCode,
+      "bookingRef": bookingRef
+    });
 
     if (response.success && response.statusCode == 200) {
       if (response.data != null) {
-        PaymentGatewayUrlData paymentGatewayUrlData = mapPaymentGatewayUrlData(response.data);
+        PaymentGatewayUrlData paymentGatewayUrlData =
+            mapPaymentGatewayUrlData(response.data);
         return paymentGatewayUrlData;
       }
     }

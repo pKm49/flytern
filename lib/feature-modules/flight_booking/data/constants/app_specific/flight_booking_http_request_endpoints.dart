@@ -7,6 +7,7 @@ const String FlightBookingHttpRequestEndpointGetDetailFlights = "/coreapi/api/Fl
 const String FlightBookingHttpRequestEndpointGetPreTravellerData = "/coreapi/api/Flights/PreTraveller";
 const String FlightBookingHttpRequestEndpointGetSaveTravellerData = "/coreapi/api/Flights/SaveTraveller";
 const String FlightBookingHttpRequestEndpointGetGateways = "/coreapi/api/Payments/GetGateways";
+const String FlightBookingHttpRequestEndpointSmartPayment = "/coreapi/api/Payments/SmartPayment";
 const String FlightBookingHttpRequestEndpointSetGateway = "/coreapi/api/Payments/SaveGateway";
 const String FlightBookingHttpRequestEndpointCheckGatewayStatus = "/coreapi/api/Payments/CheckGatewayStatus";
 const String FlightBookingHttpRequestEndpointConfirmation = "/coreapi/api/Payments/Confirmation";
