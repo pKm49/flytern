@@ -105,7 +105,7 @@ getAppRoutes() => [
       ),
       GetPage(
         name: Approute_notificationspage,
-        page: () => const NotificationsPage(),
+        page: () =>   NotificationsPage(),
         middlewares: [MyMiddelware()],
       ),
 
