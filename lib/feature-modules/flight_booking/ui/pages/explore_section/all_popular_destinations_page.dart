@@ -3,6 +3,8 @@ import 'package:flytern/feature-modules/flight_booking/controllers/flight_bookin
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/popular_package_list_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_item_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.dart';
+import 'package:flytern/feature-modules/package_booking/controllers/package_booking_controller.dart';
+import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -19,6 +21,7 @@ class AllPopularDestinationsPage extends StatefulWidget {
 
 class _AllPopularDestinationsPageState extends State<AllPopularDestinationsPage> {
   final flightBookingController = Get.find<FlightBookingController>();
+  final packageBookingController = Get.find<PackageBookingController>();
 
   @override
   Widget build(BuildContext context) {
@@ -53,16 +56,22 @@ class _AllPopularDestinationsPageState extends State<AllPopularDestinationsPage>
                       itemCount:
                           flightBookingController.popularDestinations.length,
                       itemBuilder: (context, i) {
-                        return Container(
-                          decoration: BoxDecoration(border:
-                          i==(flightBookingController.popularDestinations.length-1)?null:
-                          flyternDefaultBorderBottomOnly),
-                          child: PopularPackageListCard(
-                            imageUrl: flightBookingController.popularDestinations[i].url,
-                            title: flightBookingController.popularDestinations[i].name,
-                            destination: flightBookingController.popularDestinations[i].destinations,
-                            rating: flightBookingController.popularDestinations[i].ratings,
-                            price: flightBookingController.popularDestinations[i].price,
+                        return InkWell(
+                          onTap: (){
+                            packageBookingController.getPackageDetails(flightBookingController.popularDestinations[i].refId);
+                            Get.toNamed(Approute_packagesDetails);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(border:
+                            i==(flightBookingController.popularDestinations.length-1)?null:
+                            flyternDefaultBorderBottomOnly),
+                            child: PopularPackageListCard(
+                              imageUrl: flightBookingController.popularDestinations[i].url,
+                              title: flightBookingController.popularDestinations[i].name,
+                              destination: flightBookingController.popularDestinations[i].destinations,
+                              rating: flightBookingController.popularDestinations[i].ratings,
+                              price: flightBookingController.popularDestinations[i].price,
+                            ),
                           ),
                         );
                       }),

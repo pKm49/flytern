@@ -57,6 +57,7 @@ class FlightBookingController extends GetxController {
   var flightBookingHelperServices = FlightBookingHelperServices();
 
   var cabinClasses = <CabinClass>[].obs;
+  var quickSearch = <FlightSearchData>[].obs;
   var recommendedPackages = <RecommendedPackage>[].obs;
   var popularDestinations = <PopularDestination>[].obs;
   var travelStories = <TravelStory>[].obs;
@@ -112,6 +113,7 @@ class FlightBookingController extends GetxController {
   }
 
   Future<void> getInitialInfo() async {
+
     ExploreData? exploreData = await flightBookingHttpService.getInitialInfo();
     print("getInitialInfo completed");
     print(exploreData != null);
@@ -120,10 +122,12 @@ class FlightBookingController extends GetxController {
       recommendedPackages.value = exploreData.recommendedPackages;
       popularDestinations.value = exploreData.popularDestinations;
       travelStories.value = exploreData.travelStories;
+      quickSearch.value = exploreData.quickSearch;
       setDefaultSearchData();
     }
 
     isInitialDataLoading.value = false;
+
   }
 
   Future<List<FlightDestination>> getFlightDestinations(

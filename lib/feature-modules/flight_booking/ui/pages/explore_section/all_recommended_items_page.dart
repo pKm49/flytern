@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_item_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.dart';
+import 'package:flytern/feature-modules/package_booking/controllers/package_booking_controller.dart';
+import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -17,7 +19,9 @@ class AllRecommendedItemsPage extends StatefulWidget {
 }
 
 class _AllRecommendedItemsPageState extends State<AllRecommendedItemsPage> {
+
   final flightBookingController = Get.find<FlightBookingController>();
+  final packageBookingController = Get.find<PackageBookingController>();
 
   @override
   Widget build(BuildContext context) {
@@ -52,15 +56,21 @@ class _AllRecommendedItemsPageState extends State<AllRecommendedItemsPage> {
                       itemCount:
                           flightBookingController.recommendedPackages.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          margin: flyternLargePaddingAll.copyWith(bottom: index == (flightBookingController.recommendedPackages.length-1)?flyternSpaceLarge:0),
-                          child: FlightRecommendedItemCard(
-                              imageUrl: flightBookingController
-                                  .recommendedPackages[index].url,
-                              title: flightBookingController
-                                  .recommendedPackages[index].name,
-                              rating: flightBookingController
-                                  .recommendedPackages[index].ratings),
+                        return InkWell(
+                          onTap: (){
+                            packageBookingController.getPackageDetails(flightBookingController.recommendedPackages[index].refId);
+                            Get.toNamed(Approute_packagesDetails);
+                          },
+                          child: Container(
+                            margin: flyternLargePaddingAll.copyWith(bottom: index == (flightBookingController.recommendedPackages.length-1)?flyternSpaceLarge:0),
+                            child: FlightRecommendedItemCard(
+                                imageUrl: flightBookingController
+                                    .recommendedPackages[index].url,
+                                title: flightBookingController
+                                    .recommendedPackages[index].name,
+                                rating: flightBookingController
+                                    .recommendedPackages[index].ratings),
+                          ),
                         );
                       }),
                 ))

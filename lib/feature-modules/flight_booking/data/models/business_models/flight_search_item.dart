@@ -2,25 +2,23 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:intl/intl.dart';
 
 class FlightSearchItem {
-
   final FlightDestination departure;
   final FlightDestination arrival;
   final DateTime departureDate;
   final DateTime? returnDate;
 
-  FlightSearchItem({
-    required this.departure,
-    required this.arrival,
-    required this.departureDate,
-    required this.returnDate
-  });
+  FlightSearchItem(
+      {required this.departure,
+      required this.arrival,
+      required this.departureDate,
+      required this.returnDate});
 
-  Map toJson() =>
-      {
+  Map toJson() => {
         'departure': departure.airportCode,
         'arrival': arrival.airportCode,
         'departureDate': getFormattedDate(departureDate),
-        'returnDate': returnDate == null?returnDate:getFormattedDate(returnDate!)
+        'returnDate':
+            returnDate == null ? returnDate : getFormattedDate(returnDate!)
       };
 
   String getFormattedDate(DateTime dateTime) {
@@ -29,11 +27,36 @@ class FlightSearchItem {
   }
 }
 
+FlightSearchItem mapFlightSearchItem(dynamic payload) {
+  return FlightSearchItem(
+      departure: FlightDestination(
+        airportCode: payload["departure"] ?? "",
+        airportName: "",
+        uniqueCombination: payload["departure"] ?? "",
+        sort: 1,
+        countryISOCode: "",
+        flag: "",
+      ),
+      arrival: FlightDestination(
+        airportCode: payload["arrival"] ?? "",
+        airportName: "",
+        uniqueCombination: payload["arrival"] ?? "",
+        sort: 1,
+        countryISOCode: "",
+        flag: "",
+      ),
+      departureDate: payload["departureDate"] != null
+          ? DateTime.parse(payload["departureDate"])
+          : DateTime.now(),
+      returnDate: payload["returnDate"] != null
+          ? DateTime.parse(payload["returnDate"])
+          : DateTime.now());
+}
+
 FlightSearchItem getDefaultFlightSearchItem() {
   return FlightSearchItem(
       departure: getDefaultFlightDestination(false),
       arrival: getDefaultFlightDestination(true),
       departureDate: DateTime.now(),
-      returnDate: null
-  );
+      returnDate: null);
 }

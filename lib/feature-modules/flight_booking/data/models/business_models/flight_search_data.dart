@@ -53,9 +53,51 @@ class FlightSearchData {
     return allowedCabinsList;
   }
 
+}
 
 
+FlightSearchData mapFlightSearchData(dynamic payload){
 
+  List<FlightSearchItem> searchList = [];
+  List<FlightAllowedCabin> allowedCabins = [];
+
+  if(payload["searchList"] != null){
+    payload["searchList"].forEach((element) {
+      searchList.add(mapFlightSearchItem(element));
+    });
+  }
+
+
+  if(payload["allowedCabins"] != null){
+    payload["allowedCabins"].forEach((element) {
+      allowedCabins.add(mapFlightAllowedCabin(element));
+    });
+  }
+
+  return FlightSearchData(
+      promoCode: payload["promoCode"]??"",
+      adults:payload["adults"]??0,
+      child: payload["child"]??0,
+      infants: payload["infants"]??0,
+      searchList: searchList,
+      allowedCabins: [],
+      mode: getMode(payload["mode"]),
+      isDirectFlight: payload["isDirectFlight"]??false,
+  );
+}
+
+getMode(mode) {
+
+  if(mode == FlightMode.ONEWAY.name ){
+    return FlightMode.ONEWAY;
+  }
+  if(mode == FlightMode.ROUNDTRIP.name ){
+    return FlightMode.ROUNDTRIP;
+  }
+  if(mode == FlightMode.MULTICITY.name ){
+    return FlightMode.MULTICITY;
+  }
+  return FlightMode.ROUNDTRIP;
 
 }
 

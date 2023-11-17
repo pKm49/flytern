@@ -37,8 +37,10 @@ class PopularDestination {
 }
 
 PopularDestination mapPopularDestination(dynamic payload){
+
+
   return PopularDestination(
-    refId :payload["refId"]??-1,
+    refId :payload["refID"]??-1,
     name :payload["name"]??"",
     shortDesc :payload["shortDesc"]??"",
     price :payload["price"]??0.0,

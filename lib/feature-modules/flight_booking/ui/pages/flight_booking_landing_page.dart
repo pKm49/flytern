@@ -11,6 +11,7 @@ import 'package:flytern/feature-modules/flight_booking/ui/components/explore_sec
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_loader.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_form.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type_tab.dart';
+import 'package:flytern/feature-modules/package_booking/controllers/package_booking_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
@@ -34,6 +35,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
     with SingleTickerProviderStateMixin {
   final flightBookingController = Get.put(FlightBookingController()); 
   var flightBookingHelperServices = FlightBookingHelperServices();
+  final packageBookingController = Get.put(PackageBookingController());
 
   @override
   void initState() {
@@ -191,6 +193,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: flyternSpaceLarge * 2),
                   child: RecommendedForYouContainer(
+                      packageBookingController:packageBookingController,
                       recommendedPackages:
                           flightBookingController.recommendedPackages),
                 )),
@@ -230,6 +233,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: flyternSpaceLarge * 2),
                   child: PopularDestinationsContainer(
+                      packageBookingController:packageBookingController,
                       popularDestinations:
                           flightBookingController.popularDestinations),
                 )),

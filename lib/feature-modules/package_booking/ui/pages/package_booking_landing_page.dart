@@ -19,7 +19,7 @@ class PackageBookingLandingPage extends StatefulWidget {
 }
 
 class _PackageBookingLandingPageState extends State<PackageBookingLandingPage> {
-  final packageBookingController = Get.put(PackageBookingController());
+  final packageBookingController = Get.find<PackageBookingController>();
 
   @override
   Widget build(BuildContext context) {

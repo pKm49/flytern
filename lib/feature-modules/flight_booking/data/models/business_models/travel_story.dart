@@ -32,7 +32,7 @@ class TravelStory {
 
 TravelStory mapTravelStory(dynamic payload){
   return TravelStory(
-    refId :payload["refId"]??-1,
+    refId :payload["refID"]??-1,
     name :payload["name"]??"",
     shortDesc :payload["shortDesc"]??"",
     profileUrl :payload["profileUrl"]??"",

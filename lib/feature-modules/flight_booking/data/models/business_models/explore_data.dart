@@ -1,4 +1,6 @@
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/cabin_class.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_data.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_response.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/popular_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/recommended_package.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/travel_story.dart';
@@ -7,12 +9,14 @@ import 'package:flytern/shared/data/models/business_models/language.dart';
 
 class ExploreData {
 
+  final List<FlightSearchData> quickSearch;
   final List<CabinClass> cabinClasses;
   final List<RecommendedPackage> recommendedPackages;
   final List<PopularDestination> popularDestinations;
   final List<TravelStory> travelStories;
 
   ExploreData({
+    required this.quickSearch,
     required this.cabinClasses,
     required this.recommendedPackages,
     required this.popularDestinations,
@@ -20,6 +24,7 @@ class ExploreData {
   });
 
   Map toJson() => {
+    'quickSearch': quickSearch,
     'cabinClasses': cabinClasses,
     'recommendedPackages': recommendedPackages,
     'popularDestinations': popularDestinations,
@@ -30,10 +35,17 @@ class ExploreData {
 
 ExploreData mapExploreData(dynamic payload){
 
+  List<FlightSearchData> quickSearch = [];
   List<CabinClass> tempCabinClasses = [];
   List<RecommendedPackage> tempRecommendedPackages = [];
   List<PopularDestination> tempPopularDestinations = [];
   List<TravelStory> tempTravelStories = [];
+
+  if(payload["quickSearch"] != null){
+    payload["quickSearch"].forEach((element) {
+      quickSearch.add(mapFlightSearchData(element));
+    });
+  }
 
   if(payload["cabinClass"] != null){
     payload["cabinClass"].forEach((element) {
@@ -65,5 +77,6 @@ ExploreData mapExploreData(dynamic payload){
     recommendedPackages :tempRecommendedPackages,
     popularDestinations :tempPopularDestinations,
     travelStories :tempTravelStories,
+    quickSearch: quickSearch
   );
 }

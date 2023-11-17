@@ -32,7 +32,7 @@ class RecommendedPackage {
 
 RecommendedPackage mapRecommendedPackage(dynamic payload){
   return RecommendedPackage(
-    refId :payload["refId"]??-1,
+    refId :payload["refID"]??-1,
     name :payload["name"]??"",
     shortDesc :payload["shortDesc"]??"",
     destinations :payload["destinations"]??"",
