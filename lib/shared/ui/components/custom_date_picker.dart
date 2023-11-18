@@ -1,3 +1,4 @@
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
@@ -27,13 +28,13 @@ class CustomDatePicker extends StatefulWidget {
 }
 
 class _CustomDatePickerState extends State<CustomDatePicker> {
-  DateTime selectedDOB = DateTime( DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  DateTime selectedDOB =
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
   }
 
   @override
@@ -79,22 +80,36 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   addVerticalSpace(flyternSpaceSmall),
                   Divider(),
                   Expanded(
-                    child: CupertinoDatePicker(
-                      mode: CupertinoDatePickerMode.date,
-                      initialDateTime: getInitialDate(),
-                      minimumDate: widget.minimumDate ?? DefaultMinimumDate,
-                      maximumDate: widget.maximumDate ?? DefaultMaximumDate,
-                      onDateTimeChanged: (DateTime newDateTime) {
-                        setState(() {
-                          selectedDOB = newDateTime;
-                        });
-                      },
+                      child: CalendarDatePicker2(
+                    config: CalendarDatePicker2Config(
+                      firstDate: widget.minimumDate ?? DefaultMinimumDate,
+                      lastDate: widget.maximumDate ?? DefaultMaximumDate,
                     ),
-                  ),
+                    value: [selectedDOB],
+                    onValueChanged: (dates) => {
+                      setState(() {
+                        selectedDOB =
+                            (dates.isNotEmpty ? dates[0] : DateTime.now()) ??
+                                DateTime.now();
+                      })
+                    },
+                  )),
                 ],
               ),
             ),
           ),
+
+          //; CupertinoDatePicker(
+          //                       mode: CupertinoDatePickerMode.date,
+          //                       initialDateTime: getInitialDate(),
+          //                       minimumDate: widget.minimumDate ?? DefaultMinimumDate,
+          //                       maximumDate: widget.maximumDate ?? DefaultMaximumDate,
+          //                       onDateTimeChanged: (DateTime newDateTime) {
+          //                         setState(() {
+          //                           selectedDOB = newDateTime;
+          //                         });
+          //                       },
+          //                     ),
           addVerticalSpace(flyternSpaceSmall),
           InkWell(
             onTap: () {
@@ -105,12 +120,11 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               print(DateTime.now().year);
               print(DateTime.now().month);
               print(DateTime.now().day);
-              if(
-              selectedDOB.year == DateTime.now().year &&
-              selectedDOB.month == DateTime.now().month &&
-              selectedDOB.day == DateTime.now().day   ){
+              if (selectedDOB.year == DateTime.now().year &&
+                  selectedDOB.month == DateTime.now().month &&
+                  selectedDOB.day == DateTime.now().day) {
                 widget.dateSelected(widget.minimumDate);
-              }else{
+              } else {
                 widget.dateSelected(selectedDOB);
               }
               Navigator.pop(context);
@@ -146,17 +160,15 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   }
 
   getInitialDate() {
-
-     if (widget.selectedDate
+    if (widget.selectedDate
             .isBefore(widget.maximumDate ?? DefaultMaximumDate) &&
         widget.selectedDate.isAfter(widget.minimumDate ?? DefaultMinimumDate)) {
       return widget.selectedDate;
-     } else if (widget.selectedDate
+    } else if (widget.selectedDate
         .isAfter(widget.maximumDate ?? DefaultMaximumDate)) {
       return widget.maximumDate;
     } else {
       return widget.minimumDate;
     }
-
   }
 }
