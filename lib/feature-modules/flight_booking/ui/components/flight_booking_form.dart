@@ -582,16 +582,23 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                 scrollDirection: Axis.horizontal,
                   itemCount: widget.flightBookingController.quickSearch.length,
                   itemBuilder: (context, i) {
-                    return Container(
-                      width: screenwidth*.25,
-                      margin: EdgeInsets.only(right: flyternSpaceMedium),
-                      child: Row(
-                        children: [
-                          Icon(Ionicons.time_outline,size: flyternFontSize20,color: flyternSecondaryColor),
-                          addHorizontalSpace(flyternSpaceSmall),
-                          Expanded(
-                              child: Text(getSearchParamsPreview(widget.flightBookingController.quickSearch[i])))
-                        ],
+                    return InkWell(
+                      onTap: (){
+                        widget.flightBookingController.getQuickSearchResult(
+                            widget.flightBookingController.quickSearch[i]
+                        );
+                      },
+                      child: Container(
+                        width: screenwidth*.25,
+                        margin: EdgeInsets.only(right: flyternSpaceMedium),
+                        child: Row(
+                          children: [
+                            Icon(Ionicons.time_outline,size: flyternFontSize20,color: flyternSecondaryColor),
+                            addHorizontalSpace(flyternSpaceSmall),
+                            Expanded(
+                                child: Text(getSearchParamsPreview(widget.flightBookingController.quickSearch[i])))
+                          ],
+                        ),
                       ),
                     );
                   }),

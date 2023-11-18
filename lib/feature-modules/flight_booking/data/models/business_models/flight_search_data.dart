@@ -80,7 +80,7 @@ FlightSearchData mapFlightSearchData(dynamic payload){
       child: payload["child"]??0,
       infants: payload["infants"]??0,
       searchList: searchList,
-      allowedCabins: [],
+      allowedCabins: allowedCabins,
       mode: getMode(payload["mode"]),
       isDirectFlight: payload["isDirectFlight"]??false,
   );

@@ -192,6 +192,51 @@ class FlightBookingController extends GetxController {
     }
   }
 
+  Future<void> getQuickSearchResult(FlightSearchData tFlightSearchData) async {
+    print("getQuickSearchResult");
+    print(tFlightSearchData.allowedCabins.length);
+    print(tFlightSearchData.adults);
+    if (tFlightSearchData.allowedCabins.isNotEmpty &&
+        tFlightSearchData.adults > 0 &&
+        !isFlightSearchResponsesLoading.value) {
+      flightSearchData.value = tFlightSearchData;
+      Get.toNamed(Approute_flightsSearchResult);
+
+      print("getSearchResults called ");
+      isFlightSearchResponsesLoading.value = true;
+      FlightSearchResult flightSearchResult = await flightBookingHttpService
+          .getFlightSearchResults(tFlightSearchData);
+      flightSearchResponses.value = flightSearchResult.searchResponses;
+      if (flightSearchResponses.isNotEmpty) {
+        objectId.value = flightSearchResponses.value[0].objectId;
+        currency.value = flightSearchResponses.value[0].currency;
+        startDate.value = tFlightSearchData.searchList[0].departureDate;
+
+      }
+      sortingDcs.value = flightSearchResult.sortingDcs;
+      if (sortingDcs.isNotEmpty) {
+        List<SortingDcs> defaultSort =
+        sortingDcs.where((p0) => p0.isDefault).toList();
+        sortingDc.value =
+        defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
+      }
+      priceDcs.value = flightSearchResult.priceDcs;
+      airlineDcs.value = flightSearchResult.airlineDcs;
+      arrivalTimeDcs.value = flightSearchResult.arrivalTimeDcs;
+      departureTimeDcs.value = flightSearchResult.departureTimeDcs;
+      stopDcs.value = flightSearchResult.stopDcs;
+
+      isFlightSearchResponsesLoading.value = false;
+      isFlightSearchFilterResponsesLoading.value = false;
+    } else {
+      if (tFlightSearchData.allowedCabins.isEmpty ||
+          tFlightSearchData.adults == 0) {
+        showSnackbar(
+            Get.context!, "select_passenger_cabin".tr, "error");
+      }
+    }
+  }
+
   Future<void> getSearchResults(bool isNavigationRequired) async {
     if (flightSearchData.value.allowedCabins.isNotEmpty &&
         flightSearchData.value.adults > 0 &&
@@ -232,7 +277,7 @@ class FlightBookingController extends GetxController {
       if (flightSearchData.value.allowedCabins.isEmpty ||
           flightSearchData.value.adults == 0) {
         showSnackbar(
-            Get.context!, flightDetails.value.priceChangedMessage, "error");
+            Get.context!,"select_passenger_cabin".tr, "error");
       }
     }
   }
