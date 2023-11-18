@@ -34,9 +34,13 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
       await flightBookingHttpService.setSeats( flightAddonSetSeatData.value);
 
       if (!isSuccess) {
+        isSeatsSaved.value = false;
         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
       } else {
+        isSeatsSaved.value = true;
+        Get.back();
         showSnackbar(Get.context!, "seat_selection_saved".tr, "info");
+
       }
     isSeatsSaveLoading.value = false;
 
@@ -74,8 +78,12 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
     await flightBookingHttpService.setMeals( flightAddonSetMealData.value);
 
     if (!isSuccess) {
+      isMealsSaved.value = false;
+
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     } else {
+      isMealsSaved.value = true;
+      Get.back();
       showSnackbar(Get.context!, "meal_selection_saved".tr, "info");
     }
     isMealsSaveLoading.value = false;
@@ -114,8 +122,12 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
     await flightBookingHttpService.setExtraBuggage( flightAddonSetExtraPackageData.value);
 
     if (!isSuccess) {
+      isExtraLuggagesSaved.value = false;
+
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     } else {
+      isExtraLuggagesSaved.value = true;
+      Get.back();
       showSnackbar(Get.context!, "buggage_selection_saved".tr, "info");
     }
     isExtraLuggagesSaveLoading.value = false;
@@ -154,12 +166,14 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
         addonFlightClass.value.isNotEmpty) {
       changeSelectedRouteForSeat(addonRoutes.value[0].routeID);
       changeSelectedPassengerForSeat(addonPassengers.value[0].passengerID);
-
+      seatTotalAmount.value = 0.0;
       for (var i = 0; i < addonRoutes.value.length; i++) {
         for (var ind = 0; ind < addonPassengers.value.length; ind++) {
           listOfSelection.add(FlightAddonSeatSelection(
               routeID: addonRoutes.value[i].routeID,
               rowID: -1,
+              amount: 0.0,
+              currency: addonFlightClass.value[0].seats[0].columns[0].currency,
               passengerID: addonPassengers.value[ind].passengerID,
               seatId: "-1"));
         }
@@ -177,12 +191,14 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
         addonMeals.value.isNotEmpty) {
       changeSelectedRouteForMeal(addonRoutes.value[0].routeID);
       changeSelectedPassengerForMeal(addonPassengers.value[0].passengerID);
-
+      mealTotalAmount.value = 0.0;
       for (var i = 0; i < addonRoutes.value.length; i++) {
         for (var ind = 0; ind < addonPassengers.value.length; ind++) {
           listOfSelection.add(FlightAddonMealSelection(
               routeID: addonRoutes.value[i].routeID,
               mealId: addonMeals.value[0].mealId,
+              amount: addonMeals.value[0].price,
+              currency: addonMeals.value[0].unit,
               passengerID: addonPassengers.value[ind].passengerID));
         }
       }
@@ -200,11 +216,13 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
       changeSelectedRouteForExtraPackage(addonRoutes.value[0].routeID);
       changeSelectedPassengerForExtraPackage(
           addonPassengers.value[0].passengerID);
-
+      baggageTotalAmount.value = 0.0;
       for (var i = 0; i < addonRoutes.value.length; i++) {
         for (var ind = 0; ind < addonPassengers.value.length; ind++) {
           listOfSelection.add(FlightAddonExtraPackageSelection(
               routeID: addonRoutes.value[i].routeID,
+              amount: 0.0,
+              currency: addonExtraPackages.value[0].name.split(" ").length>1? addonExtraPackages.value[0].name.split(" ")[0]:"KWD",
               extraLuaggageId: addonExtraPackages.value[0].extraLuaggeId,
               passengerID: addonPassengers.value[ind].passengerID));
         }
@@ -213,7 +231,6 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
     flightAddonSetExtraPackageData.value = FlightAddonSetExtraPackage(
         bookingRef: bookingRef.value, listOfSelection: listOfSelection);
   }
-
 
   void selectSeat(FlightAddonSeatColumn seat, int rowId) {
 
@@ -235,6 +252,8 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
               routeID: flightAddonSetSeatData
                   .value.listOfSelection[i].routeID,
               rowID: rowId,
+              amount: seat.amount,
+              currency: seat.currency,
               passengerID: flightAddonSetSeatData
                   .value.listOfSelection[i].passengerID,
               seatId: seat.seatId)
@@ -251,9 +270,9 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
 
   }
 
-  void selectMeal(int mealId) {
+  void selectMeal(FlightAddonMeal meal) {
 
-    if(mealId != -1){
+    if(meal.mealId != "-1"){
       List<FlightAddonMealSelection> listOfSelection = [];
       for(var i=0;i<flightAddonSetMealData
           .value.listOfSelection.length;i++){
@@ -267,7 +286,9 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
           listOfSelection.add(  FlightAddonMealSelection(
               routeID: flightAddonSetMealData
                   .value.listOfSelection[i].routeID,
-              mealId: mealId.toString(),
+              mealId:meal.mealId.toString(),
+              amount: meal.price,
+              currency: meal.unit,
               passengerID: flightAddonSetMealData
                   .value.listOfSelection[i].passengerID )
           );
@@ -283,9 +304,9 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
 
   }
 
-  void selectExtraPackage(int extraLuaggageId) {
+  void selectExtraPackage(FlightAddonExtraPackage extraPackage) {
 
-    if(extraLuaggageId != -1){
+    if(extraPackage.extraLuaggeId != "-1"){
       List<FlightAddonExtraPackageSelection> listOfSelection = [];
       for(var i=0;i<flightAddonSetExtraPackageData
           .value.listOfSelection.length;i++){
@@ -299,10 +320,13 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
           listOfSelection.add(  FlightAddonExtraPackageSelection(
               routeID: flightAddonSetExtraPackageData
                   .value.listOfSelection[i].routeID,
-              extraLuaggageId: extraLuaggageId.toString(),
+              amount:extraPackage.name.split(" ").length>1? double.parse(extraPackage.name.split(" ")[1]):0.0,
+              currency:extraPackage.name.split(" ").length>1? extraPackage.name.split(" ")[0]:"KWD",
+              extraLuaggageId: extraPackage.extraLuaggeId.toString(),
               passengerID: flightAddonSetExtraPackageData
                   .value.listOfSelection[i].passengerID )
           );
+
         }else{
           print("cond 2");
           listOfSelection.add(flightAddonSetExtraPackageData

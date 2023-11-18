@@ -216,7 +216,8 @@ class _FlightMealSelectionPageState extends State<FlightMealSelectionPage> {
                                   onChanged: (value) {
                                     setState(() {
                                      if(value != null){
-                                       flightBookingController.selectMeal(int.parse(value));
+                                       flightBookingController.selectMeal(flightBookingController.addonMeals
+                                           .value[i]);
                                      }
                                     });
                                   },
@@ -245,7 +246,7 @@ class _FlightMealSelectionPageState extends State<FlightMealSelectionPage> {
               child: Center(
                 child: SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
+                  child:ElevatedButton(
                       style: getElevatedButtonStyle(context),
                       onPressed: () {
                         if(!flightBookingController
@@ -254,13 +255,30 @@ class _FlightMealSelectionPageState extends State<FlightMealSelectionPage> {
 
                         }
                       },
-                      child: flightBookingController
-                          .isMealsSaveLoading.value
-                          ? LoadingAnimationWidget.prograssiveDots(
-                        color: flyternBackgroundWhite,
-                        size: 20,
-                      )
-                          : Text("apply".tr)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text( getTotalSeatPrice()),
+                          ),
+                          Visibility(
+                              visible: !flightBookingController
+                                  .isMealsSaveLoading.value,
+                              child: Text("apply".tr)),
+                          Visibility(
+                              visible: flightBookingController
+                                  .isMealsSaveLoading.value,
+                              child: LoadingAnimationWidget.prograssiveDots(
+                                color: flyternBackgroundWhite,
+                                size: 20,
+                              )),
+                          addHorizontalSpace(flyternSpaceSmall),
+                          Icon(
+                            Ionicons.chevron_forward,
+                            size: flyternFontSize20,
+                          )
+                        ],
+                      ))  ,
                 ),
               ),
             )
@@ -282,5 +300,21 @@ class _FlightMealSelectionPageState extends State<FlightMealSelectionPage> {
       return listOfSelection[0].mealId;
     }
     return "-1";
+  }
+
+  String getTotalSeatPrice() {
+    String currency = "KWD";
+    double amount = 0.0;
+    flightBookingController
+        .flightAddonSetMealData.value.listOfSelection.forEach((element) {
+      if(element.amount>0.0){
+        amount +=element.amount;
+      }
+      if(element.currency !="KWD"){
+        currency = element.currency;
+      }
+    });
+    return "$currency $amount";
+
   }
 }

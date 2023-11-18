@@ -61,7 +61,7 @@ class _FlightAddonServicesPageState extends State<FlightAddonServicesPage> {
                   onPressed: (){
                     flightBookingController.getSeats();
                   },
-                  isComplete: isSeatsSelectionComplete(),
+                  isComplete: flightBookingController.isSeatsSaved.value,
                   ImageUrl: ASSETS_SEAT_ICON,
                   keyLabel: "seats".tr,
                   valueLabel: "available_seats".tr,
@@ -80,7 +80,7 @@ class _FlightAddonServicesPageState extends State<FlightAddonServicesPage> {
                    onPressed: (){
                     flightBookingController.getMeals();
                   },
-                  isComplete:isMealsSelectionComplete(),
+                  isComplete:flightBookingController.isMealsSaved.value,
                   ImageUrl: ASSETS_MEAL_ICON,
                   keyLabel: "meal".tr,
                   valueLabel: "select_meal".tr,
@@ -99,7 +99,7 @@ class _FlightAddonServicesPageState extends State<FlightAddonServicesPage> {
                   onPressed: (){
                     flightBookingController.getExtraPackages();
                   },
-                  isComplete: isBaggageSelectionComplete(),
+                  isComplete: flightBookingController.isExtraLuggagesSaved.value,
                   ImageUrl: ASSETS_LUGGAGE_ICON,
                   keyLabel: "baggage".tr,
                   valueLabel: "select_baggage".tr,
@@ -136,14 +136,13 @@ class _FlightAddonServicesPageState extends State<FlightAddonServicesPage> {
 
   void handleSubmission() {
 
-    if(!isSeatsSelectionComplete()){
+    if(!flightBookingController.isSeatsSaved.value){
       showSnackbar(context, "please_select_seat".tr, "error");
-    }else if(!isMealsSelectionComplete()){
+    }else if(!flightBookingController.isMealsSaved.value){
       showSnackbar(context, "please_select_meal".tr, "error");
-    }else if(!isBaggageSelectionComplete()){
+    }else if(!flightBookingController.isExtraLuggagesSaved.value){
       showSnackbar(context, "please_select_baggage".tr, "error");
     }else{
-      showSnackbar(context, "success".tr, "info");
       flightBookingController.getPaymentGateways(false);
     }
 

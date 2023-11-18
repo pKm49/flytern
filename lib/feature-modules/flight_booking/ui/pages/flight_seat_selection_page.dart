@@ -10,6 +10,7 @@ import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared/ui/components/selectable_text_pill.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -60,47 +61,40 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
                               color: flyternGrey80,
                               fontWeight: flyternFontWeightBold)),
                     ),
-                    for (var i = 0;
-                        i < flightBookingController.addonRoutes.length;
-                        i++)
-                      Container(
-                        decoration: BoxDecoration(
-                            color: flyternBackgroundWhite,
-                            border: flyternDefaultBorderBottomOnly),
-                        padding: flyternLargePaddingHorizontal.copyWith(
-                            top: flyternSpaceMedium,
-                            bottom: i ==
-                                    flightBookingController.addonRoutes.length -
-                                        1
-                                ? flyternSpaceMedium
-                                : 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                                flightBookingController
-                                    .addonRoutes[i].groupName,
-                                style: getBodyMediumStyle(context)
-                                    .copyWith(color: flyternGrey80)),
-                            Radio(
-                              activeColor: flyternSecondaryColor,
-                              value: flightBookingController
-                                  .addonRoutes[i].routeID,
-                              groupValue: flightBookingController
-                                  .selectedRouteForSeat.value,
-                              onChanged: (value) {
-                                setState(() {
-                                  print(value);
-                                  if (value != null) {
+                    Container(
+                      padding: flyternLargePaddingAll,
+                      color: flyternBackgroundWhite,
+                      child: Wrap(
+                        children: [
+                          for (var i = 0;
+                          i < flightBookingController.addonRoutes.length;
+                          i++)
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  right: flyternSpaceSmall,
+                                  bottom: flyternSpaceSmall),
+                              child: SelectableTilePill(
+                                onPressed: () {
+                                  if (flightBookingController
+                                      .addonRoutes[i].routeID != flightBookingController
+                                      .selectedRouteForSeat.value) {
                                     flightBookingController
-                                        .changeSelectedRouteForSeat(value);
+                                        .changeSelectedRouteForSeat(flightBookingController
+                                        .addonRoutes[i].routeID);
                                   }
-                                });
-                              },
+                                },
+                                label:flightBookingController
+                                    .addonRoutes[i].groupName,
+                                isSelected: flightBookingController
+                                    .addonRoutes[i].routeID == flightBookingController
+                                    .selectedRouteForSeat.value,
+                                themeNumber: 2,
+                              ),
                             ),
-                          ],
-                        ),
+                        ],
                       ),
+                    ),
+
                     Padding(
                       padding: flyternLargePaddingAll,
                       child: Text("passengers".tr,
@@ -149,45 +143,6 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
                           ],
                         ),
                       ),
-                    Padding(
-                      padding: flyternLargePaddingAll,
-                      child: Text("legend".tr,
-                          style: getBodyMediumStyle(context).copyWith(
-                              color: flyternGrey80,
-                              fontWeight: flyternFontWeightBold)),
-                    ),
-                    Container(
-                      color: flyternBackgroundWhite,
-                      padding: flyternLargePaddingAll,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Row(
-                              children: [
-                                Icon(Ionicons.square,
-                                    color: flyternTertiaryColor),
-                                addHorizontalSpace(flyternSpaceMedium),
-                                Text("available".tr,
-                                    style: getBodyMediumStyle(context)
-                                        .copyWith(color: flyternGrey80)),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Row(
-                              children: [
-                                Icon(Ionicons.square, color: flyternGrey40),
-                                addHorizontalSpace(flyternSpaceMedium),
-                                Text("occupied".tr,
-                                    style: getBodyMediumStyle(context)
-                                        .copyWith(color: flyternGrey80)),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                     for (var i = 0;
                         i < flightBookingController.addonFlightClass.length;
                         i++)
@@ -245,6 +200,43 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
                                 ],
                               ),
                             ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: flyternBackgroundWhite,
+                                border: flyternDefaultBorderBottomOnly
+                              ),
+                              padding: flyternLargePaddingAll ,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(child: Text(getSelectedSeatPrice(),style: getBodyMediumStyle(context).
+                                    copyWith(color: flyternSecondaryColor,fontWeight: flyternFontWeightBold),)),
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        Icon(Ionicons.square,
+                                            color: flyternTertiaryColor),
+                                        addHorizontalSpace(flyternSpaceMedium),
+                                        Text("available".tr,
+                                            style: getBodyMediumStyle(context)
+                                                .copyWith(color: flyternGrey80)),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        Icon(Ionicons.square, color: flyternGrey40),
+                                        addHorizontalSpace(flyternSpaceMedium),
+                                        Text("occupied".tr,
+                                            style: getBodyMediumStyle(context)
+                                                .copyWith(color: flyternGrey80)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                             Visibility(
                               visible: flightBookingController
                                       .addonFlightClass[i]
@@ -256,6 +248,8 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
                                     top: flyternSpaceLarge * 2),
                                 height: 180,
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     for (var wingRowIndex =
                                             flightBookingController
@@ -438,6 +432,8 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
                                 padding: flyternLargePaddingAll,
                                 height: 170,
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     for (var wingRowIndex =
                                             flightBookingController
@@ -633,7 +629,7 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
                 child: Center(
                   child: SizedBox(
                     width: double.infinity,
-                    child: ElevatedButton(
+                    child:ElevatedButton(
                         style: getElevatedButtonStyle(context),
                         onPressed: () {
                           if(!flightBookingController
@@ -642,13 +638,30 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
 
                           }
                         },
-                        child:flightBookingController
-                            .isSeatsSaveLoading.value
-                            ? LoadingAnimationWidget.prograssiveDots(
-                          color: flyternBackgroundWhite,
-                          size: 20,
-                        )
-                            :  Text("apply".tr)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text( getTotalSeatPrice()),
+                            ),
+                            Visibility(
+                                visible: !flightBookingController
+                                    .isSeatsSaveLoading.value,
+                                child: Text("apply".tr)),
+                            Visibility(
+                                visible: flightBookingController
+                                    .isSeatsSaveLoading.value,
+                                child: LoadingAnimationWidget.prograssiveDots(
+                                  color: flyternBackgroundWhite,
+                                  size: 20,
+                                )),
+                            addHorizontalSpace(flyternSpaceSmall),
+                            Icon(
+                              Ionicons.chevron_forward,
+                              size: flyternFontSize20,
+                            )
+                          ],
+                        ))  ,
                   ),
                 ),
               )
@@ -738,6 +751,39 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
       return false;
     }
     return true;
+
+  }
+
+  String getSelectedSeatPrice() {
+
+    List<FlightAddonSeatSelection> listOfSelection = flightBookingController
+        .flightAddonSetSeatData.value.listOfSelection
+        .where((element) => (element.routeID ==
+        flightBookingController.selectedRouteForSeat.value &&
+        element.passengerID ==
+            flightBookingController.selectedPassengerForSeat.value))
+        .toList();
+    if (listOfSelection.isNotEmpty) {
+
+     return "${listOfSelection[0].currency} ${listOfSelection[0].amount}";
+    }
+    return "";
+
+  }
+
+  String getTotalSeatPrice() {
+    String currency = "KWD";
+    double amount = 0.0;
+    flightBookingController
+        .flightAddonSetSeatData.value.listOfSelection.forEach((element) {
+          if(element.amount>0.0){
+            amount +=element.amount;
+          }
+          if(element.currency !="KWD"){
+            currency = element.currency;
+          }
+    });
+    return "$currency $amount";
 
   }
 }

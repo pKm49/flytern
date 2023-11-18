@@ -187,7 +187,8 @@ class _FlightBaggageSelectionPageState extends State<FlightBaggageSelectionPage>
                                   setState(() {
                                     print(value);
                                     if(value != null){
-                                      flightBookingController.selectExtraPackage(int.parse(value));
+                                      flightBookingController.selectExtraPackage(flightBookingController
+                                          .addonExtraPackages[i]);
                                     }
                                   });
                                 },
@@ -216,21 +217,38 @@ class _FlightBaggageSelectionPageState extends State<FlightBaggageSelectionPage>
           child: Center(
             child: SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
+              child:ElevatedButton(
                   style: getElevatedButtonStyle(context),
                   onPressed: () {
-                   if(!flightBookingController
-                       .isExtraLuggagesSaveLoading.value){
-                     flightBookingController.setExtraPackages();
-                   }
+                    if(!flightBookingController
+                        .isExtraLuggagesSaveLoading.value){
+                      flightBookingController.setExtraPackages();
+                    }
                   },
-                  child: flightBookingController
-                      .isExtraLuggagesSaveLoading.value
-                      ? LoadingAnimationWidget.prograssiveDots(
-                    color: flyternBackgroundWhite,
-                    size: 20,
-                  )
-                      :Text("apply".tr)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text( getTotalSeatPrice()),
+                      ),
+                      Visibility(
+                          visible: !flightBookingController
+                              .isExtraLuggagesSaveLoading.value,
+                          child: Text("apply".tr)),
+                      Visibility(
+                          visible: flightBookingController
+                              .isExtraLuggagesSaveLoading.value,
+                          child: LoadingAnimationWidget.prograssiveDots(
+                            color: flyternBackgroundWhite,
+                            size: 20,
+                          )),
+                      addHorizontalSpace(flyternSpaceSmall),
+                      Icon(
+                        Ionicons.chevron_forward,
+                        size: flyternFontSize20,
+                      )
+                    ],
+                  )) ,
             ),
           ),
         )
@@ -252,5 +270,22 @@ class _FlightBaggageSelectionPageState extends State<FlightBaggageSelectionPage>
       return listOfSelection[0].extraLuaggageId;
     }
     return "-1";
+  }
+
+
+  String getTotalSeatPrice() {
+    String currency = "KWD";
+    double amount = 0.0;
+    flightBookingController
+        .flightAddonSetExtraPackageData.value.listOfSelection.forEach((element) {
+      if(element.amount>0.0){
+        amount +=element.amount;
+      }
+      if(element.currency !="KWD"){
+        currency = element.currency;
+      }
+    });
+    return "$currency $amount";
+
   }
 }

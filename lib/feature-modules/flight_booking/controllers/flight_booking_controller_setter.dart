@@ -2,6 +2,34 @@ part of 'flight_booking_controller.dart';
 
 extension FlightBookingControllerSetter on FlightBookingController {
 
+
+  saveAddonsPrice(){
+    double seatTotal = 0.0;
+     flightAddonSetSeatData.value.listOfSelection.forEach((element) {
+      if(element.amount>0.0){
+        seatTotal +=element.amount;
+      }
+    });
+    seatTotalAmount.value = seatTotal;
+    double mealTotal = 0.0;
+    flightAddonSetMealData.value.listOfSelection.forEach((element) {
+      if(element.amount>0.0){
+        mealTotal +=element.amount;
+      }
+    });
+    mealTotalAmount.value = mealTotal;
+
+    double extraPackageTotal = 0.0;
+    flightAddonSetExtraPackageData.value.listOfSelection.forEach((element) {
+      if(element.amount>0.0){
+        extraPackageTotal +=element.amount;
+      }
+    });
+
+    baggageTotalAmount.value = extraPackageTotal;
+
+  }
+
   // Search setters
   getFilterValues(List<SortingDcs> value) {
     String filterString = "";

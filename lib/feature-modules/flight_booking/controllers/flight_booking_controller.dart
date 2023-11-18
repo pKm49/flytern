@@ -65,8 +65,11 @@ class FlightBookingController extends GetxController {
   var isGetSeatsLoading = false.obs;
   var isGetMealsLoading = false.obs;
   var isGetExtraLuggagesLoading = false.obs;
+  var isSeatsSaved = false.obs;
   var isSeatsSaveLoading = false.obs;
+  var isMealsSaved = false.obs;
   var isMealsSaveLoading = false.obs;
+  var isExtraLuggagesSaved = false.obs;
   var isExtraLuggagesSaveLoading = false.obs;
   var addonRoutes = <FlightAddonRoute>[].obs;
   var addonPassengers = <FlightAddonPassenger>[].obs;
@@ -383,7 +386,11 @@ class FlightBookingController extends GetxController {
   }
 
   Future<void> getPaymentGateways(bool isSmartpayment) async {
+
     isFlightTravellerDataSaveLoading.value = true;
+    if(!isSmartpayment && ( isSeatSelection.value|| isMealSelection.value || isExtraBaggageSelection.value)){
+      saveAddonsPrice();
+    }
     GetGatewayData getGatewayData =
         await flightBookingHttpService.getPaymentGateways(bookingRef.value);
     List<PaymentGateway> tempPaymentGateway = getGatewayData.paymentGateways;

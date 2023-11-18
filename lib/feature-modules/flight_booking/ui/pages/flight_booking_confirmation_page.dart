@@ -227,6 +227,95 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
                           ),
                         ),
                       ),
+
+
+                      Visibility(
+                        visible: flightBookingController.seatTotalAmount.value != 0.0,
+                        child: Container(
+                            padding: flyternLargePaddingHorizontal,
+                            color: flyternBackgroundWhite,
+                            child: Divider()),
+                      ),
+                      Visibility(
+                        visible: flightBookingController.seatTotalAmount.value != 0.0,
+                        child: Container(
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+                          color: flyternBackgroundWhite,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("seats".tr,
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey60)),
+                              Text(
+                                  "${flightBookingController.cabinInfo.value.currency} "
+                                      "${flightBookingController.seatTotalAmount.value}",
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey80)),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      Visibility(
+                        visible: flightBookingController.mealTotalAmount.value != 0.0,
+                        child: Container(
+                            padding: flyternLargePaddingHorizontal,
+                            color: flyternBackgroundWhite,
+                            child: Divider()),
+                      ),
+                      Visibility(
+                        visible: flightBookingController.mealTotalAmount.value != 0.0,
+                        child: Container(
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+                          color: flyternBackgroundWhite,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("meal".tr,
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey60)),
+                              Text(
+                                  "${flightBookingController.cabinInfo.value.currency} "
+                                      "${flightBookingController.mealTotalAmount.value}",
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey80)),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      Visibility(
+                        visible: flightBookingController.baggageTotalAmount.value != 0.0,
+                        child: Container(
+                            padding: flyternLargePaddingHorizontal,
+                            color: flyternBackgroundWhite,
+                            child: Divider()),
+                      ),
+                      Visibility(
+                        visible: flightBookingController.baggageTotalAmount.value != 0.0,
+                        child: Container(
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+                          color: flyternBackgroundWhite,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("extra_buggage".tr,
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey60)),
+                              Text(
+                                  "${flightBookingController.cabinInfo.value.currency} "
+                                      "${flightBookingController.baggageTotalAmount.value}",
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey80)),
+                            ],
+                          ),
+                        ),
+                      ),
+
                       Visibility(
                         visible: flightBookingController.processingFee.value !=
                             0.0,
@@ -310,6 +399,9 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
                               Text(
                                   "${flightBookingController.cabinInfo.value.currency}"
                                       " ${(flightBookingController.cabinInfo.value.finalAmount +
+                                      flightBookingController.seatTotalAmount.value +
+                                      flightBookingController.mealTotalAmount.value +
+                                      flightBookingController.baggageTotalAmount.value +
                                       flightBookingController.processingFee.value)}",
                                   style: getBodyMediumStyle(context).copyWith(
                                       color: flyternGrey80,
