@@ -7,6 +7,7 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/seat/flight_addon_seat_selection.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
@@ -350,13 +351,12 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
                                                           )
                                                         : InkWell(
                                                       onTap: (){
-                                                        if(getSeat(
+                                                        if(isSeatAvailable(getSeat(
                                                             flightBookingController.addonFlightClass[
                                                             i],
                                                             wingRowIndex,
                                                             columnIndex,
-                                                            columnPositionIndex)
-                                                            .isAvailable){
+                                                            columnPositionIndex) )){
                                                           flightBookingController.selectSeat(getSeat(
                                                               flightBookingController
                                                                   .addonFlightClass[i],
@@ -384,13 +384,12 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
                                                                       flyternSpaceSmall),
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: !getSeat(
-                                                                            flightBookingController.addonFlightClass[
-                                                                                i],
-                                                                            wingRowIndex,
-                                                                            columnIndex,
-                                                                            columnPositionIndex)
-                                                                        .isAvailable
+                                                                color: !isSeatAvailable(getSeat(
+                                                                    flightBookingController.addonFlightClass[
+                                                                    i],
+                                                                    wingRowIndex,
+                                                                    columnIndex,
+                                                                    columnPositionIndex) )
                                                                     ? flyternGrey40
                                                                     : isSelected(getSeat(
                                                                             flightBookingController
@@ -534,13 +533,12 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
                                                           )
                                                         : InkWell(
                                                       onTap: (){
-                                                        if(getSeat(
+                                                        if(isSeatAvailable(getSeat(
                                                             flightBookingController.addonFlightClass[
                                                             i],
                                                             wingRowIndex,
                                                             columnIndex,
-                                                            columnPositionIndex)
-                                                            .isAvailable){
+                                                            columnPositionIndex) )){
                                                           flightBookingController.selectSeat(getSeat(
                                                               flightBookingController
                                                                   .addonFlightClass[i],
@@ -568,13 +566,12 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
                                                             flyternSpaceSmall),
                                                         decoration:
                                                         BoxDecoration(
-                                                          color: !getSeat(
+                                                          color: !isSeatAvailable(getSeat(
                                                               flightBookingController.addonFlightClass[
                                                               i],
                                                               wingRowIndex,
                                                               columnIndex,
-                                                              columnPositionIndex)
-                                                              .isAvailable
+                                                              columnPositionIndex) )
                                                               ? flyternGrey40
                                                               : isSelected(getSeat(
                                                               flightBookingController
@@ -639,9 +636,19 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
                     child: ElevatedButton(
                         style: getElevatedButtonStyle(context),
                         onPressed: () {
-                          Navigator.pop(context);
+                          if(!flightBookingController
+                              .isSeatsSaveLoading.value){
+                            handleSubmission();
+
+                          }
                         },
-                        child: Text("apply".tr)),
+                        child:flightBookingController
+                            .isSeatsSaveLoading.value
+                            ? LoadingAnimationWidget.prograssiveDots(
+                          color: flyternBackgroundWhite,
+                          size: 20,
+                        )
+                            :  Text("apply".tr)),
                   ),
                 ),
               )
@@ -656,10 +663,7 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
 
   FlightAddonSeatColumn getSeat(FlightAddonFlightClass addonFlightClass,
       int wingRowIndex, int columnIndex, int columnPositionIndex) {
-    print("getSeat");
-    print("wingRowIndex ${wingRowIndex}");
-    print("columnIndex ${columnIndex}");
-    print("columnPositionIndex ${columnPositionIndex}");
+
     if (columnPositionIndex == 0) {
       return addonFlightClass.seats[wingRowIndex - 1].columns[columnIndex - 1];
     } else {
@@ -669,9 +673,6 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
             addonFlightClass.columnPosition.split("-").toList()[i - 1]);
       }
 
-      print(
-          "column count ${addonFlightClass.seats[wingRowIndex - 1].columns.length}");
-      print("sectionColumnCount ${sectionColumnCount}");
 
       if (columnIndex + sectionColumnCount >=
           addonFlightClass.seats[wingRowIndex - 1].columns.length) {
@@ -699,5 +700,44 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
       }
     }
     return false;
+  }
+
+  void handleSubmission() {
+
+    bool isSeatsSelected = true;
+
+    flightBookingController.flightAddonSetSeatData.value.listOfSelection.forEach((element) {
+      if(element.seatId == "-1"){
+        isSeatsSelected = false;
+      }
+    });
+
+    if(!isSeatsSelected){
+      showSnackbar(context, "please_select_seat".tr, "error");
+    }else{
+      flightBookingController.setSeats();
+
+    }
+
+  }
+
+  bool isSeatAvailable(FlightAddonSeatColumn seat) {
+    if(!seat.isAvailable){
+      return false;
+    }
+
+    List<FlightAddonSeatSelection> listOfSelection = flightBookingController
+        .flightAddonSetSeatData.value.listOfSelection
+        .where((element) => (element.seatId == seat.seatId &&
+        element.routeID ==
+    flightBookingController.selectedRouteForSeat.value &&
+    element.passengerID !=
+        flightBookingController.selectedPassengerForSeat.value))
+        .toList();
+    if (listOfSelection.isNotEmpty) {
+      return false;
+    }
+    return true;
+
   }
 }

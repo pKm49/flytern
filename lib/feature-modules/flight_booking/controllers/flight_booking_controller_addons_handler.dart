@@ -1,9 +1,6 @@
 part of 'flight_booking_controller.dart';
 
 extension FlightBookingControllerAddonsHandler on FlightBookingController {
-  // var flightAddonSetSeatData = getDummyFlightAddonSetSeat({}).obs;
-  //   var flightAddonSetMealData = getDummyFlightAddonSetMeal({}).obs;
-  //   var flightAddonSetExtraPackageData = getDummyFlightAddonSetExtraPackage({}).obs;
 
   Future<void> getSeats() async {
     if (addonFlightClass.isEmpty) {
@@ -27,6 +24,22 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
     } else {
       Get.toNamed(Approute_flightsSeatSelection);
     }
+  }
+
+  Future<void> setSeats() async {
+
+    isSeatsSaveLoading.value = true;
+
+     bool isSuccess =
+      await flightBookingHttpService.setSeats( flightAddonSetSeatData.value);
+
+      if (!isSuccess) {
+        showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+      } else {
+        showSnackbar(Get.context!, "seat_selection_saved".tr, "info");
+      }
+    isSeatsSaveLoading.value = false;
+
   }
 
   Future<void> getMeals() async {
@@ -53,6 +66,22 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
     }
   }
 
+  Future<void> setMeals() async {
+
+    isMealsSaveLoading.value = true;
+
+    bool isSuccess =
+    await flightBookingHttpService.setMeals( flightAddonSetMealData.value);
+
+    if (!isSuccess) {
+      showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+    } else {
+      showSnackbar(Get.context!, "meal_selection_saved".tr, "info");
+    }
+    isMealsSaveLoading.value = false;
+
+  }
+
   Future<void> getExtraPackages() async {
     if (addonExtraPackages.isEmpty) {
       isGetExtraLuggagesLoading.value = true;
@@ -75,6 +104,22 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
     } else {
       Get.toNamed(Approute_flightsBaggageSelection);
     }
+  }
+
+  Future<void> setExtraPackages() async {
+
+    isExtraLuggagesSaveLoading.value = true;
+
+    bool isSuccess =
+    await flightBookingHttpService.setExtraBuggage( flightAddonSetExtraPackageData.value);
+
+    if (!isSuccess) {
+      showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+    } else {
+      showSnackbar(Get.context!, "buggage_selection_saved".tr, "info");
+    }
+    isExtraLuggagesSaveLoading.value = false;
+
   }
 
   void changeSelectedRouteForSeat(String value) {
@@ -201,6 +246,70 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
         }
       }
       flightAddonSetSeatData.value = FlightAddonSetSeat(
+          bookingRef: bookingRef.value, listOfSelection: listOfSelection);
+    }
+
+  }
+
+  void selectMeal(int mealId) {
+
+    if(mealId != -1){
+      List<FlightAddonMealSelection> listOfSelection = [];
+      for(var i=0;i<flightAddonSetMealData
+          .value.listOfSelection.length;i++){
+        if((flightAddonSetMealData
+            .value.listOfSelection[i].routeID ==
+            selectedRouteForMeal.value &&
+            flightAddonSetMealData
+                .value.listOfSelection[i].passengerID ==
+                selectedPassengerForMeal.value)){
+
+          listOfSelection.add(  FlightAddonMealSelection(
+              routeID: flightAddonSetMealData
+                  .value.listOfSelection[i].routeID,
+              mealId: mealId.toString(),
+              passengerID: flightAddonSetMealData
+                  .value.listOfSelection[i].passengerID )
+          );
+        }else{
+          print("cond 2");
+          listOfSelection.add(flightAddonSetMealData
+              .value.listOfSelection[i]);
+        }
+      }
+      flightAddonSetMealData.value = FlightAddonSetMeal(
+          bookingRef: bookingRef.value, listOfSelection: listOfSelection);
+    }
+
+  }
+
+  void selectExtraPackage(int extraLuaggageId) {
+
+    if(extraLuaggageId != -1){
+      List<FlightAddonExtraPackageSelection> listOfSelection = [];
+      for(var i=0;i<flightAddonSetExtraPackageData
+          .value.listOfSelection.length;i++){
+        if((flightAddonSetExtraPackageData
+            .value.listOfSelection[i].routeID ==
+            selectedRouteForExtraPackage.value &&
+            flightAddonSetExtraPackageData
+                .value.listOfSelection[i].passengerID ==
+                selectedPassengerForExtraPackage.value)){
+
+          listOfSelection.add(  FlightAddonExtraPackageSelection(
+              routeID: flightAddonSetExtraPackageData
+                  .value.listOfSelection[i].routeID,
+              extraLuaggageId: extraLuaggageId.toString(),
+              passengerID: flightAddonSetExtraPackageData
+                  .value.listOfSelection[i].passengerID )
+          );
+        }else{
+          print("cond 2");
+          listOfSelection.add(flightAddonSetExtraPackageData
+              .value.listOfSelection[i]);
+        }
+      }
+      flightAddonSetExtraPackageData.value = FlightAddonSetExtraPackage(
           bookingRef: bookingRef.value, listOfSelection: listOfSelection);
     }
 

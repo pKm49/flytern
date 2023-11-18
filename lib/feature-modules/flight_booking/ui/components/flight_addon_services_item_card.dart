@@ -8,9 +8,11 @@ import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 
 class FlightAddonServicesItemCard extends StatelessWidget {
 
+  bool isComplete;
   String ImageUrl;
   String keyLabel;
   String valueLabel;
@@ -18,6 +20,7 @@ class FlightAddonServicesItemCard extends StatelessWidget {
 
   FlightAddonServicesItemCard({
     super.key, required this.ImageUrl,
+    required this.isComplete,
     required this.keyLabel,
     required this.onPressed,
     required this.valueLabel});
@@ -39,10 +42,13 @@ class FlightAddonServicesItemCard extends StatelessWidget {
                 flex: 2,
                   child: Image.asset(ImageUrl)),
               addHorizontalSpace(flyternSpaceMedium),
-              Expanded(
-              flex: 5,
-                  child: Text(keyLabel,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80),),
+              Text(keyLabel,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80),),
+              addHorizontalSpace(flyternSpaceSmall),
+              Icon(Ionicons.checkmark_circle_outline,
+              size: flyternFontSize20,
+                color: isComplete?flyternGuideGreen:flyternGrey20,
               ),
+              Expanded(child: Container()),
               Expanded(
                   flex: 5,
                   child:  InkWell(

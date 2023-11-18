@@ -5,9 +5,11 @@ import 'package:flytern/feature-modules/flight_booking/ui/components/flight_addo
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
  import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/contact_details_getter.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class FlightAddonServicesPage extends StatefulWidget {
   const FlightAddonServicesPage({super.key});
@@ -59,6 +61,7 @@ class _FlightAddonServicesPageState extends State<FlightAddonServicesPage> {
                   onPressed: (){
                     flightBookingController.getSeats();
                   },
+                  isComplete: isSeatsSelectionComplete(),
                   ImageUrl: ASSETS_SEAT_ICON,
                   keyLabel: "seats".tr,
                   valueLabel: "available_seats".tr,
@@ -77,6 +80,7 @@ class _FlightAddonServicesPageState extends State<FlightAddonServicesPage> {
                    onPressed: (){
                     flightBookingController.getMeals();
                   },
+                  isComplete:isMealsSelectionComplete(),
                   ImageUrl: ASSETS_MEAL_ICON,
                   keyLabel: "meal".tr,
                   valueLabel: "select_meal".tr,
@@ -95,12 +99,12 @@ class _FlightAddonServicesPageState extends State<FlightAddonServicesPage> {
                   onPressed: (){
                     flightBookingController.getExtraPackages();
                   },
+                  isComplete: isBaggageSelectionComplete(),
                   ImageUrl: ASSETS_LUGGAGE_ICON,
                   keyLabel: "baggage".tr,
                   valueLabel: "select_baggage".tr,
                 ),
               ),
-
             ],
           ),
         ),
@@ -114,9 +118,15 @@ class _FlightAddonServicesPageState extends State<FlightAddonServicesPage> {
               width: double.infinity,
               child: ElevatedButton(style: getElevatedButtonStyle(context),
                   onPressed: () {
-
+                    handleSubmission();
                   },
-                  child:Text("next".tr )),
+                  child:flightBookingController
+                      .isFlightTravellerDataSaveLoading.value
+                      ? LoadingAnimationWidget.prograssiveDots(
+                    color: flyternBackgroundWhite,
+                    size: 20,
+                  )
+                      : Text("next".tr )),
             ),
           ),
         ),
@@ -124,5 +134,55 @@ class _FlightAddonServicesPageState extends State<FlightAddonServicesPage> {
     );
   }
 
+  void handleSubmission() {
 
+    if(!isSeatsSelectionComplete()){
+      showSnackbar(context, "please_select_seat".tr, "error");
+    }else if(!isMealsSelectionComplete()){
+      showSnackbar(context, "please_select_meal".tr, "error");
+    }else if(!isBaggageSelectionComplete()){
+      showSnackbar(context, "please_select_baggage".tr, "error");
+    }else{
+      showSnackbar(context, "success".tr, "info");
+      flightBookingController.getPaymentGateways(false);
+    }
+
+  }
+
+  bool isSeatsSelectionComplete(){
+
+    bool isSeatsSelected = true;
+
+    flightBookingController.flightAddonSetSeatData.value.listOfSelection.forEach((element) {
+      if(element.seatId == "-1"){
+        isSeatsSelected = false;
+      }
+    });
+
+    return isSeatsSelected;
+  }
+
+  bool isMealsSelectionComplete(){
+    bool isMealsSelected = true;
+
+    flightBookingController.flightAddonSetMealData.value.listOfSelection.forEach((element) {
+      if(element.mealId == "-1"){
+        isMealsSelected = false;
+      }
+    });
+
+    return isMealsSelected;
+  }
+
+  bool isBaggageSelectionComplete(){
+    bool isExtraPackageSelected = true;
+
+    flightBookingController.flightAddonSetExtraPackageData.value.listOfSelection.forEach((element) {
+      if(element.extraLuaggageId == "-1"){
+        isExtraPackageSelected = false;
+      }
+    });
+
+    return isExtraPackageSelected;
+  }
 }

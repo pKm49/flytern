@@ -347,6 +347,12 @@
       "hotel_form_validation_message": "Please select destination & nationality to continue",
       "options": "Options",
       "couldnt_find_booking": "Couldn't find your booking, Contact customer support",
+      "please_select_seat": "Please select seat for all passengers for all flights",
+      "please_select_meal": "Please select meal for all passengers for all flights",
+      "please_select_baggage": "Please select baggage for all passengers for all flights",
+      "seat_selection_saved": "Seat preferences saved successfully",
+      "meal_selection_saved": "Meal preferences saved successfully",
+      "buggage_selection_saved": "Buggage preferences saved successfully",
 
       "lorem_ipsum_description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       "price": "Price",
@@ -923,6 +929,12 @@
       "hotel_form_validation_message": "Please select destination & nationality to continue",
       "options": "الخيارات",
       "couldnt_find_booking": "Couldn't find your booking, Contact customer support",
+      "please_select_seat": "Please select seat for all passengers for all flights",
+      "please_select_meal": "Please select meal for all passengers for all flights",
+      "please_select_baggage": "Please select baggage for all passengers for all flights",
+      "seat_selection_saved": "Seat preferences saved successfully",
+      "meal_selection_saved": "Meal preferences saved successfully",
+      "buggage_selection_saved": "Buggage preferences saved successfully",
 
 
       "lorem_ipsum_description": "لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار  النشوة وتمجيد الألم نشأت بالفعل، وسأعرض لك التفاصيل لتكتشف حقيقة وأساس تلك السعادة البشرية، فلا أحد يرفض أو يكره أو يتجنب الشعور بالسعادة، ولكن بفضل هؤلاء الأشخاص الذين لا يدركون بأن السعادة لا بد أن نستشعرها بصورة أكثر عقلانية ومنطقية فيعرضهم هذا لمواجهة الظروف الأليمة، وأكرر بأنه لا يوجد من يرغب في الحب ونيل المنال ويتلذذ بالآلام، الألم هو الألم ولكن نتيجة لظروف ما قد تكمن السعاده فيما نتحمله من كد وأسي.",

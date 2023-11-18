@@ -127,6 +127,9 @@ class FlightBookingController extends GetxController {
   var confirmationMessage = "".obs;
   var pdfLink = "".obs;
 
+  var seatTotalAmount = (0.0).obs;
+  var mealTotalAmount = (0.0).obs;
+  var baggageTotalAmount = (0.0).obs;
   var processingFee = (0.0).obs;
 
   var currentFlightIndex = (-1).obs;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/meal/flight_addon_meal_selection.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -211,11 +212,12 @@ class _FlightMealSelectionPageState extends State<FlightMealSelectionPage> {
                                   activeColor: flyternSecondaryColor,
                                   value: "${flightBookingController.addonMeals
                                     .value[i].mealId}",
-                                  groupValue: selectedMeal,
+                                  groupValue: getSelectedMeal(),
                                   onChanged: (value) {
                                     setState(() {
-                                      print(value);
-                                      selectedMeal = value!;
+                                     if(value != null){
+                                       flightBookingController.selectMeal(int.parse(value));
+                                     }
                                     });
                                   },
                                 ),
@@ -246,9 +248,19 @@ class _FlightMealSelectionPageState extends State<FlightMealSelectionPage> {
                   child: ElevatedButton(
                       style: getElevatedButtonStyle(context),
                       onPressed: () {
-                        Navigator.pop(context);
+                        if(!flightBookingController
+                            .isMealsSaveLoading.value){
+                          flightBookingController.setMeals();
+
+                        }
                       },
-                      child: Text("apply".tr)),
+                      child: flightBookingController
+                          .isMealsSaveLoading.value
+                          ? LoadingAnimationWidget.prograssiveDots(
+                        color: flyternBackgroundWhite,
+                        size: 20,
+                      )
+                          : Text("apply".tr)),
                 ),
               ),
             )
@@ -256,5 +268,19 @@ class _FlightMealSelectionPageState extends State<FlightMealSelectionPage> {
       
       ),
     );
+  }
+
+  String getSelectedMeal() {
+    List<FlightAddonMealSelection> listOfSelection = flightBookingController
+        .flightAddonSetMealData.value.listOfSelection
+        .where((element) => (element.routeID ==
+        flightBookingController.selectedRouteForMeal.value &&
+        element.passengerID ==
+            flightBookingController.selectedPassengerForMeal.value))
+        .toList();
+    if (listOfSelection.isNotEmpty) {
+      return listOfSelection[0].mealId;
+    }
+    return "-1";
   }
 }

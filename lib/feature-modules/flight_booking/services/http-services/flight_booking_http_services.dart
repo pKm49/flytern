@@ -1,12 +1,15 @@
 import 'package:flytern/feature-modules/flight_booking/data/constants/app_specific/flight_booking_http_request_endpoints.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/extra_package/flight_addon_extra_package.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/extra_package/flight_addon_set_extra_package.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/meal/flight_addon_get_meal.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/meal/flight_addon_set_meal.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/seat/flight_addon_flight_class.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/extra_package/flight_addon_get_extra_package.dart';
  import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/seat/flight_addon_get_seat.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/meal/flight_addon_meal.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/flight_addon_passenger.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/flight_addon_route.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/seat/flight_addon_set_seat.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/booking_ref_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/explore_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_details.dart';
@@ -337,6 +340,42 @@ class FlightBookingHttpService {
         routes: routes, passengers: passengers, flightClass: flightClass);
   }
 
+  Future<bool> setSeats(FlightAddonSetSeat flightAddonSetSeatData) async {
+    FlyternHttpResponse response = await postRequest(
+        FlightBookingHttpRequestEndpointSaveSeat, flightAddonSetSeatData.toJson());
+
+
+    if (response.success && response.statusCode == 200) {
+       return true;
+    }
+
+    return false;
+  }
+
+  Future<bool> setMeals(FlightAddonSetMeal flightAddonSetMealData) async {
+    FlyternHttpResponse response = await postRequest(
+        FlightBookingHttpRequestEndpointSaveMeal, flightAddonSetMealData.toJson());
+
+
+    if (response.success && response.statusCode == 200) {
+      return true;
+    }
+
+    return false;
+  }
+
+  Future<bool> setExtraBuggage(FlightAddonSetExtraPackage flightAddonSetExtraPackage) async {
+    FlyternHttpResponse response = await postRequest(
+        FlightBookingHttpRequestEndpointSaveExtraLuaggage, flightAddonSetExtraPackage.toJson());
+
+
+    if (response.success && response.statusCode == 200) {
+      return true;
+    }
+
+    return false;
+  }
+
   Future<FlightAddonGetMeal> getMeals(String bookingRef) async {
     FlyternHttpResponse response = await getRequest(
         FlightBookingHttpRequestEndpointGetMeals, {"bookingRef": bookingRef});
@@ -372,7 +411,6 @@ class FlightBookingHttpService {
     return FlightAddonGetMeal(
         routes: routes, passengers: passengers, meals: meals);
   }
-
 
   Future<FlightAddonGetExtraPackage> getExtraPackage(String bookingRef) async {
     FlyternHttpResponse response = await getRequest(
