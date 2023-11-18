@@ -109,7 +109,7 @@ FlightSearchData getDefaultFlightSearchData() {
       infants: 0,
       searchList: [getDefaultFlightSearchItem()],
       allowedCabins: [],
-      mode: FlightMode.ONEWAY,
+      mode: FlightMode.ROUNDTRIP,
       isDirectFlight: false
   );
 }

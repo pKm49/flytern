@@ -58,5 +58,5 @@ FlightSearchItem getDefaultFlightSearchItem() {
       departure: getDefaultFlightDestination(false),
       arrival: getDefaultFlightDestination(true),
       departureDate: DateTime.now(),
-      returnDate: null);
+      returnDate: DateTime.now().add(Duration(days: 1)));
 }

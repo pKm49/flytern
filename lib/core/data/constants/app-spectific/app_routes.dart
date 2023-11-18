@@ -1,4 +1,5 @@
 import 'package:flytern/core/ui/pages/drawer_pages/document_page.dart';
+import 'package:flytern/core/ui/pages/drawer_pages/guest_booking_page.dart';
 import 'package:flytern/core/ui/pages/drawer_pages/info_page.dart';
 import 'package:flytern/core/ui/pages/landing_page.dart';
 import 'package:flytern/core/ui/pages/language_selector.dart';
@@ -105,7 +106,7 @@ getAppRoutes() => [
       ),
       GetPage(
         name: Approute_notificationspage,
-        page: () =>   NotificationsPage(),
+        page: () => NotificationsPage(),
         middlewares: [MyMiddelware()],
       ),
 
@@ -373,6 +374,12 @@ getAppRoutes() => [
       GetPage(
         name: Approute_coreSmartPayment,
         page: () => const SmartPaymentPage(),
+        middlewares: [MyMiddelware()],
+      ),
+
+      GetPage(
+        name: Approute_coreGuestBookingFinder,
+        page: () => const GuestBookingPage(),
         middlewares: [MyMiddelware()],
       ),
 

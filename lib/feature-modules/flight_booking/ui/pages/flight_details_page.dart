@@ -314,7 +314,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                                   style: getBodyMediumStyle(context)
                                       .copyWith(color: flyternGrey60)),
                               Text(
-                                  "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.discount}",
+                                  " - ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.discount}",
                                   style: getBodyMediumStyle(context).copyWith(
                                       color: flyternGuideGreen )),
                             ],

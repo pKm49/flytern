@@ -42,9 +42,13 @@ extension FlightBookingControllerSetter on FlightBookingController {
 
   updateFlightCount(int index) {
     if (index == -1) {
-      FlightSearchData newFlightSearchData = flightBookingHelperServices
-          .addFlightSearchItem(flightSearchData.value);
-      flightSearchData.value = newFlightSearchData;
+
+      if(flightSearchData.value.searchList.length<5){
+        FlightSearchData newFlightSearchData = flightBookingHelperServices
+            .addFlightSearchItem(flightSearchData.value);
+        flightSearchData.value = newFlightSearchData;
+      }
+
     } else {
       FlightSearchData newFlightSearchData = flightBookingHelperServices
           .removeFlightSearchItem(flightSearchData.value, index);

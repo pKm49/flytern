@@ -40,11 +40,11 @@ FlightDestination mapFlightDestination(dynamic payload){
 
 FlightDestination getDefaultFlightDestination(bool isArrival){
   return FlightDestination(
-    airportCode :isArrival?"KBL":"IST",
-    airportName :isArrival?"Kabul":"Istanbul",
-    uniqueCombination :isArrival?"KBL":"IST",
+    airportCode :isArrival?"KWI":"DXB",
+    airportName :isArrival?"Kuwait":"Dubai",
+    uniqueCombination :isArrival?"Kuwait, Kuwait City, Kuwait (KWI)":"Dubai, Dubai, United Arab Emirates (DXB)",
     sort :isArrival?1:2,
-    countryISOCode :isArrival?"Pakistan":"Pakistan",
+    countryISOCode :isArrival?"KW":"AE",
     flag :isArrival?"":"",
   );
 }
