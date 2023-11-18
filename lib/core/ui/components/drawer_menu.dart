@@ -196,7 +196,7 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
                 child: Container(
                   padding: flyternLargePaddingVertical,
                   color: flyternBackgroundWhite,
-                  height: screenheight * .2,
+                  height: screenheight * .15,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -234,7 +234,7 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
 
   Future<void> launchRatingPage() async {
     if (Platform.isAndroid || Platform.isIOS) {
-      final appId = Platform.isAndroid ? 'com.facebook.katana' : 'id284882215';
+      final appId = Platform.isAndroid ? 'com.oneglobal.flytern' : 'id284882215';
       final url = Uri.parse(
         Platform.isAndroid
             ? "market://details?id=$appId"

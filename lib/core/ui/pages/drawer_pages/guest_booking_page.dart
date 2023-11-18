@@ -8,6 +8,7 @@ import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/data/models/business_models/country.dart';
 import 'package:flytern/shared/services/utility-services/form_validator.dart';
+import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/country_selector.dart';
@@ -177,8 +178,7 @@ class _GuestBookingPageState extends State<GuestBookingPage> {
                           !flightBookingController
                               .isSmartPaymentCheckLoading.value) {
                         FocusManager.instance.primaryFocus?.unfocus();
-                        // flightBookingController
-                        //     .checkSmartPayment(bookingIdController.value.text);
+                        showSnackbar(context, "couldnt_find_booking".tr, "error");
                       }
 
                     },
