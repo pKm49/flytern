@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class FlightBaggageSelectionPage extends StatefulWidget {
   const FlightBaggageSelectionPage({super.key});
@@ -15,287 +17,213 @@ class FlightBaggageSelectionPage extends StatefulWidget {
 }
 
 class _FlightBaggageSelectionPageState extends State<FlightBaggageSelectionPage> {
+ 
 
-  int selectedRoute = 1;
-  int selectedPassenger = 1;
-  int selectedBaggage = 1;
+  String selectedBaggage = "1";
+  final flightBookingController = Get.find<FlightBookingController>();
 
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
-
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0.5,
-        title: Text('select_baggage'.tr),
-      ),
-      body: Container(
-        width: screenwidth,
-        height: screenheight,
-        color: flyternGrey10,
-        child: ListView(
+    return Obx(
+          () => Scaffold(
+        appBar: AppBar(
+          elevation: 0.5,
+          title: Text('select_baggage'.tr),
+        ),
+        body: Stack(
           children: [
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("route".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceMedium),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-
-                  Text("IST to KBL",
-                      style: getBodyMediumStyle(context)
-                          .copyWith(color: flyternGrey80)),
-                  Radio(
-                    activeColor: flyternSecondaryColor,
-                    value: 1,
-                    groupValue: selectedRoute,
-                    onChanged: (value) {
-                      setState(() {
-                        print(value);
-                        selectedRoute = value!;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-            Container(
-                color: flyternBackgroundWhite,
-                padding: flyternLargePaddingHorizontal,
-                child: Divider()),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal.copyWith(bottom: flyternSpaceMedium),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-
-                  Text("KBL to IST",
-                      style: getBodyMediumStyle(context)
-                          .copyWith(color: flyternGrey80)),
-                  Radio(
-                    activeColor: flyternSecondaryColor,
-                    value: 2,
-                    groupValue: selectedRoute,
-                    onChanged: (value) {
-                      setState(() {
-                        print(value);
-                        selectedRoute = value!;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("passengers".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceMedium),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-
-                  Text("Adult - Andrew Martin",
-                      style: getBodyMediumStyle(context)
-                          .copyWith(color: flyternGrey80)),
-                  Radio(
-                    activeColor: flyternSecondaryColor,
-                    value: 1,
-                    groupValue: selectedPassenger,
-                    onChanged: (value) {
-                      setState(() {
-                        print(value);
-                        selectedPassenger = value!;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-            Container(
-                color: flyternBackgroundWhite,
-                padding: flyternLargePaddingHorizontal,
-                child: Divider()),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal.copyWith(bottom: flyternSpaceMedium),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-
-                  Text("Child - John Murphy",
-                      style: getBodyMediumStyle(context)
-                          .copyWith(color: flyternGrey80)),
-                  Radio(
-                    activeColor: flyternSecondaryColor,
-                    value: 2,
-                    groupValue: selectedPassenger,
-                    onChanged: (value) {
-                      setState(() {
-                        print(value);
-                        selectedPassenger = value!;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-
-
-            Padding(
-              padding: flyternLargePaddingAll,
-              child: Text("select_baggage".tr,
-                  style: getBodyMediumStyle(context).copyWith(
-                      color: flyternGrey80, fontWeight: flyternFontWeightBold)),
-            ),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceMedium),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Text("Free",
-                            style: getBodyMediumStyle(context)
-                                .copyWith(color: flyternGrey80)),
-                        addHorizontalSpace(flyternSpaceSmall),
-                        Text("(20kg pcs)",
-                            style: getBodyMediumStyle(context)
-                                .copyWith(color: flyternGrey40)),
-                      ],
+            Visibility(
+                visible: flightBookingController.isGetExtraLuggagesLoading.value,
+                child: Center(
+                    child: LoadingAnimationWidget.prograssiveDots(
+                      color: flyternSecondaryColor,
+                      size: 50,
+                    ))),
+            Visibility(
+              visible: !flightBookingController.isGetExtraLuggagesLoading.value,
+              child: Container(
+                width: screenwidth,
+                height: screenheight,
+                color: flyternGrey10,
+                child: ListView(
+                  children: [
+                    Padding(
+                      padding: flyternLargePaddingAll,
+                      child: Text("route".tr,
+                          style: getBodyMediumStyle(context).copyWith(
+                              color: flyternGrey80,
+                              fontWeight: flyternFontWeightBold)),
                     ),
-                  ),
-                  Radio(
-                    activeColor: flyternSecondaryColor,
-                    value: 1,
-                    groupValue: selectedBaggage,
-                    onChanged: (value) {
-                      setState(() {
-                        print(value);
-                        selectedBaggage = value!;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-            Container(
-                color: flyternBackgroundWhite,
-                padding: flyternLargePaddingHorizontal,
-                child: Divider()),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Text("AED 100",
-                            style: getBodyMediumStyle(context)
-                                .copyWith(color: flyternGrey80)),
-                        addHorizontalSpace(flyternSpaceSmall),
-                        Text("(30kg pcs)",
-                            style: getBodyMediumStyle(context)
-                                .copyWith(color: flyternGrey40)),
-                      ],
+                    for (var i = 0;
+                    i < flightBookingController.addonRoutes.length;
+                    i++)
+                      Container(
+                        decoration: BoxDecoration(
+                            color: flyternBackgroundWhite,
+                            border: flyternDefaultBorderBottomOnly),
+                        padding: flyternLargePaddingHorizontal.copyWith(
+                            top: flyternSpaceMedium,
+                            bottom: i ==
+                                flightBookingController.addonRoutes.length -
+                                    1
+                                ? flyternSpaceMedium
+                                : 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                                flightBookingController
+                                    .addonRoutes[i].groupName,
+                                style: getBodyMediumStyle(context)
+                                    .copyWith(color: flyternGrey80)),
+                            Radio(
+                              activeColor: flyternSecondaryColor,
+                              value: flightBookingController
+                                  .addonRoutes[i].routeID,
+                              groupValue: flightBookingController.selectedRouteForExtraPackage.value,
+                              onChanged: (value) {
+                                setState(() {
+                                  if(value !=null){
+                                    flightBookingController.changeSelectedRouteForExtraPackage(value)  ;
+                                  }
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    Padding(
+                      padding: flyternLargePaddingAll,
+                      child: Text("passengers".tr,
+                          style: getBodyMediumStyle(context).copyWith(
+                              color: flyternGrey80,
+                              fontWeight: flyternFontWeightBold)),
                     ),
-                  ),
-                  Radio(
-                    activeColor: flyternSecondaryColor,
-                    value: 2,
-                    groupValue: selectedBaggage,
-                    onChanged: (value) {
-                      setState(() {
-                        print(value);
-                        selectedBaggage = value!;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ),
-            Container(
-                color: flyternBackgroundWhite,
-                padding: flyternLargePaddingHorizontal,
-                child: Divider()),
-            Container(
-              color: flyternBackgroundWhite,
-              padding: flyternLargePaddingHorizontal.copyWith(bottom: flyternSpaceMedium),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                    for (var i = 0;
+                    i < flightBookingController.addonPassengers.length;
+                    i++)
+                      Container(
+                        decoration: BoxDecoration(
+                            color: flyternBackgroundWhite,
+                            border: flyternDefaultBorderBottomOnly),
+                        padding: flyternLargePaddingHorizontal.copyWith(
+                            top: flyternSpaceMedium,
+                            bottom: i ==
+                                flightBookingController
+                                    .addonPassengers.length -
+                                    1
+                                ? flyternSpaceMedium
+                                : 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                                flightBookingController
+                                    .addonPassengers[i].fullName,
+                                style: getBodyMediumStyle(context)
+                                    .copyWith(color: flyternGrey80)),
+                            Radio(
+                              activeColor: flyternSecondaryColor,
+                              value: flightBookingController
+                                  .addonPassengers[i].passengerID,
+                              groupValue: flightBookingController.selectedPassengerForExtraPackage.value,
+                              onChanged: (value) {
+                                setState(() {
+                                  if(value !=null){
+                                    flightBookingController.changeSelectedPassengerForExtraPackage(value)  ;
+                                  }
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
 
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Text("AED 150",
-                            style: getBodyMediumStyle(context)
-                                .copyWith(color: flyternGrey80)),
-                        addHorizontalSpace(flyternSpaceSmall),
-                        Text("(40kg pcs)",
-                            style: getBodyMediumStyle(context)
-                                .copyWith(color: flyternGrey40)),
-                      ],
+
+                    Padding(
+                      padding: flyternLargePaddingAll,
+                      child: Text("select_baggage".tr,
+                          style: getBodyMediumStyle(context).copyWith(
+                              color: flyternGrey80, fontWeight: flyternFontWeightBold)),
                     ),
-                  ),
-                  Radio(
-                    activeColor: flyternSecondaryColor,
-                    value: 2,
-                    groupValue: selectedBaggage,
-                    onChanged: (value) {
-                      setState(() {
-                        print(value);
-                        selectedBaggage = value!;
-                      });
-                    },
-                  ),
-                ],
+                    for (var i = 0;
+                    i < flightBookingController.addonExtraPackages.length;
+                    i++)
+                      Visibility(
+                        visible: flightBookingController
+                            .addonExtraPackages[i].routeID ==
+                            flightBookingController.selectedRouteForExtraPackage.value,
+                        child: Container(
+                          color: flyternBackgroundWhite,
+                          padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceMedium),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    Text(flightBookingController
+                                        .addonExtraPackages[i].name,
+                                        style: getBodyMediumStyle(context)
+                                            .copyWith(color: flyternGrey80)),
+                                    addHorizontalSpace(flyternSpaceSmall),
+                                    Text("(${flightBookingController
+                                        .addonExtraPackages[i].weight} ${flightBookingController
+                                        .addonExtraPackages[i].unit})",
+                                        style: getBodyMediumStyle(context)
+                                            .copyWith(color: flyternGrey40)),
+                                  ],
+                                ),
+                              ),
+                              Radio(
+                                activeColor: flyternSecondaryColor,
+                                value: flightBookingController
+                                    .addonExtraPackages[i].extraLuaggeId,
+                                groupValue: selectedBaggage,
+                                onChanged: (value) {
+                                  setState(() {
+                                    print(value);
+                                    selectedBaggage = value!;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    Container(
+                      height: 70 + (flyternSpaceSmall * 2),
+                      padding: flyternLargePaddingAll,
+                    )
+                  ],
+                ),
               ),
             ),
-
-
-
-
-            Container(
-              height: 70+(flyternSpaceSmall*2),
-              padding: flyternLargePaddingAll,
-            )
           ],
         ),
-      ),
-      bottomSheet: Container(
-        width: screenwidth,
-        color: flyternBackgroundWhite,
-        height: 60 + (flyternSpaceSmall * 2),
-        padding: flyternLargePaddingAll.copyWith(
-            top: flyternSpaceSmall, bottom: flyternSpaceSmall),
-        child: Center(
-          child: SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(style: getElevatedButtonStyle(context),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text("add".tr)),
+        bottomSheet: !flightBookingController.isGetExtraLuggagesLoading.value
+            ? Container(
+          width: screenwidth,
+          color: flyternBackgroundWhite,
+          height: 60 + (flyternSpaceSmall * 2),
+          padding: flyternLargePaddingAll.copyWith(
+              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+          child: Center(
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                  style: getElevatedButtonStyle(context),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("apply".tr)),
+            ),
           ),
-        ),
+        )
+            : Container(width: screenwidth, height: 10),
+
       ),
     );
   }

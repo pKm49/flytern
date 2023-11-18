@@ -14,4 +14,11 @@ const String FlightBookingHttpRequestEndpointConfirmation = "/coreapi/api/Paymen
 const String FlightBookingHttpRequestEndpointGetViewAllRecommeded = "/coreapi/api/Explores/GetViewAllRecommeded";
 const String FlightBookingHttpRequestEndpointGetViewAllTravelStories = "/coreapi/api/Explores/GetViewAllTravelStories";
 const String FlightBookingHttpRequestEndpointGetViewAllpopularDestinations = "/coreapi/api/Explores/GetViewAllpopularDestinations";
+const String FlightBookingHttpRequestEndpointGetSeats = "/coreapi/api/AddOns/GetSeats";
+const String FlightBookingHttpRequestEndpointGetMeals = "/coreapi/api/AddOns/GetMeals";
+const String FlightBookingHttpRequestEndpointGetExtraLuaggage = "/coreapi/api/AddOns/GetExtraLuaggage";
+const String FlightBookingHttpRequestEndpointSaveSeat = "/coreapi/api/AddOns/SaveSeat";
+const String FlightBookingHttpRequestEndpointSaveMeal = "/coreapi/api/AddOns/SaveMeal";
+const String FlightBookingHttpRequestEndpointSaveExtraLuaggage = "/coreapi/api/AddOns/SaveExtraLuaggage";
+
 

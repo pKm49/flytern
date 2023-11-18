@@ -74,3 +74,8 @@ String getFormattedDate(DateTime dateTime) {
   final f = DateFormat('dd-MM-yyyy');
   return f.format(dateTime);
 }
+
+
+getSampleList(){
+  // {no: 1, frequentFlyerNo: Yes, travellerType: Adult, title: Mr, firstName: yfrf, lastName: ffgjt, gender: Male, passportExpiryDate: 19-11-2023, dateOfBirth: 27-07-1995, passportNumber: fff, nationalityCode: US, passportIssuedCountryCode: EG}, {no: 2, frequentFlyerNo: Yes, travellerType: Child, title: Mr, firstName: trfgyu, lastName: rttr, gender: Male, passportExpiryDate: 19-11-2023, dateOfBirth: 01-12-2021, passportNumber: thgdd, nationalityCode: CA, passportIssuedCountryCode: KE}, {no: 3, frequentFlyerNo: Yes, travellerType: Infant, title: Mrs, firstName: jgdgdr, lastName: fzsdf, gender: Female, passportExpiryDate: 28-11-2023, dateOfBirth: 03-12-2021, passportNumber: drggf, nationalityCode: UG, passportIssuedCountryCode: FR}
+}

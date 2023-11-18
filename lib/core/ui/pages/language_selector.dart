@@ -73,7 +73,7 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                   padding: const EdgeInsets.only(bottom: flyternSpaceLarge * 2),
                   height: screenheight,
                   child: Center(
-                    child: Image.asset(ASSETS_NAMELOGO, width: screenwidth*.4),
+                    child: Image.asset(ASSETS_LOGO, width: screenwidth*.4),
                   ),
                 ),
               ),

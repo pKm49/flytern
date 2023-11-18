@@ -14,10 +14,12 @@ class FlightAddonServicesItemCard extends StatelessWidget {
   String ImageUrl;
   String keyLabel;
   String valueLabel;
-  String route;
+  final GestureTapCallback onPressed;
 
-  FlightAddonServicesItemCard({super.key, required this.ImageUrl,
-    required this.route, required this.keyLabel,
+  FlightAddonServicesItemCard({
+    super.key, required this.ImageUrl,
+    required this.keyLabel,
+    required this.onPressed,
     required this.valueLabel});
 
   @override
@@ -44,9 +46,7 @@ class FlightAddonServicesItemCard extends StatelessWidget {
               Expanded(
                   flex: 5,
                   child:  InkWell(
-                    onTap: (){
-                      Get.toNamed(route);
-                    },
+                    onTap: onPressed,
                     child: Container(
                       decoration: flyternBorderedContainerSmallDecoration.copyWith(
                           border: Border.all(color: flyternSecondaryColor, width: .5)),

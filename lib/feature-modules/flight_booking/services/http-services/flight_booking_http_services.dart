@@ -1,4 +1,13 @@
 import 'package:flytern/feature-modules/flight_booking/data/constants/app_specific/flight_booking_http_request_endpoints.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/extra_package/flight_addon_extra_package.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/meal/flight_addon_get_meal.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/seat/flight_addon_flight_class.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/extra_package/flight_addon_get_extra_package.dart';
+ import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/seat/flight_addon_get_seat.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/meal/flight_addon_meal.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/flight_addon_passenger.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/addons/flight_addon_route.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/business_models/booking_ref_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/explore_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_details.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_filter_body.dart';
@@ -208,22 +217,35 @@ class FlightBookingHttpService {
     return mapFlightPretravellerData({});
   }
 
-  Future<String> setTravellerData(
+  Future<BookingRefData> setTravellerData(
       FlightTravellerData flightTravellerData) async {
     FlyternHttpResponse response = await postRequest(
         FlightBookingHttpRequestEndpointGetSaveTravellerData,
         flightTravellerData.toJson());
 
-    String bookingRef;
+    String bookingRef = "";
+    bool isSeatSelection = false;
+    bool isMealSelection = false;
+    bool isExtraBaggageSelection = false;
 
     if (response.success && response.statusCode == 200) {
       if (response.data != null) {
         bookingRef = response.data["bookingRef"] ?? "";
-        return bookingRef;
+        if (response.data["isAddOn"] == true) {
+          isSeatSelection = response.data["_AddonService"]["isSeatSelection"];
+          isMealSelection = response.data["_AddonService"]["isMealSelection"];
+          isExtraBaggageSelection =
+              response.data["_AddonService"]["isExtraBaggageSelection"];
+        }
       }
     }
 
-    return "";
+    return BookingRefData(
+      bookingRef: bookingRef,
+      isSeatSelection: isSeatSelection,
+      isMealSelection: isMealSelection,
+      isExtraBaggageSelection: isExtraBaggageSelection,
+    );
   }
 
   Future<bool> checkSmartPayment(String bookingRef) async {
@@ -277,6 +299,115 @@ class FlightBookingHttpService {
 
     return GetGatewayData(
         paymentGateways: paymentGateways, flightDetails: flightDetails);
+  }
+
+  Future<FlightAddonGetSeat> getSeats(String bookingRef) async {
+    FlyternHttpResponse response = await getRequest(
+        FlightBookingHttpRequestEndpointGetSeats, {"bookingRef": bookingRef});
+
+    List<FlightAddonRoute> routes = [];
+    List<FlightAddonPassenger> passengers = [];
+    List<FlightAddonFlightClass> flightClass = [];
+
+    print("getPaymentGateways");
+    print(response.data["isGateway"]);
+    print(response.data["_gatewaylist"]);
+    if (response.success && response.statusCode == 200) {
+      if (response.data != null) {
+        if (response.data["routes"]!= null ) {
+          response.data["routes"].forEach((element) {
+            routes.add(mapFlightAddonRoute(element));
+          });
+        }
+
+        if (response.data["passengers"]!= null) {
+          response.data["passengers"].forEach((element) {
+            passengers.add(mapFlightAddonPassenger(element));
+          });
+        }
+        if (response.data["flightClass"]!= null) {
+          response.data["flightClass"].forEach((element) {
+            flightClass.add(mapFlightAddonFlightClass(element));
+          });
+        }
+      }
+    }
+
+    return FlightAddonGetSeat(
+        routes: routes, passengers: passengers, flightClass: flightClass);
+  }
+
+  Future<FlightAddonGetMeal> getMeals(String bookingRef) async {
+    FlyternHttpResponse response = await getRequest(
+        FlightBookingHttpRequestEndpointGetMeals, {"bookingRef": bookingRef});
+
+    List<FlightAddonRoute> routes = [];
+    List<FlightAddonPassenger> passengers = [];
+    List<FlightAddonMeal> meals = [];
+
+    print("getPaymentGateways");
+    print(response.data["isGateway"]);
+    print(response.data["_gatewaylist"]);
+    if (response.success && response.statusCode == 200) {
+      if (response.data != null) {
+        if (response.data["routes"]!= null) {
+          response.data["routes"].forEach((element) {
+            routes.add(mapFlightAddonRoute(element));
+          });
+        }
+
+        if (response.data["passengers"]!= null) {
+          response.data["passengers"].forEach((element) {
+            passengers.add(mapFlightAddonPassenger(element));
+          });
+        }
+        if (response.data["meals"]!= null) {
+          response.data["meals"].forEach((element) {
+            meals.add(mapFlightAddonMeal(element));
+          });
+        }
+      }
+    }
+
+    return FlightAddonGetMeal(
+        routes: routes, passengers: passengers, meals: meals);
+  }
+
+
+  Future<FlightAddonGetExtraPackage> getExtraPackage(String bookingRef) async {
+    FlyternHttpResponse response = await getRequest(
+        FlightBookingHttpRequestEndpointGetExtraLuaggage, {"bookingRef": bookingRef});
+
+    List<FlightAddonRoute> routes = [];
+    List<FlightAddonPassenger> passengers = [];
+    List<FlightAddonExtraPackage> extraPackages = [];
+
+    print("getPaymentGateways");
+    print(response.data["isGateway"]);
+    print(response.data["_gatewaylist"]);
+    if (response.success && response.statusCode == 200) {
+      if (response.data != null) {
+        if (response.data["routes"]!= null) {
+          response.data["routes"].forEach((element) {
+            routes.add(mapFlightAddonRoute(element));
+          });
+        }
+
+        if (response.data["passengers"]!= null) {
+          response.data["passengers"].forEach((element) {
+            passengers.add(mapFlightAddonPassenger(element));
+          });
+        }
+        if (response.data["extraPackages"]!= null) {
+          response.data["extraPackages"].forEach((element) {
+            extraPackages.add(mapFlightAddonExtraPackage(element));
+          });
+        }
+      }
+    }
+
+    return FlightAddonGetExtraPackage(
+        routes: routes, passengers: passengers, extraPackages: extraPackages);
   }
 
   Future<bool> checkGatewayStatus(String bookingRef) async {
