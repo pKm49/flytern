@@ -24,16 +24,22 @@ class FlightAirportLabelCard extends StatelessWidget {
       children: [
         Text(
            topLabel,
+          textAlign: sideNumber==1?TextAlign.start:TextAlign.end,
           style: getLabelLargeStyle(context).copyWith(
               color: flyternGrey40,
               fontWeight: FontWeight.  w400),
         ),
         addVerticalSpace(flyternSpaceExtraSmall),
         Text(midLabel,
+            textAlign: sideNumber==1?TextAlign.start:TextAlign.end,
+
             style: getHeadlineLargeStyle(context)
                 .copyWith(fontSize: flyternFontSize24 * 1.5)),
         addVerticalSpace(flyternSpaceExtraSmall),
-        Text(bottomLabel,maxLines: 2),
+        Text(bottomLabel,
+            style: getHeadlineMediumStyle(context),
+            textAlign: sideNumber==1?TextAlign.start:TextAlign.end,
+            maxLines: 2),
       ],
     );
   }

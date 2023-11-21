@@ -76,46 +76,58 @@ class FlightSearchResultCard extends StatelessWidget {
               ),
             ),
             for (var i = 0; i < flightSearchResponse.dTOSegments.length; i++)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                      child: Container(
-                    alignment: Alignment.centerLeft,
-                    decoration: BoxDecoration(),
-                    clipBehavior: Clip.hardEdge,
-                    child: FlightAirportLabelCard(
-                      topLabel: getTopLabel(
-                          flightSearchResponse.dTOSegments[i].fromCountry),
-                      midLabel: flightSearchResponse.dTOSegments[i].from,
-                      bottomLabel:
-                          flightSearchResponse.dTOSegments[i].departureTime,
-                      sideNumber: 1,
+              Padding(
+                padding: const EdgeInsets.only(bottom:flyternSpaceSmall),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                        child: Container(
+                      alignment: Alignment.centerLeft,
+                      decoration: BoxDecoration(),
+                      clipBehavior: Clip.hardEdge,
+                      child: FlightAirportLabelCard(
+                        topLabel: getTopLabel(
+                            flightSearchResponse.dTOSegments[i].fromCountry),
+                        bottomLabel : flightSearchResponse.dTOSegments[i].from,
+                        midLabel:
+                            flightSearchResponse.dTOSegments[i].departureTime,
+                        sideNumber: 1,
+                      ),
+                    )),
+                    Padding(
+                      padding: flyternSmallPaddingHorizontal,
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            ASSETS_FLIGHT_CHART_ICON,
+                            width: screenwidth * .25,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top:flyternSpaceSmall),
+                            child: Text( flightSearchResponse.dTOSegments[i].travelTime),
+                          )
+                        ],
+                      ),
                     ),
-                  )),
-                  Padding(
-                    padding: flyternSmallPaddingHorizontal,
-                    child: Image.asset(
-                      ASSETS_FLIGHT_CHART_ICON,
-                      width: screenwidth * .3,
-                    ),
-                  ),
-                  Expanded(
-                      child: Container(
-                    alignment: Alignment.centerRight,
-                    decoration: BoxDecoration(),
-                    clipBehavior: Clip.hardEdge,
-                    child: FlightAirportLabelCard(
-                      topLabel: getTopLabel(
-                          flightSearchResponse.dTOSegments[i].toCountry),
-                      midLabel: flightSearchResponse.dTOSegments[i].to,
-                      bottomLabel:
-                          flightSearchResponse.dTOSegments[i].arrivalTime,
-                      sideNumber: 2,
-                    ),
-                  ))
-                ],
+                    Expanded(
+                        child: Container(
+                      alignment: Alignment.centerRight,
+                      decoration: BoxDecoration(),
+                      clipBehavior: Clip.hardEdge,
+                      child: FlightAirportLabelCard(
+                        topLabel: getTopLabel(
+                            flightSearchResponse.dTOSegments[i].toCountry),
+                        bottomLabel  : flightSearchResponse.dTOSegments[i].to,
+                        midLabel:
+                            flightSearchResponse.dTOSegments[i].arrivalTime,
+                        sideNumber: 2,
+                      ),
+                    ))
+                  ],
+                ),
               ),
+
             Padding(
               padding: const EdgeInsets.only(top: flyternSpaceSmall),
               child: Row(
