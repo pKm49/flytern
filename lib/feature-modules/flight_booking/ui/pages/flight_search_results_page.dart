@@ -16,6 +16,7 @@ import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared/ui/components/data_capsule_card.dart';
 import 'package:flytern/shared/ui/components/filter_option_selector.dart';
 import 'package:flytern/shared/ui/components/sort_option_selector.dart';
 import 'package:get/get.dart';
@@ -101,12 +102,36 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                   visible: !flightBookingController.isModifySearchVisible.value,
                   child: Container(
                     width: screenwidth,
+                    height: 30,
                     padding: flyternLargePaddingHorizontal,
-                    child: Text(getSearchParamsPreview(),
-                        textAlign: TextAlign.start,
-                        style: getLabelLargeStyle(context).copyWith(
-                            fontWeight: flyternFontWeightLight,
-                            color: flyternGrey60)),
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        DataCapsuleCard(
+                          label:
+                          getSearchParamsPreview(1),
+                          theme: 2,
+                        ),
+                        addHorizontalSpace(flyternSpaceSmall),
+                        DataCapsuleCard(
+                          label:
+                          getSearchParamsPreview(2),
+                          theme: 2,
+                        ),
+                        addHorizontalSpace(flyternSpaceSmall),
+                        DataCapsuleCard(
+                          label:
+                          getSearchParamsPreview(3),
+                          theme: 2,
+                        ),
+                        addHorizontalSpace(flyternSpaceSmall),
+                        DataCapsuleCard(
+                          label:
+                          getSearchParamsPreview(4),
+                          theme: 2,
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 Visibility(
@@ -497,34 +522,55 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
         });
   }
 
-  String getSearchParamsPreview() {
+  String getSearchParamsPreview(int index) {
     String searchParamsPreviewString = "";
 
-    if (flightBookingController.flightSearchData.value.searchList.isNotEmpty) {
-      flightBookingController.flightSearchData.value.searchList
-          .forEach((element) {
+    if(index ==1){
+      if (flightBookingController.flightSearchData.value.searchList.isNotEmpty) {
+        flightBookingController.flightSearchData.value.searchList
+            .forEach((element) {
+          searchParamsPreviewString +=
+          "${element.departure.airportCode}-${element.arrival.airportCode}";
+        });
+        return searchParamsPreviewString;
+      }
+    }
+    searchParamsPreviewString = "";
+    if(index == 2){
+      if (flightBookingController.flightSearchData.value.searchList.isNotEmpty) {
+        flightBookingController.flightSearchData.value.searchList
+            .forEach((element) {
+          searchParamsPreviewString +=
+          "${getDateString(element)} ";
+        });
+        return searchParamsPreviewString;
+      }
+    }
+
+    if(index == 3){
+      return "${flightBookingController.flightSearchData.value.mode.name}";
+    }
+    searchParamsPreviewString = "";
+    if(index == 4){
+      if (flightBookingController.flightSearchData.value.adults > 0) {
         searchParamsPreviewString +=
-            "${element.departure.airportCode}-${element.arrival.airportCode}${getDateString(element)} -";
-      });
-    }
-    searchParamsPreviewString +=
-        " ${flightBookingController.flightSearchData.value.mode.name}";
+        "${flightBookingController.flightSearchData.value.adults} ${'adults'.tr}";
+      }
 
-    if (flightBookingController.flightSearchData.value.adults > 0) {
-      searchParamsPreviewString +=
-          " -${flightBookingController.flightSearchData.value.adults} ${'adults'.tr}";
+      if (flightBookingController.flightSearchData.value.child > 0) {
+        searchParamsPreviewString +=
+        " -${flightBookingController.flightSearchData.value.child} ${'children'.tr}";
+      }
+
+      if (flightBookingController.flightSearchData.value.infants > 0) {
+        searchParamsPreviewString +=
+        " -${flightBookingController.flightSearchData.value.infants} ${'infants'.tr}";
+      }
+      return searchParamsPreviewString;
     }
 
-    if (flightBookingController.flightSearchData.value.child > 0) {
-      searchParamsPreviewString +=
-          " -${flightBookingController.flightSearchData.value.child} ${'children'.tr}";
-    }
+    return searchParamsPreviewString = "";
 
-    if (flightBookingController.flightSearchData.value.infants > 0) {
-      searchParamsPreviewString +=
-          " -${flightBookingController.flightSearchData.value.infants} ${'infants'.tr}";
-    }
-    return searchParamsPreviewString;
   }
 
   String getLargeFormattedDate(DateTime? dateTime) {
