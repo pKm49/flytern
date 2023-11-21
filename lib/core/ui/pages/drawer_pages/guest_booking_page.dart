@@ -96,7 +96,6 @@ class _GuestBookingPageState extends State<GuestBookingPage> {
                     color: flyternBackgroundWhite,
                     child: TextFormField(
                         controller: emailController,
-                        validator: (value) => checkIfEmailValid(value),
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           labelText: "email".tr,
@@ -143,7 +142,6 @@ class _GuestBookingPageState extends State<GuestBookingPage> {
                           flex: 5,
                           child: TextFormField(
                               controller: mobileController,
-                              validator: (value) => checkIfMobileNumberValid(value),
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                 labelText: "mobile".tr,
@@ -153,7 +151,41 @@ class _GuestBookingPageState extends State<GuestBookingPage> {
                     ),
                   ),
                   addVerticalSpace(flyternSpaceLarge),
+                  Row(
+                    children: [
+                      Expanded(child: Divider()),
+                      addHorizontalSpace(flyternSpaceSmall),
+                      Text("or".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60),),
+                      addHorizontalSpace(flyternSpaceSmall),
+                      Expanded(child: Divider()),
+                    ],
+                  ),
 
+                  addVerticalSpace(flyternSpaceLarge),
+
+                  Container(
+                    padding: flyternLargePaddingAll,
+                     child: Row(
+                      children: [
+                        Expanded(child: OutlinedButton(
+                          onPressed: ()   {
+                            Get.toNamed(Approute_login,
+                                arguments: [true]  );
+                          },
+                          child: Text("sign_in".tr),
+                        )),
+                        addHorizontalSpace(flyternSpaceMedium),
+                        Expanded(child: OutlinedButton(
+                          onPressed: ()   {
+
+                            Get.toNamed(Approute_registerPersonalData,
+                                arguments: [true] );
+                          },
+                          child: Text("sign_up".tr),
+                        )),
+                      ],
+                    ),
+                  ),
                   Container(
                     height: 70 + (flyternSpaceSmall * 2),
                     padding: flyternLargePaddingAll,
@@ -177,8 +209,16 @@ class _GuestBookingPageState extends State<GuestBookingPage> {
                       if (smartPaymentFormKey.currentState!.validate() &&
                           !flightBookingController
                               .isSmartPaymentCheckLoading.value) {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        showSnackbar(context, "couldnt_find_booking".tr, "error");
+
+                        if(checkIfEmailValid(emailController.value.text) == null ||
+                            checkIfMobileNumberValid(emailController.value.text) == null){
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          showSnackbar(context, "couldnt_find_booking".tr, "error");
+                        }else{
+                          showSnackbar(context, "enter_contact_message".tr, "error");
+                        }
+
+
                       }
 
                     },
