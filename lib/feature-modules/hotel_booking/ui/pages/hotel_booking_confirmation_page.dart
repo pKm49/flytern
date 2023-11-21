@@ -135,7 +135,7 @@ class _HotelBookingConfirmationPageState extends State<HotelBookingConfirmationP
                               color: flyternGrey80, fontWeight: flyternFontWeightBold)),
                     ),
 
-                    for(var i=0;i<hotelBookingController.hotelDetails.value.rooms.length;i++)
+                    for(var i=0;i<hotelBookingController.hotelSearchData.value.rooms.length;i++)
                       Container(
                         padding: flyternLargePaddingHorizontal.copyWith(
                             top:i==0 ?flyternSpaceLarge:flyternSpaceMedium, bottom:i==0 ?flyternSpaceSmall: flyternSpaceMedium),
@@ -143,8 +143,10 @@ class _HotelBookingConfirmationPageState extends State<HotelBookingConfirmationP
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("${hotelBookingController.hotelDetails.value.rooms[i].roomDisplayNo} - "
-                                "${hotelBookingController.hotelDetails.value.rooms[i].roomref}" ,
+                            Text("${hotelBookingController.hotelDetails.value.rooms.isEmpty?"":
+                                hotelBookingController.hotelDetails.value.rooms[i].roomDisplayNo} - "
+                                "${hotelBookingController.hotelDetails.value.rooms.isEmpty?"":
+                            hotelBookingController.hotelDetails.value.rooms[i].roomref}" ,
                                 style: getBodyMediumStyle(context)
                                     .copyWith(color: flyternGrey60)),
                             Text(
