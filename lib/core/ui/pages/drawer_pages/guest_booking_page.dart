@@ -109,7 +109,7 @@ class _GuestBookingPageState extends State<GuestBookingPage> {
                     child: Row(
                       children: [
                         Expanded(
-                          flex: 2,
+                          flex: 3,
                           child: InkWell(
                             onTap: openCountrySelector,
                             child: Container(
@@ -126,8 +126,8 @@ class _GuestBookingPageState extends State<GuestBookingPage> {
                                 children: [
                                   Image.network(
                                       selectedCountry.flag,
-                                      width: 20),
-                                  addHorizontalSpace(flyternSpaceMedium),
+                                      width: 17),
+                                  addHorizontalSpace(flyternSpaceSmall),
                                   Expanded(
                                     child: Text(
                                         selectedCountry.code,
@@ -140,7 +140,7 @@ class _GuestBookingPageState extends State<GuestBookingPage> {
                         ),
                         addHorizontalSpace(flyternSpaceMedium),
                         Expanded(
-                          flex: 4,
+                          flex: 5,
                           child: TextFormField(
                               controller: mobileController,
                               validator: (value) => checkIfMobileNumberValid(value),

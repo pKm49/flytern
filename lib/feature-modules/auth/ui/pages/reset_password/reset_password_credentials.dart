@@ -50,7 +50,7 @@ class _AuthResetPasswordCredentialsPageState extends State<AuthResetPasswordCred
                 Row(
                   children: [
                     Expanded(
-                      flex: 2,
+                      flex: 3,
                       child:  InkWell(
                         onTap: openCountrySelector,
                         child: Container(
@@ -64,8 +64,8 @@ class _AuthResetPasswordCredentialsPageState extends State<AuthResetPasswordCred
                               Image.network(
                                   sharedController
                                       .selectedCountry.value.flag,
-                                  width: 20),
-                              addHorizontalSpace(flyternSpaceMedium),
+                                  width: 17),
+                              addHorizontalSpace(flyternSpaceSmall),
                               Expanded(
                                 child: Text(
                                     sharedController
@@ -80,7 +80,7 @@ class _AuthResetPasswordCredentialsPageState extends State<AuthResetPasswordCred
                     ),
                     addHorizontalSpace(flyternSpaceMedium),
                     Expanded(
-                      flex: 4,
+                      flex: 5,
                       child: TextFormField(
                           controller: resetPasswordController.mobileController.value,
                           validator: (value) => checkIfMobileNumberValid(value),

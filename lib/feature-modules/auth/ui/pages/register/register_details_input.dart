@@ -202,7 +202,7 @@ class _AuthRegisterDetailsInputPageState
                 Row(
                   children: [
                     Expanded(
-                      flex: 2,
+                      flex: 3,
                       child:  InkWell(
                         onTap: openCountrySelector,
                         child: Container(
@@ -216,8 +216,8 @@ class _AuthRegisterDetailsInputPageState
                               Image.network(
                                   sharedController
                                       .selectedCountry.value.flag,
-                                  width: 20),
-                              addHorizontalSpace(flyternSpaceMedium),
+                                  width: 17),
+                              addHorizontalSpace(flyternSpaceSmall),
                               Expanded(
                                 child: Text(
                                     sharedController
@@ -232,7 +232,7 @@ class _AuthRegisterDetailsInputPageState
                     ),
                     addHorizontalSpace(flyternSpaceMedium),
                     Expanded(
-                      flex: 4,
+                      flex: 5,
                       child: TextFormField(
                           controller: registerController.mobileController.value,
                           validator: (value) => checkIfMobileNumberValid(value),

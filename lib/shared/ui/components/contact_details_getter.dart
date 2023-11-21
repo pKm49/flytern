@@ -80,7 +80,7 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
               Row(
                 children: [
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: InkWell(
                       onTap: openCountrySelector,
                       child: Container(
@@ -97,8 +97,8 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
                           children: [
                             Image.network(
                                 profileController.selectedCountry.value.flag,
-                                width: 20),
-                            addHorizontalSpace(flyternSpaceMedium),
+                                width: 17),
+                            addHorizontalSpace(flyternSpaceSmall),
                             Expanded(
                               child: Text(
                                   profileController.selectedCountry.value.code,
@@ -111,7 +111,7 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
                   ),
                   addHorizontalSpace(flyternSpaceMedium),
                   Expanded(
-                    flex: 4,
+                    flex: 5,
                     child: TextFormField(
                         controller: profileController.mobileController.value,
                         validator: (value) => checkIfMobileNumberValid(value),
