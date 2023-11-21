@@ -155,11 +155,14 @@ class _HotelUserDetailsSubmissionPageState
   void initializeForms() {
     print("initializeForms");
     hotelBookingController.saveContactInfo(mobileCntry, mobileNumber, email);
-    tabLength = hotelBookingController.hotelDetails.value.rooms.length;
+    tabLength = hotelBookingController.hotelSearchData.value.rooms.length;
     tabController =
-        TabController(vsync: this, length: hotelBookingController.hotelDetails.value.rooms.length, initialIndex: 0);
+        TabController(vsync: this, length: hotelBookingController.hotelSearchData.value.rooms.length, initialIndex: 0);
+  print("rooms length");
+  print( hotelBookingController.hotelSearchData.value.rooms.length);
 
-    for (var i = 0; i < hotelBookingController.hotelDetails.value.rooms.length; i++) {
+
+    for (var i = 0; i < hotelBookingController.hotelSearchData.value.rooms.length; i++) {
       travelInfo.add(mapHotelTravelInfo({
         'roomId':hotelBookingController.hotelDetails.value.rooms[i].roomid,
         'hotelOptionid':hotelBookingController.selectedRoomOption.value[i].roomOptionid

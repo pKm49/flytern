@@ -208,7 +208,8 @@ class HotelBookingController extends GetxController {
       HotelDetails tempHotelDetails =
           await hotelBookingHttpService.getHotelDetails(hotelId.value, objectId.value);
       hotelDetails.value = tempHotelDetails;
-
+      print("room length after maping");
+      print(hotelDetails.value.rooms.length);
       if(hotelDetails.value.rooms.isNotEmpty){
         for(var i=0;i<hotelSearchData.value.rooms.length;i++){
           selectedRoom.value.add(hotelDetails.value.rooms[0]) ;

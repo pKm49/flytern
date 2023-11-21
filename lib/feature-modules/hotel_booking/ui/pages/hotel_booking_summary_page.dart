@@ -70,7 +70,7 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                               color: flyternGrey80, fontWeight: flyternFontWeightBold)),
                     ),
 
-                    for(var i=0;i<hotelBookingController.hotelDetails.value.rooms.length;i++)
+                    for(var i=0;i<hotelBookingController.hotelSearchData.value.rooms.length;i++)
                       Container(
                         padding: flyternLargePaddingHorizontal.copyWith(
                             top:i==0 ?flyternSpaceLarge:flyternSpaceMedium, bottom:i==0 ?flyternSpaceSmall: flyternSpaceMedium),
