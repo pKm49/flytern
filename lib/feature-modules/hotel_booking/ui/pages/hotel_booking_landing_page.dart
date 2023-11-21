@@ -412,8 +412,29 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                                   "select_nationality".tr) {
                             hotelBookingController.getSearchResults(true);
                           } else {
-                            showSnackbar(context,
-                                "hotel_form_validation_message".tr, "error");
+                            if (hotelBookingController.selectedDestination.value
+                                .uniqueCombination ==
+                                "select_destination".tr &&
+                                hotelBookingController
+                                    .nationality.value.countryName ==
+                                    "select_nationality".tr) {
+                              showSnackbar(context,
+                                  "hotel_form_validation_message".tr, "error");
+                            }else
+                            if (hotelBookingController.selectedDestination.value
+                                .uniqueCombination ==
+                                "select_destination".tr  ) {
+                              showSnackbar(context,
+                                  "hotel_form_validation_message_2".tr, "error");
+                            }else
+                            if (hotelBookingController
+                                .nationality.value.countryName ==
+                                "select_nationality".tr) {
+                              showSnackbar(context,
+                                  "hotel_form_validation_message_3".tr, "error");
+                            }
+
+
                           }
                         },
                         //isHotelSearchResponsesLoading
