@@ -342,7 +342,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                     titleText: "",
                                     selected:"2",
                                     items: [
-                                      for(var ind =2; ind<12;ind++)
+                                      for(var ind =2; ind<17;ind++)
                                         GeneralItem(id: ind.toString(),
                                             name: ind.toString(),
                                             imageUrl: "")
