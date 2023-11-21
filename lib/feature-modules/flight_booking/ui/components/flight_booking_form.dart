@@ -273,7 +273,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                                 color: flyternSecondaryColor,
                                                 size: flyternFontSize20),
                                             addHorizontalSpace(
-                                                flyternSpaceSmall * 1.5),
+                                                flyternSpaceSmall),
                                             Expanded(
                                               flex: 1,
                                               child: Column(
@@ -293,9 +293,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                                                 FontWeight
                                                                     .w400),
                                                   ),
-                                                  addVerticalSpace(
-                                                      flyternSpaceExtraSmall *
-                                                          1.5),
+                                                  addVerticalSpace(flyternSpaceSmall),
                                                   Text(
                                                       getFormattedDate(widget
                                                           .flightBookingController
@@ -353,7 +351,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                                   color: flyternSecondaryColor,
                                                   size: flyternFontSize20),
                                               addHorizontalSpace(
-                                                  flyternSpaceSmall * 1.5),
+                                                  flyternSpaceSmall ),
                                               Expanded(
                                                 flex: 1,
                                                 child: Column(
@@ -374,8 +372,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                                                       .w400),
                                                     ),
                                                     addVerticalSpace(
-                                                        flyternSpaceExtraSmall *
-                                                            1.5),
+                                                        flyternSpaceSmall ),
                                                     Text(
                                                         widget
                                                                     .flightBookingController

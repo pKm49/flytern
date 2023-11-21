@@ -128,13 +128,13 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                                       .copyWith(
                                           border: Border.all(
                                               color: flyternGrey20, width: .5)),
-                              padding: flyternMediumPaddingAll,
+                              padding: flyternSmallPaddingAll,
                               child: Row(
                                 children: [
                                   Icon(Icons.calendar_month,
                                       color: flyternSecondaryColor,
                                       size: flyternFontSize20),
-                                  addHorizontalSpace(flyternSpaceSmall * 1.5),
+                                  addHorizontalSpace(flyternSpaceSmall),
                                   Expanded(
                                     flex: 1,
                                     child: Column(
@@ -182,13 +182,13 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                                       .copyWith(
                                           border: Border.all(
                                               color: flyternGrey20, width: .5)),
-                              padding: flyternMediumPaddingAll,
+                              padding: flyternSmallPaddingAll,
                               child: Row(
                                 children: [
                                   Icon(Icons.calendar_month,
                                       color: flyternSecondaryColor,
                                       size: flyternFontSize20),
-                                  addHorizontalSpace(flyternSpaceSmall * 1.5),
+                                  addHorizontalSpace(flyternSpaceSmall ),
                                   Expanded(
                                     flex: 1,
                                     child: Column(
