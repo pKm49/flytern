@@ -490,7 +490,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                                     ),
                                     decoration:flyternBorderedContainerSmallDecoration.
                                     copyWith(border: Border.all(color: flyternTertiaryColor, width: .2)),
-                                    child: Text(hotelBookingController.quickSearch[i].destinationName??""),
+                                    child: Text(hotelBookingController.quickSearch[i].destination??""),
                                   )
                               )
                           ],

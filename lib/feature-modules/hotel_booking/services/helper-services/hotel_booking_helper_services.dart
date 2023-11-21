@@ -15,6 +15,9 @@ class HotelBookingHelperServices {
     hotelRooms.add(hotelRoom);
 
     HotelSearchData newHotelSearchData = HotelSearchData(
+        cityCode: hotelSearchData.cityCode,
+        countryCode: hotelSearchData.countryCode,
+        hotelCode: hotelSearchData.hotelCode,
         destination: hotelSearchData.destination,
         checkInDate: hotelSearchData.checkInDate,
         checkOutDate: hotelSearchData.checkOutDate,
@@ -33,6 +36,9 @@ class HotelBookingHelperServices {
     }
     HotelSearchData newHotelSearchData = HotelSearchData(
         destination: hotelSearchData.destination,
+        cityCode: hotelSearchData.cityCode,
+        countryCode: hotelSearchData.countryCode,
+        hotelCode: hotelSearchData.hotelCode,
         checkInDate: hotelSearchData.checkInDate,
         checkOutDate: hotelSearchData.checkOutDate,
         nationalityCode: hotelSearchData.nationalityCode,
@@ -43,6 +49,9 @@ class HotelBookingHelperServices {
   HotelSearchData changeDate(HotelSearchData hotelSearchData,
       DateTime dateTime, bool isCheckoutDate) {
     HotelSearchData newHotelSearchData = HotelSearchData(
+        cityCode: hotelSearchData.cityCode,
+        countryCode: hotelSearchData.countryCode,
+        hotelCode: hotelSearchData.hotelCode,
         destination: hotelSearchData.destination,
         checkInDate: !isCheckoutDate ? dateTime : hotelSearchData.checkInDate,
         checkOutDate: isCheckoutDate ? dateTime : hotelSearchData.checkOutDate,
@@ -92,6 +101,9 @@ class HotelBookingHelperServices {
       }
 
       return HotelSearchData(
+          cityCode: hotelSearchData.cityCode,
+          countryCode: hotelSearchData.countryCode,
+          hotelCode: hotelSearchData.hotelCode,
           destination: hotelSearchData.destination,
           checkInDate: hotelSearchData.checkInDate,
           checkOutDate: hotelSearchData.checkOutDate,

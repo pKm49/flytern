@@ -26,7 +26,10 @@ extension HotelBookingControllerSetter on HotelBookingController {
 
 
     HotelSearchData newHotelSearchData = HotelSearchData(
-        destination: hotelDestination.cityCode,
+        cityCode: hotelDestination.cityCode,
+        countryCode: hotelDestination.countryCode,
+        hotelCode: hotelDestination.hotelCode,
+        destination: hotelDestination.uniqueCombination,
         checkInDate: hotelSearchData.value.checkInDate,
         checkOutDate: hotelSearchData.value.checkOutDate,
         nationalityCode: hotelSearchData.value.nationalityCode,
@@ -80,6 +83,9 @@ extension HotelBookingControllerSetter on HotelBookingController {
   void updateNationality(Country tNationality) {
     nationality.value = tNationality;
     hotelSearchData.value = HotelSearchData(
+        cityCode: hotelSearchData.value.cityCode,
+        countryCode: hotelSearchData.value.countryCode,
+        hotelCode: hotelSearchData.value.hotelCode,
         destination: hotelSearchData.value.destination,
         checkInDate: hotelSearchData.value.checkInDate,
         checkOutDate: hotelSearchData.value.checkOutDate,

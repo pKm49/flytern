@@ -2,22 +2,29 @@ import 'package:flytern/feature-modules/hotel_booking/data/models/business_model
 import 'package:intl/intl.dart';
 
 class HotelSearchData {
+  final String countryCode;
+  final String hotelCode;
+  final String cityCode;
   final String destination;
-  final String? destinationName;
   final DateTime checkInDate;
   final DateTime checkOutDate;
   final String nationalityCode;
   final List<HotelSearchItemRoomData> rooms;
 
   HotelSearchData(
-      {required this.destination,
-      this.destinationName,
+      {required this.countryCode,
+      required this.hotelCode,
+      required this.cityCode,
+      required this.destination,
       required this.checkInDate,
       required this.checkOutDate,
       required this.nationalityCode,
       required this.rooms});
 
   Map toJson() => {
+        'countryCode': countryCode,
+        'hotelCode': hotelCode,
+        'cityCode': cityCode,
         'destination': destination,
         'checkInDate': getFormattedDate(checkInDate),
         'checkOutDate': getFormattedDate(checkOutDate),
@@ -49,8 +56,10 @@ HotelSearchData mapHotelSearchData(dynamic payload) {
   }
 
   return HotelSearchData(
+      countryCode: payload["countryCode"] ?? "",
+      hotelCode: payload["hotelCode"] ?? "",
+      cityCode: payload["cityCode"] ?? "",
       destination: payload["destination"] ?? "",
-      destinationName: payload["destinationName"] ?? "DST",
       checkInDate: payload["checkInDate"] != null
           ? DateTime.parse(payload["checkInDate"])
           : DateTime.now(),
@@ -64,7 +73,9 @@ HotelSearchData mapHotelSearchData(dynamic payload) {
 HotelSearchData getDefaultHotelSearchData() {
   return HotelSearchData(
       destination: "",
-      destinationName: "",
+      cityCode: "",
+      countryCode:"",
+      hotelCode: "",
       checkInDate: DateTime.now(),
       checkOutDate: DateTime.now().add(Duration(days: 1)),
       nationalityCode: "KWT",
