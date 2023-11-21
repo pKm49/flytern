@@ -283,6 +283,7 @@ class _AuthRegisterDetailsInputPageState
 
                     Expanded(
                       child:  RichText(
+                        textScaleFactor: MediaQuery.of(context).textScaleFactor,
                         text: TextSpan(
                           text: "${"terms_agree_message".tr} ",
                           style: getBodyMediumStyle(context) ,
@@ -291,7 +292,8 @@ class _AuthRegisterDetailsInputPageState
                                 recognizer: new TapGestureRecognizer()
                                   ..onTap = () =>openDocsBottomSheet( "terms_n_conditions" ),
                                 text: "terms_n_conditions".tr,
-                                style: const TextStyle(fontWeight: flyternFontWeightBold,decoration: TextDecoration.underline,
+                                style:getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold,
+                                    decoration: TextDecoration.underline,
                                 color: flyternSecondaryColor)),
                             const TextSpan(
                               // recognizer: new TapGestureRecognizer()
@@ -301,7 +303,7 @@ class _AuthRegisterDetailsInputPageState
                               recognizer: new TapGestureRecognizer()
                                 ..onTap = () =>openDocsBottomSheet( "privacy_policy" ),
                                 text: "privacy_policy".tr,
-                                style: const TextStyle(fontWeight: flyternFontWeightBold,decoration: TextDecoration.underline,
+                                style:getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold,decoration: TextDecoration.underline,
                                     color: flyternSecondaryColor)),
                           ],
                         ),
