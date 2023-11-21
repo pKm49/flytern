@@ -48,6 +48,7 @@ class HotelBookingController extends GetxController {
   var hotelBookingHttpService = HotelBookingHttpService();
   var hotelBookingHelperServices = HotelBookingHelperServices();
 
+  var quickSearch = <HotelSearchData>[].obs;
   var hotelDestinations = <HotelDestination>[].obs;
   var hotelSearchItems = <HotelSearchItemRoomData>[].obs;
   var hotelSearchResponses = <HotelSearchResponse>[].obs;
@@ -104,7 +105,19 @@ class HotelBookingController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    getRecentSearch();
   }
+
+  Future<void> getRecentSearch() async {
+
+    isInitialDataLoading.value = true;
+
+    quickSearch.value =
+    await hotelBookingHttpService.getRecentSearch();
+    isInitialDataLoading.value = false;
+
+  }
+
 
   Future<List<HotelDestination>> getHotelDestinations(
       String searchQuery) async {
@@ -163,6 +176,46 @@ class HotelBookingController extends GetxController {
 
     }
   }
+
+  Future<void> getQuickSearchResult(HotelSearchData tHotelSearchData) async {
+    if (tHotelSearchData.rooms.isNotEmpty &&
+        tHotelSearchData.destination !="" &&
+        !isHotelSearchResponsesLoading.value) {
+      objectId.value = -1;
+      print("getSearchResults called ");
+      isHotelSearchResponsesLoading.value = true;
+      Get.toNamed(Approute_hotelsSearchResult);
+
+      HotelSearchResult hotelSearchResult = await hotelBookingHttpService
+          .getHotelSearchResults(tHotelSearchData);
+      hotelSearchResponses.value = hotelSearchResult.searchResponses;
+      print("hotelSearchResponses value ");
+      print(hotelSearchResponses.isNotEmpty);
+      objectId.value = hotelSearchResult.objectID;
+
+      if (hotelSearchResponses.isNotEmpty) {
+        hotelId.value = hotelSearchResponses.value[0].hotelId;
+        priceUnit.value = hotelSearchResponses.value[0].priceUnit;
+        startDate.value = hotelSearchData.value.checkInDate;
+
+      }
+      sortingDcs.value = hotelSearchResult.sortingDcs;
+      if (sortingDcs.isNotEmpty) {
+        List<SortingDcs> defaultSort =
+        sortingDcs.where((p0) => p0.isDefault).toList();
+        sortingDc.value =
+        defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
+      }
+      priceDcs.value = hotelSearchResult.priceDcs;
+      ratingDcs.value = hotelSearchResult.ratingDcs;
+      locationDcs.value = hotelSearchResult.locationDcs;
+
+      isHotelSearchResponsesLoading.value = false;
+      isHotelSearchFilterResponsesLoading.value = false;
+
+    }
+  }
+
 
   Future<void> filterSearchResults() async {
     if (!isHotelSearchFilterResponsesLoading.value) {

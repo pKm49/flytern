@@ -62,6 +62,24 @@ class HotelBookingHttpService {
     return flightDestinations;
   }
 
+
+  Future<List<HotelSearchData>> getRecentSearch ( ) async {
+
+    FlyternHttpResponse response = await getRequest(
+        HotelBookingHttpRequestEndpointGetQuickSearch, null);
+    List<HotelSearchData> hotelSearchData = [];
+    if (response.success) {
+      if (response.data != null) {
+        for (var i = 0; i < response.data.length; i++) {
+          hotelSearchData.add(mapHotelSearchData(response.data[i]));
+        }
+      }
+    }
+
+    return hotelSearchData;
+
+  }
+
   Future<HotelSearchResult> getHotelSearchResults(
       HotelSearchData flightSearchData) async {
     List<HotelSearchResponse> searchResponses = [];

@@ -79,7 +79,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                     ),
                   ),
                   addVerticalSpace(flyternSpaceSmall),
-                  Divider(),
+                  const Divider(),
                   Expanded(
                     child: ListView(
                       children: [

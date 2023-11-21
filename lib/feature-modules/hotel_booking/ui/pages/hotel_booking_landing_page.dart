@@ -19,7 +19,7 @@ import 'package:flytern/shared/ui/components/custom_date_picker.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HotelBookingLandingPage extends StatefulWidget {
   const HotelBookingLandingPage({super.key});
@@ -445,6 +445,56 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                                 size: 16,
                               )
                             : Text("search_hotels".tr)),
+                  ),
+
+                  Visibility(
+                    visible:
+                    !hotelBookingController.isInitialDataLoading.value &&
+                        hotelBookingController.quickSearch.isNotEmpty,
+                    child: Padding(
+                        padding: EdgeInsets.only(top: flyternSpaceLarge,bottom: flyternSpaceMedium),
+                        child: Row(
+                          children: [
+                            Icon(Ionicons.time_outline,
+                                size: flyternFontSize20,
+                                color: flyternSecondaryColor),
+                            addHorizontalSpace(flyternSpaceSmall),
+
+                            Text("recent_searches".tr,
+                                style: getBodyMediumStyle(context)
+                                    .copyWith(fontWeight: flyternFontWeightBold)),
+                          ],
+                        )),
+                  ),
+                  Visibility(
+                    visible:
+                    !hotelBookingController.isInitialDataLoading.value &&
+                        hotelBookingController.quickSearch.isNotEmpty,
+                    child: Container(
+                        margin: EdgeInsets.only(bottom: flyternSpaceMedium),
+                        width: double.infinity,
+                        height: 50,
+                        child: Wrap(
+                          direction: Axis.horizontal,
+                          children: [
+                            for(var i=0;i<hotelBookingController.quickSearch.length;i++)
+                              InkWell(
+                                  onTap: () {
+                                    hotelBookingController.getQuickSearchResult(
+                                        hotelBookingController.quickSearch[i]);
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(right: flyternSpaceSmall,bottom: flyternSpaceSmall),
+                                    padding: flyternExtraSmallPaddingAll.copyWith(
+                                        left: flyternSpaceSmall,right: flyternSpaceSmall
+                                    ),
+                                    decoration:flyternBorderedContainerSmallDecoration.
+                                    copyWith(border: Border.all(color: flyternTertiaryColor, width: .2)),
+                                    child: Text(hotelBookingController.quickSearch[i].destinationName??""),
+                                  )
+                              )
+                          ],
+                        )),
                   ),
                 ],
               ),

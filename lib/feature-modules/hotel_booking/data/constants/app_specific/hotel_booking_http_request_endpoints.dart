@@ -1,4 +1,5 @@
 const String HotelBookingHttpRequestEndpointGetInitalInfo = "/coreapi/api/Explores/GetExplores";
+const String HotelBookingHttpRequestEndpointGetQuickSearch = "/coreapi/api/Hotels/GetQuickSearch";
 const String HotelBookingHttpRequestEndpointGetDestinations = "/coreapi/api/Hotels/GetDestination";
 const String HotelBookingHttpRequestEndpointGetMoreOptionHotels = "/coreapi/api/Hotels/MoreOptionHotels";
 const String HotelBookingHttpRequestEndpointFilterHotels = "/coreapi/api/Hotels/FilterHotels";

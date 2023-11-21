@@ -26,6 +26,22 @@ class HotelSearchItemRoomData {
   }
 }
 
+HotelSearchItemRoomData mapHotelSearchItem(dynamic payload) {
+  List<int> childAges = [];
+
+  if(payload["childAges"] != null){
+    payload["childAges"].forEach((element) {
+      childAges.add(int.parse(element.toString()));
+    });
+  }
+  return HotelSearchItemRoomData(
+      adults: payload["adults"]??1,
+      childs: payload["childs"]??1,
+      childAges: childAges
+  );
+
+}
+
 HotelSearchItemRoomData getDefaultHotelSearchItem() {
 
   return HotelSearchItemRoomData(
