@@ -64,14 +64,10 @@ class SharedController extends GetxController {
   changeLanguage(Language language) async {
     selectedLanguage.value = language;
     Get.updateLocale(Locale(language.code));
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString('selectedLanguage', language.code);
   }
 
   changeCountry(Country country) async {
     selectedCountry.value = country;
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString('selectedCountry', country.countryCode);
     updateCountryListByQuery("");
   }
 
@@ -126,6 +122,10 @@ class SharedController extends GetxController {
   Future<void> setDeviceLanguageAndCountry() async {
     isSetDeviceLanguageAndCountrySubmitting.value = true;
     String firebaseToken = await getFirebaseMessagingToken();
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    await sharedPreferences.setString('selectedLanguage', selectedLanguage.value.code);
+    await sharedPreferences.setString('selectedCountry', selectedCountry.value.countryCode);
 
     SetDeviceInfoRequestBody setDeviceInfoRequestBody =
         SetDeviceInfoRequestBody(

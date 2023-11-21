@@ -266,7 +266,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                                     border: Border.all(
                                                         color: flyternGrey20,
                                                         width: .5)),
-                                        padding: flyternMediumPaddingAll,
+                                        padding: flyternSmallPaddingAll,
                                         child: Row(
                                           children: [
                                             Icon(Icons.calendar_month,
@@ -346,7 +346,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                                       border: Border.all(
                                                           color: flyternGrey20,
                                                           width: .5)),
-                                          padding: flyternMediumPaddingAll,
+                                          padding: flyternSmallPaddingAll,
                                           child: Row(
                                             children: [
                                               Icon(Icons.calendar_month,
