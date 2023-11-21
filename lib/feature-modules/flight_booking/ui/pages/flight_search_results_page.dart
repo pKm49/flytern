@@ -531,7 +531,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
     if (dateTime == null) {
       return "";
     }
-    final f = DateFormat('E, dd-MMM yy');
+    final f = DateFormat('E, dd-MMM');
     return f.format(dateTime);
   }
 
