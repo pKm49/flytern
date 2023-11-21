@@ -31,7 +31,7 @@ class FlightDetailsItineraryCard extends StatelessWidget {
           Container(
             width: screenwidth - (flyternSpaceLarge * 2),
             height:flightSegment.flightSegmentDetails[i].stopover !=""||
-                flightSegment.flightSegmentDetails[i].layover !=""? 285:250,
+                flightSegment.flightSegmentDetails[i].layover !=""? 300:270,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -54,7 +54,13 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                               )),
                           Padding(
                             padding: flyternSmallPaddingHorizontal,
-                            child: Image.asset(ASSETS_FLIGHT_CHART_ICON,width: screenwidth*.35, ),
+                            child: Column(
+                              children: [
+                                Image.asset(ASSETS_FLIGHT_CHART_ICON,width: screenwidth*.35, ),
+                                addVerticalSpace(flyternSpaceSmall),
+                                Text(flightSegment.flightSegmentDetails[i].duration,style: getBodyMediumStyle(context),)
+                              ],
+                            ),
                           ),
                           Expanded(
                               child: FlightAirportLabelCard(

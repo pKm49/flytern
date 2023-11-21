@@ -58,7 +58,6 @@ class _FlightUserDetailsSubmissionFormState
   String selectedPassenger = "0";
   String gender = "0";
   String title = "0";
-  String frequentFlyerNo = "0";
   DateTime dateOfBirth = DefaultInvalidDate;
   DateTime passportExpiryDate = DefaultInvalidDate;
   final GlobalKey<FormState> userDetailsForm = GlobalKey<FormState>();
@@ -200,6 +199,7 @@ class _FlightUserDetailsSubmissionFormState
                   Expanded(
                     flex: 3,
                     child: TextFormField(
+                        onChanged: updateData(),
                         controller: firstNameController,
                         validator: (value) =>
                             checkIfNameFormValid(value, "first_name".tr),
@@ -212,6 +212,7 @@ class _FlightUserDetailsSubmissionFormState
                   Expanded(
                     flex: 3,
                     child: TextFormField(
+                        onChanged: updateData(),
                         controller: lastNameController,
                         validator: (value) =>
                             checkIfNameFormValid(value, "last_name".tr),
@@ -316,6 +317,7 @@ class _FlightUserDetailsSubmissionFormState
               padding: EdgeInsets.only(bottom: flyternSpaceMedium),
               color: flyternBackgroundWhite,
               child: TextFormField(
+                  onChanged: updateData(),
                   controller: passportNumberController,
                   validator: (value) =>
                       checkIfNameFormValid(value, "passport_number".tr),
@@ -370,26 +372,13 @@ class _FlightUserDetailsSubmissionFormState
                   padding: flyternMediumPaddingHorizontal.copyWith(
                       top: flyternSpaceExtraSmall,
                       bottom: flyternSpaceExtraSmall),
-                  child: DropDownSelector(
-                    key: frequentFlyerDropDownKey,
-                    titleText: "enter_frequent_flyer".tr,
-                    selected: frequentFlyerNo,
-                    items: [
-                      for (var i = 0; i < 3; i++)
-                        GeneralItem(
-                            imageUrl: "",
-                            id: i.toString(),
-                            name: i == 0
-                                ? "enter_frequent_flyer".tr
-                                : i == 1
-                                    ? "frequent_flyer".tr
-                                    : "not_frequent_flyer".tr)
-                    ],
-                    hintText: "enter_frequent_flyer".tr,
-                    valueChanged: (newGender) {
-                      changeFrequentFlyer(newGender);
-                    },
-                  ),
+                  child:TextFormField(
+                      onChanged: updateData(),
+                      controller: frequentFlyerNoController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        labelText: "enter_frequent_flyer".tr,
+                      )),
                 )),
           ],
         ),
@@ -501,12 +490,6 @@ class _FlightUserDetailsSubmissionFormState
     updateData();
   }
 
-  void changeFrequentFlyer(String yesNo) {
-    frequentFlyerNo = yesNo;
-    setState(() {});
-    updateData();
-
-  }
 
   void changeSelectedPassenger(String newGender) {
     List<UserCoPax> coPax = coPaxController.userCopaxes
@@ -597,7 +580,7 @@ class _FlightUserDetailsSubmissionFormState
     widget.dataSubmitted(
         TravelInfo(
             no: widget.index,
-            frequentFlyerNo: frequentFlyerNo=='1'?"Yes":"No",
+            frequentFlyerNo: frequentFlyerNoController.value.text,
             travellerType: widget.itemTypeIndex == 0?"Adult":widget.itemTypeIndex == 1?"Child":"Infant",
             title: selectedTitle.code,
             firstName: firstNameController.text,

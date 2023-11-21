@@ -136,15 +136,16 @@ class _FlightAddonServicesPageState extends State<FlightAddonServicesPage> {
 
   void handleSubmission() {
 
-    if(!flightBookingController.isSeatsSaved.value){
-      showSnackbar(context, "please_select_seat".tr, "error");
-    }else if(!flightBookingController.isMealsSaved.value){
-      showSnackbar(context, "please_select_meal".tr, "error");
-    }else if(!flightBookingController.isExtraLuggagesSaved.value){
-      showSnackbar(context, "please_select_baggage".tr, "error");
-    }else{
-      flightBookingController.getPaymentGateways(false);
-    }
+    // if(!flightBookingController.isSeatsSaved.value){
+    //   showSnackbar(context, "please_select_seat".tr, "error");
+    // }else if(!flightBookingController.isMealsSaved.value){
+    //   showSnackbar(context, "please_select_meal".tr, "error");
+    // }else if(!flightBookingController.isExtraLuggagesSaved.value){
+    //   showSnackbar(context, "please_select_baggage".tr, "error");
+    // }else{
+    //   flightBookingController.getPaymentGateways(false);
+    // }
+    flightBookingController.getPaymentGateways(false);
 
   }
 
