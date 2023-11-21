@@ -624,8 +624,18 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
         builder: (context) {
           return CustomDatePicker(
             selectedDate: currentDateTime,
-            minimumDate: DateTime.now(),
-            maximumDate: DateTime.now().add(Duration(days: 365)),
+            minimumDate:isReturn?widget
+                .flightBookingController
+                .flightSearchData
+                .value
+                .searchList[index]
+                .departureDate: DateTime.now(),
+            maximumDate:isReturn?widget
+                .flightBookingController
+                .flightSearchData
+                .value
+                .searchList[index]
+                .departureDate.add(Duration(days: 365)): DateTime.now().add(Duration(days: 365)),
             dateSelected: (DateTime? dateTime) {
               if (dateTime != null && dateTime.isAfter(DateTime.now())) {
                 widget.flightBookingController

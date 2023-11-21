@@ -35,6 +35,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    selectedDOB = widget.selectedDate;
   }
 
   @override

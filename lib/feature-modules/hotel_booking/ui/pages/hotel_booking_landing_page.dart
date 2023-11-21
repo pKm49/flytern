@@ -481,10 +481,11 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
         context: context,
         builder: (context) {
           return CustomDatePicker(
-            minimumDate: DateTime.now(),
-            maximumDate: hotelBookingController
-                .hotelSearchData.value.checkInDate
-                .add(const Duration(days: 365)),
+            minimumDate:isCheckoutDate?hotelBookingController
+                .hotelSearchData.value.checkInDate: DateTime.now(),
+            maximumDate:isCheckoutDate?hotelBookingController
+                .hotelSearchData.value.checkInDate.add(Duration(days: 365))
+                : DateTime.now().add(Duration(days: 365)),
             selectedDate: isCheckoutDate
                 ? hotelBookingController.hotelSearchData.value.checkOutDate
                 : hotelBookingController.hotelSearchData.value.checkInDate,

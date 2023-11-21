@@ -98,6 +98,16 @@ extension FlightBookingControllerSetter on FlightBookingController {
     print(dateTime);
     FlightSearchData newFlightSearchData = flightBookingHelperServices
         .changeDate(flightSearchData.value, index, dateTime, isReturnDate);
+
+    if(!isReturnDate && flightSearchData.value.searchList[index]
+        .returnDate != null && dateTime.isAfter(flightSearchData.value.searchList[index]
+        .returnDate!)){
+
+      newFlightSearchData = flightBookingHelperServices
+          .changeDate(newFlightSearchData, index, dateTime, true);
+
+    }
+
     flightSearchData.value = newFlightSearchData;
     if(isFilter){
       getSearchResults(false);

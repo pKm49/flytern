@@ -54,6 +54,13 @@ extension HotelBookingControllerSetter on HotelBookingController {
     print(dateTime);
     HotelSearchData newHotelSearchData = hotelBookingHelperServices
         .changeDate(hotelSearchData.value,dateTime, isCheckoutDate);
+
+    if(!isCheckoutDate && dateTime.isAfter(hotelSearchData.value.checkOutDate)){
+
+      newHotelSearchData = hotelBookingHelperServices
+          .changeDate(newHotelSearchData, dateTime, true);
+
+    }
     hotelSearchData.value = newHotelSearchData;
 
   }
