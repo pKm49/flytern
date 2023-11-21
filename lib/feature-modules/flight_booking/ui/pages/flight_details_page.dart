@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
@@ -28,13 +30,13 @@ class FlightDetailsPage extends StatefulWidget {
 class _FlightDetailsPageState extends State<FlightDetailsPage> {
   final flightBookingController = Get.find<FlightBookingController>();
   bool isContactDetailsOpened = true;
-
+  late StreamSubscription subscription;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    flightBookingController.isFlightPretravellerDataLoading.listen((value) {
+      subscription = flightBookingController.isFlightPretravellerDataLoading.listen((value) {
       if(value == false && !isContactDetailsOpened){
         openContactDetailsGetterBottomSheet();
       }
@@ -48,6 +50,12 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
     });
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    subscription.cancel();
+  }
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
