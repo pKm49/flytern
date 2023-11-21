@@ -81,19 +81,23 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   addVerticalSpace(flyternSpaceSmall),
                   Divider(),
                   Expanded(
-                    child: CalendarDatePicker2(
-                      config: CalendarDatePicker2Config(
-                    firstDate: widget.minimumDate ?? DefaultMinimumDate,
-                    lastDate: widget.maximumDate ?? DefaultMaximumDate,
-                      ),
-                      value: [selectedDOB],
-                      onValueChanged: (dates) => {
-                    setState(() {
-                      selectedDOB =
-                          (dates.isNotEmpty ? dates[0] : DateTime.now()) ??
-                              DateTime.now();
-                    })
-                      },
+                    child: ListView(
+                      children: [
+                        CalendarDatePicker2(
+                          config: CalendarDatePicker2Config(
+                        firstDate: widget.minimumDate ?? DefaultMinimumDate,
+                        lastDate: widget.maximumDate ?? DefaultMaximumDate,
+                          ),
+                          value: [selectedDOB],
+                          onValueChanged: (dates) => {
+                        setState(() {
+                          selectedDOB =
+                              (dates.isNotEmpty ? dates[0] : DateTime.now()) ??
+                                  DateTime.now();
+                        })
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ],
