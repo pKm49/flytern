@@ -32,6 +32,7 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
     double screenheight = MediaQuery.of(context).size.height;
 
     return Container(
+      width: screenwidth*.85,
       padding: flyternLargePaddingAll,
       color: flyternBackgroundWhite,
       child: Obx(
@@ -200,20 +201,18 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          child: Text("sign_in".tr),
-                          onPressed: () async {
-                            Get.toNamed(Approute_login, arguments: [true]);
-                          },
-                          style: getElevatedButtonStyle(context).copyWith(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  flyternSecondaryColor)),
-                        ),
+                      ElevatedButton(
+                        child: Text("sign_in".tr),
+                        onPressed: () async {
+                          Get.toNamed(Approute_login, arguments: [true]);
+                        },
+                        style: getElevatedButtonStyle(context).copyWith(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                flyternSecondaryColor)),
                       ),
                       SizedBox(
                         height: flyternSpaceMedium,
-                        width: 20,
+                        width: 10,
                       ),
                       Expanded(
                         child: ElevatedButton(
