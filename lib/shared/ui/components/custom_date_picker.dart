@@ -45,7 +45,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
     return Container(
       width: screenwidth,
-      height: screenheight * .5,
+      height: screenheight * .7,
       padding: flyternSmallPaddingAll,
       child: Column(
         children: [
@@ -81,36 +81,25 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   addVerticalSpace(flyternSpaceSmall),
                   Divider(),
                   Expanded(
-                      child: CalendarDatePicker2(
-                    config: CalendarDatePicker2Config(
-                      firstDate: widget.minimumDate ?? DefaultMinimumDate,
-                      lastDate: widget.maximumDate ?? DefaultMaximumDate,
+                    child: CalendarDatePicker2(
+                      config: CalendarDatePicker2Config(
+                    firstDate: widget.minimumDate ?? DefaultMinimumDate,
+                    lastDate: widget.maximumDate ?? DefaultMaximumDate,
+                      ),
+                      value: [selectedDOB],
+                      onValueChanged: (dates) => {
+                    setState(() {
+                      selectedDOB =
+                          (dates.isNotEmpty ? dates[0] : DateTime.now()) ??
+                              DateTime.now();
+                    })
+                      },
                     ),
-                    value: [selectedDOB],
-                    onValueChanged: (dates) => {
-                      setState(() {
-                        selectedDOB =
-                            (dates.isNotEmpty ? dates[0] : DateTime.now()) ??
-                                DateTime.now();
-                      })
-                    },
-                  )),
+                  ),
                 ],
               ),
             ),
           ),
-
-          //; CupertinoDatePicker(
-          //                       mode: CupertinoDatePickerMode.date,
-          //                       initialDateTime: getInitialDate(),
-          //                       minimumDate: widget.minimumDate ?? DefaultMinimumDate,
-          //                       maximumDate: widget.maximumDate ?? DefaultMaximumDate,
-          //                       onDateTimeChanged: (DateTime newDateTime) {
-          //                         setState(() {
-          //                           selectedDOB = newDateTime;
-          //                         });
-          //                       },
-          //                     ),
           addVerticalSpace(flyternSpaceSmall),
           InkWell(
             onTap: () {
