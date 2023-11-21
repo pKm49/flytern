@@ -9,6 +9,7 @@ import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared/ui/components/data_capsule_card.dart';
 import 'package:flytern/shared/ui/components/filter_option_selector.dart';
 import 'package:flytern/shared/ui/components/sort_option_selector.dart';
 import 'package:get/get.dart';
@@ -50,6 +51,34 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                 height: screenheight,
                 child: Column(
                   children: [
+                    Container(
+                      width: screenwidth,
+                      color: flyternGrey10,
+                      height: 30+(flyternSpaceMedium*2),
+                      padding: flyternMediumPaddingVertical.copyWith(left: flyternSpaceSmall,right: flyternSpaceSmall),
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          DataCapsuleCard(
+                            label:
+                            getSearchParamsPreview(1),
+                            theme: 2,
+                          ),
+                          addHorizontalSpace(flyternSpaceSmall),
+                          DataCapsuleCard(
+                            label:
+                            getSearchParamsPreview(2),
+                            theme: 2,
+                          ),
+                          addHorizontalSpace(flyternSpaceSmall),
+                          DataCapsuleCard(
+                            label:
+                            getSearchParamsPreview(3),
+                            theme: 2,
+                          ),
+                        ],
+                      ),
+                    ),
                     Container(
                       padding: flyternMediumPaddingAll,
                       decoration:
@@ -118,16 +147,7 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                         ],
                       ),
                     ),
-                    Container(
-                      color: flyternGrey10,
-                      padding: flyternMediumPaddingAll,
-                      width: screenwidth,
-                      child: Text(getSearchParamsPreview(),
-                          textAlign: TextAlign.start,
-                          style: getLabelLargeStyle(context).copyWith(
-                              fontWeight: flyternFontWeightLight,
-                              color: flyternGrey40)),
-                    ),
+
                     Visibility(
                       visible:! hotelBookingController.isHotelSearchFilterResponsesLoading.value &&
                       hotelBookingController.hotelSearchResponses.isNotEmpty,
@@ -241,21 +261,27 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
         });
   }
 
-  String getSearchParamsPreview() {
+  String getSearchParamsPreview(int index) {
     String searchParamsPreviewString = "";
 
-    if (hotelBookingController.hotelSearchData.value.destination != "") {
-      searchParamsPreviewString +=
-          "${hotelBookingController.selectedDestination.value.uniqueCombination},";
+    if(index == 1){
+
+      if (hotelBookingController.hotelSearchData.value.destination != "") {
+        searchParamsPreviewString +=
+        "${hotelBookingController.selectedDestination.value.uniqueCombination},";
+      }
+      return searchParamsPreviewString;
     }
-    searchParamsPreviewString +=
-        " ${getLargeFormattedDate(hotelBookingController.hotelSearchData.value.checkInDate)}";
 
-    searchParamsPreviewString +=
-        " - ${getLargeFormattedDate(hotelBookingController.hotelSearchData.value.checkOutDate)}";
+    searchParamsPreviewString = "";
 
-    searchParamsPreviewString +=
-        ", ${"rooms_no".tr.replaceAll("2", hotelBookingController.hotelSearchData.value.rooms.length.toString())}  ";
+    if(index == 2){
+      return " ${getLargeFormattedDate(hotelBookingController.hotelSearchData.value.checkInDate)}";
+    }
+
+    if(index == 3){
+      return "${"rooms_no".tr.replaceAll("2", hotelBookingController.hotelSearchData.value.rooms.length.toString())}";
+    }
 
     return searchParamsPreviewString;
   }
