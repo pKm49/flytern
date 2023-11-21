@@ -337,7 +337,7 @@ class ProfileController extends GetxController {
         userDetails.passportIssuerCountryName;
     passportExpiryController.value.text =
         getFormattedDate(userDetails.passportExpiry);
-    dobController.value.text = getFormattedDate(userDetails.dateOfBirth);
+    dobController.value.text =  getFormattedDate(userDetails.dateOfBirth);
     firsNameController.value.text = userDetails.firstName;
     lastNameController.value.text = userDetails.lastName;
     passportNumberController.value.text = userDetails.passportNumber;
@@ -348,8 +348,15 @@ class ProfileController extends GetxController {
   }
 
   String getFormattedDate(DateTime dateTime) {
-    final f = DateFormat('dd-MM-yyyy');
-    return f.format(dateTime);
+
+    if(dateTime.year == DefaultInvalidDate.year && dateTime.month == DefaultInvalidDate.month &&
+    dateTime.day == DefaultInvalidDate.day){
+      return "";
+    }else{
+      final f = DateFormat('dd-MM-yyyy');
+      return f.format(dateTime);
+    }
+
   }
 
   Future<void> getMyBookings(int pageId, BookingCategory servicetype) async {

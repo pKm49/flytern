@@ -6,6 +6,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
 import 'package:flytern/shared/controllers/shared_controller.dart';
+import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
@@ -375,6 +376,8 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
         builder: (context) {
           return CustomDatePicker(
             selectedDate: dateTime,
+            minimumDate: isDOB?DefaultAdultMinimumDate:DateTime.now(),
+            maximumDate: isDOB?DefaultAdultMaximumDate:DateTime(2080),
             dateSelected: (DateTime? dateTime) {
               if (dateTime != null) {
                 if (isDOB) {

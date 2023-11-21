@@ -29,7 +29,7 @@ class PhotoSelector extends StatelessWidget {
           InkWell(
             onTap: () {
               Navigator.pop(context);
-              getPictureFromGallery();
+              openFilePicker();
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -68,7 +68,28 @@ class PhotoSelector extends StatelessWidget {
     );
   }
 
+  openFilePicker() async {
+    print("openFilePicker");
+    print(isVideosAllowed);
+    if(isVideosAllowed){
+      getPictureFromGallery();
+    }else{
+      print("opening ImagePicker");
+
+      final _picker = ImagePicker();
+      final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        await cropImage(pickedFile.path!);
+      } else {
+        return;
+      }
+    }
+  }
+
   Future<void> getPictureFromGallery() async {
+
+    print("opening file picker");
+
     List<String> allowedExtensions = ['jpg', 'png', 'jpeg'];
     List<String> allowedVideExtensions = ['mp4', 'avi'];
     if(isVideosAllowed){
@@ -76,6 +97,7 @@ class PhotoSelector extends StatelessWidget {
     }
 
     FilePickerResult? result1 = await FilePicker.platform.pickFiles(
+      // initialDirectory: ,
         type: FileType.custom, allowedExtensions: allowedExtensions);
 
     if (result1 == null) return;
