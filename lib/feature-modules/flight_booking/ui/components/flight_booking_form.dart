@@ -563,46 +563,54 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                     : Text("search_flights".tr)),
           ),
           Visibility(
-            visible: !widget.flightBookingController.isInitialDataLoading.value &&
-                widget.flightBookingController.quickSearch.isNotEmpty,
+            visible:
+                !widget.flightBookingController.isInitialDataLoading.value &&
+                    widget.flightBookingController.quickSearch.isNotEmpty,
             child: Padding(
-                padding: EdgeInsets.only(top: flyternSpaceLarge),
-                child: Text("recent_searches".tr,
-                    style: getBodyMediumStyle(context)
-                        .copyWith(fontWeight: flyternFontWeightBold))),
-          ),
+                padding: EdgeInsets.only(top: flyternSpaceLarge,bottom: flyternSpaceMedium),
+                child: Row(
+                  children: [
+                    Icon(Ionicons.time_outline,
+                        size: flyternFontSize20,
+                        color: flyternSecondaryColor),
+                    addHorizontalSpace(flyternSpaceSmall),
 
+                    Text("recent_searches".tr,
+                        style: getBodyMediumStyle(context)
+                            .copyWith(fontWeight: flyternFontWeightBold)),
+                  ],
+                )),
+          ),
           Visibility(
-            visible: !widget.flightBookingController.isInitialDataLoading.value &&
-                widget.flightBookingController.quickSearch.isNotEmpty,
-            child: SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                  itemCount: widget.flightBookingController.quickSearch.length,
-                  itemBuilder: (context, i) {
-                    return InkWell(
-                      onTap: (){
+            visible:
+                !widget.flightBookingController.isInitialDataLoading.value &&
+                    widget.flightBookingController.quickSearch.isNotEmpty,
+            child: Container(
+                margin: EdgeInsets.only(bottom: flyternSpaceMedium),
+                width: double.infinity,
+                height: 50,
+                child: Wrap(
+                  direction: Axis.horizontal,
+                  children: [
+                    for(var i=0;i<widget.flightBookingController.quickSearch.length;i++)
+                    InkWell(
+                      onTap: () {
                         widget.flightBookingController.getQuickSearchResult(
-                            widget.flightBookingController.quickSearch[i]
-                        );
+                            widget.flightBookingController.quickSearch[i]);
                       },
                       child: Container(
-                        width: screenwidth*.25,
-                        margin: EdgeInsets.only(right: flyternSpaceMedium),
-                        child: Row(
-                          children: [
-                            Icon(Ionicons.time_outline,size: flyternFontSize20,color: flyternSecondaryColor),
-                            addHorizontalSpace(flyternSpaceSmall),
-                            Expanded(
-                                child: Text(getSearchParamsPreview(widget.flightBookingController.quickSearch[i])))
-                          ],
+                        margin: EdgeInsets.only(right: flyternSpaceSmall,bottom: flyternSpaceSmall),
+                        padding: flyternExtraSmallPaddingAll.copyWith(
+                          left: flyternSpaceSmall,right: flyternSpaceSmall
                         ),
-                      ),
-                    );
-                  }),
-            ),
+                        decoration:flyternBorderedContainerSmallDecoration.
+                        copyWith(border: Border.all(color: flyternTertiaryColor, width: .2)),
+                        child: Text(getSearchParamsPreview(widget
+                            .flightBookingController.quickSearch[i])),
+                      )
+                    )
+                  ],
+                )),
           ),
         ],
       ),
@@ -624,18 +632,15 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
         builder: (context) {
           return CustomDatePicker(
             selectedDate: currentDateTime,
-            minimumDate:isReturn?widget
-                .flightBookingController
-                .flightSearchData
-                .value
-                .searchList[index]
-                .departureDate: DateTime.now(),
-            maximumDate:isReturn?widget
-                .flightBookingController
-                .flightSearchData
-                .value
-                .searchList[index]
-                .departureDate.add(Duration(days: 365)): DateTime.now().add(Duration(days: 365)),
+            minimumDate: isReturn
+                ? widget.flightBookingController.flightSearchData.value
+                    .searchList[index].departureDate
+                : DateTime.now(),
+            maximumDate: isReturn
+                ? widget.flightBookingController.flightSearchData.value
+                    .searchList[index].departureDate
+                    .add(Duration(days: 365))
+                : DateTime.now().add(Duration(days: 365)),
             dateSelected: (DateTime? dateTime) {
               if (dateTime != null && dateTime.isAfter(DateTime.now())) {
                 widget.flightBookingController
@@ -707,14 +712,14 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
           });
         });
   }
+
   String getSearchParamsPreview(FlightSearchData quickSearch) {
     String searchParamsPreviewString = "";
 
     if (quickSearch.searchList.isNotEmpty) {
-      quickSearch.searchList
-          .forEach((element) {
+      quickSearch.searchList.forEach((element) {
         searchParamsPreviewString +=
-        "${element.departure.airportCode}-${element.arrival.airportCode}";
+            "${element.departure.airportCode}-${element.arrival.airportCode}";
       });
     }
     // searchParamsPreviewString +=
@@ -722,6 +727,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
 
     return searchParamsPreviewString;
   }
+
   getDateString(FlightSearchItem element) {
     if (element.returnDate == null) {
       return "  ${getFormattedDate(element.departureDate)}";
