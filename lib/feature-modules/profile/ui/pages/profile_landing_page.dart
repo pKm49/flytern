@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/core/controllers/core_controller.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
@@ -6,6 +7,7 @@ import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared/ui/components/confirm_dialogue.dart';
 import 'package:flytern/shared/ui/components/preposticon_button.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -20,6 +22,7 @@ class ProfileLandingPage extends StatefulWidget {
 class _ProfileLandingPageState extends State<ProfileLandingPage> {
 
   final profileController = Get.find<ProfileController>();
+  final coreController = Get.find<CoreController>();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
       width: screenwidth,
       color: flyternGrey10,
       child:Obx(
-            ()=>  Column(
+            ()=>  ListView(
           children: [
             Visibility(
               visible: profileController.userDetails.value.email!="",
@@ -191,13 +194,30 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
 
                         },
                         theme: 'dark',
-                        border: '',
+                        border: 'bottom',
                         buttonTitle: "change_password".tr,
                         preIconData: Ionicons.lock_closed_outline,
                         postIconData: Ionicons.chevron_forward,
                       ),
                     ),
-                    addVerticalSpace(flyternSpaceLarge),
+                    addVerticalSpace(flyternSpaceSmall),
+                    Visibility(
+                      visible: profileController.userDetails.value.email != "",
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: PrePostIconButton(
+                          specialColor: 1,
+                          onPressed: () {
+                            showConfirmDialog();
+                          },
+                          theme: 'dark',
+                          border: '',
+                          buttonTitle: "logout".tr,
+                          preIconData: Ionicons.log_out_outline,
+                          postIconData: Ionicons.chevron_forward,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -245,6 +265,18 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
           ],
         ),
       ),
+    );
+  }
+
+  showConfirmDialog() async {
+    showDialog(
+      context: context,
+      builder: (_) => ConfirmDialogue(
+          onClick: () async {
+            coreController.handleLogout();
+          },
+          titleKey: 'logout'.tr + " ?",
+          subtitleKey: 'logout_confirm'.tr),
     );
   }
 }
