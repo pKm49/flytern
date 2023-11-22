@@ -105,13 +105,254 @@ class _FlightFilterOptionSelectorState
                   Expanded(
                       child: ListView(
                     children: [
+
+                      //Stops
+                      Visibility(
+                        visible:
+                        widget.availableFilterOptions.stopDcs.isNotEmpty,
+                        child: Padding(
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              top: flyternSpaceMedium,
+                              bottom: flyternSpaceSmall),
+                          child: Text("stops".tr,
+                              style: getBodyMediumStyle(context)
+                                  .copyWith(fontWeight: flyternFontWeightBold)),
+                        ),
+                      ),
+
+                      for (var i = 0;
+                      i <
+                          (widget.availableFilterOptions.stopDcs.isNotEmpty
+                              ? widget.availableFilterOptions.stopDcs.length
+                              : 0);
+                      i++)
+                        Padding(
+                            padding: flyternLargePaddingHorizontal.copyWith(
+                                bottom: flyternSpaceExtraSmall),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                    widget
+                                        .availableFilterOptions.stopDcs[i].name,
+                                    style: getBodyMediumStyle(context)),
+                                Checkbox(
+                                  checkColor: Colors.white,
+                                  fillColor: MaterialStateProperty.resolveWith(
+                                      elementStyleHelpers.getColor),
+                                  value: isItemSelected(
+                                      selectedFilterOptions.stopDcs,
+                                      widget.availableFilterOptions.stopDcs[i]),
+                                  onChanged: (bool? value) {
+                                    manageSelection(
+                                        FlightFilterOptions.STOPS,
+                                        selectedFilterOptions.stopDcs,
+                                        widget
+                                            .availableFilterOptions.stopDcs[i]);
+                                  },
+                                ),
+                              ],
+                            )),
+
+                      //airline
+                      Visibility(
+                        visible:
+                        widget.availableFilterOptions.airlineDcs.isNotEmpty,
+                        child: const Padding(
+                          padding: flyternLargePaddingHorizontal,
+                          child: Divider(),
+                        ),
+                      ),
+                      Visibility(
+                        visible:
+                        widget.availableFilterOptions.airlineDcs.isNotEmpty,
+                        child: Padding(
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              top: flyternSpaceMedium,
+                              bottom: flyternSpaceSmall),
+                          child: Text("airline".tr,
+                              style: getBodyMediumStyle(context)
+                                  .copyWith(fontWeight: flyternFontWeightBold)),
+                        ),
+                      ),
+                      Visibility(
+                        visible: widget
+                            .availableFilterOptions.departureTimeDcs.isNotEmpty,
+                        child: Padding(
+                          padding: flyternLargePaddingAll,
+                          child: Wrap(
+                            children: [
+                              for (var i = 0;
+                              i <
+                                  (widget.availableFilterOptions.airlineDcs
+                                      .isNotEmpty
+                                      ? widget.availableFilterOptions
+                                      .airlineDcs.length
+                                      : 0);
+                              i++)
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: flyternSpaceSmall,
+                                      bottom: flyternSpaceSmall),
+                                  child: SelectableTilePill(
+                                    onPressed: () {
+                                      manageSelection(
+                                          FlightFilterOptions.AIRLINE,
+                                          selectedFilterOptions.airlineDcs,
+                                          widget.availableFilterOptions
+                                              .airlineDcs[i]);
+                                    },
+                                    label:
+                                    '${widget.availableFilterOptions.airlineDcs[i].name}',
+                                    isSelected: isItemSelected(
+                                        selectedFilterOptions.airlineDcs,
+                                        widget.availableFilterOptions
+                                            .airlineDcs[i]),
+                                    themeNumber: 2,
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      //  Departure Time
+                      Visibility(
+                        visible: widget
+                            .availableFilterOptions.departureTimeDcs.isNotEmpty,
+                        child: const Padding(
+                          padding: flyternLargePaddingHorizontal,
+                          child: Divider(),
+                        ),
+                      ),
+                      Visibility(
+                        visible: widget
+                            .availableFilterOptions.departureTimeDcs.isNotEmpty,
+                        child: Padding(
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              top: flyternSpaceMedium),
+                          child: Text("departure_time".tr,
+                              style: getBodyMediumStyle(context)
+                                  .copyWith(fontWeight: flyternFontWeightBold)),
+                        ),
+                      ),
+                      Visibility(
+                        visible: widget
+                            .availableFilterOptions.departureTimeDcs.isNotEmpty,
+                        child: Padding(
+                          padding: flyternLargePaddingAll,
+                          child: Wrap(
+                            children: [
+                              for (var i = 0;
+                              i <
+                                  (widget.availableFilterOptions
+                                      .departureTimeDcs.isNotEmpty
+                                      ? widget.availableFilterOptions
+                                      .departureTimeDcs.length
+                                      : 0);
+                              i++)
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: flyternSpaceSmall,
+                                      bottom: flyternSpaceSmall),
+                                  child: SelectableTilePill(
+                                    onPressed: () {
+                                      manageSelection(
+                                          FlightFilterOptions.DEPARTURETIME,
+                                          selectedFilterOptions
+                                              .departureTimeDcs,
+                                          widget.availableFilterOptions
+                                              .departureTimeDcs[i]);
+                                    },
+                                    label:
+                                    '${widget.availableFilterOptions.departureTimeDcs[i].name}',
+                                    isSelected: isItemSelected(
+                                        selectedFilterOptions.departureTimeDcs,
+                                        widget.availableFilterOptions
+                                            .departureTimeDcs[i]),
+                                    themeNumber: 2,
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      // Arrival Time
+                      Visibility(
+                        visible: widget
+                            .availableFilterOptions.arrivalTimeDcs.isNotEmpty,
+                        child: const Padding(
+                          padding: flyternLargePaddingHorizontal,
+                          child: Divider(),
+                        ),
+                      ),
+                      Visibility(
+                        visible: widget
+                            .availableFilterOptions.arrivalTimeDcs.isNotEmpty,
+                        child: Padding(
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              top: flyternSpaceMedium),
+                          child: Text("arrival_time".tr,
+                              style: getBodyMediumStyle(context)
+                                  .copyWith(fontWeight: flyternFontWeightBold)),
+                        ),
+                      ),
+                      Visibility(
+                        visible: widget
+                            .availableFilterOptions.arrivalTimeDcs.isNotEmpty,
+                        child: Padding(
+                          padding: flyternLargePaddingAll,
+                          child: Wrap(
+                            children: [
+                              for (var i = 0;
+                              i <
+                                  (widget.availableFilterOptions
+                                      .arrivalTimeDcs.isNotEmpty
+                                      ? widget.availableFilterOptions
+                                      .arrivalTimeDcs.length
+                                      : 0);
+                              i++)
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: flyternSpaceSmall,
+                                      bottom: flyternSpaceSmall),
+                                  child: SelectableTilePill(
+                                    onPressed: () {
+                                      manageSelection(
+                                          FlightFilterOptions.ARRIVALTIME,
+                                          selectedFilterOptions.arrivalTimeDcs,
+                                          widget.availableFilterOptions
+                                              .arrivalTimeDcs[i]);
+                                    },
+                                    label:
+                                    '${widget.availableFilterOptions.arrivalTimeDcs[i].name}',
+                                    isSelected: isItemSelected(
+                                        selectedFilterOptions.arrivalTimeDcs,
+                                        widget.availableFilterOptions
+                                            .arrivalTimeDcs[i]),
+                                    themeNumber: 2,
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+
                       // price
+                      Visibility(
+                        visible:
+                        widget.availableFilterOptions.priceDcs.isNotEmpty,
+                        child: const Padding(
+                          padding: flyternLargePaddingHorizontal,
+                          child: Divider(),
+                        ),
+                      ),
                       Visibility(
                         visible:
                             widget.availableFilterOptions.priceDcs.isNotEmpty,
                         child: Padding(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              bottom: flyternSpaceMedium),
+                          padding: flyternLargePaddingAll,
                           child: Text("${'price'.tr} (${widget.currency})",
                               style: getBodyMediumStyle(context)
                                   .copyWith(fontWeight: flyternFontWeightBold)),
@@ -192,266 +433,6 @@ class _FlightFilterOptionSelectorState
                         ),
                       ),
 
-                      //airline
-                      Visibility(
-                        visible:
-                            widget.availableFilterOptions.airlineDcs.isNotEmpty,
-                        child: const Padding(
-                          padding: flyternLargePaddingHorizontal,
-                          child: Divider(),
-                        ),
-                      ),
-                      Visibility(
-                        visible:
-                            widget.availableFilterOptions.airlineDcs.isNotEmpty,
-                        child: Padding(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceMedium,
-                              bottom: flyternSpaceSmall),
-                          child: Text("airline".tr,
-                              style: getBodyMediumStyle(context)
-                                  .copyWith(fontWeight: flyternFontWeightBold)),
-                        ),
-                      ),
-
-                      // Padding(
-                      //     padding:flyternLargePaddingHorizontal.copyWith(
-                      //       bottom: flyternSpaceExtraSmall
-                      //     ),
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //       children: [
-                      //         Text(widget.availableFilterOptions.airlineDcs[i].name,
-                      //             style: getBodyMediumStyle(context) ),
-                      //         Checkbox(
-                      //           checkColor: Colors.white,
-                      //           fillColor: MaterialStateProperty.resolveWith(elementStyleHelpers.getColor),
-                      //           value: isAirlineSelected(widget.availableFilterOptions.airlineDcs[i]),
-                      //           onChanged: (bool? value) {
-                      //              manageAirlineSelection(widget.availableFilterOptions.airlineDcs[i]);
-                      //           },
-                      //         ),
-                      //       ],
-                      //     )),
-                      Visibility(
-                        visible: widget
-                            .availableFilterOptions.departureTimeDcs.isNotEmpty,
-                        child: Padding(
-                          padding: flyternLargePaddingAll,
-                          child: Wrap(
-                            children: [
-                              for (var i = 0;
-                                  i <
-                                      (widget.availableFilterOptions.airlineDcs
-                                              .isNotEmpty
-                                          ? widget.availableFilterOptions
-                                              .airlineDcs.length
-                                          : 0);
-                                  i++)
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      right: flyternSpaceSmall,
-                                      bottom: flyternSpaceSmall),
-                                  child: SelectableTilePill(
-                                    onPressed: () {
-                                      manageSelection(
-                                          FlightFilterOptions.AIRLINE,
-                                          selectedFilterOptions.airlineDcs,
-                                          widget.availableFilterOptions
-                                              .airlineDcs[i]);
-                                    },
-                                    label:
-                                        '${widget.availableFilterOptions.airlineDcs[i].name}',
-                                    isSelected: isItemSelected(
-                                        selectedFilterOptions.airlineDcs,
-                                        widget.availableFilterOptions
-                                            .airlineDcs[i]),
-                                    themeNumber: 2,
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      //  Departure Time
-                      Visibility(
-                        visible: widget
-                            .availableFilterOptions.departureTimeDcs.isNotEmpty,
-                        child: const Padding(
-                          padding: flyternLargePaddingHorizontal,
-                          child: Divider(),
-                        ),
-                      ),
-                      Visibility(
-                        visible: widget
-                            .availableFilterOptions.departureTimeDcs.isNotEmpty,
-                        child: Padding(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceMedium),
-                          child: Text("departure_time".tr,
-                              style: getBodyMediumStyle(context)
-                                  .copyWith(fontWeight: flyternFontWeightBold)),
-                        ),
-                      ),
-                      Visibility(
-                        visible: widget
-                            .availableFilterOptions.departureTimeDcs.isNotEmpty,
-                        child: Padding(
-                          padding: flyternLargePaddingAll,
-                          child: Wrap(
-                            children: [
-                              for (var i = 0;
-                                  i <
-                                      (widget.availableFilterOptions
-                                              .departureTimeDcs.isNotEmpty
-                                          ? widget.availableFilterOptions
-                                              .departureTimeDcs.length
-                                          : 0);
-                                  i++)
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      right: flyternSpaceSmall,
-                                      bottom: flyternSpaceSmall),
-                                  child: SelectableTilePill(
-                                    onPressed: () {
-                                      manageSelection(
-                                          FlightFilterOptions.DEPARTURETIME,
-                                          selectedFilterOptions
-                                              .departureTimeDcs,
-                                          widget.availableFilterOptions
-                                              .departureTimeDcs[i]);
-                                    },
-                                    label:
-                                        '${widget.availableFilterOptions.departureTimeDcs[i].name}',
-                                    isSelected: isItemSelected(
-                                        selectedFilterOptions.departureTimeDcs,
-                                        widget.availableFilterOptions
-                                            .departureTimeDcs[i]),
-                                    themeNumber: 2,
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      // Arrival Time
-                      Visibility(
-                        visible: widget
-                            .availableFilterOptions.arrivalTimeDcs.isNotEmpty,
-                        child: const Padding(
-                          padding: flyternLargePaddingHorizontal,
-                          child: Divider(),
-                        ),
-                      ),
-                      Visibility(
-                        visible: widget
-                            .availableFilterOptions.arrivalTimeDcs.isNotEmpty,
-                        child: Padding(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceMedium),
-                          child: Text("arrival_time".tr,
-                              style: getBodyMediumStyle(context)
-                                  .copyWith(fontWeight: flyternFontWeightBold)),
-                        ),
-                      ),
-                      Visibility(
-                        visible: widget
-                            .availableFilterOptions.arrivalTimeDcs.isNotEmpty,
-                        child: Padding(
-                          padding: flyternLargePaddingAll,
-                          child: Wrap(
-                            children: [
-                              for (var i = 0;
-                                  i <
-                                      (widget.availableFilterOptions
-                                              .arrivalTimeDcs.isNotEmpty
-                                          ? widget.availableFilterOptions
-                                              .arrivalTimeDcs.length
-                                          : 0);
-                                  i++)
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      right: flyternSpaceSmall,
-                                      bottom: flyternSpaceSmall),
-                                  child: SelectableTilePill(
-                                    onPressed: () {
-                                      manageSelection(
-                                          FlightFilterOptions.ARRIVALTIME,
-                                          selectedFilterOptions.arrivalTimeDcs,
-                                          widget.availableFilterOptions
-                                              .arrivalTimeDcs[i]);
-                                    },
-                                    label:
-                                        '${widget.availableFilterOptions.arrivalTimeDcs[i].name}',
-                                    isSelected: isItemSelected(
-                                        selectedFilterOptions.arrivalTimeDcs,
-                                        widget.availableFilterOptions
-                                            .arrivalTimeDcs[i]),
-                                    themeNumber: 2,
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      //Stops
-                      Visibility(
-                        visible:
-                            widget.availableFilterOptions.stopDcs.isNotEmpty,
-                        child: const Padding(
-                          padding: flyternLargePaddingHorizontal,
-                          child: Divider(),
-                        ),
-                      ),
-                      Visibility(
-                        visible:
-                            widget.availableFilterOptions.stopDcs.isNotEmpty,
-                        child: Padding(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceMedium,
-                              bottom: flyternSpaceSmall),
-                          child: Text("stops".tr,
-                              style: getBodyMediumStyle(context)
-                                  .copyWith(fontWeight: flyternFontWeightBold)),
-                        ),
-                      ),
-
-                      for (var i = 0;
-                          i <
-                              (widget.availableFilterOptions.stopDcs.isNotEmpty
-                                  ? widget.availableFilterOptions.stopDcs.length
-                                  : 0);
-                          i++)
-                        Padding(
-                            padding: flyternLargePaddingHorizontal.copyWith(
-                                bottom: flyternSpaceExtraSmall),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                    widget
-                                        .availableFilterOptions.stopDcs[i].name,
-                                    style: getBodyMediumStyle(context)),
-                                Checkbox(
-                                  checkColor: Colors.white,
-                                  fillColor: MaterialStateProperty.resolveWith(
-                                      elementStyleHelpers.getColor),
-                                  value: isItemSelected(
-                                      selectedFilterOptions.stopDcs,
-                                      widget.availableFilterOptions.stopDcs[i]),
-                                  onChanged: (bool? value) {
-                                    manageSelection(
-                                        FlightFilterOptions.STOPS,
-                                        selectedFilterOptions.stopDcs,
-                                        widget
-                                            .availableFilterOptions.stopDcs[i]);
-                                  },
-                                ),
-                              ],
-                            )),
                     ],
                   ))
                 ],
