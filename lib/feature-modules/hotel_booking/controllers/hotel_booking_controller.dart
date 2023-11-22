@@ -175,6 +175,7 @@ class HotelBookingController extends GetxController {
       isHotelSearchFilterResponsesLoading.value = false;
 
     }
+    getRecentSearch();
   }
 
   Future<void> getQuickSearchResult(HotelSearchData tHotelSearchData) async {

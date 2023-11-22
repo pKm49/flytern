@@ -185,7 +185,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                     style:
                                         getBodyMediumStyle(context).copyWith()),
                                 addVerticalSpace(flyternSpaceExtraSmall),
-                                Text("children_description".tr,
+                                Text(widget.bookingServiceNumber==1? "children_description".tr:"children_description_hotel".tr,
                                     style: getBodyMediumStyle(context)
                                         .copyWith(color: flyternGrey40)),
                               ],
@@ -340,9 +340,9 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                   padding: flyternMediumPaddingHorizontal,
                                   child: DropDownSelector(
                                     titleText: "",
-                                    selected:"2",
+                                    selected:"0",
                                     items: [
-                                      for(var ind =2; ind<17;ind++)
+                                      for(var ind =0; ind<17;ind++)
                                         GeneralItem(id: ind.toString(),
                                             name: ind.toString(),
                                             imageUrl: "")

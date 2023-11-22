@@ -95,7 +95,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'destination'.tr,
+                                  'hotel_destination_hint'.tr,
                                   style: getLabelLargeStyle(context).copyWith(
                                       color: flyternGrey40,
                                       fontWeight: FontWeight.w400),
