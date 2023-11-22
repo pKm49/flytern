@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/data/enums/flight_filter_options.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_result.dart';
 import 'package:flytern/shared/data/models/business_models/range_dcs.dart';
- import 'package:flytern/shared/data/models/business_models/sorting_dcs.dart';
+import 'package:flytern/shared/data/models/business_models/sorting_dcs.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/element_style_helpers.dart';
@@ -10,6 +10,7 @@ import 'package:flytern/shared/services/utility-services/widget_generator.dart';
 import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
 import 'package:flytern/shared/ui/components/selectable_text_pill.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 
 class FlightFilterOptionSelector extends StatefulWidget {
   String currency;
@@ -47,14 +48,14 @@ class _FlightFilterOptionSelectorState
     _currentSliderValue = RangeValues(
       widget.selectedFilterOptions.priceDcs.isNotEmpty
           ? widget.selectedFilterOptions.priceDcs[0].min
-          :  widget.availableFilterOptions.priceDcs.isNotEmpty
-          ? widget.availableFilterOptions.priceDcs[0].min
-          : 0,
+          : widget.availableFilterOptions.priceDcs.isNotEmpty
+              ? widget.availableFilterOptions.priceDcs[0].min
+              : 0,
       widget.selectedFilterOptions.priceDcs.isNotEmpty
           ? widget.selectedFilterOptions.priceDcs[0].max
-          :  widget.availableFilterOptions.priceDcs.isNotEmpty
-          ? widget.availableFilterOptions.priceDcs[0].max
-          : 0,
+          : widget.availableFilterOptions.priceDcs.isNotEmpty
+              ? widget.availableFilterOptions.priceDcs[0].max
+              : 0,
     );
   }
 
@@ -81,7 +82,11 @@ class _FlightFilterOptionSelectorState
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("filter".tr,
+                        Text(
+                            "filter".tr +
+                                (getFilterCount() > 0
+                                    ? " ( ${getFilterCount()} )"
+                                    : ""),
                             style: getHeadlineMediumStyle(context).copyWith(
                                 color: flyternGrey80,
                                 fontWeight: flyternFontWeightBold),
@@ -101,19 +106,49 @@ class _FlightFilterOptionSelectorState
                   ),
                   addVerticalSpace(flyternSpaceSmall),
                   Divider(),
-                  addVerticalSpace(flyternSpaceMedium),
+                  addVerticalSpace(flyternSpaceSmall),
                   Expanded(
                       child: ListView(
                     children: [
-
+                      Visibility(
+                        visible: getFilterCount() > 0,
+                        child: Padding(
+                          padding: flyternLargePaddingAll.copyWith(
+                              top: flyternSpaceSmall,
+                              bottom: flyternSpaceSmall),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  clearFilter();
+                                },
+                                child: Icon(Ionicons.trash_bin_outline,
+                                    color: flyternSecondaryColor,
+                                    size: flyternFontSize20),
+                              ),
+                              addHorizontalSpace(flyternSpaceSmall),
+                              InkWell(
+                                onTap: () {
+                                  clearFilter();
+                                },
+                                child: Text("clear".tr,
+                                    style: getBodyMediumStyle(context).copyWith(
+                                        color: flyternSecondaryColor,
+                                        fontWeight: flyternFontWeightBold),
+                                    textAlign: TextAlign.center),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       //Stops
                       Visibility(
                         visible:
-                        widget.availableFilterOptions.stopDcs.isNotEmpty,
+                            widget.availableFilterOptions.stopDcs.isNotEmpty,
                         child: Padding(
                           padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceMedium,
-                              bottom: flyternSpaceSmall),
+                              top: 0, bottom: flyternSpaceSmall),
                           child: Text("stops".tr,
                               style: getBodyMediumStyle(context)
                                   .copyWith(fontWeight: flyternFontWeightBold)),
@@ -121,11 +156,11 @@ class _FlightFilterOptionSelectorState
                       ),
 
                       for (var i = 0;
-                      i <
-                          (widget.availableFilterOptions.stopDcs.isNotEmpty
-                              ? widget.availableFilterOptions.stopDcs.length
-                              : 0);
-                      i++)
+                          i <
+                              (widget.availableFilterOptions.stopDcs.isNotEmpty
+                                  ? widget.availableFilterOptions.stopDcs.length
+                                  : 0);
+                          i++)
                         Padding(
                             padding: flyternLargePaddingHorizontal.copyWith(
                                 bottom: flyternSpaceExtraSmall),
@@ -157,7 +192,7 @@ class _FlightFilterOptionSelectorState
                       //airline
                       Visibility(
                         visible:
-                        widget.availableFilterOptions.airlineDcs.isNotEmpty,
+                            widget.availableFilterOptions.airlineDcs.isNotEmpty,
                         child: const Padding(
                           padding: flyternLargePaddingHorizontal,
                           child: Divider(),
@@ -165,7 +200,7 @@ class _FlightFilterOptionSelectorState
                       ),
                       Visibility(
                         visible:
-                        widget.availableFilterOptions.airlineDcs.isNotEmpty,
+                            widget.availableFilterOptions.airlineDcs.isNotEmpty,
                         child: Padding(
                           padding: flyternLargePaddingHorizontal.copyWith(
                               top: flyternSpaceMedium,
@@ -183,13 +218,13 @@ class _FlightFilterOptionSelectorState
                           child: Wrap(
                             children: [
                               for (var i = 0;
-                              i <
-                                  (widget.availableFilterOptions.airlineDcs
-                                      .isNotEmpty
-                                      ? widget.availableFilterOptions
-                                      .airlineDcs.length
-                                      : 0);
-                              i++)
+                                  i <
+                                      (widget.availableFilterOptions.airlineDcs
+                                              .isNotEmpty
+                                          ? widget.availableFilterOptions
+                                              .airlineDcs.length
+                                          : 0);
+                                  i++)
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       right: flyternSpaceSmall,
@@ -203,7 +238,7 @@ class _FlightFilterOptionSelectorState
                                               .airlineDcs[i]);
                                     },
                                     label:
-                                    '${widget.availableFilterOptions.airlineDcs[i].name}',
+                                        '${widget.availableFilterOptions.airlineDcs[i].name}',
                                     isSelected: isItemSelected(
                                         selectedFilterOptions.airlineDcs,
                                         widget.availableFilterOptions
@@ -244,13 +279,13 @@ class _FlightFilterOptionSelectorState
                           child: Wrap(
                             children: [
                               for (var i = 0;
-                              i <
-                                  (widget.availableFilterOptions
-                                      .departureTimeDcs.isNotEmpty
-                                      ? widget.availableFilterOptions
-                                      .departureTimeDcs.length
-                                      : 0);
-                              i++)
+                                  i <
+                                      (widget.availableFilterOptions
+                                              .departureTimeDcs.isNotEmpty
+                                          ? widget.availableFilterOptions
+                                              .departureTimeDcs.length
+                                          : 0);
+                                  i++)
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       right: flyternSpaceSmall,
@@ -265,7 +300,7 @@ class _FlightFilterOptionSelectorState
                                               .departureTimeDcs[i]);
                                     },
                                     label:
-                                    '${widget.availableFilterOptions.departureTimeDcs[i].name}',
+                                        '${widget.availableFilterOptions.departureTimeDcs[i].name}',
                                     isSelected: isItemSelected(
                                         selectedFilterOptions.departureTimeDcs,
                                         widget.availableFilterOptions
@@ -306,13 +341,13 @@ class _FlightFilterOptionSelectorState
                           child: Wrap(
                             children: [
                               for (var i = 0;
-                              i <
-                                  (widget.availableFilterOptions
-                                      .arrivalTimeDcs.isNotEmpty
-                                      ? widget.availableFilterOptions
-                                      .arrivalTimeDcs.length
-                                      : 0);
-                              i++)
+                                  i <
+                                      (widget.availableFilterOptions
+                                              .arrivalTimeDcs.isNotEmpty
+                                          ? widget.availableFilterOptions
+                                              .arrivalTimeDcs.length
+                                          : 0);
+                                  i++)
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       right: flyternSpaceSmall,
@@ -326,7 +361,7 @@ class _FlightFilterOptionSelectorState
                                               .arrivalTimeDcs[i]);
                                     },
                                     label:
-                                    '${widget.availableFilterOptions.arrivalTimeDcs[i].name}',
+                                        '${widget.availableFilterOptions.arrivalTimeDcs[i].name}',
                                     isSelected: isItemSelected(
                                         selectedFilterOptions.arrivalTimeDcs,
                                         widget.availableFilterOptions
@@ -342,7 +377,7 @@ class _FlightFilterOptionSelectorState
                       // price
                       Visibility(
                         visible:
-                        widget.availableFilterOptions.priceDcs.isNotEmpty,
+                            widget.availableFilterOptions.priceDcs.isNotEmpty,
                         child: const Padding(
                           padding: flyternLargePaddingHorizontal,
                           child: Divider(),
@@ -421,9 +456,7 @@ class _FlightFilterOptionSelectorState
                                     _currentSliderValue.end.round().toString(),
                                   ),
                                   onChanged: (RangeValues values) {
-
                                     setPriceRange(values);
-
                                   },
                                   values: _currentSliderValue,
                                 ),
@@ -432,7 +465,6 @@ class _FlightFilterOptionSelectorState
                           ),
                         ),
                       ),
-
                     ],
                   ))
                 ],
@@ -603,5 +635,40 @@ class _FlightFilterOptionSelectorState
     _currentSliderValue = rangeValues;
     setState(() {});
     widget.setModalState();
+  }
+
+  int getFilterCount() {
+    int filterCount = 0;
+
+    if (selectedFilterOptions.priceDcs.isNotEmpty) {
+      filterCount++;
+    }
+
+    if (selectedFilterOptions.airlineDcs.isNotEmpty) {
+      filterCount++;
+    }
+
+    if (selectedFilterOptions.departureTimeDcs.isNotEmpty) {
+      filterCount++;
+    }
+
+    if (selectedFilterOptions.arrivalTimeDcs.isNotEmpty) {
+      filterCount++;
+    }
+    if (selectedFilterOptions.stopDcs.isNotEmpty) {
+      filterCount++;
+    }
+    return filterCount;
+  }
+
+  void clearFilter() {
+    widget.filterSubmitted(FlightSearchResult(
+        searchResponses: [],
+        priceDcs: [],
+        sortingDcs: [],
+        airlineDcs: [],
+        departureTimeDcs: [],
+        arrivalTimeDcs: [],
+        stopDcs: []));
   }
 }

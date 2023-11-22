@@ -84,6 +84,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                               color: flyternGrey80,
                               fontWeight: flyternFontWeightBold)),
                     ),
+
                     for (var i = 0;
                         i <
                             flightBookingController

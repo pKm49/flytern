@@ -149,7 +149,7 @@ class FlightSearchResultCard extends StatelessWidget {
                 Visibility(
                   visible: flightSearchResponse.isSale,
                   child: Text(
-                    "${flightSearchResponse.totalPrc.toStringAsFixed(2)} ${flightSearchResponse.currency}",
+                    "${flightSearchResponse.totalPrc.toStringAsFixed(3)} ${flightSearchResponse.currency}",
                     style: getBodyMediumStyle(context).copyWith(
                         decoration: TextDecoration.lineThrough,
                         fontWeight: flyternFontWeightBold,
@@ -158,7 +158,7 @@ class FlightSearchResultCard extends StatelessWidget {
                 ),
                 addHorizontalSpace(flyternSpaceSmall),
                 Text(
-                  "${flightSearchResponse.finalPrc.toStringAsFixed(2)} ${flightSearchResponse.currency}",
+                  "${flightSearchResponse.finalPrc.toStringAsFixed(3)} ${flightSearchResponse.currency}",
                   style: getHeadlineMediumStyle(context).copyWith(
                       fontWeight: flyternFontWeightBold,
                       color: flyternSecondaryColor),

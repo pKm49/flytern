@@ -507,9 +507,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                 availableFilterOptions: getAvailableFilterOptions(),
                 selectedFilterOptions: getSelectedFilterOptions(),
                 filterSubmitted: (FlightSearchResult selectedFilterOptions) {
-                  print("setPriceRange 2");
-                  print(selectedFilterOptions.priceDcs[0].min);
-                  print(selectedFilterOptions.priceDcs[0].max);
+
                   flightBookingController
                       .setFilterValues(selectedFilterOptions);
                   Navigator.pop(context);
