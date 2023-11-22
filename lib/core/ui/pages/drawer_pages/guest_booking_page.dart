@@ -28,10 +28,8 @@ class _GuestBookingPageState extends State<GuestBookingPage> {
 
   TextEditingController bookingIdController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController mobileController = TextEditingController();
   final flightBookingController = Get.find<FlightBookingController>();
   final GlobalKey<FormState> smartPaymentFormKey = GlobalKey<FormState>();
-  final sharedController = Get.find<SharedController>();
 
   var selectedCountry = Country(
       isDefault: 1,
@@ -96,59 +94,12 @@ class _GuestBookingPageState extends State<GuestBookingPage> {
                     color: flyternBackgroundWhite,
                     child: TextFormField(
                         controller: emailController,
+                        validator: (value) =>
+                            checkIfEmailValid(value ),
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           labelText: "email".tr,
                         )),
-                  ),
-                  Container(
-                    padding: flyternLargePaddingHorizontal.copyWith(
-                        top: 0, bottom: flyternSpaceMedium),
-                    color: flyternBackgroundWhite,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: InkWell(
-                            onTap: openCountrySelector,
-                            child: Container(
-                              decoration:
-                              flyternBorderedContainerSmallDecoration.copyWith(
-                                  color: flyternGrey10,
-                                  border: Border.all(
-                                      color: Colors.transparent, width: 0)),
-                              padding: flyternMediumPaddingAll.copyWith(
-                                  top: flyternSpaceLarge,
-                                  bottom: flyternSpaceLarge),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.network(
-                                      selectedCountry.flag,
-                                      width: 17),
-                                  addHorizontalSpace(flyternSpaceSmall),
-                                  Expanded(
-                                    child: Text(
-                                        selectedCountry.code,
-                                        style: getBodyMediumStyle(context)),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        addHorizontalSpace(flyternSpaceMedium),
-                        Expanded(
-                          flex: 5,
-                          child: TextFormField(
-                              controller: mobileController,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "mobile".tr,
-                              )),
-                        ),
-                      ],
-                    ),
                   ),
                   addVerticalSpace(flyternSpaceLarge),
                   Row(
@@ -210,14 +161,7 @@ class _GuestBookingPageState extends State<GuestBookingPage> {
                           !flightBookingController
                               .isSmartPaymentCheckLoading.value) {
 
-                        if(checkIfEmailValid(emailController.value.text) == null ||
-                            checkIfMobileNumberValid(emailController.value.text) == null){
-                          FocusManager.instance.primaryFocus?.unfocus();
-                          showSnackbar(context, "couldnt_find_booking".tr, "error");
-                        }else{
-                          showSnackbar(context, "enter_contact_message".tr, "error");
-                        }
-
+                        showSnackbar(context, "couldnt_find_booking".tr, "error");
 
                       }
 
@@ -235,20 +179,4 @@ class _GuestBookingPageState extends State<GuestBookingPage> {
     );
   }
 
-  void openCountrySelector() {
-    showModalBottomSheet(
-        useSafeArea: false,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(flyternBorderRadiusSmall),
-              topRight: Radius.circular(flyternBorderRadiusSmall)),
-        ),
-        isScrollControlled: true,
-        context: context,
-        builder: (context) {
-          return CountrySelector(countrySelected: (Country? country) {
-            if (country != null) selectedCountry = country;
-          });
-        });
-  }
 }
