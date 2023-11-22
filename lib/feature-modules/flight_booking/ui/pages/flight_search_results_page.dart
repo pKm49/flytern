@@ -342,119 +342,126 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                 Visibility(
                   visible: flightBookingController.isModifySearchVisible.value,
                   child: Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(flyternSpaceLarge),
-                      height: flightBookingHelperServices
-                          .getFlightBookingContainerHeight(
-                              screenheight, flightBookingController),
-                      width: screenwidth,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(ASSETS_FLIGHTS_BG),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      child: Stack(
-                        children: [
-                          Column(
+                    child: ListView(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(flyternSpaceLarge),
+                          // height: flightBookingHelperServices
+                          //     .getFlightBookingContainerHeight(
+                          //         screenheight, flightBookingController),
+                          width: screenwidth,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(ASSETS_FLIGHTS_BG),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          child: Stack(
                             children: [
-                              Container(
-                                height: screenheight * .025,
-                                width: screenwidth,
-                              ),
-                              Container(
-                                height: flightBookingHelperServices
-                                        .getFlightBookingContainerHeight(
-                                            screenheight,
-                                            flightBookingController) -
-                                    (screenheight * .025) -
-                                    (flyternSpaceLarge * 2),
-                                decoration:
-                                    flyternShadowedContainerSmallDecoration,
-                                width: screenwidth - (flyternSpaceLarge * 2),
-                                padding: flyternMediumPaddingAll,
-                                child: Container(
-                                  margin: EdgeInsets.only(top: flyternSpaceLarge),
-                                  child: FlightBookingForm(
-                                    isRedirectionRequired: false,
-                                    flightBookingController:
-                                        flightBookingController,
+                              Column(
+                                children: [
+                                  Container(
+                                    height: screenheight * .025,
+                                    width: screenwidth,
                                   ),
-                                ),
+                                  Container(
+                                    // height: flightBookingHelperServices
+                                    //         .getFlightBookingContainerHeight(
+                                    //             screenheight,
+                                    //             flightBookingController) -
+                                    //     (screenheight * .025) -
+                                    //     (flyternSpaceLarge * 2),
+                                    decoration:
+                                        flyternShadowedContainerSmallDecoration,
+                                    width: screenwidth - (flyternSpaceLarge * 2),
+                                    padding: flyternMediumPaddingAll,
+                                    child: Container(
+                                      margin: EdgeInsets.only(top: flyternSpaceLarge),
+                                      child: FlightBookingForm(
+                                        isRedirectionRequired: false,
+                                        flightBookingController:
+                                            flightBookingController,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Container(
+                                      height: screenheight * .05,
+                                      width: screenwidth - (flyternSpaceLarge * 2),
+                                      padding: flyternMediumPaddingHorizontal,
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: FlightTypeTab(
+                                              onPressed: () {
+                                                flightBookingController
+                                                    .setFlightMode(FlightMode.ONEWAY);
+                                              },
+                                              icon: Ionicons.arrow_forward_outline,
+                                              label: 'one_way'.tr,
+                                              isSelected: flightBookingController
+                                                      .flightSearchData.value.mode ==
+                                                  FlightMode.ONEWAY,
+                                            ),
+                                          ),
+                                          addHorizontalSpace(flyternSpaceSmall),
+                                          Expanded(
+                                            child: FlightTypeTab(
+                                              onPressed: () {
+                                                flightBookingController.setFlightMode(
+                                                    FlightMode.ROUNDTRIP);
+                                              },
+                                              icon: Ionicons.swap_horizontal_outline,
+                                              label: 'round_trip'.tr,
+                                              isSelected: flightBookingController
+                                                      .flightSearchData.value.mode ==
+                                                  FlightMode.ROUNDTRIP,
+                                            ),
+                                          ),
+                                          addHorizontalSpace(flyternSpaceSmall),
+                                          Expanded(
+                                            child: FlightTypeTab(
+                                              onPressed: () {
+                                                flightBookingController.setFlightMode(
+                                                    FlightMode.MULTICITY);
+                                              },
+                                              icon: Ionicons.share_social_outline,
+                                              label: 'multi_city'.tr,
+                                              isSelected: flightBookingController
+                                                      .flightSearchData.value.mode ==
+                                                  FlightMode.MULTICITY,
+                                            ),
+                                          )
+                                        ],
+                                      )),
+                                  Container(
+                                    // height: flightBookingHelperServices
+                                    //         .getFlightBookingContainerHeight(
+                                    //             screenheight,
+                                    //             flightBookingController) -
+                                    //     (screenheight * .05) -
+                                    //     (flyternSpaceLarge * 2),
+                                    width: screenwidth - (flyternSpaceLarge * 2),
+                                  )
+                                ],
                               )
                             ],
                           ),
-                          Column(
-                            children: [
-                              Container(
-                                  height: screenheight * .05,
-                                  width: screenwidth - (flyternSpaceLarge * 2),
-                                  padding: flyternMediumPaddingHorizontal,
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: FlightTypeTab(
-                                          onPressed: () {
-                                            flightBookingController
-                                                .setFlightMode(FlightMode.ONEWAY);
-                                          },
-                                          icon: Ionicons.arrow_forward_outline,
-                                          label: 'one_way'.tr,
-                                          isSelected: flightBookingController
-                                                  .flightSearchData.value.mode ==
-                                              FlightMode.ONEWAY,
-                                        ),
-                                      ),
-                                      addHorizontalSpace(flyternSpaceSmall),
-                                      Expanded(
-                                        child: FlightTypeTab(
-                                          onPressed: () {
-                                            flightBookingController.setFlightMode(
-                                                FlightMode.ROUNDTRIP);
-                                          },
-                                          icon: Ionicons.swap_horizontal_outline,
-                                          label: 'round_trip'.tr,
-                                          isSelected: flightBookingController
-                                                  .flightSearchData.value.mode ==
-                                              FlightMode.ROUNDTRIP,
-                                        ),
-                                      ),
-                                      addHorizontalSpace(flyternSpaceSmall),
-                                      Expanded(
-                                        child: FlightTypeTab(
-                                          onPressed: () {
-                                            flightBookingController.setFlightMode(
-                                                FlightMode.MULTICITY);
-                                          },
-                                          icon: Ionicons.share_social_outline,
-                                          label: 'multi_city'.tr,
-                                          isSelected: flightBookingController
-                                                  .flightSearchData.value.mode ==
-                                              FlightMode.MULTICITY,
-                                        ),
-                                      )
-                                    ],
-                                  )),
-                              Container(
-                                height: flightBookingHelperServices
-                                        .getFlightBookingContainerHeight(
-                                            screenheight,
-                                            flightBookingController) -
-                                    (screenheight * .05) -
-                                    (flyternSpaceLarge * 2),
-                                width: screenwidth - (flyternSpaceLarge * 2),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                Container(
-                  height: flyternSpaceLarge,
-                  width: screenwidth,
-                  color: flyternGrey10,
+                Visibility(
+                  visible: !flightBookingController.isModifySearchVisible.value,
+                  child: Container(
+                    height: flyternSpaceLarge,
+                    width: screenwidth,
+                    color: flyternGrey10,
+                  ),
                 )
               ],
             ),
