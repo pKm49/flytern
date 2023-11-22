@@ -199,9 +199,10 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                   onTap: () {
                                     if (childCount > 0) {
                                       setState(() {
-                                        if(widget.bookingServiceNumber==2){
-                                          childAges.removeAt(childCount--);
-                                        }
+                                        // if(widget.bookingServiceNumber==2){
+                                        //   childAges.removeAt(childCount--);
+                                        // }
+                                        childAges.removeAt(childCount--);
                                       });
                                     }
                                   },
@@ -219,7 +220,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                   onTap: () {
                                     setState(() {
                                       childCount++;
-                                      childAges.add(2);
+                                      childAges.add(childCount);
                                     });
                                   },
                                   child: Icon(CupertinoIcons.plus_square,
