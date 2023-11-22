@@ -202,7 +202,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                         // if(widget.bookingServiceNumber==2){
                                         //   childAges.removeAt(childCount--);
                                         // }
-                                        childAges.removeAt(childCount--);
+                                        childAges.removeAt(--childCount);
                                       });
                                     }
                                   },
