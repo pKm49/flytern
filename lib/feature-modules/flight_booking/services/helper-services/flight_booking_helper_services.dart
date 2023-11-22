@@ -24,7 +24,7 @@ class FlightBookingHelperServices {
 
   double getFlightBookingFormItemHeight(int length) {
     double extraSpace = (length - 1) * 10;
-    return (length * 220) + extraSpace;
+    return (length * 215) + extraSpace;
   }
 
   List<FlightSearchItem> getUpdatedSearchList(FlightSearchData flightSearchData,
