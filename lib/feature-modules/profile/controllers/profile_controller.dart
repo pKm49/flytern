@@ -3,7 +3,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flytern/core/controllers/core_controller.dart';
-import 'package:flytern/core/data/constants/business-specific/valid_languages.dart';
 import 'package:flytern/feature-modules/profile/controllers/copax_controller.dart';
 import 'package:flytern/feature-modules/profile/controllers/travel_story_controller.dart';
 import 'package:flytern/feature-modules/profile/data/enums/booking_categories.dart';
@@ -12,8 +11,6 @@ import 'package:flytern/feature-modules/profile/data/models/business-models/my_f
 import 'package:flytern/feature-modules/profile/data/models/business-models/my_hotel_booking.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/my_insurance_booking.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/my_package_booking.dart';
-import 'package:flytern/feature-modules/profile/data/models/business-models/user-copax.dart';
-import 'package:flytern/feature-modules/profile/data/models/business-models/user-travelstory.dart';
 import 'package:flytern/feature-modules/profile/services/http-services/profile_http.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
