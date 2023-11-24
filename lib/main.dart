@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flytern/core/controllers/core_controller.dart';
-import 'package:flytern/core/controllers/localization_controller.dart';
-import 'package:flytern/core/data/constants/app_routes.dart';
-import 'package:flytern/core/data/constants/ui-specific/theme_data.dart';
-import 'package:flytern/core/data/constants/ui-specific/theme_manager.dart';
+import 'package:flytern/core-module/controllers/core.controller.dart';
+import 'package:flytern/core-module/controllers/localization.core.controller.dart';
+import 'package:flytern/core-module/constants/app_routes.core.constant.dart';
+import 'package:flytern/core-module/constants/theme_data.core.constant.dart';
+import 'package:flytern/core-module/services/theme_manager.core.constant.dart';
 import 'package:flytern/feature-modules/auth/controllers/login_controller.dart';
 import 'package:flytern/feature-modules/auth/controllers/register_controller.dart';
 import 'package:flytern/feature-modules/auth/controllers/reset_password_controller.dart';

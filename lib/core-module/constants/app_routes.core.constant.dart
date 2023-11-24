@@ -1,11 +1,11 @@
-import 'package:flytern/core/ui/pages/drawer_pages/document_page.dart';
-import 'package:flytern/core/ui/pages/drawer_pages/guest_booking_page.dart';
-import 'package:flytern/core/ui/pages/drawer_pages/info_page.dart';
-import 'package:flytern/core/ui/pages/landing_page.dart';
-import 'package:flytern/core/ui/pages/language_selector.dart';
-import 'package:flytern/core/ui/pages/drawer_pages/settings_page.dart';
-import 'package:flytern/core/ui/pages/drawer_pages/smart_payment_page.dart';
-import 'package:flytern/core/ui/pages/notifications_page.dart';
+import 'package:flytern/core-module/ui/pages/drawer_pages/document_viewer.core.page.dart';
+import 'package:flytern/core-module/ui/pages/drawer_pages/guest_booking_finder.core.page.dart';
+import 'package:flytern/core-module/ui/pages/drawer_pages/flytern_info.core.page.dart';
+import 'package:flytern/core-module/ui/pages/app_landing.core.page.dart';
+import 'package:flytern/core-module/ui/pages/initial_language_country_selector.core.page.dart';
+import 'package:flytern/core-module/ui/pages/drawer_pages/app_settings.core.page.dart';
+import 'package:flytern/core-module/ui/pages/drawer_pages/smart_payment.core.page.dart';
+import 'package:flytern/core-module/ui/pages/notifications.core.page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activities_list_page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_confirmation_page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_summary_page.dart';
@@ -41,7 +41,6 @@ import 'package:flytern/feature-modules/insurance/ui/pages/insurance_booking_sum
 import 'package:flytern/feature-modules/insurance/ui/pages/insurance_landing_page.dart';
 import 'package:flytern/feature-modules/insurance/ui/pages/insurance_user_details_submission_page.dart';
 import 'package:flytern/feature-modules/package_booking/ui/pages/package_details_page.dart';
-import 'package:flytern/feature-modules/package_booking/ui/pages/package_user_details_submission_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_audit_copassenger_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_edit_pages/profile_edit_email_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_edit_pages/profile_edit_mobile_page.dart';

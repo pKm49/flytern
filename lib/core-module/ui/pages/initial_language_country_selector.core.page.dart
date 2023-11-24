@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/core/controllers/core_controller.dart';
+import 'package:flytern/core-module/controllers/core.controller.dart';
 import 'package:flytern/shared/controllers/shared_controller.dart';
 import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
 import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';

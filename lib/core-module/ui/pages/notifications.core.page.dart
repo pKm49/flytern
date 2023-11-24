@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/core/controllers/core_controller.dart';
+import 'package:flytern/core-module/controllers/core.controller.dart';
 import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
 import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
 import 'package:flytern/shared/services/utility-services/widget_generator.dart';

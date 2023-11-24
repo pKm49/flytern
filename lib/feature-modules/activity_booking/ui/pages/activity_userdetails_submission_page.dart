@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/core/data/constants/ui-specific/theme_data.dart';
+import 'package:flytern/core-module/constants/theme_data.core.constant.dart';
 import 'package:flytern/feature-modules/activity_booking/controllers/activity_booking_controller.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_traveller_info.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
