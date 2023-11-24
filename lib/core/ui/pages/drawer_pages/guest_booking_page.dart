@@ -124,16 +124,7 @@ class _GuestBookingPageState extends State<GuestBookingPage> {
                                 arguments: [true]  );
                           },
                           child: Text("sign_in".tr),
-                        )),
-                        addHorizontalSpace(flyternSpaceMedium),
-                        Expanded(child: OutlinedButton(
-                          onPressed: ()   {
-
-                            Get.toNamed(Approute_registerPersonalData,
-                                arguments: [true] );
-                          },
-                          child: Text("sign_up".tr),
-                        )),
+                        ))
                       ],
                     ),
                   ),
