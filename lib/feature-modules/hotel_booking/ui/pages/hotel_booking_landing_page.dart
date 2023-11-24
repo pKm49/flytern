@@ -473,7 +473,6 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                     child: Container(
                         margin: EdgeInsets.only(bottom: flyternSpaceMedium),
                         width: double.infinity,
-                        height: 50,
                         child: Wrap(
                           direction: Axis.horizontal,
                           children: [

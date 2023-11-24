@@ -585,7 +585,6 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
             child: Container(
                 margin: EdgeInsets.only(bottom: flyternSpaceMedium),
                 width: double.infinity,
-                height: 50,
                 child: Wrap(
                   direction: Axis.horizontal,
                   children: [
