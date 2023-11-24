@@ -89,10 +89,15 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                 color: flyternGrey80,
                                 fontWeight: flyternFontWeightBold),
                             textAlign: TextAlign.center),
-                        Text("cancel".tr,
-                            style: getHeadlineMediumStyle(context)
-                                .copyWith(color: flyternSecondaryColor),
-                            textAlign: TextAlign.center),
+                        InkWell(
+                          onTap: (){
+                            Navigator.pop(context);
+                          },
+                          child: Text("cancel".tr,
+                              style: getHeadlineMediumStyle(context)
+                                  .copyWith(color: flyternSecondaryColor),
+                              textAlign: TextAlign.center),
+                        ),
                       ],
                     ),
                   ),
