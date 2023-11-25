@@ -4,9 +4,9 @@ import 'package:flytern/core-module/ui/components/drawer_menu.core.component.dar
 import 'package:flytern/feature-modules/activity_booking/ui/pages/landing_page.activity_booking.page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/landing.flight_booking.page.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/landing.hotel_booking.page.dart';
-import 'package:flytern/feature-modules/package_booking/ui/pages/package_booking_landing_page.dart';
-import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
-import 'package:flytern/feature-modules/profile/ui/pages/profile_landing_page.dart';
+import 'package:flytern/feature-modules/packages/ui/pages/landing.packages.page.dart';
+import 'package:flytern/feature-modules/profile/controllers/profile.controller.dart';
+import 'package:flytern/feature-modules/profile/ui/pages/landing.profile.page.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:flytern/feature-modules/insurance/data/constants/app_specific/insurance_booking_http_request_endpoints.dart';
+import 'package:flytern/feature-modules/insurance/constants/http_request_endpoints.insurance.constant.dart';
 import 'package:http/http.dart' as httpForMultipart;
 import 'package:http_interceptor/http/http.dart';
 import 'package:flytern/config/env.dart' as env;

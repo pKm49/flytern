@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/activity_booking/controllers/activity_booking.controller.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/components/city_card.activity_booking.component.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/components/list_card.activity_booking.component.dart';
-import 'package:flytern/feature-modules/package_booking/ui/components/package_list_card.dart';
-import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
-import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
-import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
+  import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/models/general_item.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
-import 'package:flytern/shared-module/ui/components/dropdown_selector.shared.component.dart';
+ import 'package:flytern/shared-module/ui/components/dropdown_selector.shared.component.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 

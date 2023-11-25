@@ -5,8 +5,8 @@ import 'package:flytern/feature-modules/activity_booking/models/traveller_info.a
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
 import 'package:flytern/feature-modules/flight_booking/models/traveller_info.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/userdetails_submission_form.flight_booking.component.dart';
-import 'package:flytern/feature-modules/profile/controllers/copax_controller.dart';
-import 'package:flytern/feature-modules/profile/data/models/business-models/user-copax.dart';
+import 'package:flytern/feature-modules/profile/controllers/copax.profile.controller.dart';
+import 'package:flytern/feature-modules/profile/models/user-copax.profile.model.dart';
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
