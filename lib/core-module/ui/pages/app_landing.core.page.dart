@@ -7,12 +7,12 @@ import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_booking_lan
 import 'package:flytern/feature-modules/package_booking/ui/pages/package_booking_landing_page.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_landing_page.dart';
-import 'package:flytern/shared-module/data/constants/app_specific/app_route_names.dart';
-import 'package:flytern/shared-module/data/constants/ui_constants/asset_urls.dart';
-import 'package:flytern/shared-module/data/constants/ui_constants/style_params.dart';
-import 'package:flytern/shared-module/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
+import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
+import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
+import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/services/delegates/custom_search_delegate.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_generator.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:get/get.dart';
 
 class CoreLandingPage extends StatefulWidget {

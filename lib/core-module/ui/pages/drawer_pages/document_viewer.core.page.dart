@@ -1,17 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flytern/shared-module/controllers/shared_controller.dart';
-import 'package:flytern/shared-module/data/constants/app_specific/app_route_names.dart';
-import 'package:flytern/shared-module/data/constants/ui_constants/style_params.dart';
-import 'package:flytern/shared-module/data/constants/ui_constants/widget_styles.dart';
-import 'package:flytern/shared-module/data/enums/info_types.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_generator.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.dart';
-import 'package:flytern/shared-module/ui/components/confirm_dialogue.dart';
-import 'package:flytern/shared-module/ui/components/preposticon_button.dart';
+import 'package:flytern/shared-module/controllers/shared.controller.dart';
+import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
+import 'package:flytern/shared-module/constants/business_specific/info_types.shared.constant.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 

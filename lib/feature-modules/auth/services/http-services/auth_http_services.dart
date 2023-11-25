@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:flytern/feature-modules/auth/data/constants/app_specific/auth_http_request_endpoints.dart';
-import 'package:flytern/feature-modules/auth/data/models/business_models/login_credential.dart';
-import 'package:flytern/feature-modules/auth/data/models/business_models/register_credential.dart';
-import 'package:flytern/shared-module/data/models/app_specific/flytern_http_response.dart';
-import 'package:flytern/shared-module/data/models/business_models/auth_token.dart';
-import 'package:flytern/shared-module/services/http-services/http_request_handler.dart';
+import 'package:flytern/feature-modules/auth/data/models/login_credential.dart';
+import 'package:flytern/feature-modules/auth/data/models/register_credential.dart';
+import 'package:flytern/shared-module/models/flytern_http_response.dart';
+import 'package:flytern/shared-module/models/auth_token.dart';
+import 'package:flytern/shared-module/services/http-services/http_request_handler.shared.service.dart';
 
 class AuthHttpService {
   Future<AuthToken> login(LoginCredential loginCredential) async {

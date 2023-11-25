@@ -1,7 +1,7 @@
 import 'package:flytern/feature-modules/package_booking/data/models/package_data.dart';
-import 'package:flytern/shared-module/data/models/business_models/country.dart';
+import 'package:flytern/shared-module/models/country.dart';
 
-import '../../../flight_booking/data/models/business_models/cabin_class.dart';
+import '../../../flight_booking/data/models/cabin_class.dart';
 
 class PackageResponse {
 

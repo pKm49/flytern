@@ -3,11 +3,11 @@ import 'package:flytern/feature-modules/flight_booking/ui/components/flight_sear
 import 'package:flytern/feature-modules/hotel_booking/ui/components/hote_search_result_card.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/my_insurance_booking.dart';
-import 'package:flytern/shared-module/data/constants/ui_constants/style_params.dart';
-import 'package:flytern/shared-module/data/constants/ui_constants/widget_styles.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_generator.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.dart';
-import 'package:flytern/shared-module/ui/components/data_capsule_card.dart';
+import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
+import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
+import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
 import 'package:get/get.dart';
 
 class ProfileInsurancePurchaseList extends StatefulWidget {

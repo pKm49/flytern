@@ -3,9 +3,9 @@ import 'package:flytern/feature-modules/profile/data/constants/app-specific/prof
 import 'package:flytern/feature-modules/profile/data/models/business-models/my_booking_response.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/user-copax.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/user-travelstory.dart';
-import 'package:flytern/shared-module/data/models/app_specific/flytern_http_response.dart';
-import 'package:flytern/shared-module/data/models/business_models/user_details.dart';
-import 'package:flytern/shared-module/services/http-services/http_request_handler.dart';
+import 'package:flytern/shared-module/models/flytern_http_response.dart';
+import 'package:flytern/shared-module/models/user_details.dart';
+import 'package:flytern/shared-module/services/http-services/http_request_handler.shared.service.dart';
 
 class ProfileHttpServices{
 

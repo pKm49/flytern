@@ -20,7 +20,7 @@ import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_more_opti
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_userdetails_submission_page.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_userdetails_submission_page.dart';
 import 'package:flytern/feature-modules/package_booking/ui/pages/package_booking_confirmation_page.dart';
-import 'package:flytern/shared-module/ui/pages/otp_input.dart';
+import 'package:flytern/shared-module/ui/pages/otp_input.shared.page.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/register/register_details_input.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_credentials.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_new_password.dart';
@@ -51,9 +51,9 @@ import 'package:flytern/feature-modules/profile/ui/pages/profile_my_travel_stori
 import 'package:flytern/feature-modules/profile/ui/pages/profile_new_travel_story_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_edit_pages/profile_reset_password_page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/profile_view_profile_page.dart';
-import 'package:flytern/shared-module/ui/pages/payment_gateway_webview.dart';
-import 'package:flytern/shared-module/ui/pages/userdetails_submission_page.dart';
-import 'package:flytern/shared-module/data/constants/app_specific/app_route_names.dart';
+import 'package:flytern/shared-module/ui/pages/payment_gateway_webview.shared.page.dart';
+import 'package:flytern/shared-module/ui/pages/userdetails_submission_page.shared.page.dart';
+import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:get/get.dart';
 
 getAppRoutes() => [

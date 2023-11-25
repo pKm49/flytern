@@ -2,9 +2,9 @@ import 'package:flytern/feature-modules/activity_booking/data/models/activity_da
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_details.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_option.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_transfer_type.dart';
-import 'package:flytern/shared-module/data/models/business_models/country.dart';
-import 'package:flytern/shared-module/data/models/business_models/range_dcs.dart';
-import 'package:flytern/shared-module/data/models/business_models/sorting_dcs.dart';
+import 'package:flytern/shared-module/models/country.dart';
+import 'package:flytern/shared-module/models/range_dcs.dart';
+import 'package:flytern/shared-module/models/sorting_dcs.dart';
 
 class ActivityDetailsResponse {
 

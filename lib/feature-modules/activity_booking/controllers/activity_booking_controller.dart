@@ -14,15 +14,15 @@ import 'package:flytern/feature-modules/activity_booking/data/models/activity_tr
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_traveller_info.dart';
 import 'package:flytern/feature-modules/activity_booking/data/models/destination_response.dart';
 import 'package:flytern/feature-modules/activity_booking/services/http-services/activity_booking_http_services.dart';
-import 'package:flytern/shared-module/data/constants/app_specific/app_route_names.dart';
-import 'package:flytern/shared-module/data/constants/app_specific/default_values.dart';
-import 'package:flytern/shared-module/data/models/business_models/country.dart';
-import 'package:flytern/shared-module/data/models/business_models/payment_confirmation_data.dart';
-import 'package:flytern/shared-module/data/models/business_models/payment_gateway.dart';
-import 'package:flytern/shared-module/data/models/business_models/payment_gateway_url_data.dart';
-import 'package:flytern/shared-module/data/models/business_models/range_dcs.dart';
-import 'package:flytern/shared-module/data/models/business_models/sorting_dcs.dart';
-import 'package:flytern/shared-module/services/utility-services/snackbar_shower.dart';
+import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
+import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
+import 'package:flytern/shared-module/models/country.dart';
+import 'package:flytern/shared-module/models/payment_confirmation_data.dart';
+import 'package:flytern/shared-module/models/payment_gateway.dart';
+import 'package:flytern/shared-module/models/payment_gateway_url_data.dart';
+import 'package:flytern/shared-module/models/range_dcs.dart';
+import 'package:flytern/shared-module/models/sorting_dcs.dart';
+import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
 import 'package:get/get.dart';
 
 class ActivityBookingController extends GetxController {

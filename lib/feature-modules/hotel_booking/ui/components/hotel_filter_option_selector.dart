@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/hotel_booking/data/enums/hotel_filter_options.dart';
-import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_search_result.dart';
-import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_search_result.dart';
-import 'package:flytern/shared-module/data/models/business_models/range_dcs.dart';
- import 'package:flytern/shared-module/data/models/business_models/sorting_dcs.dart';
-import 'package:flytern/shared-module/data/constants/ui_constants/style_params.dart';
-import 'package:flytern/shared-module/data/constants/ui_constants/widget_styles.dart';
-import 'package:flytern/shared-module/services/utility-services/element_style_helpers.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_generator.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.dart';
-import 'package:flytern/shared-module/ui/components/selectable_text_pill.dart';
+import 'package:flytern/feature-modules/hotel_booking/data/models/hotel_search_result.dart';
+import 'package:flytern/feature-modules/hotel_booking/data/models/hotel_search_result.dart';
+import 'package:flytern/shared-module/models/range_dcs.dart';
+ import 'package:flytern/shared-module/models/sorting_dcs.dart';
+import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
+import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
+import 'package:flytern/shared-module/services/utility-services/element_style_helper.shared.service.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
+import 'package:flytern/shared-module/ui/components/selectable_text_pill.shared.component.dart';
 import 'package:get/get.dart';
 
 class HotelFilterOptionSelector extends StatefulWidget {

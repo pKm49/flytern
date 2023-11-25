@@ -1,11 +1,11 @@
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
 import 'package:flytern/feature-modules/flight_booking/data/constants/business_specific/flight_mode.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/cabin_class.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_allowed_cabin.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_data.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_item.dart';
-import 'package:flytern/shared-module/data/constants/ui_constants/style_params.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/cabin_class.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/flight_allowed_cabin.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/flight_destination.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/flight_search_data.dart';
+import 'package:flytern/feature-modules/flight_booking/data/models/flight_search_item.dart';
+import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:get/get.dart';
 
 class FlightBookingHelperServices {

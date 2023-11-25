@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/auth/controllers/reset_password_controller.dart';
-import 'package:flytern/shared-module/data/constants/app_specific/app_route_names.dart';
-import 'package:flytern/shared-module/data/constants/ui_constants/style_params.dart';
-import 'package:flytern/shared-module/data/constants/ui_constants/widget_styles.dart';
-import 'package:flytern/shared-module/services/utility-services/form_validator.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_generator.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
+import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
+import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
+import 'package:flytern/shared-module/services/utility-services/form_validator.shared.service.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 

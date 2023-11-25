@@ -3,9 +3,9 @@ import 'package:flytern/feature-modules/package_booking/data/models/package_deta
 import 'package:flytern/feature-modules/package_booking/data/models/package_response.dart';
 import 'package:flytern/feature-modules/package_booking/data/models/package_submission_data.dart';
 import 'package:flytern/feature-modules/package_booking/services/http-services/package_booking_http_services.dart';
-import 'package:flytern/shared-module/data/constants/app_specific/app_route_names.dart';
-import 'package:flytern/shared-module/data/models/business_models/country.dart';
-import 'package:flytern/shared-module/services/utility-services/snackbar_shower.dart';
+import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
+import 'package:flytern/shared-module/models/country.dart';
+import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
 import 'package:get/get.dart';
 
 class PackageBookingController extends GetxController {

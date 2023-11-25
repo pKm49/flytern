@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/auth/services/http-services/auth_http_services.dart';
-import 'package:flytern/shared-module/data/constants/app_specific/app_route_names.dart';
-import 'package:flytern/shared-module/data/models/business_models/auth_token.dart';
-import 'package:flytern/shared-module/data/models/business_models/country.dart';
-import 'package:flytern/shared-module/services/utility-services/shared_preference_handler.dart';
-import 'package:flytern/shared-module/services/utility-services/snackbar_shower.dart';
+import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
+import 'package:flytern/shared-module/models/auth_token.dart';
+import 'package:flytern/shared-module/models/country.dart';
+import 'package:flytern/shared-module/services/utility-services/local_storage_handler.shared.service.dart';
+import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
 import 'package:get/get.dart';
 
 class ResetPasswordController extends GetxController {

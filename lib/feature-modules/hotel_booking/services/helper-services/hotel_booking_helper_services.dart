@@ -1,7 +1,7 @@
 import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking_controller.dart';
-import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_destination.dart';
-import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_search_data.dart';
-import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_search_item_room_data.dart';
+import 'package:flytern/feature-modules/hotel_booking/data/models/hotel_destination.dart';
+import 'package:flytern/feature-modules/hotel_booking/data/models/hotel_search_data.dart';
+import 'package:flytern/feature-modules/hotel_booking/data/models/hotel_search_item_room_data.dart';
 import 'package:get/get.dart';
 
 class HotelBookingHelperServices {

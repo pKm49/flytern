@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flytern/core-module/constants/http_request_endpoints.core.constant.dart';
 import 'package:flytern/core-module/models/notification.core.model.dart';
-import 'package:flytern/shared-module/data/models/business_models/auth_token.dart';
-import 'package:flytern/shared-module/data/models/app_specific/flytern_http_response.dart';
-import 'package:flytern/shared-module/services/http-services/http_request_handler.dart';
+import 'package:flytern/shared-module/models/auth_token.dart';
+import 'package:flytern/shared-module/models/flytern_http_response.dart';
+import 'package:flytern/shared-module/services/http-services/http_request_handler.shared.service.dart';
 
 class CoreHttpServices{
 
