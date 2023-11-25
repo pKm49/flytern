@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:flytern/feature-modules/auth/data/constants/app_specific/auth_http_request_endpoints.dart';
-import 'package:flytern/feature-modules/auth/data/models/login_credential.dart';
-import 'package:flytern/feature-modules/auth/data/models/register_credential.dart';
+import 'package:flytern/feature-modules/auth/constants/http_request_endpoints.auth.constant.dart';
+import 'package:flytern/feature-modules/auth/models/login_credential.auth.model.dart';
+import 'package:flytern/feature-modules/auth/models/register_credential.auth.model.dart';
 import 'package:flytern/shared-module/models/flytern_http_response.dart';
 import 'package:flytern/shared-module/models/auth_token.dart';
 import 'package:flytern/shared-module/services/http-services/http_request_handler.shared.service.dart';

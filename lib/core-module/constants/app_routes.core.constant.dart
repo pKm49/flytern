@@ -11,8 +11,8 @@ import 'package:flytern/feature-modules/activity_booking/ui/pages/booking_confir
 import 'package:flytern/feature-modules/activity_booking/ui/pages/booking_summary_page.activity_booking.page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/details_page.activity_booking.page.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/userdetails_submission.activity_booking.page.dart';
-import 'package:flytern/feature-modules/auth/ui/pages/auth_selector.dart';
-import 'package:flytern/feature-modules/auth/ui/pages/login.dart';
+import 'package:flytern/feature-modules/auth/ui/pages/auth_selector.auth.page.dart';
+import 'package:flytern/feature-modules/auth/ui/pages/login.auth.page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/explore_section/all_popular_destinations_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/explore_section/all_recommended_items_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/explore_section/all_travel_stories_page.dart';
@@ -21,9 +21,9 @@ import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_userdetai
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_userdetails_submission_page.dart';
 import 'package:flytern/feature-modules/package_booking/ui/pages/package_booking_confirmation_page.dart';
 import 'package:flytern/shared-module/ui/pages/otp_input.shared.page.dart';
-import 'package:flytern/feature-modules/auth/ui/pages/register/register_details_input.dart';
-import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_credentials.dart';
-import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_new_password.dart';
+import 'package:flytern/feature-modules/auth/ui/pages/register.auth.page.dart';
+import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_credentials.auth.page.dart';
+import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_new_password.auth.page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_addon_services_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_baggage_selection_page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_booking_confirmation_page.dart';

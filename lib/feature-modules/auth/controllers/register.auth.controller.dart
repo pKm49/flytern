@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/auth/data/models/register_credential.dart';
-import 'package:flytern/feature-modules/auth/services/http-services/auth_http_services.dart';
+import 'package:flytern/feature-modules/auth/models/register_credential.auth.model.dart';
+import 'package:flytern/feature-modules/auth/services/http.auth.service.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/models/auth_token.dart';
 import 'package:flytern/shared-module/models/country.dart';

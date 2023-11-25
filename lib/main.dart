@@ -5,9 +5,9 @@ import 'package:flytern/core-module/controllers/localization.core.controller.dar
 import 'package:flytern/core-module/constants/app_routes.core.constant.dart';
 import 'package:flytern/core-module/constants/theme_data.core.constant.dart';
 import 'package:flytern/core-module/services/theme_manager.core.constant.dart';
-import 'package:flytern/feature-modules/auth/controllers/login_controller.dart';
-import 'package:flytern/feature-modules/auth/controllers/register_controller.dart';
-import 'package:flytern/feature-modules/auth/controllers/reset_password_controller.dart';
+import 'package:flytern/feature-modules/auth/controllers/login.auth.controller.dart';
+import 'package:flytern/feature-modules/auth/controllers/register.auth.controller.dart';
+import 'package:flytern/feature-modules/auth/controllers/reset_password.auth.controller.dart';
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:get/get.dart';

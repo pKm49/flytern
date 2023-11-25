@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/auth/controllers/login_controller.dart';
-import 'package:flytern/feature-modules/auth/controllers/register_controller.dart';
-import 'package:flytern/feature-modules/auth/controllers/reset_password_controller.dart';
+import 'package:flytern/feature-modules/auth/controllers/login.auth.controller.dart';
+import 'package:flytern/feature-modules/auth/controllers/register.auth.controller.dart';
+import 'package:flytern/feature-modules/auth/controllers/reset_password.auth.controller.dart';
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
