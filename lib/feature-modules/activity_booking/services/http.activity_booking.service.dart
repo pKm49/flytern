@@ -10,7 +10,7 @@ import 'package:flytern/feature-modules/activity_booking/models/submission_data.
 import 'package:flytern/feature-modules/activity_booking/models/timing_option.activity_booking.model.dart';
 import 'package:flytern/feature-modules/activity_booking/models/transfer_type.activity_booking.model.dart';
 import 'package:flytern/feature-modules/activity_booking/models/destination_response.dart';
-import 'package:flytern/feature-modules/flight_booking/data/constants/app_specific/flight_booking_http_request_endpoints.dart';
+import 'package:flytern/feature-modules/flight_booking/constants/http_request_endpoint.flight_booking.constant.dart';
 import 'package:flytern/feature-modules/package_booking/data/constants/app_specific/package_booking_http_request_endpoints.dart';
 import 'package:flytern/feature-modules/package_booking/data/models/package_details.dart';
 import 'package:flytern/feature-modules/package_booking/data/models/package_response.dart';

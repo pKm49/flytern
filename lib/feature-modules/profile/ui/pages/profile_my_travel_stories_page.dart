@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.flight_booking.component.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
 import 'package:flytern/feature-modules/profile/controllers/travel_story_controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';

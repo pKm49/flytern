@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart'; 
-import 'package:flytern/feature-modules/flight_booking/data/models/traveller_info.dart';
+import 'package:flytern/feature-modules/flight_booking/models/traveller_info.flight_booking.model.dart';
 import 'package:flytern/feature-modules/insurance/controllers/insurance_controller.dart';
 import 'package:flytern/feature-modules/insurance/data/models/insurance_traveller_info.dart';
 import 'package:flytern/feature-modules/profile/controllers/copax_controller.dart';

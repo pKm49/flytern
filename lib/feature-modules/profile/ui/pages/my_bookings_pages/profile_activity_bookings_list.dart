@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/components/list_card.activity_booking.component.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/flight_search_result_card.dart';
-import 'package:flytern/feature-modules/hotel_booking/ui/components/hote_search_result_card.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/search_result_card.flight_booking.component.dart';
+import 'package:flytern/feature-modules/hotel_booking/ui/components/search_result_card.hotel_booking.component.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
 import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';

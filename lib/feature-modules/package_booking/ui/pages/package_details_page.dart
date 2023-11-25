@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_itinerary_card.dart';
-import 'package:flytern/feature-modules/hotel_booking/ui/components/hote_search_result_card.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/details_itinerary_card.flight_booking.component.dart';
+import 'package:flytern/feature-modules/hotel_booking/ui/components/search_result_card.hotel_booking.component.dart';
 import 'package:flytern/feature-modules/package_booking/controllers/package_booking_controller.dart';
 import 'package:flytern/feature-modules/package_booking/data/models/package_details.dart';
 import 'package:flytern/feature-modules/package_booking/ui/components/package_list_card.dart';

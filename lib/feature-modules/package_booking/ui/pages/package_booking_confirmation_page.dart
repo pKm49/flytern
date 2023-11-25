@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/components/list_card.activity_booking.component.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/flight_airport_lable_card.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_summary_card.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/airport_lable_card.flight_booking.component.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/booking_summary_card.flight_booking.component.dart';
 import 'package:flytern/feature-modules/package_booking/controllers/package_booking_controller.dart';
 import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/user_details_card.shared.component.dart';
-import 'package:flytern/feature-modules/hotel_booking/ui/components/hote_search_result_card.dart';
+import 'package:flytern/feature-modules/hotel_booking/ui/components/search_result_card.hotel_booking.component.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';

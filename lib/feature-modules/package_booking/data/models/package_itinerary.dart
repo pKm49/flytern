@@ -1,7 +1,4 @@
-import 'package:flytern/feature-modules/package_booking/data/models/package_data.dart';
-import 'package:flytern/shared-module/models/country.dart';
 
-import '../../../flight_booking/data/models/cabin_class.dart';
 
 class PackageItinerary {
   final String day;

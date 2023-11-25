@@ -1,5 +1,5 @@
-import 'package:flytern/feature-modules/flight_booking/data/models/explore_data.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/flight_traveller_data.dart';
+import 'package:flytern/feature-modules/flight_booking/models/explore_data.flight_booking.model.dart';
+import 'package:flytern/feature-modules/flight_booking/models/traveller_data.flight_booking.model.dart';
 import 'package:flytern/feature-modules/insurance/data/constants/app_specific/insurance_booking_http_request_endpoints.dart';
 import 'package:flytern/feature-modules/insurance/data/models/insurance_initial_data.dart';
 import 'package:flytern/feature-modules/insurance/data/models/insurance_price_data.dart';

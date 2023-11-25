@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/core-module/constants/theme_data.core.constant.dart';
-import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/traveller_info.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/flight_userdetails_submission_form.dart';
+import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
+import 'package:flytern/feature-modules/flight_booking/models/traveller_info.flight_booking.model.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/userdetails_submission_form.flight_booking.component.dart';
 import 'package:flytern/feature-modules/insurance/controllers/insurance_controller.dart';
 import 'package:flytern/feature-modules/insurance/data/models/insurance_traveller_info.dart';
 import 'package:flytern/feature-modules/insurance/ui/components/insurance_userdetails_submission_form.dart';

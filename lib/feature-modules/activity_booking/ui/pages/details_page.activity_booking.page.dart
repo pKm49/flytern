@@ -4,8 +4,8 @@ import 'package:flytern/feature-modules/activity_booking/controllers/activity_bo
 import 'package:flytern/feature-modules/activity_booking/models/option.activity_booking.model.dart';
 import 'package:flytern/feature-modules/activity_booking/models/transfer_type.activity_booking.model.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/components/option_info.activity_booking.component.dart';
-import 'package:flytern/feature-modules/flight_booking/data/models/cabin_class.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.dart';
+import 'package:flytern/feature-modules/flight_booking/models/cabin_class.flight_booking.model.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.flight_booking.component.dart';
 import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
 import 'package:flytern/shared-module/models/general_item.dart';
 import 'package:flytern/shared-module/ui/components/booking_options_selector.shared.component.dart';
@@ -13,8 +13,8 @@ import 'package:flytern/shared-module/ui/components/contact_details_getter.share
 import 'package:flytern/shared-module/ui/components/custom_date_picker.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/custom_media_carousel.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_addon_service_card.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/flight_details_itinerary_card.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/details_addon_service_card.flight_booking.component.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/components/details_itinerary_card.flight_booking.component.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
