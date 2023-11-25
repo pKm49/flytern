@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_item_card.dart';
-import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
-import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
-import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
-import 'package:flytern/shared/services/utility-services/widget_generator.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/asset_urls.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/style_params.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_generator.dart';
 import 'package:shimmer/shimmer.dart';
 
 class RecommendedForYouLoader extends StatelessWidget {

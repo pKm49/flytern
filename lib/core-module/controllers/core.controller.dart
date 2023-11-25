@@ -1,10 +1,10 @@
 
 import 'package:flytern/core-module/models/notification.core.model.dart';
-import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
-import 'package:flytern/shared/data/models/business_models/auth_token.dart';
+import 'package:flytern/shared-module/data/constants/app_specific/app_route_names.dart';
+import 'package:flytern/shared-module/data/models/business_models/auth_token.dart';
 import 'package:flytern/core-module/services/http.core.service.dart';
-import 'package:flytern/shared/controllers/shared_controller.dart';
-import 'package:flytern/shared/services/utility-services/shared_preference_handler.dart';
+import 'package:flytern/shared-module/controllers/shared_controller.dart';
+import 'package:flytern/shared-module/services/utility-services/shared_preference_handler.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

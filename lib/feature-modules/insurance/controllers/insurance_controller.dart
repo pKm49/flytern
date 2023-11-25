@@ -5,14 +5,14 @@ import 'package:flytern/feature-modules/insurance/data/models/insurance_price_ge
 import 'package:flytern/feature-modules/insurance/data/models/insurance_traveller_data.dart';
 import 'package:flytern/feature-modules/insurance/data/models/insurance_traveller_info.dart';
 import 'package:flytern/feature-modules/insurance/services/http-services/insurance_booking_http_services.dart';
-import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
-import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
-import 'package:flytern/shared/data/models/business_models/general_item.dart';
-import 'package:flytern/shared/data/models/business_models/payment_confirmation_data.dart';
-import 'package:flytern/shared/data/models/business_models/payment_gateway.dart';
-import 'package:flytern/shared/data/models/business_models/payment_gateway_url_data.dart';
+import 'package:flytern/shared-module/data/constants/app_specific/app_route_names.dart';
+import 'package:flytern/shared-module/data/constants/app_specific/default_values.dart';
+import 'package:flytern/shared-module/data/models/business_models/general_item.dart';
+import 'package:flytern/shared-module/data/models/business_models/payment_confirmation_data.dart';
+import 'package:flytern/shared-module/data/models/business_models/payment_gateway.dart';
+import 'package:flytern/shared-module/data/models/business_models/payment_gateway_url_data.dart';
 
-import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
+import 'package:flytern/shared-module/services/utility-services/snackbar_shower.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 

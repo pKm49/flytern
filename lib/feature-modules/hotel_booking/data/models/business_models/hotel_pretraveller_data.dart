@@ -1,6 +1,6 @@
-import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
-import 'package:flytern/shared/data/models/business_models/country.dart';
-import 'package:flytern/shared/data/models/business_models/gender.dart';
+import 'package:flytern/shared-module/data/constants/app_specific/default_values.dart';
+import 'package:flytern/shared-module/data/models/business_models/country.dart';
+import 'package:flytern/shared-module/data/models/business_models/gender.dart';
 
 class HotelPretravellerData {
 

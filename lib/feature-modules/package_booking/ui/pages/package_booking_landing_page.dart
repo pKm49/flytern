@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/package_booking/controllers/package_booking_controller.dart';
 import 'package:flytern/feature-modules/package_booking/ui/components/package_list_card.dart';
 import 'package:flytern/feature-modules/package_booking/ui/components/package_list_card_loader.dart';
-import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
-import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
-import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
-import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
-import 'package:flytern/shared/data/models/business_models/general_item.dart';
-import 'package:flytern/shared/ui/components/dropdown_selector.dart';
+import 'package:flytern/shared-module/data/constants/app_specific/app_route_names.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/asset_urls.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/style_params.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared-module/data/models/business_models/general_item.dart';
+import 'package:flytern/shared-module/ui/components/dropdown_selector.dart';
 import 'package:get/get.dart';
 
 class PackageBookingLandingPage extends StatefulWidget {

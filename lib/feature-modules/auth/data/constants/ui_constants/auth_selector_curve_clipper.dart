@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/style_params.dart';
 
 class AuthSelectorCurveClipper extends CustomPainter {
   @override

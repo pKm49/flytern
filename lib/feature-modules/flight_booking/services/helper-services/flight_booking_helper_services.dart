@@ -5,7 +5,7 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_item.dart';
-import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/style_params.dart';
 import 'package:get/get.dart';
 
 class FlightBookingHelperServices {

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking_controller.dart';
 import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_search_response.dart';
-import 'package:flytern/shared/ui/components/user_details_card.dart';
+import 'package:flytern/shared-module/ui/components/user_details_card.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/components/hote_search_result_card.dart';
-import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
-import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
-import 'package:flytern/shared/services/utility-services/widget_generator.dart';
-import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/style_params.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_generator.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';

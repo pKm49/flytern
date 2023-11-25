@@ -32,18 +32,18 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/get_gateway_data.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/popular_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/recommended_package.dart';
-import 'package:flytern/shared/data/models/business_models/range_dcs.dart';
-import 'package:flytern/shared/data/models/business_models/sorting_dcs.dart';
+import 'package:flytern/shared-module/data/models/business_models/range_dcs.dart';
+import 'package:flytern/shared-module/data/models/business_models/sorting_dcs.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/travel_story.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/traveller_info.dart';
 import 'package:flytern/feature-modules/flight_booking/services/helper-services/flight_booking_helper_services.dart';
 import 'package:flytern/feature-modules/flight_booking/services/http-services/flight_booking_http_services.dart';
-import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
-import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
-import 'package:flytern/shared/data/models/business_models/payment_confirmation_data.dart';
-import 'package:flytern/shared/data/models/business_models/payment_gateway.dart';
-import 'package:flytern/shared/data/models/business_models/payment_gateway_url_data.dart';
-import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
+import 'package:flytern/shared-module/data/constants/app_specific/app_route_names.dart';
+import 'package:flytern/shared-module/data/constants/app_specific/default_values.dart';
+import 'package:flytern/shared-module/data/models/business_models/payment_confirmation_data.dart';
+import 'package:flytern/shared-module/data/models/business_models/payment_gateway.dart';
+import 'package:flytern/shared-module/data/models/business_models/payment_gateway_url_data.dart';
+import 'package:flytern/shared-module/services/utility-services/snackbar_shower.dart';
 import 'package:get/get.dart';
 
 part 'flight_booking_controller_setter.dart';

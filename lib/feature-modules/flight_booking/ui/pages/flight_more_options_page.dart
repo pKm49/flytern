@@ -4,12 +4,12 @@ import 'package:flytern/feature-modules/flight_booking/controllers/flight_bookin
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_item.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_search_result_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_search_result_card_loader.dart';
-import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
-import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
-import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
-import 'package:flytern/shared/services/utility-services/widget_generator.dart';
-import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
-import 'package:flytern/shared/ui/components/data_capsule_card.dart';
+import 'package:flytern/shared-module/data/constants/app_specific/app_route_names.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/style_params.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_generator.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared-module/ui/components/data_capsule_card.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_search_result_card.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/components/hote_search_result_card.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
-import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
-import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
-import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
-import 'package:flytern/shared/services/utility-services/widget_generator.dart';
-import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
-import 'package:flytern/shared/ui/components/data_capsule_card.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/asset_urls.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/style_params.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_generator.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared-module/ui/components/data_capsule_card.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 

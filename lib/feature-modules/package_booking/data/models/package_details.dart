@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flytern/feature-modules/package_booking/data/models/package_data.dart';
 import 'package:flytern/feature-modules/package_booking/data/models/package_itinerary.dart';
-import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
+import 'package:flytern/shared-module/data/constants/app_specific/default_values.dart';
 
 class PackageDetails extends PackageData {
   final String headerimage;

@@ -11,13 +11,13 @@ import 'package:flytern/feature-modules/flight_booking/ui/components/explore_sec
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_booking_form.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type_tab.dart';
 import 'package:flytern/feature-modules/package_booking/controllers/package_booking_controller.dart';
-import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
-import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
-import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
-import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
-import 'package:flytern/shared/services/utility-services/widget_generator.dart';
-import 'package:flytern/shared/ui/components/section_title/section_title_container.dart';
-import 'package:flytern/shared/ui/components/section_title/section_title_container_loader.dart';
+import 'package:flytern/shared-module/data/constants/app_specific/app_route_names.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/asset_urls.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/style_params.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_generator.dart';
+import 'package:flytern/shared-module/ui/components/section_title/section_title_container.dart';
+import 'package:flytern/shared-module/ui/components/section_title/section_title_container_loader.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 

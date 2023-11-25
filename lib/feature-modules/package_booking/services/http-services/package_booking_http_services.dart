@@ -3,8 +3,8 @@ import 'package:flytern/feature-modules/package_booking/data/constants/app_speci
 import 'package:flytern/feature-modules/package_booking/data/models/package_details.dart';
 import 'package:flytern/feature-modules/package_booking/data/models/package_response.dart';
 import 'package:flytern/feature-modules/package_booking/data/models/package_submission_data.dart';
-import 'package:flytern/shared/data/models/app_specific/flytern_http_response.dart';
-import 'package:flytern/shared/services/http-services/http_request_handler.dart';
+import 'package:flytern/shared-module/data/models/app_specific/flytern_http_response.dart';
+import 'package:flytern/shared-module/services/http-services/http_request_handler.dart';
 
 class PackageBookingHttpService {
 

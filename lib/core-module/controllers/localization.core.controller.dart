@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:flytern/shared/data/constants/ui_constants/asset_urls.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/asset_urls.dart';
 import 'package:get/get.dart';
 import 'package:flytern/core-module/models/translation.core.model.dart';
 

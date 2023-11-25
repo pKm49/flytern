@@ -1,6 +1,6 @@
 import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_search_response.dart';
-import 'package:flytern/shared/data/models/business_models/range_dcs.dart';
- import 'package:flytern/shared/data/models/business_models/sorting_dcs.dart';
+import 'package:flytern/shared-module/data/models/business_models/range_dcs.dart';
+ import 'package:flytern/shared-module/data/models/business_models/sorting_dcs.dart';
 
 class HotelSearchResult {
   int objectID;

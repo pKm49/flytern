@@ -1,5 +1,5 @@
 import 'package:flytern/feature-modules/activity_booking/data/models/activity_city.dart';
-import 'package:flytern/shared/data/models/business_models/country.dart';
+import 'package:flytern/shared-module/data/models/business_models/country.dart';
 
 class DestinationResponse {
 

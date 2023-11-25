@@ -1,4 +1,4 @@
-import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
+import 'package:flytern/shared-module/data/constants/app_specific/default_values.dart';
 import 'package:intl/intl.dart';
 
 class MyInsuranceBooking {

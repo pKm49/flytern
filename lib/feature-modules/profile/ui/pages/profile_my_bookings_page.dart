@@ -6,8 +6,8 @@ import 'package:flytern/feature-modules/profile/ui/pages/my_bookings_pages/profi
 import 'package:flytern/feature-modules/profile/ui/pages/my_bookings_pages/profile_hotel_bookings_list.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/my_bookings_pages/profile_insurance_purchase_list.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/my_bookings_pages/profile_package_bookings_list.dart';
-import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
-import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/style_params.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/widget_styles.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 

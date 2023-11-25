@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/profile/controllers/copax_controller.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';
 import 'package:flytern/feature-modules/profile/data/models/business-models/user-copax.dart';
-import 'package:flytern/shared/ui/components/confirm_dialogue.dart';
-import 'package:flytern/shared/ui/components/user_details_card.dart';
-import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
-import 'package:flytern/shared/data/constants/ui_constants/style_params.dart';
-import 'package:flytern/shared/data/constants/ui_constants/widget_styles.dart';
-import 'package:flytern/shared/services/utility-services/widget_properties_generator.dart';
+import 'package:flytern/shared-module/ui/components/confirm_dialogue.dart';
+import 'package:flytern/shared-module/ui/components/user_details_card.dart';
+import 'package:flytern/shared-module/data/constants/app_specific/app_route_names.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/style_params.dart';
+import 'package:flytern/shared-module/data/constants/ui_constants/widget_styles.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.dart';
 import 'package:get/get.dart';
 
 class ProfileMyCoPassengersPage extends StatefulWidget {

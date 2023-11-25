@@ -3,8 +3,8 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_item.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_response_dto_segment.dart';
-import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
-import 'package:flytern/shared/data/models/business_models/general_item.dart';
+import 'package:flytern/shared-module/data/constants/app_specific/default_values.dart';
+import 'package:flytern/shared-module/data/models/business_models/general_item.dart';
 
 class InsuranceInitialData {
   final DateTime maxPolicyDate;

@@ -5,9 +5,9 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/popular_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/recommended_package.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/travel_story.dart';
-import 'package:flytern/shared/data/models/business_models/country.dart';
-import 'package:flytern/shared/data/models/business_models/language.dart';
-import 'package:flytern/shared/data/models/business_models/payment_gateway.dart';
+import 'package:flytern/shared-module/data/models/business_models/country.dart';
+import 'package:flytern/shared-module/data/models/business_models/language.dart';
+import 'package:flytern/shared-module/data/models/business_models/payment_gateway.dart';
 
 class GetGatewayData {
 

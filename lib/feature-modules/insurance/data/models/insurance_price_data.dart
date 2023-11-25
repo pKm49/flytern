@@ -3,7 +3,7 @@ import 'package:flytern/feature-modules/flight_booking/data/models/business_mode
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_item.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_response_dto_segment.dart';
-import 'package:flytern/shared/data/models/business_models/general_item.dart';
+import 'package:flytern/shared-module/data/models/business_models/general_item.dart';
 
 class InsurancePriceData {
   final String code;

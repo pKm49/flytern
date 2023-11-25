@@ -6,11 +6,11 @@ import 'package:flytern/feature-modules/insurance/data/models/insurance_price_da
 import 'package:flytern/feature-modules/insurance/data/models/insurance_price_get_body.dart';
 import 'package:flytern/feature-modules/insurance/data/models/insurance_traveller_data.dart';
 import 'package:flytern/feature-modules/insurance/data/models/insurance_traveller_info.dart';
-import 'package:flytern/shared/data/models/app_specific/flytern_http_response.dart';
-import 'package:flytern/shared/data/models/business_models/payment_confirmation_data.dart';
-import 'package:flytern/shared/data/models/business_models/payment_gateway.dart';
-import 'package:flytern/shared/data/models/business_models/payment_gateway_url_data.dart';
-import 'package:flytern/shared/services/http-services/http_request_handler.dart';
+import 'package:flytern/shared-module/data/models/app_specific/flytern_http_response.dart';
+import 'package:flytern/shared-module/data/models/business_models/payment_confirmation_data.dart';
+import 'package:flytern/shared-module/data/models/business_models/payment_gateway.dart';
+import 'package:flytern/shared-module/data/models/business_models/payment_gateway_url_data.dart';
+import 'package:flytern/shared-module/services/http-services/http_request_handler.dart';
 
 class InsuranceBookingHttpService {
 

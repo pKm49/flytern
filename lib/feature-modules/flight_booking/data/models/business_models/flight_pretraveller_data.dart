@@ -2,9 +2,9 @@ import 'package:flytern/feature-modules/flight_booking/data/constants/business_s
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_allowed_cabin.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_destination.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/business_models/flight_search_item.dart';
-import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
-import 'package:flytern/shared/data/models/business_models/country.dart';
-import 'package:flytern/shared/data/models/business_models/gender.dart';
+import 'package:flytern/shared-module/data/constants/app_specific/default_values.dart';
+import 'package:flytern/shared-module/data/models/business_models/country.dart';
+import 'package:flytern/shared-module/data/models/business_models/gender.dart';
 
 class FlightPretravellerData {
   final int adult;

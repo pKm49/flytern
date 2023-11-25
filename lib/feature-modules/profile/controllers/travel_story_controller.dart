@@ -1,7 +1,7 @@
  import 'dart:io';
 import 'package:flytern/feature-modules/profile/data/models/business-models/user-travelstory.dart';
 import 'package:flytern/feature-modules/profile/services/http-services/profile_http.dart';
-import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
+import 'package:flytern/shared-module/services/utility-services/snackbar_shower.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -12,15 +12,15 @@ import 'package:flytern/feature-modules/hotel_booking/data/models/business_model
 import 'package:flytern/feature-modules/hotel_booking/data/models/business_models/hotel_traveller_info.dart';
 import 'package:flytern/feature-modules/hotel_booking/services/helper-services/hotel_booking_helper_services.dart';
 import 'package:flytern/feature-modules/hotel_booking/services/http-services/hotel_booking_http_services.dart';
-import 'package:flytern/shared/data/models/business_models/country.dart';
-import 'package:flytern/shared/data/models/business_models/range_dcs.dart';
-import 'package:flytern/shared/data/models/business_models/sorting_dcs.dart';
- import 'package:flytern/shared/data/constants/app_specific/app_route_names.dart';
-import 'package:flytern/shared/data/constants/app_specific/default_values.dart';
-import 'package:flytern/shared/data/models/business_models/payment_confirmation_data.dart';
-import 'package:flytern/shared/data/models/business_models/payment_gateway.dart';
-import 'package:flytern/shared/data/models/business_models/payment_gateway_url_data.dart';
-import 'package:flytern/shared/services/utility-services/snackbar_shower.dart';
+import 'package:flytern/shared-module/data/models/business_models/country.dart';
+import 'package:flytern/shared-module/data/models/business_models/range_dcs.dart';
+import 'package:flytern/shared-module/data/models/business_models/sorting_dcs.dart';
+ import 'package:flytern/shared-module/data/constants/app_specific/app_route_names.dart';
+import 'package:flytern/shared-module/data/constants/app_specific/default_values.dart';
+import 'package:flytern/shared-module/data/models/business_models/payment_confirmation_data.dart';
+import 'package:flytern/shared-module/data/models/business_models/payment_gateway.dart';
+import 'package:flytern/shared-module/data/models/business_models/payment_gateway_url_data.dart';
+import 'package:flytern/shared-module/services/utility-services/snackbar_shower.dart';
 import 'package:get/get.dart';
 part 'hotel_booking_controller_setter.dart';
 
