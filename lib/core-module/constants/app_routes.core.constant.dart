@@ -6,11 +6,11 @@ import 'package:flytern/core-module/ui/pages/initial_language_country_selector.c
 import 'package:flytern/core-module/ui/pages/drawer_pages/app_settings.core.page.dart';
 import 'package:flytern/core-module/ui/pages/drawer_pages/smart_payment.core.page.dart';
 import 'package:flytern/core-module/ui/pages/notifications.core.page.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/pages/activities_list_page.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_confirmation_page.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_summary_page.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_details_page.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_userdetails_submission_page.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/pages/list_page.activity_booking.page.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/pages/booking_confirmation_page.activity_booking.page.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/pages/booking_summary_page.activity_booking.page.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/pages/details_page.activity_booking.page.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/pages/userdetails_submission.activity_booking.page.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/auth_selector.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/login.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/explore_section/all_popular_destinations_page.dart';

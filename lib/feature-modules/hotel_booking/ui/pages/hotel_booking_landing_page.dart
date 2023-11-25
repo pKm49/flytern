@@ -4,12 +4,10 @@ import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking_
 import 'package:flytern/feature-modules/hotel_booking/data/models/hotel_destination.dart';
 import 'package:flytern/feature-modules/hotel_booking/services/delegates/hotel_destination_search_delegate.dart';
 import 'package:flytern/feature-modules/hotel_booking/services/helper-services/hotel_booking_helper_services.dart';
-import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
-import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
+ import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/models/country.dart';
-import 'package:flytern/shared-module/services/delegates/custom_search_delegate.dart';
 import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';

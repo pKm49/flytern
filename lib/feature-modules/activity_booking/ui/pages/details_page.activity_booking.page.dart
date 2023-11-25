@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flytern/feature-modules/activity_booking/controllers/activity_booking_controller.dart';
-import 'package:flytern/feature-modules/activity_booking/data/models/activity_option.dart';
-import 'package:flytern/feature-modules/activity_booking/data/models/activity_transfer_type.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/components/activity_option_info.dart';
+import 'package:flytern/feature-modules/activity_booking/controllers/activity_booking.controller.dart';
+import 'package:flytern/feature-modules/activity_booking/models/option.activity_booking.model.dart';
+import 'package:flytern/feature-modules/activity_booking/models/transfer_type.activity_booking.model.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/components/option_info.activity_booking.component.dart';
 import 'package:flytern/feature-modules/flight_booking/data/models/cabin_class.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.dart';
 import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';

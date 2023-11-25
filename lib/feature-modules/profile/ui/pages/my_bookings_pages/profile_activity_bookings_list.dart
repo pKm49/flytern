@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/components/activity_list_card.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/components/list_card.activity_booking.component.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_search_result_card.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/components/hote_search_result_card.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile_controller.dart';

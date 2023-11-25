@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flytern/core-module/ui/components/drawer_menu.core.component.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/pages/activity_booking_landing_page.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/pages/landing_page.activity_booking.page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/flight_booking_landing_page.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/hotel_booking_landing_page.dart';
 import 'package:flytern/feature-modules/package_booking/ui/pages/package_booking_landing_page.dart';
@@ -11,8 +11,7 @@ import 'package:flytern/shared-module/constants/app_specific/route_names.shared.
 import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
-import 'package:flytern/shared-module/services/delegates/custom_search_delegate.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
+ import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:get/get.dart';
 
 class CoreLandingPage extends StatefulWidget {

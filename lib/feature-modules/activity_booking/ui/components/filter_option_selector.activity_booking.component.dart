@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/activity_booking/data/enums/activity_filter_options.dart';
-import 'package:flytern/feature-modules/activity_booking/data/models/activity_response.dart';
+import 'package:flytern/feature-modules/activity_booking/constants/filter_options.activity_booking.constant.dart';
+import 'package:flytern/feature-modules/activity_booking/models/response.activity_booking.model.dart';
   import 'package:flytern/shared-module/models/range_dcs.dart';
  import 'package:flytern/shared-module/models/sorting_dcs.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';

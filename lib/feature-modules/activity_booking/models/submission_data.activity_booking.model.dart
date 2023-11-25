@@ -1,6 +1,6 @@
 
-import 'package:flytern/feature-modules/activity_booking/data/models/activity_price_fetch_body.dart';
-import 'package:flytern/feature-modules/activity_booking/data/models/activity_traveller_info.dart';
+import 'package:flytern/feature-modules/activity_booking/models/price_fetch_body.activity_booking.model.dart';
+import 'package:flytern/feature-modules/activity_booking/models/traveller_info.activity_booking.model.dart';
 import 'package:intl/intl.dart';
 
 class ActivitySubmissionData {

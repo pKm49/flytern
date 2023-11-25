@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/activity_booking/controllers/activity_booking_controller.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/components/activity_city_card.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/components/activity_list_card.dart';
+import 'package:flytern/feature-modules/activity_booking/controllers/activity_booking.controller.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/components/city_card.activity_booking.component.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/components/list_card.activity_booking.component.dart';
 import 'package:flytern/feature-modules/package_booking/ui/components/package_list_card.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';

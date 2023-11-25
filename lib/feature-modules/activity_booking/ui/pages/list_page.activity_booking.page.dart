@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/activity_booking/controllers/activity_booking_controller.dart';
-import 'package:flytern/feature-modules/activity_booking/data/models/activity_response.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/components/activity_filter_option_selector.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/components/activity_list_card.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/components/activity_list_card_loader.dart';
+import 'package:flytern/feature-modules/activity_booking/controllers/activity_booking.controller.dart';
+import 'package:flytern/feature-modules/activity_booking/models/response.activity_booking.model.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/components/filter_option_selector.activity_booking.component.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/components/list_card.activity_booking.component.dart';
+import 'package:flytern/feature-modules/activity_booking/ui/components/list_card_loader.activity_booking.component.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking_controller.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/popular_package_list_card.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_item_card.dart';
