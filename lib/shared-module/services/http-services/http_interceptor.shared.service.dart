@@ -16,12 +16,6 @@ class FlyternHttpInterceptor implements InterceptorContract {
       var Bearer = await sharedPreferences.getString("accessToken");
       var Basic = env.basicToken;
 
-      print("Bearer");
-      print(Bearer);
-      print("Basic");
-      print(Basic);
-      print(data.url.contains(CoreHttpRequestEndpointGetGuestToken));
-      print(data.baseUrl);
 
       data.headers["Accept"] = "*/*";
       data.headers["Content-Type"] = "application/json";
@@ -33,14 +27,14 @@ class FlyternHttpInterceptor implements InterceptorContract {
       }
 
       data.headers["Host"]=env.apiEndPoint;
-      if(data.url.contains(CoreHttpRequestEndpointGetGuestToken)){
+      if(data.url.contains(CoreHttpRequestEndpoint_GetGuestToken)){
         String? deviceId = await _getId();
         data.headers["DeviceID"] = deviceId??"";
       }
 
       print("does contain");
-      print(data.url.contains(CoreHttpRequestEndpointGetNewAccesToken));
-      if(data.url.contains(CoreHttpRequestEndpointGetNewAccesToken)){
+      print(data.url.contains(CoreHttpRequestEndpoint_GetNewAccesToken));
+      if(data.url.contains(CoreHttpRequestEndpoint_GetNewAccesToken)){
         String? refreshToken = await getRefreshToken();
         data.headers["RefreshToken"] = refreshToken ;
       }

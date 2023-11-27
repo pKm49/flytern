@@ -59,192 +59,161 @@ import 'package:get/get.dart';
 getAppRoutes() => [
       GetPage(
         name: Approute_langaugeSelector,
-        page: () => CoreLanguageSelector(),
-        // transition: Transition.rightToLeft,
-        // transitionDuration: const Duration(milliseconds: 200),
+        page: () => CoreLanguageSelector(), 
       ),
       GetPage(
         name: Approute_authSelector,
-        page: () => const AuthSelectorPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const AuthSelectorPage(), 
       ),
       GetPage(
         name: Approute_registerPersonalData,
-        page: () => const AuthRegisterDetailsInputPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const AuthRegisterDetailsInputPage(), 
       ),
       GetPage(
         name: Approute_registerOtp,
-        page: () => const OTPInputPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const OTPInputPage(), 
       ),
       GetPage(
         name: Approute_login,
-        page: () => const AuthLoginPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const AuthLoginPage(), 
       ),
       GetPage(
         name: Approute_resetPasswordMobile,
-        page: () => const AuthResetPasswordCredentialsPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const AuthResetPasswordCredentialsPage(), 
       ),
       GetPage(
         name: Approute_resetPasswordOtp,
-        page: () => const OTPInputPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const OTPInputPage(), 
       ),
       GetPage(
         name: Approute_resetPasswordNewpassword,
-        page: () => const AuthResetPasswordNewPasswordPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const AuthResetPasswordNewPasswordPage(), 
       ),
       GetPage(
         name: Approute_landingpage,
-        page: () => const CoreLandingPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const CoreLandingPage(), 
       ),
       GetPage(
         name: Approute_notificationspage,
-        page: () => NotificationsPage(),
-        middlewares: [MyMiddelware()],
+        page: () => NotificationsPage(), 
       ),
 
       GetPage(
         name: Approute_allpopulardestinations,
-        page: () => const AllPopularDestinationsPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const AllPopularDestinationsPage(), 
       ),
 
       GetPage(
         name: Approute_allrecommendedpackages,
-        page: () => const AllRecommendedItemsPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const AllRecommendedItemsPage(), 
       ),
 
       GetPage(
         name: Approute_alltravelstories,
-        page: () => const AllTravellStoriesPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const AllTravellStoriesPage(), 
       ),
 
       // Common
       GetPage(
         name: Approute_userDetailsSubmission,
-        page: () => const UserDetailsSubmissionPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const UserDetailsSubmissionPage(), 
       ),
 
       GetPage(
         name: Approute_paymentPage,
-        page: () => const PaymentGatewayWebView(),
-        middlewares: [MyMiddelware()],
+        page: () => const PaymentGatewayWebView(), 
       ),
 
       // flight booking
 
       GetPage(
         name: Approute_flightsSearchResult,
-        page: () => const FlightSearchResultPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const FlightSearchResultPage(), 
       ),
 
       GetPage(
         name: Approute_flightsMoreOptions,
-        page: () => const FlightMoreOptionsPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const FlightMoreOptionsPage(), 
       ),
 
       GetPage(
         name: Approute_flightsDetails,
-        page: () => const FlightDetailsPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const FlightDetailsPage(), 
       ),
 
       GetPage(
         name: Approute_flightsAddonServices,
-        page: () => const FlightAddonServicesPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const FlightAddonServicesPage(), 
       ),
 
       GetPage(
         name: Approute_flightsSeatSelection,
-        page: () => const FlightSeatSelectionPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const FlightSeatSelectionPage(), 
       ),
 
       GetPage(
         name: Approute_flightsMealSelection,
-        page: () => const FlightMealSelectionPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const FlightMealSelectionPage(), 
       ),
 
       GetPage(
         name: Approute_flightsBaggageSelection,
-        page: () => const FlightBaggageSelectionPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const FlightBaggageSelectionPage(), 
       ),
 
       // Common
       GetPage(
         name: Approute_flightsUserSelection,
-        page: () => const FlightUserDetailsSubmissionPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const FlightUserDetailsSubmissionPage(), 
       ),
 
       GetPage(
         name: Approute_flightsSummary,
-        page: () => const FlightBookingSummaryPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const FlightBookingSummaryPage(), 
       ),
 
       GetPage(
         name: Approute_flightsConfirmation,
-        page: () => const FlightBookingConfirmationPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const FlightBookingConfirmationPage(), 
       ),
 
 //  Hotel Booking
       GetPage(
         name: Approute_hotelsSearchResult,
-        page: () => const HotelSearchResultPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const HotelSearchResultPage(), 
       ),
 
       GetPage(
         name: Approute_hotelsDetails,
-        page: () => const HotelDetailsPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const HotelDetailsPage(), 
       ),
 
       GetPage(
         name: Approute_hotelsUserSelection,
-        page: () => const HotelUserDetailsSubmissionPage(),
-        middlewares: [MyMiddelware()],
+        page: () => const HotelUserDetailsSubmissionPage(), 
       ),
 
       GetPage(
         name: Approute_hotelsSummary,
         page: () => const HotelBookingSummaryPage(),
-        middlewares: [MyMiddelware()],
       ),
 
       GetPage(
         name: Approute_hotelsConfirmation,
         page: () => const HotelBookingConfirmationPage(),
-        middlewares: [MyMiddelware()],
       ),
 
       //  package
       GetPage(
         name: Approute_packagesDetails,
         page: () => const PackageDetailsPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_packagesConfirmation,
         page: () => const PackageBookingConfirmationPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
 //  activities Booking
@@ -252,31 +221,31 @@ getAppRoutes() => [
       GetPage(
         name: Approute_activitiesList,
         page: () => const ActivitiesListPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_activitiesDetails,
         page: () => const ActivityDetailsPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_activitiesUserDataSubmission,
         page: () => const ActivityUserDetailsSubmissionPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_activitiesSummary,
         page: () => const ActivityBookingSummaryPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_activitiesConfirmation,
         page: () => const ActivityBookingConfirmationPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       // profile pages
@@ -284,102 +253,102 @@ getAppRoutes() => [
       GetPage(
         name: Approute_profileViewProfile,
         page: () => const ProfileViewProfilePage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_profileEditProfile,
         page: () => const ProfileEditProfilePage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_profileEditEmail,
         page: () => const ProfileEditEmailPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_profileEditMobile,
         page: () => const ProfileEditMobilePage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_profileEditMobileOTP,
         page: () => const OTPInputPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_profileEditEmailOTP,
         page: () => const OTPInputPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_profileResetPassword,
         page: () => const ProfileResetPasswordPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_profileMyBookings,
         page: () => const ProfileMyBookingsPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_profileMyTravelStories,
         page: () => const ProfileMyTravelStoriesPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_profileNewTravelStories,
         page: () => const ProfileNewTravelStoryPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_profileMyCopassenger,
         page: () => const ProfileMyCoPassengersPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_profileAuditCopassenger,
         page: () => const ProfileAuditCopassengerPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_coreAppSettings,
         page: () => const CoreSettingsPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_coreAppInfo,
         page: () => const CoreInfoPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
       GetPage(
         name: Approute_coreInfoDoc,
         page: () => const DocumentPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_coreSmartPayment,
         page: () => const SmartPaymentPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_coreGuestBookingFinder,
         page: () => const GuestBookingPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       //insurance related
@@ -387,25 +356,25 @@ getAppRoutes() => [
       GetPage(
         name: Approute_insuranceLandingPage,
         page: () => const InsuranceLandingPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_insuranceUserDetailsSubmission,
         page: () => const InsuranceUserDetailsSubmissionPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_insuranceSummary,
         page: () => const InsuranceBookingSummaryPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
 
       GetPage(
         name: Approute_insuranceConfirmation,
         page: () => const InsuranceBookingConfirmationPage(),
-        middlewares: [MyMiddelware()],
+        
       ),
     ];
 

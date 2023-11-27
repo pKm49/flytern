@@ -12,7 +12,7 @@ class CoreHttpServices{
 
     List<Notification> notifications = [];
 
-    FlyternHttpResponse response = await getRequest(CoreHttpRequestEndpointGetNotifications,null);
+    FlyternHttpResponse response = await getRequest(CoreHttpRequestEndpoint_GetNotifications,null);
 
     if(response.success && response.statusCode == 200){
       if(response.data != null){
@@ -31,7 +31,7 @@ class CoreHttpServices{
 
   getGuestToken() async {
 
-    FlyternHttpResponse response = await getRequest(CoreHttpRequestEndpointGetGuestToken,null);
+    FlyternHttpResponse response = await getRequest(CoreHttpRequestEndpoint_GetGuestToken,null);
 
     if(response.success){
       if(response.data != null){
@@ -46,7 +46,7 @@ class CoreHttpServices{
 
   getRefreshedToken() async {
 
-    FlyternHttpResponse response = await getRequest(CoreHttpRequestEndpointGetNewAccesToken,null);
+    FlyternHttpResponse response = await getRequest(CoreHttpRequestEndpoint_GetNewAccesToken,null);
 
     if(response.success){
       if(response.data != null){

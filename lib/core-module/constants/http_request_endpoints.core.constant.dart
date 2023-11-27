@@ -1,3 +1,3 @@
-const String CoreHttpRequestEndpointGetGuestToken = "/coreapi/api/Auths/Token";
-const String CoreHttpRequestEndpointGetNotifications = "/coreapi/api/Explores/GetNotifications";
-const String CoreHttpRequestEndpointGetNewAccesToken = "/coreapi/api/Auths/RefreshToken";
+const String CoreHttpRequestEndpoint_GetGuestToken = "/coreapi/api/Auths/Token";
+const String CoreHttpRequestEndpoint_GetNotifications = "/coreapi/api/Explores/GetNotifications";
+const String CoreHttpRequestEndpoint_GetNewAccesToken = "/coreapi/api/Auths/RefreshToken";
