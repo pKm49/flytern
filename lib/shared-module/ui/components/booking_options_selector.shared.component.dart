@@ -319,7 +319,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                       visible: widget.bookingServiceNumber == 1  ,
                       child: addVerticalSpace(flyternSpaceLarge)),
                   Visibility(
-                      visible:   childCount>0,
+                      visible:childCount>0 && widget.bookingServiceNumber == 2,
                       child: addVerticalSpace(flyternSpaceLarge*2)),
                   for (var i = 0; i < childCount; i++)
                     Visibility(
