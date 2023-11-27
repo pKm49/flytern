@@ -6,7 +6,6 @@ import 'package:flytern/feature-modules/flight_booking/controllers/flight_bookin
 import 'package:flytern/feature-modules/flight_booking/models/cabin_info.flight_booking.model.dart';
 import 'package:flytern/shared-module/models/general_item.dart';
 import 'package:flytern/shared-module/ui/components/contact_details_getter.shared.component.dart';
-import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/details_addon_service_card.flight_booking.component.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/details_itinerary_card.flight_booking.component.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
@@ -77,6 +76,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                 visible: !flightBookingController.isFlightDetailsLoading.value,
                 child: ListView(
                   children: [
+
                     Padding(
                       padding: flyternLargePaddingAll,
                       child: Text("itinerary".tr,
@@ -97,6 +97,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                             flightSegment: flightBookingController
                                 .flightDetails.value.flightSegments[i]),
                       ),
+
                     Visibility(
                       visible: flightBookingController
                               .flightDetails.value.fareRule !=

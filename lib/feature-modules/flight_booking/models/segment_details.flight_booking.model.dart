@@ -1,6 +1,6 @@
 class FlightSegmentDetails {
   final String promoCode;
-  final String depatureTerminal;
+  final String departureTerminal;
   final String arrivalTerminal;
   final bool isOperatedBy;
   final String operatingCarrier;
@@ -10,13 +10,13 @@ class FlightSegmentDetails {
   final String stopover;
   final String layover;
   final String arrivalcntry;
-  final String depaturecntry;
+  final String departurecntry;
   final String arrival;
-  final String depature;
+  final String departure;
 
-  final String depaturedt;
+  final String departuredt;
   final String arrivaldt;
-  final String depaturetime;
+  final String departuretime;
   final String arrivaltime;
   final String duration;
   final String cabin;
@@ -26,9 +26,9 @@ class FlightSegmentDetails {
   final String bookingCounts;
 
   FlightSegmentDetails(
-      {required this.depaturecntry,
+      {required this.departurecntry,
       required this.promoCode,
-      required this.depatureTerminal,
+      required this.departureTerminal,
       required this.arrivalTerminal,
       required this.isOperatedBy,
       required this.operatingCarrier,
@@ -39,10 +39,10 @@ class FlightSegmentDetails {
       required this.layover,
       required this.arrivalcntry,
       required this.arrival,
-      required this.depature,
-      required this.depaturedt,
+      required this.departure,
+      required this.departuredt,
       required this.arrivaldt,
-      required this.depaturetime,
+      required this.departuretime,
       required this.arrivaltime,
       required this.duration,
       required this.cabin,
@@ -56,14 +56,14 @@ FlightSegmentDetails mapFlightSegmentDetails(dynamic payload) {
 
 
   return FlightSegmentDetails(
-    depaturecntry: payload["depaturecntry"] ?? "-1",
+    departurecntry: payload["depaturecntry"] ?? "",
     promoCode: payload["promoCode"] ?? "",
     layover: payload["layover"] ?? "",
     arrivalcntry: payload["arrivalcntry"] ?? "",
     arrival: payload["arrival"] ?? "",
-    depature:payload["depature"] ?? "",
+    departure:payload["depature"] ?? "",
     arrivalTerminal: payload["arrivalTerminal"] ?? "",
-    depatureTerminal: payload["depatureTerminal"] ?? "",
+    departureTerminal: payload["depatureTerminal"] ?? "",
     destinationTerminal: payload["destinationTerminal"] ??"",
     isOperatedBy: payload["isOperatedBy"] ?? false,
     operatingCarrier: payload["operatingCarrier"] ?? "",
@@ -71,9 +71,9 @@ FlightSegmentDetails mapFlightSegmentDetails(dynamic payload) {
         payload["operatingCarrierFlightNumber"] ?? "",
     originTerminal: payload["originTerminal"] ??"",
     stopover: payload["stopover"] ??"",
-    depaturedt: payload["depaturedt"] ??"",
+    departuredt: payload["depaturedt"] ??"",
     arrivaldt: payload["arrivaldt"] ??"",
-    depaturetime: payload["depaturetime"] ??"",
+    departuretime: payload["depaturetime"] ??"",
     arrivaltime: payload["arrivaltime"] ??"",
     duration: payload["duration"] ??"",
     cabin: payload["cabin"] ??"",

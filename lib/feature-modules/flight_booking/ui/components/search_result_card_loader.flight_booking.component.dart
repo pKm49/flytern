@@ -1,16 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/flight_booking/models/search_response.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/airport_lable_card.flight_booking.component.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/airport_lable_card_loader.flight_booking.component.dart';
-import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
-import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
-import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
-import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:shimmer/shimmer.dart';
 
 class FlightSearchResultCardLoader extends StatelessWidget {

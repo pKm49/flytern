@@ -10,6 +10,7 @@ import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 
 class FlightDetailsItineraryCard extends StatelessWidget {
   FlightSegment flightSegment;
@@ -17,8 +18,8 @@ class FlightDetailsItineraryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     double screenwidth = MediaQuery.of(context).size.width;
-    double screenheight = MediaQuery.of(context).size.height;
 
     return Container(
       decoration: flyternBorderedContainerSmallDecoration,
@@ -27,6 +28,59 @@ class FlightDetailsItineraryCard extends StatelessWidget {
       child: Wrap(
         runSpacing: 0,
         children: [
+          Container(
+            width: screenwidth - (flyternSpaceLarge * 2),
+            padding: flyternMediumPaddingAll.copyWith(bottom: flyternSpaceMedium),
+            child: Center(
+              child: Text(
+                "${flightSegment.departure} -> ${flightSegment.arrival}",
+                style: getBodyMediumStyle(context),
+              )
+            ),
+          ),
+          Container(
+            width: screenwidth - (flyternSpaceLarge * 2),
+            height: 30,
+            margin: EdgeInsets.only(bottom: flyternSpaceSmall),
+            padding: flyternMediumPaddingHorizontal,
+            child: Center(
+              child: Row(
+                children: [
+                  Visibility(
+                    visible: flightSegment.flightSegmentDetails.isNotEmpty,
+                    child: DataCapsuleCard(
+                      label:
+                      "${flightSegment.flightSegmentDetails.isNotEmpty ?
+                      flightSegment.flightSegmentDetails.length:0} ${'stops'.tr}",
+                      theme: 2,
+                    ),
+                  ),
+                  addHorizontalSpace(flyternSpaceSmall),
+                  Container(
+                    padding: flyternSmallPaddingHorizontal.copyWith(top: flyternSpaceExtraSmall,bottom: flyternSpaceExtraSmall),
+                    decoration: BoxDecoration(
+                      color: flyternSecondaryColorBg ,
+                      borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
+                    ),
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Icon(Ionicons.time_outline,color: flyternSecondaryColor,size: flyternFontSize20),
+                        addHorizontalSpace(flyternSpaceSmall),
+
+                        Text(
+                            "${flightSegment.travelTime } "
+                          ,style: getLabelLargeStyle(context).copyWith(color:
+                          flyternSecondaryColor ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Divider(),
           for(var i=0;i<flightSegment.flightSegmentDetails.length;i++)
           Container(
             width: screenwidth - (flyternSpaceLarge * 2),
@@ -47,9 +101,9 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                           Expanded(
                               child: FlightAirportLabelCard(
                                 topLabel: getTopLabel(
-                                    flightSegment.flightSegmentDetails[i].depaturecntry),
-                                midLabel: flightSegment.flightSegmentDetails[i].depature,
-                                bottomLabel: flightSegment.flightSegmentDetails[i].depaturetime,
+                                    flightSegment.flightSegmentDetails[i].departurecntry),
+                                midLabel: flightSegment.flightSegmentDetails[i].departure,
+                                bottomLabel: flightSegment.flightSegmentDetails[i].departuretime,
                                 sideNumber: 1,
                               )),
                           Padding(
@@ -150,7 +204,7 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                                         ),
                                         addVerticalSpace(flyternSpaceExtraSmall),
                                         Text(
-                                          flightSegment.flightSegmentDetails[i].depaturedt,
+                                          flightSegment.flightSegmentDetails[i].departuredt,
                                           style: getLabelLargeStyle(context).copyWith(
                                               color: flyternGrey80,
                                               fontWeight: flyternFontWeightBold),

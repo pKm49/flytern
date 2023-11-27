@@ -6,7 +6,7 @@ class FlightSegment {
   final String departureDate;
   final String arrivalDate;
   final String arrival;
-  final String depature;
+  final String departure;
   final List<FlightSegmentDetails> flightSegmentDetails;
   final List<FlightSegmentBuggageDetails> flightSegmentBaggages;
 
@@ -15,7 +15,7 @@ class FlightSegment {
       required this.departureDate,
       required this.arrivalDate,
       required this.arrival,
-      required this.depature,
+      required this.departure,
       required this.flightSegmentDetails,
       required this.flightSegmentBaggages});
 }
@@ -36,7 +36,7 @@ FlightSegment mapFlightSegment(dynamic payload) {
   return FlightSegment(
     travelTime: payload["travelTime"] ?? "",
     arrival: payload["arrival"] ?? "",
-    depature: payload["depature"] ?? "",
+    departure: payload["departure"] ?? "",
     arrivalDate: payload["arrivalDate"] ?? "",
     departureDate: payload["departureDate"] ?? "",
     flightSegmentDetails: flightSegmentDetails,
