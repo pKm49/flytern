@@ -90,7 +90,7 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
                         },
                         isActionAllowed: true,
                         passportNumber: coPaxController.userCopaxes[index].passportNumber,
-                        name: "${coPaxController.userCopaxes[index].firstName} ${coPaxController.userCopaxes[index].lastName}",
+                        name: "${coPaxController.userCopaxes[index].title} ${coPaxController.userCopaxes[index].firstName} ${coPaxController.userCopaxes[index].lastName}",
                         age: getAge(coPaxController.userCopaxes[index].dateOfBirth),
                         gender: coPaxController.userCopaxes[index].gender,
                       );

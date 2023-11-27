@@ -6,6 +6,7 @@ class UserCoPax {
 
   final int id;
   final String gender;
+  final String title;
   final String firstName;
   final String lastName;  
   final String passportNumber;
@@ -19,6 +20,7 @@ class UserCoPax {
 
   UserCoPax({
     required this.id,
+    required this.title,
     required this.gender,
     required this.firstName,
     required this.lastName,
@@ -34,6 +36,7 @@ class UserCoPax {
   Map toJson() => {
 
     'id': id,
+    'title': title,
     'firstName': firstName,
     'lastName': lastName,
     'dateOfBirth': getFormattedDate(dateOfBirth),
@@ -50,6 +53,7 @@ UserCoPax mapUserCoPax(dynamic payload){
   return UserCoPax(
     passportExp :(payload["passportExp"] != null && payload["passportExp"] != "")?
     DateTime.parse(getParsableDateString(payload["passportExp"])): DefaultInvalidDate,
+    title: payload["title"]??"Mr",
     gender: payload["gender"]??"",
     id: payload["id"]??-1,
     firstName: payload["firstName"]??"",

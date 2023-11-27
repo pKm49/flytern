@@ -23,8 +23,11 @@ class CoPaxController extends GetxController {
   Rx<TextEditingController> passportExpiryController =
       TextEditingController().obs;
   Rx<TextEditingController> dobController = TextEditingController().obs;
-  var profileHttpServices = ProfileHttpServices();
+  Rx<TextEditingController> titleController = TextEditingController().obs;
 
+  var profileHttpServices = ProfileHttpServices();
+  var title = "1".obs;
+  var selectedTitle = Gender(code: "", name: "", isDefault: false).obs;
   var dob = DefaultInvalidDate.obs;
   var passportExpiry = DefaultInvalidDate.obs;
   var editCoPaxId = 0.obs;
@@ -118,6 +121,8 @@ class CoPaxController extends GetxController {
     isSubmitting.value = true;
     try {
       UserCoPax coPax = UserCoPax(
+          title: selectedTitle.value.name,
+
           id: 0,
           gender: gender.value,
           firstName: firsNameController.value.text,
@@ -157,6 +162,7 @@ class CoPaxController extends GetxController {
     isSubmitting.value = true;
     try {
       UserCoPax coPax = UserCoPax(
+        title: selectedTitle.value.name,
           id: editCoPaxId.value,
           gender: gender.value,
           firstName: firsNameController.value.text,
@@ -215,6 +221,15 @@ class CoPaxController extends GetxController {
   }
 
   void updateEditForm(UserCoPax userCopax) {
+    if (userCopax.title == "Mr") {
+      title.value = "1";
+      selectedTitle.value = Gender(
+          code: "1", name: "Mr", isDefault: false);
+    } else {
+      title.value = "2";
+      selectedTitle.value = Gender(
+          code: "2", name: "Mrs", isDefault: false);
+    }
     editCoPaxId.value = userCopax.id;
     isCreation.value = false;
     gender.value =userCopax.gender;
@@ -237,5 +252,16 @@ class CoPaxController extends GetxController {
   String getFormattedDate(DateTime dateTime){
     final f = DateFormat('dd-MM-yyyy');
     return f.format(dateTime);
+  }
+
+  void changeTitle(String newGender) {
+    title.value = newGender;
+    if (newGender == "1") {
+      selectedTitle.value = Gender(
+          code: "1", name: "Mr", isDefault: false);
+    } else {
+      selectedTitle.value = Gender(
+          code: "2", name: "Mrs", isDefault: false);
+    }
   }
 }

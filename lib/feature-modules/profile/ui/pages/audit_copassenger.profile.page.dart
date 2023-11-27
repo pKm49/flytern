@@ -1,10 +1,8 @@
-import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/profile/controllers/copax.profile.controller.dart';
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
-import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
-import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
+ import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/models/country.dart';
 import 'package:flytern/shared-module/models/gender.dart';
@@ -16,7 +14,6 @@ import 'package:flytern/shared-module/ui/components/country_selector.shared.comp
 import 'package:flytern/shared-module/ui/components/custom_date_picker.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/dropdown_selector.shared.component.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ProfileAuditCopassengerPage extends StatefulWidget {
@@ -32,6 +29,8 @@ class _ProfileAuditCopassengerPageState
   final coPaxController = Get.find<CoPaxController>();
   final sharedController = Get.find<SharedController>();
   final GlobalKey<FormState> auditCoPaxFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> titleDropDownKey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +66,35 @@ class _ProfileAuditCopassengerPageState
                     child: Row(
                       children: [
                         Expanded(
+                          flex: 2,
+                          child: Container(
+                            decoration:
+                            flyternBorderedContainerSmallDecoration.copyWith(
+                                color: flyternGrey10,
+                                border: Border.all(
+                                    color: flyternGrey10, width: .2)),
+                            padding: flyternMediumPaddingHorizontal.copyWith(
+                                top: flyternSpaceExtraSmall,
+                                bottom: flyternSpaceExtraSmall),
+                            child: DropDownSelector(
+                              key: titleDropDownKey,
+                              titleText: "title".tr,
+                              selected: coPaxController.title.value,
+                              items: [
+                                GeneralItem(imageUrl: "", id: "1", name: "Mr"),
+                                GeneralItem(imageUrl: "", id: "2", name: "Mrs")
+                              ],
+                              hintText: "title".tr,
+                              valueChanged: (newGender) {
+                               coPaxController.changeTitle(newGender);
+                              },
+                            ),
+                          ),
+                        ),
+                        addHorizontalSpace(flyternSpaceMedium),
+
+                        Expanded(
+                          flex: 3,
                           child: TextFormField(
                               controller:
                                   coPaxController.firsNameController.value,
@@ -79,6 +107,7 @@ class _ProfileAuditCopassengerPageState
                         ),
                         addHorizontalSpace(flyternSpaceMedium),
                         Expanded(
+                          flex: 3,
                           child: TextFormField(
                               controller:
                                   coPaxController.lastNameController.value,
