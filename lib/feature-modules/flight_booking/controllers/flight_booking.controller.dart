@@ -248,6 +248,7 @@ class FlightBookingController extends GetxController {
         isModifySearchVisible.value = false;
       }
       print("getSearchResults called ");
+      isFlightSearchFilterResponsesLoading.value = true;
       isFlightSearchResponsesLoading.value = true;
       FlightSearchResult flightSearchResult = await flightBookingHttpService
           .getFlightSearchResults(flightSearchData.value);

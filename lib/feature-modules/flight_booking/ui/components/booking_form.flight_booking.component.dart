@@ -51,14 +51,17 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
             height: flightBookingHelperServices.getFlightBookingFormItemHeight(
                 widget.flightBookingController.flightSearchData.value.searchList
                     .length),
+            margin: EdgeInsets.only(bottom: flyternSpaceMedium),
+
             child: ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: widget.flightBookingController.flightSearchData.value
                     .searchList.length,
                 itemBuilder: (context, index) => Container(
-                      height: index != 0 ? 230 : 215,
+                      height: index != 0 ? 230 : 200,
                       width: screenwidth,
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Visibility(
                             visible: index != 0,
@@ -86,6 +89,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                               ),
                             ),
                           ),
+
                           Container(
                             decoration: flyternBorderedContainerSmallDecoration
                                 .copyWith(
@@ -93,6 +97,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                         color: flyternSecondaryColor,
                                         width: .5)),
                             padding: flyternMediumPaddingAll,
+                            width: screenwidth-((flyternSpaceLarge*2)+(flyternSpaceMedium*2)),
                             child: Row(
                               children: [
                                 Expanded(
@@ -109,56 +114,30 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                           .setDestination(
                                               destination, false, index);
                                     },
-                                    child: Row(
-                                      children: [
-                                        Wrap(
-                                          alignment: WrapAlignment.center,
-                                          crossAxisAlignment:
-                                              WrapCrossAlignment.center,
-                                          direction: Axis.vertical,
-                                          children: [
-                                            for (var i = 0; i < 10; i++)
-                                              Container(
-                                                color: i % 2 == 0
-                                                    ? flyternSecondaryColor
-                                                    : Colors.transparent,
-                                                width: 1,
-                                                height: 3,
-                                              ),
-                                            Icon(Icons.flight_takeoff_outlined,
-                                                color: flyternSecondaryColor),
-                                          ],
-                                        ),
-                                        addHorizontalSpace(flyternSpaceSmall),
-                                        Expanded(
-                                          child: Container(
-                                            decoration: BoxDecoration(),
-                                            clipBehavior: Clip.hardEdge,
-                                            child: FlightAirportLabelCard(
-                                              topLabel: "from".tr,
-                                              midLabel: widget
-                                                  .flightBookingController
-                                                  .flightSearchData
-                                                  .value
-                                                  .searchList[index]
-                                                  .departure
-                                                  .airportCode,
-                                              bottomLabel: widget
-                                                  .flightBookingController
-                                                  .flightSearchData
-                                                  .value
-                                                  .searchList[index]
-                                                  .departure
-                                                  .airportName,
-                                              sideNumber: 1,
-                                            ),
-                                          ),
-                                        )
-                                      ],
+                                    child: Container(
+                                      decoration: BoxDecoration(),
+                                      clipBehavior: Clip.hardEdge,
+                                      child: FlightAirportLabelCard(
+                                        topLabel: "from".tr,
+                                        midLabel: widget
+                                            .flightBookingController
+                                            .flightSearchData
+                                            .value
+                                            .searchList[index]
+                                            .departure
+                                            .airportCode,
+                                        bottomLabel: widget
+                                            .flightBookingController
+                                            .flightSearchData
+                                            .value
+                                            .searchList[index]
+                                            .departure
+                                            .airportName,
+                                        sideNumber: 1,
+                                      ),
                                     ),
                                   ),
                                 ),
-                                addHorizontalSpace(flyternSpaceMedium),
                                 InkWell(
                                   onTap: () {
                                     widget.flightBookingController
@@ -166,11 +145,10 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                   },
                                   child: Icon(
                                     Ionicons.sync_circle,
-                                    size: 35,
+                                    size: 30,
                                     color: flyternTertiaryColor,
                                   ),
                                 ),
-                                addHorizontalSpace(flyternSpaceMedium),
                                 Expanded(
                                   flex: 1,
                                   child: InkWell(
@@ -185,59 +163,39 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                           .setDestination(
                                               destination, true, index);
                                     },
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Wrap(
-                                          alignment: WrapAlignment.center,
-                                          crossAxisAlignment:
-                                              WrapCrossAlignment.center,
-                                          direction: Axis.vertical,
-                                          children: [
-                                            for (var i = 0; i < 10; i++)
-                                              Container(
-                                                color: i % 2 == 0
-                                                    ? flyternSecondaryColor
-                                                    : Colors.transparent,
-                                                width: 1,
-                                                height: 3,
-                                              ),
-                                            Icon(Icons.flight_land_outlined,
-                                                color: flyternSecondaryColor),
-                                          ],
-                                        ),
-                                        addHorizontalSpace(flyternSpaceSmall),
-                                        Expanded(
-                                          child: Container(
-                                            decoration: BoxDecoration(),
-                                            clipBehavior: Clip.hardEdge,
-                                            child: FlightAirportLabelCard(
-                                              topLabel: "to".tr,
-                                              midLabel: widget
-                                                  .flightBookingController
-                                                  .flightSearchData
-                                                  .value
-                                                  .searchList[index]
-                                                  .arrival
-                                                  .airportCode,
-                                              bottomLabel: widget
-                                                  .flightBookingController
-                                                  .flightSearchData
-                                                  .value
-                                                  .searchList[index]
-                                                  .arrival
-                                                  .airportName,
-                                              sideNumber: 1,
-                                            ),
+                                    child: Container(
+                                      decoration: BoxDecoration(),
+                                      clipBehavior: Clip.hardEdge,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          FlightAirportLabelCard(
+                                            topLabel: "to".tr,
+                                            midLabel: widget
+                                                .flightBookingController
+                                                .flightSearchData
+                                                .value
+                                                .searchList[index]
+                                                .arrival
+                                                .airportCode,
+                                            bottomLabel: widget
+                                                .flightBookingController
+                                                .flightSearchData
+                                                .value
+                                                .searchList[index]
+                                                .arrival
+                                                .airportName,
+                                            sideNumber: 2,
                                           ),
-                                        )
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 )
                               ],
                             ),
                           ),
+
                           Padding(
                             padding:
                                 const EdgeInsets.only(top: flyternSpaceMedium),
@@ -404,6 +362,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                               ],
                             ),
                           ),
+
                         ],
                       ),
                     )),

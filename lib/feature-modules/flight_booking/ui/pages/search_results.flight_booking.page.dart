@@ -136,14 +136,16 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                     visible: !flightBookingController.isModifySearchVisible.value,
                     child: addVerticalSpace(flyternSpaceSmall)),
                 Visibility(
-                    visible: !flightBookingController.isModifySearchVisible.value,
+                    visible:!flightBookingController.isModifySearchVisible.value &&
+                        !flightBookingController
+                            .isFlightSearchFilterResponsesLoading.value ,
                     child: Divider()),
                 Visibility(
-                    visible: !flightBookingController.isModifySearchVisible.value,
+                    visible:
+                        !flightBookingController.isModifySearchVisible.value,
                     child: addVerticalSpace(flyternSpaceExtraSmall)),
                 Visibility(
-                  visible: !flightBookingController
-                      .isFlightSearchResponsesLoading.value &&
+                  visible:
                       !flightBookingController
                           .isFlightSearchFilterResponsesLoading.value &&
                       !flightBookingController.isModifySearchVisible.value,
@@ -223,18 +225,18 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                   ),
                 ),
                 Visibility(
-                    visible: !flightBookingController.isModifySearchVisible.value,
+                    visible: !flightBookingController
+                        .isFlightSearchFilterResponsesLoading.value &&
+                        !flightBookingController.isModifySearchVisible.value,
                     child: addVerticalSpace(flyternSpaceExtraSmall)),
                 Visibility(
-                    visible:!flightBookingController
-                        .isFlightSearchResponsesLoading.value &&
+                    visible:
                         !flightBookingController
                             .isFlightSearchFilterResponsesLoading.value &&
                         !flightBookingController.isModifySearchVisible.value,
                     child: Divider()),
                 Visibility(
-                  visible: !flightBookingController
-                      .isFlightSearchResponsesLoading.value &&
+                  visible:
                       !flightBookingController
                           .isFlightSearchFilterResponsesLoading.value &&
                       !flightBookingController.isModifySearchVisible.value,
@@ -245,11 +247,6 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                       child: TabBar(
                           indicatorSize: TabBarIndicatorSize.tab,
                           labelPadding: EdgeInsets.zero,
-                          // indicator: new BubbleTabIndicator(
-                          //   indicatorHeight: 30.0,
-                          //   indicatorColor: AppColors.PrimaryColor,
-                          //   tabBarIndicatorSize: TabBarIndicatorSize.tab,
-                          // ),
                           indicatorColor: flyternSecondaryColor,
                           indicatorWeight: 2,
                           padding: EdgeInsets.zero,
@@ -268,36 +265,13 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                               ),
                           ])),
                 ),
-
-                // addVerticalSpace(flyternSpaceLarge),
-                // Visibility(
-                //     visible: flightBookingController.isModifySearchVisible.value,
-                //     child: Padding(
-                //       padding: flyternLargePaddingHorizontal,
-                //       child: Text("modify_search".tr,
-                //           style: getHeadlineMediumStyle(context).copyWith(
-                //               fontWeight: flyternFontWeightBold,
-                //               color: flyternGrey80)),
-                //     )),
-                // Visibility(
-                //   visible: flightBookingController.isModifySearchVisible.value,
-                //   child: Container(
-                //     height: (screenheight * .65),
-                //     width: screenwidth - (flyternSpaceLarge * 2),
-                //     padding: flyternMediumPaddingAll,
-                //     decoration: flyternShadowedContainerSmallDecoration,
-                //     margin: flyternLargePaddingAll,
-                //     child: FlightBookingForm(
-                //       flightBookingController: flightBookingController,
-                //     ),
-                //   ),
-                // ),
                 Visibility(
                   visible:
                       !flightBookingController
                               .isFlightSearchResponsesLoading.value &&
                           !flightBookingController
                               .isFlightSearchFilterResponsesLoading.value &&
+                          !flightBookingController.flightSearchResponses.value.isEmpty &&
                           !flightBookingController.isModifySearchVisible.value,
                   child: Expanded(
                       child: Container(
@@ -329,6 +303,22 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                                       },
                                     ));
                               }))),
+                ),
+                Visibility(
+                  visible:
+                  !flightBookingController.isFlightSearchResponsesLoading.value &&
+                      !flightBookingController
+                          .isFlightSearchFilterResponsesLoading.value &&
+                      flightBookingController.flightSearchResponses.value.isEmpty ,
+                  child: Expanded(
+                    child: Container(
+                      width: screenwidth, 
+                      color: flyternGrey10,
+                      child: Center(
+                        child: Text("no_item".tr, style: getBodyMediumStyle(context)),
+                      ),
+                    ),
+                  ),
                 ),
                 Visibility(
                   visible: (flightBookingController

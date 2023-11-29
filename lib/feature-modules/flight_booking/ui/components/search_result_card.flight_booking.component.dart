@@ -86,13 +86,18 @@ class FlightSearchResultCard extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       decoration: BoxDecoration(),
                       clipBehavior: Clip.hardEdge,
-                      child: FlightAirportLabelCard(
-                        topLabel: getTopLabel(
-                            flightSearchResponse.dTOSegments[i].fromCountry),
-                        bottomLabel : flightSearchResponse.dTOSegments[i].from,
-                        midLabel:
-                            flightSearchResponse.dTOSegments[i].departureTime,
-                        sideNumber: 1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          FlightAirportLabelCard(
+                            topLabel: getTopLabel(
+                                flightSearchResponse.dTOSegments[i].fromCountry),
+                            bottomLabel : flightSearchResponse.dTOSegments[i].from,
+                            midLabel:
+                                flightSearchResponse.dTOSegments[i].departureTime,
+                            sideNumber: 1,
+                          ),
+                        ],
                       ),
                     )),
                     Padding(
@@ -101,7 +106,7 @@ class FlightSearchResultCard extends StatelessWidget {
                         children: [
                           Image.asset(
                             ASSETS_FLIGHT_CHART_ICON,
-                            width: screenwidth * .25,
+                            width: screenwidth * .2,
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top:flyternSpaceSmall),
@@ -115,13 +120,18 @@ class FlightSearchResultCard extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       decoration: BoxDecoration(),
                       clipBehavior: Clip.hardEdge,
-                      child: FlightAirportLabelCard(
-                        topLabel: getTopLabel(
-                            flightSearchResponse.dTOSegments[i].toCountry),
-                        bottomLabel  : flightSearchResponse.dTOSegments[i].to,
-                        midLabel:
-                            flightSearchResponse.dTOSegments[i].arrivalTime,
-                        sideNumber: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          FlightAirportLabelCard(
+                            topLabel: getTopLabel(
+                                flightSearchResponse.dTOSegments[i].toCountry),
+                            bottomLabel  : flightSearchResponse.dTOSegments[i].to,
+                            midLabel:
+                                flightSearchResponse.dTOSegments[i].arrivalTime,
+                            sideNumber: 2,
+                          ),
+                        ],
                       ),
                     ))
                   ],
