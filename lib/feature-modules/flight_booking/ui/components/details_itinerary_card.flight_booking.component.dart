@@ -14,11 +14,11 @@ import 'package:ionicons/ionicons.dart';
 
 class FlightDetailsItineraryCard extends StatelessWidget {
   FlightSegment flightSegment;
-    FlightDetailsItineraryCard({super.key, required this.flightSegment});
+
+  FlightDetailsItineraryCard({super.key, required this.flightSegment});
 
   @override
   Widget build(BuildContext context) {
-
     double screenwidth = MediaQuery.of(context).size.width;
 
     return Container(
@@ -32,44 +32,42 @@ class FlightDetailsItineraryCard extends StatelessWidget {
             width: screenwidth - (flyternSpaceLarge * 2),
             padding: flyternMediumPaddingAll.copyWith(bottom: 0),
             child: Center(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(Icons.flight_takeoff_outlined,
-                      color: flyternSecondaryColor),
-                  addHorizontalSpace(flyternSpaceSmall),
-                  Expanded(
-                    child: Text(
-                      "${flightSegment.departure}",
-                      style: getBodyMediumStyle(context),
-                    ),
+                child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(Icons.flight_takeoff_outlined,
+                    color: flyternSecondaryColor),
+                addHorizontalSpace(flyternSpaceSmall),
+                Expanded(
+                  child: Text(
+                    "${flightSegment.departure}",
+                    style: getBodyMediumStyle(context),
                   ),
-                ],
-              )
-            ),
+                ),
+              ],
+            )),
           ),
           Container(
             width: screenwidth - (flyternSpaceLarge * 2),
-            padding: flyternMediumPaddingAll.copyWith(top:flyternSpaceSmall , bottom: flyternSpaceMedium),
+            padding: flyternMediumPaddingAll.copyWith(
+                top: flyternSpaceSmall, bottom: flyternSpaceMedium),
             child: Center(
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const Icon(Icons.linear_scale, color: flyternSecondaryColor),
-                    addHorizontalSpace(flyternSpaceSmall),
-                    Expanded(
-                      child: Text(
-                        flightSegment.arrival,
-                        style: getBodyMediumStyle(context),
-                      ),
-                    ),
-                  ],
-                )
-            ),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const Icon(Icons.linear_scale, color: flyternSecondaryColor),
+                addHorizontalSpace(flyternSpaceSmall),
+                Expanded(
+                  child: Text(
+                    flightSegment.arrival,
+                    style: getBodyMediumStyle(context),
+                  ),
+                ),
+              ],
+            )),
           ),
-
           Container(
             width: screenwidth - (flyternSpaceLarge * 2),
             margin: EdgeInsets.only(bottom: flyternSpaceSmall),
@@ -82,286 +80,247 @@ class FlightDetailsItineraryCard extends StatelessWidget {
               runSpacing: flyternSpaceSmall,
               children: [
                 Visibility(
-                  visible: flightSegment.flightSegmentDetails.length>1,
+                  visible: flightSegment.flightSegmentDetails.length > 1,
                   child: Container(
-                    padding: flyternSmallPaddingHorizontal.copyWith(top: flyternSpaceExtraSmall,
-                  bottom: flyternSpaceExtraSmall),
+                    padding: flyternSmallPaddingHorizontal.copyWith(
+                        top: flyternSpaceExtraSmall,
+                        bottom: flyternSpaceExtraSmall),
                     decoration: BoxDecoration(
-                      color: flyternPrimaryColorBg ,
-                      borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
+                      color: flyternPrimaryColorBg,
+                      borderRadius:
+                          BorderRadius.circular(flyternBorderRadiusExtraSmall),
                     ),
                     child: Text(
-                        "${flightSegment.flightSegmentDetails.isNotEmpty ?
-                        flightSegment.flightSegmentDetails.length-1:0} ${'stops'.tr}",
-                       style: getLabelLargeStyle(context).copyWith(color:
-                       flyternPrimaryColor ),
+                      "${flightSegment.flightSegmentDetails.isNotEmpty ? flightSegment.flightSegmentDetails.length - 1 : 0} ${'stops'.tr}",
+                      style: getLabelLargeStyle(context)
+                          .copyWith(color: flyternPrimaryColor),
                     ),
                   ),
                 ),
                 Container(
-                  padding: flyternSmallPaddingHorizontal.copyWith(top: flyternSpaceExtraSmall,bottom: flyternSpaceExtraSmall),
+                  padding: flyternSmallPaddingHorizontal.copyWith(
+                      top: flyternSpaceExtraSmall,
+                      bottom: flyternSpaceExtraSmall),
                   decoration: BoxDecoration(
-                    color: flyternPrimaryColorBg ,
-                    borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
+                    color: flyternPrimaryColorBg,
+                    borderRadius:
+                        BorderRadius.circular(flyternBorderRadiusExtraSmall),
                   ),
                   child: Wrap(
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      Icon(Ionicons.time_outline,color: flyternPrimaryColor,size: flyternFontSize16),
+                      Icon(Ionicons.time_outline,
+                          color: flyternPrimaryColor, size: flyternFontSize16),
                       addHorizontalSpace(flyternSpaceSmall),
-
                       Text(
-                        "${flightSegment.travelTime } "
-                        ,style: getLabelLargeStyle(context).copyWith(color:
-                      flyternPrimaryColor ),
+                        "${flightSegment.travelTime} ",
+                        style: getLabelLargeStyle(context)
+                            .copyWith(color: flyternPrimaryColor),
                       ),
                     ],
                   ),
                 ),
-                for(var i=0;i<flightSegment.flightSegmentBaggages.length;i++)
-
+                for (var i = 0;
+                    i < flightSegment.flightSegmentBaggages.length;
+                    i++)
                   Container(
-                    padding: flyternSmallPaddingHorizontal.copyWith(top: flyternSpaceExtraSmall,
+                    padding: flyternSmallPaddingHorizontal.copyWith(
+                        top: flyternSpaceExtraSmall,
                         bottom: flyternSpaceExtraSmall),
                     decoration: BoxDecoration(
-                      color: flyternPrimaryColorBg ,
-                      borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
+                      color: flyternPrimaryColorBg,
+                      borderRadius:
+                          BorderRadius.circular(flyternBorderRadiusExtraSmall),
                     ),
-                    child: Text(
-                      "${flightSegment.flightSegmentBaggages[i].passTy} - ${flightSegment.flightSegmentBaggages[i].cabin}",
-
-                      style: getLabelLargeStyle(context).copyWith(color:
-                      flyternPrimaryColor ),
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      alignment: WrapAlignment.center,
+                      children: [
+                        Icon(Ionicons.bag_outline,
+                            color: flyternPrimaryColor, size: flyternFontSize16),
+                        addHorizontalSpace(flyternSpaceSmall),
+                        Text(
+                          "${flightSegment.flightSegmentBaggages[i].passTy} - ${flightSegment.flightSegmentBaggages[i].cabin}",
+                          style: getLabelLargeStyle(context)
+                              .copyWith(color: flyternPrimaryColor),
+                        ),
+                      ],
                     ),
                   ),
               ],
             ),
           ),
           Divider(),
-          for(var i=0;i<flightSegment.flightSegmentDetails.length;i++)
-          Container(
-            width: screenwidth - (flyternSpaceLarge * 2),
-            height:flightSegment.flightSegmentDetails[i].stopover !=""||
-                flightSegment.flightSegmentDetails[i].layover !=""? 300:270,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(child:
+          for (var i = 0; i < flightSegment.flightSegmentDetails.length; i++)
+            Wrap(
+               children: [
+                //airline data
+                Visibility(
+                  visible: flightSegment.flightSegmentDetails[i].flightNumber !="" &&
+                      flightSegment.flightSegmentDetails[i].flightName !="" ,
+                  child: Padding(
+                    padding: flyternMediumPaddingAll.copyWith(bottom: 0,top:i==0? flyternSpaceSmall:flyternSpaceMedium),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(flyternBorderRadiusExtraSmall)),
+                          child: Image.network(flightSegment.flightSegmentDetails[i].carrierImageUrl,
+                              height: 25, errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  height: 25,
+                                  width: screenwidth * .2,
+                                );
+                              }),
+                        ),
+                        addHorizontalSpace(flyternSpaceSmall),
+                        Text("${flightSegment.flightSegmentDetails[i].flightName} - ${flightSegment.flightSegmentDetails[i].flightNumber}",style: getBodyMediumStyle(context),)
+                      ],
+                    ),
+                  ),
+                ),
+
+                // operator data
+                Visibility(
+                  visible: flightSegment.flightSegmentDetails[i].isOperatedBy,
+                  child: Padding(
+                    padding: flyternMediumPaddingAll.copyWith(bottom: 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(flyternBorderRadiusExtraSmall)),
+                          child: Image.network(flightSegment.flightSegmentDetails[i].operatingCarrierImageUrl,
+                              height: 25, errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  height: 25,
+                                  width: screenwidth * .2,
+                                );
+                              }),
+                        ),
+                        addHorizontalSpace(flyternSpaceSmall),
+                        Text("operated_by".tr.replaceAll("name",
+                            flightSegment.flightSegmentDetails[i].operatingCarrierName)+" - ${flightSegment.flightSegmentDetails[i].operatingCarrierFlightNumber}" ,style: getBodyMediumStyle(context),)
+                      ],
+                    ),
+                  ),
+                ),
+
+                //flight data
                 Container(
-                  padding: flyternMediumPaddingAll ,
+                  padding: flyternMediumPaddingAll.copyWith(bottom: flyternSpaceLarge,top: flyternSpaceLarge),
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          FlightAirportLabelCard(
+                            topLabel: flightSegment
+                                .flightSegmentDetails[i].departuredt,
+                            midLabel: flightSegment
+                                .flightSegmentDetails[i].departuretime,
+                            bottomLabel: flightSegment
+                                .flightSegmentDetails[i].departure,
+                            sideNumber: 1,
+                          ),
+                        ],
+                      )),
+                      Padding(
+                        padding: flyternSmallPaddingHorizontal,
+                        child: Column(
+                          children: [
+                            Image.asset(ASSETS_FLIGHT_CHART_ICON,width: screenwidth*.15 ),
+//                                 addVerticalSpace(flyternSpaceSmall),
+                            addVerticalSpace(flyternSpaceSmall),
+                            Text(
+                              flightSegment
+                                  .flightSegmentDetails[i].duration,
+                              style: getLabelLargeStyle(context),
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          FlightAirportLabelCard(
+                            topLabel: flightSegment
+                                .flightSegmentDetails[i].arrivaldt,
+                            midLabel: flightSegment
+                                .flightSegmentDetails[i].arrivaltime,
+                            bottomLabel: flightSegment
+                                .flightSegmentDetails[i].arrival,
+                            sideNumber: 2,
+                          ),
+                        ],
+                      ))
+                    ],
+                  ),
+                ],
+                  ),
+                ),
+
+                // airport data
+                Container(
+                  padding: flyternMediumPaddingAll.copyWith(top: 0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
-                              child: FlightAirportLabelCard(
-                                topLabel: getTopLabel(
-                                    flightSegment.flightSegmentDetails[i].departurecntry),
-                                midLabel: flightSegment.flightSegmentDetails[i].departure,
-                                bottomLabel: flightSegment.flightSegmentDetails[i].departuretime,
-                                sideNumber: 1,
-                              )),
-                          Padding(
-                            padding: flyternSmallPaddingHorizontal,
-                            child: Column(
-                              children: [
-                                Image.asset(ASSETS_FLIGHT_CHART_ICON,width: screenwidth*.3, ),
-                                addVerticalSpace(flyternSpaceSmall),
-                                Text(flightSegment.flightSegmentDetails[i].duration,style: getBodyMediumStyle(context),)
-                              ],
-                            ),
-                          ),
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(flightSegment
+                                  .flightSegmentDetails[i].departurecntry,maxLines: 2,),
+                              addVerticalSpace(flyternSpaceSmall),
+                              Text("terminal".tr.replaceAll("1", flightSegment
+                                  .flightSegmentDetails[i].departureTerminal)),
+                            ],
+                          )),
                           Expanded(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  FlightAirportLabelCard(
-                                    topLabel: getTopLabel(
-                                        flightSegment.flightSegmentDetails[i].arrivalcntry),
-                                    midLabel: flightSegment.flightSegmentDetails[i].arrival,
-                                    bottomLabel: flightSegment.flightSegmentDetails[i].arrivaltime,
-                                    sideNumber: 2,
-                                  ),
-                                ],
-                              ))
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(flightSegment
+                                  .flightSegmentDetails[i].arrivalcntry,maxLines: 2,
+                              textAlign: TextAlign.end),
+                              addVerticalSpace(flyternSpaceSmall),
+                              Text("terminal".tr.replaceAll("1", flightSegment
+                                  .flightSegmentDetails[i].arrivalTerminal),textAlign: TextAlign.end),
+                            ],
+                          ))
                         ],
-                      ),
-                      addVerticalSpace(flyternSpaceMedium),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          for (var i = 0; i < (screenwidth -  (screenwidth/1.3)); i++)
-                            Container(
-                              color: i % 2 == 0
-                                  ? flyternGrey40
-                                  : Colors.transparent,
-                              height: 1,
-                              width: 3,
-                            ),
-                        ],
-                      ),
-                      addVerticalSpace(flyternSpaceMedium),
-                      Container(
-                        height: 100,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "flight_no".tr,
-                                          style: getLabelLargeStyle(context).copyWith(
-                                              color: flyternGrey40,
-                                              fontWeight: FontWeight.  w400),
-                                        ),
-                                        addVerticalSpace(flyternSpaceExtraSmall),
-                                        Text(
-                                          flightSegment.flightSegmentDetails[i].flightNumber,
-                                          style: getLabelLargeStyle(context).copyWith(
-                                              color: flyternGrey80,
-                                              fontWeight: flyternFontWeightBold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "cabin_class".tr,
-                                          style: getLabelLargeStyle(context).copyWith(
-                                              color: flyternGrey40,
-                                              fontWeight: FontWeight.  w400),
-                                        ),
-                                        addVerticalSpace(flyternSpaceExtraSmall),
-                                        Text(
-                                          flightSegment.flightSegmentDetails[i].cabin,
-                                          style: getLabelLargeStyle(context).copyWith(
-                                              color: flyternGrey80,
-                                              fontWeight: flyternFontWeightBold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          "flight_date".tr,
-                                          style: getLabelLargeStyle(context).copyWith(
-                                              color: flyternGrey40,
-                                              fontWeight: FontWeight.  w400),
-                                        ),
-                                        addVerticalSpace(flyternSpaceExtraSmall),
-                                        Text(
-                                          flightSegment.flightSegmentDetails[i].departuredt,
-                                          style: getLabelLargeStyle(context).copyWith(
-                                              color: flyternGrey80,
-                                              fontWeight: flyternFontWeightBold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            addVerticalSpace(flyternSpaceLarge),
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "airline".tr,
-                                          style: getLabelLargeStyle(context).copyWith(
-                                              color: flyternGrey40,
-                                              fontWeight: FontWeight.  w400),
-                                        ),
-                                        addVerticalSpace(flyternSpaceExtraSmall),
-                                        Text(
-                                          flightSegment.flightSegmentDetails[i].flightName,
-                                          style: getLabelLargeStyle(context).copyWith(
-                                              color: flyternGrey80,
-                                              fontWeight: flyternFontWeightBold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "carrier".tr,
-                                          style: getLabelLargeStyle(context).copyWith(
-                                              color: flyternGrey40,
-                                              fontWeight: FontWeight.  w400),
-                                        ),
-                                        addVerticalSpace(flyternSpaceExtraSmall),
-                                        Text(flightSegment.flightSegmentDetails[i].carrier,
-                                          style: getLabelLargeStyle(context).copyWith(
-                                              color: flyternGrey80,
-                                              fontWeight: flyternFontWeightBold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          "duration".tr,
-                                          style: getLabelLargeStyle(context).copyWith(
-                                              color: flyternGrey40,
-                                              fontWeight: FontWeight.  w400),
-                                        ),
-                                        addVerticalSpace(flyternSpaceExtraSmall),
-                                        Text(
-                                          flightSegment.flightSegmentDetails[i].duration,
-                                          style: getLabelLargeStyle(context).copyWith(
-                                              color: flyternGrey80,
-                                              fontWeight: flyternFontWeightBold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
                     ],
                   ),
-                )),
+                ),
+
+                // layover & sleepover
                 Visibility(
-                  visible: flightSegment.flightSegmentDetails[i].stopover !=""||
-                      flightSegment.flightSegmentDetails[i].layover !="",
+                  visible:
+                      flightSegment.flightSegmentDetails[i].stopover != "" ||
+                          flightSegment.flightSegmentDetails[i].layover != "",
                   child: Container(
-                    padding: flyternMediumPaddingAll.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
+                    padding: flyternMediumPaddingAll.copyWith(
+                        top: flyternSpaceSmall, bottom: flyternSpaceSmall),
                     color: flyternPrimaryColorBg,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(child:DottedLine(
+                        Expanded(
+                            child: DottedLine(
                           direction: Axis.horizontal,
                           alignment: WrapAlignment.center,
                           lineLength: double.infinity,
@@ -370,28 +329,37 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                           dashColor: flyternGrey60,
                           dashRadius: 0.0,
                           dashGapLength: 4.0,
-                          dashGapColor:flyternPrimaryColorBg,
+                          dashGapColor: flyternPrimaryColorBg,
                           dashGapRadius: 0.0,
                         )),
                         Visibility(
-                          visible: flightSegment.flightSegmentDetails[i].stopover !="" ,
+                          visible: flightSegment
+                                  .flightSegmentDetails[i].stopover !=
+                              "",
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: flyternSpaceMedium),
                             child: Text(
                                 '${'stopover'.tr} ${flightSegment.flightSegmentDetails[i].stopover}',
-                                style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                                style: getBodyMediumStyle(context)
+                                    .copyWith(color: flyternGrey60)),
                           ),
                         ),
                         Visibility(
-                          visible: flightSegment.flightSegmentDetails[i].layover !="" ,
+                          visible:
+                              flightSegment.flightSegmentDetails[i].layover !=
+                                  "",
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: flyternSpaceMedium),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: flyternSpaceMedium),
                             child: Text(
                                 "${'layover'.tr} ${flightSegment.flightSegmentDetails[i].layover}",
-                            style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                                style: getBodyMediumStyle(context)
+                                    .copyWith(color: flyternGrey60)),
                           ),
                         ),
-                        const Expanded(child:DottedLine(
+                        const Expanded(
+                            child: DottedLine(
                           direction: Axis.horizontal,
                           alignment: WrapAlignment.center,
                           lineLength: double.infinity,
@@ -400,7 +368,7 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                           dashColor: flyternGrey60,
                           dashRadius: 0.0,
                           dashGapLength: 4.0,
-                          dashGapColor:flyternPrimaryColorBg,
+                          dashGapColor: flyternPrimaryColorBg,
                           dashGapRadius: 0.0,
                         )),
                       ],
@@ -409,8 +377,6 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-
         ],
       ),
     );
@@ -428,7 +394,7 @@ class FlightDetailsItineraryCard extends StatelessWidget {
 
   String getBaggageWeight(FlightSegment flightSegment) {
     String baggage = "";
-    if(flightSegment.flightSegmentBaggages.isNotEmpty){
+    if (flightSegment.flightSegmentBaggages.isNotEmpty) {
       baggage = flightSegment.flightSegmentBaggages[0].cabin;
     }
     return baggage;

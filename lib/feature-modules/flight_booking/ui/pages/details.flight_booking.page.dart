@@ -136,6 +136,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                               color: flyternGrey80,
                               fontWeight: flyternFontWeightBold)),
                     ),
+
                     Container(
                       padding: flyternLargePaddingHorizontal,
                       decoration: BoxDecoration(color: flyternBackgroundWhite),
@@ -184,6 +185,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                         ),
                       ),
                     ),
+
                     Container(
                       padding: flyternLargePaddingHorizontal.copyWith(
                           bottom: flyternSpaceLarge),
@@ -203,6 +205,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                               color: flyternGrey80,
                               fontWeight: flyternFontWeightBold)),
                     ),
+
                     Visibility(
                       visible: flightBookingController.cabinInfo.value.id !=
                               "-1" &&
@@ -215,6 +218,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                             "${"base_fare".tr} : ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.adultBase}",
                       ),
                     ),
+
                     Visibility(
                       visible: flightBookingController.cabinInfo.value.id !=
                           "-1" &&
@@ -225,6 +229,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                           padding: flyternLargePaddingHorizontal,
                           child: Divider()),
                     ),
+
                     Visibility(
                       visible: flightBookingController.cabinInfo.value.id !=
                               "-1" &&
@@ -237,6 +242,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                             "${"base_fare".tr} : ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.childBase}",
                       ),
                     ),
+
                     Visibility(
                       visible: flightBookingController.cabinInfo.value.id !=
                           "-1" &&
@@ -247,6 +253,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                           padding: flyternLargePaddingHorizontal,
                           child: Divider()),
                     ),
+
                     Visibility(
                       visible: flightBookingController.cabinInfo.value.id !=
                               "-1" &&
@@ -260,6 +267,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                             " ${flightBookingController.cabinInfo.value.infantBase}",
                       ),
                     ),
+
                     Visibility(
                       visible:
                       flightBookingController.cabinInfo.value.id !=
@@ -271,6 +279,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                           color: flyternBackgroundWhite,
                           child: Divider()),
                     ),
+
                     Visibility(
                       visible:
                           flightBookingController.cabinInfo.value.id != "-1",
@@ -337,6 +346,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                         ),
                       ),
                     ),
+
                     Visibility(
                       visible: flightBookingController.cabinInfo.value.id != "-1" &&
                           flightBookingController.cabinInfo.value.discount >
@@ -346,6 +356,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                           color: flyternBackgroundWhite,
                           child: Divider()),
                     ),
+
                     Visibility(
                       visible:
                           flightBookingController.cabinInfo.value.id != "-1" &&
@@ -370,6 +381,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                         ),
                       ),
                     ),
+
                     Visibility(
                       visible:
                           flightBookingController.cabinInfo.value.id != "-1",
@@ -378,6 +390,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                           color: flyternBackgroundWhite,
                           child: Divider()),
                     ),
+
                     Visibility(
                       visible:
                           flightBookingController.cabinInfo.value.id != "-1",
@@ -400,6 +413,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                         ),
                       ),
                     ),
+
                     // Visibility(
                     //   visible:  flightBookingController.flightDetails.value.warningMessage !="",
                     //   child: Container(

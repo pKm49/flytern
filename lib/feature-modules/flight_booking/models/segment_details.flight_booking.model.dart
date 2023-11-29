@@ -1,4 +1,8 @@
 class FlightSegmentDetails {
+
+  final String carrierImageUrl;
+  final String operatingCarrierImageUrl;
+  final String operatingCarrierName;
   final String promoCode;
   final String departureTerminal;
   final String arrivalTerminal;
@@ -28,6 +32,11 @@ class FlightSegmentDetails {
   FlightSegmentDetails(
       {required this.departurecntry,
       required this.promoCode,
+      required this.carrierImageUrl,
+      required this.operatingCarrierImageUrl,
+      required this.operatingCarrierName,
+
+
       required this.departureTerminal,
       required this.arrivalTerminal,
       required this.isOperatedBy,
@@ -54,8 +63,10 @@ class FlightSegmentDetails {
 
 FlightSegmentDetails mapFlightSegmentDetails(dynamic payload) {
 
-
   return FlightSegmentDetails(
+    carrierImageUrl: payload["carrierImageUrl"] ?? "",
+    operatingCarrierImageUrl: payload["operatingCarrierImageUrl"] ?? "",
+    operatingCarrierName: payload["operatingCarrierName"] ?? "",
     departurecntry: payload["depaturecntry"] ?? "",
     promoCode: payload["promoCode"] ?? "",
     layover: payload["layover"] ?? "",

@@ -392,16 +392,13 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                     Padding(
                       padding: flyternLargePaddingAll,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text("flight_summary".tr,
                               style: getBodyMediumStyle(context).copyWith(
                                   color: flyternGrey80,
                                   fontWeight: flyternFontWeightBold)),
-                          Text("flight_details".tr,
-                              style: getBodyMediumStyle(context).copyWith(
-                                  decoration: TextDecoration.underline,
-                                  color: flyternTertiaryColor)),
+
                         ],
                       ),
                     ),

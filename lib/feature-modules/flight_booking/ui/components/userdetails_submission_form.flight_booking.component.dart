@@ -11,6 +11,7 @@ import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared
 import 'package:flytern/shared-module/models/country.dart';
 import 'package:flytern/shared-module/models/gender.dart';
 import 'package:flytern/shared-module/models/general_item.dart';
+import 'package:flytern/shared-module/services/utility-services/flight_userdata_input_formatter.dart';
 import 'package:flytern/shared-module/services/utility-services/form_validator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/ui/components/country_selector.shared.component.dart';
@@ -199,6 +200,9 @@ class _FlightUserDetailsSubmissionFormState
                   Expanded(
                     flex: 3,
                     child: TextFormField(
+                        inputFormatters: [
+                          FlightUserDataTextFormatter(),
+                        ],
                         onChanged: updateData(),
                         controller: firstNameController,
                         validator: (value) =>
@@ -212,6 +216,9 @@ class _FlightUserDetailsSubmissionFormState
                   Expanded(
                     flex: 3,
                     child: TextFormField(
+                        inputFormatters: [
+                          FlightUserDataTextFormatter(),
+                        ],
                         onChanged: updateData(),
                         controller: lastNameController,
                         validator: (value) =>
@@ -317,6 +324,9 @@ class _FlightUserDetailsSubmissionFormState
               padding: EdgeInsets.only(bottom: flyternSpaceMedium),
               color: flyternBackgroundWhite,
               child: TextFormField(
+                  inputFormatters: [
+                    FlightUserDataTextFormatter(),
+                  ],
                   onChanged: updateData(),
                   controller: passportNumberController,
                   validator: (value) =>
@@ -365,21 +375,16 @@ class _FlightUserDetailsSubmissionFormState
             Container(
                 padding: EdgeInsets.only(bottom: flyternSpaceMedium),
                 color: flyternBackgroundWhite,
-                child: Container(
-                  decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                      color: flyternGrey10,
-                      border: Border.all(color: flyternGrey10, width: .2)),
-                  padding: flyternMediumPaddingHorizontal.copyWith(
-                      top: flyternSpaceExtraSmall,
-                      bottom: flyternSpaceExtraSmall),
-                  child:TextFormField(
-                      onChanged: updateData(),
-                      controller: frequentFlyerNoController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: "enter_frequent_flyer".tr,
-                      )),
-                )),
+                child: TextFormField(
+                    onChanged: updateData(),
+                    inputFormatters: [
+                      FlightUserDataTextFormatter(),
+                    ],
+                    controller: frequentFlyerNoController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      labelText: "enter_frequent_flyer".tr,
+                    ))),
           ],
         ),
       ),
@@ -468,7 +473,7 @@ class _FlightUserDetailsSubmissionFormState
 
   void changeNationality(Country country) {
     nationality = country;
-    nationalityController.text = "${country.countryName} (${country.code})";
+    nationalityController.text = "${country.countryName} (${country.countryCode})";
     setState(() {});
     updateData();
 
@@ -477,7 +482,7 @@ class _FlightUserDetailsSubmissionFormState
   void changePassportCountry(Country country) {
     passportIssuedCountryCode = country;
     passportIssuedCountryController.text =
-        "${country.countryName} (${country.code})";
+        "${country.countryName} (${country.countryCode})";
     setState(() {});
     updateData();
 

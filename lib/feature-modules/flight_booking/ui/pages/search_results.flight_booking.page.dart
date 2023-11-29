@@ -309,6 +309,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                   !flightBookingController.isFlightSearchResponsesLoading.value &&
                       !flightBookingController
                           .isFlightSearchFilterResponsesLoading.value &&
+                      !flightBookingController.isModifySearchVisible.value&&
                       flightBookingController.flightSearchResponses.value.isEmpty ,
                   child: Expanded(
                     child: Container(
