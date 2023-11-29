@@ -292,6 +292,7 @@ class _InsuranceUserDetailsSubmissionFormState
         context: context,
         builder: (context) {
           return CountrySelector(
+            isMobile:false,
             countrySelected: (Country? country) {
               if (country != null) {
                 if (isNationality) {

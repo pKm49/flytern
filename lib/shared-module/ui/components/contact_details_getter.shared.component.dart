@@ -233,7 +233,9 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
         isScrollControlled: true,
         context: context,
         builder: (context) {
-          return CountrySelector(countrySelected: (Country? country) {
+          return CountrySelector(
+              isMobile:true,
+              countrySelected: (Country? country) {
             if (country != null) profileController.changeMobileCountry(country);
           });
         });

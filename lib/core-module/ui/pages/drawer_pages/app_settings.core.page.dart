@@ -182,8 +182,8 @@ class _CoreSettingsPageState extends State<CoreSettingsPage> {
         context: context,
         builder: (context) {
           return CountrySelector(
+            isMobile:false,
             countrySelected: (Country? country){
-
             },
           );
         });

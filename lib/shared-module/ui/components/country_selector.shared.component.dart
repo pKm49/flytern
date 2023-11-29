@@ -11,8 +11,10 @@ import 'package:ionicons/ionicons.dart';
 class CountrySelector extends StatelessWidget {
 
   final Function(Country? country) countrySelected;
+  final bool  isMobile;
   final bool? isGlobal;
-  CountrySelector({super.key, required this.countrySelected, this.isGlobal});
+  CountrySelector({super.key, required this.countrySelected,
+    required this.isMobile,this.isGlobal});
   TextEditingController searchController = TextEditingController();
 
   final sharedController = Get.find<SharedController>();
@@ -37,7 +39,7 @@ class CountrySelector extends StatelessWidget {
             TextFormField(
               onChanged: (String? value){
                 print("searchController clicked");
-                sharedController.updateCountryListByQuery(searchController.value.text);
+                sharedController.updateCountryListByQuery(searchController.value.text,isMobile);
               },
                 keyboardType: TextInputType.text,
                 controller: searchController,
@@ -53,9 +55,6 @@ class CountrySelector extends StatelessWidget {
                   for(var i =0; i<sharedController.countriesToShow.length;i++)
                     InkWell(
                       onTap: () async {
-                        print("countriesToShow");
-                        print(sharedController.countriesToShow[i].toJson());
-                        countrySelected(sharedController.countriesToShow[i]);
                         if(isGlobal == null || isGlobal == true){
                           await sharedController.changeCountry(sharedController.countriesToShow[i]);
                         }

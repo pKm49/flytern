@@ -267,8 +267,8 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
         context: context,
         builder: (context) {
           return CountrySelector(
+            isMobile:false,
             countrySelected: (Country? country){
-
             },
           );
         });

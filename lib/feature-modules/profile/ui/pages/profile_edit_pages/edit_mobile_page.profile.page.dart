@@ -34,8 +34,8 @@ class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
           title: Text("change_mobile".tr),
           elevation: 0.5,
         ),
-        body:  Obx(
-              ()=> Container(
+        body: Obx(
+          () => Container(
             width: screenwidth,
             height: screenheight,
             color: flyternGrey10,
@@ -52,8 +52,8 @@ class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
                         child: InkWell(
                           onTap: openCountrySelector,
                           child: Container(
-                            decoration:
-                                flyternBorderedContainerSmallDecoration.copyWith(
+                            decoration: flyternBorderedContainerSmallDecoration
+                                .copyWith(
                                     color: flyternGrey10,
                                     border: Border.all(
                                         color: Colors.transparent, width: 0)),
@@ -64,12 +64,14 @@ class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.network(
-                                    profileController.selectedCountry.value.flag,
+                                    profileController
+                                        .selectedCountry.value.flag,
                                     width: 17),
                                 addHorizontalSpace(flyternSpaceSmall),
                                 Expanded(
                                   child: Text(
-                                      profileController.selectedCountry.value.code,
+                                      profileController
+                                          .selectedCountry.value.code,
                                       style: getBodyMediumStyle(context)),
                                 ),
                               ],
@@ -81,8 +83,10 @@ class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
                       Expanded(
                         flex: 5,
                         child: TextFormField(
-                            controller: profileController.mobileController.value,
-                            validator: (value) => checkIfMobileNumberValid(value),
+                            controller:
+                                profileController.mobileController.value,
+                            validator: (value) =>
+                                checkIfMobileNumberValid(value),
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               labelText: "mobile".tr,
@@ -95,8 +99,8 @@ class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
             ),
           ),
         ),
-        bottomSheet:  Obx(
-              () => Container(
+        bottomSheet: Obx(
+          () => Container(
             width: screenwidth,
             color: flyternBackgroundWhite,
             height: 60 + (flyternSpaceSmall * 2),
@@ -111,18 +115,18 @@ class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
                       print("mobile changed");
                       print(profileController.mobileController.value.text);
                       print(profileController.userDetails.value.phoneNumber);
-                      if (profileController.mobileController.value.text
-                          != profileController.userDetails.value.phoneNumber &&
+                      if (profileController.mobileController.value.text !=
+                              profileController.userDetails.value.phoneNumber &&
                           !profileController.isMobileSubmitting.value) {
                         FocusManager.instance.primaryFocus?.unfocus();
                         profileController.sendOTP(true);
                       }
                     },
-                    child:profileController.isMobileSubmitting.value
-                        ?LoadingAnimationWidget.prograssiveDots(
-                      color: flyternBackgroundWhite,
-                      size: 16,
-                    )
+                    child: profileController.isMobileSubmitting.value
+                        ? LoadingAnimationWidget.prograssiveDots(
+                            color: flyternBackgroundWhite,
+                            size: 16,
+                          )
                         : Text("update".tr)),
               ),
             ),
@@ -141,9 +145,12 @@ class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
         isScrollControlled: true,
         context: context,
         builder: (context) {
-          return CountrySelector(countrySelected: (Country? country) {
-            if (country != null) profileController.changeMobileCountry(country);
-          });
+          return CountrySelector(
+              isMobile: true,
+              countrySelected: (Country? country) {
+                if (country != null)
+                  profileController.changeMobileCountry(country);
+              });
         });
   }
 }

@@ -63,13 +63,13 @@ class _AuthResetPasswordCredentialsPageState extends State<AuthResetPasswordCred
                             children: [
                               Image.network(
                                   sharedController
-                                      .selectedCountry.value.flag,
+                                      .selectedMobileCountry.value.flag,
                                   width: 17),
                               addHorizontalSpace(flyternSpaceSmall),
                               Expanded(
                                 child: Text(
                                     sharedController
-                                        .selectedCountry.value.code,
+                                        .selectedMobileCountry.value.code,
                                     style:
                                     getBodyMediumStyle(context)),
                               ),
@@ -128,6 +128,7 @@ class _AuthResetPasswordCredentialsPageState extends State<AuthResetPasswordCred
         context: context,
         builder: (context) {
           return CountrySelector(
+            isMobile:true,
             countrySelected: (Country? country){
 
             },

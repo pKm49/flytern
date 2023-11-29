@@ -35,10 +35,22 @@ class SharedController extends GetxController {
           flag: "https://flagcdn.com/48x36/kw.png",
           code: "+965")
       .obs;
+
+  var selectedMobileCountry = Country(
+      isDefault: 1,
+      countryName: "Kuwait",
+      countryCode: "KWT",
+      countryISOCode: "KW",
+      countryName_Ar: "الكويت",
+      flag: "https://flagcdn.com/48x36/kw.png",
+      code: "+965")
+      .obs;
    var genders = <Gender>[].obs;
   var languages = <Language>[].obs;
   var countries = <Country>[].obs;
+  var mobileCountries = <Country>[].obs;
   var countriesToShow = <Country>[].obs;
+  var mobileCountriesToShow = <Country>[].obs;
 
   var termsHtml = "".obs;
   var privacyHtml = "".obs;
@@ -66,33 +78,58 @@ class SharedController extends GetxController {
 
   changeCountry(Country country) async {
     selectedCountry.value = country;
-    updateCountryListByQuery("");
+    updateCountryListByQuery("",false);
+  }
+
+  changeMobileCountry(Country country) async {
+    selectedMobileCountry.value = country;
+    updateCountryListByQuery("",true);
   }
 
   updateGenders(List<Gender> newGendersList) {
     genders.value = newGendersList;
   }
 
-  updateCountryListByQuery(String query) {
+  updateCountryListByQuery(String query, bool isMobile) {
     print("updateCountryListByQuery");
     print(query);
     if (query == "") {
       countriesToShow.value = countries.value;
+      mobileCountriesToShow.value = mobileCountries.value;
     } else {
-      List<Country> tempCountries = countries.value
-          .where((element) =>
-              element.countryName.toLowerCase().contains(query.toLowerCase()) ||
-              element.countryName_Ar
-                  .toLowerCase()
-                  .contains(query.toLowerCase()) ||
-              element.code.toLowerCase().contains(query.toLowerCase()) ||
-              element.countryISOCode
-                  .toLowerCase()
-                  .contains(query.toLowerCase()) ||
-              element.countryCode.toLowerCase().contains(query.toLowerCase()))
-          .toList();
+      List<Country> tempCountries =  [];
 
-      countriesToShow.value = tempCountries;
+      if(isMobile){
+        tempCountries = mobileCountries.value
+            .where((element) =>
+        element.countryName.toLowerCase().contains(query.toLowerCase()) ||
+            element.countryName_Ar
+                .toLowerCase()
+                .contains(query.toLowerCase()) ||
+            element.code.toLowerCase().contains(query.toLowerCase()) ||
+            element.countryISOCode
+                .toLowerCase()
+                .contains(query.toLowerCase()) ||
+            element.countryCode.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+        mobileCountriesToShow.value = tempCountries;
+      }else{
+        tempCountries = countries.value
+            .where((element) =>
+        element.countryName.toLowerCase().contains(query.toLowerCase()) ||
+            element.countryName_Ar
+                .toLowerCase()
+                .contains(query.toLowerCase()) ||
+            element.code.toLowerCase().contains(query.toLowerCase()) ||
+            element.countryISOCode
+                .toLowerCase()
+                .contains(query.toLowerCase()) ||
+            element.countryCode.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+        countriesToShow.value = tempCountries;
+      }
+
+
     }
   }
 
@@ -100,13 +137,7 @@ class SharedController extends GetxController {
     SupportInfo supportInfo = await sharedHttpService.getInitialSupportInfo();
 
     languages.value = supportInfo.languages;
-    countries.value = supportInfo.countries;
-    countriesToShow.value = supportInfo.countries;
-
-    List<Country> defaultCountry = countries.value.where((element) => element.isDefault==1).toList();
-    if(defaultCountry.isNotEmpty){
-      changeCountry(defaultCountry[0]);
-    }
+    updateMobileCountryList(supportInfo.countries);
   }
 
   Future<void> getPreRegisterInfo() async {
@@ -272,4 +303,54 @@ class SharedController extends GetxController {
       isInfoLoading.value = false;
     }
   }
+
+  Future<void> updateMobileCountryList(List<Country> mobileCountryList) async {
+
+    mobileCountries.value = mobileCountryList;
+    mobileCountriesToShow.value = mobileCountryList;
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? tSelectedCountry = prefs.getString('selectedMobileCountry');
+
+    if ( tSelectedCountry != ''  ) {
+      List<Country> tCountriesList = mobileCountryList.where((element) =>
+      tSelectedCountry == element.countryCode).toList();
+
+      if(tCountriesList.isNotEmpty){
+        changeMobileCountry(tCountriesList[0]);
+      }
+    }else{
+
+      List<Country> defaultCountry = countries.value.where((element) => element.isDefault==1).toList();
+      if(defaultCountry.isNotEmpty){
+        changeMobileCountry(defaultCountry[0]);
+      }
+    }
+  }
+
+  Future<void> updateCountryList(List<Country> countriesList) async {
+
+    countries.value = countriesList;
+    countriesToShow.value = countriesList;
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+     final String? tSelectedCountry = prefs.getString('selectedCountry');
+
+    if ( tSelectedCountry != ''  ) {
+      List<Country> tCountriesList = countriesList.where((element) =>
+      tSelectedCountry == element.countryCode).toList();
+
+      if(tCountriesList.isNotEmpty){
+        changeCountry(tCountriesList[0]);
+      }
+    }else{
+
+      List<Country> defaultCountry = countries.value.where((element) => element.isDefault==1).toList();
+      if(defaultCountry.isNotEmpty){
+        changeCountry(defaultCountry[0]);
+      }
+    }
+
+
+  }
+
 }

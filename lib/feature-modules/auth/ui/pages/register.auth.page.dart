@@ -412,7 +412,9 @@ class _AuthRegisterDetailsInputPageState
         isScrollControlled: true,
         context: context,
         builder: (context) {
-          return CountrySelector(countrySelected: (Country? country){
+          return CountrySelector(
+              isMobile:true,
+              countrySelected: (Country? country){
 
           });
         });

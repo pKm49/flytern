@@ -33,6 +33,7 @@ import 'package:flytern/feature-modules/flight_booking/models/traveller_data.fli
 import 'package:flytern/feature-modules/flight_booking/models/get_gateway_data.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/popular_destination.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/recommended_package.flight_booking.model.dart';
+import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/models/range_dcs.dart';
 import 'package:flytern/shared-module/models/sorting_dcs.dart';
 import 'package:flytern/feature-modules/flight_booking/models/travel_story.flight_booking.model.dart';
@@ -52,6 +53,7 @@ part 'addons_handler.flight_booking.controller.dart';
 
 class FlightBookingController extends GetxController {
 
+  final sharedController = Get.find<SharedController>();
 
   var selectedRouteForSeat = "1".obs;
   var selectedPassengerForSeat = "1".obs;
@@ -376,6 +378,12 @@ class FlightBookingController extends GetxController {
 
       if (tempFlightPretravellerData.countriesList.length > 0) {
         flightPretravellerData.value = tempFlightPretravellerData;
+        if( flightPretravellerData.value.mobileCountryList.isNotEmpty){
+          sharedController.updateMobileCountryList(flightPretravellerData.value.mobileCountryList);
+        }
+        if( flightPretravellerData.value.countriesList.isNotEmpty){
+          sharedController.updateCountryList(flightPretravellerData.value.countriesList);
+        }
       } else {
         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
       }

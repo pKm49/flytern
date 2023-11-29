@@ -514,6 +514,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
         context: context,
         builder: (context) {
           return CountrySelector(
+            isMobile:false,
             isGlobal: false,
             countrySelected: (Country? country) {
               if (country != null) {
