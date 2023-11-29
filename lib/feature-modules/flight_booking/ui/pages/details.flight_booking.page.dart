@@ -206,7 +206,8 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                     Visibility(
                       visible: flightBookingController.cabinInfo.value.id !=
                               "-1" &&
-                          flightBookingController.flightDetails.value.adult > 0,
+                          flightBookingController.flightDetails.value.adult > 0
+                      && flightBookingController.flightDetails.value.isBaseFareToShow,
                       child: FlightDetailsAddonServiceCard(
                         ImageUrl: ASSETS_COUPLE_ICON,
                         keyLabel: "adult".tr,
@@ -216,8 +217,9 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                     ),
                     Visibility(
                       visible: flightBookingController.cabinInfo.value.id !=
-                              "-1" &&
-                          flightBookingController.flightDetails.value.child > 0,
+                          "-1" &&
+                          flightBookingController.flightDetails.value.adult > 0
+                          && flightBookingController.flightDetails.value.isBaseFareToShow,
                       child: Container(
                           color: flyternBackgroundWhite,
                           padding: flyternLargePaddingHorizontal,
@@ -226,7 +228,8 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                     Visibility(
                       visible: flightBookingController.cabinInfo.value.id !=
                               "-1" &&
-                          flightBookingController.flightDetails.value.child > 0,
+                          flightBookingController.flightDetails.value.child > 0
+                          && flightBookingController.flightDetails.value.isBaseFareToShow,
                       child: FlightDetailsAddonServiceCard(
                         ImageUrl: ASSETS_COUPLE_ICON,
                         keyLabel: "child".tr,
@@ -236,9 +239,9 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                     ),
                     Visibility(
                       visible: flightBookingController.cabinInfo.value.id !=
-                              "-1" &&
-                          flightBookingController.flightDetails.value.infant >
-                              0,
+                          "-1" &&
+                          flightBookingController.flightDetails.value.child > 0
+                          && flightBookingController.flightDetails.value.isBaseFareToShow,
                       child: Container(
                           color: flyternBackgroundWhite,
                           padding: flyternLargePaddingHorizontal,
@@ -248,7 +251,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                       visible: flightBookingController.cabinInfo.value.id !=
                               "-1" &&
                           flightBookingController.flightDetails.value.infant >
-                              0,
+                              0 && flightBookingController.flightDetails.value.isBaseFareToShow,
                       child: FlightDetailsAddonServiceCard(
                         ImageUrl: ASSETS_COUPLE_ICON,
                         keyLabel: "infant".tr,
@@ -259,7 +262,10 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                     ),
                     Visibility(
                       visible:
-                          flightBookingController.cabinInfo.value.id != "-1",
+                      flightBookingController.cabinInfo.value.id !=
+                          "-1" &&
+                          flightBookingController.flightDetails.value.infant >
+                              0 && flightBookingController.flightDetails.value.isBaseFareToShow,
                       child: Container(
                           padding: flyternLargePaddingHorizontal,
                           color: flyternBackgroundWhite,
@@ -270,7 +276,8 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                           flightBookingController.cabinInfo.value.id != "-1",
                       child: Container(
                         padding: flyternLargePaddingHorizontal.copyWith(
-                            top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+                            top: flightBookingController.flightDetails.value.isBaseFareToShow ?
+                            flyternSpaceSmall:flyternSpaceLarge, bottom: flyternSpaceSmall),
                         color: flyternBackgroundWhite,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -286,14 +293,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                         ),
                       ),
                     ),
-                    Visibility(
-                      visible:
-                          flightBookingController.cabinInfo.value.id != "-1",
-                      child: Container(
-                          padding: flyternLargePaddingHorizontal,
-                          color: flyternBackgroundWhite,
-                          child: Divider()),
-                    ),
+
                     Visibility(
                       visible:
                           flightBookingController.cabinInfo.value.id != "-1",
@@ -315,16 +315,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                         ),
                       ),
                     ),
-                    Visibility(
-                      visible:
-                          flightBookingController.cabinInfo.value.id != "-1" &&
-                              flightBookingController.cabinInfo.value.discount >
-                                  0.0,
-                      child: Container(
-                          padding: flyternLargePaddingHorizontal,
-                          color: flyternBackgroundWhite,
-                          child: Divider()),
-                    ),
+
                     Visibility(
                       visible:
                           flightBookingController.cabinInfo.value.id != "-1",
@@ -347,9 +338,8 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                       ),
                     ),
                     Visibility(
-                      visible: flightBookingController.cabinInfo.value.id !=
-                              "-1" &&
-                          flightBookingController.cabinInfo.value.totalBase >
+                      visible: flightBookingController.cabinInfo.value.id != "-1" &&
+                          flightBookingController.cabinInfo.value.discount >
                               0.0,
                       child: Container(
                           padding: flyternLargePaddingHorizontal,

@@ -100,7 +100,7 @@ class _InsuranceUserDetailsSubmissionFormState
             Visibility(
               visible: coPaxController.userCopaxes.isNotEmpty,
               child: Container(
-                  padding: EdgeInsets.only(bottom: flyternSpaceMedium),
+                  padding: EdgeInsets.only(bottom: flyternSpaceMedium,top: flyternSpaceSmall),
                   color: flyternBackgroundWhite,
                   child: Container(
                     decoration: flyternBorderedContainerSmallDecoration.copyWith(

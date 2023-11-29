@@ -138,7 +138,7 @@ class _FlightUserDetailsSubmissionFormState
                   )),
             ),
             Container(
-              padding: EdgeInsets.only(bottom: flyternSpaceMedium),
+              padding: EdgeInsets.only(bottom: flyternSpaceMedium,top: flyternSpaceSmall),
               color: flyternBackgroundWhite,
               child: Row(
                 children: [

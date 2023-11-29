@@ -2,6 +2,7 @@ import 'package:flytern/feature-modules/flight_booking/models/cabin_info.flight_
 import 'package:flytern/feature-modules/flight_booking/models/segment.flight_booking.model.dart';
 
 class FlightDetails {
+  final bool isBaseFareToShow;
   final String priceChangedMessage;
   final String scheduleChangedMessage;
   final String selectedCabinId;
@@ -22,6 +23,7 @@ class FlightDetails {
 
   FlightDetails(
       {required this.priceChangedMessage,
+      required this.isBaseFareToShow,
       required this.scheduleChangedMessage,
       required this.selectedCabinId,
       required this.selectedCabinName,
@@ -89,6 +91,7 @@ FlightDetails mapFlightDetails(dynamic payload) {
   }
 
   return FlightDetails(
+    isBaseFareToShow: payload["isBaseFareToShow"] ?? false,
     priceChangedMessage: payload["priceChangedMessage"] ?? "",
     selectedCabinName: payload["selectedCabinName"] ?? "",
     selectedCabinId: payload["selectedCabinId"] ?? "",
@@ -118,6 +121,7 @@ FlightDetails getDefaultFlightDetails() {
 
 
   return FlightDetails(
+    isBaseFareToShow:false,
     priceChangedMessage:  "",
     selectedCabinName: "",
     selectedCabinId:   "",
