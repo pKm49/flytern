@@ -186,15 +186,19 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                       ),
                     ),
 
-                    Container(
-                      padding: flyternLargePaddingHorizontal.copyWith(
-                          bottom: flyternSpaceLarge),
-                      decoration: BoxDecoration(
-                          color: flyternBackgroundWhite,
-                          border: flyternDefaultBorderBottomOnly),
-                      child: Html(
-                        data: flightBookingController
-                            .cabinInfo.value.infoDescription,
+                    Visibility(
+                      visible: flightBookingController
+                          .cabinInfo.value.infoDescription !="",
+                      child: Container(
+                        padding: flyternLargePaddingHorizontal.copyWith(
+                            bottom: flyternSpaceLarge),
+                        decoration: BoxDecoration(
+                            color: flyternBackgroundWhite,
+                            border: flyternDefaultBorderBottomOnly),
+                        child: Html(
+                          data: flightBookingController
+                              .cabinInfo.value.infoDescription,
+                        ),
                       ),
                     ),
 

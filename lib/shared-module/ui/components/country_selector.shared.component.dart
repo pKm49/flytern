@@ -10,11 +10,11 @@ import 'package:ionicons/ionicons.dart';
 
 class CountrySelector extends StatelessWidget {
 
-  final Function(Country? country) countrySelected;
+  final Function(Country  country) countrySelected;
   final bool  isMobile;
-  final bool? isGlobal;
+  final bool isGlobal;
   CountrySelector({super.key, required this.countrySelected,
-    required this.isMobile,this.isGlobal});
+    required this.isMobile,required this.isGlobal});
   TextEditingController searchController = TextEditingController();
 
   final sharedController = Get.find<SharedController>();
@@ -52,11 +52,21 @@ class CountrySelector extends StatelessWidget {
               child: ListView(
                 children: [
 
-                  for(var i =0; i<sharedController.countriesToShow.length;i++)
+                  for(var i =0; i<(
+                      isMobile?
+                      sharedController.mobileCountriesToShow.length:
+                      sharedController.countriesToShow.length);i++)
                     InkWell(
                       onTap: () async {
-                        if(isGlobal == null || isGlobal == true){
-                          await sharedController.changeCountry(sharedController.countriesToShow[i]);
+                        if(  isGlobal == true){
+                          await sharedController.changeCountry(
+                              isMobile?
+                              sharedController.mobileCountriesToShow[i]:
+                              sharedController.countriesToShow[i]);
+                        }else{
+                          countrySelected(isMobile?
+                          sharedController.mobileCountriesToShow[i]:
+                          sharedController.countriesToShow[i]);
                         }
                         Navigator.pop(context);
                       },
@@ -67,18 +77,29 @@ class CountrySelector extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: flyternSpaceSmall),
                         child: Row(children: [
 
-                          Image.network(sharedController.countriesToShow[i].flag, width: 40),
+                          Image.network(
+                              isMobile?sharedController.mobileCountriesToShow[i].flag:
+                              sharedController.countriesToShow[i].flag, width: 40),
                           addHorizontalSpace(flyternSpaceMedium),
                           Expanded(
                               child: Text(
                                   Localizations.localeOf(context).languageCode.toString() ==
                                       'en'?
-                                  sharedController.countriesToShow[i].countryName:
-                                  sharedController.countriesToShow[i].countryName_Ar,
+                                  (
+                                      isMobile?
+                                      sharedController.mobileCountriesToShow[i].countryName:
+                                      sharedController.countriesToShow[i].countryName):
+                                  (
+                                      isMobile?
+                                      sharedController.mobileCountriesToShow[i].countryName_Ar:
+                                      sharedController.countriesToShow[i].countryName_Ar),
                                   maxLines: 2,
                                   style: getBodyMediumStyle(context))),
                           addHorizontalSpace(flyternSpaceSmall),
-                          Text("( ${sharedController.countriesToShow[i].code} )",
+                          Text("( ${
+                              isMobile?
+                              sharedController.mobileCountriesToShow[i].code:
+                              sharedController.countriesToShow[i].code} )",
                               style: getBodyMediumStyle(context)),
 
                         ],),

@@ -44,6 +44,7 @@ class _AuthRegisterDetailsInputPageState
     isDirectFlow =getArguments !=null?getArguments[0]:true;
     print("AuthRegisterDetailsInputPage");
     print(isDirectFlow);
+    registerController.changeMobileCountry(sharedController.selectedMobileCountry.value);
   }
 
   @override
@@ -214,13 +215,13 @@ class _AuthRegisterDetailsInputPageState
                             MainAxisAlignment.center,
                             children: [
                               Image.network(
-                                  sharedController
+                                  registerController
                                       .selectedCountry.value.flag,
                                   width: 17),
                               addHorizontalSpace(flyternSpaceSmall),
                               Expanded(
                                 child: Text(
-                                    sharedController
+                                    registerController
                                         .selectedCountry.value.code,
                                     style:
                                     getBodyMediumStyle(context)),
@@ -414,7 +415,11 @@ class _AuthRegisterDetailsInputPageState
         builder: (context) {
           return CountrySelector(
               isMobile:true,
+              isGlobal: false,
               countrySelected: (Country? country){
+                if(country !=null){
+                  registerController.changeMobileCountry(country);
+                }
 
           });
         });

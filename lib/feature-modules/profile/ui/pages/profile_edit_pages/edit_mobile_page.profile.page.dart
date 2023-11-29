@@ -147,6 +147,7 @@ class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
         builder: (context) {
           return CountrySelector(
               isMobile: true,
+              isGlobal: false,
               countrySelected: (Country? country) {
                 if (country != null)
                   profileController.changeMobileCountry(country);

@@ -235,6 +235,7 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
         builder: (context) {
           return CountrySelector(
               isMobile:true,
+              isGlobal: false,
               countrySelected: (Country? country) {
             if (country != null) profileController.changeMobileCountry(country);
           });

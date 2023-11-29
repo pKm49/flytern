@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/auth/models/register_credential.auth.model.dart';
 import 'package:flytern/feature-modules/auth/services/http.auth.service.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
+import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/models/auth_token.dart';
 import 'package:flytern/shared-module/models/country.dart';
 import 'package:flytern/shared-module/services/utility-services/local_storage_handler.shared.service.dart';
@@ -101,47 +102,6 @@ class RegisterController extends GetxController {
 
   }
 
-  // resendOtp( ) async {
-  //
-  //   if(userId.value !=""){
-  //     isSubmitting.value = true;
-  //     try{
-  //
-  //       await authHttpService.resendOtp(userId.value);
-  //       showSnackbar(Get.context!,"otp_resend".tr,"info");
-  //
-  //       isSubmitting.value = false;
-  //     }catch (e,t){
-  //       print(t);
-  //       showSnackbar(Get.context!, e.toString(),"error");
-  //       isSubmitting.value = false;
-  //     }
-  //
-  //   }
-  //
-  // }
-  //
-  // verifyOtp(String otp) async {
-  //
-  //   if(userId.value != ""){
-  //     isSubmitting.value = true;
-  //     try{
-  //
-  //       AuthToken authToken  = await authHttpService.verifyOtp(userId.value,otp);
-  //
-  //       if(authToken.accessToken != ""){
-  //         saveAuthTokenToSharedPreference(authToken);
-  //         Get.offAllNamed(Approute_landingpage);
-  //       }
-  //       isSubmitting.value = false;
-  //     }catch (e){
-  //       showSnackbar(Get.context!, e.toString(),"error");
-  //       isSubmitting.value = false;
-  //     }
-  //   }
-  //
-  // }
-
   updatePasswordVisibility(){
     isPasswordVisible.value = !isPasswordVisible.value;
   }
@@ -166,6 +126,12 @@ class RegisterController extends GetxController {
     profilePicture.value = base64encode;
     profilePictureFile = pictureFile;
     isProfilePictureSelected.value = true;
+  }
+
+  void changeMobileCountry(Country selectedMobileCountry) {
+    print("changeMobileCountry");
+    print(selectedMobileCountry.countryCode);
+    selectedCountry.value = selectedMobileCountry;
   }
 
 }

@@ -151,4 +151,8 @@ class ResetPasswordController extends GetxController {
     profilePicture.value = base64encode;
   }
 
+  void changeMobileCountry(Country  country) {
+    selectedCountry.value = country;
+  }
+
 }

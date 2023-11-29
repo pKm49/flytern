@@ -350,6 +350,7 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
         builder: (context) {
           return CountrySelector(
             isMobile: false,
+            isGlobal: false,
             countrySelected: (Country? country) {
               if (country != null) {
                 if (isNationality) {

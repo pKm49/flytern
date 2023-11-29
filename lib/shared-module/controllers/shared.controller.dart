@@ -51,6 +51,8 @@ class SharedController extends GetxController {
   var mobileCountries = <Country>[].obs;
   var countriesToShow = <Country>[].obs;
   var mobileCountriesToShow = <Country>[].obs;
+  var genderList = <Gender>[].obs;
+  var titleList = <Gender>[].obs;
 
   var termsHtml = "".obs;
   var privacyHtml = "".obs;
@@ -94,8 +96,11 @@ class SharedController extends GetxController {
     print("updateCountryListByQuery");
     print(query);
     if (query == "") {
-      countriesToShow.value = countries.value;
-      mobileCountriesToShow.value = mobileCountries.value;
+      if(isMobile){
+        mobileCountriesToShow.value = mobileCountries.value;
+      }else{
+        countriesToShow.value = countries.value;
+      }
     } else {
       List<Country> tempCountries =  [];
 
@@ -137,13 +142,13 @@ class SharedController extends GetxController {
     SupportInfo supportInfo = await sharedHttpService.getInitialSupportInfo();
 
     languages.value = supportInfo.languages;
-    updateMobileCountryList(supportInfo.countries);
+    updateMobileCountryList(supportInfo.mobileCountryList);
+    updateCountryList(supportInfo.countriesList);
   }
 
   Future<void> getPreRegisterInfo() async {
     BusinessDoc businessDoc =
         await sharedHttpService.getPreRegisterSupportInfo();
-
     termsHtml.value = businessDoc.terms;
     privacyHtml.value = businessDoc.privacy;
   }
@@ -306,6 +311,9 @@ class SharedController extends GetxController {
 
   Future<void> updateMobileCountryList(List<Country> mobileCountryList) async {
 
+    print("updateMobileCountryList");
+    print(mobileCountryList[0].countryCode);
+    print(mobileCountryList[0].countryName);
     mobileCountries.value = mobileCountryList;
     mobileCountriesToShow.value = mobileCountryList;
     final SharedPreferences prefs = await SharedPreferences.getInstance();

@@ -33,6 +33,13 @@ class _CoreSettingsPageState extends State<CoreSettingsPage> {
 
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setUserCountryAndLanguage();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
@@ -182,7 +189,8 @@ class _CoreSettingsPageState extends State<CoreSettingsPage> {
         context: context,
         builder: (context) {
           return CountrySelector(
-            isMobile:false,
+            isMobile:true,
+            isGlobal: true,
             countrySelected: (Country? country){
             },
           );
@@ -199,5 +207,9 @@ class _CoreSettingsPageState extends State<CoreSettingsPage> {
     //     borderRadius: BorderRadius.circular(10),
     //   ),
     // );
+  }
+
+  void setUserCountryAndLanguage() {
+
   }
 }

@@ -11,12 +11,12 @@ import 'package:flytern/shared-module/models/general_item.dart';
 import 'package:flytern/shared-module/models/payment_confirmation_data.dart';
 import 'package:flytern/shared-module/models/payment_gateway.dart';
 import 'package:flytern/shared-module/models/payment_gateway_url_data.dart';
-
 import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class InsuranceBookingController extends GetxController {
+
   var isInitialDataLoading = true.obs;
   var isInsurancePriceGetterLoading = false.obs;
   var isInsuranceSaveTravellerLoading = false.obs;
@@ -34,19 +34,15 @@ class InsuranceBookingController extends GetxController {
   var mobileNumber = "".obs;
   var email = "".obs;
 
-  var covid = "".obs;
   var policyHeaderObj = GeneralItem(id: '-1', name: '').obs;
   var policyTypeObj = GeneralItem(id: '-1', name: '').obs;
   var policyPeriodObj = GeneralItem(id: '-1', name: '').obs;
   var policyOptionObj = GeneralItem(id: '-1', name: '').obs;
 
-  var policyType = "".obs;
   var contributor = 1.obs;
   var son = 0.obs;
   var daughter = 0.obs;
   var spouse = 0.obs;
-  var policyPlan = "".obs;
-  var policyDuration = "".obs;
   var gatewayUrl = "".obs;
   var pdfLink = "".obs;
   var confirmationMessage = "".obs;
@@ -78,7 +74,7 @@ class InsuranceBookingController extends GetxController {
       insuranceInitialData.value = tempInsuranceInitialData;
       policyDateController.value.text =
           getFormattedDate(insuranceInitialData.value.minPolicyDate);
-
+       policyDate.value = insuranceInitialData.value.minPolicyDate;
       getInitialPrice();
     }
 
@@ -165,15 +161,18 @@ class InsuranceBookingController extends GetxController {
       isInsuranceSaveTravellerLoading.value = true;
       selectedTravelInfo.value = travelInfo;
       String tempBookingRef = "";
+      print("setTravellerData");
+
+      print(policyDate.value);
       InsuranceTravellerData insuranceTravellerData = InsuranceTravellerData(
-          covid: covid.value,
-          policyType: policyType.value,
+          covid: policyHeaderObj.value.id,
+          policyType: policyTypeObj.value.id,
           contributor: contributor.value,
           son: son.value,
           daughter: daughter.value,
           spouse: spouse.value,
-          policyPlan: policyPlan.value,
-          policyDuration: policyDuration.value,
+          policyPlan: policyOptionObj.value.id,
+          policyDuration:policyPeriodObj.value.id,
           policyDate: policyDate.value,
           travellerinfo: travelInfo,
           mobileCntry: mobileCntry.value,
@@ -182,12 +181,12 @@ class InsuranceBookingController extends GetxController {
       tempBookingRef =
           await insuranceBookingHttpService.setUserData(insuranceTravellerData);
       isInsuranceSaveTravellerLoading.value = false;
-      if (tempBookingRef != "") {
-        bookingRef.value = tempBookingRef;
-        getPaymentGateways();
-      } else {
-        showSnackbar(Get.context!, "something_went_wrong".tr, "error");
-      }
+      // if (tempBookingRef != "") {
+      //   bookingRef.value = tempBookingRef;
+      //   getPaymentGateways();
+      // } else {
+      //   showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+      // }
     }
   }
 
@@ -244,7 +243,13 @@ class InsuranceBookingController extends GetxController {
         .toList();
     if (tempType.isNotEmpty) {
       policyTypeObj.value = tempType[0];
-
+      if(value == "1"){
+        updateFamilyMembersCount( 0,
+            0, 0 );
+      }else{
+        updateFamilyMembersCount( 1,
+            0, 0 );
+      }
       getPrice(InsurancePriceGetBody(
           covidtype: insurancePriceGetBody.value.covidtype,
           policyplan: insurancePriceGetBody.value.policyplan,

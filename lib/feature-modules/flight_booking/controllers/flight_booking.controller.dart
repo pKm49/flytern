@@ -378,12 +378,7 @@ class FlightBookingController extends GetxController {
 
       if (tempFlightPretravellerData.countriesList.length > 0) {
         flightPretravellerData.value = tempFlightPretravellerData;
-        if( flightPretravellerData.value.mobileCountryList.isNotEmpty){
-          sharedController.updateMobileCountryList(flightPretravellerData.value.mobileCountryList);
-        }
-        if( flightPretravellerData.value.countriesList.isNotEmpty){
-          sharedController.updateCountryList(flightPretravellerData.value.countriesList);
-        }
+
       } else {
         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
       }

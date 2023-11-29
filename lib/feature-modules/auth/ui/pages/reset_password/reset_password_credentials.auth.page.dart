@@ -23,7 +23,6 @@ class _AuthResetPasswordCredentialsPageState extends State<AuthResetPasswordCred
 
   final GlobalKey<FormState> resetPasswordEmailFormKey = GlobalKey<FormState>();
   final resetPasswordController = Get.find<ResetPasswordController>();
-  final sharedController = Get.find<SharedController>();
 
   @override
   Widget build(BuildContext context) {
@@ -62,14 +61,14 @@ class _AuthResetPasswordCredentialsPageState extends State<AuthResetPasswordCred
                             MainAxisAlignment.center,
                             children: [
                               Image.network(
-                                  sharedController
-                                      .selectedMobileCountry.value.flag,
+                                  resetPasswordController
+                                      .selectedCountry.value.flag,
                                   width: 17),
                               addHorizontalSpace(flyternSpaceSmall),
                               Expanded(
                                 child: Text(
-                                    sharedController
-                                        .selectedMobileCountry.value.code,
+                                    resetPasswordController
+                                        .selectedCountry.value.code,
                                     style:
                                     getBodyMediumStyle(context)),
                               ),
@@ -128,9 +127,10 @@ class _AuthResetPasswordCredentialsPageState extends State<AuthResetPasswordCred
         context: context,
         builder: (context) {
           return CountrySelector(
+            isGlobal: false,
             isMobile:true,
-            countrySelected: (Country? country){
-
+            countrySelected: (Country  country){
+              resetPasswordController.changeMobileCountry(country);
             },
           );
         });

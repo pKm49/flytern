@@ -11,6 +11,7 @@ import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared
 import 'package:flytern/shared-module/models/country.dart';
 import 'package:flytern/shared-module/models/gender.dart';
 import 'package:flytern/shared-module/models/general_item.dart';
+import 'package:flytern/shared-module/services/utility-services/flight_userdata_input_formatter.dart';
 import 'package:flytern/shared-module/services/utility-services/form_validator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/ui/components/country_selector.shared.component.dart';
@@ -133,7 +134,7 @@ class _InsuranceUserDetailsSubmissionFormState
                   )),
             ),
             Container(
-              padding: EdgeInsets.only(bottom: flyternSpaceMedium),
+              padding: EdgeInsets.only(bottom: flyternSpaceMedium,top: flyternSpaceSmall),
               color: flyternBackgroundWhite,
               child: Row(
                 children: [
@@ -143,6 +144,7 @@ class _InsuranceUserDetailsSubmissionFormState
                         controller: firstNameController,
                         validator: (value) =>
                             checkIfNameFormValid(value, "first_name".tr),
+                        onChanged: updateData(),
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           labelText: "first_name".tr,
@@ -152,6 +154,8 @@ class _InsuranceUserDetailsSubmissionFormState
                   Expanded(
                     flex: 3,
                     child: TextFormField(
+                        onChanged: updateData(),
+
                         controller: lastNameController,
                         validator: (value) =>
                             checkIfNameFormValid(value, "last_name".tr),
@@ -220,6 +224,9 @@ class _InsuranceUserDetailsSubmissionFormState
               color: flyternBackgroundWhite,
               child: TextFormField(
                 onChanged: updateData(),
+                  inputFormatters: [
+                    FlightUserDataTextFormatter(),
+                  ],
                   controller: passportNumberController,
                   validator: (value) =>
                       checkIfNameFormValid(value, "passport_number".tr),
@@ -293,6 +300,7 @@ class _InsuranceUserDetailsSubmissionFormState
         builder: (context) {
           return CountrySelector(
             isMobile:false,
+            isGlobal: false,
             countrySelected: (Country? country) {
               if (country != null) {
                 if (isNationality) {

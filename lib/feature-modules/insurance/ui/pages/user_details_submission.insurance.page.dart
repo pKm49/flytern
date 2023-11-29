@@ -84,27 +84,30 @@ class _InsuranceUserDetailsSubmissionPageState
               color: flyternGrey10,
               child: Column(
                 children: [
-                  Container(
-                      padding: flyternMediumPaddingHorizontal,
-                      decoration: BoxDecoration(
-                          border: flyternDefaultBorderBottomOnly,
-                          color: flyternBackgroundWhite),
-                      child: TabBar(
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          labelPadding: EdgeInsets.zero,
-                          indicatorColor: flyternSecondaryColor,
-                          indicatorWeight: 2,
-                          padding: EdgeInsets.zero,
-                          controller: tabController,
-                          labelColor: flyternSecondaryColor,
-                          labelStyle: const TextStyle(
-                              color: flyternSecondaryColor,
-                              fontWeight: FontWeight.bold),
-                          unselectedLabelColor: flyternGrey40,
-                          tabs: <Tab>[
-                            for (var i = 0; i < tabLength; i++)
-                              Tab(text: getTabTitle(i)),
-                          ])),
+                  Visibility(
+                    visible: tabLength>1,
+                    child: Container(
+                        padding: flyternMediumPaddingHorizontal,
+                        decoration: BoxDecoration(
+                            border: flyternDefaultBorderBottomOnly,
+                            color: flyternBackgroundWhite),
+                        child: TabBar(
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            labelPadding: EdgeInsets.zero,
+                            indicatorColor: flyternSecondaryColor,
+                            indicatorWeight: 2,
+                            padding: EdgeInsets.zero,
+                            controller: tabController,
+                            labelColor: flyternSecondaryColor,
+                            labelStyle: const TextStyle(
+                                color: flyternSecondaryColor,
+                                fontWeight: FontWeight.bold),
+                            unselectedLabelColor: flyternGrey40,
+                            tabs: <Tab>[
+                              for (var i = 0; i < tabLength; i++)
+                                Tab(text: getTabTitle(i)),
+                            ])),
+                  ),
                   Expanded(
                       child: TabBarView(
                         controller: tabController,
@@ -230,7 +233,6 @@ class _InsuranceUserDetailsSubmissionPageState
                                     : i == 2
                                     ? daughterExpansionControllers.length
                                     : sonExpansionControllers.length),
-
                         ],
                       )),
                   addVerticalSpace(flyternSpaceLarge * 4)
