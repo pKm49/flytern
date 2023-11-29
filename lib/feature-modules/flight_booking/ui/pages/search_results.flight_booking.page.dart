@@ -142,7 +142,11 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                     visible: !flightBookingController.isModifySearchVisible.value,
                     child: addVerticalSpace(flyternSpaceExtraSmall)),
                 Visibility(
-                  visible: !flightBookingController.isModifySearchVisible.value,
+                  visible: !flightBookingController
+                      .isFlightSearchResponsesLoading.value &&
+                      !flightBookingController
+                          .isFlightSearchFilterResponsesLoading.value &&
+                      !flightBookingController.isModifySearchVisible.value,
                   child: Container(
                     padding: flyternLargePaddingHorizontal,
                     child: Row(
@@ -222,10 +226,18 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                     visible: !flightBookingController.isModifySearchVisible.value,
                     child: addVerticalSpace(flyternSpaceExtraSmall)),
                 Visibility(
-                    visible: !flightBookingController.isModifySearchVisible.value,
+                    visible:!flightBookingController
+                        .isFlightSearchResponsesLoading.value &&
+                        !flightBookingController
+                            .isFlightSearchFilterResponsesLoading.value &&
+                        !flightBookingController.isModifySearchVisible.value,
                     child: Divider()),
                 Visibility(
-                  visible: !flightBookingController.isModifySearchVisible.value,
+                  visible: !flightBookingController
+                      .isFlightSearchResponsesLoading.value &&
+                      !flightBookingController
+                          .isFlightSearchFilterResponsesLoading.value &&
+                      !flightBookingController.isModifySearchVisible.value,
                   child: Container(
                       padding: flyternMediumPaddingHorizontal,
                       decoration:
@@ -588,18 +600,40 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
     if (dateTime == null) {
       return "";
     }
-    final f = DateFormat('dd-MMM-yy');
+    final f = DateFormat('dd-MMM');
     return f.format(dateTime);
   }
 
   getDateString(FlightSearchItem element) {
     if (element.returnDate == null) {
-      return "  ${getFormattedDate(element.departureDate)}";
+      return "${getFormattedDate(element.departureDate)}";
     }
-    if (element.returnDate?.day == element.departureDate.day) {
-      return "  ${getFormattedDate(element.departureDate)}";
+
+    if (element.returnDate?.year == element.departureDate.year) {
+
+      if (element.returnDate?.month == element.departureDate.month) {
+        if (element.returnDate?.day == element.departureDate.day) {
+          return "${getFormattedDate(element.departureDate)}";
+        }
+         return "${element.departureDate.day} & ${getFormattedDate(element.returnDate)}";
+      }
+
+      return "${getFormattedDate(element.departureDate)} & ${getFormattedDate(element.returnDate)}";
+
+    }else{
+
+      if (element.returnDate?.month == element.departureDate.month) {
+        if (element.returnDate?.day == element.departureDate.day) {
+          return "${getFormattedDate(element.departureDate)}";
+        }
+        return "${element.departureDate.day} & ${getFormattedDate(element.returnDate)}";
+      }
+
+      return "${getFormattedDate(element.departureDate)} & ${getFormattedDate(element.returnDate)}";
+
     }
-    return " ${element.departureDate.day}-${getFormattedDate(element.returnDate)}";
+
+
   }
 
   FlightSearchResult getAvailableFilterOptions() {

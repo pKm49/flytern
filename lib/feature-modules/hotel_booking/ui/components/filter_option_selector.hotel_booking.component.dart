@@ -10,6 +10,7 @@ import 'package:flytern/shared-module/services/utility-services/widget_generator
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:flytern/shared-module/ui/components/selectable_text_pill.shared.component.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 
 class HotelFilterOptionSelector extends StatefulWidget {
   String currency;
@@ -33,8 +34,7 @@ class HotelFilterOptionSelector extends StatefulWidget {
       _HotelFilterOptionSelectorState();
 }
 
-class _HotelFilterOptionSelectorState
-    extends State<HotelFilterOptionSelector> {
+class _HotelFilterOptionSelectorState extends State<HotelFilterOptionSelector> {
   late HotelSearchResult selectedFilterOptions;
   RangeValues _currentSliderValue = const RangeValues(0, 10000);
   var elementStyleHelpers = ElementStyleHelpers();
@@ -47,14 +47,14 @@ class _HotelFilterOptionSelectorState
     _currentSliderValue = RangeValues(
       widget.selectedFilterOptions.priceDcs.isNotEmpty
           ? widget.selectedFilterOptions.priceDcs[0].min
-          :  widget.availableFilterOptions.priceDcs.isNotEmpty
-          ? widget.availableFilterOptions.priceDcs[0].min
-          : 0,
+          : widget.availableFilterOptions.priceDcs.isNotEmpty
+              ? widget.availableFilterOptions.priceDcs[0].min
+              : 0,
       widget.selectedFilterOptions.priceDcs.isNotEmpty
           ? widget.selectedFilterOptions.priceDcs[0].max
-          :  widget.availableFilterOptions.priceDcs.isNotEmpty
-          ? widget.availableFilterOptions.priceDcs[0].max
-          : 0,
+          : widget.availableFilterOptions.priceDcs.isNotEmpty
+              ? widget.availableFilterOptions.priceDcs[0].max
+              : 0,
     );
   }
 
@@ -105,6 +105,38 @@ class _HotelFilterOptionSelectorState
                   Expanded(
                       child: ListView(
                     children: [
+                      Visibility(
+                        visible: getFilterCount() > 0,
+                        child: Padding(
+                          padding: flyternLargePaddingAll.copyWith(
+                              top: 0,
+                              bottom: flyternSpaceSmall),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  clearFilter();
+                                },
+                                child: Icon(Ionicons.trash_bin_outline,
+                                    color: flyternSecondaryColor,
+                                    size: flyternFontSize20),
+                              ),
+                              addHorizontalSpace(flyternSpaceSmall),
+                              InkWell(
+                                onTap: () {
+                                  clearFilter();
+                                },
+                                child: Text("clear".tr,
+                                    style: getBodyMediumStyle(context).copyWith(
+                                        color: flyternSecondaryColor,
+                                        fontWeight: flyternFontWeightBold),
+                                    textAlign: TextAlign.center),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       // price
                       Visibility(
                         visible:
@@ -180,9 +212,7 @@ class _HotelFilterOptionSelectorState
                                     _currentSliderValue.end.round().toString(),
                                   ),
                                   onChanged: (RangeValues values) {
-
                                     setPriceRange(values);
-
                                   },
                                   values: _currentSliderValue,
                                 ),
@@ -194,21 +224,21 @@ class _HotelFilterOptionSelectorState
 
                       //airline
                       Visibility(
-                        visible:
-                            widget.availableFilterOptions.locationDcs.isNotEmpty,
+                        visible: widget
+                            .availableFilterOptions.locationDcs.isNotEmpty,
                         child: const Padding(
                           padding: flyternLargePaddingHorizontal,
                           child: Divider(),
                         ),
                       ),
                       Visibility(
-                        visible:
-                            widget.availableFilterOptions.locationDcs.isNotEmpty,
+                        visible: widget
+                            .availableFilterOptions.locationDcs.isNotEmpty,
                         child: Padding(
                           padding: flyternLargePaddingHorizontal.copyWith(
                               top: flyternSpaceMedium,
                               bottom: flyternSpaceSmall),
-                          child: Text("airline".tr,
+                          child: Text("location".tr,
                               style: getBodyMediumStyle(context)
                                   .copyWith(fontWeight: flyternFontWeightBold)),
                         ),
@@ -234,8 +264,8 @@ class _HotelFilterOptionSelectorState
                       //       ],
                       //     )),
                       Visibility(
-                        visible: widget
-                            .availableFilterOptions.ratingDcs.isNotEmpty,
+                        visible:
+                            widget.availableFilterOptions.ratingDcs.isNotEmpty,
                         child: Padding(
                           padding: flyternLargePaddingAll,
                           child: Wrap(
@@ -276,35 +306,35 @@ class _HotelFilterOptionSelectorState
 
                       //  Departure Time
                       Visibility(
-                        visible: widget
-                            .availableFilterOptions.ratingDcs.isNotEmpty,
+                        visible:
+                            widget.availableFilterOptions.ratingDcs.isNotEmpty,
                         child: const Padding(
                           padding: flyternLargePaddingHorizontal,
                           child: Divider(),
                         ),
                       ),
                       Visibility(
-                        visible: widget
-                            .availableFilterOptions.ratingDcs.isNotEmpty,
+                        visible:
+                            widget.availableFilterOptions.ratingDcs.isNotEmpty,
                         child: Padding(
                           padding: flyternLargePaddingHorizontal.copyWith(
                               top: flyternSpaceMedium),
-                          child: Text("departure_time".tr,
+                          child: Text("rating".tr,
                               style: getBodyMediumStyle(context)
                                   .copyWith(fontWeight: flyternFontWeightBold)),
                         ),
                       ),
                       Visibility(
-                        visible: widget
-                            .availableFilterOptions.ratingDcs.isNotEmpty,
+                        visible:
+                            widget.availableFilterOptions.ratingDcs.isNotEmpty,
                         child: Padding(
                           padding: flyternLargePaddingAll,
                           child: Wrap(
                             children: [
                               for (var i = 0;
                                   i <
-                                      (widget.availableFilterOptions
-                                              .ratingDcs.isNotEmpty
+                                      (widget.availableFilterOptions.ratingDcs
+                                              .isNotEmpty
                                           ? widget.availableFilterOptions
                                               .ratingDcs.length
                                           : 0);
@@ -317,8 +347,7 @@ class _HotelFilterOptionSelectorState
                                     onPressed: () {
                                       manageSelection(
                                           HotelFilterOptions.RATING,
-                                          selectedFilterOptions
-                                              .ratingDcs,
+                                          selectedFilterOptions.ratingDcs,
                                           widget.availableFilterOptions
                                               .ratingDcs[i]);
                                     },
@@ -335,8 +364,6 @@ class _HotelFilterOptionSelectorState
                           ),
                         ),
                       ),
-
-                     
                     ],
                   ))
                 ],
@@ -383,7 +410,6 @@ class _HotelFilterOptionSelectorState
     List<SortingDcs> tempItems = [];
 
     switch (filterOption) {
-
       case HotelFilterOptions.PRICERANGE:
         {
           break;
@@ -431,15 +457,13 @@ class _HotelFilterOptionSelectorState
         {
           break;
         }
-
-
     }
   }
 
   setSelectedFilterOptions(
       HotelFilterOptions filterOption, List<SortingDcs> items) {
     selectedFilterOptions = HotelSearchResult(
-      objectID: -1,
+        objectID: -1,
         searchResponses: [],
         priceDcs: selectedFilterOptions.priceDcs,
         sortingDcs: selectedFilterOptions.sortingDcs,
@@ -448,7 +472,7 @@ class _HotelFilterOptionSelectorState
             : selectedFilterOptions.locationDcs,
         ratingDcs: filterOption == HotelFilterOptions.RATING
             ? items
-            : selectedFilterOptions.ratingDcs );
+            : selectedFilterOptions.ratingDcs);
 
     setState(() {});
     widget.setModalState();
@@ -460,17 +484,45 @@ class _HotelFilterOptionSelectorState
     priceRange.add(RangeDcs(min: rangeValues.start, max: rangeValues.end));
 
     selectedFilterOptions = HotelSearchResult(
-      objectID: -1,
+        objectID: -1,
         searchResponses: [],
         priceDcs: priceRange,
         sortingDcs: selectedFilterOptions.sortingDcs,
         locationDcs: selectedFilterOptions.locationDcs,
-        ratingDcs: selectedFilterOptions.ratingDcs );
+        ratingDcs: selectedFilterOptions.ratingDcs);
     print("setPriceRange");
     print(selectedFilterOptions.priceDcs[0].min);
     print(selectedFilterOptions.priceDcs[0].max);
     _currentSliderValue = rangeValues;
     setState(() {});
     widget.setModalState();
+  }
+
+  int getFilterCount() {
+    int filterCount = 0;
+
+    if (selectedFilterOptions.priceDcs.isNotEmpty) {
+      filterCount++;
+    }
+
+    if (selectedFilterOptions.locationDcs.isNotEmpty) {
+      filterCount++;
+    }
+
+    if (selectedFilterOptions.ratingDcs.isNotEmpty) {
+      filterCount++;
+    }
+
+    return filterCount;
+  }
+
+  void clearFilter() {
+    widget.filterSubmitted(HotelSearchResult(
+        searchResponses: [],
+        priceDcs: [],
+        sortingDcs: [],
+        locationDcs: [],
+        ratingDcs: [],
+        objectID: -1));
   }
 }

@@ -61,11 +61,16 @@ class _SortOptionSelectorState extends State<SortOptionSelector> {
                                 color: flyternGrey80,
                                 fontWeight: flyternFontWeightBold),
                             textAlign: TextAlign.center),
-                        Text("cancel".tr,
-                            style: getBodyMediumStyle(context).copyWith(
-                                color: flyternSecondaryColor,
-                                fontWeight: flyternFontWeightBold),
-                            textAlign: TextAlign.center),
+                        InkWell(
+                          onTap: (){
+                            Navigator.pop(context);
+                          },
+                          child: Text("cancel".tr,
+                              style: getBodyMediumStyle(context).copyWith(
+                                  color: flyternSecondaryColor,
+                                  fontWeight: flyternFontWeightBold),
+                              textAlign: TextAlign.center),
+                        ),
                       ],
                     ),
                   ),

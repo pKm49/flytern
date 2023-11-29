@@ -133,7 +133,7 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                                                     flyternFontWeightLight,
                                                 color: flyternGrey40)),
                                     addVerticalSpace(flyternSpaceExtraSmall),
-                                    Text("all".tr,
+                                    Text(getFilterTitle(),
                                         style: getBodyMediumStyle(context)
                                             .copyWith(color: flyternGrey80)),
                                   ],
@@ -312,9 +312,6 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                 availableFilterOptions: getAvailableFilterOptions(),
                 selectedFilterOptions: getSelectedFilterOptions(),
                 filterSubmitted: (HotelSearchResult selectedFilterOptions) {
-                  print("setPriceRange 2");
-                  print(selectedFilterOptions.priceDcs[0].min);
-                  print(selectedFilterOptions.priceDcs[0].max);
                   hotelBookingController.setFilterValues(selectedFilterOptions);
                   Navigator.pop(context);
                 },
@@ -346,6 +343,30 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
       ratingDcs: hotelBookingController.selectedratingDcs.value,
       locationDcs: hotelBookingController.selectedlocationDcs.value
     );
+  }
+
+  String getFilterTitle() {
+    String filterTitleAll = "all".tr;
+    int filterCount = 0;
+
+    if (hotelBookingController.selectedPriceDcs.isNotEmpty) {
+      filterCount++;
+    }
+
+    if (hotelBookingController.selectedlocationDcs.isNotEmpty) {
+      filterCount++;
+    }
+
+    if (hotelBookingController.selectedratingDcs.isNotEmpty) {
+      filterCount++;
+    }
+
+
+    if(filterCount>0){
+      return "filter_items".tr.replaceAll("2", filterCount.toString());
+    }else{
+      return filterTitleAll;
+    }
   }
   
 }
