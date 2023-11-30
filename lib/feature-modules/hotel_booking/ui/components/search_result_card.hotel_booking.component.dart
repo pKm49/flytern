@@ -50,7 +50,10 @@ class _HotelSearchResultCardState extends State<HotelSearchResultCard> {
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
                           color: flyternGrey10,
-                          height: screenwidth * .2);
+                          height: screenwidth * .2,
+                      child: Center(
+                        child: Icon(Icons.business,color: flyternGrey40,),
+                      ),);
                     })  ),
             addHorizontalSpace(flyternSpaceMedium),
             Expanded(child: Column(

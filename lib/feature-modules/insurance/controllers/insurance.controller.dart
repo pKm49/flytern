@@ -181,12 +181,12 @@ class InsuranceBookingController extends GetxController {
       tempBookingRef =
           await insuranceBookingHttpService.setUserData(insuranceTravellerData);
       isInsuranceSaveTravellerLoading.value = false;
-      // if (tempBookingRef != "") {
-      //   bookingRef.value = tempBookingRef;
-      //   getPaymentGateways();
-      // } else {
-      //   showSnackbar(Get.context!, "something_went_wrong".tr, "error");
-      // }
+      if (tempBookingRef != "") {
+        bookingRef.value = tempBookingRef;
+        getPaymentGateways();
+      } else {
+        showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+      }
     }
   }
 

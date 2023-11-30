@@ -20,6 +20,7 @@ import 'package:flytern/feature-modules/flight_booking/ui/pages/more_options.fli
 import 'package:flytern/feature-modules/flight_booking/ui/pages/userdetails_submission.flight_booking.page.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/userdetails_submission.hotel_booking.page.dart';
 import 'package:flytern/feature-modules/packages/ui/pages/booking_confirmation.packages.page.dart';
+import 'package:flytern/shared-module/ui/pages/full_screen_image_viewer.dart';
 import 'package:flytern/shared-module/ui/pages/otp_input.shared.page.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/register.auth.page.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_credentials.auth.page.dart';
@@ -59,138 +60,143 @@ import 'package:get/get.dart';
 getAppRoutes() => [
       GetPage(
         name: Approute_langaugeSelector,
-        page: () => CoreLanguageSelector(), 
+        page: () => CoreLanguageSelector(),
       ),
       GetPage(
         name: Approute_authSelector,
-        page: () => const AuthSelectorPage(), 
+        page: () => const AuthSelectorPage(),
       ),
       GetPage(
         name: Approute_registerPersonalData,
-        page: () => const AuthRegisterDetailsInputPage(), 
+        page: () => const AuthRegisterDetailsInputPage(),
       ),
       GetPage(
         name: Approute_registerOtp,
-        page: () => const OTPInputPage(), 
+        page: () => const OTPInputPage(),
       ),
       GetPage(
         name: Approute_login,
-        page: () => const AuthLoginPage(), 
+        page: () => const AuthLoginPage(),
       ),
       GetPage(
         name: Approute_resetPasswordMobile,
-        page: () => const AuthResetPasswordCredentialsPage(), 
+        page: () => const AuthResetPasswordCredentialsPage(),
       ),
       GetPage(
         name: Approute_resetPasswordOtp,
-        page: () => const OTPInputPage(), 
+        page: () => const OTPInputPage(),
       ),
       GetPage(
         name: Approute_resetPasswordNewpassword,
-        page: () => const AuthResetPasswordNewPasswordPage(), 
+        page: () => const AuthResetPasswordNewPasswordPage(),
       ),
       GetPage(
         name: Approute_landingpage,
-        page: () => const CoreLandingPage(), 
+        page: () => const CoreLandingPage(),
       ),
       GetPage(
         name: Approute_notificationspage,
-        page: () => NotificationsPage(), 
+        page: () => NotificationsPage(),
       ),
 
       GetPage(
         name: Approute_allpopulardestinations,
-        page: () => const AllPopularDestinationsPage(), 
+        page: () => const AllPopularDestinationsPage(),
       ),
 
       GetPage(
         name: Approute_allrecommendedpackages,
-        page: () => const AllRecommendedItemsPage(), 
+        page: () => const AllRecommendedItemsPage(),
       ),
 
       GetPage(
         name: Approute_alltravelstories,
-        page: () => const AllTravellStoriesPage(), 
+        page: () => const AllTravellStoriesPage(),
       ),
 
       // Common
       GetPage(
         name: Approute_userDetailsSubmission,
-        page: () => const UserDetailsSubmissionPage(), 
+        page: () => const UserDetailsSubmissionPage(),
       ),
 
       GetPage(
         name: Approute_paymentPage,
-        page: () => const PaymentGatewayWebView(), 
+        page: () => const PaymentGatewayWebView(),
+      ),
+
+      GetPage(
+        name: Approute_imageViewer,
+        page: () =>   FullScreenImageViewer(),
       ),
 
       // flight booking
 
       GetPage(
         name: Approute_flightsSearchResult,
-        page: () => const FlightSearchResultPage(), 
+        page: () => const FlightSearchResultPage(),
       ),
 
       GetPage(
         name: Approute_flightsMoreOptions,
-        page: () => const FlightMoreOptionsPage(), 
+        page: () => const FlightMoreOptionsPage(),
       ),
 
       GetPage(
         name: Approute_flightsDetails,
-        page: () => const FlightDetailsPage(), 
+        page: () => const FlightDetailsPage(),
       ),
 
       GetPage(
         name: Approute_flightsAddonServices,
-        page: () => const FlightAddonServicesPage(), 
+        page: () => const FlightAddonServicesPage(),
       ),
 
       GetPage(
         name: Approute_flightsSeatSelection,
-        page: () => const FlightSeatSelectionPage(), 
+        page: () => const FlightSeatSelectionPage(),
       ),
 
       GetPage(
         name: Approute_flightsMealSelection,
-        page: () => const FlightMealSelectionPage(), 
+        page: () => const FlightMealSelectionPage(),
       ),
 
       GetPage(
         name: Approute_flightsBaggageSelection,
-        page: () => const FlightBaggageSelectionPage(), 
+        page: () => const FlightBaggageSelectionPage(),
       ),
 
       // Common
       GetPage(
         name: Approute_flightsUserSelection,
-        page: () => const FlightUserDetailsSubmissionPage(), 
+        page: () => const FlightUserDetailsSubmissionPage(),
       ),
 
       GetPage(
         name: Approute_flightsSummary,
-        page: () => const FlightBookingSummaryPage(), 
+        page: () => const FlightBookingSummaryPage(),
       ),
 
       GetPage(
         name: Approute_flightsConfirmation,
-        page: () => const FlightBookingConfirmationPage(), 
+        page: () => const FlightBookingConfirmationPage(),
       ),
 
 //  Hotel Booking
       GetPage(
         name: Approute_hotelsSearchResult,
-        page: () => const HotelSearchResultPage(), 
+        page: () => const HotelSearchResultPage(),
       ),
 
       GetPage(
         name: Approute_hotelsDetails,
-        page: () => const HotelDetailsPage(), 
+        page: () => const HotelDetailsPage(),
       ),
 
       GetPage(
         name: Approute_hotelsUserSelection,
-        page: () => const HotelUserDetailsSubmissionPage(), 
+        page: () => const HotelUserDetailsSubmissionPage(),
       ),
 
       GetPage(
@@ -207,13 +213,11 @@ getAppRoutes() => [
       GetPage(
         name: Approute_packagesDetails,
         page: () => const PackageDetailsPage(),
-        
       ),
 
       GetPage(
         name: Approute_packagesConfirmation,
         page: () => const PackageBookingConfirmationPage(),
-        
       ),
 
 //  activities Booking
@@ -221,31 +225,26 @@ getAppRoutes() => [
       GetPage(
         name: Approute_activitiesList,
         page: () => const ActivitiesListPage(),
-        
       ),
 
       GetPage(
         name: Approute_activitiesDetails,
         page: () => const ActivityDetailsPage(),
-        
       ),
 
       GetPage(
         name: Approute_activitiesUserDataSubmission,
         page: () => const ActivityUserDetailsSubmissionPage(),
-        
       ),
 
       GetPage(
         name: Approute_activitiesSummary,
         page: () => const ActivityBookingSummaryPage(),
-        
       ),
 
       GetPage(
         name: Approute_activitiesConfirmation,
         page: () => const ActivityBookingConfirmationPage(),
-        
       ),
 
       // profile pages
@@ -253,102 +252,85 @@ getAppRoutes() => [
       GetPage(
         name: Approute_profileViewProfile,
         page: () => const ProfileViewProfilePage(),
-        
       ),
 
       GetPage(
         name: Approute_profileEditProfile,
         page: () => const ProfileEditProfilePage(),
-        
       ),
 
       GetPage(
         name: Approute_profileEditEmail,
         page: () => const ProfileEditEmailPage(),
-        
       ),
 
       GetPage(
         name: Approute_profileEditMobile,
         page: () => const ProfileEditMobilePage(),
-        
       ),
 
       GetPage(
         name: Approute_profileEditMobileOTP,
         page: () => const OTPInputPage(),
-        
       ),
 
       GetPage(
         name: Approute_profileEditEmailOTP,
         page: () => const OTPInputPage(),
-        
       ),
 
       GetPage(
         name: Approute_profileResetPassword,
         page: () => const ProfileResetPasswordPage(),
-        
       ),
 
       GetPage(
         name: Approute_profileMyBookings,
         page: () => const ProfileMyBookingsPage(),
-        
       ),
 
       GetPage(
         name: Approute_profileMyTravelStories,
         page: () => const ProfileMyTravelStoriesPage(),
-        
       ),
 
       GetPage(
         name: Approute_profileNewTravelStories,
         page: () => const ProfileNewTravelStoryPage(),
-        
       ),
 
       GetPage(
         name: Approute_profileMyCopassenger,
         page: () => const ProfileMyCoPassengersPage(),
-        
       ),
 
       GetPage(
         name: Approute_profileAuditCopassenger,
         page: () => const ProfileAuditCopassengerPage(),
-        
       ),
 
       GetPage(
         name: Approute_coreAppSettings,
         page: () => const CoreSettingsPage(),
-        
       ),
 
       GetPage(
         name: Approute_coreAppInfo,
         page: () => const CoreInfoPage(),
-        
       ),
       GetPage(
         name: Approute_coreInfoDoc,
         page: () => const DocumentPage(),
-        
       ),
 
       GetPage(
         name: Approute_coreSmartPayment,
         page: () => const SmartPaymentPage(),
-        
       ),
 
       GetPage(
         name: Approute_coreGuestBookingFinder,
         page: () => const GuestBookingPage(),
-        
       ),
 
       //insurance related
@@ -356,25 +338,21 @@ getAppRoutes() => [
       GetPage(
         name: Approute_insuranceLandingPage,
         page: () => const InsuranceLandingPage(),
-        
       ),
 
       GetPage(
         name: Approute_insuranceUserDetailsSubmission,
         page: () => const InsuranceUserDetailsSubmissionPage(),
-        
       ),
 
       GetPage(
         name: Approute_insuranceSummary,
         page: () => const InsuranceBookingSummaryPage(),
-        
       ),
 
       GetPage(
         name: Approute_insuranceConfirmation,
         page: () => const InsuranceBookingConfirmationPage(),
-        
       ),
     ];
 

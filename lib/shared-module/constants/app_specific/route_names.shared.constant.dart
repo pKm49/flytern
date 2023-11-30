@@ -17,6 +17,7 @@ const String Approute_resetPasswordNewpassword =
 //common
 const String Approute_userDetailsSubmission = '/booking-userdetails-submission';
 const String Approute_paymentPage = '/payment-page';
+const String Approute_imageViewer = '/image-viewer';
 
 //landing page
 const String Approute_landingpage = '/landing-page';

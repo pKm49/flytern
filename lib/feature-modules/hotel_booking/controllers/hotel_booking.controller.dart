@@ -4,6 +4,8 @@ import 'package:flytern/feature-modules/hotel_booking/models/filter_body.hotel_b
 import 'package:flytern/feature-modules/hotel_booking/models/pretraveller_data.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/room.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/room_option.hotel_booking.model.dart';
+import 'package:flytern/feature-modules/hotel_booking/models/room_option_cancel_policy.hotel_booking.model.dart';
+import 'package:flytern/feature-modules/hotel_booking/models/room_option_supplement.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/search_data.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/search_item_room_data.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/search_response.hotel_booking.model.dart';
@@ -22,7 +24,9 @@ import 'package:flytern/shared-module/models/payment_gateway.dart';
 import 'package:flytern/shared-module/models/payment_gateway_url_data.dart';
 import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
 import 'package:get/get.dart';
+
 part 'data_setter.hotel_booking.controller.dart';
+part 'data_getter.hotel_booking.controller.dart';
 
 class HotelBookingController extends GetxController {
   var isTravelStoriesLoading = false.obs;
@@ -72,6 +76,8 @@ class HotelBookingController extends GetxController {
   var confirmationUrl = "".obs;
   var confirmationMessage = "".obs;
   var pdfLink = "".obs;
+  var selectedImageIndex = (-1).obs;
+  var selectedRoomImageIndex = (-1).obs;
 
   var processingFee = (0.0).obs;
 
@@ -251,6 +257,10 @@ class HotelBookingController extends GetxController {
     print(tHotelid > -1);
     print(!isHotelDetailsLoading.value);
     if (tHotelid > -1 && !isHotelDetailsLoading.value) {
+      selectedImageIndex.value = -1;
+      selectedRoomImageIndex.value = -1;
+
+      Get.toNamed(Approute_hotelsDetails);
       print("inside");
       hotelId.value = tHotelid;
       isHotelDetailsLoading.value = true;
@@ -264,6 +274,8 @@ class HotelBookingController extends GetxController {
       hotelDetails.value = tempHotelDetails;
       print("room length after maping");
       print(hotelDetails.value.rooms.length);
+      selectedImageIndex.value = hotelDetails.value.imageUrls.isNotEmpty?0:-1;
+
       if(hotelDetails.value.rooms.isNotEmpty){
         for(var i=0;i<hotelSearchData.value.rooms.length;i++){
           selectedRoom.value.add(hotelDetails.value.rooms[0]) ;
@@ -281,7 +293,7 @@ class HotelBookingController extends GetxController {
       print(selectedRoomOption.length);
 
       isHotelDetailsLoading.value = false;
-      Get.toNamed(Approute_hotelsDetails);
+
       getPreTravellerData();
     }
   }
@@ -499,7 +511,10 @@ class HotelBookingController extends GetxController {
     Get.offAllNamed(Approute_landingpage);
   }
 
-
-
-
+  void changeSelectedImage(int index) {
+    selectedImageIndex.value = index;
+  }
+  void changeSelectedRoomImage(int index) {
+    selectedRoomImageIndex.value = index;
+  }
 }
