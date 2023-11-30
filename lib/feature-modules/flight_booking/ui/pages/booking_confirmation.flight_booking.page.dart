@@ -35,8 +35,6 @@ class _FlightBookingConfirmationPageState
 
   String mode = "view";
 
-  bool isConfirm = false;
-
   @override
   void initState() {
     // TODO: implement initState
@@ -60,7 +58,7 @@ class _FlightBookingConfirmationPageState
       child: Scaffold(
         appBar: AppBar(
             title: Padding(
-              padding:   EdgeInsets.only(left:(mode == "edit" ? 0 : (flyternSpaceLarge*2))),
+              padding:   EdgeInsets.only(left:(mode == "edit" ? 0 : (flyternSpaceLarge))),
               child: Text(mode == "view"
                   ? 'booking_confirmation'.tr
                   : 'booking_details'.tr),
@@ -279,7 +277,7 @@ class _FlightBookingConfirmationPageState
                           i++)
                         Container(
                           padding: flyternMediumPaddingAll,
-                          margin: flyternLargePaddingAll.copyWith(bottom: 0),
+                          margin: flyternLargePaddingAll.copyWith(bottom: flyternSpaceMedium),
                           decoration: BoxDecoration(
                             color: flyternPrimaryColorBg,
                             borderRadius: BorderRadius.circular(
@@ -289,6 +287,9 @@ class _FlightBookingConfirmationPageState
                             data: flightBookingController.alert[i],
                           ),
                         ),
+
+
+
                       for (var i = 0;
                           i <
                               getBookingInfoGroupLength(

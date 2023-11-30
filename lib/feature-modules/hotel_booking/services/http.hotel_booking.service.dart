@@ -252,17 +252,13 @@ class HotelBookingHttpService {
             paymentGateways.add(mapPaymentGateway(element));
           });
         }
-        print("flightDetails");
-        print(response.data["_flightservice"]);
-        print(response.data["_flightservice"]["_flightDetail"]);
-        // if (response.data["_flightservice"] != null) {
-        //   if (response.data["_flightservice"]["_flightDetail"] != null) {
-        //     flightDetails = mapFlightDetails(
-        //         response.data["_flightservice"]["_flightDetail"]);
-        //     print("flightDetails");
-        //     print(flightDetails.objectId);
-        //   }
-        // }
+
+        if (response.data["_hotelservice"] != null) {
+          hotelDetails = mapHotelDetails(
+              response.data["_hotelservice"] );
+          print("flightDetails");
+          print(flightDetails.objectId);
+        }
         if (response.data["alertMsg"]!=null) {
           response.data["alertMsg"].forEach((element) {
             alertMsg.add(element);

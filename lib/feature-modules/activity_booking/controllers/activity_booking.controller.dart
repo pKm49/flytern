@@ -32,7 +32,6 @@ class ActivityBookingController extends GetxController {
   var isInitialDataLoading = true.obs;
   var isDetailsDataLoading = true.obs;
   var isPriceDataLoading = true.obs;
-  var isActivityTravellerDataSaveLoading = true.obs;
   var isSaveContactLoading = false.obs;
   var activityBookingHttpService = ActivityBookingHttpService();
   var isSmartPaymentCheckLoading = false.obs;

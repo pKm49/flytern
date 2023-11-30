@@ -456,11 +456,11 @@ class HotelBookingController extends GetxController {
 
     print("getConfirmationData");
     print(paymentConfirmationData.isIssued);
+    print(paymentConfirmationData.bookingInfo);
     print(paymentConfirmationData.pdfLink);
     print(paymentConfirmationData.alertMsg);
 
     if (paymentConfirmationData.isIssued) {
-      pdfLink.value = paymentConfirmationData.pdfLink;
       pdfLink.value = paymentConfirmationData.pdfLink;
       isIssued.value = paymentConfirmationData.isIssued;
       paymentInfo.value = paymentConfirmationData.paymentInfo;

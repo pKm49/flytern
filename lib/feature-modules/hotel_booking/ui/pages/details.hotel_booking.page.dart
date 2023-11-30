@@ -60,8 +60,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                         Visibility(
                           visible:
                           hotelBookingController.selectedImageIndex.value>-1&&
-                          hotelBookingController
-                              .hotelDetails.value.imageUrls[hotelBookingController.selectedImageIndex.value]
+                          getSelectedImageUrl()
                                !=
                                   "",
                           child:  InkWell(
@@ -819,6 +818,16 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
   String getFormattedDate(DateTime dateTime) {
     final f = DateFormat('dd-MM-yyyy');
     return f.format(dateTime);
+  }
+
+  getSelectedImageUrl() {
+    if(hotelBookingController
+        .hotelDetails.value.imageUrls.isEmpty){
+      return "";
+    }
+
+    return
+      hotelBookingController.hotelDetails.value.imageUrls[hotelBookingController.selectedImageIndex.value];
   }
 
 }

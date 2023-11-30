@@ -291,9 +291,7 @@ class ActivityBookingHttpService {
             paymentGateways.add(mapPaymentGateway(element));
           });
         }
-        print("flightDetails");
-        print(response.data["_flightservice"]);
-        print(response.data["_flightservice"]["_flightDetail"]);
+
         // if (response.data["_flightservice"] != null) {
         //   if (response.data["_flightservice"]["_flightDetail"] != null) {
         //     flightDetails = mapFlightDetails(

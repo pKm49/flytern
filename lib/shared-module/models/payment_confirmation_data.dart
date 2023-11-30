@@ -34,6 +34,14 @@ PaymentConfirmationData mapPaymentpdfLinkData(dynamic payload) {
   HotelDetails hotelDetails = mapHotelDetails({});
   ActivityDetails activityDetails = mapActivityDetails({},[]);
 
+
+  if (payload["_hotelservice"] != null) {
+    hotelDetails = mapHotelDetails(
+        payload["_hotelservice"] );
+    print("_hotelservice _hotelservice");
+    print(hotelDetails.duration);
+  }
+
   if (payload["_flightservice"] != null) {
     if (payload["_flightservice"]["_flightDetail"] != null) {
       flightDetails = mapFlightDetails(
@@ -43,12 +51,14 @@ PaymentConfirmationData mapPaymentpdfLinkData(dynamic payload) {
     }
   }
 
+
   if (payload["alertMsg"]!=null) {
     payload["alertMsg"].forEach((element) {
       alertMsg.add(element);
     });
   }
-
+  print("_bookingInfo");
+  print(payload["_bookingInfo"]);
   if (payload["_bookingInfo"]!=null) {
     payload["_bookingInfo"].forEach((element) {
       bookingInfo.add(mapBookingInfo(element));
