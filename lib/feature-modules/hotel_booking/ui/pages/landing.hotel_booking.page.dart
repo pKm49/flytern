@@ -29,7 +29,7 @@ class HotelBookingLandingPage extends StatefulWidget {
 
 class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
     with SingleTickerProviderStateMixin {
-  final hotelBookingController = Get.put(HotelBookingController());
+  final hotelBookingController = Get.find<HotelBookingController>();
   final hotelBookingHelperServices = HotelBookingHelperServices();
 
   @override

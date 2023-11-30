@@ -1,3 +1,4 @@
+import 'package:flytern/feature-modules/activity_booking/models/details.activity_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/constants/http_request_endpoint.flight_booking.constant.dart';
 import 'package:flytern/feature-modules/flight_booking/models/explore_data.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/details.flight_booking.model.dart';
@@ -19,6 +20,8 @@ import 'package:flytern/feature-modules/hotel_booking/models/search_data.hotel_b
 import 'package:flytern/feature-modules/hotel_booking/models/search_response.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/search_result.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/traveller_data.hotel_booking.model.dart';
+import 'package:flytern/shared-module/models/booking_info.dart';
+import 'package:flytern/shared-module/models/get_gateway_data.shared.model.dart';
 import 'package:flytern/shared-module/models/range_dcs.dart';
 import 'package:flytern/shared-module/models/sorting_dcs.dart';
 import 'package:flytern/feature-modules/flight_booking/models/travel_story.flight_booking.model.dart';
@@ -211,12 +214,33 @@ class HotelBookingHttpService {
 
     return "";
   }
+  Future<bool> checkSmartPayment(String bookingRef) async {
+    FlyternHttpResponse response = await postRequest(
+        FlightBookingHttpRequestEndpointSmartPayment,
+        {"bookingRef": bookingRef});
 
-  Future<List<PaymentGateway>> getPaymentGateways(String bookingRef) async {
+    print("getPaymentGateways");
+    if (response.success && response.statusCode == 200) {
+      if (response.data != null) {
+        if (response.data["isSuccess"] != null) {
+          return response.data["isSuccess"];
+        }
+      }
+    }
+
+    return false;
+  }
+  Future<GetGatewayData> getPaymentGateways(String bookingRef) async {
     FlyternHttpResponse response = await postRequest(
         HotelBookingHttpRequestEndpointGetGateways, {"bookingRef": bookingRef});
 
+
     List<PaymentGateway> paymentGateways = [];
+    List<BookingInfo>  bookingInfo = [];
+    List<String> alertMsg = [];
+    FlightDetails flightDetails = mapFlightDetails({});
+    HotelDetails hotelDetails = mapHotelDetails({});
+    ActivityDetails activityDetails = mapActivityDetails({},[]);
 
     print("getPaymentGateways");
     print(response.data["isGateway"]);
@@ -227,12 +251,40 @@ class HotelBookingHttpService {
           response.data["_gatewaylist"].forEach((element) {
             paymentGateways.add(mapPaymentGateway(element));
           });
-          return paymentGateways;
+        }
+        print("flightDetails");
+        print(response.data["_flightservice"]);
+        print(response.data["_flightservice"]["_flightDetail"]);
+        // if (response.data["_flightservice"] != null) {
+        //   if (response.data["_flightservice"]["_flightDetail"] != null) {
+        //     flightDetails = mapFlightDetails(
+        //         response.data["_flightservice"]["_flightDetail"]);
+        //     print("flightDetails");
+        //     print(flightDetails.objectId);
+        //   }
+        // }
+        if (response.data["alertMsg"]!=null) {
+          response.data["alertMsg"].forEach((element) {
+            alertMsg.add(element);
+          });
+        }
+
+        if (response.data["_bookingInfo"]!=null) {
+          response.data["_bookingInfo"].forEach((element) {
+            bookingInfo.add(mapBookingInfo(element));
+          });
         }
       }
     }
 
-    return [];
+    return GetGatewayData(
+        hotelDetails:hotelDetails,
+        activityDetails: activityDetails,
+        paymentGateways: paymentGateways,
+        alert: alertMsg,
+        bookingInfo: bookingInfo,
+        flightDetails: flightDetails);
+
   }
 
   Future<bool> checkGatewayStatus(String bookingRef) async {

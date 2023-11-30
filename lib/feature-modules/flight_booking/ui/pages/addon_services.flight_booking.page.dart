@@ -145,7 +145,7 @@ class _FlightAddonServicesPageState extends State<FlightAddonServicesPage> {
     // }else{
     //   flightBookingController.getPaymentGateways(false);
     // }
-    flightBookingController.getPaymentGateways(false);
+    flightBookingController.getPaymentGateways(false,flightBookingController.bookingRef.value);
 
   }
 

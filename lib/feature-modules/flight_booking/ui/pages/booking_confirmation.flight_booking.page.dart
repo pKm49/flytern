@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/airport_lable_card.flight_booking.component.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/booking_summary_card.flight_booking.component.dart';
@@ -164,13 +165,18 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
                       for (var i = 0;
                       i < flightBookingController.alert.length;
                       i++)
-                        Container(
-                          padding: flyternLargePaddingAll.copyWith(bottom: 0),
-                          child: DataCapsuleCard(
-                            label: flightBookingController.alert[i],
-                            theme: 1,
-                          ),
+                      Container(
+                        padding: flyternMediumPaddingAll,
+                        margin: flyternLargePaddingAll.copyWith(bottom: 0),
+                        decoration: BoxDecoration(
+                          color: flyternPrimaryColorBg,
+                          borderRadius:
+                          BorderRadius.circular(flyternBorderRadiusExtraSmall),
                         ),
+                        child: Html(
+                          data: flightBookingController.alert[i],
+                        ),
+                      ),
 
                       for (var i = 0;
                       i < flightBookingController.getBookingInfoGroupLength();

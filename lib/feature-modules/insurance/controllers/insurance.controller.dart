@@ -7,7 +7,9 @@ import 'package:flytern/feature-modules/insurance/models/traveller_info.insuranc
 import 'package:flytern/feature-modules/insurance/services/http.insurance.service.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
+import 'package:flytern/shared-module/models/booking_info.dart';
 import 'package:flytern/shared-module/models/general_item.dart';
+import 'package:flytern/shared-module/models/get_gateway_data.shared.model.dart';
 import 'package:flytern/shared-module/models/payment_confirmation_data.dart';
 import 'package:flytern/shared-module/models/payment_gateway.dart';
 import 'package:flytern/shared-module/models/payment_gateway_url_data.dart';
@@ -16,10 +18,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class InsuranceBookingController extends GetxController {
-
   var isInitialDataLoading = true.obs;
   var isInsurancePriceGetterLoading = false.obs;
   var isInsuranceSaveTravellerLoading = false.obs;
+  var isSmartPaymentCheckLoading = false.obs;
+
   var isInsuranceSavePaymentGatewayLoading = false.obs;
   var isInsuranceGatewayStatusCheckLoading = false.obs;
   var isInsuranceConfirmationDataLoading = false.obs;
@@ -45,6 +48,9 @@ class InsuranceBookingController extends GetxController {
   var spouse = 0.obs;
   var gatewayUrl = "".obs;
   var pdfLink = "".obs;
+  var isIssued = false.obs;
+  var bookingInfo = <BookingInfo>[].obs;
+  var alert = <String>[].obs;
   var confirmationMessage = "".obs;
   var confirmationUrl = "".obs;
   var policyDate = DefaultInvalidDate.obs;
@@ -61,7 +67,7 @@ class InsuranceBookingController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getInitialInfo();
+    // getInitialInfo();
   }
 
   Future<void> getInitialInfo() async {
@@ -74,7 +80,7 @@ class InsuranceBookingController extends GetxController {
       insuranceInitialData.value = tempInsuranceInitialData;
       policyDateController.value.text =
           getFormattedDate(insuranceInitialData.value.minPolicyDate);
-       policyDate.value = insuranceInitialData.value.minPolicyDate;
+      policyDate.value = insuranceInitialData.value.minPolicyDate;
       getInitialPrice();
     }
 
@@ -172,7 +178,7 @@ class InsuranceBookingController extends GetxController {
           daughter: daughter.value,
           spouse: spouse.value,
           policyPlan: policyOptionObj.value.id,
-          policyDuration:policyPeriodObj.value.id,
+          policyDuration: policyPeriodObj.value.id,
           policyDate: policyDate.value,
           travellerinfo: travelInfo,
           mobileCntry: mobileCntry.value,
@@ -183,7 +189,7 @@ class InsuranceBookingController extends GetxController {
       isInsuranceSaveTravellerLoading.value = false;
       if (tempBookingRef != "") {
         bookingRef.value = tempBookingRef;
-        getPaymentGateways();
+        getPaymentGateways(false,bookingRef.value);
       } else {
         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
       }
@@ -243,12 +249,10 @@ class InsuranceBookingController extends GetxController {
         .toList();
     if (tempType.isNotEmpty) {
       policyTypeObj.value = tempType[0];
-      if(value == "1"){
-        updateFamilyMembersCount( 0,
-            0, 0 );
-      }else{
-        updateFamilyMembersCount( 1,
-            0, 0 );
+      if (value == "1") {
+        updateFamilyMembersCount(0, 0, 0);
+      } else {
+        updateFamilyMembersCount(1, 0, 0);
       }
       getPrice(InsurancePriceGetBody(
           covidtype: insurancePriceGetBody.value.covidtype,
@@ -308,23 +312,48 @@ class InsuranceBookingController extends GetxController {
     return f.format(dateTime);
   }
 
-  Future<void> getPaymentGateways() async {
-    isInsuranceSaveTravellerLoading.value = true;
+  checkSmartPayment(String tempBookingRef) async {
+    isSmartPaymentCheckLoading.value = true;
 
-    List<PaymentGateway> tempPaymentGateway =
+    bool isSuccess =
+    await insuranceBookingHttpService.checkSmartPayment(tempBookingRef);
+
+    if (isSuccess) {
+      bookingRef.value = tempBookingRef;
+      getPaymentGateways(true,tempBookingRef);
+    } else {
+      isSmartPaymentCheckLoading.value = false;
+      showSnackbar(Get.context!, "couldnt_find_booking".tr, "error");
+    }
+  }
+
+
+  Future<void> getPaymentGateways(bool isSmartpayment, String tempBookingRef) async {
+
+    if(isSmartpayment){
+      bookingRef.value = tempBookingRef;
+    }
+    isInsuranceSaveTravellerLoading.value = true;
+    paymentGateways.value = [];
+    alert.value = [];
+    alert.value = [];
+    GetGatewayData getGatewayData =
         await insuranceBookingHttpService.getPaymentGateways(bookingRef.value);
 
-    print("tempPaymentGateway");
-    print(tempPaymentGateway.length);
-    print(tempPaymentGateway[0]);
-    paymentGateways.value = tempPaymentGateway;
-    if (tempPaymentGateway.isNotEmpty) {
-      updateProcessId(tempPaymentGateway[0].processID);
+    paymentGateways.value = getGatewayData.paymentGateways;
+    bookingInfo.value = getGatewayData.bookingInfo;
+    alert.value = getGatewayData.alert;
+
+    // if (isSmartpayment) {
+    //   hotelDetails.value = getGatewayData.hotelDetails;
+    // }
+    if (getGatewayData.paymentGateways.isNotEmpty) {
+      updateProcessId(getGatewayData.paymentGateways[0].processID);
       Get.toNamed(Approute_insuranceSummary);
     } else {
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
-
+    isSmartPaymentCheckLoading.value= false;
     isInsuranceSaveTravellerLoading.value = false;
   }
 
@@ -375,12 +404,11 @@ class InsuranceBookingController extends GetxController {
       showSnackbar(Get.context!, "payment_capture_success".tr, "info");
       getConfirmationData();
     } else {
-
       int iter = 0;
       Get.offNamedUntil(Approute_insuranceSummary, (route) {
         print("Get.currentRoute");
         print(Get.currentRoute);
-        return ++iter ==1;
+        return ++iter == 1;
       });
       showSnackbar(Get.context!, "payment_capture_error".tr, "error");
     }
@@ -390,7 +418,10 @@ class InsuranceBookingController extends GetxController {
 
   Future<void> getConfirmationData() async {
     isInsuranceConfirmationDataLoading.value = true;
-
+    bookingInfo.value = [];
+    alert.value = [];
+    pdfLink.value = "";
+    isIssued.value = false;
     PaymentConfirmationData paymentConfirmationData =
         await insuranceBookingHttpService.getConfirmationData(bookingRef.value);
 
@@ -401,13 +432,18 @@ class InsuranceBookingController extends GetxController {
 
     if (paymentConfirmationData.isIssued) {
       pdfLink.value = paymentConfirmationData.pdfLink;
+      pdfLink.value = paymentConfirmationData.pdfLink;
+      pdfLink.value = paymentConfirmationData.pdfLink;
+      isIssued.value = paymentConfirmationData.isIssued;
+      bookingInfo.value = paymentConfirmationData.bookingInfo;
+      alert.value = paymentConfirmationData.alertMsg;
       // confirmationMessage.value = paymentConfirmationData.alertMsg;
       showSnackbar(Get.context!, "insurance_booking_success".tr, "info");
       int iter = 0;
       Get.offNamedUntil(Approute_insuranceConfirmation, (route) {
         print("Get.currentRoute");
         print(Get.currentRoute);
-        return ++iter ==3;
+        return ++iter == 3;
       });
     } else {
       showSnackbar(Get.context!, "booking_failed".tr, "error");
@@ -416,7 +452,7 @@ class InsuranceBookingController extends GetxController {
       Get.offNamedUntil(Approute_insuranceSummary, (route) {
         print("Get.currentRoute");
         print(Get.currentRoute);
-        return ++iter ==1;
+        return ++iter == 1;
       });
 
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
@@ -449,8 +485,62 @@ class InsuranceBookingController extends GetxController {
     Get.offNamedUntil(Approute_insuranceLandingPage, (route) {
       print("Get.currentRoute");
       print(Get.currentRoute);
-      return ++iter ==3;
+      return ++iter == 3;
     });
-
   }
+
+
+  num getBookingInfoGroupLength() {
+    return bookingInfo.value.where((element) => element.groupName=="").toList().length;
+  }
+
+  String getBookingInfoGroupName(int i) {
+    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
+    if(i<=tBookingInfo.length-1){
+      return tBookingInfo[i].information;
+    }else{
+      return "";
+    }
+  }
+
+  String getBookingInfoTitle(int groupIndex, int itemIndex) {
+    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
+    if(groupIndex<=tBookingInfo.length-1){
+      List<BookingInfo> teBookingInfo = bookingInfo.value.where((element) => element.groupName==tBookingInfo[groupIndex].information).toList();
+      if(itemIndex<=teBookingInfo.length-1){
+        return teBookingInfo[itemIndex].title;
+      }else{
+        return "";
+      }
+    }else{
+      return "";
+    }
+  }
+
+  String getBookingInfoValue(int groupIndex, int itemIndex) {
+    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
+    if(groupIndex<=tBookingInfo.length-1){
+      List<BookingInfo> teBookingInfo = bookingInfo.value.where((element) => element.groupName==tBookingInfo[groupIndex].information).toList();
+      if(itemIndex<=teBookingInfo.length-1){
+        return teBookingInfo[itemIndex].information;
+      }else{
+        return "";
+      }
+    }else{
+      return "";
+    }
+  }
+
+  num getBookingInfoGroupSize(int i) {
+    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
+    if(tBookingInfo.isNotEmpty){
+
+      List<BookingInfo> teBookingInfo = bookingInfo.value.where((element) => element.groupName==tBookingInfo[i].information).toList();
+      return teBookingInfo.length;
+    }else{
+      return 0;
+    }
+  }
+
+
 }

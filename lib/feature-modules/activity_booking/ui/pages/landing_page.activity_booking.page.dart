@@ -18,7 +18,7 @@ class ActivityBookingLandingPage extends StatefulWidget {
 
 class _ActivityBookingLandingPageState
     extends State<ActivityBookingLandingPage> {
-  final activityBookingController = Get.put(ActivityBookingController());
+   final activityBookingController = Get.find<ActivityBookingController>();
 
   @override
   Widget build(BuildContext context) {

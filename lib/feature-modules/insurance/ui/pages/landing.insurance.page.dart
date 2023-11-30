@@ -26,7 +26,8 @@ class InsuranceLandingPage extends StatefulWidget {
 
 class _InsuranceLandingPageState extends State<InsuranceLandingPage>
     with SingleTickerProviderStateMixin {
-  final insuranceBookingController = Get.put(InsuranceBookingController());
+  final insuranceBookingController = Get.find<InsuranceBookingController>();
+
   final GlobalKey<FormState> policyPlanDropDownKey = GlobalKey<FormState>();
   final GlobalKey<FormState> policyTimeDropDownKey = GlobalKey<FormState>();
 
@@ -34,6 +35,7 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
   @override
   void initState() {
     super.initState();
+    insuranceBookingController.getInitialInfo();
   }
 
   @override

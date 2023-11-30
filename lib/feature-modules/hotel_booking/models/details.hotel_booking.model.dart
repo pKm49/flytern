@@ -57,11 +57,11 @@ HotelDetails mapHotelDetails(dynamic payload) {
   print(payload["_lstamenitys"]);
   print("_lstRooms");
   print(payload["_lstRooms"]);
-
-  payload["imageUrl"].forEach((element) {
-    imageUrls.add(element);
-  });
-
+  if (payload["imageUrl"] != null) {
+    payload["imageUrl"].forEach((element) {
+      imageUrls.add(element);
+    });
+  }
   if (payload["_lstBasicDetails"] != null) {
     payload["_lstBasicDetails"].forEach((element) {
       basicDetails.add(mapHotelBasicDetail(element));

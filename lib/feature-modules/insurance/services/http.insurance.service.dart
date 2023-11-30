@@ -1,9 +1,15 @@
-  import 'package:flytern/feature-modules/insurance/constants/http_request_endpoints.insurance.constant.dart';
+  import 'package:flytern/feature-modules/activity_booking/models/details.activity_booking.model.dart';
+import 'package:flytern/feature-modules/flight_booking/constants/http_request_endpoint.flight_booking.constant.dart';
+import 'package:flytern/feature-modules/flight_booking/models/details.flight_booking.model.dart';
+import 'package:flytern/feature-modules/hotel_booking/models/details.hotel_booking.model.dart';
+import 'package:flytern/feature-modules/insurance/constants/http_request_endpoints.insurance.constant.dart';
 import 'package:flytern/feature-modules/insurance/models/initial_data.insurance.model.dart';
 import 'package:flytern/feature-modules/insurance/models/price_data.insurance.model.dart';
 import 'package:flytern/feature-modules/insurance/models/get_price_body.insurance.model.dart';
 import 'package:flytern/feature-modules/insurance/models/traveller_data.insurance.model.dart';
+import 'package:flytern/shared-module/models/booking_info.dart';
  import 'package:flytern/shared-module/models/flytern_http_response.dart';
+import 'package:flytern/shared-module/models/get_gateway_data.shared.model.dart';
 import 'package:flytern/shared-module/models/payment_confirmation_data.dart';
 import 'package:flytern/shared-module/models/payment_gateway.dart';
 import 'package:flytern/shared-module/models/payment_gateway_url_data.dart';
@@ -57,8 +63,24 @@ class InsuranceBookingHttpService {
     return "";
   }
 
+  Future<bool> checkSmartPayment(String bookingRef) async {
+    FlyternHttpResponse response = await postRequest(
+        FlightBookingHttpRequestEndpointSmartPayment,
+        {"bookingRef": bookingRef});
 
-  Future<List<PaymentGateway>> getPaymentGateways(
+    print("getPaymentGateways");
+    if (response.success && response.statusCode == 200) {
+      if (response.data != null) {
+        if (response.data["isSuccess"] != null) {
+          return response.data["isSuccess"];
+        }
+      }
+    }
+
+    return false;
+  }
+
+  Future<GetGatewayData> getPaymentGateways(
       String bookingRef) async {
     FlyternHttpResponse response = await postRequest(
         InsuranceBookingHttpRequestEndpointGetGateways,
@@ -66,7 +88,14 @@ class InsuranceBookingHttpService {
           "bookingRef": bookingRef
         });
 
+
+
     List<PaymentGateway> paymentGateways = [];
+    List<BookingInfo>  bookingInfo = [];
+    List<String> alertMsg = [];
+    FlightDetails flightDetails = mapFlightDetails({});
+    HotelDetails hotelDetails = mapHotelDetails({});
+    ActivityDetails activityDetails = mapActivityDetails({},[]);
 
     print("getPaymentGateways");
     print(response.data["isGateway"]);
@@ -77,12 +106,40 @@ class InsuranceBookingHttpService {
           response.data["_gatewaylist"].forEach((element) {
             paymentGateways.add(mapPaymentGateway(element));
           });
-          return paymentGateways;
+        }
+        print("flightDetails");
+        print(response.data["_flightservice"]);
+        print(response.data["_flightservice"]["_flightDetail"]);
+        // if (response.data["_flightservice"] != null) {
+        //   if (response.data["_flightservice"]["_flightDetail"] != null) {
+        //     flightDetails = mapFlightDetails(
+        //         response.data["_flightservice"]["_flightDetail"]);
+        //     print("flightDetails");
+        //     print(flightDetails.objectId);
+        //   }
+        // }
+        if (response.data["alertMsg"]!=null) {
+          response.data["alertMsg"].forEach((element) {
+            alertMsg.add(element);
+          });
+        }
+
+        if (response.data["_bookingInfo"]!=null) {
+          response.data["_bookingInfo"].forEach((element) {
+            bookingInfo.add(mapBookingInfo(element));
+          });
         }
       }
     }
 
-    return [];
+    return GetGatewayData(
+        hotelDetails:hotelDetails,
+        activityDetails: activityDetails,
+        paymentGateways: paymentGateways,
+        alert: alertMsg,
+        bookingInfo: bookingInfo,
+        flightDetails: flightDetails);
+
   }
 
   Future<PaymentGatewayUrlData> setPaymentGateway(String processID,

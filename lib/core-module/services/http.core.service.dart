@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flytern/core-module/constants/http_request_endpoints.core.constant.dart';
 import 'package:flytern/core-module/models/notification.core.model.dart';
+import 'package:flytern/core-module/models/service_booking_status.dart';
 import 'package:flytern/shared-module/models/auth_token.dart';
 import 'package:flytern/shared-module/models/flytern_http_response.dart';
 import 'package:flytern/shared-module/services/http-services/http_request_handler.shared.service.dart';
@@ -27,6 +28,29 @@ class CoreHttpServices{
 
     return notifications;
 
+  }
+
+  Future<ServiceBookingStatus> checkSmartPayment(String bookingRef) async {
+    FlyternHttpResponse response = await postRequest(
+        CoreBookingHttpRequestEndpointSmartPayment,
+        {"bookingRef": bookingRef});
+
+    bool isSuccess = false;
+    String servicetype = "FLIGHT";
+
+    print("getPaymentGateways");
+    if (response.success && response.statusCode == 200) {
+      if (response.data != null) {
+        if (response.data["isSuccess"] != null) {
+          isSuccess =response.data["isSuccess"];
+        }
+        if (response.data["servicetype"] != null) {
+          servicetype =response.data["servicetype"];
+        }
+      }
+    }
+
+    return ServiceBookingStatus(isSuccess: isSuccess, servicetype: servicetype);
   }
 
   getGuestToken() async {

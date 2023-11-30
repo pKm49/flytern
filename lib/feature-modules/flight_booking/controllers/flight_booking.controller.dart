@@ -30,7 +30,7 @@ import 'package:flytern/feature-modules/flight_booking/models/search_item.flight
 import 'package:flytern/feature-modules/flight_booking/models/search_response.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/search_result.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/traveller_data.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/models/get_gateway_data.flight_booking.model.dart';
+import 'package:flytern/shared-module/models/get_gateway_data.shared.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/popular_destination.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/recommended_package.flight_booking.model.dart';
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
@@ -133,13 +133,13 @@ class FlightBookingController extends GetxController {
   var confirmationUrl = "".obs;
   var pdfLink = "".obs;
   var isIssued = false.obs;
-
+  var   bookingInfo = <BookingInfo>[].obs;
+  var   alert = <String>[].obs;
   var seatTotalAmount = (0.0).obs;
   var mealTotalAmount = (0.0).obs;
   var baggageTotalAmount = (0.0).obs;
   var processingFee = (0.0).obs;
-  var   bookingInfo = <BookingInfo>[].obs;
-  var   alert = <String>[].obs;
+
   var currentFlightIndex = (-1).obs;
   var sortingDcs = <SortingDcs>[].obs;
   var airlineDcs = <SortingDcs>[].obs;
@@ -414,7 +414,7 @@ class FlightBookingController extends GetxController {
             isExtraBaggageSelection.value == true) {
           Get.toNamed(Approute_flightsAddonServices);
         } else {
-          getPaymentGateways(false);
+          getPaymentGateways(false,bookingRef.value);
         }
       } else {
         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
@@ -422,25 +422,15 @@ class FlightBookingController extends GetxController {
     }
   }
 
-  checkSmartPayment(String tempBookingRef) async {
-    isSmartPaymentCheckLoading.value = true;
 
-    bool isSuccess =
-        await flightBookingHttpService.checkSmartPayment(tempBookingRef);
+  Future<void> getPaymentGateways(bool isSmartpayment, String tempBookingRef) async {
 
-    if (isSuccess) {
+    if(isSmartpayment){
       bookingRef.value = tempBookingRef;
-      getPaymentGateways(true);
-    } else {
-      isSmartPaymentCheckLoading.value = false;
-      showSnackbar(Get.context!, "couldnt_find_booking".tr, "error");
     }
-  }
-
-  Future<void> getPaymentGateways(bool isSmartpayment) async {
-
     isFlightTravellerDataSaveLoading.value = true;
-    bookingInfo.value = [];
+    paymentGateways.value = [];
+    alert.value = [];
     alert.value = [];
     if(!isSmartpayment && ( isSeatSelection.value|| isMealSelection.value || isExtraBaggageSelection.value)){
       saveAddonsPrice();
@@ -448,9 +438,7 @@ class FlightBookingController extends GetxController {
     GetGatewayData getGatewayData =
         await flightBookingHttpService.getPaymentGateways(bookingRef.value);
     List<PaymentGateway> tempPaymentGateway = getGatewayData.paymentGateways;
-    print("tempPaymentGateway");
-    print(tempPaymentGateway.length);
-    print(tempPaymentGateway[0]);
+
     paymentGateways.value = tempPaymentGateway;
     bookingInfo.value = getGatewayData.bookingInfo;
     alert.value = getGatewayData.alert;
@@ -542,11 +530,6 @@ class FlightBookingController extends GetxController {
     PaymentConfirmationData paymentConfirmationData =
         await flightBookingHttpService.getConfirmationData(bookingRef.value);
 
-    print("getConfirmationData");
-    print(paymentConfirmationData.isIssued);
-    print(paymentConfirmationData.pdfLink);
-    print(paymentConfirmationData.bookingInfo);
-    print(paymentConfirmationData.alertMsg);
 
     if (paymentConfirmationData.isIssued) {
       pdfLink.value = paymentConfirmationData.pdfLink;

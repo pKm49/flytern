@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/activity_booking/controllers/activity_booking.controller.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
 import 'package:flytern/feature-modules/flight_booking/constants/flight_mode.flight_booking.constant.dart';
 import 'package:flytern/feature-modules/flight_booking/services/helper.flight_booking.service.dart';
@@ -10,6 +11,8 @@ import 'package:flytern/feature-modules/flight_booking/ui/components/explore_sec
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_loader.flight_booking.component.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/booking_form.flight_booking.component.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/flight_type_tab.flight_booking.component.dart';
+import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
+import 'package:flytern/feature-modules/insurance/controllers/insurance.controller.dart';
 import 'package:flytern/feature-modules/packages/controllers/package.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
@@ -31,9 +34,13 @@ class FlightBookingLandingPage extends StatefulWidget {
 
 class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
     with SingleTickerProviderStateMixin {
-  final flightBookingController = Get.put(FlightBookingController()); 
+
+  final flightBookingController = Get.put(FlightBookingController());
   var flightBookingHelperServices = FlightBookingHelperServices();
   final packageBookingController = Get.put(PackageBookingController());
+  final insuranceBookingController = Get.put(InsuranceBookingController());
+  final hotelBookingController = Get.put(HotelBookingController());
+  final activityBookingController = Get.put(ActivityBookingController());
 
   @override
   void initState() {
@@ -77,7 +84,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                     children: [
                       Container(
                         // height: screenheight * .025,
-                        height:25,
+                        height: 25,
                         width: screenwidth - (flyternSpaceLarge * 2),
                       ),
                       Container(
@@ -90,7 +97,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                         child: Container(
                           margin: EdgeInsets.only(top: flyternSpaceLarge),
                           child: FlightBookingForm(
-                            isRedirectionRequired:true,
+                            isRedirectionRequired: true,
                             flightBookingController: flightBookingController,
                           ),
                         ),
@@ -101,7 +108,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                     children: [
                       Container(
                           // height: screenheight * .05,
-                          height:50,
+                          height: 50,
                           width: screenwidth - (flyternSpaceLarge * 2),
                           padding: flyternMediumPaddingHorizontal,
                           child: Row(
@@ -191,7 +198,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: flyternSpaceLarge * 2),
                   child: RecommendedForYouContainer(
-                      packageBookingController:packageBookingController,
+                      packageBookingController: packageBookingController,
                       recommendedPackages:
                           flightBookingController.recommendedPackages),
                 )),
@@ -231,7 +238,7 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: flyternSpaceLarge * 2),
                   child: PopularDestinationsContainer(
-                      packageBookingController:packageBookingController,
+                      packageBookingController: packageBookingController,
                       popularDestinations:
                           flightBookingController.popularDestinations),
                 )),

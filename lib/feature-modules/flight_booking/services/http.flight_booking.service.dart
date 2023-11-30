@@ -1,3 +1,4 @@
+import 'package:flytern/feature-modules/activity_booking/models/details.activity_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/constants/http_request_endpoint.flight_booking.constant.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/extra_package/extra_package.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/extra_package/set_extra_package.flight_booking.model.dart';
@@ -20,7 +21,8 @@ import 'package:flytern/feature-modules/flight_booking/models/search_data.flight
 import 'package:flytern/feature-modules/flight_booking/models/search_response.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/search_result.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/traveller_data.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/models/get_gateway_data.flight_booking.model.dart';
+import 'package:flytern/feature-modules/hotel_booking/models/details.hotel_booking.model.dart';
+import 'package:flytern/shared-module/models/get_gateway_data.shared.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/popular_destination.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/recommended_package.flight_booking.model.dart';
 import 'package:flytern/shared-module/models/booking_info.dart';
@@ -278,6 +280,8 @@ class FlightBookingHttpService {
     List<BookingInfo>  bookingInfo = [];
     List<String> alertMsg = [];
     FlightDetails flightDetails = mapFlightDetails({});
+    HotelDetails hotelDetails = mapHotelDetails({});
+    ActivityDetails activityDetails = mapActivityDetails({},[]);
 
     print("getPaymentGateways");
     print(response.data["isGateway"]);
@@ -315,10 +319,13 @@ class FlightBookingHttpService {
     }
 
     return GetGatewayData(
+        hotelDetails:hotelDetails,
+        activityDetails: activityDetails,
         paymentGateways: paymentGateways,
         alert: alertMsg,
         bookingInfo: bookingInfo,
         flightDetails: flightDetails);
+
   }
 
   Future<FlightAddonGetSeat> getSeats(String bookingRef) async {
