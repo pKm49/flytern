@@ -77,32 +77,35 @@ class _FlightUserDetailsSubmissionPageState
           color: flyternGrey10,
           child: Column(
             children: [
-              Container(
-                  padding: flyternMediumPaddingHorizontal,
-                  decoration: BoxDecoration(
-                      border: flyternDefaultBorderBottomOnly,
-                      color: flyternBackgroundWhite),
-                  child: TabBar(
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      labelPadding: EdgeInsets.zero,
-                      indicatorColor: flyternSecondaryColor,
-                      indicatorWeight: 2,
-                      padding: EdgeInsets.zero,
-                      controller: tabController,
-                      labelColor: flyternSecondaryColor,
-                      labelStyle: const TextStyle(
-                          color: flyternSecondaryColor,
-                          fontWeight: FontWeight.bold),
-                      unselectedLabelColor: flyternGrey40,
-                      tabs: <Tab>[
-                        for (var i = 0; i < tabLength; i++)
-                          Tab(
-                              text: i == 0
-                                  ? "${'adults'.tr} (${adultExpansionControllers.length})"
-                                  : i == 1
-                                      ? "${'children'.tr} (${childExpansionControllers.length})"
-                                      : "${'infants'.tr} (${infantExpansionControllers.length})"),
-                      ])),
+              Visibility(
+                visible: tabLength>1,
+                child: Container(
+                    padding: flyternMediumPaddingHorizontal,
+                    decoration: BoxDecoration(
+                        border: flyternDefaultBorderBottomOnly,
+                        color: flyternBackgroundWhite),
+                    child: TabBar(
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        labelPadding: EdgeInsets.zero,
+                        indicatorColor: flyternSecondaryColor,
+                        indicatorWeight: 2,
+                        padding: EdgeInsets.zero,
+                        controller: tabController,
+                        labelColor: flyternSecondaryColor,
+                        labelStyle: const TextStyle(
+                            color: flyternSecondaryColor,
+                            fontWeight: FontWeight.bold),
+                        unselectedLabelColor: flyternGrey40,
+                        tabs: <Tab>[
+                          for (var i = 0; i < tabLength; i++)
+                            Tab(
+                                text: i == 0
+                                    ? "${'adults'.tr} (${adultExpansionControllers.length})"
+                                    : i == 1
+                                        ? "${'children'.tr} (${childExpansionControllers.length})"
+                                        : "${'infants'.tr} (${infantExpansionControllers.length})"),
+                        ])),
+              ),
               Expanded(
                   child: TabBarView(
                 controller: tabController,
@@ -211,6 +214,7 @@ class _FlightUserDetailsSubmissionPageState
               child: ElevatedButton(
                   style: getElevatedButtonStyle(context),
                   onPressed: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
                     flightBookingController.saveTravellersData(travelInfo);
                   },
                   child: flightBookingController

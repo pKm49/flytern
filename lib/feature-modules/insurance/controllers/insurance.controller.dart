@@ -401,7 +401,7 @@ class InsuranceBookingController extends GetxController {
 
     if (paymentConfirmationData.isIssued) {
       pdfLink.value = paymentConfirmationData.pdfLink;
-      confirmationMessage.value = paymentConfirmationData.alertMsg;
+      // confirmationMessage.value = paymentConfirmationData.alertMsg;
       showSnackbar(Get.context!, "insurance_booking_success".tr, "info");
       int iter = 0;
       Get.offNamedUntil(Approute_insuranceConfirmation, (route) {

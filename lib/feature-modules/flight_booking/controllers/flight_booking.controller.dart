@@ -34,6 +34,7 @@ import 'package:flytern/feature-modules/flight_booking/models/get_gateway_data.f
 import 'package:flytern/feature-modules/flight_booking/models/popular_destination.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/recommended_package.flight_booking.model.dart';
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
+import 'package:flytern/shared-module/models/booking_info.dart';
 import 'package:flytern/shared-module/models/range_dcs.dart';
 import 'package:flytern/shared-module/models/sorting_dcs.dart';
 import 'package:flytern/feature-modules/flight_booking/models/travel_story.flight_booking.model.dart';
@@ -130,14 +131,15 @@ class FlightBookingController extends GetxController {
   var paymentCode = "".obs;
   var gatewayUrl = "".obs;
   var confirmationUrl = "".obs;
-  var confirmationMessage = "".obs;
   var pdfLink = "".obs;
+  var isIssued = false.obs;
 
   var seatTotalAmount = (0.0).obs;
   var mealTotalAmount = (0.0).obs;
   var baggageTotalAmount = (0.0).obs;
   var processingFee = (0.0).obs;
-
+  var   bookingInfo = <BookingInfo>[].obs;
+  var   alert = <String>[].obs;
   var currentFlightIndex = (-1).obs;
   var sortingDcs = <SortingDcs>[].obs;
   var airlineDcs = <SortingDcs>[].obs;
@@ -438,6 +440,8 @@ class FlightBookingController extends GetxController {
   Future<void> getPaymentGateways(bool isSmartpayment) async {
 
     isFlightTravellerDataSaveLoading.value = true;
+    bookingInfo.value = [];
+    alert.value = [];
     if(!isSmartpayment && ( isSeatSelection.value|| isMealSelection.value || isExtraBaggageSelection.value)){
       saveAddonsPrice();
     }
@@ -448,7 +452,8 @@ class FlightBookingController extends GetxController {
     print(tempPaymentGateway.length);
     print(tempPaymentGateway[0]);
     paymentGateways.value = tempPaymentGateway;
-
+    bookingInfo.value = getGatewayData.bookingInfo;
+    alert.value = getGatewayData.alert;
     if (isSmartpayment) {
       flightDetails.value = getGatewayData.flightDetails;
       if (flightDetails.value.cabinInfos.isNotEmpty &&
@@ -529,6 +534,10 @@ class FlightBookingController extends GetxController {
 
   Future<void> getConfirmationData() async {
     isFlightConfirmationDataLoading.value = true;
+    bookingInfo.value = [];
+    alert.value = [];
+    pdfLink.value = "";
+    isIssued.value = false;
 
     PaymentConfirmationData paymentConfirmationData =
         await flightBookingHttpService.getConfirmationData(bookingRef.value);
@@ -536,11 +545,15 @@ class FlightBookingController extends GetxController {
     print("getConfirmationData");
     print(paymentConfirmationData.isIssued);
     print(paymentConfirmationData.pdfLink);
+    print(paymentConfirmationData.bookingInfo);
     print(paymentConfirmationData.alertMsg);
 
     if (paymentConfirmationData.isIssued) {
       pdfLink.value = paymentConfirmationData.pdfLink;
-      confirmationMessage.value = paymentConfirmationData.alertMsg;
+      isIssued.value = paymentConfirmationData.isIssued;
+      bookingInfo.value = paymentConfirmationData.bookingInfo;
+      alert.value = paymentConfirmationData.alertMsg;
+      flightDetails.value = paymentConfirmationData.flightDetails;
       showSnackbar(Get.context!, "flight_booking_success".tr, "info");
 
       int iter = 0;
@@ -665,6 +678,58 @@ class FlightBookingController extends GetxController {
       List<CabinClass> allowedCabinClasses = [];
       allowedCabinClasses.add(cabinClasses.value[0]);
       updatePassengerCountAndCabinClass(1, 0, 0, allowedCabinClasses);
+    }
+  }
+
+  num getBookingInfoGroupLength() {
+     return bookingInfo.value.where((element) => element.groupName=="").toList().length;
+  }
+
+  String getBookingInfoGroupName(int i) {
+    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
+    if(i<=tBookingInfo.length-1){
+      return tBookingInfo[i].information;
+    }else{
+      return "";
+    }
+  }
+
+  String getBookingInfoTitle(int groupIndex, int itemIndex) {
+    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
+    if(groupIndex<=tBookingInfo.length-1){
+      List<BookingInfo> teBookingInfo = bookingInfo.value.where((element) => element.groupName==tBookingInfo[groupIndex].information).toList();
+      if(itemIndex<=teBookingInfo.length-1){
+        return teBookingInfo[itemIndex].title;
+      }else{
+        return "";
+      }
+    }else{
+      return "";
+    }
+  }
+
+  String getBookingInfoValue(int groupIndex, int itemIndex) {
+    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
+    if(groupIndex<=tBookingInfo.length-1){
+      List<BookingInfo> teBookingInfo = bookingInfo.value.where((element) => element.groupName==tBookingInfo[groupIndex].information).toList();
+      if(itemIndex<=teBookingInfo.length-1){
+        return teBookingInfo[itemIndex].information;
+      }else{
+        return "";
+      }
+    }else{
+      return "";
+    }
+  }
+
+  num getBookingInfoGroupSize(int i) {
+    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
+    if(tBookingInfo.isNotEmpty){
+
+      List<BookingInfo> teBookingInfo = bookingInfo.value.where((element) => element.groupName==tBookingInfo[i].information).toList();
+      return teBookingInfo.length;
+    }else{
+      return 0;
     }
   }
 

@@ -3,6 +3,7 @@ import 'package:flytern/feature-modules/flight_booking/controllers/flight_bookin
 import 'package:flytern/feature-modules/flight_booking/ui/components/airport_lable_card.flight_booking.component.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/booking_summary_card.flight_booking.component.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/details_itinerary_card.flight_booking.component.dart';
+import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/user_details_card.shared.component.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
@@ -84,22 +85,28 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
                   color: flyternGrey10,
                   child: ListView(
                     children: [
-
                       Container(
                         width: screenwidth,
                         height: screenwidth*.6,
                         child: Center(
                           child: Column(
                             children: [
-                              Icon(Ionicons.checkmark_circle_outline,size: screenwidth*.4,color: flyternGuideGreen),
+                              Icon(
+                                  flightBookingController.isIssued.value?
+                                  Ionicons.checkmark_circle_outline:
+                                  Ionicons.close_circle_outline,
+                                  size: screenwidth*.4,color:
+                              flightBookingController.isIssued.value?
+                              flyternGuideGreen:flyternGuideRed),
                               Padding(
                                 padding: EdgeInsets.only(top: flyternSpaceLarge),
                                 child: Text(
-                                    flightBookingController.bookingRef.value !=""?
+                                    flightBookingController.isIssued.value?
                                     "success".tr:"failed".tr,
                                     textAlign: TextAlign.center,
                                     style: getHeadlineLargeStyle(context).copyWith(
-                                        color: flyternGuideGreen, fontWeight: flyternFontWeightBold)),
+                                        color: flightBookingController.isIssued.value?
+                                        flyternGuideGreen:flyternGuideRed, fontWeight: flyternFontWeightBold)),
                               ),
                             ],
                           ),
@@ -113,7 +120,12 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("booking_status".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                            Text("Confirmed",style: getBodyMediumStyle(context).copyWith(color: flyternPrimaryColor,fontWeight: flyternFontWeightBold)),
+                            Text(flightBookingController.isIssued.value?
+                            "success".tr:"failed".tr,
+                                style: getBodyMediumStyle(context).copyWith(
+                                    color: flightBookingController.isIssued.value?
+                                    flyternGuideGreen:flyternGuideRed,
+                                    fontWeight: flyternFontWeightBold)),
                           ],
                         ),
                       ),
@@ -132,368 +144,142 @@ class _FlightBookingConfirmationPageState extends State<FlightBookingConfirmatio
                           ],
                         ),
                       ),
-                      InkWell(
-                        onTap: (){
-                          _launchUrl(flightBookingController.pdfLink.value);
-                        },
-                        child: Container(
-                          padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
-                          color: flyternBackgroundWhite,
-                          child:  Text("get_eticket".tr,
-                              style: getBodyMediumStyle(context).copyWith(
-                                  decoration: TextDecoration.underline,
-                                  color: flyternTertiaryColor)),
-                        ),
-                      ),
-                      Padding(
-                        padding: flyternLargePaddingAll,
-                        child: Text("payment_summary".tr,
-                            style: getBodyMediumStyle(context).copyWith(
-                                color: flyternGrey80,
-                                fontWeight: flyternFontWeightBold)),
-                      ),
                       Visibility(
-                        visible: flightBookingController.cabinInfo.value.id != "-1",
-                        child: Container(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceLarge, bottom: flyternSpaceSmall),
-                          color: flyternBackgroundWhite,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("base_fare".tr,
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey60)),
-                              Text(
-                                  "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.totalBase}",
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey80)),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: flightBookingController.cabinInfo.value.id != "-1",
-                        child: Container(
-                            padding: flyternLargePaddingHorizontal,
+                        visible: flightBookingController.isIssued.value,
+                        child: InkWell(
+                          onTap: (){
+                            _launchUrl(flightBookingController.pdfLink.value);
+                          },
+                          child: Container(
+                            padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
                             color: flyternBackgroundWhite,
-                            child: Divider()),
-                      ),
-                      Visibility(
-                        visible: flightBookingController.cabinInfo.value.id != "-1",
-                        child: Container(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
-                          color: flyternBackgroundWhite,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("tax_fare".tr,
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey60)),
-                              Text(
-                                  "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.totalTax}",
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey80)),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: flightBookingController.processingFee.value != 0.0,
-                        child: Container(
-                            padding: flyternLargePaddingHorizontal,
-                            color: flyternBackgroundWhite,
-                            child: Divider()),
-                      ),
-
-                      Visibility(
-                        visible: flightBookingController.cabinInfo.value.id != "-1",
-                        child: Container(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
-                          color: flyternBackgroundWhite,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("total_fare".tr,
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey60)),
-                              Text(
-                                  "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.totalPrice}",
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey80)),
-                            ],
-                          ),
-                        ),
-                      ),
-
-
-                      Visibility(
-                        visible: flightBookingController.seatTotalAmount.value != 0.0,
-                        child: Container(
-                            padding: flyternLargePaddingHorizontal,
-                            color: flyternBackgroundWhite,
-                            child: Divider()),
-                      ),
-                      Visibility(
-                        visible: flightBookingController.seatTotalAmount.value != 0.0,
-                        child: Container(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
-                          color: flyternBackgroundWhite,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("seats".tr,
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey60)),
-                              Text(
-                                  "${flightBookingController.cabinInfo.value.currency} "
-                                      "${flightBookingController.seatTotalAmount.value}",
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey80)),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      Visibility(
-                        visible: flightBookingController.mealTotalAmount.value != 0.0,
-                        child: Container(
-                            padding: flyternLargePaddingHorizontal,
-                            color: flyternBackgroundWhite,
-                            child: Divider()),
-                      ),
-                      Visibility(
-                        visible: flightBookingController.mealTotalAmount.value != 0.0,
-                        child: Container(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
-                          color: flyternBackgroundWhite,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("meal".tr,
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey60)),
-                              Text(
-                                  "${flightBookingController.cabinInfo.value.currency} "
-                                      "${flightBookingController.mealTotalAmount.value}",
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey80)),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      Visibility(
-                        visible: flightBookingController.baggageTotalAmount.value != 0.0,
-                        child: Container(
-                            padding: flyternLargePaddingHorizontal,
-                            color: flyternBackgroundWhite,
-                            child: Divider()),
-                      ),
-                      Visibility(
-                        visible: flightBookingController.baggageTotalAmount.value != 0.0,
-                        child: Container(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
-                          color: flyternBackgroundWhite,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("extra_buggage".tr,
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey60)),
-                              Text(
-                                  "${flightBookingController.cabinInfo.value.currency} "
-                                      "${flightBookingController.baggageTotalAmount.value}",
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey80)),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      Visibility(
-                        visible: flightBookingController.processingFee.value !=
-                            0.0,
-                        child: Container(
-                            padding: flyternLargePaddingHorizontal,
-                            color: flyternBackgroundWhite,
-                            child: Divider()),
-                      ),
-                      Visibility(
-                        visible: flightBookingController.processingFee.value  != 0.0,
-                        child: Container(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
-                          color: flyternBackgroundWhite,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("processing_fee".tr,
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey60)),
-                              Text(
-                                  "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.processingFee.value}",
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey80)),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      Visibility(
-                        visible: flightBookingController.cabinInfo.value.id !=
-                            "-1" &&
-                            flightBookingController.cabinInfo.value.totalBase > 0.0,
-                        child: Container(
-                            padding: flyternLargePaddingHorizontal,
-                            color: flyternBackgroundWhite,
-                            child: Divider()),
-                      ),
-                      Visibility(
-                        visible: flightBookingController.cabinInfo.value.id !=
-                            "-1" &&
-                            flightBookingController.cabinInfo.value.discount > 0.0,
-                        child: Container(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
-                          color: flyternBackgroundWhite,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                  "${'discount'.tr} (${'promo_code'.tr}-${flightBookingController.cabinInfo.value.promoCode})",
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey60)),
-                              Text(
-                                  "- ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.discount}",
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGuideGreen)),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: flightBookingController.cabinInfo.value.id != "-1",
-                        child: Container(
-                            padding: flyternLargePaddingHorizontal,
-                            color: flyternBackgroundWhite,
-                            child: Divider()),
-                      ),
-                      Visibility(
-                        visible: flightBookingController.cabinInfo.value.id != "-1",
-                        child: Container(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
-                          color: flyternBackgroundWhite,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("${'grand_total'.tr} ",
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey60)),
-                              Text(
-                                  "${flightBookingController.cabinInfo.value.currency}"
-                                      " ${(flightBookingController.cabinInfo.value.finalAmount +
-                                      flightBookingController.seatTotalAmount.value +
-                                      flightBookingController.mealTotalAmount.value +
-                                      flightBookingController.baggageTotalAmount.value +
-                                      flightBookingController.processingFee.value)}",
-                                  style: getBodyMediumStyle(context).copyWith(
-                                      color: flyternGrey80,
-                                      fontWeight: flyternFontWeightBold)),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: flightBookingController.paymentCode.value !="",
-                        child: Container(
-                            padding: flyternLargePaddingHorizontal,
-                            color: flyternBackgroundWhite,
-                            child: Divider()),
-                      ),
-                      Visibility(
-                        visible: flightBookingController.processingFee.value  != 0.0,
-                        child: Container(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceSmall, bottom: flyternSpaceLarge),
-                          color: flyternBackgroundWhite,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("payment_gateway".tr,
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey60)),
-                              Text(
-                                  "${flightBookingController.paymentCode.value}",
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey80)),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: flyternLargePaddingAll,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("flight_summary".tr,
-                                style: getBodyMediumStyle(context).copyWith(
-                                    color: flyternGrey80,
-                                    fontWeight: flyternFontWeightBold)),
-                            Text("flight_details".tr,
+                            child:  Text("get_eticket".tr,
                                 style: getBodyMediumStyle(context).copyWith(
                                     decoration: TextDecoration.underline,
                                     color: flyternTertiaryColor)),
-                          ],
+                          ),
                         ),
                       ),
+
+                      for (var i = 0;
+                      i < flightBookingController.alert.length;
+                      i++)
+                        Container(
+                          padding: flyternLargePaddingAll.copyWith(bottom: 0),
+                          child: DataCapsuleCard(
+                            label: flightBookingController.alert[i],
+                            theme: 1,
+                          ),
+                        ),
+
+                      for (var i = 0;
+                      i < flightBookingController.getBookingInfoGroupLength();
+                      i++)
+                        Wrap(
+                          children: [
+                            Padding(
+                              padding: flyternLargePaddingAll,
+                              child: Text(
+                                  flightBookingController
+                                      .getBookingInfoGroupName(i),
+                                  style: getBodyMediumStyle(context).copyWith(
+                                      color: flyternGrey80,
+                                      fontWeight: flyternFontWeightBold)),
+                            ),
+                            Container(
+                              height: (flightBookingController
+                                  .getBookingInfoGroupSize(i) *
+                                  50)+(flyternSpaceLarge*2),
+                              child: Column(
+                                children: [
+                                  for (var ind = 0;
+                                  ind <
+                                      flightBookingController
+                                          .getBookingInfoGroupSize(i);
+                                  ind++)
+                                    flightBookingController.getBookingInfoTitle(
+                                        i, ind) !=
+                                        "DIVIDER"
+                                        ? Container(
+                                      padding: flyternLargePaddingHorizontal
+                                          .copyWith(
+                                          top: ind == 0
+                                              ? flyternSpaceLarge
+                                              : flyternSpaceMedium,
+                                          bottom: ind ==
+                                              flightBookingController
+                                                  .getBookingInfoGroupSize(
+                                                  i) -
+                                                  1
+                                              ? flyternSpaceLarge
+                                              : flyternSpaceMedium),
+                                      decoration: BoxDecoration(
+                                          color: flyternBackgroundWhite,
+                                          border: Border(
+                                            bottom: BorderSide(
+                                              color: ind ==
+                                                  flightBookingController
+                                                      .getBookingInfoGroupSize(
+                                                      i) -
+                                                      1
+                                                  ? Colors.transparent
+                                                  : flyternGrey20,
+                                              width: 0.5,
+                                            ),
+                                          )),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                              flightBookingController
+                                                  .getBookingInfoTitle(
+                                                  i, ind),
+                                              style: getBodyMediumStyle(
+                                                  context)
+                                                  .copyWith(
+                                                  color:
+                                                  flyternGrey60)),
+                                          Text(
+                                              flightBookingController
+                                                  .getBookingInfoValue(
+                                                  i, ind),
+                                              style: getBodyMediumStyle(
+                                                  context)
+                                                  .copyWith(
+                                                  color:
+                                                  flyternGrey80)),
+                                        ],
+                                      ),
+                                    )
+                                        : ind !=
+                                        flightBookingController
+                                            .getBookingInfoGroupSize(
+                                            i) -
+                                            1?Container(
+                                        padding:
+                                        flyternLargePaddingHorizontal,
+                                        color: flyternBackgroundWhite,
+                                        child:
+                                        Divider(height: 3, thickness: 3)):Container(),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+
+
                       for (var i = 0;
                       i <
                           flightBookingController
                               .flightDetails.value.flightSegments.length;
                       i++)
                         Padding(
-                          padding: const EdgeInsets.only(bottom: flyternSpaceLarge),
+                          padding:
+                          const EdgeInsets.only(bottom: flyternSpaceLarge),
                           child: FlightDetailsItineraryCard(
                               flightSegment: flightBookingController
                                   .flightDetails.value.flightSegments[i]),
-                        ),
-                      Padding(
-                        padding: flyternLargePaddingAll,
-                        child: Text("passengers".tr,
-                            style: getBodyMediumStyle(context).copyWith(
-                                color: flyternGrey80,
-                                fontWeight: flyternFontWeightBold)),
-                      ),
-                      for (var i = 0;
-                      i <
-                          flightBookingController
-                              .selectedTravelInfo.value.length;
-                      i++)
-                        Container(
-                          decoration: BoxDecoration(
-                            border: flyternDefaultBorderBottomOnly,
-                            color: flyternBackgroundWhite,
-                          ),
-                          child: UserDetailsCard(
-                            onDelete: () {},
-                            onEdit: () {},
-                            isActionAllowed: false,
-                            name:
-                            "${flightBookingController.selectedTravelInfo[i].firstName} ${flightBookingController.selectedTravelInfo[i].lastName}",
-                            age: getAge(flightBookingController
-                                .selectedTravelInfo[i].dateOfBirth),
-                            gender: flightBookingController
-                                .selectedTravelInfo[i].gender,
-                            passportNumber: flightBookingController
-                                .selectedTravelInfo[i].passportNumber,
-                          ),
                         ),
                       Container(
                         height: 70 + (flyternSpaceSmall * 2),

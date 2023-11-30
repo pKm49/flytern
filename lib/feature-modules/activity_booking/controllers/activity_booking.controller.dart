@@ -370,7 +370,7 @@ class ActivityBookingController extends GetxController {
 
     if (paymentConfirmationData.isIssued) {
       pdfLink.value = paymentConfirmationData.pdfLink;
-      confirmationMessage.value = paymentConfirmationData.alertMsg;
+      // confirmationMessage.value = paymentConfirmationData.alertMsg;
       showSnackbar(Get.context!, "flight_booking_success".tr, "info");
 
       int iter = 0;

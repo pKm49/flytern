@@ -23,6 +23,7 @@ import 'package:flytern/feature-modules/flight_booking/models/traveller_data.fli
 import 'package:flytern/feature-modules/flight_booking/models/get_gateway_data.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/popular_destination.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/recommended_package.flight_booking.model.dart';
+import 'package:flytern/shared-module/models/booking_info.dart';
 import 'package:flytern/shared-module/models/range_dcs.dart';
 import 'package:flytern/shared-module/models/sorting_dcs.dart';
 import 'package:flytern/feature-modules/flight_booking/models/travel_story.flight_booking.model.dart';
@@ -274,6 +275,8 @@ class FlightBookingHttpService {
         {"bookingRef": bookingRef});
 
     List<PaymentGateway> paymentGateways = [];
+    List<BookingInfo>  bookingInfo = [];
+    List<String> alertMsg = [];
     FlightDetails flightDetails = mapFlightDetails({});
 
     print("getPaymentGateways");
@@ -297,11 +300,25 @@ class FlightBookingHttpService {
             print(flightDetails.objectId);
           }
         }
+        if (response.data["alertMsg"]!=null) {
+          response.data["alertMsg"].forEach((element) {
+            alertMsg.add(element);
+          });
+        }
+
+        if (response.data["_bookingInfo"]!=null) {
+          response.data["_bookingInfo"].forEach((element) {
+            bookingInfo.add(mapBookingInfo(element));
+          });
+        }
       }
     }
 
     return GetGatewayData(
-        paymentGateways: paymentGateways, flightDetails: flightDetails);
+        paymentGateways: paymentGateways,
+        alert: alertMsg,
+        bookingInfo: bookingInfo,
+        flightDetails: flightDetails);
   }
 
   Future<FlightAddonGetSeat> getSeats(String bookingRef) async {
