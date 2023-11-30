@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/core-module/constants/theme_data.core.constant.dart';
 import 'package:flytern/feature-modules/activity_booking/controllers/activity_booking.controller.dart';
 import 'package:flytern/feature-modules/activity_booking/models/traveller_info.activity_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
-import 'package:flytern/feature-modules/flight_booking/models/traveller_info.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/userdetails_submission_form.flight_booking.component.dart';
 import 'package:flytern/feature-modules/profile/controllers/copax.profile.controller.dart';
 import 'package:flytern/feature-modules/profile/models/user-copax.profile.model.dart';
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
-import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
@@ -18,10 +13,8 @@ import 'package:flytern/shared-module/models/general_item.dart';
 import 'package:flytern/shared-module/services/utility-services/form_validator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
-import 'package:flytern/shared-module/ui/components/contact_details_getter.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/country_selector.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/dropdown_selector.shared.component.dart';
-import 'package:flytern/shared-module/ui/components/sort_option_selector.shared.component.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -82,7 +75,6 @@ class _ActivityUserDetailsSubmissionPageState
     mobileCntry = argumentData[0]['mobileCntry'];
     mobileNumber = argumentData[0]['mobileNumber'];
     email = argumentData[0]['email'];
-
   }
 
   @override
@@ -259,7 +251,7 @@ class _ActivityUserDetailsSubmissionPageState
               child: ElevatedButton(
                   style: getElevatedButtonStyle(context),
                   onPressed: () {
-                    if(userDetailsForm.currentState!.validate()){
+                    if (userDetailsForm.currentState!.validate()) {
                       activityBookingController.setTravellerData(
                           ActivityTravellerInfo(
                               prefix: selectedTitle.name,
@@ -271,7 +263,6 @@ class _ActivityUserDetailsSubmissionPageState
                               mobile: mobileNumber,
                               mobileCountryCode: mobileCntry));
                     }
-
                   },
                   child: activityBookingController.isSaveContactLoading.value
                       ? LoadingAnimationWidget.prograssiveDots(
@@ -298,7 +289,7 @@ class _ActivityUserDetailsSubmissionPageState
         context: context,
         builder: (context) {
           return CountrySelector(
-            isMobile:false,
+            isMobile: false,
             isGlobal: false,
             countrySelected: (Country? country) {
               if (country != null) {

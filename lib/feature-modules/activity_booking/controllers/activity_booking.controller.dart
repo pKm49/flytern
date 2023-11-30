@@ -35,7 +35,7 @@ class ActivityBookingController extends GetxController {
   var isSaveContactLoading = false.obs;
   var activityBookingHttpService = ActivityBookingHttpService();
   var isSmartPaymentCheckLoading = false.obs;
-
+  var selectedImageIndex = (-1).obs;
   var currency = "KWD".obs;
   var selectedDestination = "".obs;
   var selectedActivity = "".obs;
@@ -214,12 +214,16 @@ class ActivityBookingController extends GetxController {
 
   Future<void> getActivityDetails(int tourId) async {
     isDetailsDataLoading.value = true;
+    selectedImageIndex.value = -1;
     Get.toNamed(Approute_activitiesDetails);
     activityId.value = tourId;
     ActivityDetailsResponse activityDetailsResponse =
         await activityBookingHttpService.getActivityDetails(
             objectID.value, tourId);
     activityDetails.value = activityDetailsResponse.activityDetails;
+    selectedImageIndex.value =
+    activityDetails.value.subImages.isNotEmpty ? 0 : -1;
+
     activityOptions.value =
         activityDetailsResponse.activityOptions.toSet().toList();
     final ids = Set();
@@ -230,7 +234,9 @@ class ActivityBookingController extends GetxController {
 
     getInitialPrice();
   }
-
+  void changeSelectedImage(int index) {
+    selectedImageIndex.value = index;
+  }
   Future<void> setTravellerData(
       ActivityTravellerInfo activityTravellerInfo) async {
     isSaveContactLoading.value = true;

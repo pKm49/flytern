@@ -15,7 +15,7 @@ class PackageBookingController extends GetxController {
   var isDetailsDataLoading = true.obs;
   var isSaveContactLoading = true.obs;
   var packageBookingHttpService = PackageBookingHttpService();
-
+  var selectedImageIndex = (-1).obs;
   var selectedDestination = "".obs;
   var selectedPackage = "".obs;
   var packages = <PackageData>[].obs;
@@ -59,10 +59,14 @@ class PackageBookingController extends GetxController {
   Future<void> getPackageDetails(int refId) async {
 
     isDetailsDataLoading.value = true;
+    selectedImageIndex.value = -1;
     packageId.value = refId;
     PackageDetails? tempPackageDetails = await packageBookingHttpService.getPackageDetails(refId);
     if (tempPackageDetails != null) {
       packageDetails.value = tempPackageDetails;
+      selectedImageIndex.value =
+      packageDetails.value.subImages.isNotEmpty ? 0 : -1;
+
     }
     isDetailsDataLoading.value = false;
 
@@ -116,5 +120,7 @@ class PackageBookingController extends GetxController {
 
      Get.offAllNamed(Approute_landingpage);
   }
-
+  void changeSelectedImage(int index) {
+    selectedImageIndex.value = index;
+  }
 }

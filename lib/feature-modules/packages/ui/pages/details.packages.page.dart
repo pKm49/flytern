@@ -48,8 +48,93 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
                 visible: !packageBookingController.isDetailsDataLoading.value,
                 child: ListView(
                   children: [
-                    CustomMediaCarousel(
-                      medias: packageBookingController.packageDetails.value.subImages,
+                    Visibility(
+                      visible:
+                      packageBookingController.selectedImageIndex.value>-1&&
+                          getSelectedImageUrl()
+                              !=
+                              "",
+                      child:  InkWell(
+                        onTap: () {
+                          Get.toNamed(Approute_imageViewer,arguments: [ packageBookingController
+                              .packageDetails.value.subImages[packageBookingController.selectedImageIndex.value],
+                            packageBookingController
+                                .packageDetails.value.subImages
+                          ]);
+                        },
+                        child: Container(
+                          width: screenwidth,
+                          height: screenwidth,
+                          color: flyternGrey10,
+                          child: Image.network(
+                              packageBookingController.selectedImageIndex.value>-1?
+                              packageBookingController
+                                  .packageDetails.value.subImages[packageBookingController.selectedImageIndex.value]:"",
+                              height: screenwidth,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  color: flyternGrey10,
+                                  height: screenwidth,
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.business,
+                                      color: flyternGrey40,
+                                    ),
+                                  ),
+                                );
+                              }),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: flyternLargePaddingAll ,
+                      color: flyternBackgroundWhite,
+                      height:( screenwidth * .15)+(flyternSpaceMedium*2),
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          for (var i = 0;
+                          i <
+                              packageBookingController
+                                  .packageDetails.value.subImages.length;
+                          i++)
+                            InkWell(
+                              onTap: () {
+                                packageBookingController.changeSelectedImage(i);
+                              },
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                          flyternBorderRadiusExtraSmall),
+                                      border: Border.all(
+                                          color: i ==
+                                              packageBookingController
+                                                  .selectedImageIndex
+                                                  .value
+                                              ? flyternSecondaryColor
+                                              : Colors.transparent,
+                                          width: 2)),
+                                  margin: EdgeInsets.only(
+                                      right: flyternSpaceSmall),
+                                  clipBehavior: Clip.hardEdge,
+                                  height: screenwidth * .16,
+                                  child: Image.network(packageBookingController.packageDetails.value.subImages[i],
+                                      height: screenwidth * .2, errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Container(
+                                          color: flyternGrey10,
+                                          height: screenwidth * .2,
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.business,
+                                              color: flyternGrey40,
+                                            ),
+                                          ),
+                                        );
+                                      })),
+                            ),
+                        ],
+                      ),
                     ),
                     Container(
                       padding: flyternLargePaddingAll.copyWith(bottom: 0,top: 0),
@@ -299,6 +384,15 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
         ):Container( width: screenwidth, height: 60 + (flyternSpaceSmall * 2)),
       ),
     );
+  }
+  getSelectedImageUrl() {
+    if(packageBookingController
+        .packageDetails.value.subImages.isEmpty){
+      return "";
+    }
+
+    return
+      packageBookingController.packageDetails.value.subImages[packageBookingController.selectedImageIndex.value];
   }
 
   void openContactDetailsGetterBottomSheet() {
