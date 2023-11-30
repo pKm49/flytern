@@ -72,20 +72,26 @@ class InsuranceBookingController extends GetxController {
   }
 
   Future<void> getInitialInfo() async {
-    isInitialDataLoading.value = true;
 
-    InsuranceInitialData tempInsuranceInitialData =
-        await insuranceBookingHttpService.getInitialInfo();
-
-    if (tempInsuranceInitialData.lstPolicyHeaderType.isNotEmpty) {
-      insuranceInitialData.value = tempInsuranceInitialData;
-      policyDateController.value.text =
-          getFormattedDate(insuranceInitialData.value.minPolicyDate);
-      policyDate.value = insuranceInitialData.value.minPolicyDate;
-      getInitialPrice();
+    if(insuranceInitialData.value.lstPolicyType.isNotEmpty) {
+      await Future.delayed(const Duration(seconds: 1));
     }
+      isInitialDataLoading.value = true;
 
-    isInitialDataLoading.value = false;
+      InsuranceInitialData tempInsuranceInitialData =
+      await insuranceBookingHttpService.getInitialInfo();
+
+      if (tempInsuranceInitialData.lstPolicyHeaderType.isNotEmpty) {
+        insuranceInitialData.value = tempInsuranceInitialData;
+        policyDateController.value.text =
+            getFormattedDate(insuranceInitialData.value.minPolicyDate);
+        policyDate.value = insuranceInitialData.value.minPolicyDate;
+        getInitialPrice();
+      }
+
+      isInitialDataLoading.value = false;
+
+
   }
 
   Future<void> getPrice(InsurancePriceGetBody tempInsurancePriceGetBody) async {
@@ -449,7 +455,9 @@ class InsuranceBookingController extends GetxController {
       }else{
         showSnackbar(Get.context!, "insurance_booking_success".tr, "info");
         int iter = 0;
-        Get.offNamedUntil(Approute_insuranceConfirmation, (route) {
+        Get.offNamedUntil(Approute_insuranceConfirmation,arguments:[
+          {"mode": "view"}
+        ], (route) {
           print("Get.currentRoute");
           print(Get.currentRoute);
           return ++iter == 3;
@@ -492,13 +500,8 @@ class InsuranceBookingController extends GetxController {
   void resetAndNavigateToHome() {
     bookingRef.value = "";
     selectedTravelInfo.value = [];
+    Get.offAllNamed(Approute_landingpage);
 
-    int iter = 0;
-    Get.offNamedUntil(Approute_insuranceLandingPage, (route) {
-      print("Get.currentRoute");
-      print(Get.currentRoute);
-      return ++iter == 3;
-    });
   }
 
 
