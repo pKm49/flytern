@@ -6,6 +6,7 @@ import 'package:flytern/core-module/controllers/core.controller.dart';
 import 'package:flytern/feature-modules/profile/controllers/copax.profile.controller.dart';
 import 'package:flytern/feature-modules/profile/controllers/travel_story.profile.controller.dart';
 import 'package:flytern/feature-modules/profile/constants/booking_categories.profile.constant.dart';
+import 'package:flytern/feature-modules/profile/models/my_activity.profile.model.dart';
 import 'package:flytern/feature-modules/profile/models/my_booking_response.profile.model.dart';
 import 'package:flytern/feature-modules/profile/models/my_flight_booking.profile.model.dart';
 import 'package:flytern/feature-modules/profile/models/my_hotel_booking.profile.model.dart';
@@ -94,7 +95,7 @@ class ProfileController extends GetxController {
   var myHotelBookingResponse = <MyHotelBooking>[].obs;
   var myInsuranceBookingResponse = <MyInsuranceBooking>[].obs;
   var myPackageBookingResponse = <MyPackageBooking>[].obs;
-  var myActivityBookingResponse = <dynamic>[].obs;
+  var myActivityBookingResponse = <MyActivityBooking>[].obs;
   var totalPages = 1.obs;
   var currentPage = 1.obs;
   var pageSize = 10.obs;

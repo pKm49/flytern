@@ -73,13 +73,12 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                             },
                             child: Container(
                               width: screenwidth,
-                              height: screenwidth,
                               color: flyternGrey10,
                               child: Image.network(
                                   hotelBookingController.selectedImageIndex.value>-1?
                                   hotelBookingController
                                       .hotelDetails.value.imageUrls[hotelBookingController.selectedImageIndex.value]:"",
-                                  height: screenwidth,
+                                  width: screenwidth,
                                   errorBuilder: (context, error, stackTrace) {
                                 return Container(
                                   color: flyternGrey10,

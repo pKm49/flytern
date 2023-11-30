@@ -7,6 +7,7 @@ import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared
 import 'package:flytern/shared-module/models/country.dart';
 import 'package:flytern/shared-module/models/gender.dart';
 import 'package:flytern/shared-module/models/general_item.dart';
+import 'package:flytern/shared-module/services/utility-services/flight_userdata_input_formatter.dart';
 import 'package:flytern/shared-module/services/utility-services/form_validator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
@@ -96,6 +97,9 @@ class _ProfileAuditCopassengerPageState
                         Expanded(
                           flex: 3,
                           child: TextFormField(
+                              inputFormatters: [
+                                FlightUserDataTextFormatter(),
+                              ],
                               controller:
                                   coPaxController.firsNameController.value,
                               validator: (value) =>
@@ -109,6 +113,9 @@ class _ProfileAuditCopassengerPageState
                         Expanded(
                           flex: 3,
                           child: TextFormField(
+                              inputFormatters: [
+                                FlightUserDataTextFormatter(),
+                              ],
                               controller:
                                   coPaxController.lastNameController.value,
                               validator: (value) =>
@@ -202,6 +209,9 @@ class _ProfileAuditCopassengerPageState
                         top: 0, bottom: flyternSpaceMedium),
                     color: flyternBackgroundWhite,
                     child: TextFormField(
+                        inputFormatters: [
+                          FlightUserDataTextFormatter(),
+                        ],
                         controller:
                             coPaxController.passportNumberController.value,
                         validator: (value) =>

@@ -13,6 +13,7 @@ import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared
 import 'package:flytern/shared-module/models/country.dart';
 import 'package:flytern/shared-module/models/gender.dart';
 import 'package:flytern/shared-module/models/general_item.dart';
+import 'package:flytern/shared-module/services/utility-services/flight_userdata_input_formatter.dart';
 import 'package:flytern/shared-module/services/utility-services/form_validator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/ui/components/country_selector.shared.component.dart';
@@ -170,6 +171,9 @@ class _HotelUserDetailsSubmissionFormState
                   Expanded(
                     flex: 3,
                     child: TextFormField(
+                        inputFormatters: [
+                          FlightUserDataTextFormatter(),
+                        ],
                         controller: firstNameController,
                         onChanged:     updateData(),
                         validator: (value) =>
@@ -183,6 +187,9 @@ class _HotelUserDetailsSubmissionFormState
                   Expanded(
                     flex: 3,
                     child: TextFormField(
+                        inputFormatters: [
+                          FlightUserDataTextFormatter(),
+                        ],
                         controller: lastNameController,
                         onChanged:     updateData(),
                         validator: (value) =>

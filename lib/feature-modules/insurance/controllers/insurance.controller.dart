@@ -430,13 +430,8 @@ class InsuranceBookingController extends GetxController {
     PaymentConfirmationData paymentConfirmationData =
         await insuranceBookingHttpService.getConfirmationData(bookingRef);
 
-    print("getConfirmationData");
-    print(paymentConfirmationData.isIssued);
-    print(paymentConfirmationData.pdfLink);
-    print(paymentConfirmationData.alertMsg);
 
-    if (paymentConfirmationData.isIssued) {
-      pdfLink.value = paymentConfirmationData.pdfLink;
+    if (paymentConfirmationData.isSuccess) {
       pdfLink.value = paymentConfirmationData.pdfLink;
       pdfLink.value = paymentConfirmationData.pdfLink;
       isIssued.value = paymentConfirmationData.isIssued;

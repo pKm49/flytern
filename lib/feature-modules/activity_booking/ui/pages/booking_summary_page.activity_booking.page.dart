@@ -23,11 +23,12 @@ class ActivityBookingSummaryPage extends StatefulWidget {
   const ActivityBookingSummaryPage({super.key});
 
   @override
-  State<ActivityBookingSummaryPage> createState() => _ActivityBookingSummaryPageState();
+  State<ActivityBookingSummaryPage> createState() =>
+      _ActivityBookingSummaryPageState();
 }
 
-class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage> {
-
+class _ActivityBookingSummaryPageState
+    extends State<ActivityBookingSummaryPage> {
   final ExpansionTileController controller = ExpansionTileController();
   final ExpansionTileController controller2 = ExpansionTileController();
   final activityBookingController = Get.find<ActivityBookingController>();
@@ -36,7 +37,6 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
 
   @override
   Widget build(BuildContext context) {
-
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
 
@@ -46,7 +46,7 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
         return false;
       },
       child: Obx(
-          ()=> Scaffold(
+        () => Scaffold(
           appBar: AppBar(
             title: Text('summary'.tr),
             elevation: 0.5,
@@ -54,21 +54,19 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
           body: Stack(
             children: [
               Visibility(
-                  visible: activityBookingController
-                      .isSaveContactLoading.value,
+                  visible: activityBookingController.isSaveContactLoading.value,
                   child: Container(
                     width: screenwidth,
                     height: screenheight * .8,
                     color: flyternGrey10,
                     child: Center(
                         child: LoadingAnimationWidget.prograssiveDots(
-                          color: flyternSecondaryColor,
-                          size: 50,
-                        )),
+                      color: flyternSecondaryColor,
+                      size: 50,
+                    )),
                   )),
               Visibility(
-                visible: !activityBookingController
-                    .isSaveContactLoading.value,
+                visible: !activityBookingController.isSaveContactLoading.value,
                 child: Container(
                   width: screenwidth,
                   height: screenheight,
@@ -76,8 +74,8 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
                   child: ListView(
                     children: [
                       for (var i = 0;
-                      i < activityBookingController.alert.length;
-                      i++)
+                          i < activityBookingController.alert.length;
+                          i++)
                         Container(
                           padding: flyternLargePaddingAll.copyWith(bottom: 0),
                           child: DataCapsuleCard(
@@ -85,104 +83,26 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
                             theme: 1,
                           ),
                         ),
-                      for (var i = 0;
-                      i < getBookingInfoGroupLength(activityBookingController.bookingInfo);
-                      i++)
-                        Wrap(
-                          children: [
-                            Padding(
-                              padding: flyternLargePaddingAll,
-                              child: Text(
-                                  getBookingInfoGroupName(activityBookingController.bookingInfo,i),
-                                  style: getBodyMediumStyle(context).copyWith(
-                                      color: flyternGrey80,
-                                      fontWeight: flyternFontWeightBold)),
-                            ),
-                            Container(
-                              height: ( getBookingInfoGroupSize(activityBookingController.bookingInfo,i) *
-                                  50)+(flyternSpaceLarge*2),
-                              child: Column(
-                                children: [
-                                  for (var ind = 0;
-                                  ind < getBookingInfoGroupSize(activityBookingController.bookingInfo,i);
-                                  ind++)
-                                    getBookingInfoTitle(activityBookingController.bookingInfo,
-                                        i, ind) !=
-                                        "DIVIDER"
-                                        ? Container(
-                                      padding: flyternLargePaddingHorizontal
-                                          .copyWith(
-                                          top: ind == 0
-                                              ? flyternSpaceLarge
-                                              : flyternSpaceMedium,
-                                          bottom: ind == getBookingInfoGroupSize(activityBookingController.bookingInfo,
-                                              i) -
-                                              1
-                                              ? flyternSpaceLarge
-                                              : flyternSpaceMedium),
-                                      decoration: BoxDecoration(
-                                          color: flyternBackgroundWhite,
-                                          border: Border(
-                                            bottom: BorderSide(
-                                              color: ind == getBookingInfoGroupSize(activityBookingController.bookingInfo,
-                                                  i) -
-                                                  1
-                                                  ? Colors.transparent
-                                                  : flyternGrey20,
-                                              width: 0.5,
-                                            ),
-                                          )),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                              getBookingInfoTitle(activityBookingController.bookingInfo,
-                                                  i, ind),
-                                              style: getBodyMediumStyle(
-                                                  context)
-                                                  .copyWith(
-                                                  color:
-                                                  flyternGrey60)),
-                                          Text( getBookingInfoValue(activityBookingController.bookingInfo,
-                                              i, ind),
-                                              style: getBodyMediumStyle(
-                                                  context)
-                                                  .copyWith(
-                                                  color:
-                                                  flyternGrey80)),
-                                        ],
-                                      ),
-                                    )
-                                        : ind != getBookingInfoGroupSize(activityBookingController.bookingInfo,
-                                        i) -
-                                        1?Container(
-                                        padding:
-                                        flyternLargePaddingHorizontal,
-                                        color: flyternBackgroundWhite,
-                                        child:
-                                        Divider(height: 3, thickness: 3)):Container(),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-
                       Padding(
-                        padding: flyternLargePaddingAll.copyWith(top: 0),
+                        padding: flyternLargePaddingAll,
                         child: Text("select_payment_method".tr,
                             style: getBodyMediumStyle(context).copyWith(
                                 color: flyternGrey80,
                                 fontWeight: flyternFontWeightBold)),
                       ),
                       for (var i = 0;
-                      i < activityBookingController.paymentGateways.length;
-                      i++)
+                          i < activityBookingController.paymentGateways.length;
+                          i++)
                         Container(
                           decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
-                                color: i == activityBookingController.paymentGateways.length-1?Colors.transparent:flyternGrey20,
+                                color: i ==
+                                        activityBookingController
+                                                .paymentGateways.length -
+                                            1
+                                    ? Colors.transparent
+                                    : flyternGrey20,
                                 width: 0.5,
                               ),
                             ),
@@ -191,9 +111,9 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
                           padding: flyternLargePaddingHorizontal.copyWith(
                               top: flyternSpaceMedium,
                               bottom: i ==
-                                  activityBookingController
-                                      .paymentGateways.length -
-                                      1
+                                      activityBookingController
+                                              .paymentGateways.length -
+                                          1
                                   ? flyternSpaceLarge
                                   : flyternSpaceMedium),
                           child: Row(
@@ -204,27 +124,31 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
                                   children: [
                                     Container(
                                         decoration:
-                                        flyternBorderedContainerSmallDecoration,
+                                            flyternBorderedContainerSmallDecoration,
                                         clipBehavior: Clip.hardEdge,
                                         width: screenwidth * .15,
                                         height: screenwidth * .15,
                                         child: Center(
                                             child: Image.network(
-                                              activityBookingController.paymentGateways
-                                                  .value[i].gatewayImageUrl,
-                                              width: screenwidth * .1,
-                                              height: screenwidth * .1,
-                                              errorBuilder:
-                                                  (context, error, stackTrace) {
-                                                return Container(
-                                                    width: screenwidth * .1,
-                                                    height: screenwidth * .1);
-                                              },
-                                            ))),
+                                          activityBookingController
+                                              .paymentGateways
+                                              .value[i]
+                                              .gatewayImageUrl,
+                                          width: screenwidth * .1,
+                                          height: screenwidth * .1,
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return Container(
+                                                width: screenwidth * .1,
+                                                height: screenwidth * .1);
+                                          },
+                                        ))),
                                     addHorizontalSpace(flyternSpaceMedium),
                                     Text(
                                         activityBookingController
-                                            .paymentGateways.value[i].displayName,
+                                            .paymentGateways
+                                            .value[i]
+                                            .displayName,
                                         style: getBodyMediumStyle(context)
                                             .copyWith(color: flyternGrey80)),
                                   ],
@@ -234,20 +158,24 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
                                 activeColor: flyternSecondaryColor,
                                 value: activityBookingController
                                     .paymentGateways.value[i].processID,
-                                groupValue:
-                                activityBookingController.selectedGateway.value.processID,
+                                groupValue: activityBookingController
+                                    .selectedGateway.value.processID,
                                 onChanged: (value) {
-                                  activityBookingController.updateProcessId(value);
+                                  activityBookingController
+                                      .updateProcessId(value);
                                 },
                               ),
                             ],
                           ),
                         ),
                       Visibility(
-                        visible: activityBookingController.selectedGateway.value.processingFee  != 0.0,
+                        visible: activityBookingController
+                                .selectedGateway.value.processingFee !=
+                            0.0,
                         child: Container(
                           padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+                              top: flyternSpaceSmall,
+                              bottom: flyternSpaceSmall),
                           color: flyternBackgroundWhite,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -257,7 +185,7 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
                                       .copyWith(color: flyternGrey60)),
                               Text(
                                   "${activityBookingController.selectedGateway.value.currencyCode} "
-                                      "${activityBookingController.selectedGateway.value.processingFee}",
+                                  "${activityBookingController.selectedGateway.value.processingFee}",
                                   style: getBodyMediumStyle(context)
                                       .copyWith(color: flyternGrey80)),
                             ],
@@ -265,16 +193,22 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
                         ),
                       ),
                       Visibility(
-                        visible: activityBookingController.selectedGateway.value.finalAmount != 0.0,                        child: Container(
+                        visible: activityBookingController
+                                .selectedGateway.value.finalAmount !=
+                            0.0,
+                        child: Container(
                             padding: flyternLargePaddingHorizontal,
                             color: flyternBackgroundWhite,
                             child: Divider()),
                       ),
                       Visibility(
-                        visible: activityBookingController.selectedGateway.value.finalAmount != 0.0,
+                        visible: activityBookingController
+                                .selectedGateway.value.finalAmount !=
+                            0.0,
                         child: Container(
                           padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceSmall, bottom: flyternSpaceLarge),
+                              top: flyternSpaceSmall,
+                              bottom: flyternSpaceLarge),
                           color: flyternBackgroundWhite,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -284,7 +218,7 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
                                       .copyWith(color: flyternGrey60)),
                               Text(
                                   "${activityBookingController.selectedGateway.value.currencyCode}"
-                                      " ${activityBookingController.selectedGateway.value.finalAmount}",
+                                  " ${activityBookingController.selectedGateway.value.finalAmount}",
                                   style: getBodyMediumStyle(context).copyWith(
                                       color: flyternGrey80,
                                       fontWeight: flyternFontWeightBold)),
@@ -292,6 +226,121 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
                           ),
                         ),
                       ),
+                      for (var i = 0;
+                          i <
+                              getBookingInfoGroupLength(
+                                  activityBookingController.bookingInfo);
+                          i++)
+                        Wrap(
+                          children: [
+                            Padding(
+                              padding: flyternLargePaddingAll,
+                              child: Text(
+                                  getBookingInfoGroupName(
+                                      activityBookingController.bookingInfo, i),
+                                  style: getBodyMediumStyle(context).copyWith(
+                                      color: flyternGrey80,
+                                      fontWeight: flyternFontWeightBold)),
+                            ),
+                            Container(
+                              child: Wrap(
+                                children: [
+                                  for (var ind = 0;
+                                      ind <
+                                          getBookingInfoGroupSize(
+                                              activityBookingController
+                                                  .bookingInfo,
+                                              i);
+                                      ind++)
+                                    getBookingInfoTitle(
+                                                activityBookingController
+                                                    .bookingInfo,
+                                                i,
+                                                ind) !=
+                                            "DIVIDER"
+                                        ? Container(
+                                            padding: flyternLargePaddingHorizontal.copyWith(
+                                                top: ind == 0
+                                                    ? flyternSpaceLarge
+                                                    : flyternSpaceMedium,
+                                                bottom: ind ==
+                                                        getBookingInfoGroupSize(
+                                                                activityBookingController
+                                                                    .bookingInfo,
+                                                                i) -
+                                                            1
+                                                    ? flyternSpaceLarge
+                                                    : flyternSpaceMedium),
+                                            decoration: BoxDecoration(
+                                                color: flyternBackgroundWhite,
+                                                border: Border(
+                                                  bottom: BorderSide(
+                                                    color: ind ==
+                                                            getBookingInfoGroupSize(
+                                                                    activityBookingController
+                                                                        .bookingInfo,
+                                                                    i) -
+                                                                1
+                                                        ? Colors.transparent
+                                                        : flyternGrey20,
+                                                    width: 0.5,
+                                                  ),
+                                                )),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    getBookingInfoTitle(
+                                                        activityBookingController
+                                                            .bookingInfo,
+                                                        i,
+                                                        ind),
+                                                    style: getBodyMediumStyle(
+                                                            context)
+                                                        .copyWith(
+                                                            color:
+                                                                flyternGrey60)),
+                                                addHorizontalSpace(
+                                                    flyternSpaceLarge),
+                                                Expanded(
+                                                  child: Text(
+                                                      getBookingInfoValue(
+                                                          activityBookingController
+                                                              .bookingInfo,
+                                                          i,
+                                                          ind),
+                                                      maxLines: 2,
+                                                      textAlign: TextAlign.end,
+                                                      style: getBodyMediumStyle(
+                                                              context)
+                                                          .copyWith(
+                                                              color:
+                                                                  flyternGrey80)),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        : ind !=
+                                                getBookingInfoGroupSize(
+                                                        activityBookingController
+                                                            .bookingInfo,
+                                                        i) -
+                                                    1
+                                            ? Container(
+                                                color: flyternBackgroundWhite,
+                                                child: const Divider(
+                                                  color: flyternTertiaryColor,
+                                                    height: 3, thickness: 1))
+                                            : Container(),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       Container(
                         height: 70 + (flyternSpaceSmall * 2),
                         padding: flyternLargePaddingAll,
@@ -302,51 +351,54 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
               ),
             ],
           ),
-            bottomSheet: Container(
-              width: screenwidth,
-              color: flyternBackgroundWhite,
-              height: 60 + (flyternSpaceSmall * 2),
-              padding: flyternLargePaddingAll.copyWith(
-                  top: flyternSpaceSmall, bottom: flyternSpaceSmall),
-              child: Center(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      style: getElevatedButtonStyle(context),
-                      onPressed: () {
-                        activityBookingController.setPaymentGateway();
-                      },
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              "${activityBookingController.selectedGateway.value.currencyCode}"
-                                  " ${activityBookingController.selectedGateway.value.finalAmount}",
-                            ),
+          bottomSheet: Container(
+            width: screenwidth,
+            color: flyternBackgroundWhite,
+            height: 60 + (flyternSpaceSmall * 2),
+            padding: flyternLargePaddingAll.copyWith(
+                top: flyternSpaceSmall, bottom: flyternSpaceSmall),
+            child: Center(
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                    style: getElevatedButtonStyle(context),
+                    onPressed: () {
+                      activityBookingController.setPaymentGateway();
+                    },
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "${activityBookingController.selectedGateway.value.currencyCode}"
+                            " ${activityBookingController.selectedGateway.value.finalAmount}",
                           ),
-                          Visibility(
-                              visible: !activityBookingController.isActivitySavePaymentGatewayLoading.value,
-                              child: Text("next".tr)),
-                          Visibility(
-                              visible: activityBookingController.isActivitySavePaymentGatewayLoading.value,
-                              child:  LoadingAnimationWidget.prograssiveDots(
-                                color: flyternBackgroundWhite,
-                                size: 20,
-                              )),
-                          addHorizontalSpace(flyternSpaceSmall),
-                          Icon(
-                            Ionicons.chevron_forward,
-                            size: flyternFontSize20,
-                          )
-                        ],
-                      )),
-                ),
+                        ),
+                        Visibility(
+                            visible: !activityBookingController
+                                .isActivitySavePaymentGatewayLoading.value,
+                            child: Text("next".tr)),
+                        Visibility(
+                            visible: activityBookingController
+                                .isActivitySavePaymentGatewayLoading.value,
+                            child: LoadingAnimationWidget.prograssiveDots(
+                              color: flyternBackgroundWhite,
+                              size: 20,
+                            )),
+                        addHorizontalSpace(flyternSpaceSmall),
+                        Icon(
+                          Ionicons.chevron_forward,
+                          size: flyternFontSize20,
+                        )
+                      ],
+                    )),
               ),
             ),
+          ),
         ),
       ),
     );
   }
+
   showConfirmDialog() async {
     showDialog(
       context: context,
@@ -358,6 +410,7 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
           subtitleKey: 'cancel_confirm'.tr),
     );
   }
+
   String getFormattedDate(DateTime dateTime) {
     final f = DateFormat.yMMMMd();
     return f.format(dateTime);

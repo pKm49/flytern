@@ -452,13 +452,7 @@ class HotelBookingController extends GetxController {
     PaymentConfirmationData paymentConfirmationData =
         await hotelBookingHttpService.getConfirmationData(bookingRef);
 
-    print("getConfirmationData");
-    print(paymentConfirmationData.isIssued);
-    print(paymentConfirmationData.bookingInfo);
-    print(paymentConfirmationData.pdfLink);
-    print(paymentConfirmationData.alertMsg);
-
-    if (paymentConfirmationData.isIssued) {
+    if (paymentConfirmationData.isSuccess) {
       pdfLink.value = paymentConfirmationData.pdfLink;
       isIssued.value = paymentConfirmationData.isIssued;
       paymentInfo.value = paymentConfirmationData.paymentInfo;

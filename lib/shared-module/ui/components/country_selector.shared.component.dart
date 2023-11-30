@@ -8,16 +8,29 @@ import 'package:flytern/shared-module/services/utility-services/widget_propertie
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
-class CountrySelector extends StatelessWidget {
+class CountrySelector extends StatefulWidget {
 
   final Function(Country  country) countrySelected;
   final bool  isMobile;
   final bool isGlobal;
   CountrySelector({super.key, required this.countrySelected,
     required this.isMobile,required this.isGlobal});
+
+  @override
+  State<CountrySelector> createState() => _CountrySelectorState();
+}
+
+class _CountrySelectorState extends State<CountrySelector> {
   TextEditingController searchController = TextEditingController();
 
   final sharedController = Get.find<SharedController>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    sharedController.resetCountryList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +52,7 @@ class CountrySelector extends StatelessWidget {
             TextFormField(
               onChanged: (String? value){
                 print("searchController clicked");
-                sharedController.updateCountryListByQuery(searchController.value.text,isMobile);
+                sharedController.updateCountryListByQuery(searchController.value.text,widget.isMobile);
               },
                 keyboardType: TextInputType.text,
                 controller: searchController,
@@ -53,18 +66,18 @@ class CountrySelector extends StatelessWidget {
                 children: [
 
                   for(var i =0; i<(
-                      isMobile?
+                      widget.isMobile?
                       sharedController.mobileCountriesToShow.length:
                       sharedController.countriesToShow.length);i++)
                     InkWell(
                       onTap: () async {
-                        if(  isGlobal == true){
+                        if(  widget.isGlobal == true){
                           await sharedController.changeCountry(
-                              isMobile?
+                              widget.isMobile?
                               sharedController.mobileCountriesToShow[i]:
                               sharedController.countriesToShow[i]);
                         }else{
-                          countrySelected(isMobile?
+                          widget.countrySelected(widget.isMobile?
                           sharedController.mobileCountriesToShow[i]:
                           sharedController.countriesToShow[i]);
                         }
@@ -78,7 +91,7 @@ class CountrySelector extends StatelessWidget {
                         child: Row(children: [
 
                           Image.network(
-                              isMobile?sharedController.mobileCountriesToShow[i].flag:
+                              widget.isMobile?sharedController.mobileCountriesToShow[i].flag:
                               sharedController.countriesToShow[i].flag, width: 40),
                           addHorizontalSpace(flyternSpaceMedium),
                           Expanded(
@@ -86,18 +99,18 @@ class CountrySelector extends StatelessWidget {
                                   Localizations.localeOf(context).languageCode.toString() ==
                                       'en'?
                                   (
-                                      isMobile?
+                                      widget.isMobile?
                                       sharedController.mobileCountriesToShow[i].countryName:
                                       sharedController.countriesToShow[i].countryName):
                                   (
-                                      isMobile?
+                                      widget.isMobile?
                                       sharedController.mobileCountriesToShow[i].countryName_Ar:
                                       sharedController.countriesToShow[i].countryName_Ar),
                                   maxLines: 2,
                                   style: getBodyMediumStyle(context))),
                           addHorizontalSpace(flyternSpaceSmall),
                           Text("( ${
-                              isMobile?
+                              widget.isMobile?
                               sharedController.mobileCountriesToShow[i].code:
                               sharedController.countriesToShow[i].code} )",
                               style: getBodyMediumStyle(context)),

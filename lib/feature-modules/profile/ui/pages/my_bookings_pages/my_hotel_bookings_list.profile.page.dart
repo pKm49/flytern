@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/search_result_card.flight_booking.component.dart';
-import 'package:flytern/feature-modules/hotel_booking/ui/components/search_result_card.hotel_booking.component.dart';
-import 'package:flytern/feature-modules/profile/controllers/profile.controller.dart';
+import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
+  import 'package:flytern/feature-modules/profile/controllers/profile.controller.dart';
 import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
@@ -10,7 +9,7 @@ import 'package:flytern/shared-module/services/utility-services/widget_propertie
 import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 class ProfileHotelBookingsList extends StatefulWidget {
   const ProfileHotelBookingsList({super.key});
 
@@ -21,6 +20,8 @@ class ProfileHotelBookingsList extends StatefulWidget {
 
 class _ProfileHotelBookingsListState extends State<ProfileHotelBookingsList> {
   final profileController = Get.find<ProfileController>();
+  final hotelBookingController = Get.find<HotelBookingController>();
+  String currentBookingRef = "";
 
   @override
   Widget build(BuildContext context) {
@@ -183,9 +184,65 @@ class _ProfileHotelBookingsListState extends State<ProfileHotelBookingsList> {
                       ],
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: flyternSpaceSmall),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(flyternBorderRadiusExtraSmall)),
+                          child: ElevatedButton(
+                              style: ButtonStyle(
+                                padding:
+                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                    EdgeInsets.symmetric(
+                                        horizontal: 0,
+                                        vertical: flyternSpaceExtraSmall)),
+                              ),
+                              onPressed: () {
+                                if(!hotelBookingController
+                                    .isHotelConfirmationDataLoading
+                                    .value){
+
+                                  hotelBookingController.getConfirmationData(
+                                      profileController.myActivityBookingResponse
+                                          .value[index].bookingReference,
+                                      true).then((value) => {
+                                    restCurrentRef()
+                                  });
+                                  currentBookingRef = profileController.myActivityBookingResponse
+                                      .value[index].bookingReference;
+
+                                  setState(() {
+                                  });
+
+                                }
+
+                              },
+                              child: (hotelBookingController
+                                  .isHotelConfirmationDataLoading
+                                  .value &&
+                                  currentBookingRef  == profileController.myActivityBookingResponse
+                                      .value[index].bookingReference)
+                                  ? LoadingAnimationWidget.prograssiveDots(
+                                color: flyternBackgroundWhite,
+                                size: 20,
+                              )
+                                  : Icon(Ionicons.chevron_forward)),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ));
 
+  }
+
+  restCurrentRef() {
+    currentBookingRef="";
+    setState(() {
+    });
   }
 }

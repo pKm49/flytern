@@ -537,7 +537,7 @@ class FlightBookingController extends GetxController {
     PaymentConfirmationData paymentConfirmationData =
         await flightBookingHttpService.getConfirmationData(bookingRef);
 
-    if (paymentConfirmationData.isIssued) {
+    if (paymentConfirmationData.isSuccess) {
       pdfLink.value = paymentConfirmationData.pdfLink;
       isIssued.value = paymentConfirmationData.isIssued;
       bookingInfo.value = paymentConfirmationData.bookingInfo;

@@ -66,8 +66,7 @@ class _FlightBookingConfirmationPageState
               ),
               elevation: 0.5,
               automaticallyImplyLeading: mode == "edit" ?true:false),
-          body: Obx(
-            () => Stack(
+          body:   Stack(
               children: [
                 Visibility(
                     visible: flightBookingController
@@ -292,10 +291,10 @@ class _FlightBookingConfirmationPageState
 
 
                         for (var i = 0;
-                            i <
-                                getBookingInfoGroupLength(
-                                    flightBookingController.bookingInfo);
-                            i++)
+                        i <
+                            getBookingInfoGroupLength(
+                                flightBookingController.bookingInfo);
+                        i++)
                           Wrap(
                             children: [
                               Padding(
@@ -308,113 +307,121 @@ class _FlightBookingConfirmationPageState
                                         fontWeight: flyternFontWeightBold)),
                               ),
                               Container(
-                                height: (getBookingInfoGroupSize(
-                                            flightBookingController.bookingInfo,
-                                            i) *
-                                        50) +
-                                    (flyternSpaceLarge * 2),
-                                child: Column(
+                                child: Wrap(
                                   children: [
                                     for (var ind = 0;
-                                        ind <
-                                            getBookingInfoGroupSize(
-                                                flightBookingController
-                                                    .bookingInfo,
-                                                i);
-                                        ind++)
+                                    ind <
+                                        getBookingInfoGroupSize(
+                                            flightBookingController
+                                                .bookingInfo,
+                                            i);
+                                    ind++)
                                       getBookingInfoTitle(
-                                                  flightBookingController
-                                                      .bookingInfo,
-                                                  i,
-                                                  ind) !=
-                                              "DIVIDER"
+                                          flightBookingController
+                                              .bookingInfo,
+                                          i,
+                                          ind) !=
+                                          "DIVIDER"
                                           ? Container(
-                                              padding: flyternLargePaddingHorizontal.copyWith(
-                                                  top: ind == 0
-                                                      ? flyternSpaceLarge
-                                                      : flyternSpaceMedium,
-                                                  bottom: ind ==
-                                                          getBookingInfoGroupSize(
-                                                                  flightBookingController
-                                                                      .bookingInfo,
-                                                                  i) -
-                                                              1
-                                                      ? flyternSpaceLarge
-                                                      : flyternSpaceMedium),
-                                              decoration: BoxDecoration(
-                                                  color: flyternBackgroundWhite,
-                                                  border: Border(
-                                                    bottom: BorderSide(
-                                                      color: ind ==
-                                                              getBookingInfoGroupSize(
-                                                                      flightBookingController
-                                                                          .bookingInfo,
-                                                                      i) -
-                                                                  1
-                                                          ? Colors.transparent
-                                                          : flyternGrey20,
-                                                      width: 0.5,
-                                                    ),
-                                                  )),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                      getBookingInfoTitle(
-                                                          flightBookingController
-                                                              .bookingInfo,
-                                                          i,
-                                                          ind),
-                                                      style: getBodyMediumStyle(
-                                                              context)
-                                                          .copyWith(
-                                                              color:
-                                                                  flyternGrey60)),
-                                                  Text(
-                                                      getBookingInfoValue(
-                                                          flightBookingController
-                                                              .bookingInfo,
-                                                          i,
-                                                          ind),
-                                                      style: getBodyMediumStyle(
-                                                              context)
-                                                          .copyWith(
-                                                              color:
-                                                                  flyternGrey80)),
-                                                ],
+                                        padding: flyternLargePaddingHorizontal.copyWith(
+                                            top: ind == 0
+                                                ? flyternSpaceLarge
+                                                : flyternSpaceMedium,
+                                            bottom: ind ==
+                                                getBookingInfoGroupSize(
+                                                    flightBookingController
+                                                        .bookingInfo,
+                                                    i) -
+                                                    1
+                                                ? flyternSpaceLarge
+                                                : flyternSpaceMedium),
+                                        decoration: BoxDecoration(
+                                            color: flyternBackgroundWhite,
+                                            border: Border(
+                                              bottom: BorderSide(
+                                                color: ind ==
+                                                    getBookingInfoGroupSize(
+                                                        flightBookingController
+                                                            .bookingInfo,
+                                                        i) -
+                                                        1
+                                                    ? Colors.transparent
+                                                    : flyternGrey20,
+                                                width: 0.5,
                                               ),
-                                            )
+                                            )),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment
+                                              .spaceBetween,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                getBookingInfoTitle(
+                                                    flightBookingController
+                                                        .bookingInfo,
+                                                    i,
+                                                    ind),
+                                                style: getBodyMediumStyle(
+                                                    context)
+                                                    .copyWith(
+                                                    color:
+                                                    flyternGrey60)),
+                                            addHorizontalSpace(
+                                                flyternSpaceLarge),
+                                            Expanded(
+                                              child: Text(
+                                                  getBookingInfoValue(
+                                                      flightBookingController
+                                                          .bookingInfo,
+                                                      i,
+                                                      ind),
+                                                  maxLines: 2,
+                                                  textAlign: TextAlign.end,
+                                                  style: getBodyMediumStyle(
+                                                      context)
+                                                      .copyWith(
+                                                      color:
+                                                      flyternGrey80)),
+                                            ),
+                                          ],
+                                        ),
+                                      )
                                           : ind !=
-                                                  getBookingInfoGroupSize(
-                                                          flightBookingController
-                                                              .bookingInfo,
-                                                          i) -
-                                                      1
-                                              ? Container(
-                                                  padding:
-                                                      flyternLargePaddingHorizontal,
-                                                  color: flyternBackgroundWhite,
-                                                  child: Divider(
-                                                      height: 3, thickness: 3))
-                                              : Container(),
+                                          getBookingInfoGroupSize(
+                                              flightBookingController
+                                                  .bookingInfo,
+                                              i) -
+                                              1
+                                          ? Container(
+                                          color: flyternBackgroundWhite,
+                                          child: const Divider(
+                                              color: flyternTertiaryColor,
+                                              height: 3, thickness: 1))
+                                          : Container(),
                                   ],
                                 ),
                               )
                             ],
                           ),
-                        Padding(
-                          padding: flyternLargePaddingAll.copyWith(
-                              top: flyternSpaceLarge * 2),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text("flight_summary".tr,
-                                  style: getBodyMediumStyle(context).copyWith(
-                                      color: flyternGrey80,
-                                      fontWeight: flyternFontWeightBold)),
-                            ],
+
+
+                        Visibility(
+                          visible: flightBookingController
+                              .flightDetails.value.flightSegments.isNotEmpty,
+                          child: Padding(
+                            padding: flyternLargePaddingAll.copyWith(
+                                top: flyternSpaceLarge * 2),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text("flight_summary".tr,
+                                    style: getBodyMediumStyle(context).copyWith(
+                                        color: flyternGrey80,
+                                        fontWeight: flyternFontWeightBold)),
+                              ],
+                            ),
                           ),
                         ),
                         for (var i = 0;
@@ -439,7 +446,6 @@ class _FlightBookingConfirmationPageState
                 ),
               ],
             ),
-          ),
           bottomSheet:mode == "edit"?Container(width: screenwidth,height: 0,): Container(
             width: screenwidth,
             color: flyternBackgroundWhite,

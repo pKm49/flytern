@@ -141,6 +141,9 @@ class _InsuranceUserDetailsSubmissionFormState
                   Expanded(
                     flex: 3,
                     child: TextFormField(
+                        inputFormatters: [
+                          FlightUserDataTextFormatter(),
+                        ],
                         controller: firstNameController,
                         validator: (value) =>
                             checkIfNameFormValid(value, "first_name".tr),
@@ -154,6 +157,9 @@ class _InsuranceUserDetailsSubmissionFormState
                   Expanded(
                     flex: 3,
                     child: TextFormField(
+                        inputFormatters: [
+                          FlightUserDataTextFormatter(),
+                        ],
                         onChanged: updateData(),
 
                         controller: lastNameController,
@@ -212,6 +218,9 @@ class _InsuranceUserDetailsSubmissionFormState
                 color: flyternBackgroundWhite,
                 child: TextFormField(
                     onTap: updateData(),
+                    inputFormatters: [
+                      FlightUserDataTextFormatter(),
+                    ],
                     controller: civilIdController,
                     validator: (value) =>
                         checkIfNameFormValid(value, "civil_id".tr),

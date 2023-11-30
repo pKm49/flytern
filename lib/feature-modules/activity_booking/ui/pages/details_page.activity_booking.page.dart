@@ -60,7 +60,6 @@ class _ActivityDetailsPageState extends State<ActivityDetailsPage> {
                 color: flyternGrey10,
                 child: ListView(
                   children: [
-                     
                     Visibility(
                       visible:
                       activityBookingController.selectedImageIndex.value>-1&&
@@ -77,13 +76,12 @@ class _ActivityDetailsPageState extends State<ActivityDetailsPage> {
                         },
                         child: Container(
                           width: screenwidth,
-                          height: screenwidth,
                           color: flyternGrey10,
                           child: Image.network(
                               activityBookingController.selectedImageIndex.value>-1?
                               activityBookingController
                                   .activityDetails.value.subImages[activityBookingController.selectedImageIndex.value]:"",
-                              height: screenwidth,
+                              width: screenwidth,
                               errorBuilder: (context, error, stackTrace) {
                                 return Container(
                                   color: flyternGrey10,

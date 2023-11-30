@@ -359,12 +359,12 @@ class ActivityBookingHttpService {
     print(response.data["pdfLink"]);
     if (response.success && response.statusCode == 200) {
       if (response.data != null) {
-        PaymentConfirmationData paymentConfirmationData = mapPaymentpdfLinkData(response.data);
+        PaymentConfirmationData paymentConfirmationData = mapPaymentpdfLinkData(response.data,true);
         return paymentConfirmationData;
       }
     }
 
-    return mapPaymentpdfLinkData({});
+    return mapPaymentpdfLinkData({},false);
   }
 
 

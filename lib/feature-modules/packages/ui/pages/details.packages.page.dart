@@ -64,13 +64,12 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
                         },
                         child: Container(
                           width: screenwidth,
-                          height: screenwidth,
                           color: flyternGrey10,
                           child: Image.network(
                               packageBookingController.selectedImageIndex.value>-1?
                               packageBookingController
                                   .packageDetails.value.subImages[packageBookingController.selectedImageIndex.value]:"",
-                              height: screenwidth,
+                              width: screenwidth,
                               errorBuilder: (context, error, stackTrace) {
                                 return Container(
                                   color: flyternGrey10,

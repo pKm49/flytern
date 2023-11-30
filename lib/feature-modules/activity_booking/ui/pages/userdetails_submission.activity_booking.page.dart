@@ -10,6 +10,7 @@ import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared
 import 'package:flytern/shared-module/models/country.dart';
 import 'package:flytern/shared-module/models/gender.dart';
 import 'package:flytern/shared-module/models/general_item.dart';
+import 'package:flytern/shared-module/services/utility-services/flight_userdata_input_formatter.dart';
 import 'package:flytern/shared-module/services/utility-services/form_validator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
@@ -184,6 +185,9 @@ class _ActivityUserDetailsSubmissionPageState
                       Expanded(
                         flex: 3,
                         child: TextFormField(
+                            inputFormatters: [
+                              FlightUserDataTextFormatter(),
+                            ],
                             controller: firstNameController,
                             validator: (value) =>
                                 checkIfNameFormValid(value, "first_name".tr),
@@ -196,6 +200,9 @@ class _ActivityUserDetailsSubmissionPageState
                       Expanded(
                         flex: 3,
                         child: TextFormField(
+                            inputFormatters: [
+                              FlightUserDataTextFormatter(),
+                            ],
                             controller: lastNameController,
                             validator: (value) =>
                                 checkIfNameFormValid(value, "last_name".tr),

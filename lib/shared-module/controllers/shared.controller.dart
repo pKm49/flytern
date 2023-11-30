@@ -362,4 +362,9 @@ class SharedController extends GetxController {
       }
     }
   }
+
+  void resetCountryList() {
+    mobileCountriesToShow.value = mobileCountries;
+    countriesToShow.value = countries;
+  }
 }

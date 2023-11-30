@@ -247,49 +247,61 @@ class _ActivityBookingConfirmationPageState extends State<ActivityBookingConfirm
                           ),
                         ),
 
-
                       for (var i = 0;
-                      i < getBookingInfoGroupLength(activityBookingController.bookingInfo);
+                      i <
+                          getBookingInfoGroupLength(
+                              activityBookingController.bookingInfo);
                       i++)
                         Wrap(
                           children: [
                             Padding(
                               padding: flyternLargePaddingAll,
                               child: Text(
-                                  getBookingInfoGroupName(activityBookingController.bookingInfo,i),
+                                  getBookingInfoGroupName(
+                                      activityBookingController.bookingInfo, i),
                                   style: getBodyMediumStyle(context).copyWith(
                                       color: flyternGrey80,
                                       fontWeight: flyternFontWeightBold)),
                             ),
                             Container(
-                              height: ( getBookingInfoGroupSize(activityBookingController.bookingInfo,i) *
-                                  50)+(flyternSpaceLarge*2),
-                              child: Column(
+                              child: Wrap(
                                 children: [
                                   for (var ind = 0;
-                                  ind < getBookingInfoGroupSize(activityBookingController.bookingInfo,i);
+                                  ind <
+                                      getBookingInfoGroupSize(
+                                          activityBookingController
+                                              .bookingInfo,
+                                          i);
                                   ind++)
-                                    getBookingInfoTitle(activityBookingController.bookingInfo,
-                                        i, ind) !=
+                                    getBookingInfoTitle(
+                                        activityBookingController
+                                            .bookingInfo,
+                                        i,
+                                        ind) !=
                                         "DIVIDER"
                                         ? Container(
-                                      padding: flyternLargePaddingHorizontal
-                                          .copyWith(
+                                      padding: flyternLargePaddingHorizontal.copyWith(
                                           top: ind == 0
                                               ? flyternSpaceLarge
                                               : flyternSpaceMedium,
-                                          bottom: ind == getBookingInfoGroupSize(activityBookingController.bookingInfo,
-                                              i) -
-                                              1
+                                          bottom: ind ==
+                                              getBookingInfoGroupSize(
+                                                  activityBookingController
+                                                      .bookingInfo,
+                                                  i) -
+                                                  1
                                               ? flyternSpaceLarge
                                               : flyternSpaceMedium),
                                       decoration: BoxDecoration(
                                           color: flyternBackgroundWhite,
                                           border: Border(
                                             bottom: BorderSide(
-                                              color: ind == getBookingInfoGroupSize(activityBookingController.bookingInfo,
-                                                  i) -
-                                                  1
+                                              color: ind ==
+                                                  getBookingInfoGroupSize(
+                                                      activityBookingController
+                                                          .bookingInfo,
+                                                      i) -
+                                                      1
                                                   ? Colors.transparent
                                                   : flyternGrey20,
                                               width: 0.5,
@@ -297,40 +309,59 @@ class _ActivityBookingConfirmationPageState extends State<ActivityBookingConfirm
                                           )),
                                       child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment
+                                            .spaceBetween,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                              getBookingInfoTitle(activityBookingController.bookingInfo,
-                                                  i, ind),
+                                              getBookingInfoTitle(
+                                                  activityBookingController
+                                                      .bookingInfo,
+                                                  i,
+                                                  ind),
                                               style: getBodyMediumStyle(
                                                   context)
                                                   .copyWith(
                                                   color:
                                                   flyternGrey60)),
-                                          Text( getBookingInfoValue(activityBookingController.bookingInfo,
-                                              i, ind),
-                                              style: getBodyMediumStyle(
-                                                  context)
-                                                  .copyWith(
-                                                  color:
-                                                  flyternGrey80)),
+                                          addHorizontalSpace(
+                                              flyternSpaceLarge),
+                                          Expanded(
+                                            child: Text(
+                                                getBookingInfoValue(
+                                                    activityBookingController
+                                                        .bookingInfo,
+                                                    i,
+                                                    ind),
+                                                maxLines: 2,
+                                                textAlign: TextAlign.end,
+                                                style: getBodyMediumStyle(
+                                                    context)
+                                                    .copyWith(
+                                                    color:
+                                                    flyternGrey80)),
+                                          ),
                                         ],
                                       ),
                                     )
-                                        : ind != getBookingInfoGroupSize(activityBookingController.bookingInfo,
-                                        i) -
-                                        1?Container(
-                                        padding:
-                                        flyternLargePaddingHorizontal,
+                                        : ind !=
+                                        getBookingInfoGroupSize(
+                                            activityBookingController
+                                                .bookingInfo,
+                                            i) -
+                                            1
+                                        ? Container(
                                         color: flyternBackgroundWhite,
-                                        child:
-                                        Divider(height: 3, thickness: 3)):Container(),
+                                        child: const Divider(
+                                            color: flyternTertiaryColor,
+                                            height: 3, thickness: 1))
+                                        : Container(),
                                 ],
                               ),
                             )
                           ],
                         ),
-
 
                       Container(
                         height: 70 + (flyternSpaceSmall * 2),

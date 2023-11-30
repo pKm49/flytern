@@ -79,91 +79,9 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                           ),
                         ),
 
-                      for (var i = 0;
-                      i < getBookingInfoGroupLength(hotelBookingController.bookingInfo);
-                      i++)
-                        Wrap(
-                          children: [
-                            Padding(
-                              padding: flyternLargePaddingAll,
-                              child: Text(
-                                  getBookingInfoGroupName(hotelBookingController.bookingInfo,i),
-                                  style: getBodyMediumStyle(context).copyWith(
-                                      color: flyternGrey80,
-                                      fontWeight: flyternFontWeightBold)),
-                            ),
-                            Container(
-                              height: ( getBookingInfoGroupSize(hotelBookingController.bookingInfo,i) *
-                                  50)+(flyternSpaceLarge*2),
-                              child: Column(
-                                children: [
-                                  for (var ind = 0;
-                                  ind < getBookingInfoGroupSize(hotelBookingController.bookingInfo,i);
-                                  ind++)
-                                    getBookingInfoTitle(hotelBookingController.bookingInfo,
-                                        i, ind) !=
-                                        "DIVIDER"
-                                        ? Container(
-                                      padding: flyternLargePaddingHorizontal
-                                          .copyWith(
-                                          top: ind == 0
-                                              ? flyternSpaceLarge
-                                              : flyternSpaceMedium,
-                                          bottom: ind == getBookingInfoGroupSize(hotelBookingController.bookingInfo,
-                                              i) -
-                                              1
-                                              ? flyternSpaceLarge
-                                              : flyternSpaceMedium),
-                                      decoration: BoxDecoration(
-                                          color: flyternBackgroundWhite,
-                                          border: Border(
-                                            bottom: BorderSide(
-                                              color: ind == getBookingInfoGroupSize(hotelBookingController.bookingInfo,
-                                                  i) -
-                                                  1
-                                                  ? Colors.transparent
-                                                  : flyternGrey20,
-                                              width: 0.5,
-                                            ),
-                                          )),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                              getBookingInfoTitle(hotelBookingController.bookingInfo,
-                                                  i, ind),
-                                              style: getBodyMediumStyle(
-                                                  context)
-                                                  .copyWith(
-                                                  color:
-                                                  flyternGrey60)),
-                                          Text( getBookingInfoValue(hotelBookingController.bookingInfo,
-                                              i, ind),
-                                              style: getBodyMediumStyle(
-                                                  context)
-                                                  .copyWith(
-                                                  color:
-                                                  flyternGrey80)),
-                                        ],
-                                      ),
-                                    )
-                                        : ind != getBookingInfoGroupSize(hotelBookingController.bookingInfo,
-                                        i) -
-                                        1?Container(
-                                        padding:
-                                        flyternLargePaddingHorizontal,
-                                        color: flyternBackgroundWhite,
-                                        child:
-                                        Divider(height: 3, thickness: 3)):Container(),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
 
                       Padding(
-                        padding: flyternLargePaddingAll.copyWith(top: 0),
+                        padding: flyternLargePaddingAll,
                         child: Text("select_payment_method".tr,
                             style: getBodyMediumStyle(context).copyWith(
                                 color: flyternGrey80,
@@ -281,6 +199,123 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                           ],
                         ),
                       ),
+
+
+                      for (var i = 0;
+                      i <
+                          getBookingInfoGroupLength(
+                              hotelBookingController.bookingInfo);
+                      i++)
+                        Wrap(
+                          children: [
+                            Padding(
+                              padding: flyternLargePaddingAll,
+                              child: Text(
+                                  getBookingInfoGroupName(
+                                      hotelBookingController.bookingInfo, i),
+                                  style: getBodyMediumStyle(context).copyWith(
+                                      color: flyternGrey80,
+                                      fontWeight: flyternFontWeightBold)),
+                            ),
+                            Container(
+                              child: Wrap(
+                                children: [
+                                  for (var ind = 0;
+                                  ind <
+                                      getBookingInfoGroupSize(
+                                          hotelBookingController
+                                              .bookingInfo,
+                                          i);
+                                  ind++)
+                                    getBookingInfoTitle(
+                                        hotelBookingController
+                                            .bookingInfo,
+                                        i,
+                                        ind) !=
+                                        "DIVIDER"
+                                        ? Container(
+                                      padding: flyternLargePaddingHorizontal.copyWith(
+                                          top: ind == 0
+                                              ? flyternSpaceLarge
+                                              : flyternSpaceMedium,
+                                          bottom: ind ==
+                                              getBookingInfoGroupSize(
+                                                  hotelBookingController
+                                                      .bookingInfo,
+                                                  i) -
+                                                  1
+                                              ? flyternSpaceLarge
+                                              : flyternSpaceMedium),
+                                      decoration: BoxDecoration(
+                                          color: flyternBackgroundWhite,
+                                          border: Border(
+                                            bottom: BorderSide(
+                                              color: ind ==
+                                                  getBookingInfoGroupSize(
+                                                      hotelBookingController
+                                                          .bookingInfo,
+                                                      i) -
+                                                      1
+                                                  ? Colors.transparent
+                                                  : flyternGrey20,
+                                              width: 0.5,
+                                            ),
+                                          )),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment
+                                            .spaceBetween,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              getBookingInfoTitle(
+                                                  hotelBookingController
+                                                      .bookingInfo,
+                                                  i,
+                                                  ind),
+                                              style: getBodyMediumStyle(
+                                                  context)
+                                                  .copyWith(
+                                                  color:
+                                                  flyternGrey60)),
+                                          addHorizontalSpace(
+                                              flyternSpaceLarge),
+                                          Expanded(
+                                            child: Text(
+                                                getBookingInfoValue(
+                                                    hotelBookingController
+                                                        .bookingInfo,
+                                                    i,
+                                                    ind),
+                                                maxLines: 2,
+                                                textAlign: TextAlign.end,
+                                                style: getBodyMediumStyle(
+                                                    context)
+                                                    .copyWith(
+                                                    color:
+                                                    flyternGrey80)),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                        : ind !=
+                                        getBookingInfoGroupSize(
+                                            hotelBookingController
+                                                .bookingInfo,
+                                            i) -
+                                            1
+                                        ? Container(
+                                        color: flyternBackgroundWhite,
+                                        child: const Divider(
+                                            color: flyternTertiaryColor,
+                                            height: 3, thickness: 1))
+                                        : Container(),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
 
                       Padding(
                         padding: flyternLargePaddingAll.copyWith(top: flyternSpaceLarge*2),

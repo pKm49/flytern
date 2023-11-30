@@ -7,6 +7,7 @@ import 'package:flytern/shared-module/models/booking_info.dart';
 class PaymentConfirmationData {
   final String pdfLink; 
   final bool isIssued;
+  final bool isSuccess;
   final FlightDetails flightDetails;
   final ActivityDetails activityDetails;
   final HotelDetails hotelDetails;
@@ -16,6 +17,7 @@ class PaymentConfirmationData {
   
   PaymentConfirmationData(
       {required this.pdfLink,
+      required this.isSuccess,
       required this.alertMsg,
       required this.isIssued ,
       required this.paymentInfo ,
@@ -25,7 +27,7 @@ class PaymentConfirmationData {
         required this.bookingInfo });
 }
 
-PaymentConfirmationData mapPaymentpdfLinkData(dynamic payload) {
+PaymentConfirmationData mapPaymentpdfLinkData(dynamic payload,bool isSuccess) {
 
   List<BookingInfo>  paymentInfo = [];
   List<BookingInfo>  bookingInfo = [];
@@ -82,11 +84,12 @@ PaymentConfirmationData mapPaymentpdfLinkData(dynamic payload) {
 
   return PaymentConfirmationData(
       hotelDetails:hotelDetails,
+      isSuccess:isSuccess,
       paymentInfo:paymentInfo,
       activityDetails:activityDetails,
       bookingInfo:bookingInfo,
       flightDetails:flightDetails,
-      pdfLink: payload["pdfLink"] ?? "",
+      pdfLink: payload["pdfLink"] ?? "error",
       alertMsg: alertMsg,
       isIssued: payload["isIssued"] ?? false );
 }

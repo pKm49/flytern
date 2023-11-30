@@ -177,7 +177,7 @@ class ActivityBookingController extends GetxController {
     if (!isActivitiesLoading.value) {
       isActivitiesLoading.value = true;
 
-      ActivityFilterBody flightFilterBody = ActivityFilterBody(
+      ActivityFilterBody activityFilterBody = ActivityFilterBody(
         pageId: pageId.value,
         objectID: objectID.value,
         priceMinMaxDc: selectedPriceDcs.value.isNotEmpty
@@ -193,7 +193,7 @@ class ActivityBookingController extends GetxController {
       );
 
       ActivityResponse activityResponse =
-          await activityBookingHttpService.filterActivities(flightFilterBody);
+          await activityBookingHttpService.filterActivities(activityFilterBody);
 
       activities.value = activityResponse.activities;
 
@@ -350,7 +350,7 @@ class ActivityBookingController extends GetxController {
       //       if(value){
       //         checkGatewayStatus();
       //       }else{
-      //         Get.offAllNamed(Approute_flightsSummary,
+      //         Get.offAllNamed(Approute_activitiesSummary,
       //             predicate: (route) => Get.currentRoute == Approute_userDetailsSubmission);
       //         showSnackbar(Get.context!, "payment_capture_error".tr,"error");
       //       }
@@ -391,22 +391,12 @@ class ActivityBookingController extends GetxController {
 
   Future<void> getConfirmationData(String bookingRef,bool isBookingFinder) async {
     isActivityConfirmationDataLoading.value = true;
-    bookingInfo.value = [];
-    paymentInfo.value = [];
-    alert.value = [];
-    pdfLink.value = "";
-    isIssued.value = false;
+
     PaymentConfirmationData paymentConfirmationData =
         await activityBookingHttpService.getConfirmationData(bookingRef);
 
-    print("getConfirmationData");
-    print(paymentConfirmationData.isIssued);
-    print(paymentConfirmationData.pdfLink);
-    print(paymentConfirmationData.alertMsg);
-    print(paymentConfirmationData.paymentInfo);
-    print(paymentConfirmationData.bookingInfo);
+    if (paymentConfirmationData.isSuccess) {
 
-    if (paymentConfirmationData.isIssued) {
       pdfLink.value = paymentConfirmationData.pdfLink;
       isIssued.value = paymentConfirmationData.isIssued;
       bookingInfo.value = paymentConfirmationData.bookingInfo;
@@ -440,7 +430,7 @@ class ActivityBookingController extends GetxController {
         showSnackbar(Get.context!, "booking_failed".tr, "error");
 
         int iter = 0;
-        Get.offNamedUntil(Approute_flightsSummary, (route) {
+        Get.offNamedUntil(Approute_activitiesSummary, (route) {
           print("Get.currentRoute");
           print(Get.currentRoute);
           return ++iter == 1;

@@ -1,3 +1,4 @@
+import 'package:flytern/feature-modules/profile/models/my_activity.profile.model.dart';
 import 'package:flytern/feature-modules/profile/models/my_flight_booking.profile.model.dart';
 import 'package:flytern/feature-modules/profile/models/my_hotel_booking.profile.model.dart';
 import 'package:flytern/feature-modules/profile/models/my_insurance.profile.model.dart';
@@ -8,7 +9,7 @@ class MyBookingResponse {
   final List<MyHotelBooking> myHotelBookingResponse;
   final List<MyInsuranceBooking> myInsuranceBookingResponse;
   final List<MyPackageBooking> myPackageBookingResponse;
-  final List<dynamic> myActivityBookingResponse;
+  final List<MyActivityBooking> myActivityBookingResponse;
   final String title;
   final int totalPages;
   final int currentPage;
@@ -31,6 +32,13 @@ MyBookingResponse mapMyBookingResponse(dynamic payload) {
   List<MyHotelBooking> myHotelBookingResponse = [];
   List<MyInsuranceBooking> myInsuranceBookingResponse = [];
   List<MyPackageBooking> myPackageBookingResponse = [];
+  List<MyActivityBooking> myActivityBookingResponse = [];
+
+  if (payload["_MyActivityBookingResponse"] != null) {
+    payload["_MyActivityBookingResponse"].forEach((element) {
+      myActivityBookingResponse.add(mapMyActivityBooking(element));
+    });
+  }
 
   if (payload["_MyFlightBookingResponse"] != null) {
     payload["_MyFlightBookingResponse"].forEach((element) {
@@ -64,6 +72,6 @@ MyBookingResponse mapMyBookingResponse(dynamic payload) {
     myHotelBookingResponse: myHotelBookingResponse,
     myInsuranceBookingResponse: myInsuranceBookingResponse,
     myPackageBookingResponse: myPackageBookingResponse,
-    myActivityBookingResponse: [],
+    myActivityBookingResponse: myActivityBookingResponse,
   );
 }
