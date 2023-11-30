@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/search_response.hotel_booking.model.dart';
+import 'package:flytern/shared-module/services/booking_info_helper.dart';
 import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/user_details_card.shared.component.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/components/search_result_card.hotel_booking.component.dart';
@@ -71,32 +72,29 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                           theme: 1,
                         ),
                       ),
+
                     for (var i = 0;
-                    i < hotelBookingController.getBookingInfoGroupLength();
+                    i < getBookingInfoGroupLength(hotelBookingController.bookingInfo);
                     i++)
                       Wrap(
                         children: [
                           Padding(
                             padding: flyternLargePaddingAll,
                             child: Text(
-                                hotelBookingController
-                                    .getBookingInfoGroupName(i),
+                                getBookingInfoGroupName(hotelBookingController.bookingInfo,i),
                                 style: getBodyMediumStyle(context).copyWith(
                                     color: flyternGrey80,
                                     fontWeight: flyternFontWeightBold)),
                           ),
                           Container(
-                            height: (hotelBookingController
-                                .getBookingInfoGroupSize(i) *
+                            height: ( getBookingInfoGroupSize(hotelBookingController.bookingInfo,i) *
                                 50)+(flyternSpaceLarge*2),
                             child: Column(
                               children: [
                                 for (var ind = 0;
-                                ind <
-                                    hotelBookingController
-                                        .getBookingInfoGroupSize(i);
+                                ind < getBookingInfoGroupSize(hotelBookingController.bookingInfo,i);
                                 ind++)
-                                  hotelBookingController.getBookingInfoTitle(
+                                  getBookingInfoTitle(hotelBookingController.bookingInfo,
                                       i, ind) !=
                                       "DIVIDER"
                                       ? Container(
@@ -105,22 +103,18 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                                         top: ind == 0
                                             ? flyternSpaceLarge
                                             : flyternSpaceMedium,
-                                        bottom: ind ==
-                                            hotelBookingController
-                                                .getBookingInfoGroupSize(
-                                                i) -
-                                                1
+                                        bottom: ind == getBookingInfoGroupSize(hotelBookingController.bookingInfo,
+                                            i) -
+                                            1
                                             ? flyternSpaceLarge
                                             : flyternSpaceMedium),
                                     decoration: BoxDecoration(
                                         color: flyternBackgroundWhite,
                                         border: Border(
                                           bottom: BorderSide(
-                                            color: ind ==
-                                                hotelBookingController
-                                                    .getBookingInfoGroupSize(
-                                                    i) -
-                                                    1
+                                            color: ind == getBookingInfoGroupSize(hotelBookingController.bookingInfo,
+                                                i) -
+                                                1
                                                 ? Colors.transparent
                                                 : flyternGrey20,
                                             width: 0.5,
@@ -131,18 +125,15 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                                       MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                            hotelBookingController
-                                                .getBookingInfoTitle(
+                                            getBookingInfoTitle(hotelBookingController.bookingInfo,
                                                 i, ind),
                                             style: getBodyMediumStyle(
                                                 context)
                                                 .copyWith(
                                                 color:
                                                 flyternGrey60)),
-                                        Text(
-                                            hotelBookingController
-                                                .getBookingInfoValue(
-                                                i, ind),
+                                        Text( getBookingInfoValue(hotelBookingController.bookingInfo,
+                                            i, ind),
                                             style: getBodyMediumStyle(
                                                 context)
                                                 .copyWith(
@@ -151,11 +142,9 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                                       ],
                                     ),
                                   )
-                                      : ind !=
-                                      hotelBookingController
-                                          .getBookingInfoGroupSize(
-                                          i) -
-                                          1?Container(
+                                      : ind != getBookingInfoGroupSize(hotelBookingController.bookingInfo,
+                                      i) -
+                                      1?Container(
                                       padding:
                                       flyternLargePaddingHorizontal,
                                       color: flyternBackgroundWhite,

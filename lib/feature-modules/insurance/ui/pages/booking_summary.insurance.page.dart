@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/insurance/controllers/insurance.controller.dart';
+import 'package:flytern/shared-module/services/booking_info_helper.dart';
 import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/user_details_card.shared.component.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
@@ -69,32 +70,30 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
                           theme: 1,
                         ),
                       ),
+
+
                     for (var i = 0;
-                    i < insuranceBookingController.getBookingInfoGroupLength();
+                    i < getBookingInfoGroupLength(insuranceBookingController.bookingInfo);
                     i++)
                       Wrap(
                         children: [
                           Padding(
                             padding: flyternLargePaddingAll,
                             child: Text(
-                                insuranceBookingController
-                                    .getBookingInfoGroupName(i),
+                                getBookingInfoGroupName(insuranceBookingController.bookingInfo,i),
                                 style: getBodyMediumStyle(context).copyWith(
                                     color: flyternGrey80,
                                     fontWeight: flyternFontWeightBold)),
                           ),
                           Container(
-                            height: (insuranceBookingController
-                                .getBookingInfoGroupSize(i) *
+                            height: ( getBookingInfoGroupSize(insuranceBookingController.bookingInfo,i) *
                                 50)+(flyternSpaceLarge*2),
                             child: Column(
                               children: [
                                 for (var ind = 0;
-                                ind <
-                                    insuranceBookingController
-                                        .getBookingInfoGroupSize(i);
+                                ind < getBookingInfoGroupSize(insuranceBookingController.bookingInfo,i);
                                 ind++)
-                                  insuranceBookingController.getBookingInfoTitle(
+                                  getBookingInfoTitle(insuranceBookingController.bookingInfo,
                                       i, ind) !=
                                       "DIVIDER"
                                       ? Container(
@@ -103,22 +102,18 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
                                         top: ind == 0
                                             ? flyternSpaceLarge
                                             : flyternSpaceMedium,
-                                        bottom: ind ==
-                                            insuranceBookingController
-                                                .getBookingInfoGroupSize(
-                                                i) -
-                                                1
+                                        bottom: ind == getBookingInfoGroupSize(insuranceBookingController.bookingInfo,
+                                            i) -
+                                            1
                                             ? flyternSpaceLarge
                                             : flyternSpaceMedium),
                                     decoration: BoxDecoration(
                                         color: flyternBackgroundWhite,
                                         border: Border(
                                           bottom: BorderSide(
-                                            color: ind ==
-                                                insuranceBookingController
-                                                    .getBookingInfoGroupSize(
-                                                    i) -
-                                                    1
+                                            color: ind == getBookingInfoGroupSize(insuranceBookingController.bookingInfo,
+                                                i) -
+                                                1
                                                 ? Colors.transparent
                                                 : flyternGrey20,
                                             width: 0.5,
@@ -129,18 +124,15 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
                                       MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                            insuranceBookingController
-                                                .getBookingInfoTitle(
+                                            getBookingInfoTitle(insuranceBookingController.bookingInfo,
                                                 i, ind),
                                             style: getBodyMediumStyle(
                                                 context)
                                                 .copyWith(
                                                 color:
                                                 flyternGrey60)),
-                                        Text(
-                                            insuranceBookingController
-                                                .getBookingInfoValue(
-                                                i, ind),
+                                        Text( getBookingInfoValue(insuranceBookingController.bookingInfo,
+                                            i, ind),
                                             style: getBodyMediumStyle(
                                                 context)
                                                 .copyWith(
@@ -149,11 +141,9 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
                                       ],
                                     ),
                                   )
-                                      : ind !=
-                                      insuranceBookingController
-                                          .getBookingInfoGroupSize(
-                                          i) -
-                                          1?Container(
+                                      : ind != getBookingInfoGroupSize(insuranceBookingController.bookingInfo,
+                                      i) -
+                                      1?Container(
                                       padding:
                                       flyternLargePaddingHorizontal,
                                       color: flyternBackgroundWhite,

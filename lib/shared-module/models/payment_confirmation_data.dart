@@ -11,12 +11,14 @@ class PaymentConfirmationData {
   final ActivityDetails activityDetails;
   final HotelDetails hotelDetails;
   final List<BookingInfo> bookingInfo;
+  final List<BookingInfo> paymentInfo;
   final List<String> alertMsg;
   
   PaymentConfirmationData(
       {required this.pdfLink,
       required this.alertMsg,
       required this.isIssued ,
+      required this.paymentInfo ,
         required this.flightDetails,
         required this.activityDetails,
         required this.hotelDetails,
@@ -25,6 +27,7 @@ class PaymentConfirmationData {
 
 PaymentConfirmationData mapPaymentpdfLinkData(dynamic payload) {
 
+  List<BookingInfo>  paymentInfo = [];
   List<BookingInfo>  bookingInfo = [];
   List<String> alertMsg = [];
   FlightDetails flightDetails = mapFlightDetails({});
@@ -52,8 +55,15 @@ PaymentConfirmationData mapPaymentpdfLinkData(dynamic payload) {
     });
   }
 
+  if (payload["_paymentInfo"]!=null) {
+    payload["_paymentInfo"].forEach((element) {
+      paymentInfo.add(mapBookingInfo(element));
+    });
+  }
+
   return PaymentConfirmationData(
       hotelDetails:hotelDetails,
+      paymentInfo:paymentInfo,
       activityDetails:activityDetails,
       bookingInfo:bookingInfo,
       flightDetails:flightDetails,

@@ -1,4 +1,4 @@
- import 'package:flytern/feature-modules/hotel_booking/models/destination.hotel_booking.model.dart';
+import 'package:flytern/feature-modules/hotel_booking/models/destination.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/details.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/filter_body.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/pretraveller_data.hotel_booking.model.dart';
@@ -19,7 +19,7 @@ import 'package:flytern/shared-module/models/country.dart';
 import 'package:flytern/shared-module/models/get_gateway_data.shared.model.dart';
 import 'package:flytern/shared-module/models/range_dcs.dart';
 import 'package:flytern/shared-module/models/sorting_dcs.dart';
- import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
+import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
 import 'package:flytern/shared-module/models/payment_confirmation_data.dart';
 import 'package:flytern/shared-module/models/payment_gateway.dart';
@@ -28,6 +28,7 @@ import 'package:flytern/shared-module/services/utility-services/toaster_snackbar
 import 'package:get/get.dart';
 
 part 'data_setter.hotel_booking.controller.dart';
+
 part 'data_getter.hotel_booking.controller.dart';
 
 class HotelBookingController extends GetxController {
@@ -71,7 +72,7 @@ class HotelBookingController extends GetxController {
   var priceUnit = "KWD".obs;
   var selectedRoomSelectionIndex = 0.obs;
   var pageId = 1.obs;
-  var hotelId =  (-1).obs;
+  var hotelId = (-1).obs;
   var objectId = (-1).obs;
   var processId = "-1".obs;
   var paymentCode = "".obs;
@@ -80,8 +81,10 @@ class HotelBookingController extends GetxController {
   var confirmationMessage = "".obs;
   var pdfLink = "".obs;
   var isIssued = false.obs;
-  var   bookingInfo = <BookingInfo>[].obs;
-  var   alert = <String>[].obs;
+  var bookingInfo = <BookingInfo>[].obs;
+  var paymentInfo = <BookingInfo>[].obs;
+
+  var alert = <String>[].obs;
   var selectedImageIndex = (-1).obs;
   var selectedRoomImageIndex = (-1).obs;
 
@@ -102,13 +105,14 @@ class HotelBookingController extends GetxController {
   var selectedRoomOption = <HotelRoomOption>[].obs;
   var hotelPretravellerData = mapHotelPretravellerData({}).obs;
   var nationality = Country(
-      isDefault: 1,
-      countryName: "select_nationality".tr,
-      countryCode: "",
-      countryISOCode: "",
-      countryName_Ar: "",
-      flag: "",
-      code: "").obs;
+          isDefault: 1,
+          countryName: "select_nationality".tr,
+          countryCode: "",
+          countryISOCode: "",
+          countryName_Ar: "",
+          flag: "",
+          code: "")
+      .obs;
 
   var mobileCntry = "".obs;
   var mobileNumber = "".obs;
@@ -121,15 +125,11 @@ class HotelBookingController extends GetxController {
   }
 
   Future<void> getRecentSearch() async {
-
     isInitialDataLoading.value = true;
 
-    quickSearch.value =
-    await hotelBookingHttpService.getRecentSearch();
+    quickSearch.value = await hotelBookingHttpService.getRecentSearch();
     isInitialDataLoading.value = false;
-
   }
-
 
   Future<List<HotelDestination>> getHotelDestinations(
       String searchQuery) async {
@@ -147,7 +147,7 @@ class HotelBookingController extends GetxController {
 
   Future<void> getSearchResults(bool isNavigationRequired) async {
     if (hotelSearchData.value.rooms.isNotEmpty &&
-        hotelSearchData.value.destination !="" &&
+        hotelSearchData.value.destination != "" &&
         !isHotelSearchResponsesLoading.value) {
       objectId.value = -1;
       print("getSearchResults called ");
@@ -185,22 +185,21 @@ class HotelBookingController extends GetxController {
 
       isHotelSearchResponsesLoading.value = false;
       isHotelSearchFilterResponsesLoading.value = false;
-
     }
     getRecentSearch();
   }
 
   Future<void> getQuickSearchResult(HotelSearchData tHotelSearchData) async {
     if (tHotelSearchData.rooms.isNotEmpty &&
-        tHotelSearchData.destination !="" &&
+        tHotelSearchData.destination != "" &&
         !isHotelSearchResponsesLoading.value) {
       objectId.value = -1;
       print("getSearchResults called ");
       isHotelSearchResponsesLoading.value = true;
       Get.toNamed(Approute_hotelsSearchResult);
 
-      HotelSearchResult hotelSearchResult = await hotelBookingHttpService
-          .getHotelSearchResults(tHotelSearchData);
+      HotelSearchResult hotelSearchResult =
+          await hotelBookingHttpService.getHotelSearchResults(tHotelSearchData);
       hotelSearchResponses.value = hotelSearchResult.searchResponses;
       print("hotelSearchResponses value ");
       print(hotelSearchResponses.isNotEmpty);
@@ -210,14 +209,13 @@ class HotelBookingController extends GetxController {
         hotelId.value = hotelSearchResponses.value[0].hotelId;
         priceUnit.value = hotelSearchResponses.value[0].priceUnit;
         startDate.value = hotelSearchData.value.checkInDate;
-
       }
       sortingDcs.value = hotelSearchResult.sortingDcs;
       if (sortingDcs.isNotEmpty) {
         List<SortingDcs> defaultSort =
-        sortingDcs.where((p0) => p0.isDefault).toList();
+            sortingDcs.where((p0) => p0.isDefault).toList();
         sortingDc.value =
-        defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
+            defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
       }
       priceDcs.value = hotelSearchResult.priceDcs;
       ratingDcs.value = hotelSearchResult.ratingDcs;
@@ -225,10 +223,8 @@ class HotelBookingController extends GetxController {
 
       isHotelSearchResponsesLoading.value = false;
       isHotelSearchFilterResponsesLoading.value = false;
-
     }
   }
-
 
   Future<void> filterSearchResults() async {
     if (!isHotelSearchFilterResponsesLoading.value) {
@@ -271,24 +267,26 @@ class HotelBookingController extends GetxController {
       hotelId.value = tHotelid;
       isHotelDetailsLoading.value = true;
       print("getMoreOptions called ");
-      selectedRoom.value =[];
-      selectedRoomOption.value =[];
+      selectedRoom.value = [];
+      selectedRoomOption.value = [];
       selectedRoomSelectionIndex.value = 0;
 
-      HotelDetails tempHotelDetails =
-          await hotelBookingHttpService.getHotelDetails(hotelId.value, objectId.value);
+      HotelDetails tempHotelDetails = await hotelBookingHttpService
+          .getHotelDetails(hotelId.value, objectId.value);
       hotelDetails.value = tempHotelDetails;
       print("room length after maping");
       print(hotelDetails.value.rooms.length);
-      selectedImageIndex.value = hotelDetails.value.imageUrls.isNotEmpty?0:-1;
+      selectedImageIndex.value =
+          hotelDetails.value.imageUrls.isNotEmpty ? 0 : -1;
 
-      if(hotelDetails.value.rooms.isNotEmpty){
-        for(var i=0;i<hotelSearchData.value.rooms.length;i++){
-          selectedRoom.value.add(hotelDetails.value.rooms[0]) ;
+      if (hotelDetails.value.rooms.isNotEmpty) {
+        for (var i = 0; i < hotelSearchData.value.rooms.length; i++) {
+          selectedRoom.value.add(hotelDetails.value.rooms[0]);
         }
-        if(hotelDetails.value.rooms[0].roomOptions.isNotEmpty){
-          for(var i=0;i<hotelSearchData.value.rooms.length;i++){
-            selectedRoomOption.value.add(hotelDetails.value.rooms[0].roomOptions[0]);
+        if (hotelDetails.value.rooms[0].roomOptions.isNotEmpty) {
+          for (var i = 0; i < hotelSearchData.value.rooms.length; i++) {
+            selectedRoomOption.value
+                .add(hotelDetails.value.rooms[0].roomOptions[0]);
           }
         }
       }
@@ -303,7 +301,6 @@ class HotelBookingController extends GetxController {
       getPreTravellerData();
     }
   }
-
 
   Future<void> getPreTravellerData() async {
     if (!isHotelPretravellerDataLoading.value) {
@@ -335,7 +332,7 @@ class HotelBookingController extends GetxController {
       isHotelTravellerDataSaveLoading.value = false;
       if (tempBookingRef != "") {
         bookingRef.value = tempBookingRef;
-        getPaymentGateways(false,bookingRef.value);
+        getPaymentGateways(false, bookingRef.value);
       } else {
         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
       }
@@ -346,20 +343,20 @@ class HotelBookingController extends GetxController {
     isSmartPaymentCheckLoading.value = true;
 
     bool isSuccess =
-    await hotelBookingHttpService.checkSmartPayment(tempBookingRef);
+        await hotelBookingHttpService.checkSmartPayment(tempBookingRef);
 
     if (isSuccess) {
       bookingRef.value = tempBookingRef;
-      getPaymentGateways(true,tempBookingRef);
+      getPaymentGateways(true, tempBookingRef);
     } else {
       isSmartPaymentCheckLoading.value = false;
       showSnackbar(Get.context!, "couldnt_find_booking".tr, "error");
     }
   }
 
-  Future<void> getPaymentGateways(bool isSmartpayment, String tempBookingRef) async {
-
-    if(isSmartpayment){
+  Future<void> getPaymentGateways(
+      bool isSmartpayment, String tempBookingRef) async {
+    if (isSmartpayment) {
       bookingRef.value = tempBookingRef;
     }
     isHotelTravellerDataSaveLoading.value = true;
@@ -450,6 +447,7 @@ class HotelBookingController extends GetxController {
   Future<void> getConfirmationData() async {
     isHotelConfirmationDataLoading.value = true;
     bookingInfo.value = [];
+    paymentInfo.value = [];
     alert.value = [];
     pdfLink.value = "";
     isIssued.value = false;
@@ -465,6 +463,7 @@ class HotelBookingController extends GetxController {
       pdfLink.value = paymentConfirmationData.pdfLink;
       pdfLink.value = paymentConfirmationData.pdfLink;
       isIssued.value = paymentConfirmationData.isIssued;
+      paymentInfo.value = paymentConfirmationData.paymentInfo;
       bookingInfo.value = paymentConfirmationData.bookingInfo;
       alert.value = paymentConfirmationData.alertMsg;
       hotelDetails.value = paymentConfirmationData.hotelDetails;
@@ -510,7 +509,6 @@ class HotelBookingController extends GetxController {
   }
 
   void resetAndNavigateToHome() {
-
     isModifySearchVisible.value = false;
     isHotelDestinationsLoading.value = false;
     isHotelPretravellerDataLoading.value = false;
@@ -554,61 +552,8 @@ class HotelBookingController extends GetxController {
   void changeSelectedImage(int index) {
     selectedImageIndex.value = index;
   }
+
   void changeSelectedRoomImage(int index) {
     selectedRoomImageIndex.value = index;
   }
-
-  num getBookingInfoGroupLength() {
-    return bookingInfo.value.where((element) => element.groupName=="").toList().length;
-  }
-
-  String getBookingInfoGroupName(int i) {
-    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
-    if(i<=tBookingInfo.length-1){
-      return tBookingInfo[i].information;
-    }else{
-      return "";
-    }
-  }
-
-  String getBookingInfoTitle(int groupIndex, int itemIndex) {
-    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
-    if(groupIndex<=tBookingInfo.length-1){
-      List<BookingInfo> teBookingInfo = bookingInfo.value.where((element) => element.groupName==tBookingInfo[groupIndex].information).toList();
-      if(itemIndex<=teBookingInfo.length-1){
-        return teBookingInfo[itemIndex].title;
-      }else{
-        return "";
-      }
-    }else{
-      return "";
-    }
-  }
-
-  String getBookingInfoValue(int groupIndex, int itemIndex) {
-    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
-    if(groupIndex<=tBookingInfo.length-1){
-      List<BookingInfo> teBookingInfo = bookingInfo.value.where((element) => element.groupName==tBookingInfo[groupIndex].information).toList();
-      if(itemIndex<=teBookingInfo.length-1){
-        return teBookingInfo[itemIndex].information;
-      }else{
-        return "";
-      }
-    }else{
-      return "";
-    }
-  }
-
-  num getBookingInfoGroupSize(int i) {
-    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
-    if(tBookingInfo.isNotEmpty){
-
-      List<BookingInfo> teBookingInfo = bookingInfo.value.where((element) => element.groupName==tBookingInfo[i].information).toList();
-      return teBookingInfo.length;
-    }else{
-      return 0;
-    }
-  }
-
-
 }

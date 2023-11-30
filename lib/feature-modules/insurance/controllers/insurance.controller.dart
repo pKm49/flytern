@@ -49,6 +49,7 @@ class InsuranceBookingController extends GetxController {
   var gatewayUrl = "".obs;
   var pdfLink = "".obs;
   var isIssued = false.obs;
+  var paymentInfo = <BookingInfo>[].obs;
   var bookingInfo = <BookingInfo>[].obs;
   var alert = <String>[].obs;
   var confirmationMessage = "".obs;
@@ -419,6 +420,7 @@ class InsuranceBookingController extends GetxController {
   Future<void> getConfirmationData() async {
     isInsuranceConfirmationDataLoading.value = true;
     bookingInfo.value = [];
+    paymentInfo.value = [];
     alert.value = [];
     pdfLink.value = "";
     isIssued.value = false;
@@ -435,6 +437,7 @@ class InsuranceBookingController extends GetxController {
       pdfLink.value = paymentConfirmationData.pdfLink;
       pdfLink.value = paymentConfirmationData.pdfLink;
       isIssued.value = paymentConfirmationData.isIssued;
+      paymentInfo.value = paymentConfirmationData.paymentInfo;
       bookingInfo.value = paymentConfirmationData.bookingInfo;
       alert.value = paymentConfirmationData.alertMsg;
       // confirmationMessage.value = paymentConfirmationData.alertMsg;
@@ -487,59 +490,6 @@ class InsuranceBookingController extends GetxController {
       print(Get.currentRoute);
       return ++iter == 3;
     });
-  }
-
-
-  num getBookingInfoGroupLength() {
-    return bookingInfo.value.where((element) => element.groupName=="").toList().length;
-  }
-
-  String getBookingInfoGroupName(int i) {
-    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
-    if(i<=tBookingInfo.length-1){
-      return tBookingInfo[i].information;
-    }else{
-      return "";
-    }
-  }
-
-  String getBookingInfoTitle(int groupIndex, int itemIndex) {
-    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
-    if(groupIndex<=tBookingInfo.length-1){
-      List<BookingInfo> teBookingInfo = bookingInfo.value.where((element) => element.groupName==tBookingInfo[groupIndex].information).toList();
-      if(itemIndex<=teBookingInfo.length-1){
-        return teBookingInfo[itemIndex].title;
-      }else{
-        return "";
-      }
-    }else{
-      return "";
-    }
-  }
-
-  String getBookingInfoValue(int groupIndex, int itemIndex) {
-    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
-    if(groupIndex<=tBookingInfo.length-1){
-      List<BookingInfo> teBookingInfo = bookingInfo.value.where((element) => element.groupName==tBookingInfo[groupIndex].information).toList();
-      if(itemIndex<=teBookingInfo.length-1){
-        return teBookingInfo[itemIndex].information;
-      }else{
-        return "";
-      }
-    }else{
-      return "";
-    }
-  }
-
-  num getBookingInfoGroupSize(int i) {
-    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
-    if(tBookingInfo.isNotEmpty){
-
-      List<BookingInfo> teBookingInfo = bookingInfo.value.where((element) => element.groupName==tBookingInfo[i].information).toList();
-      return teBookingInfo.length;
-    }else{
-      return 0;
-    }
   }
 
 

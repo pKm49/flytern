@@ -89,8 +89,9 @@ class ActivityBookingController extends GetxController {
   var pdfLink = "".obs;
   var processingFee = (0.0).obs;
   var isIssued = false.obs;
-  var   bookingInfo = <BookingInfo>[].obs;
-  var   alert = <String>[].obs;
+  var bookingInfo = <BookingInfo>[].obs;
+  var paymentInfo = <BookingInfo>[].obs;
+  var alert = <String>[].obs;
 
   var isActivityGatewayStatusCheckLoading = false.obs;
   var isActivityConfirmationDataLoading = false.obs;
@@ -131,7 +132,7 @@ class ActivityBookingController extends GetxController {
     }
     cityId.value = cityID;
     ActivityResponse activityResponse =
-    await activityBookingHttpService.getActivities(cityID);
+        await activityBookingHttpService.getActivities(cityID);
 
     activities.value = activityResponse.activities;
     if (activities.value.isNotEmpty) {
@@ -149,7 +150,7 @@ class ActivityBookingController extends GetxController {
 
     if (sortingDcs.isNotEmpty) {
       List<SortingDcs> defaultSort =
-      sortingDcs.where((p0) => p0.isDefault).toList();
+          sortingDcs.where((p0) => p0.isDefault).toList();
       sortingDc.value = defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
     }
     isActivitiesLoading.value = false;
@@ -181,8 +182,7 @@ class ActivityBookingController extends GetxController {
         pageId: pageId.value,
         objectID: objectID.value,
         priceMinMaxDc: selectedPriceDcs.value.isNotEmpty
-            ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0]
-            .max}"
+            ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0].max}"
             : "",
         tourCategoryDc: selectedTourCategoryDcs.value.isNotEmpty
             ? getFilterValues(selectedTourCategoryDcs.value)
@@ -194,7 +194,7 @@ class ActivityBookingController extends GetxController {
       );
 
       ActivityResponse activityResponse =
-      await activityBookingHttpService.filterActivities(flightFilterBody);
+          await activityBookingHttpService.filterActivities(flightFilterBody);
 
       activities.value = activityResponse.activities;
 
@@ -218,8 +218,8 @@ class ActivityBookingController extends GetxController {
     Get.toNamed(Approute_activitiesDetails);
     activityId.value = tourId;
     ActivityDetailsResponse activityDetailsResponse =
-    await activityBookingHttpService.getActivityDetails(
-        objectID.value, tourId);
+        await activityBookingHttpService.getActivityDetails(
+            objectID.value, tourId);
     activityDetails.value = activityDetailsResponse.activityDetails;
     activityOptions.value =
         activityDetailsResponse.activityOptions.toSet().toList();
@@ -250,56 +250,56 @@ class ActivityBookingController extends GetxController {
         noOfChildren: noOfChildren.value.toString(),
         noOfInfant: noOfInfant.value.toString(),
         tourGuide: objectID.value.toString(),
-        startTime:  "",
+        startTime: "",
         timeSlotId: selectedActivityTime.value.timeSlotId.toString()));
 
     ActivitySubmissionData activitySubmissionData = ActivitySubmissionData(
-        leadInfo: activityTravellerInfo,
-        eventlstInfo: eventlstInfo);
+        leadInfo: activityTravellerInfo, eventlstInfo: eventlstInfo);
 
     tempBookingRef =
-    await activityBookingHttpService.setUserData(activitySubmissionData);
+        await activityBookingHttpService.setUserData(activitySubmissionData);
     isSaveContactLoading.value = false;
     if (tempBookingRef != "") {
       bookingRef.value = tempBookingRef;
-      getPaymentGateways(false,bookingRef.value);
+      getPaymentGateways(false, bookingRef.value);
     } else {
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
   }
+
   checkSmartPayment(String tempBookingRef) async {
     isSmartPaymentCheckLoading.value = true;
 
     bool isSuccess =
-    await activityBookingHttpService.checkSmartPayment(tempBookingRef);
+        await activityBookingHttpService.checkSmartPayment(tempBookingRef);
 
     if (isSuccess) {
       bookingRef.value = tempBookingRef;
-      getPaymentGateways(true,tempBookingRef);
+      getPaymentGateways(true, tempBookingRef);
     } else {
       isSmartPaymentCheckLoading.value = false;
       showSnackbar(Get.context!, "couldnt_find_booking".tr, "error");
     }
   }
 
-  Future<void> getPaymentGateways(bool isSmartpayment, String tempBookingRef) async {
-
-    if(isSmartpayment){
+  Future<void> getPaymentGateways(
+      bool isSmartpayment, String tempBookingRef) async {
+    if (isSmartpayment) {
       bookingRef.value = tempBookingRef;
     }
     isSaveContactLoading.value = true;
     paymentGateways.value = [];
     alert.value = [];
     alert.value = [];
+    bookingInfo.value = [];
     GetGatewayData getGatewayData =
-    await activityBookingHttpService.getPaymentGateways(bookingRef.value);
+        await activityBookingHttpService.getPaymentGateways(bookingRef.value);
 
     paymentGateways.value = getGatewayData.paymentGateways;
     bookingInfo.value = getGatewayData.bookingInfo;
     alert.value = getGatewayData.alert;
     if (isSmartpayment) {
       activityDetails.value = getGatewayData.activityDetails;
-
     }
 
     if (getGatewayData.paymentGateways.isNotEmpty) {
@@ -326,13 +326,12 @@ class ActivityBookingController extends GetxController {
     }
   }
 
-
   Future<void> setPaymentGateway() async {
     isActivitySavePaymentGatewayLoading.value = true;
 
     PaymentGatewayUrlData paymentGatewayUrlData =
-    await activityBookingHttpService.setPaymentGateway(
-        processId.value, paymentCode.value, bookingRef.value);
+        await activityBookingHttpService.setPaymentGateway(
+            processId.value, paymentCode.value, bookingRef.value);
 
     print("paymentGatewayUrlData");
     print(paymentGatewayUrlData.isOkRedirection);
@@ -365,7 +364,7 @@ class ActivityBookingController extends GetxController {
   Future<void> checkGatewayStatus() async {
     isActivityGatewayStatusCheckLoading.value = true;
     bool isSuccess =
-    await activityBookingHttpService.checkGatewayStatus(bookingRef.value);
+        await activityBookingHttpService.checkGatewayStatus(bookingRef.value);
 
     print("checkGatewayStatus isSuccess");
     print(isSuccess);
@@ -374,12 +373,11 @@ class ActivityBookingController extends GetxController {
       showSnackbar(Get.context!, "payment_capture_success".tr, "info");
       getConfirmationData();
     } else {
-
       int iter = 0;
       Get.offNamedUntil(Approute_activitiesSummary, (route) {
         print("Get.currentRoute");
         print(Get.currentRoute);
-        return ++iter ==1;
+        return ++iter == 1;
       });
       showSnackbar(Get.context!, "payment_capture_error".tr, "error");
     }
@@ -390,11 +388,12 @@ class ActivityBookingController extends GetxController {
   Future<void> getConfirmationData() async {
     isActivityConfirmationDataLoading.value = true;
     bookingInfo.value = [];
+    paymentInfo.value = [];
     alert.value = [];
     pdfLink.value = "";
     isIssued.value = false;
     PaymentConfirmationData paymentConfirmationData =
-    await activityBookingHttpService.getConfirmationData(bookingRef.value);
+        await activityBookingHttpService.getConfirmationData(bookingRef.value);
 
     print("getConfirmationData");
     print(paymentConfirmationData.isIssued);
@@ -405,36 +404,34 @@ class ActivityBookingController extends GetxController {
       pdfLink.value = paymentConfirmationData.pdfLink;
       isIssued.value = paymentConfirmationData.isIssued;
       bookingInfo.value = paymentConfirmationData.bookingInfo;
+      paymentInfo.value = paymentConfirmationData.paymentInfo;
       alert.value = paymentConfirmationData.alertMsg;
       activityDetails.value = paymentConfirmationData.activityDetails;
       // confirmationMessage.value = paymentConfirmationData.alertMsg;
       showSnackbar(Get.context!, "flight_booking_success".tr, "info");
 
       int iter = 0;
-      Get.offNamedUntil(Approute_activitiesConfirmation,
-          arguments: [
-            {"mode": "view"}
-          ],(route) {
-            print("Get.currentRoute");
-            print(Get.currentRoute);
-            return ++iter ==4;
-          });
+      Get.offNamedUntil(Approute_activitiesConfirmation, arguments: [
+        {"mode": "view"}
+      ], (route) {
+        print("Get.currentRoute");
+        print(Get.currentRoute);
+        return ++iter == 4;
+      });
     } else {
       showSnackbar(Get.context!, "booking_failed".tr, "error");
-
 
       int iter = 0;
       Get.offNamedUntil(Approute_flightsSummary, (route) {
         print("Get.currentRoute");
         print(Get.currentRoute);
-        return ++iter ==1;
+        return ++iter == 1;
       });
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
 
     isActivityConfirmationDataLoading.value = false;
   }
-
 
   void resetAndNavigateToHome() {
     isActivitiesLoading.value = false;
@@ -455,7 +452,6 @@ class ActivityBookingController extends GetxController {
     mobileNumber.value = "";
     email.value = "";
     Get.offAllNamed(Approute_landingpage);
-
   }
 
   void changeSelectedActivityOption(ActivityOption selectedItem) {
@@ -473,8 +469,8 @@ class ActivityBookingController extends GetxController {
     }
   }
 
-  void updatePassengerCount(int tAdultCount, int tChildCount,
-      int tInfantCount) {
+  void updatePassengerCount(
+      int tAdultCount, int tChildCount, int tInfantCount) {
     noOfAdult.value = tAdultCount;
     noOfChildren.value = tChildCount;
     noOfInfant.value = tInfantCount;
@@ -508,25 +504,24 @@ class ActivityBookingController extends GetxController {
     }
   }
 
-
   Future<void> getActivityPriceInfo() async {
     isPriceDataLoading.value = true;
 
     ActivityTransferType activityTransferType = await activityBookingHttpService
         .getActivityPriceInfo(ActivityPriceFetchBody(
-        transferId: transferId.value,
-        tourid: tourid.value,
-        cityid: cityid.value,
-        touroptionid: touroptionid.value,
-        travelDate: travelDate.value,
-        noOfAdult: noOfAdult.value.toString(),
-        noOfChildren: noOfChildren.value.toString(),
-        noOfInfant: noOfInfant.value.toString(),
-        contractId: -1,
-        objectID: objectID.value,
-        tourGuide: '0',
-        startTime: '0',
-        timeSlotId: ''));
+            transferId: transferId.value,
+            tourid: tourid.value,
+            cityid: cityid.value,
+            touroptionid: touroptionid.value,
+            travelDate: travelDate.value,
+            noOfAdult: noOfAdult.value.toString(),
+            noOfChildren: noOfChildren.value.toString(),
+            noOfInfant: noOfInfant.value.toString(),
+            contractId: -1,
+            objectID: objectID.value,
+            tourGuide: '0',
+            startTime: '0',
+            timeSlotId: ''));
 
     print("transferId before update");
     print(selectedActivityTransferType.value.transferId);
@@ -547,20 +542,19 @@ class ActivityBookingController extends GetxController {
 
     activityTimingOptions.value = await activityBookingHttpService
         .getActivityTimingList(ActivityPriceFetchBody(
-        transferId: transferId.value,
-        tourid: tourid.value,
-        cityid: cityid.value,
-        touroptionid: touroptionid.value,
-        travelDate: travelDate.value,
-        noOfAdult: noOfAdult.value.toString(),
-        noOfChildren: noOfChildren.value.toString(),
-        noOfInfant: noOfInfant.value.toString(),
-        contractId: contractId.value,
-        objectID: objectID.value,
-        tourGuide: '0',
-        startTime: '0',
-        timeSlotId: ''));
-
+            transferId: transferId.value,
+            tourid: tourid.value,
+            cityid: cityid.value,
+            touroptionid: touroptionid.value,
+            travelDate: travelDate.value,
+            noOfAdult: noOfAdult.value.toString(),
+            noOfChildren: noOfChildren.value.toString(),
+            noOfInfant: noOfInfant.value.toString(),
+            contractId: contractId.value,
+            objectID: objectID.value,
+            tourGuide: '0',
+            startTime: '0',
+            timeSlotId: ''));
 
     if (activityTimingOptions.isNotEmpty) {
       selectedActivityTime.value = activityTimingOptions.value[0];
@@ -569,79 +563,25 @@ class ActivityBookingController extends GetxController {
   }
 
   Future<void> confirmActivity() async {
-    String msg = await activityBookingHttpService
-        .confirmActivity(ActivityPriceFetchBody(
-        transferId: transferId.value,
-        tourid: tourid.value,
-        cityid: cityid.value,
-        touroptionid: touroptionid.value,
-        travelDate: travelDate.value,
-        noOfAdult: noOfAdult.value.toString(),
-        noOfChildren: noOfChildren.value.toString(),
-        noOfInfant: noOfInfant.value.toString(),
-        contractId: contractId.value,
-        objectID: objectID.value,
-        tourGuide: '0',
-        startTime: '0',
-        timeSlotId: selectedActivityTime.value.timeSlotId.toString()));
+    String msg = await activityBookingHttpService.confirmActivity(
+        ActivityPriceFetchBody(
+            transferId: transferId.value,
+            tourid: tourid.value,
+            cityid: cityid.value,
+            touroptionid: touroptionid.value,
+            travelDate: travelDate.value,
+            noOfAdult: noOfAdult.value.toString(),
+            noOfChildren: noOfChildren.value.toString(),
+            noOfInfant: noOfInfant.value.toString(),
+            contractId: contractId.value,
+            objectID: objectID.value,
+            tourGuide: '0',
+            startTime: '0',
+            timeSlotId: selectedActivityTime.value.timeSlotId.toString()));
   }
 
   void changeActivityTime(ActivityTimingOption activityTimingOption) {
     selectedActivityTime.value = activityTimingOption;
   }
-
-
-  num getBookingInfoGroupLength() {
-    return bookingInfo.value.where((element) => element.groupName=="").toList().length;
-  }
-
-  String getBookingInfoGroupName(int i) {
-    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
-    if(i<=tBookingInfo.length-1){
-      return tBookingInfo[i].information;
-    }else{
-      return "";
-    }
-  }
-
-  String getBookingInfoTitle(int groupIndex, int itemIndex) {
-    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
-    if(groupIndex<=tBookingInfo.length-1){
-      List<BookingInfo> teBookingInfo = bookingInfo.value.where((element) => element.groupName==tBookingInfo[groupIndex].information).toList();
-      if(itemIndex<=teBookingInfo.length-1){
-        return teBookingInfo[itemIndex].title;
-      }else{
-        return "";
-      }
-    }else{
-      return "";
-    }
-  }
-
-  String getBookingInfoValue(int groupIndex, int itemIndex) {
-    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
-    if(groupIndex<=tBookingInfo.length-1){
-      List<BookingInfo> teBookingInfo = bookingInfo.value.where((element) => element.groupName==tBookingInfo[groupIndex].information).toList();
-      if(itemIndex<=teBookingInfo.length-1){
-        return teBookingInfo[itemIndex].information;
-      }else{
-        return "";
-      }
-    }else{
-      return "";
-    }
-  }
-
-  num getBookingInfoGroupSize(int i) {
-    List<BookingInfo> tBookingInfo = bookingInfo.value.where((element) => element.groupName=="").toList();
-    if(tBookingInfo.isNotEmpty){
-
-      List<BookingInfo> teBookingInfo = bookingInfo.value.where((element) => element.groupName==tBookingInfo[i].information).toList();
-      return teBookingInfo.length;
-    }else{
-      return 0;
-    }
-  }
-
 
 }

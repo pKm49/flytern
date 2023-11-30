@@ -3,6 +3,7 @@ import 'package:flytern/feature-modules/activity_booking/ui/components/list_card
 import 'package:flytern/feature-modules/flight_booking/ui/components/airport_lable_card.flight_booking.component.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/booking_summary_card.flight_booking.component.dart';
 import 'package:flytern/feature-modules/insurance/controllers/insurance.controller.dart';
+import 'package:flytern/shared-module/services/booking_info_helper.dart';
 import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/user_details_card.shared.component.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/components/search_result_card.hotel_booking.component.dart';
@@ -66,47 +67,40 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
               child: ListView(
                 children: [
 
-                  Container(
-                    width: screenwidth,
-                    height: screenwidth*.6,
-                    child: Center(
-                      child: Column(
-                        children: [
-                          Icon(
-                              insuranceBookingController.isIssued.value?
-                              Ionicons.checkmark_circle_outline:
-                              Ionicons.close_circle_outline,
-                              size: screenwidth*.4,color:
-                          insuranceBookingController.isIssued.value?
-                          flyternGuideGreen:flyternGuideRed),
-                          Padding(
-                            padding: EdgeInsets.only(top: flyternSpaceLarge),
-                            child: Text(
-                                insuranceBookingController.isIssued.value?
-                                "success".tr:"failed".tr,
-                                textAlign: TextAlign.center,
-                                style: getHeadlineLargeStyle(context).copyWith(
-                                    color: insuranceBookingController.isIssued.value?
-                                    flyternGuideGreen:flyternGuideRed, fontWeight: flyternFontWeightBold)),
-                          ),
-                        ],
-                      ),
-                    ),
+                  addVerticalSpace(flyternSpaceLarge*2),
+                  Text(
+                      getPaymentInfo(insuranceBookingController.paymentInfo,"ThankyouMsg"),
+                      textAlign: TextAlign.center,
+                      style: getHeadlineLargeStyle(context).copyWith(
+                          color: flyternGuideGreen, fontWeight: flyternFontWeightBold)),
+                  Image.network(
+                    getPaymentInfo(insuranceBookingController.paymentInfo,"ConfirmIcon"),
+                    width: screenwidth * .4,
+                    height: screenwidth * .4,
+                    errorBuilder:
+                        (context, error, stackTrace) {
+                      return  Icon(
+                          Ionicons.checkmark_circle_outline  ,
+                          size: screenwidth*.4,color:flyternGuideGreen);
+                    },
                   ),
-                  addVerticalSpace(flyternSpaceMedium),
+                  Text(
+                      getPaymentInfo(insuranceBookingController.paymentInfo,"ConfirmMsg"),
+                      textAlign: TextAlign.center,
+                      style: getHeadlineLargeStyle(context).copyWith(
+                          color: flyternGuideGreen, fontWeight: flyternFontWeightBold)),
+
+                  addVerticalSpace(flyternSpaceLarge*2),
                   Container(
                     padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceLarge,bottom: flyternSpaceSmall),
                     color: flyternBackgroundWhite,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("booking_status".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                        Text(insuranceBookingController.isIssued.value?
-                        "success".tr:"failed".tr,
+                        Text(getPaymentTitle(insuranceBookingController.paymentInfo, "BookingID"),style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                        Text(getPaymentInfo(insuranceBookingController.paymentInfo,"BookingID"),
                             style: getBodyMediumStyle(context).copyWith(
-                                color: insuranceBookingController.isIssued.value?
-                                flyternGuideGreen:flyternGuideRed,
-                                fontWeight: flyternFontWeightBold)),
+                                fontWeight: flyternFontWeightRegular)),
                       ],
                     ),
                   ),
@@ -115,13 +109,70 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
                       color:flyternBackgroundWhite,
                       child: Divider()),
                   Container(
-                    padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
+                    padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
                     color: flyternBackgroundWhite,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("booking_id".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                        Text(insuranceBookingController.bookingRef.value,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80)),
+                        Text(getPaymentTitle(insuranceBookingController.paymentInfo, "PaymentStatus"),style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                        Text(getPaymentInfo(insuranceBookingController.paymentInfo,"PaymentStatus"),
+                            style: getBodyMediumStyle(context).copyWith(
+                                fontWeight: flyternFontWeightRegular)),
+                      ],
+                    ),
+                  ),
+                  Container(
+                      padding: flyternLargePaddingHorizontal,
+                      color:flyternBackgroundWhite,
+                      child: Divider()),
+                  Container(
+                    padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
+                    color: flyternBackgroundWhite,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(getPaymentTitle(insuranceBookingController.paymentInfo, "PaymentMethod"),style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                        Expanded(child: Container()),
+                        Container(
+                            decoration:
+                            flyternBorderedContainerSmallDecoration,
+                            clipBehavior: Clip.hardEdge,
+                            width: screenwidth * .1,
+                            height: screenwidth * .1,
+                            child: Center(
+                                child: Image.network(
+                                  getPaymentInfo(insuranceBookingController.paymentInfo,"PaymentMethodIcon"),
+                                  width: screenwidth * .08,
+                                  height: screenwidth * .08,
+                                  errorBuilder:
+                                      (context, error, stackTrace) {
+                                    return Container(
+                                        width: screenwidth * .08,
+                                        height: screenwidth * .08);
+                                  },
+                                ))),
+                        addHorizontalSpace(flyternSpaceMedium),
+                        Text(getPaymentInfo(insuranceBookingController.paymentInfo,"PaymentMethod"),
+                            style: getBodyMediumStyle(context).copyWith(
+                                fontWeight: flyternFontWeightRegular)),
+                      ],
+                    ),
+                  ),
+                  Container(
+                      padding: flyternLargePaddingHorizontal,
+                      color:flyternBackgroundWhite,
+                      child: Divider()),
+                  Container(
+                    padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
+                    color: flyternBackgroundWhite,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(getPaymentTitle(insuranceBookingController.paymentInfo, "FinalBookingAmount"),style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+
+                        Text(getPaymentInfo(insuranceBookingController.paymentInfo,"FinalBookingAmount"),
+                            style: getBodyMediumStyle(context).copyWith(
+                                fontWeight: flyternFontWeightRegular)),
                       ],
                     ),
                   ),
@@ -153,32 +204,29 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
                         theme: 1,
                       ),
                     ),
+
                   for (var i = 0;
-                  i < insuranceBookingController.getBookingInfoGroupLength();
+                  i < getBookingInfoGroupLength(insuranceBookingController.bookingInfo);
                   i++)
                     Wrap(
                       children: [
                         Padding(
                           padding: flyternLargePaddingAll,
                           child: Text(
-                              insuranceBookingController
-                                  .getBookingInfoGroupName(i),
+                              getBookingInfoGroupName(insuranceBookingController.bookingInfo,i),
                               style: getBodyMediumStyle(context).copyWith(
                                   color: flyternGrey80,
                                   fontWeight: flyternFontWeightBold)),
                         ),
                         Container(
-                          height: (insuranceBookingController
-                              .getBookingInfoGroupSize(i) *
+                          height: ( getBookingInfoGroupSize(insuranceBookingController.bookingInfo,i) *
                               50)+(flyternSpaceLarge*2),
                           child: Column(
                             children: [
                               for (var ind = 0;
-                              ind <
-                                  insuranceBookingController
-                                      .getBookingInfoGroupSize(i);
+                              ind < getBookingInfoGroupSize(insuranceBookingController.bookingInfo,i);
                               ind++)
-                                insuranceBookingController.getBookingInfoTitle(
+                                getBookingInfoTitle(insuranceBookingController.bookingInfo,
                                     i, ind) !=
                                     "DIVIDER"
                                     ? Container(
@@ -187,22 +235,18 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
                                       top: ind == 0
                                           ? flyternSpaceLarge
                                           : flyternSpaceMedium,
-                                      bottom: ind ==
-                                          insuranceBookingController
-                                              .getBookingInfoGroupSize(
-                                              i) -
-                                              1
+                                      bottom: ind == getBookingInfoGroupSize(insuranceBookingController.bookingInfo,
+                                          i) -
+                                          1
                                           ? flyternSpaceLarge
                                           : flyternSpaceMedium),
                                   decoration: BoxDecoration(
                                       color: flyternBackgroundWhite,
                                       border: Border(
                                         bottom: BorderSide(
-                                          color: ind ==
-                                              insuranceBookingController
-                                                  .getBookingInfoGroupSize(
-                                                  i) -
-                                                  1
+                                          color: ind == getBookingInfoGroupSize(insuranceBookingController.bookingInfo,
+                                              i) -
+                                              1
                                               ? Colors.transparent
                                               : flyternGrey20,
                                           width: 0.5,
@@ -213,18 +257,15 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
                                     MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                          insuranceBookingController
-                                              .getBookingInfoTitle(
+                                          getBookingInfoTitle(insuranceBookingController.bookingInfo,
                                               i, ind),
                                           style: getBodyMediumStyle(
                                               context)
                                               .copyWith(
                                               color:
                                               flyternGrey60)),
-                                      Text(
-                                          insuranceBookingController
-                                              .getBookingInfoValue(
-                                              i, ind),
+                                      Text( getBookingInfoValue(insuranceBookingController.bookingInfo,
+                                          i, ind),
                                           style: getBodyMediumStyle(
                                               context)
                                               .copyWith(
@@ -233,11 +274,9 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
                                     ],
                                   ),
                                 )
-                                    : ind !=
-                                    insuranceBookingController
-                                        .getBookingInfoGroupSize(
-                                        i) -
-                                        1?Container(
+                                    : ind != getBookingInfoGroupSize(insuranceBookingController.bookingInfo,
+                                    i) -
+                                    1?Container(
                                     padding:
                                     flyternLargePaddingHorizontal,
                                     color: flyternBackgroundWhite,
@@ -248,7 +287,7 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
                         )
                       ],
                     ),
-
+                  
                   Padding(
                     padding: flyternLargePaddingAll.copyWith(top: 0),
                     child: Text("select_payment_method".tr,
