@@ -20,6 +20,7 @@ import 'package:flytern/shared-module/ui/components/sort_option_selector.shared.
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class FlightSearchResultPage extends StatefulWidget {
   const FlightSearchResultPage({super.key});
@@ -32,6 +33,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
     with SingleTickerProviderStateMixin {
   final flightBookingController = Get.find<FlightBookingController>();
   var flightBookingHelperServices = FlightBookingHelperServices();
+  final ScrollController _controller = ScrollController();
 
   late TabController tabController;
 
@@ -51,6 +53,18 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
         setState(() {});
       }
     });
+
+    _controller.addListener(() {
+      if (_controller.position.atEdge) {
+        bool isTop = _controller.position.pixels == 0;
+        if (isTop) {
+          print('At the top');
+        } else {
+          print('At the bottom');
+          flightBookingController.getFlightSearchResultsNextPage();
+        }
+      }
+    });
   }
 
   @override
@@ -58,6 +72,8 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
     // TODO: implement dispose
     super.dispose();
     tabController.dispose();
+    _controller.dispose();
+
   }
 
   @override
@@ -100,41 +116,30 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                   visible: !flightBookingController.isModifySearchVisible.value,
                   child: Container(
                     width: screenwidth,
-                    height: 30,
-                    padding: flyternLargePaddingHorizontal,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
+                    padding: flyternMediumPaddingHorizontal,
+                    child: Wrap(
                       children: [
-                        DataCapsuleCard(
-                          label:
-                          getSearchParamsPreview(1),
-                          theme: 2,
-                        ),
-                        addHorizontalSpace(flyternSpaceSmall),
-                        DataCapsuleCard(
-                          label:
-                          getSearchParamsPreview(2),
-                          theme: 2,
-                        ),
-                        addHorizontalSpace(flyternSpaceSmall),
-                        DataCapsuleCard(
-                          label:
-                          getSearchParamsPreview(3),
-                          theme: 2,
-                        ),
-                        addHorizontalSpace(flyternSpaceSmall),
-                        DataCapsuleCard(
-                          label:
-                          getSearchParamsPreview(4),
-                          theme: 2,
-                        )
+                        for(var i=1;i<5;i++)
+                          Container(
+                            padding: flyternSmallPaddingHorizontal.copyWith(
+                                top: flyternSpaceExtraSmall,
+                                bottom: flyternSpaceExtraSmall),
+                            margin: EdgeInsets.only(bottom: flyternSpaceSmall,right: flyternSpaceSmall),
+                            decoration: BoxDecoration(
+                              color: flyternSecondaryColorBg,
+                              borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
+                            ),
+                            child: Text(
+                              getSearchParamsPreview(i),style: getLabelLargeStyle(context).copyWith(
+                            fontSize: flyternFontSize12,
+                                color:flyternSecondaryColor,
+                            ),
+                            ),
+                          )
                       ],
                     ),
                   ),
                 ),
-                Visibility(
-                    visible: !flightBookingController.isModifySearchVisible.value,
-                    child: addVerticalSpace(flyternSpaceSmall)),
                 Visibility(
                     visible:!flightBookingController.isModifySearchVisible.value &&
                         !flightBookingController
@@ -277,6 +282,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                       child: Container(
                           color: flyternGrey10,
                           child: ListView.builder(
+                             controller: _controller,
                               scrollDirection: Axis.vertical,
                               itemCount: flightBookingController
                                   .flightSearchResponses.length,
@@ -304,6 +310,17 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                                     ));
                               }))),
                 ),
+                Visibility(
+                    visible: flightBookingController.isFlightSearchPageResponsesLoading.value,
+                    child: Container(
+                      width: screenwidth,
+                      color: flyternGrey10,
+                      child: Center(
+                          child: LoadingAnimationWidget.prograssiveDots(
+                            color: flyternSecondaryColor,
+                            size: 50,
+                          )),
+                    )),
                 Visibility(
                   visible:
                   !flightBookingController.isFlightSearchResponsesLoading.value &&

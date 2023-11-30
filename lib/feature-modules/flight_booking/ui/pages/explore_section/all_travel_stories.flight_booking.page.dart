@@ -40,6 +40,14 @@ class _AllTravellStoriesPageState extends State<AllTravellStoriesPage> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _controller.dispose();
+
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     double screenwidth = MediaQuery.of(context).size.width;

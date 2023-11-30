@@ -14,6 +14,7 @@ import 'package:flytern/shared-module/ui/components/sort_option_selector.shared.
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HotelSearchResultPage extends StatefulWidget {
   const HotelSearchResultPage({super.key});
@@ -25,6 +26,32 @@ class HotelSearchResultPage extends StatefulWidget {
 class _HotelSearchResultPageState extends State<HotelSearchResultPage>
     with SingleTickerProviderStateMixin {
   final hotelBookingController = Get.find<HotelBookingController>();
+  final ScrollController _controller = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller.addListener(() {
+      if (_controller.position.atEdge) {
+        bool isTop = _controller.position.pixels == 0;
+        if (isTop) {
+          print('At the top');
+        } else {
+          print('At the bottom');
+          hotelBookingController.getHotelSearchResultsNextPage();
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _controller.dispose();
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,28 +80,26 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                     Container(
                       width: screenwidth,
                       color: flyternGrey10,
-                      height: 30+(flyternSpaceMedium*2),
-                      padding: flyternMediumPaddingVertical.copyWith(left: flyternSpaceSmall,right: flyternSpaceSmall),
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          DataCapsuleCard(
-                            label:
-                            getSearchParamsPreview(1),
-                            theme: 2,
-                          ),
-                          addHorizontalSpace(flyternSpaceSmall),
-                          DataCapsuleCard(
-                            label:
-                            getSearchParamsPreview(2),
-                            theme: 2,
-                          ),
-                          addHorizontalSpace(flyternSpaceSmall),
-                          DataCapsuleCard(
-                            label:
-                            getSearchParamsPreview(3),
-                            theme: 2,
-                          ),
+                      padding: flyternMediumPaddingVertical.copyWith(left: flyternSpaceSmall,
+                          right: flyternSpaceSmall,bottom: flyternSpaceSmall),
+                      child: Wrap(
+                         children: [
+                           for(var i=1;i<4;i++)
+                           Container(
+                             padding: flyternSmallPaddingHorizontal.copyWith(
+                                 top: flyternSpaceExtraSmall,
+                                 bottom: flyternSpaceExtraSmall),
+                             margin: EdgeInsets.only(bottom: flyternSpaceSmall,right: flyternSpaceSmall),
+                             decoration: BoxDecoration(
+                               color: flyternSecondaryColorBg,
+                               borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
+                             ),
+                             child: Text(
+                               getSearchParamsPreview(i),style: getLabelLargeStyle(context).copyWith(
+                                 color:flyternSecondaryColor, fontSize: flyternFontSize12 ),
+                             ),
+                           )
+
                         ],
                       ),
                     ),
@@ -154,6 +179,7 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                           child: Container(
                         color: flyternBackgroundWhite,
                         child: ListView.builder(
+                          controller: _controller,
                             itemCount: hotelBookingController
                                 .hotelSearchResponses.length,
                             itemBuilder: (context, i) {
@@ -175,6 +201,18 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                             }),
                       )),
                     ),
+                    Visibility(
+                        visible: hotelBookingController.isHotelSearchPageResponsesLoading.value,
+                        child: Container(
+                          width: screenwidth,
+                          color: flyternGrey10,
+                          child: Center(
+                              child: LoadingAnimationWidget.prograssiveDots(
+                                color: flyternSecondaryColor,
+                                size: 50,
+                              )),
+                        )),
+
                     Visibility(
                       visible:
                           hotelBookingController.isHotelSearchFilterResponsesLoading.value,

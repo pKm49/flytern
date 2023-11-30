@@ -90,6 +90,7 @@ class FlightBookingController extends GetxController {
   var isPopularDestinationsPageLoading = false.obs;
 
   var isPassengersSelected = false.obs;
+  var searchResultsPage = 1.obs;
   var travelStoriesPage = 1.obs;
   var popularDestinationsPage = 1.obs;
   var recommendedPage = 1.obs;
@@ -107,6 +108,8 @@ class FlightBookingController extends GetxController {
   var isFlightMoreOptionsResponsesLoading = false.obs;
   var isFlightDetailsLoading = false.obs;
   var isFlightSearchFilterResponsesLoading = false.obs;
+  var isFlightSearchPageResponsesLoading = false.obs;
+
   var isInitialDataLoading = true.obs;
   var flightBookingHttpService = FlightBookingHttpService();
   var flightBookingHelperServices = FlightBookingHelperServices();
@@ -129,7 +132,6 @@ class FlightBookingController extends GetxController {
   var isMealSelection = false.obs;
   var isExtraBaggageSelection = false.obs;
   var currency = "KWD".obs;
-  var pageId = 1.obs;
   var objectId = 1.obs;
   var detailId = 1.obs;
   var selectedPaymentGateway = mapPaymentGateway({}).obs;
@@ -209,6 +211,7 @@ class FlightBookingController extends GetxController {
     if (tFlightSearchData.allowedCabins.isNotEmpty &&
         tFlightSearchData.adults > 0 &&
         !isFlightSearchResponsesLoading.value) {
+      searchResultsPage.value = 1;
       flightSearchData.value = tFlightSearchData;
       Get.toNamed(Approute_flightsSearchResult);
 
@@ -249,6 +252,8 @@ class FlightBookingController extends GetxController {
     if (flightSearchData.value.allowedCabins.isNotEmpty &&
         flightSearchData.value.adults > 0 &&
         !isFlightSearchResponsesLoading.value) {
+      searchResultsPage.value = 1;
+
       if (isNavigationRequired) {
         Get.toNamed(Approute_flightsSearchResult);
       } else {
@@ -293,9 +298,10 @@ class FlightBookingController extends GetxController {
   Future<void> filterSearchResults() async {
     if (!isFlightSearchFilterResponsesLoading.value) {
       isFlightSearchFilterResponsesLoading.value = true;
+      searchResultsPage.value = 1;
 
       FlightFilterBody flightFilterBody = FlightFilterBody(
-        pageId: pageId.value,
+        pageId: 1,
         objectID: objectId.value,
         priceMinMaxDc: selectedPriceDcs.value.isNotEmpty
             ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0].max}"
@@ -710,6 +716,53 @@ class FlightBookingController extends GetxController {
       List<CabinClass> allowedCabinClasses = [];
       allowedCabinClasses.add(cabinClasses.value[0]);
       updatePassengerCountAndCabinClass(1, 0, 0, allowedCabinClasses);
+    }
+  }
+
+  Future<void> getFlightSearchResultsNextPage() async {
+    if (!isFlightSearchPageResponsesLoading.value) {
+      isFlightSearchPageResponsesLoading.value = true;
+      searchResultsPage.value = searchResultsPage.value + 1;
+
+      FlightFilterBody flightFilterBody = FlightFilterBody(
+        pageId: searchResultsPage.value,
+        objectID: objectId.value,
+        priceMinMaxDc: selectedPriceDcs.value.isNotEmpty
+            ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0].max}"
+            : "",
+        arrivalTimeDc: selectedArrivalTimeDcs.value.isNotEmpty
+            ? getFilterValues(selectedArrivalTimeDcs.value)
+            : "",
+        departureTimeDc: selectedDepartureTimeDcs.value.isNotEmpty
+            ? getFilterValues(selectedDepartureTimeDcs.value)
+            : "",
+        airlineDc: selectedAirlineDcs.value.isNotEmpty
+            ? getFilterValues(selectedAirlineDcs.value)
+            : "",
+        stopDc: selectedStopDcs.value.isNotEmpty
+            ? getFilterValues(selectedStopDcs.value)
+            : "",
+        sortingDc: sortingDc.value.value,
+      );
+
+
+      List<FlightSearchResponse> flightSearchResponse =
+          await flightBookingHttpService
+          .getFlightSearchResultsFiltered(flightFilterBody);
+
+      List<FlightSearchResponse> tFlightSearchResponse = [];
+
+      for (var element in flightSearchResponses.value) {
+        tFlightSearchResponse.add(element);
+      }
+
+      for (var element in flightSearchResponse) {
+        tFlightSearchResponse.add(element);
+      }
+
+      flightSearchResponses.value = tFlightSearchResponse;
+
+      isFlightSearchPageResponsesLoading.value = false;
     }
   }
 

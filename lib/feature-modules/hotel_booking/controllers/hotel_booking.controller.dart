@@ -52,6 +52,8 @@ class HotelBookingController extends GetxController {
   var isHotelMoreOptionsResponsesLoading = false.obs;
   var isHotelDetailsLoading = false.obs;
   var isHotelSearchFilterResponsesLoading = false.obs;
+  var isHotelSearchPageResponsesLoading = false.obs;
+
   var isInitialDataLoading = true.obs;
   var hotelBookingHttpService = HotelBookingHttpService();
   var hotelBookingHelperServices = HotelBookingHelperServices();
@@ -71,9 +73,9 @@ class HotelBookingController extends GetxController {
   var bookingRef = "".obs;
   var priceUnit = "KWD".obs;
   var selectedRoomSelectionIndex = 0.obs;
-  var pageId = 1.obs;
-  var hotelId = (-1).obs;
+   var hotelId = (-1).obs;
   var objectId = (-1).obs;
+  var searchResultsPage = 1.obs;
 
   var gatewayUrl = "".obs;
   var confirmationUrl = "".obs;
@@ -229,7 +231,7 @@ class HotelBookingController extends GetxController {
       isHotelSearchFilterResponsesLoading.value = true;
 
       HotelFilterBody hotelFilterBody = HotelFilterBody(
-        pageId: pageId.value,
+        pageId: 1,
         objectID: objectId.value,
         priceMinMaxDc: selectedPriceDcs.value.isNotEmpty
             ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0].max}"
@@ -555,5 +557,47 @@ class HotelBookingController extends GetxController {
 
   void changeSelectedRoomImage(int index) {
     selectedRoomImageIndex.value = index;
+  }
+
+
+  Future<void> getHotelSearchResultsNextPage() async {
+    if (!isHotelSearchPageResponsesLoading.value) {
+      isHotelSearchPageResponsesLoading.value = true;
+      searchResultsPage.value = searchResultsPage.value + 1;
+
+
+      HotelFilterBody hotelFilterBody = HotelFilterBody(
+        pageId: searchResultsPage.value,
+        objectID: objectId.value,
+        priceMinMaxDc: selectedPriceDcs.value.isNotEmpty
+            ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0].max}"
+            : "",
+        locationDcs: selectedlocationDcs.value.isNotEmpty
+            ? getFilterValues(selectedlocationDcs.value)
+            : "",
+        ratingDcs: selectedratingDcs.value.isNotEmpty
+            ? getFilterValues(selectedratingDcs.value)
+            : "",
+        sortingDc: sortingDc.value.value,
+      );
+
+      List<HotelSearchResponse> hotelSearchResponse =
+      await hotelBookingHttpService
+          .getHotelSearchResultsFiltered(hotelFilterBody);
+
+      List<HotelSearchResponse> tHotelSearchResponse = [];
+
+      for (var element in hotelSearchResponses.value) {
+        tHotelSearchResponse.add(element);
+      }
+
+      for (var element in hotelSearchResponse) {
+        tHotelSearchResponse.add(element);
+      }
+
+      hotelSearchResponses.value = tHotelSearchResponse;
+
+      isHotelSearchPageResponsesLoading.value = false;
+    }
   }
 }

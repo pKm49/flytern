@@ -42,6 +42,14 @@ class _AllRecommendedItemsPageState extends State<AllRecommendedItemsPage> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _controller.dispose();
+
+  }
+
+  @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
