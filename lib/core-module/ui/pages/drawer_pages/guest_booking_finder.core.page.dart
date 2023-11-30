@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flytern/core-module/controllers/core.controller.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
@@ -28,7 +29,7 @@ class _GuestBookingPageState extends State<GuestBookingPage> {
 
   TextEditingController bookingIdController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  final flightBookingController = Get.find<FlightBookingController>();
+  final coreController = Get.find<CoreController>();
   final GlobalKey<FormState> smartPaymentFormKey = GlobalKey<FormState>();
 
   var selectedCountry = Country(
@@ -149,16 +150,15 @@ class _GuestBookingPageState extends State<GuestBookingPage> {
                     style: getElevatedButtonStyle(context),
                     onPressed: () {
                       if (smartPaymentFormKey.currentState!.validate() &&
-                          !flightBookingController
-                              .isSmartPaymentCheckLoading.value) {
+                          !coreController
+                              .isBookingFinderLoading.value) {
 
-                        showSnackbar(context, "couldnt_find_booking".tr, "error");
-
+                        coreController.findBooking(bookingIdController.value.text, emailController.value.text);
                       }
 
                     },
                     child:
-                        flightBookingController.isSmartPaymentCheckLoading.value
+                    coreController.isBookingFinderLoading.value
                             ? LoadingAnimationWidget.prograssiveDots(
                                 color: flyternBackgroundWhite,
                                 size: 20,

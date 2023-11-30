@@ -20,6 +20,7 @@ class CoreController extends GetxController {
   var notifications = <Notification>[].obs;
   var isNotificationsLoading = false.obs;
   var isSmartPaymentCheckLoading = false.obs;
+  var isBookingFinderLoading = false.obs;
 
   @override
   void onInit() {
@@ -128,4 +129,34 @@ class CoreController extends GetxController {
     }
   }
 
+  findBooking(String tempBookingRef, String email  ) async {
+    isBookingFinderLoading.value = true;
+    var coreHttpServices = CoreHttpServices();
+
+    ServiceBookingStatus serviceBookingStatus =
+    await coreHttpServices.findBooking(tempBookingRef, email );
+
+    if (serviceBookingStatus.isSuccess) {
+
+      if(serviceBookingStatus.servicetype == ServiceType.FLIGHT.name){
+        final flightBookingController = Get.find<FlightBookingController>();
+        flightBookingController.getConfirmationData(tempBookingRef,true);
+      }else if(serviceBookingStatus.servicetype == ServiceType.HOTEL.name){
+        final hotelBookingController = Get.find<HotelBookingController>();
+        hotelBookingController.getConfirmationData(tempBookingRef,true);
+      }else if(serviceBookingStatus.servicetype == ServiceType.ACTIVITY.name){
+        final activityBookingController = Get.find<ActivityBookingController>();
+        activityBookingController.getConfirmationData(tempBookingRef,true);
+      }else if(serviceBookingStatus.servicetype == ServiceType.INSURANCE.name){
+        final insuranceBookingController = Get.find<InsuranceBookingController>();
+        insuranceBookingController.getConfirmationData(tempBookingRef,true);
+      }
+
+      await Future.delayed(const Duration(seconds: 2));
+      isBookingFinderLoading.value = false;
+    } else {
+      isBookingFinderLoading.value = false;
+      showSnackbar(Get.context!, "couldnt_find_booking".tr, "error");
+    }
+  }
 }

@@ -371,7 +371,7 @@ class ActivityBookingController extends GetxController {
 
     if (isSuccess) {
       showSnackbar(Get.context!, "payment_capture_success".tr, "info");
-      getConfirmationData();
+      getConfirmationData(bookingRef.value,false);
     } else {
       int iter = 0;
       Get.offNamedUntil(Approute_activitiesSummary, (route) {
@@ -385,7 +385,7 @@ class ActivityBookingController extends GetxController {
     isActivityGatewayStatusCheckLoading.value = false;
   }
 
-  Future<void> getConfirmationData() async {
+  Future<void> getConfirmationData(String bookingRef,bool isBookingFinder) async {
     isActivityConfirmationDataLoading.value = true;
     bookingInfo.value = [];
     paymentInfo.value = [];
@@ -393,7 +393,7 @@ class ActivityBookingController extends GetxController {
     pdfLink.value = "";
     isIssued.value = false;
     PaymentConfirmationData paymentConfirmationData =
-        await activityBookingHttpService.getConfirmationData(bookingRef.value);
+        await activityBookingHttpService.getConfirmationData(bookingRef);
 
     print("getConfirmationData");
     print(paymentConfirmationData.isIssued);
@@ -408,25 +408,38 @@ class ActivityBookingController extends GetxController {
       alert.value = paymentConfirmationData.alertMsg;
       activityDetails.value = paymentConfirmationData.activityDetails;
       // confirmationMessage.value = paymentConfirmationData.alertMsg;
-      showSnackbar(Get.context!, "flight_booking_success".tr, "info");
 
-      int iter = 0;
-      Get.offNamedUntil(Approute_activitiesConfirmation, arguments: [
-        {"mode": "view"}
-      ], (route) {
-        print("Get.currentRoute");
-        print(Get.currentRoute);
-        return ++iter == 4;
-      });
+      if(isBookingFinder){
+        Get.toNamed(Approute_activitiesConfirmation, arguments: [
+          {"mode": "edit"}
+        ]);
+      }else{
+        showSnackbar(Get.context!, "flight_booking_success".tr, "info");
+
+        int iter = 0;
+        Get.offNamedUntil(Approute_activitiesConfirmation, arguments: [
+          {"mode": "view"}
+        ], (route) {
+          print("Get.currentRoute");
+          print(Get.currentRoute);
+          return ++iter == 4;
+        });
+      }
+
+
     } else {
-      showSnackbar(Get.context!, "booking_failed".tr, "error");
 
-      int iter = 0;
-      Get.offNamedUntil(Approute_flightsSummary, (route) {
-        print("Get.currentRoute");
-        print(Get.currentRoute);
-        return ++iter == 1;
-      });
+
+      if(!isBookingFinder){
+        showSnackbar(Get.context!, "booking_failed".tr, "error");
+
+        int iter = 0;
+        Get.offNamedUntil(Approute_flightsSummary, (route) {
+          print("Get.currentRoute");
+          print(Get.currentRoute);
+          return ++iter == 1;
+        });
+      }
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
 

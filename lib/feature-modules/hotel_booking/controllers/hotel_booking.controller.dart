@@ -430,7 +430,7 @@ class HotelBookingController extends GetxController {
 
     if (isSuccess) {
       showSnackbar(Get.context!, "payment_capture_success".tr, "info");
-      getConfirmationData();
+      getConfirmationData(bookingRef.value,false);
     } else {
       int iter = 0;
       Get.offNamedUntil(Approute_hotelsSummary, (route) {
@@ -444,7 +444,7 @@ class HotelBookingController extends GetxController {
     isHotelGatewayStatusCheckLoading.value = false;
   }
 
-  Future<void> getConfirmationData() async {
+  Future<void> getConfirmationData(String bookingRef,bool isBookingFinder) async {
     isHotelConfirmationDataLoading.value = true;
     bookingInfo.value = [];
     paymentInfo.value = [];
@@ -452,7 +452,7 @@ class HotelBookingController extends GetxController {
     pdfLink.value = "";
     isIssued.value = false;
     PaymentConfirmationData paymentConfirmationData =
-        await hotelBookingHttpService.getConfirmationData(bookingRef.value);
+        await hotelBookingHttpService.getConfirmationData(bookingRef);
 
     print("getConfirmationData");
     print(paymentConfirmationData.isIssued);
@@ -468,25 +468,35 @@ class HotelBookingController extends GetxController {
       alert.value = paymentConfirmationData.alertMsg;
       hotelDetails.value = paymentConfirmationData.hotelDetails;
       // confirmationMessage.value = paymentConfirmationData.alertMsg;
-      showSnackbar(Get.context!, "hotel_booking_success".tr, "info");
 
-      int iter = 0;
-      Get.offNamedUntil(Approute_hotelsConfirmation, arguments: [
-        {"mode": "view"}
-      ], (route) {
-        print("Get.currentRoute");
-        print(Get.currentRoute);
-        return ++iter == 4;
-      });
+      if(isBookingFinder){
+        Get.toNamed(Approute_hotelsConfirmation, arguments: [
+          {"mode": "edit"}
+        ]);
+      }else{
+        showSnackbar(Get.context!, "hotel_booking_success".tr, "info");
+        int iter = 0;
+        Get.offNamedUntil(Approute_hotelsConfirmation, arguments: [
+          {"mode": "view"}
+        ], (route) {
+          print("Get.currentRoute");
+          print(Get.currentRoute);
+          return ++iter == 4;
+        });
+      }
+
     } else {
-      showSnackbar(Get.context!, "booking_failed".tr, "error");
+      if(!isBookingFinder){
+        showSnackbar(Get.context!, "booking_failed".tr, "error");
 
-      int iter = 0;
-      Get.offNamedUntil(Approute_hotelsSummary, (route) {
-        print("Get.currentRoute");
-        print(Get.currentRoute);
-        return ++iter == 1;
-      });
+        int iter = 0;
+        Get.offNamedUntil(Approute_hotelsSummary, (route) {
+          print("Get.currentRoute");
+          print(Get.currentRoute);
+          return ++iter == 1;
+        });
+      }
+
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
 

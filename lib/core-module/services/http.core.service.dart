@@ -53,6 +53,33 @@ class CoreHttpServices{
     return ServiceBookingStatus(isSuccess: isSuccess, servicetype: servicetype);
   }
 
+  Future<ServiceBookingStatus> findBooking(String bookingRef, String email ) async {
+    FlyternHttpResponse response = await postRequest(
+        CoreBookingHttpRequestEndpointViewBooking,
+        {"bookingRef": bookingRef,
+          "email": email,
+          "mobileNumber": "",
+          "mobileCountryCode": ""});
+
+    bool isSuccess = false;
+    String servicetype = "FLIGHT";
+
+    print("getPaymentGateways");
+    if (response.success && response.statusCode == 200) {
+      if (response.data != null) {
+        if (response.data["isSuccess"] != null) {
+          isSuccess =response.data["isSuccess"];
+        }
+        if (response.data["servicetype"] != null) {
+          servicetype =response.data["servicetype"];
+        }
+      }
+    }
+
+    return ServiceBookingStatus(isSuccess: isSuccess, servicetype: servicetype);
+  }
+
+
   getGuestToken() async {
 
     FlyternHttpResponse response = await getRequest(CoreHttpRequestEndpoint_GetGuestToken,null);

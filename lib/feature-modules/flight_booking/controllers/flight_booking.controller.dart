@@ -10,14 +10,14 @@ import 'package:flytern/feature-modules/flight_booking/models/addons/meal/meal_s
 import 'package:flytern/feature-modules/flight_booking/models/addons/meal/set_meal.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/seat/flight_class.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/extra_package/get_extra_package.flight_booking.model.dart';
- import 'package:flytern/feature-modules/flight_booking/models/addons/seat/get_seat.flight_booking.model.dart';
+import 'package:flytern/feature-modules/flight_booking/models/addons/seat/get_seat.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/meal/meal.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/passenger.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/route.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/seat/seat_column.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/seat/seat_selection.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/seat/set_seat.flight_booking.model.dart';
- import 'package:flytern/feature-modules/flight_booking/models/booking_ref_data.flight_booking.model.dart';
+import 'package:flytern/feature-modules/flight_booking/models/booking_ref_data.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/cabin_class.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/cabin_info.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/explore_data.flight_booking.model.dart';
@@ -50,10 +50,10 @@ import 'package:flytern/shared-module/services/utility-services/toaster_snackbar
 import 'package:get/get.dart';
 
 part 'data_setter.flight_booking.controller.dart';
+
 part 'addons_handler.flight_booking.controller.dart';
 
 class FlightBookingController extends GetxController {
-
   final sharedController = Get.find<SharedController>();
 
   var selectedRouteForSeat = "1".obs;
@@ -64,7 +64,8 @@ class FlightBookingController extends GetxController {
   var selectedPassengerForExtraPackage = "1".obs;
   var flightAddonSetSeatData = getDummyFlightAddonSetSeat({}).obs;
   var flightAddonSetMealData = getDummyFlightAddonSetMeal({}).obs;
-  var flightAddonSetExtraPackageData = getDummyFlightAddonSetExtraPackage({}).obs;
+  var flightAddonSetExtraPackageData =
+      getDummyFlightAddonSetExtraPackage({}).obs;
 
   var isGetSeatsLoading = false.obs;
   var isGetMealsLoading = false.obs;
@@ -133,9 +134,9 @@ class FlightBookingController extends GetxController {
   var confirmationUrl = "".obs;
   var pdfLink = "".obs;
   var isIssued = false.obs;
-  var   bookingInfo = <BookingInfo>[].obs;
-  var   paymentInfo = <BookingInfo>[].obs;
-  var   alert = <String>[].obs;
+  var bookingInfo = <BookingInfo>[].obs;
+  var paymentInfo = <BookingInfo>[].obs;
+  var alert = <String>[].obs;
   var seatTotalAmount = (0.0).obs;
   var mealTotalAmount = (0.0).obs;
   var baggageTotalAmount = (0.0).obs;
@@ -217,14 +218,13 @@ class FlightBookingController extends GetxController {
         objectId.value = flightSearchResponses.value[0].objectId;
         currency.value = flightSearchResponses.value[0].currency;
         startDate.value = tFlightSearchData.searchList[0].departureDate;
-
       }
       sortingDcs.value = flightSearchResult.sortingDcs;
       if (sortingDcs.isNotEmpty) {
         List<SortingDcs> defaultSort =
-        sortingDcs.where((p0) => p0.isDefault).toList();
+            sortingDcs.where((p0) => p0.isDefault).toList();
         sortingDc.value =
-        defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
+            defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
       }
       priceDcs.value = flightSearchResult.priceDcs;
       airlineDcs.value = flightSearchResult.airlineDcs;
@@ -237,8 +237,7 @@ class FlightBookingController extends GetxController {
     } else {
       if (tFlightSearchData.allowedCabins.isEmpty ||
           tFlightSearchData.adults == 0) {
-        showSnackbar(
-            Get.context!, "select_passenger_cabin".tr, "error");
+        showSnackbar(Get.context!, "select_passenger_cabin".tr, "error");
       }
     }
   }
@@ -283,8 +282,7 @@ class FlightBookingController extends GetxController {
     } else {
       if (flightSearchData.value.allowedCabins.isEmpty ||
           flightSearchData.value.adults == 0) {
-        showSnackbar(
-            Get.context!,"select_passenger_cabin".tr, "error");
+        showSnackbar(Get.context!, "select_passenger_cabin".tr, "error");
       }
     }
   }
@@ -381,7 +379,6 @@ class FlightBookingController extends GetxController {
 
       if (tempFlightPretravellerData.countriesList.length > 0) {
         flightPretravellerData.value = tempFlightPretravellerData;
-
       } else {
         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
       }
@@ -415,7 +412,7 @@ class FlightBookingController extends GetxController {
             isExtraBaggageSelection.value == true) {
           Get.toNamed(Approute_flightsAddonServices);
         } else {
-          getPaymentGateways(false,bookingRef.value);
+          getPaymentGateways(false, bookingRef.value);
         }
       } else {
         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
@@ -423,10 +420,9 @@ class FlightBookingController extends GetxController {
     }
   }
 
-
-  Future<void> getPaymentGateways(bool isSmartpayment, String tempBookingRef) async {
-
-    if(isSmartpayment){
+  Future<void> getPaymentGateways(
+      bool isSmartpayment, String tempBookingRef) async {
+    if (isSmartpayment) {
       bookingRef.value = tempBookingRef;
     }
     isFlightTravellerDataSaveLoading.value = true;
@@ -435,7 +431,10 @@ class FlightBookingController extends GetxController {
 
     alert.value = [];
     alert.value = [];
-    if(!isSmartpayment && ( isSeatSelection.value|| isMealSelection.value || isExtraBaggageSelection.value)){
+    if (!isSmartpayment &&
+        (isSeatSelection.value ||
+            isMealSelection.value ||
+            isExtraBaggageSelection.value)) {
       saveAddonsPrice();
     }
     GetGatewayData getGatewayData =
@@ -509,7 +508,7 @@ class FlightBookingController extends GetxController {
 
     if (isSuccess) {
       showSnackbar(Get.context!, "payment_capture_success".tr, "info");
-      getConfirmationData();
+      getConfirmationData(bookingRef.value, false);
     } else {
       int iter = 0;
       Get.offNamedUntil(Approute_flightsSummary, (route) {
@@ -523,7 +522,8 @@ class FlightBookingController extends GetxController {
     isFlightGatewayStatusCheckLoading.value = false;
   }
 
-  Future<void> getConfirmationData() async {
+  Future<void> getConfirmationData(
+      String bookingRef, bool isBookingFinder) async {
     isFlightConfirmationDataLoading.value = true;
     bookingInfo.value = [];
     paymentInfo.value = [];
@@ -532,8 +532,7 @@ class FlightBookingController extends GetxController {
     isIssued.value = false;
 
     PaymentConfirmationData paymentConfirmationData =
-        await flightBookingHttpService.getConfirmationData(bookingRef.value);
-
+        await flightBookingHttpService.getConfirmationData(bookingRef);
 
     if (paymentConfirmationData.isIssued) {
       pdfLink.value = paymentConfirmationData.pdfLink;
@@ -542,25 +541,35 @@ class FlightBookingController extends GetxController {
       paymentInfo.value = paymentConfirmationData.paymentInfo;
       alert.value = paymentConfirmationData.alertMsg;
       flightDetails.value = paymentConfirmationData.flightDetails;
-      showSnackbar(Get.context!, "flight_booking_success".tr, "info");
 
-      int iter = 0;
-      Get.offNamedUntil(Approute_flightsConfirmation, arguments: [
-        {"mode": "view"}
-      ], (route) {
-        print("Get.currentRoute");
-        print(Get.currentRoute);
-        return ++iter == 4;
-      });
+      if (isBookingFinder) {
+        Get.toNamed(Approute_flightsConfirmation, arguments: [
+          {"mode": "edit"}
+        ]);
+      } else {
+        showSnackbar(Get.context!, "flight_booking_success".tr, "info");
+
+        int iter = 0;
+        Get.offNamedUntil(Approute_flightsConfirmation, arguments: [
+          {"mode": "view"}
+        ], (route) {
+          print("Get.currentRoute");
+          print(Get.currentRoute);
+          return ++iter == 4;
+        });
+      }
     } else {
-      showSnackbar(Get.context!, "booking_failed".tr, "error");
+      if (!isBookingFinder) {
+        showSnackbar(Get.context!, "booking_failed".tr, "error");
 
-      int iter = 0;
-      Get.offNamedUntil(Approute_flightsSummary, (route) {
-        print("Get.currentRoute");
-        print(Get.currentRoute);
-        return ++iter == 1;
-      });
+        int iter = 0;
+        Get.offNamedUntil(Approute_flightsSummary, (route) {
+          print("Get.currentRoute");
+          print(Get.currentRoute);
+          return ++iter == 1;
+        });
+      }
+
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
 
@@ -668,7 +677,4 @@ class FlightBookingController extends GetxController {
       updatePassengerCountAndCabinClass(1, 0, 0, allowedCabinClasses);
     }
   }
-
-
-
 }

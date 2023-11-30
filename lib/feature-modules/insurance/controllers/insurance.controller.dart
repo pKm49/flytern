@@ -403,7 +403,7 @@ class InsuranceBookingController extends GetxController {
 
     if (isSuccess) {
       showSnackbar(Get.context!, "payment_capture_success".tr, "info");
-      getConfirmationData();
+      getConfirmationData(bookingRef.value,false);
     } else {
       int iter = 0;
       Get.offNamedUntil(Approute_insuranceSummary, (route) {
@@ -417,7 +417,7 @@ class InsuranceBookingController extends GetxController {
     isInsuranceGatewayStatusCheckLoading.value = false;
   }
 
-  Future<void> getConfirmationData() async {
+  Future<void> getConfirmationData(String bookingRef,bool isBookingFinder) async {
     isInsuranceConfirmationDataLoading.value = true;
     bookingInfo.value = [];
     paymentInfo.value = [];
@@ -425,7 +425,7 @@ class InsuranceBookingController extends GetxController {
     pdfLink.value = "";
     isIssued.value = false;
     PaymentConfirmationData paymentConfirmationData =
-        await insuranceBookingHttpService.getConfirmationData(bookingRef.value);
+        await insuranceBookingHttpService.getConfirmationData(bookingRef);
 
     print("getConfirmationData");
     print(paymentConfirmationData.isIssued);
@@ -441,22 +441,31 @@ class InsuranceBookingController extends GetxController {
       bookingInfo.value = paymentConfirmationData.bookingInfo;
       alert.value = paymentConfirmationData.alertMsg;
       // confirmationMessage.value = paymentConfirmationData.alertMsg;
-      showSnackbar(Get.context!, "insurance_booking_success".tr, "info");
-      int iter = 0;
-      Get.offNamedUntil(Approute_insuranceConfirmation, (route) {
-        print("Get.currentRoute");
-        print(Get.currentRoute);
-        return ++iter == 3;
-      });
-    } else {
-      showSnackbar(Get.context!, "booking_failed".tr, "error");
 
-      int iter = 0;
-      Get.offNamedUntil(Approute_insuranceSummary, (route) {
-        print("Get.currentRoute");
-        print(Get.currentRoute);
-        return ++iter == 1;
-      });
+      if(isBookingFinder){
+        Get.toNamed(Approute_insuranceConfirmation, arguments: [
+          {"mode": "edit"}
+        ]);
+      }else{
+        showSnackbar(Get.context!, "insurance_booking_success".tr, "info");
+        int iter = 0;
+        Get.offNamedUntil(Approute_insuranceConfirmation, (route) {
+          print("Get.currentRoute");
+          print(Get.currentRoute);
+          return ++iter == 3;
+        });
+      }
+    } else {
+      if(!isBookingFinder){
+        showSnackbar(Get.context!, "booking_failed".tr, "error");
+
+        int iter = 0;
+        Get.offNamedUntil(Approute_insuranceSummary, (route) {
+          print("Get.currentRoute");
+          print(Get.currentRoute);
+          return ++iter == 1;
+        });
+      }
 
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
