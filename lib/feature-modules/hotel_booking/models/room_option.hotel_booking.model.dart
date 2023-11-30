@@ -36,20 +36,26 @@ HotelRoomOption mapHotelRoomDetails(dynamic payload) {
   List<HotelRoomOptionCancelPolicy> cancelPolicies = [];
   List<HotelRoomOptionSupplement> supplements = [];
   List<String> imageUrls = [];
-
-  payload["imageURLs"].forEach((element) {
-    imageUrls.add(element);
-  });
-
-  payload["shortdesc"].forEach((element) {
-    shortdesc.add(element);
-  });
-
-  if (payload["cancelPolicies"] != null) {
-    payload["cancelPolicies"].forEach((element) {
-      cancelPolicies.add(mapHotelRoomOptionCancelPolicy(element));
+  if(payload["imageURLs"] !=null){
+    payload["imageURLs"].forEach((element) {
+      imageUrls.add(element);
     });
   }
+
+  if(payload["shortdesc"] !=null) {
+    payload["shortdesc"].forEach((element) {
+      shortdesc.add(element);
+    });
+  }
+
+  if(payload["cancelPolicies"] !=null) {
+    if (payload["cancelPolicies"] != null) {
+      payload["cancelPolicies"].forEach((element) {
+        cancelPolicies.add(mapHotelRoomOptionCancelPolicy(element));
+      });
+    }
+  }
+
 
   if (payload["supplements"] != null) {
       payload["supplements"].forEach((element) {

@@ -67,7 +67,10 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                           child:  InkWell(
                             onTap: () {
                               Get.toNamed(Approute_imageViewer,arguments: [ hotelBookingController
-                                  .hotelDetails.value.imageUrls[hotelBookingController.selectedImageIndex.value]]);
+                                  .hotelDetails.value.imageUrls[hotelBookingController.selectedImageIndex.value],
+                                hotelBookingController
+                                    .hotelDetails.value.imageUrls
+                              ]);
                             },
                             child: Container(
                               width: screenwidth,
@@ -469,7 +472,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                               i++)
                                 InkWell(
                                   onTap: () {
-                                    Get.toNamed(Approute_imageViewer,arguments: [hotelBookingController.getRoomImage(i)]);
+                                    Get.toNamed(Approute_imageViewer,arguments: [hotelBookingController.getRoomImage(i),hotelBookingController.getRoomImages()]);
                                   },
                                   child: Container(
                                       decoration: BoxDecoration(

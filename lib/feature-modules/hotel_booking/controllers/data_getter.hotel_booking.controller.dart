@@ -98,6 +98,19 @@ extension HotelBookingControllerGetter on HotelBookingController {
         .imageURLs[i];
   }
 
+  List<String> getRoomImages( ) {
+    if (selectedRoom.isEmpty) {
+      return [];
+    }
+    if (selectedRoomSelectionIndex.value < 0) {
+      return [];
+    }
+    return  selectedRoomOption
+        .value[selectedRoomSelectionIndex.value]
+        .imageURLs;
+  }
+
+
   num getRoomImagesLength() {
     if (selectedRoom.isEmpty) {
       return 0;
