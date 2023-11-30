@@ -17,6 +17,7 @@ import 'package:flytern/shared-module/ui/components/preposticon_button.shared.co
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CoreSettingsPage extends StatefulWidget {
   const CoreSettingsPage({super.key});
@@ -28,8 +29,7 @@ class CoreSettingsPage extends StatefulWidget {
 class _CoreSettingsPageState extends State<CoreSettingsPage> {
 
   bool isNotificationEnabled = true;
-  final coreController = Get.find<CoreController>();
-  final sharedController = Get.find<SharedController>();
+   final sharedController = Get.find<SharedController>();
 
 
   @override
@@ -78,13 +78,13 @@ class _CoreSettingsPageState extends State<CoreSettingsPage> {
                         children: [
                           Image.network(
                               sharedController
-                                  .selectedCountry.value.flag,
+                                  .selectedMobileCountry.value.flag,
                               width: 30),
                           addHorizontalSpace(flyternSpaceSmall),
                           Expanded(
                             child: Text(
                                 sharedController
-                                    .selectedCountry.value.countryCode,
+                                    .selectedMobileCountry.value.countryCode,
                                 style:
                                 getBodyMediumStyle(context)),
                           ),
@@ -209,7 +209,29 @@ class _CoreSettingsPageState extends State<CoreSettingsPage> {
     // );
   }
 
-  void setUserCountryAndLanguage() {
-
+  Future<void> setUserCountryAndLanguage() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? selectedMobileCountry = prefs.getString('selectedMobileCountry');
+    final String? selectedLanguage = prefs.getString('selectedLanguage');
+    print("selectedMobileCountry");
+    print(selectedMobileCountry);
+    if (selectedMobileCountry != ''  ) {
+      List<Country> tCountriesList = sharedController.mobileCountries
+          .where((element) => selectedMobileCountry == element.countryCode)
+          .toList();
+      print("isNotEmpty");
+      print(tCountriesList.isNotEmpty);
+      if(tCountriesList.isNotEmpty){
+        sharedController.changeMobileCountry(tCountriesList[0]);
+      }
+    }
+    if ( selectedLanguage != '') {
+      List<Language> tLanguageList = sharedController.languages
+          .where((element) => selectedMobileCountry == element.code)
+          .toList();
+      if(tLanguageList.isNotEmpty){
+        sharedController.changeLanguage(tLanguageList[0]);
+      }
+    }
   }
 }

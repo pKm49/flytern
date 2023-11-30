@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/business_specific/available_countries.shared.constant.dart';
 import 'package:flytern/shared-module/constants/business_specific/available_genders.shared.constant.dart';
@@ -37,15 +38,15 @@ class SharedController extends GetxController {
       .obs;
 
   var selectedMobileCountry = Country(
-      isDefault: 1,
-      countryName: "Kuwait",
-      countryCode: "KWT",
-      countryISOCode: "KW",
-      countryName_Ar: "الكويت",
-      flag: "https://flagcdn.com/48x36/kw.png",
-      code: "+965")
+          isDefault: 1,
+          countryName: "Kuwait",
+          countryCode: "KWT",
+          countryISOCode: "KW",
+          countryName_Ar: "الكويت",
+          flag: "https://flagcdn.com/48x36/kw.png",
+          code: "+965")
       .obs;
-   var genders = <Gender>[].obs;
+  var genders = <Gender>[].obs;
   var languages = <Language>[].obs;
   var countries = <Country>[].obs;
   var mobileCountries = <Country>[].obs;
@@ -80,12 +81,12 @@ class SharedController extends GetxController {
 
   changeCountry(Country country) async {
     selectedCountry.value = country;
-    updateCountryListByQuery("",false);
+    updateCountryListByQuery("", false);
   }
 
   changeMobileCountry(Country country) async {
     selectedMobileCountry.value = country;
-    updateCountryListByQuery("",true);
+    updateCountryListByQuery("", true);
   }
 
   updateGenders(List<Gender> newGendersList) {
@@ -96,45 +97,47 @@ class SharedController extends GetxController {
     print("updateCountryListByQuery");
     print(query);
     if (query == "") {
-      if(isMobile){
+      if (isMobile) {
         mobileCountriesToShow.value = mobileCountries.value;
-      }else{
+      } else {
         countriesToShow.value = countries.value;
       }
     } else {
-      List<Country> tempCountries =  [];
+      List<Country> tempCountries = [];
 
-      if(isMobile){
+      if (isMobile) {
         tempCountries = mobileCountries.value
             .where((element) =>
-        element.countryName.toLowerCase().contains(query.toLowerCase()) ||
-            element.countryName_Ar
-                .toLowerCase()
-                .contains(query.toLowerCase()) ||
-            element.code.toLowerCase().contains(query.toLowerCase()) ||
-            element.countryISOCode
-                .toLowerCase()
-                .contains(query.toLowerCase()) ||
-            element.countryCode.toLowerCase().contains(query.toLowerCase()))
+                element.countryName
+                    .toLowerCase()
+                    .contains(query.toLowerCase()) ||
+                element.countryName_Ar
+                    .toLowerCase()
+                    .contains(query.toLowerCase()) ||
+                element.code.toLowerCase().contains(query.toLowerCase()) ||
+                element.countryISOCode
+                    .toLowerCase()
+                    .contains(query.toLowerCase()) ||
+                element.countryCode.toLowerCase().contains(query.toLowerCase()))
             .toList();
         mobileCountriesToShow.value = tempCountries;
-      }else{
+      } else {
         tempCountries = countries.value
             .where((element) =>
-        element.countryName.toLowerCase().contains(query.toLowerCase()) ||
-            element.countryName_Ar
-                .toLowerCase()
-                .contains(query.toLowerCase()) ||
-            element.code.toLowerCase().contains(query.toLowerCase()) ||
-            element.countryISOCode
-                .toLowerCase()
-                .contains(query.toLowerCase()) ||
-            element.countryCode.toLowerCase().contains(query.toLowerCase()))
+                element.countryName
+                    .toLowerCase()
+                    .contains(query.toLowerCase()) ||
+                element.countryName_Ar
+                    .toLowerCase()
+                    .contains(query.toLowerCase()) ||
+                element.code.toLowerCase().contains(query.toLowerCase()) ||
+                element.countryISOCode
+                    .toLowerCase()
+                    .contains(query.toLowerCase()) ||
+                element.countryCode.toLowerCase().contains(query.toLowerCase()))
             .toList();
         countriesToShow.value = tempCountries;
       }
-
-
     }
   }
 
@@ -158,8 +161,10 @@ class SharedController extends GetxController {
     String firebaseToken = await getFirebaseMessagingToken();
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-    await sharedPreferences.setString('selectedLanguage', selectedLanguage.value.code);
-    await sharedPreferences.setString('selectedCountry', selectedCountry.value.countryCode);
+    await sharedPreferences.setString(
+        'selectedLanguage', selectedLanguage.value.code);
+    await sharedPreferences.setString(
+        'selectedMobileCountry', selectedCountry.value.countryCode);
 
     SetDeviceInfoRequestBody setDeviceInfoRequestBody =
         SetDeviceInfoRequestBody(
@@ -176,10 +181,9 @@ class SharedController extends GetxController {
   }
 
   Future<String> getFirebaseMessagingToken() async {
-    // String firebaseMessagingToken = await FirebaseMessaging.instance.getToken()??"";
-    // print('fcm : ' + firebaseMessagingToken);
-    // return firebaseMessagingToken;
-    return "123456896";
+    String firebaseMessagingToken = await FirebaseMessaging.instance.getToken()??"";
+    print('fcm : ' + firebaseMessagingToken);
+    return firebaseMessagingToken;
   }
 
   resendOtp(String userId) async {
@@ -310,7 +314,6 @@ class SharedController extends GetxController {
   }
 
   Future<void> updateMobileCountryList(List<Country> mobileCountryList) async {
-
     print("updateMobileCountryList");
     print(mobileCountryList[0].countryCode);
     print(mobileCountryList[0].countryName);
@@ -319,46 +322,44 @@ class SharedController extends GetxController {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? tSelectedCountry = prefs.getString('selectedMobileCountry');
 
-    if ( tSelectedCountry != ''  ) {
-      List<Country> tCountriesList = mobileCountryList.where((element) =>
-      tSelectedCountry == element.countryCode).toList();
+    if (tSelectedCountry != '') {
+      List<Country> tCountriesList = mobileCountryList
+          .where((element) => tSelectedCountry == element.countryCode)
+          .toList();
 
-      if(tCountriesList.isNotEmpty){
+      if (tCountriesList.isNotEmpty) {
         changeMobileCountry(tCountriesList[0]);
       }
-    }else{
-
-      List<Country> defaultCountry = countries.value.where((element) => element.isDefault==1).toList();
-      if(defaultCountry.isNotEmpty){
+    } else {
+      List<Country> defaultCountry =
+          countries.value.where((element) => element.isDefault == 1).toList();
+      if (defaultCountry.isNotEmpty) {
         changeMobileCountry(defaultCountry[0]);
       }
     }
   }
 
   Future<void> updateCountryList(List<Country> countriesList) async {
-
     countries.value = countriesList;
     countriesToShow.value = countriesList;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-     final String? tSelectedCountry = prefs.getString('selectedCountry');
+    final String? tSelectedCountry = prefs.getString('selectedCountry');
 
-    if ( tSelectedCountry != ''  ) {
-      List<Country> tCountriesList = countriesList.where((element) =>
-      tSelectedCountry == element.countryCode).toList();
+    if (tSelectedCountry != '') {
+      List<Country> tCountriesList = countriesList
+          .where((element) => tSelectedCountry == element.countryCode)
+          .toList();
 
-      if(tCountriesList.isNotEmpty){
+      if (tCountriesList.isNotEmpty) {
         changeCountry(tCountriesList[0]);
       }
-    }else{
-
-      List<Country> defaultCountry = countries.value.where((element) => element.isDefault==1).toList();
-      if(defaultCountry.isNotEmpty){
+    } else {
+      List<Country> defaultCountry =
+          countries.value.where((element) => element.isDefault == 1).toList();
+      if (defaultCountry.isNotEmpty) {
         changeCountry(defaultCountry[0]);
       }
     }
-
-
   }
-
 }

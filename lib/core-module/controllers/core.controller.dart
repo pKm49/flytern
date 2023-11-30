@@ -39,7 +39,7 @@ class CoreController extends GetxController {
     final String? refreshToken = prefs.getString('refreshToken');
     final String? expiryOnString = prefs.getString('expiryOn');
     final String? selectedLanguage = prefs.getString('selectedLanguage');
-    final String? selectedCountry = prefs.getString('selectedCountry');
+    final String? selectedMobileCountry = prefs.getString('selectedMobileCountry');
 
     if (accessToken != null &&
         accessToken != '' &&
@@ -63,13 +63,11 @@ class CoreController extends GetxController {
       if (authToken.accessToken != "") {
         saveAuthTokenToSharedPreference(authToken);
       }
-  print("selectedLanguage & selectedCountry");
-  print(selectedLanguage);
-  print(selectedCountry);
+
       if (selectedLanguage != null &&
           selectedLanguage != '' &&
-          selectedCountry != null &&
-          selectedCountry != '' ){
+          selectedMobileCountry != null &&
+          selectedMobileCountry != '' ){
         Get.offAllNamed(Approute_landingpage);
       }
       isAuthTokenSet.value = true;
