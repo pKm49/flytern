@@ -20,6 +20,31 @@ class _AllPopularDestinationsPageState extends State<AllPopularDestinationsPage>
   final flightBookingController = Get.find<FlightBookingController>();
   final packageBookingController = Get.find<PackageBookingController>();
 
+
+  final ScrollController _controller = ScrollController();
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    if(flightBookingController.popularDestinations.length<6){
+      flightBookingController.getPopularPackages();
+    }
+    // Setup the listener.
+    _controller.addListener(() {
+      if (_controller.position.atEdge) {
+        bool isTop = _controller.position.pixels == 0;
+        if (isTop) {
+          print('At the top');
+        } else {
+          print('At the bottom');
+          flightBookingController.getPopularPackages();
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -30,26 +55,13 @@ class _AllPopularDestinationsPageState extends State<AllPopularDestinationsPage>
         title: Text("popular_destinations".tr),
       ),
       body: Obx(
-          ()=> Stack(
+          ()=> Column(
           children: [
-            Visibility(
-                visible: flightBookingController.isPopularDestinationsLoading.value,
-                child: Container(
+            Expanded(
+                 child: Container(
                   width: screenwidth,
-                  height: screenheight * .9,
-                  color: flyternGrey10,
-                  child: Center(
-                      child: LoadingAnimationWidget.prograssiveDots(
-                    color: flyternSecondaryColor,
-                    size: 50,
-                  )),
-                )),
-            Visibility(
-                visible: !flightBookingController.isPopularDestinationsLoading.value,
-                child: Container(
-                  width: screenwidth,
-                  height: screenheight * .9,
                   child: ListView.builder(
+                    controller: _controller,
                       itemCount:
                           flightBookingController.popularDestinations.length,
                       itemBuilder: (context, i) {
@@ -72,7 +84,18 @@ class _AllPopularDestinationsPageState extends State<AllPopularDestinationsPage>
                           ),
                         );
                       }),
-                ))
+                )),
+            Visibility(
+                visible: flightBookingController.isPopularDestinationsPageLoading.value,
+                child: Container(
+                  width: screenwidth,
+                  color: flyternGrey10,
+                  child: Center(
+                      child: LoadingAnimationWidget.prograssiveDots(
+                        color: flyternSecondaryColor,
+                        size: 50,
+                      )),
+                )),
           ],
         ),
       ),

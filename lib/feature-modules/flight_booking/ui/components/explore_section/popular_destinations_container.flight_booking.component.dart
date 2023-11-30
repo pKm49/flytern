@@ -23,7 +23,7 @@ class PopularDestinationsContainer extends StatelessWidget {
       color: flyternBackgroundWhite,
       child: Wrap(
         children: [
-          for (var i = 0; i < popularDestinations.length; i++)
+          for (var i = 0; i < (popularDestinations.length>5?5:popularDestinations.length); i++)
             Container(
               decoration: BoxDecoration(border:
               i==(popularDestinations.length-1)?null:

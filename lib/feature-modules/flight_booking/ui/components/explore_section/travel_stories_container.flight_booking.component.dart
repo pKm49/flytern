@@ -22,7 +22,7 @@ class TravelStoriesContainer extends StatelessWidget {
       color: flyternBackgroundWhite,
       child: Wrap(
         children: [
-          for (var i = 0; i < travelStories.length; i++)
+          for (var i = 0; i < (travelStories.length>5?5:travelStories.length); i++)
             Container(
               decoration: BoxDecoration(border:
               i==(travelStories.length-1)?null:

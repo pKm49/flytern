@@ -33,7 +33,7 @@ class RecommendedForYouContainer extends StatelessWidget {
         padding: flyternMediumPaddingHorizontal,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-            itemCount: recommendedPackages.length,
+            itemCount: recommendedPackages.length>5?5:recommendedPackages.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
                 margin: EdgeInsets.only(right: flyternSpaceMedium),

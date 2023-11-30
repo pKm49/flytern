@@ -83,8 +83,12 @@ class FlightBookingController extends GetxController {
   var addonExtraPackages = <FlightAddonExtraPackage>[].obs;
 
   var isTravelStoriesLoading = false.obs;
+  var isTravelStoriesPageLoading = false.obs;
   var isRecommendedLoading = false.obs;
+  var isRecommendedPageLoading = false.obs;
   var isPopularDestinationsLoading = false.obs;
+  var isPopularDestinationsPageLoading = false.obs;
+
   var isPassengersSelected = false.obs;
   var travelStoriesPage = 1.obs;
   var popularDestinationsPage = 1.obs;
@@ -577,36 +581,69 @@ class FlightBookingController extends GetxController {
 
   Future<void> getRecommendedForyou() async {
     recommendedPage.value = recommendedPage.value + 1;
-    isRecommendedLoading.value = true;
+    isRecommendedPageLoading.value = true;
 
     List<RecommendedPackage> tRecommendedPackages =
         await flightBookingHttpService.getRecommended(recommendedPage.value);
-    recommendedPackages.value = tRecommendedPackages;
 
-    isRecommendedLoading.value = false;
+    List<RecommendedPackage> tempRecommendedPackages = [];
+
+    for (var element in recommendedPackages.value) {
+      tempRecommendedPackages.add(element);
+    }
+
+    for (var element in tRecommendedPackages) {
+      tempRecommendedPackages.add(element);
+    }
+
+    recommendedPackages.value = tempRecommendedPackages;
+
+    isRecommendedPageLoading.value = false;
   }
 
   Future<void> getTravelStories() async {
     travelStoriesPage.value = travelStoriesPage.value + 1;
-    isTravelStoriesLoading.value = true;
+    isTravelStoriesPageLoading.value = true;
 
     List<TravelStory> tTravelStories = await flightBookingHttpService
         .getTravelStories(travelStoriesPage.value);
+
+    List<TravelStory> tempTravelStories = [];
+
+    for (var element in travelStories.value) {
+      tempTravelStories.add(element);
+    }
+
+    for (var element in tTravelStories) {
+      tempTravelStories.add(element);
+    }
+
     travelStories.value = tTravelStories;
 
-    isTravelStoriesLoading.value = false;
+    isTravelStoriesPageLoading.value = false;
   }
 
   Future<void> getPopularPackages() async {
     popularDestinationsPage.value = popularDestinationsPage.value + 1;
-    isPopularDestinationsLoading.value = true;
+    isPopularDestinationsPageLoading.value = true;
 
     List<PopularDestination> tPopularDestinations =
         await flightBookingHttpService
             .getPopularDestinations(travelStoriesPage.value);
-    popularDestinations.value = tPopularDestinations;
 
-    isPopularDestinationsLoading.value = false;
+    List<PopularDestination> tempPopularDestinations = [];
+
+    for (var element in popularDestinations.value) {
+      tempPopularDestinations.add(element);
+    }
+
+    for (var element in tPopularDestinations) {
+      tempPopularDestinations.add(element);
+    }
+
+    popularDestinations.value = tempPopularDestinations;
+
+    isPopularDestinationsPageLoading.value = false;
   }
 
   void updateProcessId(String? value) {
@@ -675,4 +712,6 @@ class FlightBookingController extends GetxController {
       updatePassengerCountAndCabinClass(1, 0, 0, allowedCabinClasses);
     }
   }
+
+
 }

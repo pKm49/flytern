@@ -18,6 +18,27 @@ class _AllTravellStoriesPageState extends State<AllTravellStoriesPage> {
 
   final flightBookingController = Get.find<FlightBookingController>();
 
+
+  final ScrollController _controller = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Setup the listener.
+    _controller.addListener(() {
+      if (_controller.position.atEdge) {
+        bool isTop = _controller.position.pixels == 0;
+        if (isTop) {
+          print('At the top');
+        } else {
+          print('At the bottom');
+          flightBookingController.getTravelStories();
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -31,26 +52,13 @@ class _AllTravellStoriesPageState extends State<AllTravellStoriesPage> {
       body: Obx(
             ()=> Stack(
           children: [
-            Visibility(
-                visible:
-                flightBookingController.isTravelStoriesLoading.value,
-                child: Container(
-                  width: screenwidth,
-                  height: screenheight * .9,
-                  color: flyternGrey10,
-                  child: Center(
-                      child: LoadingAnimationWidget.prograssiveDots(
-                        color: flyternSecondaryColor,
-                        size: 50,
-                      )),
-                )),
-            Visibility(
-                visible:
-                !flightBookingController.isTravelStoriesLoading.value,
+
+            Expanded(
                 child: Container(
               width: screenwidth,
-                height: screenheight * .9,
               child: ListView.builder(
+                  controller: _controller,
+
                   itemCount: flightBookingController.travelStories.length,
                   itemBuilder: (context,i){
                 return Container(
@@ -69,7 +77,18 @@ class _AllTravellStoriesPageState extends State<AllTravellStoriesPage> {
                   ),
                 );
               }),
-            ))
+            )),
+            Visibility(
+                visible: flightBookingController.isTravelStoriesPageLoading.value,
+                child: Container(
+                  width: screenwidth,
+                  color: flyternGrey10,
+                  child: Center(
+                      child: LoadingAnimationWidget.prograssiveDots(
+                        color: flyternSecondaryColor,
+                        size: 50,
+                      )),
+                )),
           ],
         ),
       ),
