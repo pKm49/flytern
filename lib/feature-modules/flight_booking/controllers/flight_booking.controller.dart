@@ -128,8 +128,8 @@ class FlightBookingController extends GetxController {
   var pageId = 1.obs;
   var objectId = 1.obs;
   var detailId = 1.obs;
-  var processId = "-1".obs;
-  var paymentCode = "".obs;
+  var selectedPaymentGateway = mapPaymentGateway({}).obs;
+
   var gatewayUrl = "".obs;
   var confirmationUrl = "".obs;
   var pdfLink = "".obs;
@@ -140,7 +140,6 @@ class FlightBookingController extends GetxController {
   var seatTotalAmount = (0.0).obs;
   var mealTotalAmount = (0.0).obs;
   var baggageTotalAmount = (0.0).obs;
-  var processingFee = (0.0).obs;
 
   var currentFlightIndex = (-1).obs;
   var sortingDcs = <SortingDcs>[].obs;
@@ -468,7 +467,7 @@ class FlightBookingController extends GetxController {
 
     PaymentGatewayUrlData paymentGatewayUrlData =
         await flightBookingHttpService.setPaymentGateway(
-            processId.value, paymentCode.value, bookingRef.value);
+            selectedPaymentGateway.value.processID, selectedPaymentGateway.value.paymentCode, bookingRef.value);
 
     print("paymentGatewayUrlData");
     print(paymentGatewayUrlData.isOkRedirection);
@@ -617,9 +616,8 @@ class FlightBookingController extends GetxController {
           .toList();
 
       if (tempPaymentGateways.isNotEmpty) {
-        processId.value = value;
-        paymentCode.value = tempPaymentGateways[0].paymentCode;
-        processingFee.value = tempPaymentGateways[0].processingFee;
+        selectedPaymentGateway.value = tempPaymentGateways[0];
+
       }
     }
   }

@@ -80,13 +80,13 @@ class ActivityBookingController extends GetxController {
   var selectedPriceDcs = <RangeDcs>[].obs;
   var sortingDc = SortingDcs(value: "-1", name: "", isDefault: false).obs;
   var paymentGateways = <PaymentGateway>[].obs;
-  var processId = "-1".obs;
-  var paymentCode = "".obs;
+  var selectedGateway = mapPaymentGateway({}).obs;
+
+
   var gatewayUrl = "".obs;
   var confirmationUrl = "".obs;
   var confirmationMessage = "".obs;
   var pdfLink = "".obs;
-  var processingFee = (0.0).obs;
   var isIssued = false.obs;
   var bookingInfo = <BookingInfo>[].obs;
   var paymentInfo = <BookingInfo>[].obs;
@@ -318,9 +318,8 @@ class ActivityBookingController extends GetxController {
           .toList();
 
       if (tempPaymentGateways.isNotEmpty) {
-        processId.value = value;
-        paymentCode.value = tempPaymentGateways[0].paymentCode;
-        processingFee.value = tempPaymentGateways[0].processingFee;
+        selectedGateway.value = tempPaymentGateways[0];
+
       }
     }
   }
@@ -330,7 +329,7 @@ class ActivityBookingController extends GetxController {
 
     PaymentGatewayUrlData paymentGatewayUrlData =
         await activityBookingHttpService.setPaymentGateway(
-            processId.value, paymentCode.value, bookingRef.value);
+            selectedGateway.value.processID, selectedGateway.value.paymentCode, bookingRef.value);
 
     print("paymentGatewayUrlData");
     print(paymentGatewayUrlData.isOkRedirection);
@@ -398,6 +397,8 @@ class ActivityBookingController extends GetxController {
     print(paymentConfirmationData.isIssued);
     print(paymentConfirmationData.pdfLink);
     print(paymentConfirmationData.alertMsg);
+    print(paymentConfirmationData.paymentInfo);
+    print(paymentConfirmationData.bookingInfo);
 
     if (paymentConfirmationData.isIssued) {
       pdfLink.value = paymentConfirmationData.pdfLink;
@@ -413,7 +414,7 @@ class ActivityBookingController extends GetxController {
           {"mode": "edit"}
         ]);
       }else{
-        showSnackbar(Get.context!, "flight_booking_success".tr, "info");
+        showSnackbar(Get.context!, "activity_booking_success".tr, "info");
 
         int iter = 0;
         Get.offNamedUntil(Approute_activitiesConfirmation, arguments: [

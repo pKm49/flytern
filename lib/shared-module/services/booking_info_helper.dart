@@ -14,6 +14,7 @@ String getPaymentTitle(List<BookingInfo> paymentInfo,String title ) {
 }
 
 String getPaymentInfo(List<BookingInfo> paymentInfo,String title ) {
+
   List<BookingInfo> tBookingInfo = paymentInfo.where((element)
   => element.groupName==title).toList();
   if(tBookingInfo.isNotEmpty){

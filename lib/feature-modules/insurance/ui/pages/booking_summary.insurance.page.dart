@@ -228,7 +228,7 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
                                 value: insuranceBookingController
                                     .paymentGateways.value[i].processID,
                                 groupValue:
-                                insuranceBookingController.processId.value,
+                                insuranceBookingController.selectedPaymentGateway.value.processID,
                                 onChanged: (value) {
                                   insuranceBookingController.updateProcessId(value);
                                 },

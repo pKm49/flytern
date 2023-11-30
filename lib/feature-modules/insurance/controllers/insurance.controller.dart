@@ -57,9 +57,6 @@ class InsuranceBookingController extends GetxController {
   var policyDate = DefaultInvalidDate.obs;
   var selectedTravelInfo = <InsuranceTravellerInfo>[].obs;
 
-  var processId = "-1".obs;
-  var paymentCode = "".obs;
-  var processingFee = (0.0).obs;
 
   Rx<TextEditingController> policyDateController = TextEditingController().obs;
   var paymentGateways = <PaymentGateway>[].obs;
@@ -369,7 +366,7 @@ class InsuranceBookingController extends GetxController {
 
     PaymentGatewayUrlData paymentGatewayUrlData =
         await insuranceBookingHttpService.setPaymentGateway(
-            processId.value, paymentCode.value, bookingRef.value);
+            selectedPaymentGateway.value.processID, selectedPaymentGateway.value.paymentCode, bookingRef.value);
 
     print("paymentGatewayUrlData");
     print(paymentGatewayUrlData.isOkRedirection);
@@ -490,9 +487,6 @@ class InsuranceBookingController extends GetxController {
       if (tempPaymentGateways.isNotEmpty) {
         selectedPaymentGateway.value = tempPaymentGateways[0];
 
-        processId.value = value;
-        paymentCode.value = tempPaymentGateways[0].paymentCode;
-        processingFee.value = tempPaymentGateways[0].processingFee;
       }
     }
   }

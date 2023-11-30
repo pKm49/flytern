@@ -229,7 +229,7 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                                 value: hotelBookingController
                                     .paymentGateways.value[i].processID,
                                 groupValue:
-                                hotelBookingController.processId.value,
+                                hotelBookingController. selectedPaymentGateway.value.processID,
                                 onChanged: (value) {
                                   hotelBookingController.updateProcessId(value);
                                 },
@@ -249,7 +249,8 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                                 style: getBodyMediumStyle(context)
                                     .copyWith(color: flyternGrey60)),
                             Text(
-                                "${hotelBookingController.hotelDetails.value.priceUnit} ${hotelBookingController.processingFee.value}",
+                                "${ hotelBookingController. selectedPaymentGateway.value.currencyCode}"
+                                    " ${ hotelBookingController. selectedPaymentGateway.value.processingFee}",
                                 style: getBodyMediumStyle(context)
                                     .copyWith(color: flyternGrey80)),
                           ],
@@ -272,8 +273,8 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                                 style: getBodyMediumStyle(context)
                                     .copyWith(color: flyternGrey60)),
                             Text(
-                                "${hotelBookingController.hotelDetails.value.priceUnit}"
-                                    " ${getGrandTotal()}",
+                                "${ hotelBookingController. selectedPaymentGateway.value.currencyCode}"
+                                    " ${ hotelBookingController. selectedPaymentGateway.value.finalAmount}",
                                 style: getBodyMediumStyle(context).copyWith(
                                     color: flyternGrey80,
                                     fontWeight: flyternFontWeightBold)),
@@ -329,8 +330,8 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                         children: [
                           Expanded(
                             child: Text(
-                              "${hotelBookingController.hotelDetails.value.priceUnit} "
-                                  "${getGrandTotal()}",
+                              "${ hotelBookingController. selectedPaymentGateway.value.currencyCode}"
+                                  " ${ hotelBookingController. selectedPaymentGateway.value.finalAmount}",
                             ),
                           ),
                           Visibility(
@@ -369,21 +370,5 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
     );
   }
 
-  getGrandTotal() {
-    double grandTotal = 0;
-    hotelBookingController.selectedRoomOption.value.forEach((element) {
-      grandTotal += element.totalPrice;
-    });
-    grandTotal +=hotelBookingController.selectedPaymentGateway.value.processingFee;
-    grandTotal -=hotelBookingController.selectedPaymentGateway.value.discount;
-    return grandTotal;
-  }
 
-  getBaseTotal() {
-    double grandTotal = 0;
-    hotelBookingController.selectedRoomOption.value.forEach((element) {
-      grandTotal += element.totalPrice;
-    });
-    return grandTotal;
-  }
 }

@@ -224,7 +224,7 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                                 value: flightBookingController
                                     .paymentGateways.value[i].processID,
                                 groupValue:
-                                    flightBookingController.processId.value,
+                                    flightBookingController.selectedPaymentGateway.value.processID,
                                 onChanged: (value) {
                                   flightBookingController.updateProcessId(value);
                                 },
@@ -234,7 +234,7 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                         ),
                       Visibility(
                         visible:
-                        flightBookingController.processingFee.value != 0.0,
+                        flightBookingController.selectedPaymentGateway.value.processingFee != 0.0,
                         child: Container(
                           padding: flyternLargePaddingHorizontal.copyWith(
                               top: flyternSpaceSmall, bottom: flyternSpaceSmall),
@@ -246,7 +246,8 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                                   style: getBodyMediumStyle(context)
                                       .copyWith(color: flyternGrey60)),
                               Text(
-                                  "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.processingFee.value}",
+                                  "${flightBookingController.selectedPaymentGateway.value.currencyCode} "
+                                      "${flightBookingController.selectedPaymentGateway.value.processingFee}",
                                   style: getBodyMediumStyle(context)
                                       .copyWith(color: flyternGrey80)),
                             ],
@@ -275,8 +276,8 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                                   style: getBodyMediumStyle(context)
                                       .copyWith(color: flyternGrey60)),
                               Text(
-                                  "${flightBookingController.cabinInfo.value.currency}"
-                                      " ${(flightBookingController.cabinInfo.value.finalAmount + flightBookingController.seatTotalAmount.value + flightBookingController.mealTotalAmount.value + flightBookingController.baggageTotalAmount.value + flightBookingController.processingFee.value)}",
+                                  "${flightBookingController.selectedPaymentGateway.value.currencyCode}"
+                                      " ${flightBookingController.selectedPaymentGateway.value.finalAmount}",
                                   style: getBodyMediumStyle(context).copyWith(
                                       color: flyternGrey80,
                                       fontWeight: flyternFontWeightBold)),
@@ -343,9 +344,8 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                             children: [
                               Expanded(
                                 child: Text(
-                                  "${flightBookingController.cabinInfo.value.currency}"
-                                  " ${(flightBookingController.cabinInfo.value.finalAmount + flightBookingController.seatTotalAmount.value + flightBookingController.mealTotalAmount.value + flightBookingController.baggageTotalAmount.value + flightBookingController.processingFee.value)}",
-                                ),
+                                  "${flightBookingController.selectedPaymentGateway.value.currencyCode}"
+                                      " ${flightBookingController.selectedPaymentGateway.value.finalAmount}", ),
                               ),
                               Visibility(
                                   visible: !flightBookingController

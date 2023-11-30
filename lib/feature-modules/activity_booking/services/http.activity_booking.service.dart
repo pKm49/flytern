@@ -292,14 +292,14 @@ class ActivityBookingHttpService {
           });
         }
 
-        // if (response.data["_flightservice"] != null) {
-        //   if (response.data["_flightservice"]["_flightDetail"] != null) {
-        //     flightDetails = mapFlightDetails(
-        //         response.data["_flightservice"]["_flightDetail"]);
-        //     print("flightDetails");
-        //     print(flightDetails.objectId);
-        //   }
-        // }
+        if (response.data["_activityservice"] != null) {
+          if (response.data["_activityservice"]["_eventdetails"] != null) {
+            activityDetails = mapActivityDetails(
+                response.data["_activityservice"]["_eventdetails"],
+                response.data["_activityservice"]["_eventimages"]??[]
+            );
+          }
+        }
         if (response.data["alertMsg"]!=null) {
           response.data["alertMsg"].forEach((element) {
             alertMsg.add(element);

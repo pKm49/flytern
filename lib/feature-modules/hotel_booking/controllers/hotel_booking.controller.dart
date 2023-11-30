@@ -74,8 +74,7 @@ class HotelBookingController extends GetxController {
   var pageId = 1.obs;
   var hotelId = (-1).obs;
   var objectId = (-1).obs;
-  var processId = "-1".obs;
-  var paymentCode = "".obs;
+
   var gatewayUrl = "".obs;
   var confirmationUrl = "".obs;
   var confirmationMessage = "".obs;
@@ -88,7 +87,6 @@ class HotelBookingController extends GetxController {
   var selectedImageIndex = (-1).obs;
   var selectedRoomImageIndex = (-1).obs;
 
-  var processingFee = (0.0).obs;
 
   var sortingDcs = <SortingDcs>[].obs;
   var ratingDcs = <SortingDcs>[].obs;
@@ -390,7 +388,7 @@ class HotelBookingController extends GetxController {
 
     PaymentGatewayUrlData paymentGatewayUrlData =
         await hotelBookingHttpService.setPaymentGateway(
-            processId.value, paymentCode.value, bookingRef.value);
+            selectedPaymentGateway.value.processID, selectedPaymentGateway.value.paymentCode, bookingRef.value);
 
     print("paymentGatewayUrlData");
     print(paymentGatewayUrlData.isOkRedirection);
@@ -511,9 +509,7 @@ class HotelBookingController extends GetxController {
 
       if (tempPaymentGateways.isNotEmpty) {
         selectedPaymentGateway.value = tempPaymentGateways[0];
-        processId.value = value;
-        paymentCode.value = tempPaymentGateways[0].paymentCode;
-        processingFee.value = tempPaymentGateways[0].processingFee;
+
       }
     }
   }

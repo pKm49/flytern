@@ -30,7 +30,7 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
 
   final ExpansionTileController controller = ExpansionTileController();
   final ExpansionTileController controller2 = ExpansionTileController();
-  final activityBookingController = Get.put(ActivityBookingController());
+  final activityBookingController = Get.find<ActivityBookingController>();
 
   int selectedPaymentMethod = 1;
 
@@ -235,7 +235,7 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
                                 value: activityBookingController
                                     .paymentGateways.value[i].processID,
                                 groupValue:
-                                activityBookingController.processId.value,
+                                activityBookingController.selectedGateway.value.processID,
                                 onChanged: (value) {
                                   activityBookingController.updateProcessId(value);
                                 },
@@ -244,7 +244,7 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
                           ),
                         ),
                       Visibility(
-                        visible: activityBookingController.processingFee.value  != 0.0,
+                        visible: activityBookingController.selectedGateway.value.processingFee  != 0.0,
                         child: Container(
                           padding: flyternLargePaddingHorizontal.copyWith(
                               top: flyternSpaceSmall, bottom: flyternSpaceSmall),
@@ -256,7 +256,8 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
                                   style: getBodyMediumStyle(context)
                                       .copyWith(color: flyternGrey60)),
                               Text(
-                                  "${activityBookingController.selectedActivityTransferType.value.currency} ${activityBookingController.processingFee.value}",
+                                  "${activityBookingController.selectedGateway.value.currencyCode} "
+                                      "${activityBookingController.selectedGateway.value.processingFee}",
                                   style: getBodyMediumStyle(context)
                                       .copyWith(color: flyternGrey80)),
                             ],
@@ -264,14 +265,13 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
                         ),
                       ),
                       Visibility(
-                        visible: activityBookingController.selectedActivityTransferType.value.tourId != "",
-                        child: Container(
+                        visible: activityBookingController.selectedGateway.value.finalAmount != 0.0,                        child: Container(
                             padding: flyternLargePaddingHorizontal,
                             color: flyternBackgroundWhite,
                             child: Divider()),
                       ),
                       Visibility(
-                        visible: activityBookingController.selectedActivityTransferType.value.tourId != "",
+                        visible: activityBookingController.selectedGateway.value.finalAmount != 0.0,
                         child: Container(
                           padding: flyternLargePaddingHorizontal.copyWith(
                               top: flyternSpaceSmall, bottom: flyternSpaceLarge),
@@ -283,9 +283,8 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
                                   style: getBodyMediumStyle(context)
                                       .copyWith(color: flyternGrey60)),
                               Text(
-                                  "${activityBookingController.selectedActivityTransferType.value.currency}"
-                                      " ${(double.parse(activityBookingController.selectedActivityTransferType.value.finalAmount) +
-                                      activityBookingController.processingFee.value)}",
+                                  "${activityBookingController.selectedGateway.value.currencyCode}"
+                                      " ${activityBookingController.selectedGateway.value.finalAmount}",
                                   style: getBodyMediumStyle(context).copyWith(
                                       color: flyternGrey80,
                                       fontWeight: flyternFontWeightBold)),
@@ -393,9 +392,8 @@ class _ActivityBookingSummaryPageState extends State<ActivityBookingSummaryPage>
                         children: [
                           Expanded(
                             child: Text(
-                                "${activityBookingController.selectedActivityTransferType.value.currency}"
-                                    " ${(double.parse(activityBookingController.selectedActivityTransferType.value.finalAmount) +
-                                    activityBookingController.processingFee.value)}"
+                              "${activityBookingController.selectedGateway.value.currencyCode}"
+                                  " ${activityBookingController.selectedGateway.value.finalAmount}",
                             ),
                           ),
                           Visibility(

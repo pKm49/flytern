@@ -71,6 +71,15 @@ PaymentConfirmationData mapPaymentpdfLinkData(dynamic payload) {
     });
   }
 
+  if (payload["_activityservice"] != null) {
+    if (payload["_activityservice"]["_eventdetails"] != null) {
+      activityDetails = mapActivityDetails(
+          payload["_activityservice"]["_eventdetails"],
+          payload["_activityservice"]["_eventimages"]??[]
+      );
+    }
+  }
+
   return PaymentConfirmationData(
       hotelDetails:hotelDetails,
       paymentInfo:paymentInfo,
