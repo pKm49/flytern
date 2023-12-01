@@ -81,13 +81,23 @@ class _ProfileAuditCopassengerPageState
                               key: titleDropDownKey,
                               titleText: "title".tr,
                               selected: coPaxController.title.value,
-                              items: [
-                                GeneralItem(imageUrl: "", id: "1", name: "Mr"),
-                                GeneralItem(imageUrl: "", id: "2", name: "Mrs")
+                              items: [ for (var i = 0;
+                              i < sharedController.titleList.length;
+                              i++)
+                                GeneralItem(
+                                    imageUrl: "",
+                                    id: sharedController.titleList[i].code,
+                                    name: sharedController.titleList[i].name),
                               ],
                               hintText: "title".tr,
                               valueChanged: (newGender) {
-                               coPaxController.changeTitle(newGender);
+                                List<Gender> titles = sharedController.titleList
+                                    .where((e) => e.code == newGender)
+                                    .toList();
+                                if (titles.isNotEmpty) {
+                                  coPaxController.changeTitle(titles[0]);
+                                }
+
                               },
                             ),
                           ),
@@ -154,13 +164,13 @@ class _ProfileAuditCopassengerPageState
                                   i++)
                                 GeneralItem(
                                     imageUrl: "",
-                                    id: sharedController.genders[i].name,
-                                    name: sharedController.genders[i].code)
+                                    id: sharedController.genders[i].code,
+                                    name: sharedController.genders[i].name)
                             ],
                             hintText: "gender".tr,
                             valueChanged: (newGender) {
                               List<Gender> genders = sharedController.genders
-                                  .where((e) => e.name == newGender)
+                                  .where((e) => e.code == newGender)
                                   .toList();
                               if (genders.isNotEmpty) {
                                 coPaxController.changeGender(genders[0]);

@@ -46,8 +46,8 @@ class _InsuranceUserDetailsSubmissionFormState
   TextEditingController dobController = TextEditingController();
   TextEditingController nationalityController = TextEditingController();
 
-  Gender selectedTitle  = Gender(code: "", name: "", isDefault: false);
-  Gender selectedGender  = Gender(code: "", name: "", isDefault: false);
+  Gender selectedTitle  = Gender(code: "0", name: "Title", isDefault: false);
+  Gender selectedGender  = Gender(code: "0", name: "Gender", isDefault: false);
   String selectedPassenger = "0";
   String gender = "0";
   String title = "0";
@@ -395,7 +395,7 @@ class _InsuranceUserDetailsSubmissionFormState
           : "0";
       selectedGender = sharedController.genderList.isNotEmpty
           ? sharedController.genderList[0]
-          : Gender(code: "Gender", name: "0", isDefault: false);
+          : Gender(code: "0", name: "Gender", isDefault: false);
 
       firstNameController.text = "";
       lastNameController.text = "";
@@ -404,7 +404,7 @@ class _InsuranceUserDetailsSubmissionFormState
           : "0";
       selectedTitle = sharedController.titleList.isNotEmpty
           ? sharedController.titleList[0]
-          : Gender(code: "Title", name: "0", isDefault: false);
+          : Gender(code: "0", name: "Title", isDefault: false);
 
 
       setState(() {});

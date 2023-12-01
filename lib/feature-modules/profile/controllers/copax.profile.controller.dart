@@ -5,6 +5,7 @@ import 'package:flytern/feature-modules/profile/models/user-copax.profile.model.
 import 'package:flytern/feature-modules/profile/services/http.profile.service.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
+import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/models/country.dart';
 import 'package:flytern/shared-module/models/gender.dart';
 import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
@@ -38,6 +39,7 @@ class CoPaxController extends GetxController {
   var isSubmitting = false.obs;
   var isCopaxDataLoading = true.obs;
   var userCopaxes = <UserCoPax>[].obs;
+  final sharedController = Get.find<SharedController>();
 
   @override
   void onInit() {
@@ -74,7 +76,7 @@ class CoPaxController extends GetxController {
 
   initializeAuditData(bool mode) {
     isCreation.value = mode;
-    gender.value = "Male";
+    gender.value = "0";
     nationalityController.value.text = "";
     passportCountryController.value.text = "";
     passportExpiryController.value.text = "";
@@ -91,6 +93,7 @@ class CoPaxController extends GetxController {
 
   void changeGender(Gender newGender) {
     gender.value = newGender.code;
+
   }
 
   void changeNationality(Country country) {
@@ -121,8 +124,7 @@ class CoPaxController extends GetxController {
     isSubmitting.value = true;
     try {
       UserCoPax coPax = UserCoPax(
-          title: selectedTitle.value.name,
-
+          title: title.value,
           id: 0,
           gender: gender.value,
           firstName: firsNameController.value.text,
@@ -162,7 +164,7 @@ class CoPaxController extends GetxController {
     isSubmitting.value = true;
     try {
       UserCoPax coPax = UserCoPax(
-        title: selectedTitle.value.name,
+          title: title.value,
           id: editCoPaxId.value,
           gender: gender.value,
           firstName: firsNameController.value.text,
@@ -221,18 +223,21 @@ class CoPaxController extends GetxController {
   }
 
   void updateEditForm(UserCoPax userCopax) {
-    if (userCopax.title == "Mr") {
-      title.value = "1";
-      selectedTitle.value = Gender(
-          code: "1", name: "Mr", isDefault: false);
-    } else {
-      title.value = "2";
-      selectedTitle.value = Gender(
-          code: "2", name: "Mrs", isDefault: false);
+
+    print("updateEditForm");
+    print(sharedController.genders.length);
+    print(gender.value);
+    print(userCopax.gender);
+    List<Gender> genders = sharedController.titleList
+        .where((e) => e.code == userCopax.title)
+        .toList();
+    if (genders.isNotEmpty) {
+      selectedTitle.value = genders[0];
     }
+    title.value = userCopax.title;
     editCoPaxId.value = userCopax.id;
     isCreation.value = false;
-    gender.value =userCopax.gender;
+    gender.value = userCopax.gender;
     nationalityController.value.text =userCopax.nationalityName;
     passportCountryController.value.text = userCopax.passportIssuedCountryName;
     passportExpiryController.value.text = getFormattedDate(userCopax.passportExp);
@@ -254,14 +259,9 @@ class CoPaxController extends GetxController {
     return f.format(dateTime);
   }
 
-  void changeTitle(String newGender) {
-    title.value = newGender;
-    if (newGender == "1") {
-      selectedTitle.value = Gender(
-          code: "1", name: "Mr", isDefault: false);
-    } else {
-      selectedTitle.value = Gender(
-          code: "2", name: "Mrs", isDefault: false);
-    }
+  void changeTitle(Gender newGender) {
+    title.value = newGender.code;
+    selectedTitle.value = newGender;
+
   }
 }

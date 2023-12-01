@@ -56,7 +56,7 @@ class _FlightUserDetailsSubmissionFormState
 
   Gender selectedTitle = Gender(code: "0", name: "Title", isDefault: false);
 
-  Gender selectedGender = Gender(code: "Gender", name: "0", isDefault: false);
+  Gender selectedGender = Gender(code: "0", name: "Gender", isDefault: false);
   String selectedPassenger = "0";
   String gender = "0";
   String title = "0";
@@ -168,8 +168,8 @@ class _FlightUserDetailsSubmissionFormState
                         i++)
                           GeneralItem(
                               imageUrl: "",
-                              id: sharedController.titleList[i].name,
-                              name: sharedController.titleList[i].code),
+                              id: sharedController.titleList[i].code,
+                              name: sharedController.titleList[i].name),
                         ],
                         hintText: "title".tr,
                         valueChanged: (newGender) {
@@ -246,14 +246,14 @@ class _FlightUserDetailsSubmissionFormState
                           GeneralItem(
                               imageUrl: "",
                               id: sharedController.genderList.value[i]
-                                  .name,
+                                  .code,
                               name: sharedController.genderList.value[i]
-                                  .code)
+                                  . name)
                       ],
                       hintText: "gender".tr,
                       valueChanged: (newGender) {
                         List<Gender> genders = sharedController.genderList.value
-                            .where((e) => e.name == newGender)
+                            .where((e) => e.code == newGender)
                             .toList();
                         if (genders.isNotEmpty) {
                           changeGender(genders[0]);
@@ -537,7 +537,7 @@ class _FlightUserDetailsSubmissionFormState
           : "0";
       selectedGender = sharedController.genderList.isNotEmpty
           ? sharedController.genderList[0]
-          : Gender(code: "Gender", name: "0", isDefault: false);
+          : Gender(code: "0", name: "Gender", isDefault: false);
 
       frequentFlyerNoController.text = "";
       passportNumberController.text = "";
@@ -552,7 +552,7 @@ class _FlightUserDetailsSubmissionFormState
           : "0";
       selectedTitle = sharedController.titleList.isNotEmpty
           ? sharedController.titleList[0]
-          : Gender(code: "Title", name: "0", isDefault: false);
+          : Gender(code: "0", name: "Title", isDefault: false);
 
       passportIssuedCountryController.text = "";
       passportIssuedCountryCode = Country(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/details_itinerary_card.flight_booking.component.dart';
 import 'package:flytern/shared-module/services/booking_info_helper.dart';
@@ -68,10 +69,15 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                           i < flightBookingController.alert.length;
                           i++)
                         Container(
-                          padding: flyternLargePaddingAll.copyWith(bottom: 0),
-                          child: DataCapsuleCard(
-                            label: flightBookingController.alert[i],
-                            theme: 1,
+                          padding: flyternMediumPaddingAll,
+                          margin: flyternLargePaddingAll.copyWith(bottom: flyternSpaceMedium),
+                          decoration: BoxDecoration(
+                            color: flyternPrimaryColorBg,
+                            borderRadius: BorderRadius.circular(
+                                flyternBorderRadiusExtraSmall),
+                          ),
+                          child: Html(
+                            data: flightBookingController.alert[i],
                           ),
                         ),
 

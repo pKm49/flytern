@@ -76,7 +76,23 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                 visible: !flightBookingController.isFlightDetailsLoading.value,
                 child: ListView(
                   children: [
-
+                    Visibility(
+                      visible:flightBookingController.flightDetails.value.alertMsg!="" &&
+                flightBookingController
+                    .flightDetails.value.cabinInfos.isEmpty,
+                      child: Container(
+                        padding: flyternMediumPaddingAll,
+                        margin: flyternLargePaddingAll.copyWith(bottom: flyternSpaceMedium),
+                        decoration: BoxDecoration(
+                          color: flyternPrimaryColorBg,
+                          borderRadius: BorderRadius.circular(
+                              flyternBorderRadiusExtraSmall),
+                        ),
+                        child: Html(
+                          data: flightBookingController.flightDetails.value.alertMsg,
+                        ),
+                      ),
+                    ),
                       Visibility(
                         visible:flightBookingController.flightDetails.value.priceChanged,
                         child: Container(
@@ -109,12 +125,16 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                     ),
 
 
-                    Padding(
-                      padding: flyternLargePaddingAll,
-                      child: Text("itinerary".tr,
-                          style: getBodyMediumStyle(context).copyWith(
-                              color: flyternGrey80,
-                              fontWeight: flyternFontWeightBold)),
+                    Visibility(
+                      visible: flightBookingController
+                          .flightDetails.value.flightSegments.isNotEmpty,
+                      child: Padding(
+                        padding: flyternLargePaddingAll,
+                        child: Text("itinerary".tr,
+                            style: getBodyMediumStyle(context).copyWith(
+                                color: flyternGrey80,
+                                fontWeight: flyternFontWeightBold)),
+                      ),
                     ),
 
                     for (var i = 0;
@@ -161,59 +181,67 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                       ),
                     ),
 
-                    Padding(
-                      padding: flyternLargePaddingAll,
-                      child: Text("cabin_class".tr,
-                          style: getBodyMediumStyle(context).copyWith(
-                              color: flyternGrey80,
-                              fontWeight: flyternFontWeightBold)),
+                    Visibility(
+                      visible: flightBookingController
+                          .flightDetails.value.cabinInfos.isNotEmpty,
+                      child: Padding(
+                        padding: flyternLargePaddingAll,
+                        child: Text("cabin_class".tr,
+                            style: getBodyMediumStyle(context).copyWith(
+                                color: flyternGrey80,
+                                fontWeight: flyternFontWeightBold)),
+                      ),
                     ),
 
-                    Container(
-                      padding: flyternLargePaddingHorizontal,
-                      decoration: BoxDecoration(color: flyternBackgroundWhite),
+                    Visibility(
+                      visible: flightBookingController
+                          .flightDetails.value.cabinInfos.isNotEmpty,
                       child: Container(
-                        width: screenwidth - flyternSpaceMedium * 2,
-                        padding: flyternMediumPaddingHorizontal,
-                        margin: flyternLargePaddingVertical,
-                        decoration: BoxDecoration(
-                          color: flyternBackgroundWhite,
-                          border: flyternDefaultBorderAll,
-                          borderRadius: BorderRadius.circular(
-                              flyternBorderRadiusExtraSmall),
-                        ),
-                        child: DropDownSelector(
-                          titleText: "select_cabin_class".tr,
-                          selected:
-                              flightBookingController.cabinInfo.value.id != "-1"
-                                  ? flightBookingController.cabinInfo.value.id
-                                  : null,
-                          items: [
-                            for (var ind = 0;
-                                ind <
-                                    flightBookingController
-                                        .flightDetails.value.cabinInfos.length;
-                                ind++)
-                              GeneralItem(
-                                  id: flightBookingController
-                                      .flightDetails.value.cabinInfos[ind].id,
-                                  name: flightBookingController.flightDetails
-                                      .value.cabinInfos[ind].cabinClass,
-                                  imageUrl: ""),
-                          ],
-                          hintText: "select_cabin_class".tr,
-                          valueChanged: (newZone) {
-                            List<CabinInfo> selectedCabinInfo =
-                                flightBookingController
-                                    .flightDetails.value.cabinInfos
-                                    .where((element) => element.id == newZone)
-                                    .toList();
-                            if (selectedCabinInfo.isNotEmpty) {
-                              print("selectedCabinInfo.isNotEmpty");
-                              flightBookingController.changeSelectedCabinClass(
-                                  selectedCabinInfo[0]);
-                            }
-                          },
+                        padding: flyternLargePaddingHorizontal,
+                        decoration: BoxDecoration(color: flyternBackgroundWhite),
+                        child: Container(
+                          width: screenwidth - flyternSpaceMedium * 2,
+                          padding: flyternMediumPaddingHorizontal,
+                          margin: flyternLargePaddingVertical,
+                          decoration: BoxDecoration(
+                            color: flyternBackgroundWhite,
+                            border: flyternDefaultBorderAll,
+                            borderRadius: BorderRadius.circular(
+                                flyternBorderRadiusExtraSmall),
+                          ),
+                          child: DropDownSelector(
+                            titleText: "select_cabin_class".tr,
+                            selected:
+                                flightBookingController.cabinInfo.value.id != "-1"
+                                    ? flightBookingController.cabinInfo.value.id
+                                    : null,
+                            items: [
+                              for (var ind = 0;
+                                  ind <
+                                      flightBookingController
+                                          .flightDetails.value.cabinInfos.length;
+                                  ind++)
+                                GeneralItem(
+                                    id: flightBookingController
+                                        .flightDetails.value.cabinInfos[ind].id,
+                                    name: flightBookingController.flightDetails
+                                        .value.cabinInfos[ind].cabinClass,
+                                    imageUrl: ""),
+                            ],
+                            hintText: "select_cabin_class".tr,
+                            valueChanged: (newZone) {
+                              List<CabinInfo> selectedCabinInfo =
+                                  flightBookingController
+                                      .flightDetails.value.cabinInfos
+                                      .where((element) => element.id == newZone)
+                                      .toList();
+                              if (selectedCabinInfo.isNotEmpty) {
+                                print("selectedCabinInfo.isNotEmpty");
+                                flightBookingController.changeSelectedCabinClass(
+                                    selectedCabinInfo[0]);
+                              }
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -234,12 +262,16 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                       ),
                     ),
 
-                    Padding(
-                      padding: flyternLargePaddingAll,
-                      child: Text("price_details".tr,
-                          style: getBodyMediumStyle(context).copyWith(
-                              color: flyternGrey80,
-                              fontWeight: flyternFontWeightBold)),
+                    Visibility(
+                      visible: flightBookingController
+                          .flightDetails.value.cabinInfos.isNotEmpty,
+                      child: Padding(
+                        padding: flyternLargePaddingAll,
+                        child: Text("price_details".tr,
+                            style: getBodyMediumStyle(context).copyWith(
+                                color: flyternGrey80,
+                                fontWeight: flyternFontWeightBold)),
+                      ),
                     ),
 
                     Visibility(
@@ -478,7 +510,8 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
             ],
           ),
         ),
-        bottomSheet: Container(
+        bottomSheet:flightBookingController
+            .flightDetails.value.cabinInfos.isNotEmpty? Container(
           width: screenwidth,
           color: flyternBackgroundWhite,
           height: 60 + (flyternSpaceSmall * 2),
@@ -521,7 +554,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                   )),
             ),
           ),
-        ),
+        ):Container(width: screenwidth,height: 1),
       ),
     );
   }

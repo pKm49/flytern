@@ -3,7 +3,9 @@ import 'package:flytern/feature-modules/flight_booking/models/segment.flight_boo
 
 class FlightDetails {
   final bool isBaseFareToShow;
+
   final String priceChangedMessage;
+  final String alertMsg;
   final String scheduleChangedMessage;
   final String selectedCabinId;
   final String selectedCabinName;
@@ -24,6 +26,7 @@ class FlightDetails {
   FlightDetails(
       {required this.priceChangedMessage,
       required this.isBaseFareToShow,
+      required this.alertMsg,
       required this.scheduleChangedMessage,
       required this.selectedCabinId,
       required this.selectedCabinName,
@@ -94,6 +97,7 @@ FlightDetails mapFlightDetails(dynamic payload) {
     isBaseFareToShow: payload["isBaseFareToShow"] ?? false,
     priceChangedMessage: payload["priceChangedMessage"] ?? "",
     selectedCabinName: payload["selectedCabinName"] ?? "",
+    alertMsg: payload["alertMsg"] ?? "",
     selectedCabinId: payload["selectedCabinId"] ?? "",
     scheduleChangedMessage: payload["scheduleChangedMessage"] ?? "",
     flightSegments: flightSegments,
@@ -122,6 +126,7 @@ FlightDetails getDefaultFlightDetails() {
 
   return FlightDetails(
     isBaseFareToShow:false,
+    alertMsg:"",
     priceChangedMessage:  "",
     selectedCabinName: "",
     selectedCabinId:   "",

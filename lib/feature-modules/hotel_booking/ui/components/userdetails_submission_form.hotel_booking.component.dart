@@ -47,7 +47,7 @@ class _HotelUserDetailsSubmissionFormState
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   Gender selectedTitle = Gender(code: "0", name: "Title", isDefault: false);
-  Gender selectedGender = Gender(code: "Gender", name: "0", isDefault: false);
+  Gender selectedGender = Gender(code: "0", name: "Gender", isDefault: false);
   String selectedPassenger = "0";
   String gender = "0";
   String title = "0";
@@ -131,8 +131,8 @@ class _HotelUserDetailsSubmissionFormState
                 i++)
                   GeneralItem(
                       imageUrl: "",
-                      id: sharedController.titleList[i].name,
-                      name: sharedController.titleList[i].code),
+                      id: sharedController.titleList[i].code,
+                      name: sharedController.titleList[i].name),
                 ],
                 hintText: "title".tr,
                 valueChanged: (newGender) {
@@ -212,14 +212,14 @@ class _HotelUserDetailsSubmissionFormState
                           GeneralItem(
                               imageUrl: "",
                               id: sharedController.genderList.value[i]
-                                  .name,
+                                  .code,
                               name: sharedController.genderList.value[i]
-                                  .code)
+                                  .name)
                       ],
                       hintText: "gender".tr,
                       valueChanged: (newGender) {
                         List<Gender> genders = sharedController.genderList.value
-                            .where((e) => e.name == newGender)
+                            .where((e) => e.code == newGender)
                             .toList();
                         if (genders.isNotEmpty) {
                           changeGender(genders[0]);
@@ -263,7 +263,7 @@ class _HotelUserDetailsSubmissionFormState
 
 
       List<Gender> coPaxGender = sharedController.genderList.value
-          .where((element) => element.name == coPax[0].gender)
+          .where((element) => element.code == coPax[0].gender)
           .toList();
 
       if (coPaxGender.isNotEmpty) {
@@ -272,7 +272,7 @@ class _HotelUserDetailsSubmissionFormState
       }
 
       List<Gender> tSelectedTitle = sharedController.titleList.value
-          .where((element) => element.name == coPax[0].title)
+          .where((element) => element.code == coPax[0].title)
           .toList();
       if (tSelectedTitle.isNotEmpty) {
         selectedTitle = tSelectedTitle[0];
@@ -292,7 +292,7 @@ class _HotelUserDetailsSubmissionFormState
           : "0";
       selectedGender = sharedController.genderList.isNotEmpty
           ? sharedController.genderList[0]
-          : Gender(code: "Gender", name: "0", isDefault: false);
+          : Gender(code: "0", name: "Gender", isDefault: false);
 
       firstNameController.text = "";
       lastNameController.text = "";
@@ -301,7 +301,7 @@ class _HotelUserDetailsSubmissionFormState
           : "0";
       selectedTitle = sharedController.titleList.isNotEmpty
           ? sharedController.titleList[0]
-          : Gender(code: "Title", name: "0", isDefault: false);
+          : Gender(code: "0", name: "Title", isDefault: false);
 
 
       setState(() {});

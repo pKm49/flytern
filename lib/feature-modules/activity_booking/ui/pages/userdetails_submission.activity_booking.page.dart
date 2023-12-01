@@ -171,8 +171,8 @@ class _ActivityUserDetailsSubmissionPageState
                                   i++)
                                 GeneralItem(
                                     imageUrl: "",
-                                    id: sharedController.titleList[i].name,
-                                    name: sharedController.titleList[i].code),
+                                    id: sharedController.titleList[i].code,
+                                    name: sharedController.titleList[i].name),
                             ],
                             hintText: "title".tr,
                             valueChanged: (newGender) {
@@ -335,7 +335,7 @@ class _ActivityUserDetailsSubmissionPageState
       lastNameController.text = coPax[0].lastName;
 
       List<Gender> tSelectedTitle = sharedController.titleList.value
-          .where((element) => element.name == coPax[0].title)
+          .where((element) => element.code == coPax[0].title)
           .toList();
       if (tSelectedTitle.isNotEmpty) {
         selectedTitle = tSelectedTitle[0];
@@ -362,7 +362,7 @@ class _ActivityUserDetailsSubmissionPageState
           : "0";
       selectedTitle = sharedController.titleList.isNotEmpty
           ? sharedController.titleList[0]
-          : Gender(code: "Title", name: "0", isDefault: false);
+          : Gender(code: "0", name: "Title", isDefault: false);
 
       nationalityController.text = "";
       nationality = Country(
