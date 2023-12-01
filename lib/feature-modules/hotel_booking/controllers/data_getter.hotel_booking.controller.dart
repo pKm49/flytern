@@ -179,6 +179,30 @@ extension HotelBookingControllerGetter on HotelBookingController {
         .shortdesc[i];
   }
 
+  getRoomsLength() {
+    if (selectedRoom.isEmpty) {
+      return 0;
+    }
+    if (selectedRoomSelectionIndex.value < 0) {
+      return 0;
+    }
+    return  selectedRoomOption[ selectedRoomSelectionIndex
+        .value]
+        .roomsList.length;
+  }
+
+  String getRoom(int i) {
+    if (selectedRoom.isEmpty) {
+      return "";
+    }
+    if (selectedRoomSelectionIndex.value < 0) {
+      return "";
+    }
+    return  selectedRoomOption[ selectedRoomSelectionIndex
+        .value]
+        .roomsList[i];
+  }
+
   getCancellationPolicyLength() {
     if (selectedRoom.isEmpty) {
       return 0;
@@ -190,6 +214,8 @@ extension HotelBookingControllerGetter on HotelBookingController {
         .value]
         .cancelPolicies.length;
   }
+
+
 
   HotelRoomOptionCancelPolicy getCancellationPolicy(int i) {
     if (selectedRoom.isEmpty) {

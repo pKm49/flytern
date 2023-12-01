@@ -9,6 +9,7 @@ class HotelRoomOption {
   final List<HotelRoomOptionSupplement> supplements;
   final int roomOptionid;
   final List<String> shortdesc;
+  final List<String> roomsList;
   final String currency;
   final double perNightPrice;
   final double totalPrice;
@@ -24,6 +25,7 @@ class HotelRoomOption {
     required this.supplements,
     required this.currency,
     required this.perNightPrice,
+    required this.roomsList,
     required this.roomName,
     required this.shortdesc,
     required this.totalPrice,
@@ -38,9 +40,15 @@ HotelRoomOption mapHotelRoomDetails(dynamic payload) {
   List<HotelRoomOptionCancelPolicy> cancelPolicies = [];
   List<HotelRoomOptionSupplement> supplements = [];
   List<String> imageUrls = [];
+  List<String> roomsList = [];
   if(payload["imageURLs"] !=null){
     payload["imageURLs"].forEach((element) {
       imageUrls.add(element);
+    });
+  }
+  if(payload["roomsList"] !=null){
+    payload["roomsList"].forEach((element) {
+      roomsList.add(element);
     });
   }
 
@@ -80,6 +88,7 @@ HotelRoomOption mapHotelRoomDetails(dynamic payload) {
     perNightPrice: payload["perNightPrice"] ?? 0.0,
     roomName: payload["roomName"] ?? "",
     shortdesc: shortdesc,
+    roomsList: roomsList,
     totalPrice: payload["totalPrice"] ?? 0.0,
     totalBase: payload["totalBase"] ?? 0.0,
   );

@@ -36,6 +36,8 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
     double screenheight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      appBar: AppBar(
+      ),
       body: Container(
           width: screenwidth,
           height: screenheight,

@@ -497,7 +497,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                               bottom: 0, top: 0),
                           margin: flyternLargePaddingVertical,
                           color: flyternBackgroundWhite,
-                          height: screenwidth * .15,
+                          height: screenwidth * .14,
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: [
@@ -530,15 +530,15 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                                       margin: EdgeInsets.only(
                                           right: flyternSpaceSmall),
                                       clipBehavior: Clip.hardEdge,
-                                      height: screenwidth * .16,
+                                      height: screenwidth * .14,
                                       child: Image.network(
                                           hotelBookingController
                                               .getRoomImage(i),
-                                          height: screenwidth * .2, errorBuilder:
+                                          height: screenwidth * .14, errorBuilder:
                                               (context, error, stackTrace) {
                                         return Container(
                                           color: flyternGrey10,
-                                          height: screenwidth * .2,
+                                          height: screenwidth * .14,
                                           child: Center(
                                             child: Icon(
                                               Icons.business,
@@ -593,11 +593,62 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                         // ),
                         Visibility(
                           visible: hotelBookingController
+                              .getCancellationPolicyLength() >
+                              0,
+                          child: Padding(
+                            padding: flyternLargePaddingAll.copyWith(
+                                top: flyternSpaceLarge,
+                                bottom: flyternSpaceMedium),
+                            child: Text(
+                              "rooms_no".tr.replaceAll("2", hotelBookingController
+                                  .getRoomsLength().toString()),
+                              style: getBodyMediumStyle(context)
+                                  .copyWith(fontWeight: flyternFontWeightBold),
+                            ),
+                          ),
+                        ),
+                        for (var i = 0;
+                        i <
+                            hotelBookingController
+                                .getRoomsLength();
+                        i++)
+                          Container(
+                            padding: flyternLargePaddingHorizontal.copyWith(
+                                top: 0,
+                                bottom: i ==
+                                    hotelBookingController
+                                        .getRoomsLength() -
+                                        1
+                                    ? flyternSpaceSmall
+                                    : flyternSpaceMedium),
+                            color: flyternBackgroundWhite,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("${"room".tr} ${i+1}",
+                                    style: getBodyMediumStyle(context)
+                                        .copyWith(color: flyternGrey60)),
+                                addHorizontalSpace(flyternSpaceSmall),
+                                Expanded(
+                                  child: Text(
+                                      hotelBookingController.getRoom(i) ,
+                                      maxLines: 2,
+                                      textAlign: TextAlign.end,
+                                      style: getBodyMediumStyle(context)
+                                          .copyWith(color: flyternGrey80)),
+                                ),
+                              ],
+                            ),
+                          ),
+
+
+                        Visibility(
+                          visible: hotelBookingController
                                   .getCancellationPolicyLength() >
                               0,
                           child: Padding(
                             padding: flyternLargePaddingAll.copyWith(
-                              top: flyternSpaceSmall,
+                              top: flyternSpaceLarge,
                                 bottom: flyternSpaceMedium),
                             child: Text(
                               "cancellation_policy".tr,
