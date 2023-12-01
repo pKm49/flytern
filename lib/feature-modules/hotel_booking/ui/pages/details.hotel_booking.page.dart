@@ -177,18 +177,9 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                                 ),
                               ],
                             )),
-                        Container(
-                          padding: flyternLargePaddingAll.copyWith(
-                              top: flyternSpaceSmall,
-                              bottom: flyternSpaceSmall),
-                          color: flyternBackgroundWhite,
-                          child: Text(
-                              hotelBookingController
-                                  .hotelDetails.value.descriptionInfo,
-                              style: getBodyMediumStyle(context)
-                                  .copyWith(color: flyternGrey60)),
-                        ),
-                        addVerticalSpace(flyternSpaceLarge),
+
+                        addVerticalSpace(flyternSpaceMedium),
+
                         Padding(
                           padding: flyternMediumPaddingHorizontal,
                           child: InkWell(
@@ -235,6 +226,19 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                               ],
                             ),
                           ),
+                        ),
+                        addVerticalSpace(flyternSpaceSmall),
+                        Divider(),
+                        Container(
+                          padding: flyternLargePaddingAll.copyWith(
+                              top: flyternSpaceSmall,
+                              bottom: flyternSpaceSmall),
+                          color: flyternBackgroundWhite,
+                          child: Text(
+                              hotelBookingController
+                                  .hotelDetails.value.descriptionInfo,
+                              style: getBodyMediumStyle(context)
+                                  .copyWith(color: flyternGrey60)),
                         ),
                         addVerticalSpace(flyternSpaceLarge),
                         Container(

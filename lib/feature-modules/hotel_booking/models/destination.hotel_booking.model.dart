@@ -1,3 +1,4 @@
+
 import 'package:get/get.dart';
 
 class HotelDestination {
@@ -33,11 +34,15 @@ class HotelDestination {
 }
 
 HotelDestination mapHotelDestination(dynamic payload){
+
+  print("mapHotelDestination");
+  print("select_destination".tr);
+
   return HotelDestination(
     hotelCode :payload["hotelCode"]??"",
     cityCode :payload["cityCode"]??"",
     cityName :payload["cityName"]??"select_destination".tr,
-    uniqueCombination :payload["uniqueCombination"]??"select_destination".tr,
+    uniqueCombination :payload["uniqueCombination"]?? "select_destination".tr,
     sort :payload["sort"]??-1,
     countryCode :payload["countryCode"]??"",
     flag :payload["flag"]??"",

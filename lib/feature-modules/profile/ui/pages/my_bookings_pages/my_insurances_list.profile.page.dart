@@ -186,13 +186,13 @@ class _ProfileInsurancePurchaseListState
                                       .value){
 
                                     insuranceBookingController.getConfirmationData(
-                                        profileController.myActivityBookingResponse
-                                            .value[index].bookingReference,
+                                        profileController.myInsuranceBookingResponse
+                                            .value[index].bookingRef,
                                         true).then((value) => {
                                       restCurrentRef()
                                     });
-                                    currentBookingRef = profileController.myActivityBookingResponse
-                                        .value[index].bookingReference;
+                                    currentBookingRef = profileController.myInsuranceBookingResponse
+                                        .value[index].bookingRef;
 
                                     setState(() {
                                     });
@@ -203,8 +203,8 @@ class _ProfileInsurancePurchaseListState
                                 child: (insuranceBookingController
                                     .isInsuranceConfirmationDataLoading
                                     .value &&
-                                    currentBookingRef  == profileController.myActivityBookingResponse
-                                        .value[index].bookingReference)
+                                    currentBookingRef  == profileController.myInsuranceBookingResponse
+                                        .value[index].bookingRef)
                                     ? LoadingAnimationWidget.prograssiveDots(
                                   color: flyternBackgroundWhite,
                                   size: 20,

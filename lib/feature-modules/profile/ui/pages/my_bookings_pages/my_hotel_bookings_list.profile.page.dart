@@ -206,13 +206,13 @@ class _ProfileHotelBookingsListState extends State<ProfileHotelBookingsList> {
                                     .value){
 
                                   hotelBookingController.getConfirmationData(
-                                      profileController.myActivityBookingResponse
-                                          .value[index].bookingReference,
+                                      profileController.myHotelBookingResponse
+                                          .value[index].bookingRef,
                                       true).then((value) => {
                                     restCurrentRef()
                                   });
-                                  currentBookingRef = profileController.myActivityBookingResponse
-                                      .value[index].bookingReference;
+                                  currentBookingRef = profileController.myHotelBookingResponse
+                                      .value[index].bookingRef;
 
                                   setState(() {
                                   });
@@ -223,8 +223,8 @@ class _ProfileHotelBookingsListState extends State<ProfileHotelBookingsList> {
                               child: (hotelBookingController
                                   .isHotelConfirmationDataLoading
                                   .value &&
-                                  currentBookingRef  == profileController.myActivityBookingResponse
-                                      .value[index].bookingReference)
+                                  currentBookingRef  == profileController.myHotelBookingResponse
+                                      .value[index].bookingRef)
                                   ? LoadingAnimationWidget.prograssiveDots(
                                 color: flyternBackgroundWhite,
                                 size: 20,

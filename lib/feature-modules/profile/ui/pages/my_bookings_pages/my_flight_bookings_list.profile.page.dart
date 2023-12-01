@@ -248,13 +248,13 @@ class _ProfileFlightBookingsListState extends State<ProfileFlightBookingsList> {
                                     .value){
 
                                   flightBookingController.getConfirmationData(
-                                      profileController.myActivityBookingResponse
-                                          .value[index].bookingReference,
+                                      profileController.myFlightBookingResponse
+                                          .value[index].bookingRef,
                                       true).then((value) => {
                                     restCurrentRef()
                                   });
-                                  currentBookingRef = profileController.myActivityBookingResponse
-                                      .value[index].bookingReference;
+                                  currentBookingRef = profileController.myFlightBookingResponse
+                                      .value[index].bookingRef;
 
                                   setState(() {
                                   });
@@ -265,8 +265,8 @@ class _ProfileFlightBookingsListState extends State<ProfileFlightBookingsList> {
                               child: (flightBookingController
                                   .isFlightConfirmationDataLoading
                                   .value &&
-                                  currentBookingRef  == profileController.myActivityBookingResponse
-                                      .value[index].bookingReference)
+                                  currentBookingRef  == profileController.myFlightBookingResponse
+                                      .value[index].bookingRef)
                                   ? LoadingAnimationWidget.prograssiveDots(
                                 color: flyternBackgroundWhite,
                                 size: 20,
