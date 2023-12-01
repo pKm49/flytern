@@ -154,78 +154,91 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                   visible:
                       !flightBookingController
                           .isFlightSearchFilterResponsesLoading.value &&
+
+                          (flightBookingController.sortingDcs.isNotEmpty ||
+                          isFilterOptionsNotEmpty()) &&
                       !flightBookingController.isModifySearchVisible.value,
                   child: Container(
                     padding: flyternLargePaddingHorizontal,
                     child: Row(
                       children: [
-                        Expanded(
-                            child: InkWell(
-                          onTap: () {
-                            showSortOptions();
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("sort".tr,
-                                      style: getLabelLargeStyle(context).copyWith(
-                                          fontWeight: flyternFontWeightLight,
-                                          color: flyternGrey60)),
-                                  Visibility(
-                                    visible: flightBookingController
-                                            .sortingDcs.value.isNotEmpty &&
-                                        flightBookingController
-                                                .sortingDc.value.value !=
-                                            "-1",
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: flyternSpaceExtraSmall),
-                                      child: Text(
+                        Visibility(
+                          visible: flightBookingController.sortingDcs.isNotEmpty,
+                          child: Expanded(
+                              child: InkWell(
+                            onTap: () {
+                              showSortOptions();
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("sort".tr,
+                                        style: getLabelLargeStyle(context).copyWith(
+                                            fontWeight: flyternFontWeightLight,
+                                            color: flyternGrey60)),
+                                    Visibility(
+                                      visible: flightBookingController
+                                              .sortingDcs.value.isNotEmpty &&
                                           flightBookingController
-                                              .sortingDc.value.name,
-                                          style: getBodyMediumStyle(context)
-                                              .copyWith(color: flyternGrey80)),
+                                                  .sortingDc.value.value !=
+                                              "-1",
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: flyternSpaceExtraSmall),
+                                        child: Text(
+                                            flightBookingController
+                                                .sortingDc.value.name,
+                                            style: getBodyMediumStyle(context)
+                                                .copyWith(color: flyternGrey80)),
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Icon(Ionicons.chevron_down,
-                                  size: flyternFontSize20, color: flyternGrey40)
-                            ],
-                          ),
-                        )),
-                        addHorizontalSpace(flyternSpaceLarge * 1.5),
-                        Expanded(
-                            child: InkWell(
-                          onTap: () {
-                            showFilterOptions();
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("filter".tr,
-                                      style: getLabelLargeStyle(context).copyWith(
-                                          fontWeight: flyternFontWeightLight,
-                                          color: flyternGrey60)),
-                                  addVerticalSpace(flyternSpaceExtraSmall),
-                                  Text(getFilterTitle(),
-                                      style: getBodyMediumStyle(context)
-                                          .copyWith(color: flyternGrey80)),
-                                ],
-                              ),
-                              Icon(Ionicons.chevron_down,
-                                  size: flyternFontSize20, color: flyternGrey40)
-                            ],
-                          ),
-                        ))
+                                  ],
+                                ),
+                                Icon(Ionicons.chevron_down,
+                                    size: flyternFontSize20, color: flyternGrey40)
+                              ],
+                            ),
+                          )),
+                        ),
+                        Visibility(
+                            visible: flightBookingController.sortingDcs.isNotEmpty &&
+                                isFilterOptionsNotEmpty(),
+                            child: addHorizontalSpace(flyternSpaceLarge * 1.5)),
+                        Visibility(
+                          visible:
+                              isFilterOptionsNotEmpty(),
+                          child: Expanded(
+                              child: InkWell(
+                            onTap: () {
+                              showFilterOptions();
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("filter".tr,
+                                        style: getLabelLargeStyle(context).copyWith(
+                                            fontWeight: flyternFontWeightLight,
+                                            color: flyternGrey60)),
+                                    addVerticalSpace(flyternSpaceExtraSmall),
+                                    Text(getFilterTitle(),
+                                        style: getBodyMediumStyle(context)
+                                            .copyWith(color: flyternGrey80)),
+                                  ],
+                                ),
+                                Icon(Ionicons.chevron_down,
+                                    size: flyternFontSize20, color: flyternGrey40)
+                              ],
+                            ),
+                          )),
+                        )
                       ],
                     ),
                   ),
@@ -233,12 +246,16 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                 Visibility(
                     visible: !flightBookingController
                         .isFlightSearchFilterResponsesLoading.value &&
+                        (flightBookingController.sortingDcs.isNotEmpty ||
+                            isFilterOptionsNotEmpty()) &&
                         !flightBookingController.isModifySearchVisible.value,
                     child: addVerticalSpace(flyternSpaceExtraSmall)),
                 Visibility(
                     visible:
                         !flightBookingController
                             .isFlightSearchFilterResponsesLoading.value &&
+                            (flightBookingController.sortingDcs.isNotEmpty ||
+                                isFilterOptionsNotEmpty()) &&
                         !flightBookingController.isModifySearchVisible.value,
                     child: Divider()),
                 Visibility(
@@ -730,5 +747,13 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
     }else{
       return "no_item".tr;
     }
+  }
+
+  bool isFilterOptionsNotEmpty() {
+    return flightBookingController.airlineDcs.isNotEmpty ||
+        flightBookingController.priceDcs.isNotEmpty||
+        flightBookingController.departureTimeDcs.isNotEmpty||
+        flightBookingController.stopDcs.isNotEmpty||
+        flightBookingController.arrivalTimeDcs.isNotEmpty;
   }
 }
