@@ -301,15 +301,39 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                                 );
                               }),
                         ),
-                        Container(
-                          padding: flyternLargePaddingAll,
-                          width: screenwidth,
-                          color: flyternGrey10,
-                          child: Text(
-                            "room_selection".tr,
-                            style: getHeadlineMediumStyle(context).copyWith(
-                                color: flyternGrey80,
-                                fontWeight: flyternFontWeightBold),
+
+                        Visibility(
+                          visible: hotelBookingController
+                              .getRoomOptionsLength()==0 && hotelBookingController.hotelDetails.value.alertMsg !="",
+                          child: Container(
+                            color: flyternGrey10,
+                            child: Container(
+                              padding: flyternMediumPaddingAll,
+                              margin: flyternLargePaddingAll,
+                              decoration: BoxDecoration(
+                                color: flyternPrimaryColorBg,
+                                borderRadius: BorderRadius.circular(
+                                    flyternBorderRadiusExtraSmall),
+                              ),
+                              child: Html(
+                                data:hotelBookingController.hotelDetails.value.alertMsg,
+                              ),
+                            ),
+                          ),
+                        ),
+                         Visibility(
+                              visible: hotelBookingController
+                                  .getRoomOptionsLength()>0,
+                          child: Container(
+                            padding: flyternLargePaddingAll,
+                            width: screenwidth,
+                            color: flyternGrey10,
+                            child: Text(
+                              "room_selection".tr,
+                              style: getHeadlineMediumStyle(context).copyWith(
+                                  color: flyternGrey80,
+                                  fontWeight: flyternFontWeightBold),
+                            ),
                           ),
                         ),
                         // Visibility(
@@ -345,252 +369,221 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                         //         }),
                         //   ),
                         // ),
-                        Padding(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              top: hotelBookingController
-                                          .hotelDetails.value.rooms.length >
-                                      2
-                                  ? 0
-                                  : flyternSpaceMedium,
-                              bottom: flyternSpaceExtraSmall),
-                          child: Container(
-                            padding: flyternSmallPaddingAll ,
-                            decoration: flyternBorderedContainerSmallDecoration
-                                .copyWith(
-                                    color: flyternGrey10,
-                                    border: Border.all(
-                                        color: flyternGrey10, width: .2)),
-                            child: DropdownButton<HotelRoomOption>(
+                        Visibility(
+                          visible: hotelBookingController
+                              .getRoomOptionsLength()>0,
+                          child: Padding(
+                            padding: flyternLargePaddingHorizontal.copyWith(
+                                top: hotelBookingController
+                                            .hotelDetails.value.rooms.length >
+                                        2
+                                    ? 0
+                                    : flyternSpaceMedium,
+                                bottom: flyternSpaceExtraSmall),
+                            child: Container(
+                              padding: flyternSmallPaddingAll ,
+                              decoration: flyternBorderedContainerSmallDecoration
+                                  .copyWith(
+                                      color: flyternGrey10,
+                                      border: Border.all(
+                                          color: flyternGrey10, width: .2)),
+                              child: DropdownButton<HotelRoomOption>(
 
-                                itemHeight:110+flyternSpaceMedium,
-                              icon: Icon(Ionicons.caret_down,
-                                  color: flyternGrey60),
-                              value: hotelBookingController
-                                  .getSelectedRoomOption(),
-                              iconSize: flyternFontSize16,
-                              isExpanded: true,
-                              elevation: 16,
-                              borderRadius: BorderRadius.all(
-                                  const Radius.circular(
-                                      flyternBorderRadiusExtraSmall)),
-                              style: TextStyle(
-                                  fontSize: screenwidth * .035,
-                                  color: flyternGrey60),
-                              underline: Container(
-                                height: 1,
-                              ),
+                                  itemHeight:110+flyternSpaceMedium,
+                                icon: Icon(Ionicons.caret_down,
+                                    color: flyternGrey60),
+                                value: hotelBookingController
+                                    .getSelectedRoomOption(),
+                                iconSize: flyternFontSize16,
+                                isExpanded: true,
+                                elevation: 16,
+                                borderRadius: BorderRadius.all(
+                                    const Radius.circular(
+                                        flyternBorderRadiusExtraSmall)),
+                                style: TextStyle(
+                                    fontSize: screenwidth * .035,
+                                    color: flyternGrey60),
+                                underline: Container(
+                                  height: 1,
+                                ),
 
-                              onChanged: (HotelRoomOption? Value) {
-                                if (Value != null) {
-                                  hotelBookingController
-                                      .changeSelectedRoomOptionForIndex(Value);
-                                }
-                              },
-                              items: hotelBookingController
-                                  .getRoomOptions()
-                                  .map((HotelRoomOption value) {
-                                return DropdownMenuItem<HotelRoomOption>(
-                                  value: value,
-                                  child: Padding(
-                                    padding: flyternSmallPaddingVertical,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Visibility(
-                                                visible:
-                                                    value.imageURLs.isNotEmpty,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      right: flyternSpaceMedium),
-                                                  child: Image.network(
-                                                      value.imageURLs.isNotEmpty
-                                                          ? value.imageURLs[0]
-                                                          : "",
-                                                      height:80-flyternSpaceSmall),
-                                                )),
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(value.roomName,
-                                                      textAlign: TextAlign.start,
-                                                      maxLines: 2,
-                                                      style: getLabelLargeStyle(
-                                                          context)),
-                                                  addVerticalSpace(flyternSpaceSmall),
+                                onChanged: (HotelRoomOption? Value) {
+                                  if (Value != null) {
+                                    hotelBookingController
+                                        .changeSelectedRoomOptionForIndex(Value);
+                                  }
+                                },
+                                items: hotelBookingController
+                                    .getRoomOptions()
+                                    .map((HotelRoomOption value) {
+                                  return DropdownMenuItem<HotelRoomOption>(
+                                    value: value,
+                                    child: Padding(
+                                      padding: flyternSmallPaddingVertical,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Visibility(
+                                                  visible:
+                                                      value.imageURLs.isNotEmpty,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        right: flyternSpaceMedium),
+                                                    child: Image.network(
+                                                        value.imageURLs.isNotEmpty
+                                                            ? value.imageURLs[0]
+                                                            : "",
+                                                        height:80-flyternSpaceSmall),
+                                                  )),
+                                              Expanded(
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(value.roomName,
+                                                        textAlign: TextAlign.start,
+                                                        maxLines: 2,
+                                                        style: getLabelLargeStyle(
+                                                            context)),
+                                                    addVerticalSpace(flyternSpaceSmall),
+                                                    Container(
+                                                      padding: flyternSmallPaddingHorizontal
+                                                          .copyWith(
+                                                          top:
+                                                          flyternSpaceExtraSmall,
+                                                          bottom:
+                                                          flyternSpaceExtraSmall),
+                                                      decoration: BoxDecoration(
+                                                        color: flyternPrimaryColorBg,
+                                                        borderRadius: BorderRadius.circular(
+                                                            flyternBorderRadiusExtraSmall),
+                                                      ),
+                                                      child: Text(
+                                                       "${ value.currency} ${ value.totalPrice}",
+                                                        style: getLabelLargeStyle(
+                                                            context)
+                                                            .copyWith(
+                                                            color:
+                                                            flyternPrimaryColor),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          addVerticalSpace(flyternSpaceSmall),
+                                          Expanded(
+                                            child: ListView(
+                                              scrollDirection: Axis.horizontal,
+                                              children: [
+                                                for (var i = 0;
+                                                    i < value.shortdesc.length;
+                                                    i++)
                                                   Container(
+                                                    margin:EdgeInsets.only(right: flyternSpaceExtraSmall),
                                                     padding: flyternSmallPaddingHorizontal
                                                         .copyWith(
-                                                        top:
-                                                        flyternSpaceExtraSmall,
-                                                        bottom:
-                                                        flyternSpaceExtraSmall),
+                                                            top:
+                                                                flyternSpaceExtraSmall,
+                                                            bottom:
+                                                                flyternSpaceExtraSmall),
                                                     decoration: BoxDecoration(
-                                                      color: flyternPrimaryColorBg,
+                                                      color: flyternTertiaryColorBg,
                                                       borderRadius: BorderRadius.circular(
                                                           flyternBorderRadiusExtraSmall),
                                                     ),
-                                                    child: Text(
-                                                     "${ value.currency} ${ value.totalPrice}",
-                                                      style: getLabelLargeStyle(
-                                                          context)
-                                                          .copyWith(
-                                                          color:
-                                                          flyternPrimaryColor),
+                                                    child: Center(
+                                                      child: Text(
+                                                        value.shortdesc[i],
+                                                        style: getLabelLargeStyle(
+                                                                context)
+                                                            .copyWith(
+                                                                color:
+                                                                flyternTertiaryColor),
+                                                      ),
                                                     ),
                                                   ),
-                                                ],
-                                              ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                        addVerticalSpace(flyternSpaceSmall),
-                                        Expanded(
-                                          child: ListView(
-                                            scrollDirection: Axis.horizontal,
-                                            children: [
-                                              for (var i = 0;
-                                                  i < value.shortdesc.length;
-                                                  i++)
-                                                Container(
-                                                  margin:EdgeInsets.only(right: flyternSpaceExtraSmall),
-                                                  padding: flyternSmallPaddingHorizontal
-                                                      .copyWith(
-                                                          top:
-                                                              flyternSpaceExtraSmall,
-                                                          bottom:
-                                                              flyternSpaceExtraSmall),
-                                                  decoration: BoxDecoration(
-                                                    color: flyternTertiaryColorBg,
-                                                    borderRadius: BorderRadius.circular(
-                                                        flyternBorderRadiusExtraSmall),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      value.shortdesc[i],
-                                                      style: getLabelLargeStyle(
-                                                              context)
-                                                          .copyWith(
-                                                              color:
-                                                              flyternTertiaryColor),
-                                                    ),
-                                                  ),
-                                                ),
-                                            ],
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              }).toList(),
+                                  );
+                                }).toList(),
+                              ),
                             ),
                           ),
                         ),
 
-                        Container(
-                          padding: flyternLargePaddingAll.copyWith(
-                              bottom: 0, top: 0),
-                          margin: flyternLargePaddingVertical,
-                          color: flyternBackgroundWhite,
-                          height: screenwidth * .14,
-                          child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              for (var i = 0;
-                                  i <
-                                      hotelBookingController
-                                          .getRoomImagesLength();
-                                  i++)
-                                InkWell(
-                                  onTap: () {
-                                    Get.toNamed(Approute_imageViewer,
-                                        arguments: [
-                                          hotelBookingController
-                                              .getRoomImage(i),
-                                          hotelBookingController.getRoomImages()
-                                        ]);
-                                  },
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                              flyternBorderRadiusExtraSmall),
-                                          border: Border.all(
-                                              color: i ==
-                                                      hotelBookingController
-                                                          .selectedRoomImageIndex
-                                                          .value
-                                                  ? flyternSecondaryColor
-                                                  : Colors.transparent,
-                                              width: 2)),
-                                      margin: EdgeInsets.only(
-                                          right: flyternSpaceSmall),
-                                      clipBehavior: Clip.hardEdge,
-                                      height: screenwidth * .14,
-                                      child: Image.network(
-                                          hotelBookingController
-                                              .getRoomImage(i),
-                                          height: screenwidth * .14, errorBuilder:
-                                              (context, error, stackTrace) {
-                                        return Container(
-                                          color: flyternGrey10,
-                                          height: screenwidth * .14,
-                                          child: Center(
-                                            child: Icon(
-                                              Icons.business,
-                                              color: flyternGrey40,
+                        Visibility(
+                          visible: hotelBookingController
+                              .getRoomImagesLength()>0,
+                          child: Container(
+                            padding: flyternLargePaddingAll.copyWith(
+                                bottom: 0, top: 0),
+                            margin: flyternLargePaddingVertical,
+                            color: flyternBackgroundWhite,
+                            height: screenwidth * .14,
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                for (var i = 0;
+                                    i <
+                                        hotelBookingController
+                                            .getRoomImagesLength();
+                                    i++)
+                                  InkWell(
+                                    onTap: () {
+                                      Get.toNamed(Approute_imageViewer,
+                                          arguments: [
+                                            hotelBookingController
+                                                .getRoomImage(i),
+                                            hotelBookingController.getRoomImages()
+                                          ]);
+                                    },
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                                flyternBorderRadiusExtraSmall),
+                                            border: Border.all(
+                                                color: i ==
+                                                        hotelBookingController
+                                                            .selectedRoomImageIndex
+                                                            .value
+                                                    ? flyternSecondaryColor
+                                                    : Colors.transparent,
+                                                width: 2)),
+                                        margin: EdgeInsets.only(
+                                            right: flyternSpaceSmall),
+                                        clipBehavior: Clip.hardEdge,
+                                        height: screenwidth * .14,
+                                        child: Image.network(
+                                            hotelBookingController
+                                                .getRoomImage(i),
+                                            height: screenwidth * .14, errorBuilder:
+                                                (context, error, stackTrace) {
+                                          return Container(
+                                            color: flyternGrey10,
+                                            height: screenwidth * .14,
+                                            child: Center(
+                                              child: Icon(
+                                                Icons.business,
+                                                color: flyternGrey40,
+                                              ),
                                             ),
-                                          ),
-                                        );
-                                      })),
-                                ),
-                            ],
+                                          );
+                                        })),
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
-                        // Visibility(
-                        //   visible: hotelBookingController
-                        //           .getShortDescriptionsLength() >
-                        //       0,
-                        //   child: Container(
-                        //     width: screenwidth - (flyternSpaceLarge * 2),
-                        //     margin: EdgeInsets.only(bottom: flyternSpaceSmall),
-                        //     padding: flyternMediumPaddingHorizontal,
-                        //     child: Wrap(
-                        //       alignment: WrapAlignment.start,
-                        //       crossAxisAlignment: WrapCrossAlignment.start,
-                        //       direction: Axis.horizontal,
-                        //       spacing: flyternSpaceSmall,
-                        //       runSpacing: flyternSpaceSmall,
-                        //       children: [
-                        //         for (var i = 0;
-                        //             i <
-                        //                 hotelBookingController
-                        //                     .getShortDescriptionsLength();
-                        //             i++)
-                        //           Container(
-                        //             padding:
-                        //                 flyternSmallPaddingHorizontal.copyWith(
-                        //                     top: flyternSpaceExtraSmall,
-                        //                     bottom: flyternSpaceExtraSmall),
-                        //             decoration: BoxDecoration(
-                        //               color: flyternPrimaryColorBg,
-                        //               borderRadius: BorderRadius.circular(
-                        //                   flyternBorderRadiusExtraSmall),
-                        //             ),
-                        //             child: Text(
-                        //               "${hotelBookingController.getShortDescriptions(i)}",
-                        //               style: getLabelLargeStyle(context)
-                        //                   .copyWith(color: flyternPrimaryColor),
-                        //             ),
-                        //           ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
+
                         Visibility(
                           visible: hotelBookingController
                               .getCancellationPolicyLength() >
@@ -733,12 +726,11 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                               ],
                             ),
                           ),
-
                         Padding(
                           padding: flyternLargePaddingAll.copyWith(
                               bottom: flyternSpaceMedium),
                           child: Text(
-                            "price_details".tr,
+                            "booking_details".tr,
                             style: getBodyMediumStyle(context)
                                 .copyWith(fontWeight: flyternFontWeightBold),
                           ),
@@ -750,12 +742,11 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("per_night".tr,
+                              Text("checkin".tr,
                                   style: getBodyMediumStyle(context)
                                       .copyWith(color: flyternGrey60)),
                               Text(
-                                  "${hotelBookingController.getCurrency()}"
-                                  " ${hotelBookingController.getPricePerNight()}",
+                                  "${hotelBookingController.hotelDetails.value.checkIn}" ,
                                   style: getBodyMediumStyle(context)
                                       .copyWith(color: flyternGrey80)),
                             ],
@@ -768,12 +759,11 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("total_fare".tr,
+                              Text("checkout".tr,
                                   style: getBodyMediumStyle(context)
                                       .copyWith(color: flyternGrey60)),
                               Text(
-                                  "${hotelBookingController.getCurrency()}"
-                                  " ${hotelBookingController.getTotalPrice()}",
+                                  "${hotelBookingController.hotelDetails.value.checkOut}" ,
                                   style: getBodyMediumStyle(context)
                                       .copyWith(color: flyternGrey80)),
                             ],
@@ -786,39 +776,127 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("tax_fare".tr,
+                              Text("duration".tr,
                                   style: getBodyMediumStyle(context)
                                       .copyWith(color: flyternGrey60)),
                               Text(
-                                  "${hotelBookingController.getCurrency()}"
-                                  " ${hotelBookingController.getTaxPrice()}",
+                                  "${hotelBookingController.hotelDetails.value.duration}" ,
                                   style: getBodyMediumStyle(context)
                                       .copyWith(color: flyternGrey80)),
                             ],
                           ),
                         ),
-                        Container(
-                            width: screenwidth,
-                            color: flyternGrey10,
-                            height: 1),
-                        addVerticalSpace(flyternSpaceLarge),
-                        Container(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              top: 0, bottom: flyternSpaceLarge),
-                          color: flyternBackgroundWhite,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("grand_total".tr,
-                                  style: getBodyMediumStyle(context)
-                                      .copyWith(color: flyternGrey60)),
-                              Text(
-                                  "${hotelBookingController.getCurrency()}"
-                                  " ${hotelBookingController.getGrandTotal()}",
-                                  style: getBodyMediumStyle(context).copyWith(
-                                      color: flyternGrey80,
-                                      fontWeight: flyternFontWeightBold)),
-                            ],
+                        Visibility(
+                          visible: hotelBookingController
+                              .getRoomOptionsLength()>0,
+                          child: Padding(
+                            padding: flyternLargePaddingAll.copyWith(
+                                bottom: flyternSpaceMedium),
+                            child: Text(
+                              "price_details".tr,
+                              style: getBodyMediumStyle(context)
+                                  .copyWith(fontWeight: flyternFontWeightBold),
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: hotelBookingController
+                              .getRoomOptionsLength()>0,
+                          child: Container(
+                            padding: flyternLargePaddingHorizontal.copyWith(
+                                top: 0, bottom: flyternSpaceLarge),
+                            color: flyternBackgroundWhite,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("per_night".tr,
+                                    style: getBodyMediumStyle(context)
+                                        .copyWith(color: flyternGrey60)),
+                                Text(
+                                    "${hotelBookingController.getCurrency()}"
+                                    " ${hotelBookingController.getPricePerNight()}",
+                                    style: getBodyMediumStyle(context)
+                                        .copyWith(color: flyternGrey80)),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: hotelBookingController
+                              .getRoomOptionsLength()>0,
+                          child: Container(
+                            padding: flyternLargePaddingHorizontal.copyWith(
+                                top: 0, bottom: flyternSpaceLarge),
+                            color: flyternBackgroundWhite,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("total_fare".tr,
+                                    style: getBodyMediumStyle(context)
+                                        .copyWith(color: flyternGrey60)),
+                                Text(
+                                    "${hotelBookingController.getCurrency()}"
+                                    " ${hotelBookingController.getTotalPrice()}",
+                                    style: getBodyMediumStyle(context)
+                                        .copyWith(color: flyternGrey80)),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: hotelBookingController
+                              .getRoomOptionsLength()>0,
+                          child: Container(
+                            padding: flyternLargePaddingHorizontal.copyWith(
+                                top: 0, bottom: flyternSpaceLarge),
+                            color: flyternBackgroundWhite,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("tax_fare".tr,
+                                    style: getBodyMediumStyle(context)
+                                        .copyWith(color: flyternGrey60)),
+                                Text(
+                                    "${hotelBookingController.getCurrency()}"
+                                    " ${hotelBookingController.getTaxPrice()}",
+                                    style: getBodyMediumStyle(context)
+                                        .copyWith(color: flyternGrey80)),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: hotelBookingController
+                              .getRoomOptionsLength()>0,
+                          child: Container(
+                              width: screenwidth,
+                              color: flyternGrey10,
+                              height: 1),
+                        ),
+                        Visibility(
+                            visible: hotelBookingController
+                                .getRoomOptionsLength()>0,child: addVerticalSpace(flyternSpaceLarge)),
+                        Visibility(
+                          visible: hotelBookingController
+                              .getRoomOptionsLength()>0,
+                          child: Container(
+                            padding: flyternLargePaddingHorizontal.copyWith(
+                                top: 0, bottom: flyternSpaceLarge),
+                            color: flyternBackgroundWhite,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("grand_total".tr,
+                                    style: getBodyMediumStyle(context)
+                                        .copyWith(color: flyternGrey60)),
+                                Text(
+                                    "${hotelBookingController.getCurrency()}"
+                                    " ${hotelBookingController.getGrandTotal()}",
+                                    style: getBodyMediumStyle(context).copyWith(
+                                        color: flyternGrey80,
+                                        fontWeight: flyternFontWeightBold)),
+                              ],
+                            ),
                           ),
                         ),
                         Container(
@@ -883,7 +961,9 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                     )))
               ],
             )),
-        bottomSheet: !hotelBookingController.isHotelDetailsLoading.value
+        bottomSheet: !hotelBookingController.isHotelDetailsLoading.value &&
+            hotelBookingController
+                .getRoomOptionsLength()>0
             ? Container(
                 width: screenwidth,
                 color: flyternBackgroundWhite,

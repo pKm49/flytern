@@ -105,8 +105,8 @@ class _InsuranceUserDetailsSubmissionFormState
                   color: flyternBackgroundWhite,
                   child: Container(
                     decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                        color: flyternGrey10,
-                        border: Border.all(color: flyternGrey10, width: .2)),
+                        color: flyternGrey20,
+                        border: Border.all(color: flyternGrey20, width: .2)),
                     padding: flyternMediumPaddingHorizontal.copyWith(
                         top: flyternSpaceExtraSmall,
                         bottom: flyternSpaceExtraSmall),

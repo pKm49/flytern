@@ -181,9 +181,7 @@ class ActivityBookingController extends GetxController {
       sortingDc.value = defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
     }
     isActivitiesLoading.value = false;
-    if( activities.length<6){
-      getNextPageActivities();
-    }
+
   }
 
   void updateSort(String sortingDcValue) {

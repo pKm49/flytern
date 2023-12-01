@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/search_result.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/components/search_result_card.hotel_booking.component.dart';
@@ -50,7 +51,6 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
     // TODO: implement dispose
     super.dispose();
     _controller.dispose();
-
   }
 
   @override
@@ -68,10 +68,10 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
           children: [
             Visibility(
               visible: (!hotelBookingController
-                  .isHotelSearchResponsesLoading.value ||
-                  !hotelBookingController
-                      .isHotelSearchFilterResponsesLoading.value) &&
-                  hotelBookingController.objectId.value != -1 ,
+                          .isHotelSearchResponsesLoading.value ||
+                      !hotelBookingController
+                          .isHotelSearchFilterResponsesLoading.value) &&
+                  hotelBookingController.objectId.value != -1,
               child: Container(
                 width: screenwidth,
                 height: screenheight,
@@ -79,111 +79,132 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                   children: [
                     Container(
                       width: screenwidth,
-                      padding: flyternSmallPaddingVertical.copyWith(left: flyternSpaceSmall,
-                          right: flyternSpaceSmall,bottom: 0),
+                      padding: flyternSmallPaddingVertical.copyWith(
+                          left: flyternSpaceSmall,
+                          right: flyternSpaceSmall,
+                          bottom: 0),
                       decoration: BoxDecoration(
                         border: flyternDefaultBorderBottomOnly,
                         color: flyternBackgroundWhite,
-
                       ),
                       child: Wrap(
-                         children: [
-                           for(var i=1;i<4;i++)
-                           Container(
-                             padding: flyternSmallPaddingHorizontal.copyWith(
-                                 top: flyternSpaceExtraSmall,
-                                 bottom: flyternSpaceExtraSmall),
-                             margin: EdgeInsets.only(bottom: flyternSpaceSmall,right: flyternSpaceSmall),
-                             decoration: BoxDecoration(
-                               color: flyternSecondaryColorBg,
-                               borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
-                             ),
-                             child: Text(
-                               getSearchParamsPreview(i),style: getLabelLargeStyle(context).copyWith(
-                                 color:flyternSecondaryColor, fontSize: flyternFontSize12 ),
-                             ),
-                           )
-
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: flyternMediumPaddingAll,
-                      decoration:
-                          BoxDecoration(border: flyternDefaultBorderBottomOnly),
-                      child: Row(
                         children: [
-                          Expanded(
-                              child: InkWell(
-                            onTap: () {
-                              showSortOptions();
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("sort".tr,
-                                        style: getLabelLargeStyle(context)
-                                            .copyWith(
-                                                fontWeight:
-                                                    flyternFontWeightLight,
-                                                color: flyternGrey40)),
-                                    addVerticalSpace(flyternSpaceExtraSmall),
-                                    Text("price".tr,
-                                        style: getBodyMediumStyle(context)
-                                            .copyWith(color: flyternGrey80)),
-                                  ],
-                                ),
-                                Icon(Ionicons.chevron_down,
-                                    color: flyternGrey40)
-                              ],
-                            ),
-                          )),
-                          addHorizontalSpace(flyternSpaceLarge),
-                          Expanded(
-                              child: InkWell(
-                            onTap: () {
-                              showFilterOptions();
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("filter".tr,
-                                        style: getLabelLargeStyle(context)
-                                            .copyWith(
-                                                fontWeight:
-                                                    flyternFontWeightLight,
-                                                color: flyternGrey40)),
-                                    addVerticalSpace(flyternSpaceExtraSmall),
-                                    Text(getFilterTitle(),
-                                        style: getBodyMediumStyle(context)
-                                            .copyWith(color: flyternGrey80)),
-                                  ],
-                                ),
-                                Icon(Ionicons.chevron_down,
-                                    color: flyternGrey40)
-                              ],
-                            ),
-                          ))
+                          for (var i = 1; i < 4; i++)
+                            Container(
+                              padding: flyternSmallPaddingHorizontal.copyWith(
+                                  top: flyternSpaceExtraSmall,
+                                  bottom: flyternSpaceExtraSmall),
+                              margin: EdgeInsets.only(
+                                  bottom: flyternSpaceSmall,
+                                  right: flyternSpaceSmall),
+                              decoration: BoxDecoration(
+                                color: flyternSecondaryColorBg,
+                                borderRadius: BorderRadius.circular(
+                                    flyternBorderRadiusExtraSmall),
+                              ),
+                              child: Text(
+                                getSearchParamsPreview(i),
+                                style: getLabelLargeStyle(context).copyWith(
+                                    color: flyternSecondaryColor,
+                                    fontSize: flyternFontSize12),
+                              ),
+                            )
                         ],
                       ),
                     ),
-
                     Visibility(
-                      visible:! hotelBookingController.isHotelSearchFilterResponsesLoading.value &&
-                      hotelBookingController.hotelSearchResponses.isNotEmpty,
+                      visible:  (hotelBookingController.sortingDcs.isNotEmpty ||
+                          isFilterOptionsNotEmpty()),
+                      child: Container(
+                        padding: flyternMediumPaddingAll,
+                        decoration:
+                            BoxDecoration(border: flyternDefaultBorderBottomOnly),
+                        child: Row(
+                          children: [
+                            Visibility(
+                              visible: hotelBookingController.sortingDcs.isNotEmpty,
+                              child: Expanded(
+                                  child: InkWell(
+                                onTap: () {
+                                  showSortOptions();
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("sort".tr,
+                                            style: getLabelLargeStyle(context)
+                                                .copyWith(
+                                                    fontWeight:
+                                                        flyternFontWeightLight,
+                                                    color: flyternGrey40)),
+                                        addVerticalSpace(flyternSpaceExtraSmall),
+                                        Text(hotelBookingController
+                                            .sortingDc.value.name,
+                                            style: getBodyMediumStyle(context)
+                                                .copyWith(color: flyternGrey80)),
+                                      ],
+                                    ),
+                                    Icon(Ionicons.chevron_down,
+                                        color: flyternGrey40)
+                                  ],
+                                ),
+                              )),
+                            ),
+                            Visibility(
+                                visible: hotelBookingController.sortingDcs.isNotEmpty &&
+                                    isFilterOptionsNotEmpty(),
+                                child: addHorizontalSpace(flyternSpaceLarge * 1.5)),
+                            Visibility(
+                              visible:
+                              isFilterOptionsNotEmpty(),
+                              child: Expanded(
+                                  child: InkWell(
+                                onTap: () {
+                                  showFilterOptions();
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("filter".tr,
+                                            style: getLabelLargeStyle(context)
+                                                .copyWith(
+                                                    fontWeight:
+                                                        flyternFontWeightLight,
+                                                    color: flyternGrey40)),
+                                        addVerticalSpace(flyternSpaceExtraSmall),
+                                        Text(getFilterTitle(),
+                                            style: getBodyMediumStyle(context)
+                                                .copyWith(color: flyternGrey80)),
+                                      ],
+                                    ),
+                                    Icon(Ionicons.chevron_down,
+                                        color: flyternGrey40)
+                                  ],
+                                ),
+                              )),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: !hotelBookingController
+                              .isHotelSearchFilterResponsesLoading.value &&
+                          hotelBookingController
+                              .hotelSearchResponses.isNotEmpty,
                       child: Expanded(
                           child: Container(
                         color: flyternBackgroundWhite,
                         child: ListView.builder(
-                          controller: _controller,
+                            controller: _controller,
                             itemCount: hotelBookingController
                                 .hotelSearchResponses.length,
                             itemBuilder: (context, i) {
@@ -192,12 +213,13 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                                   decoration: BoxDecoration(
                                       border: flyternDefaultBorderBottomOnly),
                                   child: HotelSearchResultCard(
-                                    onPressed:(){
+                                    onPressed: () {
                                       print("clicked");
                                       hotelBookingController.getHotelDetails(
                                           hotelBookingController
-                                              .hotelSearchResponses.value[i].hotelId
-                                      );
+                                              .hotelSearchResponses
+                                              .value[i]
+                                              .hotelId);
                                     },
                                     hotelSearchResponse: hotelBookingController
                                         .hotelSearchResponses.value[i],
@@ -206,20 +228,20 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                       )),
                     ),
                     Visibility(
-                        visible: hotelBookingController.isHotelSearchPageResponsesLoading.value,
+                        visible: hotelBookingController
+                            .isHotelSearchPageResponsesLoading.value,
                         child: Container(
                           width: screenwidth,
                           color: flyternGrey10,
                           child: Center(
                               child: LoadingAnimationWidget.prograssiveDots(
-                                color: flyternSecondaryColor,
-                                size: 50,
-                              )),
+                            color: flyternSecondaryColor,
+                            size: 50,
+                          )),
                         )),
-
                     Visibility(
-                      visible:
-                          hotelBookingController.isHotelSearchFilterResponsesLoading.value,
+                      visible: hotelBookingController
+                          .isHotelSearchFilterResponsesLoading.value,
                       child: Expanded(
                         child: Container(
                           width: screenwidth,
@@ -229,16 +251,28 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                       ),
                     ),
                     Visibility(
-                      visible:
-                      !hotelBookingController.isHotelSearchFilterResponsesLoading.value &&
-                          hotelBookingController.hotelSearchResponses.value.isEmpty &&
+                      visible: !hotelBookingController
+                              .isHotelSearchFilterResponsesLoading.value &&
+                          hotelBookingController
+                              .hotelSearchResponses.value.isEmpty &&
                           hotelBookingController.objectId.value != -1,
                       child: Expanded(
                         child: Container(
-                          width: screenwidth, 
+                          width: screenwidth,
                           color: flyternBackgroundWhite,
                           child: Center(
-                            child: Text("no_item".tr, style: getBodyMediumStyle(context)),
+                            child:  Container(
+                              padding: flyternMediumPaddingAll,
+                              margin: flyternLargePaddingAll.copyWith(bottom: flyternSpaceMedium),
+                              decoration: BoxDecoration(
+                                color: flyternPrimaryColorBg,
+                                borderRadius: BorderRadius.circular(
+                                    flyternBorderRadiusExtraSmall),
+                              ),
+                              child: Html(
+                                data:getNoItemMessage(),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -248,16 +282,27 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
               ),
             ),
             Visibility(
-              visible:
-                  !hotelBookingController.isHotelSearchResponsesLoading.value &&
-                      hotelBookingController.hotelSearchResponses.value.isEmpty &&
-                      hotelBookingController.objectId.value == -1,
+              visible: !hotelBookingController
+                      .isHotelSearchResponsesLoading.value &&
+                  hotelBookingController.hotelSearchResponses.value.isEmpty &&
+                  hotelBookingController.objectId.value == -1,
               child: Container(
                 width: screenwidth,
                 height: screenheight,
                 color: flyternGrey10,
                 child: Center(
-                  child: Text("no_item".tr, style: getBodyMediumStyle(context)),
+                  child:  Container(
+                    padding: flyternMediumPaddingAll,
+                    margin: flyternLargePaddingAll.copyWith(bottom: flyternSpaceMedium),
+                    decoration: BoxDecoration(
+                      color: flyternPrimaryColorBg,
+                      borderRadius: BorderRadius.circular(
+                          flyternBorderRadiusExtraSmall),
+                    ),
+                    child: Html(
+                      data:getNoItemMessage(),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -305,22 +350,21 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
   String getSearchParamsPreview(int index) {
     String searchParamsPreviewString = "";
 
-    if(index == 1){
-
+    if (index == 1) {
       if (hotelBookingController.hotelSearchData.value.destination != "") {
         searchParamsPreviewString +=
-        "${hotelBookingController.selectedDestination.value.uniqueCombination},";
+            "${hotelBookingController.selectedDestination.value.uniqueCombination},";
       }
       return searchParamsPreviewString;
     }
 
     searchParamsPreviewString = "";
 
-    if(index == 2){
+    if (index == 2) {
       return " ${getLargeFormattedDate(hotelBookingController.hotelSearchData.value.checkInDate)}";
     }
 
-    if(index == 3){
+    if (index == 3) {
       return "${"rooms_no".tr.replaceAll("2", hotelBookingController.hotelSearchData.value.rooms.length.toString())}";
     }
 
@@ -364,27 +408,34 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
           });
         });
   }
+  String getNoItemMessage() {
+    if(hotelBookingController.alertMsg.value !=""){
+      return hotelBookingController.alertMsg.value;
+    }else{
+      return "no_item".tr;
+    }
+  }
 
   HotelSearchResult getAvailableFilterOptions() {
     return HotelSearchResult(
-      objectID: -1,
-      searchResponses: [],
-      priceDcs: hotelBookingController.priceDcs.value,
-      sortingDcs: [],
-      ratingDcs: hotelBookingController.ratingDcs.value,
-      locationDcs: hotelBookingController.locationDcs.value
-    );
+        objectID: -1,
+        alertMsg: "",
+        searchResponses: [],
+        priceDcs: hotelBookingController.priceDcs.value,
+        sortingDcs: [],
+        ratingDcs: hotelBookingController.ratingDcs.value,
+        locationDcs: hotelBookingController.locationDcs.value);
   }
 
   HotelSearchResult getSelectedFilterOptions() {
     return HotelSearchResult(
-      objectID: -1,
-      searchResponses: [],
-      priceDcs: hotelBookingController.selectedPriceDcs.value,
-      sortingDcs: [],
-      ratingDcs: hotelBookingController.selectedratingDcs.value,
-      locationDcs: hotelBookingController.selectedlocationDcs.value
-    );
+        objectID: -1,
+        alertMsg: "",
+        searchResponses: [],
+        priceDcs: hotelBookingController.selectedPriceDcs.value,
+        sortingDcs: [],
+        ratingDcs: hotelBookingController.selectedratingDcs.value,
+        locationDcs: hotelBookingController.selectedlocationDcs.value);
   }
 
   String getFilterTitle() {
@@ -403,12 +454,17 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
       filterCount++;
     }
 
-
-    if(filterCount>0){
+    if (filterCount > 0) {
       return "filter_items".tr.replaceAll("2", filterCount.toString());
-    }else{
+    } else {
       return filterTitleAll;
     }
   }
-  
+
+  bool isFilterOptionsNotEmpty() {
+    return  
+        hotelBookingController.priceDcs.isNotEmpty||
+        hotelBookingController.locationDcs.isNotEmpty||
+        hotelBookingController.ratingDcs.isNotEmpty ;
+  }
 }

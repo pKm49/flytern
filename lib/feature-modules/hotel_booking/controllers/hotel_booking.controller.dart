@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flytern/feature-modules/hotel_booking/models/destination.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/details.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/filter_body.hotel_booking.model.dart';
@@ -76,6 +78,7 @@ class HotelBookingController extends GetxController {
   var selectedRoomSelectionIndex = 0.obs;
    var hotelId = (-1).obs;
   var objectId = (-1).obs;
+  var alertMsg = "".obs;
   var searchResultsPage = 1.obs;
 
   var gatewayUrl = "".obs;
@@ -181,7 +184,7 @@ class HotelBookingController extends GetxController {
       print("hotelSearchResponses value ");
       print(hotelSearchResponses.isNotEmpty);
       objectId.value = hotelSearchResult.objectID;
-
+      alertMsg.value = hotelSearchResult.alertMsg;
       if (hotelSearchResponses.isNotEmpty) {
         hotelId.value = hotelSearchResponses.value[0].hotelId;
         priceUnit.value = hotelSearchResponses.value[0].priceUnit;
@@ -219,9 +222,13 @@ class HotelBookingController extends GetxController {
           await hotelBookingHttpService.getHotelSearchResults(tHotelSearchData);
       hotelSearchResponses.value = hotelSearchResult.searchResponses;
       print("hotelSearchResponses value ");
+      print(hotelSearchResult.objectID);
+      print(hotelSearchResult.alertMsg);
       print(hotelSearchResponses.isNotEmpty);
-      objectId.value = hotelSearchResult.objectID;
 
+      objectId.value = hotelSearchResult.objectID;
+      alertMsg.value = hotelSearchResult.alertMsg;
+      print(alertMsg.value);
       if (hotelSearchResponses.isNotEmpty) {
         hotelId.value = hotelSearchResponses.value[0].hotelId;
         priceUnit.value = hotelSearchResponses.value[0].priceUnit;
@@ -262,11 +269,12 @@ class HotelBookingController extends GetxController {
         sortingDc: sortingDc.value.value,
       );
 
-      List<HotelSearchResponse> hotelSearchResponse =
+          HotelSearchResult hotelSearchResult =
           await hotelBookingHttpService
               .getHotelSearchResultsFiltered(hotelFilterBody);
 
-      hotelSearchResponses.value = hotelSearchResponse;
+      alertMsg.value = hotelSearchResult.alertMsg;
+      hotelSearchResponses.value = hotelSearchResult.searchResponses;
       isHotelSearchFilterResponsesLoading.value = false;
     }
   }
@@ -293,6 +301,8 @@ class HotelBookingController extends GetxController {
       hotelDetails.value = tempHotelDetails;
       print("room length after maping");
       print(hotelDetails.value.rooms.length);
+      print(hotelDetails.value.alertMsg);
+
       selectedImageIndex.value =
           hotelDetails.value.imageUrls.isNotEmpty ? 0 : -1;
 
@@ -601,17 +611,18 @@ class HotelBookingController extends GetxController {
         sortingDc: sortingDc.value.value,
       );
 
-      List<HotelSearchResponse> hotelSearchResponse =
+      HotelSearchResult hotelSearchResult =
       await hotelBookingHttpService
           .getHotelSearchResultsFiltered(hotelFilterBody);
 
+      alertMsg.value = hotelSearchResult.alertMsg;
       List<HotelSearchResponse> tHotelSearchResponse = [];
 
       for (var element in hotelSearchResponses.value) {
         tHotelSearchResponse.add(element);
       }
 
-      for (var element in hotelSearchResponse) {
+      for (var element in hotelSearchResult.searchResponses) {
         tHotelSearchResponse.add(element);
       }
 

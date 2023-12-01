@@ -3,7 +3,8 @@ import 'package:flytern/shared-module/models/range_dcs.dart';
  import 'package:flytern/shared-module/models/sorting_dcs.dart';
 
 class HotelSearchResult {
-  int objectID;
+  final int objectID;
+  final String alertMsg;
   final List<HotelSearchResponse> searchResponses;
   final List<SortingDcs> sortingDcs;
   final List<RangeDcs> priceDcs;
@@ -13,6 +14,7 @@ class HotelSearchResult {
   HotelSearchResult(
       {required this.searchResponses,
       required this.objectID,
+      required this.alertMsg,
       required this.priceDcs,
       required this.sortingDcs,
       required this.ratingDcs,

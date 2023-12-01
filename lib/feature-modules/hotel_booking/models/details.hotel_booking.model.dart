@@ -14,6 +14,7 @@ class HotelDetails {
   final String descriptionInfo;
   final String hotelName;
   final String address;
+  final String alertMsg;
   final String location;
   final String locationurl;
   final int hotelId;
@@ -25,6 +26,7 @@ class HotelDetails {
   HotelDetails(
       {required this.priceUnit,
       required this.fromPrice,
+      required this.alertMsg,
       required this.rating,
       required this.checkIn,
       required this.checkOut,
@@ -84,6 +86,7 @@ HotelDetails mapHotelDetails(dynamic payload) {
     rating: payload["rating"] ?? 0.0,
     fromPrice: payload["fromPrice"] ?? 0.0,
     priceUnit: payload["priceUnit"] ?? "",
+    alertMsg: payload["alertMsg"] ?? "",
     duration: payload["duration"] ?? "",
     checkOut: payload["checkOut"] ?? "",
     checkIn: payload["checkIn"] ?? "",
@@ -113,6 +116,7 @@ HotelDetails getDefaultHotelDetails() {
     checkIn: "",
     cancellationpolicy: '',
     hotelName: '',
+    alertMsg:'',
     descriptionInfo: '',
     imageUrls: [],
     basicDetails: [],

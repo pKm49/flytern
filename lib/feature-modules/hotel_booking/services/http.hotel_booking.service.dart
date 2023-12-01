@@ -1,14 +1,6 @@
 import 'package:flytern/feature-modules/activity_booking/models/details.activity_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/constants/http_request_endpoint.flight_booking.constant.dart';
-import 'package:flytern/feature-modules/flight_booking/models/explore_data.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/models/details.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/models/filter_body.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/models/destination.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/models/pretraveller_data.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/models/search_data.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/models/search_response.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/models/search_result.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/models/traveller_data.flight_booking.model.dart';
+ import 'package:flytern/feature-modules/flight_booking/models/details.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/popular_destination.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/recommended_package.flight_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/constants/http_request_endpoints.hotel_booking.constant.dart';
@@ -33,19 +25,7 @@ import 'package:flytern/shared-module/models/support_info.dart';
 import 'package:flytern/shared-module/services/http-services/http_request_handler.shared.service.dart';
 
 class HotelBookingHttpService {
-  Future<ExploreData?> getInitialInfo() async {
-    FlyternHttpResponse response =
-        await getRequest(HotelBookingHttpRequestEndpointGetInitalInfo, null);
 
-    if (response.success) {
-      if (response.data != null) {
-        ExploreData exploreData = mapExploreData(response.data);
-        return exploreData;
-      }
-    }
-
-    return null;
-  }
 
   Future<List<HotelDestination>> getHotelDestinations(
       String searchQuery) async {
@@ -91,6 +71,8 @@ class HotelBookingHttpService {
     List<SortingDcs> ratingDcs = [];
     List<SortingDcs> locationDcs = [];
     int objectID = -1;
+    String alertMsg = "";
+
     try {
       FlyternHttpResponse response = await postRequest(
           HotelBookingHttpRequestEndpointSearchHotels,
@@ -99,6 +81,9 @@ class HotelBookingHttpService {
       if (response.success) {
         if (response.data != null) {
           objectID = response.data["objectID"] ?? -1;
+          alertMsg = response.data["alertMsg"] ?? "";
+          print("response alertMsg");
+          print(response.data["alertMsg"]);
           if (response.data["_lst"] != null) {
             for (var i = 0; i < response.data["_lst"].length; i++) {
               searchResponses
@@ -131,8 +116,11 @@ class HotelBookingHttpService {
       print("errrror");
       print(e);
     }
+    print("alertMsg");
+    print(alertMsg);
 
     HotelSearchResult flightSearchResult = HotelSearchResult(
+      alertMsg:alertMsg,
       objectID: objectID,
       searchResponses: searchResponses,
       priceDcs: priceDcs,
@@ -140,18 +128,22 @@ class HotelBookingHttpService {
       ratingDcs: ratingDcs,
       locationDcs: locationDcs,
     );
-
+    print("flightSearchResult.alertMsg");
+    print(flightSearchResult.alertMsg);
     return flightSearchResult;
   }
 
-  Future<List<HotelSearchResponse>> getHotelSearchResultsFiltered(
+  Future<HotelSearchResult> getHotelSearchResultsFiltered(
       HotelFilterBody flightFilterBody) async {
     FlyternHttpResponse response = await postRequest(
         HotelBookingHttpRequestEndpointFilterHotels, flightFilterBody.toJson());
 
     List<HotelSearchResponse> searchResponses = [];
+    String alertMsg = "";
     if (response.success && response.statusCode == 200) {
       if (response.data != null) {
+        alertMsg = response.data["alertMsg"] ?? "";
+
         if (response.data["_lst"] != null) {
           for (var i = 0; i < response.data["_lst"].length; i++) {
             searchResponses.add(
@@ -161,7 +153,15 @@ class HotelBookingHttpService {
       }
     }
 
-    return searchResponses;
+   return HotelSearchResult(
+      alertMsg:alertMsg,
+      objectID: -1,
+      searchResponses: searchResponses,
+      priceDcs: [],
+      sortingDcs: [],
+      ratingDcs: [],
+      locationDcs: [],
+    );
   }
 
   Future<HotelDetails> getHotelDetails(int hotelid, int objectId) async {

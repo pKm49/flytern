@@ -113,9 +113,9 @@ class _ActivityUserDetailsSubmissionPageState
                       child: Container(
                         decoration:
                             flyternBorderedContainerSmallDecoration.copyWith(
-                                color: flyternGrey10,
+                                color: flyternGrey20,
                                 border: Border.all(
-                                    color: flyternGrey10, width: .2)),
+                                    color: flyternGrey20, width: .2)),
                         padding: flyternMediumPaddingHorizontal.copyWith(
                             top: flyternSpaceExtraSmall,
                             bottom: flyternSpaceExtraSmall),
@@ -155,9 +155,9 @@ class _ActivityUserDetailsSubmissionPageState
                         child: Container(
                           decoration:
                               flyternBorderedContainerSmallDecoration.copyWith(
-                                  color: flyternGrey10,
+                                  color: flyternGrey20,
                                   border: Border.all(
-                                      color: flyternGrey10, width: .2)),
+                                      color: flyternGrey20, width: .2)),
                           padding: flyternMediumPaddingHorizontal.copyWith(
                               top: flyternSpaceExtraSmall,
                               bottom: flyternSpaceExtraSmall),

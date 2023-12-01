@@ -463,6 +463,7 @@ class _HotelFilterOptionSelectorState extends State<HotelFilterOptionSelector> {
   setSelectedFilterOptions(
       HotelFilterOptions filterOption, List<SortingDcs> items) {
     selectedFilterOptions = HotelSearchResult(
+        alertMsg:"",
         objectID: -1,
         searchResponses: [],
         priceDcs: selectedFilterOptions.priceDcs,
@@ -485,6 +486,7 @@ class _HotelFilterOptionSelectorState extends State<HotelFilterOptionSelector> {
 
     selectedFilterOptions = HotelSearchResult(
         objectID: -1,
+        alertMsg:"",
         searchResponses: [],
         priceDcs: priceRange,
         sortingDcs: selectedFilterOptions.sortingDcs,
@@ -518,6 +520,7 @@ class _HotelFilterOptionSelectorState extends State<HotelFilterOptionSelector> {
 
   void clearFilter() {
     widget.filterSubmitted(HotelSearchResult(
+        alertMsg:"",
         searchResponses: [],
         priceDcs: [],
         sortingDcs: [],
