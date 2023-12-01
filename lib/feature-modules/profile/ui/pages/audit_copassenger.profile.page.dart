@@ -154,13 +154,13 @@ class _ProfileAuditCopassengerPageState
                                   i++)
                                 GeneralItem(
                                     imageUrl: "",
-                                    id: sharedController.genders[i].code,
-                                    name: sharedController.genders[i].name)
+                                    id: sharedController.genders[i].name,
+                                    name: sharedController.genders[i].code)
                             ],
                             hintText: "gender".tr,
                             valueChanged: (newGender) {
                               List<Gender> genders = sharedController.genders
-                                  .where((e) => e.code == newGender)
+                                  .where((e) => e.name == newGender)
                                   .toList();
                               if (genders.isNotEmpty) {
                                 coPaxController.changeGender(genders[0]);

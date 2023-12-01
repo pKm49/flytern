@@ -46,11 +46,12 @@ class _HotelUserDetailsSubmissionFormState
   TextEditingController titleController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
-  Gender selectedTitle = Gender(code: "", name: "", isDefault: false);
-  Gender selectedGender = Gender(code: "", name: "", isDefault: false);
+  Gender selectedTitle = Gender(code: "0", name: "Title", isDefault: false);
+  Gender selectedGender = Gender(code: "Gender", name: "0", isDefault: false);
   String selectedPassenger = "0";
   String gender = "0";
   String title = "0";
+  final sharedController = Get.find<SharedController>();
 
   final GlobalKey<FormState> userDetailsForm = GlobalKey<FormState>();
   final GlobalKey<FormState> genderDropDownKey = GlobalKey<FormState>();
@@ -78,7 +79,7 @@ class _HotelUserDetailsSubmissionFormState
             Visibility(
               visible: coPaxController.userCopaxes.isNotEmpty,
               child: Container(
-                  padding: EdgeInsets.only(bottom: flyternSpaceMedium),
+                  padding: EdgeInsets.only(top: flyternSpaceMedium),
                   color: flyternBackgroundWhite,
                   child: Container(
                     decoration:
@@ -119,42 +120,23 @@ class _HotelUserDetailsSubmissionFormState
                   border:
                   Border.all(color: flyternGrey10, width: .2)),
               padding: flyternMediumPaddingHorizontal.copyWith(
-                  top: flyternSpaceExtraSmall,
-                  bottom: flyternSpaceExtraSmall),
+                  top: flyternSpaceExtraSmall,bottom: flyternSpaceExtraSmall),
               margin: EdgeInsets.only(top: flyternSpaceMedium),
               child: DropDownSelector(
                 key: titleDropDownKey,
                 titleText: "title".tr,
                 selected: title,
-                items: [
-                  for (var i = 0;
-                  i <
-                      widget
-                          .hotelBookingController
-                          .hotelPretravellerData
-                          .value
-                          .titleList
-                          .length;
-                  i++)
-                    GeneralItem(
-                        imageUrl: "",
-                        id: widget
-                            .hotelBookingController
-                            .hotelPretravellerData
-                            .value
-                            .titleList[i]
-                            .name,
-                        name: widget
-                            .hotelBookingController
-                            .hotelPretravellerData
-                            .value
-                            .titleList[i]
-                            .code)
+                items: [ for (var i = 0;
+                i < sharedController.titleList.length;
+                i++)
+                  GeneralItem(
+                      imageUrl: "",
+                      id: sharedController.titleList[i].name,
+                      name: sharedController.titleList[i].code),
                 ],
                 hintText: "title".tr,
                 valueChanged: (newGender) {
-                  List<Gender> titles = widget.hotelBookingController
-                      .hotelPretravellerData.value.titleList
+                  List<Gender> titles = sharedController.titleList
                       .where((e) => e.code == newGender)
                       .toList();
                   if (titles.isNotEmpty) {
@@ -164,7 +146,7 @@ class _HotelUserDetailsSubmissionFormState
               ),
             ),
             Container(
-              padding: EdgeInsets.only(bottom: flyternSpaceMedium,top: flyternSpaceMedium),
+              padding: EdgeInsets.only( top: flyternSpaceMedium),
               color: flyternBackgroundWhite,
               child: Row(
                 children: [
@@ -203,7 +185,7 @@ class _HotelUserDetailsSubmissionFormState
               ),
             ),
             Container(
-              padding: EdgeInsets.only(bottom: flyternSpaceMedium),
+              padding: EdgeInsets.only(top: flyternSpaceMedium),
               color: flyternBackgroundWhite,
               child: Row(
                 children: [
@@ -223,33 +205,20 @@ class _HotelUserDetailsSubmissionFormState
                       selected: gender,
                       items: [
                         for (var i = 0;
-                            i <
-                                widget
-                                    .hotelBookingController
-                                    .hotelPretravellerData
-                                    .value
-                                    .genderList
-                                    .length;
-                            i++)
+                        i <
+                            sharedController.genderList.value
+                                .length;
+                        i++)
                           GeneralItem(
                               imageUrl: "",
-                              id: widget
-                                  .hotelBookingController
-                                  .hotelPretravellerData
-                                  .value
-                                  .genderList[i]
+                              id: sharedController.genderList.value[i]
                                   .name,
-                              name: widget
-                                  .hotelBookingController
-                                  .hotelPretravellerData
-                                  .value
-                                  .genderList[i]
+                              name: sharedController.genderList.value[i]
                                   .code)
                       ],
                       hintText: "gender".tr,
                       valueChanged: (newGender) {
-                        List<Gender> genders = widget.hotelBookingController
-                            .hotelPretravellerData.value.genderList
+                        List<Gender> genders = sharedController.genderList.value
                             .where((e) => e.name == newGender)
                             .toList();
                         if (genders.isNotEmpty) {
@@ -289,20 +258,50 @@ class _HotelUserDetailsSubmissionFormState
     List<UserCoPax> coPax = coPaxController.userCopaxes
         .where((p0) => p0.id.toString() == newGender)
         .toList();
+    selectedPassenger = newGender;
     if (coPax.isNotEmpty) {
-      selectedPassenger = newGender;
 
-      List<Gender> coPaxGender = widget
-          .hotelBookingController.hotelPretravellerData.value.genderList
+
+      List<Gender> coPaxGender = sharedController.genderList.value
           .where((element) => element.name == coPax[0].gender)
           .toList();
 
-      gender = coPaxGender[0].name;
-      selectedGender = coPaxGender[0];
+      if (coPaxGender.isNotEmpty) {
+        gender = coPaxGender[0].name;
+        selectedGender = coPaxGender[0];
+      }
+
+      List<Gender> tSelectedTitle = sharedController.titleList.value
+          .where((element) => element.name == coPax[0].title)
+          .toList();
+      if (tSelectedTitle.isNotEmpty) {
+        selectedTitle = tSelectedTitle[0];
+        title = tSelectedTitle[0].code;
+      }
       firstNameController.text = coPax[0].firstName;
       lastNameController.text = coPax[0].lastName;
 
-      final sharedController = Get.find<SharedController>();
+
+
+      setState(() {});
+      updateData();
+    }else {
+
+      gender = sharedController.genderList.isNotEmpty
+          ? sharedController.genderList[0].name
+          : "0";
+      selectedGender = sharedController.genderList.isNotEmpty
+          ? sharedController.genderList[0]
+          : Gender(code: "Gender", name: "0", isDefault: false);
+
+      firstNameController.text = "";
+      lastNameController.text = "";
+      title = sharedController.titleList.isNotEmpty
+          ? sharedController.titleList[0].name
+          : "0";
+      selectedTitle = sharedController.titleList.isNotEmpty
+          ? sharedController.titleList[0]
+          : Gender(code: "Title", name: "0", isDefault: false);
 
 
       setState(() {});

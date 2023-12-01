@@ -145,6 +145,9 @@ class SharedController extends GetxController {
     SupportInfo supportInfo = await sharedHttpService.getInitialSupportInfo();
 
     languages.value = supportInfo.languages;
+    titleList.value = supportInfo.titleList;
+    genderList.value = supportInfo.genderList;
+
     updateMobileCountryList(supportInfo.mobileCountryList);
     updateCountryList(supportInfo.countriesList);
   }

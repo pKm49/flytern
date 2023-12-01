@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart'; 
-import 'package:flytern/feature-modules/flight_booking/models/traveller_info.flight_booking.model.dart';
-import 'package:flytern/feature-modules/insurance/controllers/insurance.controller.dart';
+ import 'package:flytern/feature-modules/insurance/controllers/insurance.controller.dart';
 import 'package:flytern/feature-modules/insurance/models/traveller_info.insurance.model.dart';
 import 'package:flytern/feature-modules/profile/controllers/copax.profile.controller.dart';
 import 'package:flytern/feature-modules/profile/models/user-copax.profile.model.dart';
@@ -17,8 +16,7 @@ import 'package:flytern/shared-module/services/utility-services/widget_generator
 import 'package:flytern/shared-module/ui/components/country_selector.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/custom_date_picker.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/dropdown_selector.shared.component.dart';
-import 'package:flytern/shared-module/ui/components/sort_option_selector.shared.component.dart';
-import 'package:get/get.dart';
+ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class InsuranceUserDetailsSubmissionForm extends StatefulWidget  {
@@ -54,7 +52,9 @@ class _InsuranceUserDetailsSubmissionFormState
   String gender = "0";
   String title = "0";
   String frequentFlyerNo = "0";
-  DateTime dateOfBirth = DefaultInvalidDate;
+   final sharedController = Get.find<SharedController>();
+
+   DateTime dateOfBirth = DefaultInvalidDate;
   DateTime passportExpiryDate = DefaultInvalidDate;
   final GlobalKey<FormState> userDetailsForm = GlobalKey<FormState>();
   final GlobalKey<FormState> genderDropDownKey = GlobalKey<FormState>();
@@ -348,8 +348,9 @@ class _InsuranceUserDetailsSubmissionFormState
     List<UserCoPax> coPax = coPaxController.userCopaxes
         .where((p0) => p0.id.toString() == newGender)
         .toList();
+    selectedPassenger = newGender;
+
     if (coPax.isNotEmpty) {
-      selectedPassenger = newGender;
 
       firstNameController.text =    coPax[0].firstName;
       lastNameController.text =    coPax[0].lastName;
@@ -373,6 +374,38 @@ class _InsuranceUserDetailsSubmissionFormState
         nationalityController.text =
         "${ nationCountry[0].countryName} (${ nationCountry[0].code})";
       }
+
+      setState(() {});
+      updateData();
+    }else {
+      dobController.text = "";
+      dateOfBirth = DefaultInvalidDate;
+      passportNumberController.text =    "";
+      nationalityController.text = "";
+      nationality = Country(
+          isDefault: 1,
+          countryName: "",
+          countryCode: "",
+          countryISOCode: "",
+          countryName_Ar: "",
+          flag: "",
+          code: "");
+      gender = sharedController.genderList.isNotEmpty
+          ? sharedController.genderList[0].name
+          : "0";
+      selectedGender = sharedController.genderList.isNotEmpty
+          ? sharedController.genderList[0]
+          : Gender(code: "Gender", name: "0", isDefault: false);
+
+      firstNameController.text = "";
+      lastNameController.text = "";
+      title = sharedController.titleList.isNotEmpty
+          ? sharedController.titleList[0].name
+          : "0";
+      selectedTitle = sharedController.titleList.isNotEmpty
+          ? sharedController.titleList[0]
+          : Gender(code: "Title", name: "0", isDefault: false);
+
 
       setState(() {});
       updateData();

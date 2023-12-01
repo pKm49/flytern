@@ -363,14 +363,14 @@ class FlightBookingController extends GetxController {
       }
       isFlightDetailsLoading.value = false;
       Get.toNamed(Approute_flightsDetails);
-      if (flightDetails.value.priceChanged) {
-        showSnackbar(
-            Get.context!, flightDetails.value.priceChangedMessage, "info");
-      }
-      if (flightDetails.value.scheduleChanged) {
-        showSnackbar(
-            Get.context!, flightDetails.value.scheduleChangedMessage, "info");
-      }
+      // if (flightDetails.value.priceChanged) {
+      //   showSnackbar(
+      //       Get.context!, flightDetails.value.priceChangedMessage, "info");
+      // }
+      // if (flightDetails.value.scheduleChanged) {
+      //   showSnackbar(
+      //       Get.context!, flightDetails.value.scheduleChangedMessage, "info");
+      // }
     }
   }
 

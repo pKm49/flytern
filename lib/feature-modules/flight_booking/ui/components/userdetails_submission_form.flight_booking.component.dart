@@ -21,8 +21,7 @@ import 'package:flytern/shared-module/ui/components/sort_option_selector.shared.
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class FlightUserDetailsSubmissionForm extends StatefulWidget  {
-
+class FlightUserDetailsSubmissionForm extends StatefulWidget {
   int index;
   int itemTypeIndex;
   FlightBookingController flightBookingController;
@@ -41,8 +40,8 @@ class FlightUserDetailsSubmissionForm extends StatefulWidget  {
 }
 
 class _FlightUserDetailsSubmissionFormState
-    extends State<FlightUserDetailsSubmissionForm> with AutomaticKeepAliveClientMixin<FlightUserDetailsSubmissionForm> {
-
+    extends State<FlightUserDetailsSubmissionForm>
+    with AutomaticKeepAliveClientMixin<FlightUserDetailsSubmissionForm> {
   TextEditingController frequentFlyerNoController = TextEditingController();
   TextEditingController travellerTypeController = TextEditingController();
   TextEditingController titleController = TextEditingController();
@@ -52,10 +51,12 @@ class _FlightUserDetailsSubmissionFormState
   TextEditingController dobController = TextEditingController();
   TextEditingController passportExpiryDateController = TextEditingController();
   TextEditingController nationalityController = TextEditingController();
-  TextEditingController passportIssuedCountryController = TextEditingController();
+  TextEditingController passportIssuedCountryController =
+      TextEditingController();
 
-  Gender selectedTitle  = Gender(code: "", name: "", isDefault: false);
-  Gender selectedGender  = Gender(code: "", name: "", isDefault: false);
+  Gender selectedTitle = Gender(code: "0", name: "Title", isDefault: false);
+
+  Gender selectedGender = Gender(code: "Gender", name: "0", isDefault: false);
   String selectedPassenger = "0";
   String gender = "0";
   String title = "0";
@@ -69,6 +70,7 @@ class _FlightUserDetailsSubmissionFormState
       GlobalKey<FormState>();
 
   final coPaxController = Get.find<CoPaxController>();
+  final sharedController = Get.find<SharedController>();
 
   var nationality = Country(
       isDefault: 1,
@@ -109,9 +111,11 @@ class _FlightUserDetailsSubmissionFormState
                   padding: EdgeInsets.only(bottom: flyternSpaceMedium),
                   color: flyternBackgroundWhite,
                   child: Container(
-                    decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                        color: flyternGrey10,
-                        border: Border.all(color: flyternGrey10, width: .2)),
+                    decoration:
+                        flyternBorderedContainerSmallDecoration.copyWith(
+                            color: flyternGrey10,
+                            border:
+                                Border.all(color: flyternGrey10, width: .2)),
                     padding: flyternMediumPaddingHorizontal.copyWith(
                         top: flyternSpaceExtraSmall,
                         bottom: flyternSpaceExtraSmall),
@@ -139,7 +143,8 @@ class _FlightUserDetailsSubmissionFormState
                   )),
             ),
             Container(
-              padding: EdgeInsets.only(bottom: flyternSpaceMedium,top: flyternSpaceSmall),
+              padding: EdgeInsets.only(
+                  bottom: flyternSpaceMedium, top: flyternSpaceSmall),
               color: flyternBackgroundWhite,
               child: Row(
                 children: [
@@ -158,35 +163,17 @@ class _FlightUserDetailsSubmissionFormState
                         key: titleDropDownKey,
                         titleText: "title".tr,
                         selected: title,
-                        items: [
-                          for (var i = 0;
-                              i <
-                                  widget
-                                      .flightBookingController
-                                      .flightPretravellerData
-                                      .value
-                                      .titleList
-                                      .length;
-                              i++)
-                            GeneralItem(
-                                imageUrl: "",
-                                id: widget
-                                    .flightBookingController
-                                    .flightPretravellerData
-                                    .value
-                                    .titleList[i]
-                                    .name,
-                                name: widget
-                                    .flightBookingController
-                                    .flightPretravellerData
-                                    .value
-                                    .titleList[i]
-                                    .code)
+                        items: [ for (var i = 0;
+                        i < sharedController.titleList.length;
+                        i++)
+                          GeneralItem(
+                              imageUrl: "",
+                              id: sharedController.titleList[i].name,
+                              name: sharedController.titleList[i].code),
                         ],
                         hintText: "title".tr,
                         valueChanged: (newGender) {
-                          List<Gender> titles = widget.flightBookingController
-                              .flightPretravellerData.value.titleList
+                          List<Gender> titles = sharedController.titleList
                               .where((e) => e.code == newGender)
                               .toList();
                           if (titles.isNotEmpty) {
@@ -238,9 +225,11 @@ class _FlightUserDetailsSubmissionFormState
                 children: [
                   Expanded(
                       child: Container(
-                    decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                        color: flyternGrey10,
-                        border: Border.all(color: flyternGrey10, width: .2)),
+                    decoration:
+                        flyternBorderedContainerSmallDecoration.copyWith(
+                            color: flyternGrey10,
+                            border:
+                                Border.all(color: flyternGrey10, width: .2)),
                     padding: flyternMediumPaddingHorizontal.copyWith(
                         top: flyternSpaceExtraSmall,
                         bottom: flyternSpaceExtraSmall),
@@ -251,32 +240,19 @@ class _FlightUserDetailsSubmissionFormState
                       items: [
                         for (var i = 0;
                             i <
-                                widget
-                                    .flightBookingController
-                                    .flightPretravellerData
-                                    .value
-                                    .genderList
+                                sharedController.genderList.value
                                     .length;
                             i++)
                           GeneralItem(
                               imageUrl: "",
-                              id: widget
-                                  .flightBookingController
-                                  .flightPretravellerData
-                                  .value
-                                  .genderList[i]
+                              id: sharedController.genderList.value[i]
                                   .name,
-                              name: widget
-                                  .flightBookingController
-                                  .flightPretravellerData
-                                  .value
-                                  .genderList[i]
+                              name: sharedController.genderList.value[i]
                                   .code)
                       ],
                       hintText: "gender".tr,
                       valueChanged: (newGender) {
-                        List<Gender> genders = widget.flightBookingController
-                            .flightPretravellerData.value.genderList
+                        List<Gender> genders = sharedController.genderList.value
                             .where((e) => e.name == newGender)
                             .toList();
                         if (genders.isNotEmpty) {
@@ -394,8 +370,7 @@ class _FlightUserDetailsSubmissionFormState
   void changeGender(Gender newGender) {
     gender = newGender.name;
     selectedGender = newGender;
-    setState(() {
-    });
+    setState(() {});
     updateData();
   }
 
@@ -413,8 +388,10 @@ class _FlightUserDetailsSubmissionFormState
         builder: (context) {
           return CustomDatePicker(
             selectedDate: dateTime,
-            maximumDate: isDOB? getMaximumDate():DateTime(2100,1,1),
-            minimumDate: isDOB?getMinimumDate():DateTime.now().add(const Duration(days: 1)),
+            maximumDate: isDOB ? getMaximumDate() : DateTime(2100, 1, 1),
+            minimumDate: isDOB
+                ? getMinimumDate()
+                : DateTime.now().add(const Duration(days: 1)),
             dateSelected: (DateTime? dateTime) {
               if (dateTime != null) {
                 if (isDOB) {
@@ -434,7 +411,6 @@ class _FlightUserDetailsSubmissionFormState
     dobController.text = f.format(dateTime);
     setState(() {});
     updateData();
-
   }
 
   void changePassportExpiry(DateTime dateTime) {
@@ -443,7 +419,6 @@ class _FlightUserDetailsSubmissionFormState
     passportExpiryDateController.text = f.format(dateTime);
     setState(() {});
     updateData();
-
   }
 
   void openCountrySelector(bool isNationality) {
@@ -458,7 +433,7 @@ class _FlightUserDetailsSubmissionFormState
         context: context,
         builder: (context) {
           return CountrySelector(
-            isMobile:false,
+            isMobile: false,
             isGlobal: false,
             countrySelected: (Country? country) {
               if (country != null) {
@@ -475,10 +450,10 @@ class _FlightUserDetailsSubmissionFormState
 
   void changeNationality(Country country) {
     nationality = country;
-    nationalityController.text = "${country.countryName} (${country.countryCode})";
+    nationalityController.text =
+        "${country.countryName} (${country.countryCode})";
     setState(() {});
     updateData();
-
   }
 
   void changePassportCountry(Country country) {
@@ -487,7 +462,6 @@ class _FlightUserDetailsSubmissionFormState
         "${country.countryName} (${country.countryCode})";
     setState(() {});
     updateData();
-
   }
 
   void changeTitle(Gender newTitle) {
@@ -497,107 +471,182 @@ class _FlightUserDetailsSubmissionFormState
     updateData();
   }
 
-
   void changeSelectedPassenger(String newGender) {
     List<UserCoPax> coPax = coPaxController.userCopaxes
         .where((p0) => p0.id.toString() == newGender)
         .toList();
-    if (coPax.isNotEmpty) {
-      selectedPassenger = newGender;
+    selectedPassenger = newGender;
 
-      List<Gender> coPaxGender = widget
-          .flightBookingController.flightPretravellerData.value.genderList
+    if (coPax.isNotEmpty) {
+      List<Gender> coPaxGender = sharedController.genderList.value
           .where((element) => element.name == coPax[0].gender)
           .toList();
 
       gender = coPaxGender[0].name;
       selectedGender = coPaxGender[0];
-      firstNameController.text =    coPax[0].firstName;
-      lastNameController.text =    coPax[0].lastName;
-      passportNumberController.text =    coPax[0].passportNumber;
+      firstNameController.text = coPax[0].firstName;
+      lastNameController.text = coPax[0].lastName;
+      passportNumberController.text = coPax[0].passportNumber;
       final f = DateFormat('dd-MM-yyyy');
-      if(coPax[0].dateOfBirth == DefaultInvalidDate){
+      print("copax dotb");
+      print(coPax[0].dateOfBirth);
+      if (coPax[0].dateOfBirth == DefaultInvalidDate) {
         dobController.text = f.format(getMinimumDate());
         dateOfBirth = getMinimumDate();
-      }else{
+      } else {
         dobController.text = f.format(coPax[0].dateOfBirth);
         dateOfBirth = coPax[0].dateOfBirth;
       }
 
       passportExpiryDateController.text = f.format(coPax[0].passportExp);
-      final sharedController = Get.find<SharedController>();
       passportExpiryDate = coPax[0].passportExp;
-      List<Country> passCountry = sharedController.countries.value.where((element) =>
-      element.countryISOCode == coPax[0].passportIssuedCountryCode).toList();
-      if(passCountry.isNotEmpty){
+      List<Country> passCountry = sharedController.countries.value
+          .where((element) =>
+              element.countryISOCode == coPax[0].passportIssuedCountryCode)
+          .toList();
+      if (passCountry.isNotEmpty) {
         passportIssuedCountryCode = passCountry[0];
         passportIssuedCountryController.text =
-        "${ passCountry[0].countryName} (${ passCountry[0].code})";
+            "${passCountry[0].countryName} (${passCountry[0].code})";
       }
 
-      List<Country> nationCountry = sharedController.countries.value.where((element) =>
-      element.countryISOCode == coPax[0].nationalityCode).toList();
-      if(nationCountry.isNotEmpty){
+      List<Country> nationCountry = sharedController.countries.value
+          .where(
+              (element) => element.countryISOCode == coPax[0].nationalityCode)
+          .toList();
+      if (nationCountry.isNotEmpty) {
         nationality = nationCountry[0];
         nationalityController.text =
-        "${ nationCountry[0].countryName} (${ nationCountry[0].code})";
+            "${nationCountry[0].countryName} (${nationCountry[0].code})";
+      }
+
+      List<Gender> tSelectedTitle = sharedController.titleList.value
+          .where((element) => element.name == coPax[0].title)
+          .toList();
+      if (tSelectedTitle.isNotEmpty) {
+        selectedTitle = tSelectedTitle[0];
+        title = tSelectedTitle[0].code;
       }
 
       setState(() {});
       updateData();
-    }
+    } else {
 
+      gender = sharedController.genderList.isNotEmpty
+          ? sharedController.genderList[0].name
+          : "0";
+      selectedGender = sharedController.genderList.isNotEmpty
+          ? sharedController.genderList[0]
+          : Gender(code: "Gender", name: "0", isDefault: false);
+
+      frequentFlyerNoController.text = "";
+      passportNumberController.text = "";
+      passportExpiryDateController.text = "";
+      dobController.text = "";
+      dateOfBirth = DefaultInvalidDate;
+      passportExpiryDate = DefaultInvalidDate;
+      firstNameController.text = "";
+      lastNameController.text = "";
+      title = sharedController.titleList.isNotEmpty
+          ? sharedController.titleList[0].name
+          : "0";
+      selectedTitle = sharedController.titleList.isNotEmpty
+          ? sharedController.titleList[0]
+          : Gender(code: "Title", name: "0", isDefault: false);
+
+      passportIssuedCountryController.text = "";
+      passportIssuedCountryCode = Country(
+          isDefault: 1,
+          countryName: "",
+          countryCode: "",
+          countryISOCode: "",
+          countryName_Ar: "",
+          flag: "",
+          code: "");
+
+      nationalityController.text = "";
+      nationality = Country(
+          isDefault: 1,
+          countryName: "",
+          countryCode: "",
+          countryISOCode: "",
+          countryName_Ar: "",
+          flag: "",
+          code: "");
+
+      setState(() {});
+      updateData();
+    }
   }
 
   getMaximumDate() {
-    switch (widget.itemTypeIndex){
-      case 0:{
-        return widget.flightBookingController.flightPretravellerData.value.adultMaxDOB;
-      }
-      case 1:{
-        return widget.flightBookingController.flightPretravellerData.value.childMaxDOB;
-      }
-      case 2:{
-        return widget.flightBookingController.flightPretravellerData.value.infantMaxDOB;
-      }
-      default:{
-        return widget.flightBookingController.flightPretravellerData.value.adultMaxDOB;
-      }
+    switch (widget.itemTypeIndex) {
+      case 0:
+        {
+          return widget
+              .flightBookingController.flightPretravellerData.value.adultMaxDOB;
+        }
+      case 1:
+        {
+          return widget
+              .flightBookingController.flightPretravellerData.value.childMaxDOB;
+        }
+      case 2:
+        {
+          return widget.flightBookingController.flightPretravellerData.value
+              .infantMaxDOB;
+        }
+      default:
+        {
+          return widget
+              .flightBookingController.flightPretravellerData.value.adultMaxDOB;
+        }
     }
   }
 
   getMinimumDate() {
-    switch (widget.itemTypeIndex){
-      case 0:{
-        return widget.flightBookingController.flightPretravellerData.value.adultMinDOB;
-      }
-      case 1:{
-        return widget.flightBookingController.flightPretravellerData.value.childMinDOB;
-      }
-      case 2:{
-        return widget.flightBookingController.flightPretravellerData.value.infantMinDOB;
-      }
-      default:{
-        return widget.flightBookingController.flightPretravellerData.value.adultMinDOB;
-      }
+    switch (widget.itemTypeIndex) {
+      case 0:
+        {
+          return widget
+              .flightBookingController.flightPretravellerData.value.adultMinDOB;
+        }
+      case 1:
+        {
+          return widget
+              .flightBookingController.flightPretravellerData.value.childMinDOB;
+        }
+      case 2:
+        {
+          return widget.flightBookingController.flightPretravellerData.value
+              .infantMinDOB;
+        }
+      default:
+        {
+          return widget
+              .flightBookingController.flightPretravellerData.value.adultMinDOB;
+        }
     }
   }
 
-  updateData(){
-    widget.dataSubmitted(
-        TravelInfo(
-            no: widget.index,
-            frequentFlyerNo: frequentFlyerNoController.value.text,
-            travellerType: widget.itemTypeIndex == 0?"Adult":widget.itemTypeIndex == 1?"Child":"Infant",
-            title: selectedTitle.code,
-            firstName: firstNameController.text,
-            lastName: lastNameController.text,
-            gender: selectedGender.code,
-            dateOfBirth: dateOfBirth,
-            passportNumber: passportNumberController.text,
-            nationalityCode:nationality.countryISOCode,
-            passportIssuedCountryCode: passportIssuedCountryCode.countryISOCode,
-            passportExpiryDate: passportExpiryDate));
+  updateData() {
+    widget.dataSubmitted(TravelInfo(
+        no: widget.index,
+        frequentFlyerNo: frequentFlyerNoController.value.text,
+        travellerType: widget.itemTypeIndex == 0
+            ? "Adult"
+            : widget.itemTypeIndex == 1
+                ? "Child"
+                : "Infant",
+        title: selectedTitle.code,
+        firstName: firstNameController.text,
+        lastName: lastNameController.text,
+        gender: selectedGender.code,
+        dateOfBirth: dateOfBirth,
+        passportNumber: passportNumberController.text,
+        nationalityCode: nationality.countryISOCode,
+        passportIssuedCountryCode: passportIssuedCountryCode.countryISOCode,
+        passportExpiryDate: passportExpiryDate));
   }
 
   @override

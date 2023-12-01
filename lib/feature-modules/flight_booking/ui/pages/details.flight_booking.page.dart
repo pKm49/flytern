@@ -77,6 +77,38 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                 child: ListView(
                   children: [
 
+                      Visibility(
+                        visible:flightBookingController.flightDetails.value.priceChanged,
+                        child: Container(
+                          padding: flyternMediumPaddingAll.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
+                          margin: flyternLargePaddingAll.copyWith(bottom:  0),
+                          decoration: BoxDecoration(
+                            color: flyternPrimaryColorBg,
+                            borderRadius: BorderRadius.circular(
+                                flyternBorderRadiusExtraSmall),
+                          ),
+                          child: Html(
+                            data: flightBookingController.flightDetails.value.priceChangedMessage,
+                          ),
+                        ),
+                      ),
+                    Visibility(
+                      visible:flightBookingController.flightDetails.value.scheduleChanged,
+                      child: Container(
+                        padding: flyternMediumPaddingAll.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
+                        margin: flyternLargePaddingAll.copyWith(bottom: 0),
+                        decoration: BoxDecoration(
+                          color: flyternPrimaryColorBg,
+                          borderRadius: BorderRadius.circular(
+                              flyternBorderRadiusExtraSmall),
+                        ),
+                        child: Html(
+                          data: flightBookingController.flightDetails.value.scheduleChangedMessage,
+                        ),
+                      ),
+                    ),
+
+
                     Padding(
                       padding: flyternLargePaddingAll,
                       child: Text("itinerary".tr,

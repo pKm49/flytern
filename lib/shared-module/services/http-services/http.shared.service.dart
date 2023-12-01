@@ -11,7 +11,7 @@ import 'package:flytern/shared-module/services/http-services/http_request_handle
 
 class SharedHttpService {
 
-  getInitialSupportInfo( ) async {
+  Future<SupportInfo> getInitialSupportInfo( ) async {
     FlyternHttpResponse response = await getRequest(
         SharedHttpRequestEndpointGetInitalInfo, null);
 
@@ -22,7 +22,7 @@ class SharedHttpService {
       }
     }
 
-    return response;
+    return mapSupportInfo({});
   }
 
   getPreRegisterSupportInfo( ) async {

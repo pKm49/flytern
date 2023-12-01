@@ -35,10 +35,11 @@ class _ActivityUserDetailsSubmissionPageState
   TextEditingController lastNameController = TextEditingController();
   TextEditingController specialRequestController = TextEditingController();
   TextEditingController nationalityController = TextEditingController();
+  final sharedController = Get.find<SharedController>();
 
-  Gender selectedTitle = Gender(code: "", name: "", isDefault: false);
+  Gender selectedTitle = Gender(code: "0", name: "Title", isDefault: false);
   String selectedPassenger = "0";
-  String title = "1";
+  String title = "0";
   DateTime dateOfBirth = DefaultInvalidDate;
   DateTime passportExpiryDate = DefaultInvalidDate;
 
@@ -106,7 +107,8 @@ class _ActivityUserDetailsSubmissionPageState
                 Visibility(
                   visible: coPaxController.userCopaxes.isNotEmpty,
                   child: Container(
-                      padding: EdgeInsets.only(bottom: flyternSpaceMedium),
+                      padding: flyternLargePaddingAll.copyWith(
+                          bottom: flyternSpaceSmall),
                       color: flyternBackgroundWhite,
                       child: Container(
                         decoration:
@@ -164,19 +166,24 @@ class _ActivityUserDetailsSubmissionPageState
                             titleText: "title".tr,
                             selected: title,
                             items: [
-                              GeneralItem(imageUrl: "", id: "1", name: "Mr"),
-                              GeneralItem(imageUrl: "", id: "2", name: "Mrs")
+                              for (var i = 0;
+                                  i < sharedController.titleList.length;
+                                  i++)
+                                GeneralItem(
+                                    imageUrl: "",
+                                    id: sharedController.titleList[i].name,
+                                    name: sharedController.titleList[i].code),
                             ],
                             hintText: "title".tr,
                             valueChanged: (newGender) {
                               title = newGender;
-                              if (newGender == "1") {
-                                selectedTitle = Gender(
-                                    code: "1", name: "Mr", isDefault: false);
-                              } else {
-                                selectedTitle = Gender(
-                                    code: "1", name: "Mrs", isDefault: false);
+                              List<Gender> titles = sharedController.titleList
+                                  .where((e) => e.code == newGender)
+                                  .toList();
+                              if (titles.isNotEmpty) {
+                                selectedTitle =titles[0];
                               }
+
                             },
                           ),
                         ),
@@ -319,13 +326,21 @@ class _ActivityUserDetailsSubmissionPageState
     List<UserCoPax> coPax = coPaxController.userCopaxes
         .where((p0) => p0.id.toString() == newGender)
         .toList();
+    selectedPassenger = newGender;
     if (coPax.isNotEmpty) {
-      selectedPassenger = newGender;
+      print(coPax[0].firstName);
+      print(coPax[0].lastName);
 
       firstNameController.text = coPax[0].firstName;
       lastNameController.text = coPax[0].lastName;
 
-      final sharedController = Get.find<SharedController>();
+      List<Gender> tSelectedTitle = sharedController.titleList.value
+          .where((element) => element.name == coPax[0].title)
+          .toList();
+      if (tSelectedTitle.isNotEmpty) {
+        selectedTitle = tSelectedTitle[0];
+        title = tSelectedTitle[0].code;
+      }
 
       List<Country> nationCountry = sharedController.countries.value
           .where(
@@ -338,6 +353,30 @@ class _ActivityUserDetailsSubmissionPageState
       }
 
       setState(() {});
+    } else {
+
+      firstNameController.text = "";
+      lastNameController.text = "";
+      title = sharedController.titleList.isNotEmpty
+          ? sharedController.titleList[0].name
+          : "0";
+      selectedTitle = sharedController.titleList.isNotEmpty
+          ? sharedController.titleList[0]
+          : Gender(code: "Title", name: "0", isDefault: false);
+
+      nationalityController.text = "";
+      nationality = Country(
+          isDefault: 1,
+          countryName: "",
+          countryCode: "",
+          countryISOCode: "",
+          countryName_Ar: "",
+          flag: "",
+          code: "");
+
+      setState(() {
+
+      });
     }
   }
 }
