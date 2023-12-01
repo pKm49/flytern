@@ -596,6 +596,8 @@ class _FlightFilterOptionSelectorState
   setSelectedFilterOptions(
       FlightFilterOptions filterOption, List<SortingDcs> items) {
     selectedFilterOptions = FlightSearchResult(
+        pageSize: 0,
+        alertMsg: "",
         searchResponses: [],
         priceDcs: selectedFilterOptions.priceDcs,
         sortingDcs: selectedFilterOptions.sortingDcs,
@@ -623,6 +625,8 @@ class _FlightFilterOptionSelectorState
 
     selectedFilterOptions = FlightSearchResult(
         searchResponses: [],
+        pageSize: 0,
+        alertMsg: "",
         priceDcs: priceRange,
         sortingDcs: selectedFilterOptions.sortingDcs,
         airlineDcs: selectedFilterOptions.airlineDcs,
@@ -663,6 +667,8 @@ class _FlightFilterOptionSelectorState
 
   void clearFilter() {
     widget.filterSubmitted(FlightSearchResult(
+        pageSize: 0,
+        alertMsg: "",
         searchResponses: [],
         priceDcs: [],
         sortingDcs: [],

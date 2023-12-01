@@ -10,6 +10,8 @@ class FlightSearchResult {
   final List<SortingDcs> departureTimeDcs;
   final List<SortingDcs> arrivalTimeDcs;
   final List<SortingDcs> stopDcs;
+  final String alertMsg;
+  final int pageSize;
 
   FlightSearchResult(
       {required this.searchResponses,
@@ -18,5 +20,7 @@ class FlightSearchResult {
       required this.airlineDcs,
       required this.departureTimeDcs,
       required this.arrivalTimeDcs,
+      required this.alertMsg,
+      required this.pageSize,
       required this.stopDcs});
 }

@@ -82,7 +82,8 @@ class FlightBookingHttpService {
     List<SortingDcs> departureTimeDcs = [];
     List<SortingDcs> arrivalTimeDcs = [];
     List<SortingDcs> stopDcs = [];
-
+    int pageSize = 0;
+    String alertMsg = "";
     if (response.success) {
       if (response.data != null) {
         if (response.data["searchResponses"] != null) {
@@ -118,6 +119,13 @@ class FlightBookingHttpService {
                 .add(mapSortingDcs(response.data["arrivalTimeDcs"][i]));
           }
         }
+
+        if (response.data["pageSize"] != null) {
+          pageSize = int.parse(response.data["pageSize"].toString());
+        }
+        if (response.data["alertMsg"] != null) {
+          alertMsg = response.data["alertMsg"];
+        }
         if (response.data["stopDcs"] != null) {
           for (var i = 0; i < response.data["stopDcs"].length; i++) {
             stopDcs.add(mapSortingDcs(response.data["stopDcs"][i]));
@@ -127,6 +135,8 @@ class FlightBookingHttpService {
     }
 
     FlightSearchResult flightSearchResult = FlightSearchResult(
+      pageSize: pageSize,
+        alertMsg: alertMsg,
         searchResponses: searchResponses,
         priceDcs: priceDcs,
         sortingDcs: sortingDcs,
@@ -138,12 +148,13 @@ class FlightBookingHttpService {
     return flightSearchResult;
   }
 
-  Future<List<FlightSearchResponse>> getFlightSearchResultsFiltered(
+  Future< FlightSearchResult> getFlightSearchResultsFiltered(
       FlightFilterBody flightFilterBody) async {
     FlyternHttpResponse response = await postRequest(
         FlightBookingHttpRequestEndpointFilterFlights,
         flightFilterBody.toJson());
-
+    int pageSize = 0;
+    String alertMsg = "";
     List<FlightSearchResponse> searchResponses = [];
     if (response.success && response.statusCode == 200) {
       if (response.data != null) {
@@ -153,10 +164,26 @@ class FlightBookingHttpService {
                 mapFlightSearchResponse(response.data["searchResponses"][i]));
           }
         }
+        if (response.data["pageSize"] != null) {
+          pageSize = int.parse(response.data["pageSize"].toString());
+        }
+        if (response.data["alertMsg"] != null) {
+          alertMsg = response.data["alertMsg"];
+        }
       }
     }
 
-    return searchResponses;
+
+    return FlightSearchResult(
+        pageSize: pageSize,
+        alertMsg: alertMsg,
+        searchResponses: searchResponses,
+        priceDcs: [],
+        sortingDcs: [],
+        airlineDcs: [],
+        departureTimeDcs: [],
+        arrivalTimeDcs: [],
+        stopDcs: []);
   }
 
   Future<FlightSearchResult> getMoreOptions(int index, int objectId) async {
@@ -166,6 +193,9 @@ class FlightBookingHttpService {
 
     List<FlightSearchResponse> searchResponses = [];
 
+    int pageSize = 0;
+    String alertMsg = "";
+
     if (response.success) {
       if (response.data != null) {
         if (response.data["searchResponses"] != null) {
@@ -174,10 +204,18 @@ class FlightBookingHttpService {
                 mapFlightSearchResponse(response.data["searchResponses"][i]));
           }
         }
+        if (response.data["pageSize"] != null) {
+          pageSize = int.parse(response.data["pageSize"].toString());
+        }
+        if (response.data["alertMsg"] != null) {
+          alertMsg = response.data["alertMsg"];
+        }
       }
     }
 
     FlightSearchResult flightSearchResult = FlightSearchResult(
+        alertMsg:alertMsg,
+        pageSize: pageSize,
         searchResponses: searchResponses,
         priceDcs: [],
         sortingDcs: [],

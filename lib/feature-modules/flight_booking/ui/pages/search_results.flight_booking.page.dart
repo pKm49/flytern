@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
 import 'package:flytern/feature-modules/flight_booking/constants/flight_mode.flight_booking.constant.dart';
 import 'package:flytern/feature-modules/flight_booking/models/search_item.flight_booking.model.dart';
@@ -333,7 +334,18 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                       width: screenwidth, 
                       color: flyternGrey10,
                       child: Center(
-                        child: Text("no_item".tr, style: getBodyMediumStyle(context)),
+                        child: Container(
+                          padding: flyternMediumPaddingAll,
+                          margin: flyternLargePaddingAll.copyWith(bottom: flyternSpaceMedium),
+                          decoration: BoxDecoration(
+                            color: flyternPrimaryColorBg,
+                            borderRadius: BorderRadius.circular(
+                                flyternBorderRadiusExtraSmall),
+                          ),
+                          child: Html(
+                            data:getNoItemMessage(),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -646,6 +658,8 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
 
   FlightSearchResult getAvailableFilterOptions() {
     return FlightSearchResult(
+      pageSize: 0,
+      alertMsg: "",
       searchResponses: [],
       priceDcs: flightBookingController.priceDcs.value,
       sortingDcs: [],
@@ -658,6 +672,8 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
 
   FlightSearchResult getSelectedFilterOptions() {
     return FlightSearchResult(
+      pageSize: 0,
+      alertMsg: "",
       searchResponses: [],
       priceDcs: flightBookingController.selectedPriceDcs.value,
       sortingDcs: [],
@@ -705,6 +721,14 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
       return "filter_items".tr.replaceAll("2", filterCount.toString());
     }else{
       return filterTitleAll;
+    }
+  }
+
+  String getNoItemMessage() {
+    if(flightBookingController.alertMsg.value !=""){
+      return flightBookingController.alertMsg.value;
+    }else{
+      return "no_item".tr;
     }
   }
 }

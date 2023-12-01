@@ -67,6 +67,7 @@ class FlightBookingController extends GetxController {
   var flightAddonSetExtraPackageData =
       getDummyFlightAddonSetExtraPackage({}).obs;
 
+  var alertMsg = "".obs;
   var isGetSeatsLoading = false.obs;
   var isGetMealsLoading = false.obs;
   var isGetExtraLuggagesLoading = false.obs;
@@ -220,6 +221,7 @@ class FlightBookingController extends GetxController {
       FlightSearchResult flightSearchResult = await flightBookingHttpService
           .getFlightSearchResults(tFlightSearchData);
       flightSearchResponses.value = flightSearchResult.searchResponses;
+      alertMsg.value = flightSearchResult.alertMsg;
       if (flightSearchResponses.isNotEmpty) {
         objectId.value = flightSearchResponses.value[0].objectId;
         currency.value = flightSearchResponses.value[0].currency;
@@ -264,6 +266,9 @@ class FlightBookingController extends GetxController {
       isFlightSearchResponsesLoading.value = true;
       FlightSearchResult flightSearchResult = await flightBookingHttpService
           .getFlightSearchResults(flightSearchData.value);
+      alertMsg.value = flightSearchResult.alertMsg;
+      print("alertMsg");
+      print(alertMsg);
       flightSearchResponses.value = flightSearchResult.searchResponses;
       if (flightSearchResponses.isNotEmpty) {
         objectId.value = flightSearchResponses.value[0].objectId;
@@ -321,11 +326,12 @@ class FlightBookingController extends GetxController {
         sortingDc: sortingDc.value.value,
       );
 
-      List<FlightSearchResponse> flightSearchResponse =
+      FlightSearchResult flightSearchResult =
           await flightBookingHttpService
               .getFlightSearchResultsFiltered(flightFilterBody);
 
-      flightSearchResponses.value = flightSearchResponse;
+      alertMsg.value = flightSearchResult.alertMsg;
+      flightSearchResponses.value = flightSearchResult.searchResponses;
       isFlightSearchFilterResponsesLoading.value = false;
     }
   }
@@ -339,6 +345,7 @@ class FlightBookingController extends GetxController {
       FlightSearchResult flightSearchResult =
           await flightBookingHttpService.getMoreOptions(index, objectId.value);
       moreOptionFlights.value = flightSearchResult.searchResponses;
+      alertMsg.value = flightSearchResult.alertMsg;
 
       isFlightMoreOptionsResponsesLoading.value = false;
     }
@@ -744,10 +751,12 @@ class FlightBookingController extends GetxController {
         sortingDc: sortingDc.value.value,
       );
 
-
-      List<FlightSearchResponse> flightSearchResponse =
-          await flightBookingHttpService
+      FlightSearchResult flightSearchResult =
+      await flightBookingHttpService
           .getFlightSearchResultsFiltered(flightFilterBody);
+
+      alertMsg.value = flightSearchResult.alertMsg;
+
 
       List<FlightSearchResponse> tFlightSearchResponse = [];
 
@@ -755,7 +764,7 @@ class FlightBookingController extends GetxController {
         tFlightSearchResponse.add(element);
       }
 
-      for (var element in flightSearchResponse) {
+      for (var element in flightSearchResult.searchResponses) {
         tFlightSearchResponse.add(element);
       }
 
