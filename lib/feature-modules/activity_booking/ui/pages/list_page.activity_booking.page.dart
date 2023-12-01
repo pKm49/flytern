@@ -32,7 +32,27 @@ class ActivitiesListPage extends StatefulWidget {
 
 class _ActivitiesListPageState extends State<ActivitiesListPage> {
    final activityBookingController = Get.find<ActivityBookingController>();
+   final ScrollController _controller = ScrollController();
 
+
+
+   @override
+   void initState() {
+     super.initState();
+
+     // Setup the listener.
+     _controller.addListener(() {
+       if (_controller.position.atEdge) {
+         bool isTop = _controller.position.pixels == 0;
+         if (isTop) {
+           print('At the top');
+         } else {
+           print('At the bottom');
+           activityBookingController.getNextPageActivities();
+         }
+       }
+     });
+   }
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -166,11 +186,12 @@ class _ActivitiesListPageState extends State<ActivitiesListPage> {
                 visible:  activityBookingController.isActivitiesLoading.value,
                 child: Expanded(
                   child: ListView.builder(
+
                       itemCount:3,
                       itemBuilder: (context, i) {
                         return Container(
                           decoration: BoxDecoration(border:
-                          i==(activityBookingController.activities.length-1)?null:
+                          i==2?null:
                           flyternDefaultBorderBottomOnly),
                           child: ActivityListCardLoader(
                           ),
@@ -182,6 +203,8 @@ class _ActivitiesListPageState extends State<ActivitiesListPage> {
                 visible: !activityBookingController.isActivitiesLoading.value,
                 child: Expanded(
                   child: ListView.builder(
+                      controller: _controller,
+
                       itemCount:
                           activityBookingController.activities.length,
                       itemBuilder: (context, i) {
@@ -200,6 +223,17 @@ class _ActivitiesListPageState extends State<ActivitiesListPage> {
                       }),
                 ),
               ),
+              Visibility(
+                  visible: activityBookingController.isActivitiesPageLoading.value,
+                  child: Container(
+                    width: screenwidth,
+                    color: flyternBackgroundWhite,
+                    child: Center(
+                        child: LoadingAnimationWidget.prograssiveDots(
+                          color: flyternSecondaryColor,
+                          size: 50,
+                        )),
+                  )),
             ],
           ),
         ),

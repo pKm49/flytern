@@ -8,6 +8,7 @@ import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared
 import 'package:flytern/shared-module/models/general_item.dart';
 import 'package:flytern/shared-module/ui/components/dropdown_selector.shared.component.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class PackageBookingLandingPage extends StatefulWidget {
   const PackageBookingLandingPage({super.key});
@@ -19,7 +20,28 @@ class PackageBookingLandingPage extends StatefulWidget {
 
 class _PackageBookingLandingPageState extends State<PackageBookingLandingPage> {
   final packageBookingController = Get.find<PackageBookingController>();
+  final ScrollController _controller = ScrollController();
 
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Setup the listener.
+    _controller.addListener(() {
+      if (_controller.position.atEdge) {
+        bool isTop = _controller.position.pixels == 0;
+        if (isTop) {
+          print('At the top');
+        } else {
+          print('At the bottom');
+          packageBookingController.getPackages( packageBookingController.pageId.value+1,
+              packageBookingController.countryisocode.value);
+        }
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -73,6 +95,7 @@ class _PackageBookingLandingPageState extends State<PackageBookingLandingPage> {
                   child: Container(
                       color: flyternBackgroundWhite,
                       child: ListView.builder(
+                        controller: _controller,
                         itemCount: packageBookingController.packages.length,
                         itemBuilder: (BuildContext context, int index) =>
                             Container(
@@ -108,6 +131,17 @@ class _PackageBookingLandingPageState extends State<PackageBookingLandingPage> {
                         )),
                       ))),
             ),
+            Visibility(
+                visible: packageBookingController.isInitialDataPageLoading.value,
+                child: Container(
+                  width: screenwidth,
+                  color: flyternBackgroundWhite,
+                  child: Center(
+                      child: LoadingAnimationWidget.prograssiveDots(
+                        color: flyternSecondaryColor,
+                        size: 50,
+                      )),
+                )),
             Visibility(
               visible:  packageBookingController.isInitialDataLoading.value,
               child: Expanded(

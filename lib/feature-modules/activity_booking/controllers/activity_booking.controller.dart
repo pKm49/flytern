@@ -29,7 +29,9 @@ import 'package:get/get.dart';
 
 class ActivityBookingController extends GetxController {
   var isActivitiesLoading = false.obs;
+  var isActivitiesPageLoading = false.obs;
   var isInitialDataLoading = true.obs;
+  var isInitialDataPageLoading = false.obs;
   var isDetailsDataLoading = true.obs;
   var isPriceDataLoading = true.obs;
   var isSaveContactLoading = false.obs;
@@ -107,7 +109,12 @@ class ActivityBookingController extends GetxController {
   }
 
   Future<void> getCities(int newPageId, String newCountryisocode) async {
-    isInitialDataLoading.value = true;
+     if(newPageId==1){
+      isInitialDataLoading.value = true;
+    }else{
+      isInitialDataPageLoading.value = true;
+
+    }
 
     pageId.value = newPageId;
     countryisocode.value = newCountryisocode;
@@ -116,16 +123,36 @@ class ActivityBookingController extends GetxController {
         .getDestinations(newPageId, newCountryisocode);
 
     if (destinationResponse != null) {
-      cities.value = destinationResponse.cities;
       if (newCountryisocode == "ALL") {
         destinations.value = destinationResponse.destinations;
       }
+
+      if(newPageId == 1){
+        cities.value = destinationResponse.cities;
+
+      }else{
+
+        List<ActivityCity> tempCities = [];
+
+        for (var element in cities.value) {
+          tempCities.add(element);
+        }
+
+        for (var element in destinationResponse.cities) {
+          tempCities.add(element);
+        }
+        cities.value = tempCities;
+      }
     }
+
+     isInitialDataPageLoading.value = false;
     isInitialDataLoading.value = false;
   }
 
   Future<void> getActivities(String cityID, bool isRedirection) async {
     isActivitiesLoading.value = true;
+
+
     if (isRedirection) {
       Get.toNamed(Approute_activitiesList);
     }
@@ -134,6 +161,7 @@ class ActivityBookingController extends GetxController {
         await activityBookingHttpService.getActivities(cityID);
 
     activities.value = activityResponse.activities;
+
     if (activities.value.isNotEmpty) {
       currency.value = activities[0].currency;
     }
@@ -153,6 +181,9 @@ class ActivityBookingController extends GetxController {
       sortingDc.value = defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
     }
     isActivitiesLoading.value = false;
+    if( activities.length<6){
+      getNextPageActivities();
+    }
   }
 
   void updateSort(String sortingDcValue) {
@@ -200,6 +231,45 @@ class ActivityBookingController extends GetxController {
       isActivitiesLoading.value = false;
     }
   }
+
+  Future<void> getNextPageActivities() async {
+    if (!isActivitiesPageLoading.value) {
+      isActivitiesPageLoading.value = true;
+      pageId.value = pageId.value +1;
+      ActivityFilterBody activityFilterBody = ActivityFilterBody(
+        pageId: pageId.value,
+        objectID: objectID.value,
+        priceMinMaxDc: selectedPriceDcs.value.isNotEmpty
+            ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0].max}"
+            : "",
+        tourCategoryDc: selectedTourCategoryDcs.value.isNotEmpty
+            ? getFilterValues(selectedTourCategoryDcs.value)
+            : "",
+        bestDealsDc: selectedBestDealsDcs.value.isNotEmpty
+            ? getFilterValues(selectedBestDealsDcs.value)
+            : "",
+        sortingDc: sortingDc.value.value,
+      );
+
+      ActivityResponse activityResponse =
+      await activityBookingHttpService.filterActivities(activityFilterBody);
+
+      List<ActivityData> activitiesTemp = [];
+
+
+      for (var element in activities.value) {
+        activitiesTemp.add(element);
+      }
+
+      for (var element in activityResponse.activities) {
+        activitiesTemp.add(element);
+      }
+
+      activities.value = activitiesTemp;
+      isActivitiesPageLoading.value = false;
+    }
+  }
+
 
   getFilterValues(List<SortingDcs> value) {
     String filterString = "";

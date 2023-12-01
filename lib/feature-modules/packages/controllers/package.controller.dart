@@ -12,6 +12,7 @@ class PackageBookingController extends GetxController {
 
   var isPackagesLoading = false.obs;
   var isInitialDataLoading = true.obs;
+  var isInitialDataPageLoading = false.obs;
   var isDetailsDataLoading = true.obs;
   var isSaveContactLoading = true.obs;
   var packageBookingHttpService = PackageBookingHttpService();
@@ -40,7 +41,13 @@ class PackageBookingController extends GetxController {
   }
 
   Future<void> getPackages(int newPageId, String newCountryisocode) async {
-    isInitialDataLoading.value = true;
+    if(newPageId==1){
+      isInitialDataLoading.value = true;
+    }else{
+      isInitialDataPageLoading.value = true;
+
+    }
+
 
     pageId.value = newPageId;
     countryisocode.value = newCountryisocode;
@@ -48,11 +55,28 @@ class PackageBookingController extends GetxController {
     PackageResponse? packageResponse = await packageBookingHttpService.getPackages(newPageId,newCountryisocode);
 
     if (packageResponse != null) {
-      packages.value = packageResponse.packages;
+
       if(newCountryisocode == "ALL"){
         destinations.value = packageResponse.destinations;
       }
+      if(newPageId == 1){
+        packages.value =  packageResponse.packages;
+      }else{
+
+        List<PackageData> tempPackages = [];
+
+        for (var element in packages.value) {
+          tempPackages.add(element);
+        }
+
+        for (var element in packageResponse.packages) {
+          tempPackages.add(element);
+        }
+        packages.value = tempPackages;
+      }
     }
+
+    isInitialDataPageLoading.value = false;
     isInitialDataLoading.value = false;
   }
 

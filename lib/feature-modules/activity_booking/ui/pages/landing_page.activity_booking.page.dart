@@ -6,6 +6,7 @@ import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared
 import 'package:flytern/shared-module/models/general_item.dart';
  import 'package:flytern/shared-module/ui/components/dropdown_selector.shared.component.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ActivityBookingLandingPage extends StatefulWidget {
@@ -20,6 +21,29 @@ class _ActivityBookingLandingPageState
     extends State<ActivityBookingLandingPage> {
    final activityBookingController = Get.find<ActivityBookingController>();
 
+   final ScrollController _controller = ScrollController();
+
+
+
+   @override
+   void initState() {
+     super.initState();
+
+     // Setup the listener.
+     _controller.addListener(() {
+       if (_controller.position.atEdge) {
+         bool isTop = _controller.position.pixels == 0;
+         if (isTop) {
+           print('At the top');
+         } else {
+           print('At the bottom');
+           activityBookingController.getCities( activityBookingController.pageId.value+1,
+               activityBookingController.countryisocode.value);
+         }
+       }
+     });
+   }
+   
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -70,6 +94,7 @@ class _ActivityBookingLandingPageState
                       color: flyternBackgroundWhite,
                       padding: flyternSmallPaddingAll,
                       child: GridView.builder(
+                        controller: _controller,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
@@ -94,6 +119,17 @@ class _ActivityBookingLandingPageState
                                 ),
                               )))),
             ),
+            Visibility(
+                visible: activityBookingController.isInitialDataPageLoading.value,
+                child: Container(
+                  width: screenwidth,
+                  color: flyternBackgroundWhite,
+                  child: Center(
+                      child: LoadingAnimationWidget.prograssiveDots(
+                        color: flyternSecondaryColor,
+                        size: 50,
+                      )),
+                )),
             Visibility(
               visible: activityBookingController.isInitialDataLoading.value,
               child: Expanded(
