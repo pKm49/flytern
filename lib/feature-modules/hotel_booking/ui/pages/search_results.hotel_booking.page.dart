@@ -79,9 +79,13 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                   children: [
                     Container(
                       width: screenwidth,
-                      color: flyternGrey10,
-                      padding: flyternMediumPaddingVertical.copyWith(left: flyternSpaceSmall,
-                          right: flyternSpaceSmall,bottom: flyternSpaceSmall),
+                      padding: flyternSmallPaddingVertical.copyWith(left: flyternSpaceSmall,
+                          right: flyternSpaceSmall,bottom: 0),
+                      decoration: BoxDecoration(
+                        border: flyternDefaultBorderBottomOnly,
+                        color: flyternBackgroundWhite,
+
+                      ),
                       child: Wrap(
                          children: [
                            for(var i=1;i<4;i++)

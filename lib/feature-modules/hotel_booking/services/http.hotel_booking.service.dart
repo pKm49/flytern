@@ -181,9 +181,9 @@ class HotelBookingHttpService {
     return mapHotelDetails({});
   }
 
-  Future<HotelPretravellerData> getPreTravellerData( ) async {
+  Future<HotelPretravellerData> getPreTravellerData( int objectId,int hotelId ) async {
     FlyternHttpResponse response = await getRequest(
-        HotelBookingHttpRequestEndpointGetPreTravellerData,null);
+        HotelBookingHttpRequestEndpointGetPreTravellerData, {"objectId":objectId,"hotelId":hotelId});
 
     HotelPretravellerData flightPretravellerData;
 

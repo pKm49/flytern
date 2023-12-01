@@ -76,12 +76,13 @@ class _ActivityDetailsPageState extends State<ActivityDetailsPage> {
                         },
                         child: Container(
                           width: screenwidth,
+                          height: screenwidth,
                           color: flyternGrey10,
                           child: Image.network(
                               activityBookingController.selectedImageIndex.value>-1?
                               activityBookingController
                                   .activityDetails.value.subImages[activityBookingController.selectedImageIndex.value]:"",
-                              width: screenwidth,
+                              fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
                                 return Container(
                                   color: flyternGrey10,

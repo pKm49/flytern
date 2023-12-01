@@ -38,11 +38,14 @@ HotelDestination mapHotelDestination(dynamic payload){
   print("mapHotelDestination");
   print("select_destination".tr);
 
+  String cityName = payload["cityName"]??("select_destination".tr);
+  String uniqueCombination = payload["uniqueCombination"]??("select_destination".tr);
+
   return HotelDestination(
     hotelCode :payload["hotelCode"]??"",
     cityCode :payload["cityCode"]??"",
-    cityName :payload["cityName"]??"select_destination".tr,
-    uniqueCombination :payload["uniqueCombination"]?? "select_destination".tr,
+    cityName :cityName,
+    uniqueCombination :uniqueCombination,
     sort :payload["sort"]??-1,
     countryCode :payload["countryCode"]??"",
     flag :payload["flag"]??"",

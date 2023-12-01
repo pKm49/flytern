@@ -32,6 +32,7 @@ part 'data_setter.hotel_booking.controller.dart';
 part 'data_getter.hotel_booking.controller.dart';
 
 class HotelBookingController extends GetxController {
+
   var isTravelStoriesLoading = false.obs;
   var isRecommendedLoading = false.obs;
   var isPopularDestinationsLoading = false.obs;
@@ -106,7 +107,7 @@ class HotelBookingController extends GetxController {
   var hotelPretravellerData = mapHotelPretravellerData({}).obs;
   var nationality = Country(
           isDefault: 1,
-          countryName: "select_nationality".tr,
+          countryName: ("select_nationality".tr),
           countryCode: "",
           countryISOCode: "",
           countryName_Ar: "",
@@ -121,6 +122,7 @@ class HotelBookingController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
     getRecentSearch();
   }
 
@@ -128,11 +130,22 @@ class HotelBookingController extends GetxController {
     isInitialDataLoading.value = true;
 
     quickSearch.value = await hotelBookingHttpService.getRecentSearch();
+
+    selectedDestination.value = mapHotelDestination({});
+    nationality.value = Country(
+        isDefault: 1,
+        countryName: ("select_nationality".tr),
+        countryCode: "",
+        countryISOCode: "",
+        countryName_Ar: "",
+        flag: "",
+        code: "");
     isInitialDataLoading.value = false;
   }
 
   Future<List<HotelDestination>> getHotelDestinations(
       String searchQuery) async {
+
     isHotelDestinationsLoading.value = true;
 
     if (searchQuery != "") {
@@ -306,7 +319,9 @@ class HotelBookingController extends GetxController {
     if (!isHotelPretravellerDataLoading.value) {
       isHotelPretravellerDataLoading.value = true;
       HotelPretravellerData tempHotelPretravellerData =
-          await hotelBookingHttpService.getPreTravellerData();
+          await hotelBookingHttpService.getPreTravellerData(
+            objectId.value, hotelId.value
+          );
       isHotelPretravellerDataLoading.value = false;
 
       if (tempHotelPretravellerData.genderList.isNotEmpty) {
