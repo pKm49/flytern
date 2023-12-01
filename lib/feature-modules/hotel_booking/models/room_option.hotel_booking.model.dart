@@ -12,6 +12,7 @@ class HotelRoomOption {
   final String currency;
   final double perNightPrice;
   final double totalPrice;
+  final double totalBase;
   final double totalTax;
   final String roomName;
 
@@ -26,6 +27,7 @@ class HotelRoomOption {
     required this.roomName,
     required this.shortdesc,
     required this.totalPrice,
+    required this.totalBase,
     required this.totalTax,
   });
 }
@@ -79,5 +81,6 @@ HotelRoomOption mapHotelRoomDetails(dynamic payload) {
     roomName: payload["roomName"] ?? "",
     shortdesc: shortdesc,
     totalPrice: payload["totalPrice"] ?? 0.0,
+    totalBase: payload["totalBase"] ?? 0.0,
   );
 }

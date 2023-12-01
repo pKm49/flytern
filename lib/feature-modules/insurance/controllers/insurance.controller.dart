@@ -195,6 +195,8 @@ class InsuranceBookingController extends GetxController {
         bookingRef.value = tempBookingRef;
         getPaymentGateways(false,bookingRef.value);
       } else {
+        print("something_went_wrong 1");
+
         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
       }
     }
@@ -348,15 +350,11 @@ class InsuranceBookingController extends GetxController {
     bookingInfo.value = getGatewayData.bookingInfo;
     alert.value = getGatewayData.alert;
 
-    // if (isSmartpayment) {
-    //   hotelDetails.value = getGatewayData.hotelDetails;
-    // }
     if (getGatewayData.paymentGateways.isNotEmpty) {
       updateProcessId(getGatewayData.paymentGateways[0].processID);
-      Get.toNamed(Approute_insuranceSummary);
-    } else {
-      showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
+
+    Get.toNamed(Approute_insuranceSummary);
     isSmartPaymentCheckLoading.value= false;
     isInsuranceSaveTravellerLoading.value = false;
   }
@@ -390,6 +388,8 @@ class InsuranceBookingController extends GetxController {
 
       checkGatewayStatus();
     } else {
+      print("something_went_wrong 3");
+
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
 

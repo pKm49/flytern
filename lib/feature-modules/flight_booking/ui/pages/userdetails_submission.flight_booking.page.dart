@@ -318,6 +318,7 @@ class _FlightUserDetailsSubmissionPageState
                 ? "Child"
                 : "Infant"
       }));
+
     }
 
     setState(() {});

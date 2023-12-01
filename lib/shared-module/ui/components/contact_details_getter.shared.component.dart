@@ -237,7 +237,13 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
               isMobile:true,
               isGlobal: false,
               countrySelected: (Country? country) {
-            if (country != null) profileController.changeMobileCountry(country);
+            if (country != null) {
+              selectedCountry=country;
+              profileController.changeMobileCountry(country);
+              setState(() {
+
+              });
+            }
           });
         });
   }

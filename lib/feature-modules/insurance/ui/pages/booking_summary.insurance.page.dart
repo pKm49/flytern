@@ -78,12 +78,15 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
                         ),
 
 
-                      Padding(
-                        padding: flyternLargePaddingAll,
-                        child: Text("select_payment_method".tr,
-                            style: getBodyMediumStyle(context).copyWith(
-                                color: flyternGrey80,
-                                fontWeight: flyternFontWeightBold)),
+                      Visibility(
+                        visible: insuranceBookingController.paymentGateways.isNotEmpty,
+                        child: Padding(
+                          padding: flyternLargePaddingAll,
+                          child: Text("select_payment_method".tr,
+                              style: getBodyMediumStyle(context).copyWith(
+                                  color: flyternGrey80,
+                                  fontWeight: flyternFontWeightBold)),
+                        ),
                       ),
                       for (var i = 0;
                       i < insuranceBookingController.paymentGateways.length;
@@ -155,35 +158,44 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
                         ),
 
 
-                      Container(
-                        padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
-                        color: flyternBackgroundWhite,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("processing_fee".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                            Text("${insuranceBookingController.selectedPaymentGateway.value.currencyCode}"
-                                " ${insuranceBookingController.selectedPaymentGateway.value.processingFee}",
-                                style: getBodyMediumStyle(context).copyWith(color: flyternGrey80 )),
-                          ],
+                      Visibility(
+                        visible: insuranceBookingController.paymentGateways.isNotEmpty,
+                        child: Container(
+                          padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
+                          color: flyternBackgroundWhite,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("processing_fee".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                              Text("${insuranceBookingController.selectedPaymentGateway.value.currencyCode}"
+                                  " ${insuranceBookingController.selectedPaymentGateway.value.processingFee}",
+                                  style: getBodyMediumStyle(context).copyWith(color: flyternGrey80 )),
+                            ],
+                          ),
                         ),
                       ),
-                      Container(
-                          padding: flyternLargePaddingHorizontal,
-                          color:flyternBackgroundWhite,
-                          child: Divider()),
-                      Container(
-                        padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
-                        color: flyternBackgroundWhite,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("grand_total".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
-                            Text("${insuranceBookingController.selectedPaymentGateway.value.currencyCode}"
-                                " ${insuranceBookingController.selectedPaymentGateway.value.finalAmount}",
-                                style: getBodyMediumStyle(context).copyWith(color: flyternGrey80,
-                                    fontWeight: flyternFontWeightBold)),
-                          ],
+                      Visibility(
+                        visible: insuranceBookingController.paymentGateways.isNotEmpty,
+                        child: Container(
+                            padding: flyternLargePaddingHorizontal,
+                            color:flyternBackgroundWhite,
+                            child: Divider()),
+                      ),
+                      Visibility(
+                        visible: insuranceBookingController.paymentGateways.isNotEmpty,
+                        child: Container(
+                          padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
+                          color: flyternBackgroundWhite,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("grand_total".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
+                              Text("${insuranceBookingController.selectedPaymentGateway.value.currencyCode}"
+                                  " ${insuranceBookingController.selectedPaymentGateway.value.finalAmount}",
+                                  style: getBodyMediumStyle(context).copyWith(color: flyternGrey80,
+                                      fontWeight: flyternFontWeightBold)),
+                            ],
+                          ),
                         ),
                       ),
 
@@ -314,7 +326,7 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
               ),
             ],
           ),
-          bottomSheet: Container(
+          bottomSheet: insuranceBookingController.paymentGateways.isEmpty?Container(width: screenwidth,height: 1,):Container(
             width: screenwidth,
             color: flyternBackgroundWhite,
             height: 60+(flyternSpaceSmall*2),

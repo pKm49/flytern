@@ -175,7 +175,7 @@ extension FlightBookingControllerSetter on FlightBookingController {
       print("title");
       print(travelInfo[i].title);
 
-      if (travelInfo[i].title == "Title"|| travelInfo[i].title == "") {
+      if (travelInfo[i].title == "Title"|| travelInfo[i].title == "0") {
         validityString = "enter_title_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
             travelInfo[i].travellerType == "Adult"
                 ? 0
@@ -215,7 +215,7 @@ extension FlightBookingControllerSetter on FlightBookingController {
       }
       print("gender");
       print(travelInfo[i].gender);
-      if (travelInfo[i].gender == "Select" || travelInfo[i].gender == "") {
+      if (travelInfo[i].gender == "Select" || travelInfo[i].gender == "0") {
         validityString = "enter_gender_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
             travelInfo[i].travellerType == "Adult"
                 ? 0

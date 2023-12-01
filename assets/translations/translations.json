@@ -324,10 +324,15 @@
       "enter_civilid_copax": "Enter Civil Id for user",
       "enter_passportcountry_copax": "Enter Passport Country for user",
       "enter_passportexpiry_copax": "Enter Passport Expiry for user",
-      "enter_title_hotel_room_adult": "Enter Title for adult in Room 1",
-      "enter_firstname_hotel_room_adult": "Enter Firstname for adult in Room 1",
-      "enter_lastname_hotel_room_adult": "Enter Lastname for adult in Room 1",
-      "enter_gender_hotel_room_adult": "Enter Gender for adult in Room 1",
+      "enter_title_hotel_room_adult": "Enter Title for adult 1 in Room 2",
+      "enter_firstname_hotel_room_adult": "Enter Firstname for adult 1 in Room 2",
+      "enter_lastname_hotel_room_adult": "Enter Lastname for adult 1 in Room 2",
+      "enter_gender_hotel_room_adult": "Enter Gender for adult 1 in Room 2",
+
+      "enter_title_hotel_room_child": "Enter Title for child 1 in Room 2",
+      "enter_firstname_hotel_room_child": "Enter Firstname for child 1 in Room 2",
+      "enter_lastname_hotel_room_child": "Enter Lastname for child 1 in Room 2",
+      "enter_gender_hotel_room_child": "Enter Gender for child 1 in Room 2",
 
       "enter_civil_id": "Enter Civil Id",
       "civil_id": "Civil Id",
@@ -923,10 +928,15 @@
       "enter_passportcountry_copax": "Enter Passport Country for user",
       "enter_passportexpiry_copax": "Enter Passport Expiry for user",
 
-      "enter_title_hotel_room_adult": "Enter Title for adult in Room 1",
-      "enter_firstname_hotel_room_adult": "Enter Firstname for adult in Room 1",
-      "enter_lastname_hotel_room_adult": "Enter Lastname for adult in Room 1",
-      "enter_gender_hotel_room_adult": "Enter Gender for adult in Room 1",
+      "enter_title_hotel_room_adult": "Enter Title for adult 1 in Room 2",
+      "enter_firstname_hotel_room_adult": "Enter Firstname for adult 1 in Room 2",
+      "enter_lastname_hotel_room_adult": "Enter Lastname for adult 1 in Room 2",
+      "enter_gender_hotel_room_adult": "Enter Gender for adult 1 in Room 2",
+
+      "enter_title_hotel_room_child": "Enter Title for child 1 in Room 2",
+      "enter_firstname_hotel_room_child": "Enter Firstname for child 1 in Room 2",
+      "enter_lastname_hotel_room_child": "Enter Lastname for child 1 in Room 2",
+      "enter_gender_hotel_room_child": "Enter Gender for child 1 in Room 2",
 
 
       "enter_civil_id": "أدخل الهوية المدنية",

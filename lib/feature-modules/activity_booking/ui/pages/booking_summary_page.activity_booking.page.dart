@@ -83,12 +83,15 @@ class _ActivityBookingSummaryPageState
                             theme: 1,
                           ),
                         ),
-                      Padding(
-                        padding: flyternLargePaddingAll,
-                        child: Text("select_payment_method".tr,
-                            style: getBodyMediumStyle(context).copyWith(
-                                color: flyternGrey80,
-                                fontWeight: flyternFontWeightBold)),
+                      Visibility(
+                        visible: activityBookingController.paymentGateways.isNotEmpty,
+                        child: Padding(
+                          padding: flyternLargePaddingAll,
+                          child: Text("select_payment_method".tr,
+                              style: getBodyMediumStyle(context).copyWith(
+                                  color: flyternGrey80,
+                                  fontWeight: flyternFontWeightBold)),
+                        ),
                       ),
                       for (var i = 0;
                           i < activityBookingController.paymentGateways.length;
@@ -169,9 +172,7 @@ class _ActivityBookingSummaryPageState
                           ),
                         ),
                       Visibility(
-                        visible: activityBookingController
-                                .selectedGateway.value.processingFee !=
-                            0.0,
+                        visible: activityBookingController.paymentGateways.isNotEmpty,
                         child: Container(
                           padding: flyternLargePaddingHorizontal.copyWith(
                               top: flyternSpaceSmall,
@@ -193,18 +194,14 @@ class _ActivityBookingSummaryPageState
                         ),
                       ),
                       Visibility(
-                        visible: activityBookingController
-                                .selectedGateway.value.finalAmount !=
-                            0.0,
+                        visible: activityBookingController.paymentGateways.isNotEmpty,
                         child: Container(
                             padding: flyternLargePaddingHorizontal,
                             color: flyternBackgroundWhite,
                             child: Divider()),
                       ),
                       Visibility(
-                        visible: activityBookingController
-                                .selectedGateway.value.finalAmount !=
-                            0.0,
+                        visible: activityBookingController.paymentGateways.isNotEmpty,
                         child: Container(
                           padding: flyternLargePaddingHorizontal.copyWith(
                               top: flyternSpaceSmall,
@@ -351,7 +348,7 @@ class _ActivityBookingSummaryPageState
               ),
             ],
           ),
-          bottomSheet: Container(
+          bottomSheet:activityBookingController.paymentGateways.isEmpty?Container(width: screenwidth,height: 1): Container(
             width: screenwidth,
             color: flyternBackgroundWhite,
             height: 60 + (flyternSpaceSmall * 2),

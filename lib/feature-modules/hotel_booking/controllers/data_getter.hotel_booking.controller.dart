@@ -11,12 +11,22 @@ extension HotelBookingControllerGetter on HotelBookingController {
         .isNotEmpty;
   }
 
-  getGrandTotal() {
-    double grandTotal = 0;
-    selectedRoomOption.value.forEach((element) {
-      grandTotal += element.totalPrice+element.totalTax;
-    });
-    return grandTotal.toStringAsFixed(3);
+  List<HotelRoomOption> getRoomOptions() {
+    if (selectedRoom.isEmpty) {
+      return [];
+    }
+    if (selectedRoomSelectionIndex.value < 0) {
+      return [];
+    }
+    if ( selectedRoom
+        .value[selectedRoomSelectionIndex.value]
+        .roomOptions
+        .isEmpty) {
+      return [];
+    }
+    return  selectedRoom
+        .value[selectedRoomSelectionIndex.value]
+        .roomOptions;
   }
 
   num getRoomOptionsLength() {
@@ -61,6 +71,17 @@ extension HotelBookingControllerGetter on HotelBookingController {
         .value[selectedRoomSelectionIndex.value]
         .perNightPrice;
   }
+  getGrandTotal() {
+    if (selectedRoom.isEmpty) {
+      return "";
+    }
+    if (selectedRoomSelectionIndex.value < 0) {
+      return "";
+    }
+    return  selectedRoomOption
+        .value[selectedRoomSelectionIndex.value]
+        .totalPrice;
+  }
 
   getTotalPrice() {
     if (selectedRoom.isEmpty) {
@@ -71,7 +92,7 @@ extension HotelBookingControllerGetter on HotelBookingController {
     }
     return  selectedRoomOption
         .value[selectedRoomSelectionIndex.value]
-        .totalPrice;
+        .totalBase;
   }
 
   getTaxPrice() {
@@ -123,7 +144,7 @@ extension HotelBookingControllerGetter on HotelBookingController {
         .imageURLs.length;
   }
 
-  getSelectedRoomOption() {
+  HotelRoomOption? getSelectedRoomOption() {
     if (selectedRoom.isEmpty) {
       return null;
     }
@@ -131,8 +152,7 @@ extension HotelBookingControllerGetter on HotelBookingController {
       return null;
     }
     return  selectedRoomOption[ selectedRoomSelectionIndex
-        .value]
-        .roomOptionid;
+        .value];
   }
 
   getShortDescriptionsLength() {

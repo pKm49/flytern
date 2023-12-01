@@ -1,30 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
 import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/traveller_info.hotel_booking.model.dart';
-import 'package:flytern/shared-module/models/sorting_dcs.dart';
-import 'package:flytern/feature-modules/flight_booking/models/traveller_info.flight_booking.model.dart';
 import 'package:flytern/feature-modules/profile/controllers/copax.profile.controller.dart';
 import 'package:flytern/feature-modules/profile/models/user-copax.profile.model.dart';
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
-import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
-import 'package:flytern/shared-module/models/country.dart';
 import 'package:flytern/shared-module/models/gender.dart';
 import 'package:flytern/shared-module/models/general_item.dart';
 import 'package:flytern/shared-module/services/utility-services/flight_userdata_input_formatter.dart';
 import 'package:flytern/shared-module/services/utility-services/form_validator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
-import 'package:flytern/shared-module/ui/components/country_selector.shared.component.dart';
-import 'package:flytern/shared-module/ui/components/custom_date_picker.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/dropdown_selector.shared.component.dart';
-import 'package:flytern/shared-module/ui/components/sort_option_selector.shared.component.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class HotelUserDetailsSubmissionForm extends StatefulWidget {
-
   HotelBookingController hotelBookingController;
   final Function(HotelTravelInfo travelInfo) dataSubmitted;
 
@@ -41,7 +31,6 @@ class HotelUserDetailsSubmissionForm extends StatefulWidget {
 class _HotelUserDetailsSubmissionFormState
     extends State<HotelUserDetailsSubmissionForm>
     with AutomaticKeepAliveClientMixin<HotelUserDetailsSubmissionForm> {
-
   TextEditingController travellerTypeController = TextEditingController();
   TextEditingController titleController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
@@ -60,7 +49,6 @@ class _HotelUserDetailsSubmissionFormState
       GlobalKey<FormState>();
 
   final coPaxController = Get.find<CoPaxController>();
-
 
   @override
   void initState() {
@@ -114,25 +102,22 @@ class _HotelUserDetailsSubmissionFormState
                   )),
             ),
             Container(
-              decoration:
-              flyternBorderedContainerSmallDecoration.copyWith(
+              decoration: flyternBorderedContainerSmallDecoration.copyWith(
                   color: flyternGrey10,
-                  border:
-                  Border.all(color: flyternGrey10, width: .2)),
+                  border: Border.all(color: flyternGrey10, width: .2)),
               padding: flyternMediumPaddingHorizontal.copyWith(
-                  top: flyternSpaceExtraSmall,bottom: flyternSpaceExtraSmall),
+                  top: flyternSpaceExtraSmall, bottom: flyternSpaceExtraSmall),
               margin: EdgeInsets.only(top: flyternSpaceMedium),
               child: DropDownSelector(
                 key: titleDropDownKey,
                 titleText: "title".tr,
                 selected: title,
-                items: [ for (var i = 0;
-                i < sharedController.titleList.length;
-                i++)
-                  GeneralItem(
-                      imageUrl: "",
-                      id: sharedController.titleList[i].code,
-                      name: sharedController.titleList[i].name),
+                items: [
+                  for (var i = 0; i < sharedController.titleList.length; i++)
+                    GeneralItem(
+                        imageUrl: "",
+                        id: sharedController.titleList[i].code,
+                        name: sharedController.titleList[i].name),
                 ],
                 hintText: "title".tr,
                 valueChanged: (newGender) {
@@ -146,7 +131,7 @@ class _HotelUserDetailsSubmissionFormState
               ),
             ),
             Container(
-              padding: EdgeInsets.only( top: flyternSpaceMedium),
+              padding: EdgeInsets.only(top: flyternSpaceMedium),
               color: flyternBackgroundWhite,
               child: Row(
                 children: [
@@ -157,7 +142,7 @@ class _HotelUserDetailsSubmissionFormState
                           FlightUserDataTextFormatter(),
                         ],
                         controller: firstNameController,
-                        onChanged:     updateData(),
+                        onChanged: updateData(),
                         validator: (value) =>
                             checkIfNameFormValid(value, "first_name".tr),
                         keyboardType: TextInputType.name,
@@ -173,7 +158,7 @@ class _HotelUserDetailsSubmissionFormState
                           FlightUserDataTextFormatter(),
                         ],
                         controller: lastNameController,
-                        onChanged:     updateData(),
+                        onChanged: updateData(),
                         validator: (value) =>
                             checkIfNameFormValid(value, "last_name".tr),
                         keyboardType: TextInputType.name,
@@ -205,16 +190,12 @@ class _HotelUserDetailsSubmissionFormState
                       selected: gender,
                       items: [
                         for (var i = 0;
-                        i <
-                            sharedController.genderList.value
-                                .length;
-                        i++)
+                            i < sharedController.genderList.value.length;
+                            i++)
                           GeneralItem(
                               imageUrl: "",
-                              id: sharedController.genderList.value[i]
-                                  .code,
-                              name: sharedController.genderList.value[i]
-                                  .name)
+                              id: sharedController.genderList.value[i].code,
+                              name: sharedController.genderList.value[i].name)
                       ],
                       hintText: "gender".tr,
                       valueChanged: (newGender) {
@@ -227,11 +208,9 @@ class _HotelUserDetailsSubmissionFormState
                       },
                     ),
                   )),
-
                 ],
               ),
             ),
-
           ],
         ),
       ),
@@ -239,20 +218,18 @@ class _HotelUserDetailsSubmissionFormState
   }
 
   void changeGender(Gender newGender) {
-    gender = newGender.name;
+    gender = newGender.code;
     selectedGender = newGender;
     setState(() {});
     updateData();
   }
 
-
   void changeTitle(Gender newTitle) {
-    title = newTitle.name;
+    title = newTitle.code;
     selectedTitle = newTitle;
     setState(() {});
     updateData();
   }
-
 
   void changeSelectedPassenger(String newGender) {
     List<UserCoPax> coPax = coPaxController.userCopaxes
@@ -260,14 +237,12 @@ class _HotelUserDetailsSubmissionFormState
         .toList();
     selectedPassenger = newGender;
     if (coPax.isNotEmpty) {
-
-
       List<Gender> coPaxGender = sharedController.genderList.value
           .where((element) => element.code == coPax[0].gender)
           .toList();
 
       if (coPaxGender.isNotEmpty) {
-        gender = coPaxGender[0].name;
+        gender = coPaxGender[0].code;
         selectedGender = coPaxGender[0];
       }
 
@@ -281,14 +256,11 @@ class _HotelUserDetailsSubmissionFormState
       firstNameController.text = coPax[0].firstName;
       lastNameController.text = coPax[0].lastName;
 
-
-
       setState(() {});
       updateData();
-    }else {
-
+    } else {
       gender = sharedController.genderList.isNotEmpty
-          ? sharedController.genderList[0].name
+          ? sharedController.genderList[0].code
           : "0";
       selectedGender = sharedController.genderList.isNotEmpty
           ? sharedController.genderList[0]
@@ -297,21 +269,23 @@ class _HotelUserDetailsSubmissionFormState
       firstNameController.text = "";
       lastNameController.text = "";
       title = sharedController.titleList.isNotEmpty
-          ? sharedController.titleList[0].name
+          ? sharedController.titleList[0].code
           : "0";
       selectedTitle = sharedController.titleList.isNotEmpty
           ? sharedController.titleList[0]
           : Gender(code: "0", name: "Title", isDefault: false);
-
 
       setState(() {});
       updateData();
     }
   }
 
-
   updateData() {
     widget.dataSubmitted(HotelTravelInfo(
+        roomIndex: -1,
+        typeIndex:-1,
+        userIndex: -1,
+        travellerType: "",
         title: selectedTitle.code,
         firstName: firstNameController.text,
         lastName: lastNameController.text,

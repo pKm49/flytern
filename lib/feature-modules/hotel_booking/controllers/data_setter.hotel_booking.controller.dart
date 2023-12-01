@@ -121,16 +121,31 @@ extension HotelBookingControllerSetter on HotelBookingController {
   }
 
   void saveTravellersData(List<HotelTravelInfo> travelInfo) {
+
     String validityString = "";
     for (var i = 0; i < travelInfo.length; i++) {
 
       print("travelInfo "+i.toString());
       print("title");
       print(travelInfo[i].title);
+      print(travelInfo[i].firstName);
+      print(travelInfo[i].lastName);
 
-      if (travelInfo[i].title == "Title"|| travelInfo[i].title == "") {
-        validityString = "enter_title_hotel_room_adult".tr.replaceAll("1",
-            "${i+1}");
+      if (travelInfo[i].title == "Title"|| travelInfo[i].title == "0") {
+        if(travelInfo[i].travellerType == "Adult"){
+          validityString = "enter_title_hotel_room_adult".tr.replaceAll("1",
+              "${travelInfo[i].typeIndex+1}");
+          validityString = validityString.replaceAll("2",
+              "${travelInfo[i].roomIndex}");
+        }else{
+          if(travelInfo[i].travellerType == "Adult"){
+            validityString = "enter_title_hotel_room_child".tr.replaceAll("1",
+                "${travelInfo[i].typeIndex+1}");
+            validityString = validityString.replaceAll("2",
+                "${travelInfo[i].roomIndex}");
+          }
+        }
+
 
         break;
       }
@@ -138,26 +153,60 @@ extension HotelBookingControllerSetter on HotelBookingController {
       print(travelInfo[i].firstName);
 
       if (travelInfo[i].firstName == "") {
-        
-        validityString = "enter_firstname_hotel_room_adult".tr.replaceAll("1",
-            "${i+1}");
+
+        if(travelInfo[i].travellerType == "Adult"){
+          validityString = "enter_firstname_hotel_room_adult".tr.replaceAll("1",
+              "${travelInfo[i].typeIndex+1}");
+          validityString = validityString.replaceAll("2",
+              "${travelInfo[i].roomIndex}");
+        }else{
+          if(travelInfo[i].travellerType == "Adult"){
+            validityString = "enter_firstname_hotel_room_child".tr.replaceAll("1",
+                "${travelInfo[i].typeIndex+1}");
+            validityString = validityString.replaceAll("2",
+                "${travelInfo[i].roomIndex}");
+          }
+        }
 
         break;
       }
       print("lastName");
       print(travelInfo[i].lastName);
       if (travelInfo[i].lastName == "") {
-       
-        validityString = "enter_lastname_hotel_room_adult".tr.replaceAll("1",
-            "${i+1}");
+        if(travelInfo[i].travellerType == "Adult"){
+          validityString = "enter_lastname_hotel_room_adult".tr.replaceAll("1",
+              "${travelInfo[i].typeIndex+1}");
+          validityString = validityString.replaceAll("2",
+              "${travelInfo[i].roomIndex}");
+        }else{
+          if(travelInfo[i].travellerType == "Adult"){
+            validityString = "enter_lastname_hotel_room_child".tr.replaceAll("1",
+                "${travelInfo[i].typeIndex+1}");
+            validityString = validityString.replaceAll("2",
+                "${travelInfo[i].roomIndex}");
+          }
+        }
+
         break;
       }
       print("gender");
       print(travelInfo[i].gender);
       if (travelInfo[i].gender == "Select" || travelInfo[i].gender == "") {
-        
-        validityString = "enter_gender_hotel_room_adult".tr.replaceAll("1",
-            "${i+1}");
+
+        if(travelInfo[i].travellerType == "Adult"){
+          validityString = "enter_gender_hotel_room_adult".tr.replaceAll("1",
+              "${travelInfo[i].typeIndex+1}");
+          validityString = validityString.replaceAll("2",
+              "${travelInfo[i].roomIndex}");
+        }else{
+          if(travelInfo[i].travellerType == "Adult"){
+            validityString = "enter_gender_hotel_room_child".tr.replaceAll("1",
+                "${travelInfo[i].typeIndex+1}");
+            validityString = validityString.replaceAll("2",
+                "${travelInfo[i].roomIndex}");
+          }
+        }
+
         break;
       }
 

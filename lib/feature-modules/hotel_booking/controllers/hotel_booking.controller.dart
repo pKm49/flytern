@@ -118,7 +118,7 @@ class HotelBookingController extends GetxController {
   var mobileCntry = "".obs;
   var mobileNumber = "".obs;
   var email = "".obs;
-
+  bool isInitial = true;
   @override
   void onInit() {
     super.onInit();
@@ -131,15 +131,19 @@ class HotelBookingController extends GetxController {
 
     quickSearch.value = await hotelBookingHttpService.getRecentSearch();
 
-    selectedDestination.value = mapHotelDestination({});
-    nationality.value = Country(
-        isDefault: 1,
-        countryName: ("select_nationality".tr),
-        countryCode: "",
-        countryISOCode: "",
-        countryName_Ar: "",
-        flag: "",
-        code: "");
+    if(isInitial){
+      selectedDestination.value = mapHotelDestination({});
+      nationality.value = Country(
+          isDefault: 1,
+          countryName: ("select_nationality".tr),
+          countryCode: "",
+          countryISOCode: "",
+          countryName_Ar: "",
+          flag: "",
+          code: "");
+      isInitial = false;
+    }
+
     isInitialDataLoading.value = false;
   }
 
@@ -324,7 +328,8 @@ class HotelBookingController extends GetxController {
           );
       isHotelPretravellerDataLoading.value = false;
 
-      if (tempHotelPretravellerData.genderList.isNotEmpty) {
+
+      if (tempHotelPretravellerData.rooms.isNotEmpty) {
         hotelPretravellerData.value = tempHotelPretravellerData;
       }
     }
@@ -337,6 +342,8 @@ class HotelBookingController extends GetxController {
       String tempBookingRef = "";
       HotelTravellerData hotelTravellerData = HotelTravellerData(
           travellerinfo: travelInfo,
+          bookingCode:selectedRoomOption[ selectedRoomSelectionIndex
+              .value].bookingCode,
           hotelID: hotelId.value,
           objectID: objectId.value,
           mobileCntry: mobileCntry.value,
@@ -391,10 +398,8 @@ class HotelBookingController extends GetxController {
 
     if (getGatewayData.paymentGateways.isNotEmpty) {
       updateProcessId(getGatewayData.paymentGateways[0].processID);
-      Get.toNamed(Approute_hotelsSummary);
-    } else {
-      showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
+    Get.toNamed(Approute_hotelsSummary);
     isSmartPaymentCheckLoading.value = false;
 
     isHotelTravellerDataSaveLoading.value = false;

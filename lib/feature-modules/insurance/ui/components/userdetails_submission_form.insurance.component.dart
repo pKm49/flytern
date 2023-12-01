@@ -252,7 +252,7 @@ class _InsuranceUserDetailsSubmissionFormState
   }
 
   void changeGender(Gender newGender) {
-    gender = newGender.name;
+    gender = newGender.code;
     selectedGender = newGender;
     setState(() {
     });
@@ -331,7 +331,7 @@ class _InsuranceUserDetailsSubmissionFormState
 
 
   void changeTitle(Gender newTitle) {
-    title = newTitle.name;
+    title = newTitle.code;
     selectedTitle = newTitle;
     setState(() {});
     updateData();
@@ -391,7 +391,7 @@ class _InsuranceUserDetailsSubmissionFormState
           flag: "",
           code: "");
       gender = sharedController.genderList.isNotEmpty
-          ? sharedController.genderList[0].name
+          ? sharedController.genderList[0].code
           : "0";
       selectedGender = sharedController.genderList.isNotEmpty
           ? sharedController.genderList[0]
@@ -400,7 +400,7 @@ class _InsuranceUserDetailsSubmissionFormState
       firstNameController.text = "";
       lastNameController.text = "";
       title = sharedController.titleList.isNotEmpty
-          ? sharedController.titleList[0].name
+          ? sharedController.titleList[0].code
           : "0";
       selectedTitle = sharedController.titleList.isNotEmpty
           ? sharedController.titleList[0]

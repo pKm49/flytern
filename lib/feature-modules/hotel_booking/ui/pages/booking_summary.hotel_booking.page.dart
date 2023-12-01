@@ -80,12 +80,15 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                         ),
 
 
-                      Padding(
-                        padding: flyternLargePaddingAll,
-                        child: Text("select_payment_method".tr,
-                            style: getBodyMediumStyle(context).copyWith(
-                                color: flyternGrey80,
-                                fontWeight: flyternFontWeightBold)),
+                      Visibility(
+                        visible: hotelBookingController.paymentGateways.isNotEmpty,
+                        child: Padding(
+                          padding: flyternLargePaddingAll,
+                          child: Text("select_payment_method".tr,
+                              style: getBodyMediumStyle(context).copyWith(
+                                  color: flyternGrey80,
+                                  fontWeight: flyternFontWeightBold)),
+                        ),
                       ),
                       for (var i = 0;
                       i < hotelBookingController.paymentGateways.length;
@@ -156,47 +159,56 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                           ),
                         ),
 
-                      Container(
-                        padding: flyternLargePaddingHorizontal.copyWith(
-                            top: flyternSpaceLarge, bottom: flyternSpaceSmall),
-                        color: flyternBackgroundWhite,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("processing_fee".tr,
-                                style: getBodyMediumStyle(context)
-                                    .copyWith(color: flyternGrey60)),
-                            Text(
-                                "${ hotelBookingController. selectedPaymentGateway.value.currencyCode}"
-                                    " ${ hotelBookingController. selectedPaymentGateway.value.processingFee}",
-                                style: getBodyMediumStyle(context)
-                                    .copyWith(color: flyternGrey80)),
-                          ],
+                      Visibility(
+                        visible: hotelBookingController.paymentGateways.isNotEmpty,
+                        child: Container(
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              top: flyternSpaceLarge, bottom: flyternSpaceSmall),
+                          color: flyternBackgroundWhite,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("processing_fee".tr,
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey60)),
+                              Text(
+                                  "${ hotelBookingController. selectedPaymentGateway.value.currencyCode}"
+                                      " ${ hotelBookingController. selectedPaymentGateway.value.processingFee}",
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey80)),
+                            ],
+                          ),
                         ),
                       ),
 
-                      Container(
-                          padding: flyternLargePaddingHorizontal,
-                          color: flyternBackgroundWhite,
-                          child: Divider()),
+                      Visibility(
+                        visible: hotelBookingController.paymentGateways.isNotEmpty,
+                        child: Container(
+                            padding: flyternLargePaddingHorizontal,
+                            color: flyternBackgroundWhite,
+                            child: Divider()),
+                      ),
 
-                      Container(
-                        padding: flyternLargePaddingHorizontal.copyWith(
-                            top: flyternSpaceSmall, bottom: flyternSpaceLarge),
-                        color: flyternBackgroundWhite,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("${'grand_total'.tr} ",
-                                style: getBodyMediumStyle(context)
-                                    .copyWith(color: flyternGrey60)),
-                            Text(
-                                "${ hotelBookingController. selectedPaymentGateway.value.currencyCode}"
-                                    " ${ hotelBookingController. selectedPaymentGateway.value.finalAmount}",
-                                style: getBodyMediumStyle(context).copyWith(
-                                    color: flyternGrey80,
-                                    fontWeight: flyternFontWeightBold)),
-                          ],
+                      Visibility(
+                        visible: hotelBookingController.paymentGateways.isNotEmpty,
+                        child: Container(
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              top: flyternSpaceSmall, bottom: flyternSpaceLarge),
+                          color: flyternBackgroundWhite,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("${'grand_total'.tr} ",
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey60)),
+                              Text(
+                                  "${ hotelBookingController. selectedPaymentGateway.value.currencyCode}"
+                                      " ${ hotelBookingController. selectedPaymentGateway.value.finalAmount}",
+                                  style: getBodyMediumStyle(context).copyWith(
+                                      color: flyternGrey80,
+                                      fontWeight: flyternFontWeightBold)),
+                            ],
+                          ),
                         ),
                       ),
 
@@ -347,7 +359,7 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
               ),
             ],
           ),
-            bottomSheet: Container(
+            bottomSheet:hotelBookingController.paymentGateways.isEmpty?Container(width: screenwidth,height: 1,): Container(
               width: screenwidth,
               color: flyternBackgroundWhite,
               height: 60 + (flyternSpaceSmall * 2),

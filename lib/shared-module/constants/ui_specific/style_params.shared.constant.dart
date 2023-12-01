@@ -10,6 +10,7 @@ const Color flyternPrimaryColorBg = Color(0x15066651);
 const Color flyternSecondaryColor = Color(0xFFFF912C);
 const Color flyternSecondaryColorBg = Color(0x25FFC48E);
 const Color flyternTertiaryColor = Color(0xFF519CEC);
+const Color flyternTertiaryColorBg = Color(0x3F519CEC);
 const Color flyternAccentColor = Color(0xFFFFC900);
 const Color flyternGuideGreen = Color(0xFF27C76A);
 const Color flyternGuideRed = Color(0xFFFF5A4E);

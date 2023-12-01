@@ -309,10 +309,9 @@ class ActivityBookingController extends GetxController {
 
     if (getGatewayData.paymentGateways.isNotEmpty) {
       updateProcessId(getGatewayData.paymentGateways[0].processID);
-      Get.toNamed(Approute_activitiesSummary);
-    } else {
-      showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
+
+    Get.toNamed(Approute_activitiesSummary);
     isSmartPaymentCheckLoading.value = false;
     isSaveContactLoading.value = false;
   }

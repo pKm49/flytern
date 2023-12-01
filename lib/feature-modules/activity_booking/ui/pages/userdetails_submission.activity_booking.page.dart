@@ -268,7 +268,7 @@ class _ActivityUserDetailsSubmissionPageState
                     if (userDetailsForm.currentState!.validate()) {
                       activityBookingController.setTravellerData(
                           ActivityTravellerInfo(
-                              prefix: selectedTitle.name,
+                              prefix: selectedTitle.code,
                               firstName: firstNameController.text,
                               lastName: lastNameController.text,
                               nationalityCode: nationality.countryISOCode,
@@ -358,7 +358,7 @@ class _ActivityUserDetailsSubmissionPageState
       firstNameController.text = "";
       lastNameController.text = "";
       title = sharedController.titleList.isNotEmpty
-          ? sharedController.titleList[0].name
+          ? sharedController.titleList[0].code
           : "0";
       selectedTitle = sharedController.titleList.isNotEmpty
           ? sharedController.titleList[0]

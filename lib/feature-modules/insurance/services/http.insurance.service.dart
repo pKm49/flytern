@@ -88,8 +88,6 @@ class InsuranceBookingHttpService {
           "bookingRef": bookingRef
         });
 
-
-
     List<PaymentGateway> paymentGateways = [];
     List<BookingInfo>  bookingInfo = [];
     List<String> alertMsg = [];

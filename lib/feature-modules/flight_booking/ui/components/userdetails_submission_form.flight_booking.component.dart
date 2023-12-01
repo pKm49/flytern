@@ -368,7 +368,7 @@ class _FlightUserDetailsSubmissionFormState
   }
 
   void changeGender(Gender newGender) {
-    gender = newGender.name;
+    gender = newGender.code;
     selectedGender = newGender;
     setState(() {});
     updateData();
@@ -465,7 +465,7 @@ class _FlightUserDetailsSubmissionFormState
   }
 
   void changeTitle(Gender newTitle) {
-    title = newTitle.name;
+    title = newTitle.code;
     selectedTitle = newTitle;
     setState(() {});
     updateData();
@@ -479,10 +479,10 @@ class _FlightUserDetailsSubmissionFormState
 
     if (coPax.isNotEmpty) {
       List<Gender> coPaxGender = sharedController.genderList.value
-          .where((element) => element.name == coPax[0].gender)
+          .where((element) => element.code == coPax[0].gender)
           .toList();
 
-      gender = coPaxGender[0].name;
+      gender = coPaxGender[0].code;
       selectedGender = coPaxGender[0];
       firstNameController.text = coPax[0].firstName;
       lastNameController.text = coPax[0].lastName;
@@ -521,7 +521,7 @@ class _FlightUserDetailsSubmissionFormState
       }
 
       List<Gender> tSelectedTitle = sharedController.titleList.value
-          .where((element) => element.name == coPax[0].title)
+          .where((element) => element.code == coPax[0].title)
           .toList();
       if (tSelectedTitle.isNotEmpty) {
         selectedTitle = tSelectedTitle[0];
@@ -533,7 +533,7 @@ class _FlightUserDetailsSubmissionFormState
     } else {
 
       gender = sharedController.genderList.isNotEmpty
-          ? sharedController.genderList[0].name
+          ? sharedController.genderList[0].code
           : "0";
       selectedGender = sharedController.genderList.isNotEmpty
           ? sharedController.genderList[0]
@@ -548,7 +548,7 @@ class _FlightUserDetailsSubmissionFormState
       firstNameController.text = "";
       lastNameController.text = "";
       title = sharedController.titleList.isNotEmpty
-          ? sharedController.titleList[0].name
+          ? sharedController.titleList[0].code
           : "0";
       selectedTitle = sharedController.titleList.isNotEmpty
           ? sharedController.titleList[0]

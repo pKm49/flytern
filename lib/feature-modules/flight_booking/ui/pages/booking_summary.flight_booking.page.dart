@@ -82,12 +82,15 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                         ),
 
 
-                      Padding(
-                        padding: flyternLargePaddingAll,
-                        child: Text("select_payment_method".tr,
-                            style: getBodyMediumStyle(context).copyWith(
-                                color: flyternGrey80,
-                                fontWeight: flyternFontWeightBold)),
+                      Visibility(
+                            visible: flightBookingController.paymentGateways.isNotEmpty,
+                        child: Padding(
+                          padding: flyternLargePaddingAll,
+                          child: Text("select_payment_method".tr,
+                              style: getBodyMediumStyle(context).copyWith(
+                                  color: flyternGrey80,
+                                  fontWeight: flyternFontWeightBold)),
+                        ),
                       ),
                       for (var i = 0;
                       i < flightBookingController.paymentGateways.length;
@@ -158,8 +161,7 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                           ),
                         ),
                       Visibility(
-                        visible:
-                        flightBookingController.selectedPaymentGateway.value.processingFee != 0.0,
+                        visible: flightBookingController.paymentGateways.isNotEmpty,
                         child: Container(
                           padding: flyternLargePaddingHorizontal.copyWith(
                               top: flyternSpaceSmall, bottom: flyternSpaceSmall),
@@ -180,16 +182,14 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                         ),
                       ),
                       Visibility(
-                        visible:
-                        flightBookingController.cabinInfo.value.id != "-1",
+                        visible: flightBookingController.paymentGateways.isNotEmpty,
                         child: Container(
                             padding: flyternLargePaddingHorizontal,
                             color: flyternBackgroundWhite,
                             child: Divider()),
                       ),
                       Visibility(
-                        visible:
-                        flightBookingController.cabinInfo.value.id != "-1",
+                        visible: flightBookingController.paymentGateways.isNotEmpty,
                         child: Container(
                           padding: flyternLargePaddingHorizontal.copyWith(
                               top: flyternSpaceSmall, bottom: flyternSpaceLarge),
@@ -363,7 +363,8 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
             ],
           ),
           bottomSheet: flightBookingController
-                  .isFlightTravellerDataSaveLoading.value
+                  .isFlightTravellerDataSaveLoading.value ||
+            flightBookingController.paymentGateways.isEmpty
               ? Container(width: screenwidth, height: 60)
               : Container(
                   width: screenwidth,

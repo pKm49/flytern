@@ -5,6 +5,7 @@ class HotelTravellerData {
 
   final List<HotelTravelInfo> travellerinfo;
   final int objectID;
+  final String bookingCode;
   final int hotelID;
   final String mobileCntry;
   final String mobileNumber;
@@ -13,6 +14,7 @@ class HotelTravellerData {
   HotelTravellerData({
     required this.travellerinfo,
     required this.objectID,
+    required this.bookingCode,
     required this.hotelID,
     required this.mobileCntry,
     required this.mobileNumber,
@@ -23,6 +25,7 @@ class HotelTravellerData {
     '_Travellerinfo': getTravellerInfo(),
     'objectID': objectID,
     'hotelID': hotelID,
+    'bookingCode': bookingCode,
     '_CntDc':{
       'mobileCntry': mobileCntry,
       'mobileNumber': mobileNumber,
