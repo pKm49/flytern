@@ -177,7 +177,6 @@ extension HotelBookingControllerSetter on HotelBookingController {
 
   void changeSelectedRoomSelectionIndex(int i) {
     selectedRoomSelectionIndex.value = i;
-
   }
 
   void changeSelectedRoomForIndex(String roomId) {

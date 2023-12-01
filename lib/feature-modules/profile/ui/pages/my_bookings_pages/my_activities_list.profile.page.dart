@@ -165,12 +165,12 @@ class _ProfileActivityBookingsListState
 
                                   activityBookingController.getConfirmationData(
                                       profileController.myActivityBookingResponse
-                                          .value[index].bookingReference,
+                                          .value[index].travelmateID,
                                       true).then((value) => {
                                    restCurrentRef()
                                   });
                                   currentBookingRef = profileController.myActivityBookingResponse
-                                      .value[index].bookingReference;
+                                      .value[index].travelmateID;
 
                                   setState(() {
                                   });
@@ -182,7 +182,7 @@ class _ProfileActivityBookingsListState
                                           .isActivityConfirmationDataLoading
                                           .value &&
                                       currentBookingRef  == profileController.myActivityBookingResponse
-                                          .value[index].bookingReference)
+                                          .value[index].travelmateID)
                                   ? LoadingAnimationWidget.prograssiveDots(
                                       color: flyternBackgroundWhite,
                                       size: 20,

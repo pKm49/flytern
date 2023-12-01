@@ -297,41 +297,40 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                                 fontWeight: flyternFontWeightBold),
                           ),
                         ),
-                        Visibility(
-                          visible: hotelBookingController
-                                  .hotelSearchData.value.rooms.length >
-                              1,
-                          child: Container(
-                            padding: flyternLargePaddingAll,
-                            width: screenwidth,
-                            height: 77,
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: hotelBookingController
-                                    .hotelDetails.value.rooms.length,
-                                itemBuilder: (context, i) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(
-                                        right: flyternSpaceMedium),
-                                    child: SelectableTilePill(
-                                      onPressed: () {
-                                        hotelBookingController
-                                            .changeSelectedRoomSelectionIndex(
-                                                i);
-                                      },
-                                      label:
-                                          "${hotelBookingController.hotelDetails.value.rooms[i].roomDisplayNo} - ${hotelBookingController.hotelDetails.value.rooms[i].roomref}",
-                                      isSelected: i ==
-                                          hotelBookingController
-                                              .selectedRoomSelectionIndex.value,
-                                      themeNumber: 2,
-                                    ),
-                                  );
-                                }),
-                          ),
-                        ),
+                        // Visibility(
+                        //   visible: hotelBookingController
+                        //           .hotelSearchData.value.rooms.length >
+                        //       1,
+                        //   child: Container(
+                        //     padding: flyternLargePaddingAll,
+                        //     width: screenwidth,
+                        //     height: 77,
+                        //     child: ListView.builder(
+                        //         scrollDirection: Axis.horizontal,
+                        //         itemCount: hotelBookingController
+                        //             .hotelDetails.value.rooms.length,
+                        //         itemBuilder: (context, i) {
+                        //           return Padding(
+                        //             padding: EdgeInsets.only(
+                        //                 right: flyternSpaceMedium),
+                        //             child: SelectableTilePill(
+                        //               onPressed: () {
+                        //                 hotelBookingController
+                        //                     .changeSelectedRoomSelectionIndex(
+                        //                         i);
+                        //               },
+                        //               label:
+                        //                   "${hotelBookingController.hotelDetails.value.rooms[i].roomDisplayNo} - ${hotelBookingController.hotelDetails.value.rooms[i].roomref}",
+                        //               isSelected: i ==
+                        //                   hotelBookingController
+                        //                       .selectedRoomSelectionIndex.value,
+                        //               themeNumber: 2,
+                        //             ),
+                        //           );
+                        //         }),
+                        //   ),
+                        // ),
                       Padding(
-
                           padding: flyternLargePaddingHorizontal.copyWith(
                               top: hotelBookingController
                                   .hotelDetails.value.rooms.length >
@@ -560,7 +559,9 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                         i++)
                         Container(
                           padding: flyternLargePaddingHorizontal.copyWith(
-                              top: 0, bottom: flyternSpaceLarge),
+                              top: 0, bottom:
+                          i ==hotelBookingController.getCancellationPolicyLength()-1?flyternSpaceSmall:
+                          flyternSpaceMedium),
                           color: flyternBackgroundWhite,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -581,7 +582,8 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                         Visibility(
                           visible: hotelBookingController.getSupplementsLength()>0,
                           child: Padding(
-                            padding: flyternLargePaddingAll.copyWith(bottom: flyternSpaceMedium),
+                            padding: flyternLargePaddingAll.copyWith(bottom:
+                            flyternSpaceMedium),
                             child: Text(
                               "supplements".tr,
                               style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold),
@@ -593,7 +595,10 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                         i++)
                           Container(
                             padding: flyternLargePaddingHorizontal.copyWith(
-                                top: 0, bottom: flyternSpaceLarge),
+                                top: 0, bottom:
+                            i ==hotelBookingController.getSupplementsLength()-1?flyternSpaceSmall:
+
+                            flyternSpaceMedium),
                             color: flyternBackgroundWhite,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

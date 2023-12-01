@@ -33,6 +33,8 @@ class MyActivityBooking {
 }
 
 MyActivityBooking mapMyActivityBooking(dynamic payload){
+  print("mapMyActivityBooking");
+  print(payload["travelmateid"]);
   return MyActivityBooking(
     bookingReference :payload["bookingReference"]??-1,
     hotelImageUrl :payload["hotelImageUrl"]??"",
@@ -41,7 +43,7 @@ MyActivityBooking mapMyActivityBooking(dynamic payload){
     grossSellingPrice :payload["grossSellingPrice"]??0.0,
     address :payload["address"]??"",
     leadClientName :payload["leadClientName"]??"",
-    travelmateID :payload["travelmateID"]??"",
+    travelmateID :payload["travelmateid"]??"",
     eventDate :payload["eventDate"] !=null? DateTime.parse(payload["eventDate"]):DefaultInvalidDate,
     bookingStatus :payload["bookingStatus"]??"",
   );
