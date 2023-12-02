@@ -122,8 +122,7 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
   }
 
   getAge(DateTime dateOfBirth) {
-    print("getAge");
-    print(dateOfBirth);
+
     int currenYear = DateTime.now().year;
     int dobYear = dateOfBirth.year;
     return "${currenYear - dobYear} years";

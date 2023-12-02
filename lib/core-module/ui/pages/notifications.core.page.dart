@@ -164,7 +164,6 @@ class _NotificationsPageState extends State<NotificationsPage> {
     final Uri _url = Uri.parse(urlString);
 
     if (!await launchUrl(_url)) {
-      print('Could not launch $_url');
-    }
+     }
   }
 }

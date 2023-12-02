@@ -29,42 +29,55 @@ class HotelBookingHttpService {
 
   Future<List<HotelDestination>> getHotelDestinations(
       String searchQuery) async {
-    FlyternHttpResponse response = await getRequest(
-        HotelBookingHttpRequestEndpointGetDestinations,
-        {"search": searchQuery});
     List<HotelDestination> flightDestinations = [];
-    if (response.success) {
-      if (response.data != null) {
-        for (var i = 0; i < response.data.length; i++) {
-          flightDestinations.add(mapHotelDestination(response.data[i]));
+
+    try{
+
+      FlyternHttpResponse response = await getRequest(
+          HotelBookingHttpRequestEndpointGetDestinations,
+          {"search": searchQuery});
+      if (response.success) {
+        if (response.data != null) {
+          for (var i = 0; i < response.data.length; i++) {
+            flightDestinations.add(mapHotelDestination(response.data[i]));
+          }
+          flightDestinations.sort((a, b) => a.sort.compareTo(b.sort));
         }
-        flightDestinations.sort((a, b) => a.sort.compareTo(b.sort));
       }
+
+      return flightDestinations;
+    }catch (e){
+      return flightDestinations;
     }
 
-    return flightDestinations;
   }
 
-
   Future<List<HotelSearchData>> getRecentSearch ( ) async {
-
-    FlyternHttpResponse response = await getRequest(
-        HotelBookingHttpRequestEndpointGetQuickSearch, null);
     List<HotelSearchData> hotelSearchData = [];
-    if (response.success) {
-      if (response.data != null) {
-        for (var i = 0; i < response.data.length; i++) {
-          hotelSearchData.add(mapHotelSearchData(response.data[i]));
+
+    try{
+      FlyternHttpResponse response = await getRequest(
+          HotelBookingHttpRequestEndpointGetQuickSearch, null);
+      if (response.success) {
+        if (response.data != null) {
+          for (var i = 0; i < response.data.length; i++) {
+            hotelSearchData.add(mapHotelSearchData(response.data[i]));
+          }
         }
       }
+
+      return hotelSearchData;
+    }catch (e){
+      return hotelSearchData;
     }
 
-    return hotelSearchData;
+
 
   }
 
   Future<HotelSearchResult> getHotelSearchResults(
       HotelSearchData flightSearchData) async {
+
     List<HotelSearchResponse> searchResponses = [];
     List<SortingDcs> sortingDcs = [];
     List<RangeDcs> priceDcs = [];
@@ -82,8 +95,7 @@ class HotelBookingHttpService {
         if (response.data != null) {
           objectID = response.data["objectID"] ?? -1;
           alertMsg = response.data["alertMsg"] ?? "";
-          print("response alertMsg");
-          print(response.data["alertMsg"]);
+
           if (response.data["_lst"] != null) {
             for (var i = 0; i < response.data["_lst"].length; i++) {
               searchResponses
@@ -112,130 +124,172 @@ class HotelBookingHttpService {
           }
         }
       }
-    } catch (e) {
-      print("errrror");
-      print(e);
-    }
-    print("alertMsg");
-    print(alertMsg);
+      HotelSearchResult flightSearchResult = HotelSearchResult(
+        alertMsg:alertMsg,
+        objectID: objectID,
+        searchResponses: searchResponses,
+        priceDcs: priceDcs,
+        sortingDcs: sortingDcs,
+        ratingDcs: ratingDcs,
+        locationDcs: locationDcs,
+      );
 
-    HotelSearchResult flightSearchResult = HotelSearchResult(
-      alertMsg:alertMsg,
-      objectID: objectID,
-      searchResponses: searchResponses,
-      priceDcs: priceDcs,
-      sortingDcs: sortingDcs,
-      ratingDcs: ratingDcs,
-      locationDcs: locationDcs,
-    );
-    print("flightSearchResult.alertMsg");
-    print(flightSearchResult.alertMsg);
-    return flightSearchResult;
+      return flightSearchResult;
+    } catch (e) {
+      HotelSearchResult flightSearchResult = HotelSearchResult(
+        alertMsg:alertMsg,
+        objectID: objectID,
+        searchResponses: searchResponses,
+        priceDcs: priceDcs,
+        sortingDcs: sortingDcs,
+        ratingDcs: ratingDcs,
+        locationDcs: locationDcs,
+      );
+
+      return flightSearchResult;
+    }
+
+
   }
 
   Future<HotelSearchResult> getHotelSearchResultsFiltered(
       HotelFilterBody flightFilterBody) async {
-    FlyternHttpResponse response = await postRequest(
-        HotelBookingHttpRequestEndpointFilterHotels, flightFilterBody.toJson());
 
     List<HotelSearchResponse> searchResponses = [];
     String alertMsg = "";
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        alertMsg = response.data["alertMsg"] ?? "";
 
-        if (response.data["_lst"] != null) {
-          for (var i = 0; i < response.data["_lst"].length; i++) {
-            searchResponses.add(
-                mapHotelSearchResponse(response.data["_lst"][i]));
+    try{
+      FlyternHttpResponse response = await postRequest(
+          HotelBookingHttpRequestEndpointFilterHotels, flightFilterBody.toJson());
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          alertMsg = response.data["alertMsg"] ?? "";
+
+          if (response.data["_lst"] != null) {
+            for (var i = 0; i < response.data["_lst"].length; i++) {
+              searchResponses.add(
+                  mapHotelSearchResponse(response.data["_lst"][i]));
+            }
           }
         }
       }
+
+      return HotelSearchResult(
+        alertMsg:alertMsg,
+        objectID: -1,
+        searchResponses: searchResponses,
+        priceDcs: [],
+        sortingDcs: [],
+        ratingDcs: [],
+        locationDcs: [],
+      );
+    }catch (e){
+      return HotelSearchResult(
+        alertMsg:alertMsg,
+        objectID: -1,
+        searchResponses: searchResponses,
+        priceDcs: [],
+        sortingDcs: [],
+        ratingDcs: [],
+        locationDcs: [],
+      );
     }
 
-   return HotelSearchResult(
-      alertMsg:alertMsg,
-      objectID: -1,
-      searchResponses: searchResponses,
-      priceDcs: [],
-      sortingDcs: [],
-      ratingDcs: [],
-      locationDcs: [],
-    );
+
   }
 
   Future<HotelDetails> getHotelDetails(int hotelid, int objectId) async {
-    FlyternHttpResponse response = await getRequest(
-        HotelBookingHttpRequestEndpointGetDetailHotels,
-        {"objectID": objectId, "hotelid": hotelid});
 
-    HotelDetails flightDetails;
+    try{
+      FlyternHttpResponse response = await getRequest(
+          HotelBookingHttpRequestEndpointGetDetailHotels,
+          {"objectID": objectId, "hotelid": hotelid});
 
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        flightDetails = mapHotelDetails(response.data);
-        return flightDetails;
+      HotelDetails flightDetails;
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          flightDetails = mapHotelDetails(response.data);
+          return flightDetails;
+        }
       }
+
+      return mapHotelDetails({});
+    }catch (e){
+      return mapHotelDetails({});
     }
 
-    return mapHotelDetails({});
   }
 
   Future<HotelPretravellerData> getPreTravellerData( int objectId,int hotelId ) async {
-    FlyternHttpResponse response = await getRequest(
-        HotelBookingHttpRequestEndpointGetPreTravellerData, {"objectId":objectId,"hotelId":hotelId});
 
-    HotelPretravellerData flightPretravellerData;
+    try{
+      FlyternHttpResponse response = await getRequest(
+          HotelBookingHttpRequestEndpointGetPreTravellerData, {"objectId":objectId,"hotelId":hotelId});
 
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        flightPretravellerData = mapHotelPretravellerData(response.data);
-        return flightPretravellerData;
+      HotelPretravellerData flightPretravellerData;
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          flightPretravellerData = mapHotelPretravellerData(response.data);
+          return flightPretravellerData;
+        }
       }
+
+      return mapHotelPretravellerData({});
+    }catch (e){
+      return mapHotelPretravellerData({});
     }
 
-    return mapHotelPretravellerData({});
   }
 
   Future<String> setTravellerData(
       HotelTravellerData flightTravellerData) async {
-    FlyternHttpResponse response = await postRequest(
-        HotelBookingHttpRequestEndpointGetSaveTravellerData,
-        flightTravellerData.toJson());
+    try{
+      FlyternHttpResponse response = await postRequest(
+          HotelBookingHttpRequestEndpointGetSaveTravellerData,
+          flightTravellerData.toJson());
 
-    String bookingRef;
+      String bookingRef;
 
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        bookingRef = response.data["bookingRef"] ?? "";
-        return bookingRef;
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          bookingRef = response.data["bookingRef"] ?? "";
+          return bookingRef;
+        }
       }
+
+      return "";
+    }catch (e){
+      return "";
     }
 
-    return "";
   }
 
   Future<bool> checkSmartPayment(String bookingRef) async {
-    FlyternHttpResponse response = await postRequest(
-        FlightBookingHttpRequestEndpointSmartPayment,
-        {"bookingRef": bookingRef});
 
-    print("getPaymentGateways");
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        if (response.data["isSuccess"] != null) {
-          return response.data["isSuccess"];
+    try{
+      FlyternHttpResponse response = await postRequest(
+          FlightBookingHttpRequestEndpointSmartPayment,
+          {"bookingRef": bookingRef});
+
+       if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          if (response.data["isSuccess"] != null) {
+            return response.data["isSuccess"];
+          }
         }
       }
+
+      return false;
+    }catch (e){
+      return false;
     }
 
-    return false;
   }
 
   Future<GetGatewayData> getPaymentGateways(String bookingRef) async {
-    FlyternHttpResponse response = await postRequest(
-        HotelBookingHttpRequestEndpointGetGateways, {"bookingRef": bookingRef});
-
 
     List<PaymentGateway> paymentGateways = [];
     List<BookingInfo>  bookingInfo = [];
@@ -244,160 +298,200 @@ class HotelBookingHttpService {
     HotelDetails hotelDetails = mapHotelDetails({});
     ActivityDetails activityDetails = mapActivityDetails({},[]);
 
-    print("getPaymentGateways");
-    print(response.data["isGateway"]);
-    print(response.data["_gatewaylist"]);
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        if (response.data["isGateway"]) {
-          response.data["_gatewaylist"].forEach((element) {
-            paymentGateways.add(mapPaymentGateway(element));
-          });
-        }
+    try{
+      FlyternHttpResponse response = await postRequest(
+          HotelBookingHttpRequestEndpointGetGateways, {"bookingRef": bookingRef});
 
-        if (response.data["_hotelservice"] != null) {
-          hotelDetails = mapHotelDetails(
-              response.data["_hotelservice"] );
-          print("flightDetails");
-          print(flightDetails.objectId);
-        }
-        if (response.data["alertMsg"]!=null) {
-          response.data["alertMsg"].forEach((element) {
-            alertMsg.add(element);
-          });
-        }
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          if (response.data["isGateway"]) {
+            response.data["_gatewaylist"].forEach((element) {
+              paymentGateways.add(mapPaymentGateway(element));
+            });
+          }
 
-        if (response.data["_bookingInfo"]!=null) {
-          response.data["_bookingInfo"].forEach((element) {
-            bookingInfo.add(mapBookingInfo(element));
-          });
+          if (response.data["_hotelservice"] != null) {
+            hotelDetails = mapHotelDetails(
+                response.data["_hotelservice"] );
+          }
+          if (response.data["alertMsg"]!=null) {
+            response.data["alertMsg"].forEach((element) {
+              alertMsg.add(element);
+            });
+          }
+
+          if (response.data["_bookingInfo"]!=null) {
+            response.data["_bookingInfo"].forEach((element) {
+              bookingInfo.add(mapBookingInfo(element));
+            });
+          }
         }
       }
+
+      return GetGatewayData(
+          hotelDetails:hotelDetails,
+          activityDetails: activityDetails,
+          paymentGateways: paymentGateways,
+          alert: alertMsg,
+          bookingInfo: bookingInfo,
+          flightDetails: flightDetails);
+    }catch (e){
+      return GetGatewayData(
+          hotelDetails:hotelDetails,
+          activityDetails: activityDetails,
+          paymentGateways: paymentGateways,
+          alert: alertMsg,
+          bookingInfo: bookingInfo,
+          flightDetails: flightDetails);
     }
 
-    return GetGatewayData(
-        hotelDetails:hotelDetails,
-        activityDetails: activityDetails,
-        paymentGateways: paymentGateways,
-        alert: alertMsg,
-        bookingInfo: bookingInfo,
-        flightDetails: flightDetails);
 
   }
 
   Future<bool> checkGatewayStatus(String bookingRef) async {
-    FlyternHttpResponse response = await postRequest(
-        HotelBookingHttpRequestEndpointCheckGatewayStatus,
-        {"bookingRef": bookingRef});
 
-    print("getPaymentGateways");
-    print(response.data["isGateway"]);
-    print(response.data["_gatewaylist"]);
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        if (response.data["isSuccess"] != null) {
-          return response.data["isSuccess"];
+    try{
+
+      FlyternHttpResponse response = await postRequest(
+          HotelBookingHttpRequestEndpointCheckGatewayStatus,
+          {"bookingRef": bookingRef});
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          if (response.data["isSuccess"] != null) {
+            return response.data["isSuccess"];
+          }
         }
       }
-    }
 
-    return false;
+      return false;
+    }catch (e){
+      return false;
+    }
   }
 
   Future<PaymentConfirmationData> getConfirmationData(String bookingRef) async {
-    FlyternHttpResponse response = await postRequest(
-        HotelBookingHttpRequestEndpointConfirmation,
-        {"bookingRef": bookingRef});
 
-    print("getConfirmationData");
-    print(response.data["isIssued"]);
-    print(response.data["pdfLink"]);
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        PaymentConfirmationData paymentConfirmationData =
-            mapPaymentpdfLinkData(response.data,true);
-        return paymentConfirmationData;
+    try{
+      FlyternHttpResponse response = await postRequest(
+          HotelBookingHttpRequestEndpointConfirmation,
+          {"bookingRef": bookingRef});
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          PaymentConfirmationData paymentConfirmationData =
+          mapPaymentpdfLinkData(response.data,true);
+          return paymentConfirmationData;
+        }
       }
+
+      return mapPaymentpdfLinkData({},false);
+    }catch (e){
+      return mapPaymentpdfLinkData({},false);
     }
 
-    return mapPaymentpdfLinkData({},false);
   }
 
   Future<PaymentGatewayUrlData> setPaymentGateway(
       String processID, String paymentCode, String bookingRef) async {
-    FlyternHttpResponse response = await postRequest(
-        HotelBookingHttpRequestEndpointSetGateway, {
-      "processID": processID,
-      "paymentCode": paymentCode,
-      "bookingRef": bookingRef
-    });
 
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        PaymentGatewayUrlData paymentGatewayUrlData =
-            mapPaymentGatewayUrlData(response.data);
-        return paymentGatewayUrlData;
+    try{
+      FlyternHttpResponse response = await postRequest(
+          HotelBookingHttpRequestEndpointSetGateway, {
+        "processID": processID,
+        "paymentCode": paymentCode,
+        "bookingRef": bookingRef
+      });
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          PaymentGatewayUrlData paymentGatewayUrlData =
+          mapPaymentGatewayUrlData(response.data);
+          return paymentGatewayUrlData;
+        }
       }
+
+      return mapPaymentGatewayUrlData({});
+    }catch (e){
+      return mapPaymentGatewayUrlData({});
     }
 
-    return mapPaymentGatewayUrlData({});
   }
 
   Future<List<RecommendedPackage>> getRecommended(int pageId) async {
-    FlyternHttpResponse response = await getRequest(
-        HotelBookingHttpRequestEndpointGetViewAllRecommeded,
-        {"pageid": pageId.toString()});
-    List<RecommendedPackage> recommendedPackages = [];
-    if (response.success) {
-      if (response.data != null) {
-        if (response.data["records"] != null) {
-          response.data["records"].forEach((element) {
-            recommendedPackages.add(mapRecommendedPackage(element));
-          });
-          return recommendedPackages;
+
+    try{
+
+      FlyternHttpResponse response = await getRequest(
+          HotelBookingHttpRequestEndpointGetViewAllRecommeded,
+          {"pageid": pageId.toString()});
+      List<RecommendedPackage> recommendedPackages = [];
+      if (response.success) {
+        if (response.data != null) {
+          if (response.data["records"] != null) {
+            response.data["records"].forEach((element) {
+              recommendedPackages.add(mapRecommendedPackage(element));
+            });
+            return recommendedPackages;
+          }
         }
       }
+
+      return [];
+    }catch (e){
+      return [];
     }
 
-    return [];
   }
 
   Future<List<TravelStory>> getTravelStories(int pageId) async {
-    FlyternHttpResponse response = await getRequest(
-        HotelBookingHttpRequestEndpointGetViewAllRecommeded,
-        {"pageid": pageId.toString()});
-    List<TravelStory> travelStories = [];
-    if (response.success) {
-      if (response.data != null) {
-        if (response.data["records"] != null) {
-          response.data["records"].forEach((element) {
-            travelStories.add(mapTravelStory(element));
-          });
-          return travelStories;
+
+    try{
+      FlyternHttpResponse response = await getRequest(
+          HotelBookingHttpRequestEndpointGetViewAllRecommeded,
+          {"pageid": pageId.toString()});
+      List<TravelStory> travelStories = [];
+      if (response.success) {
+        if (response.data != null) {
+          if (response.data["records"] != null) {
+            response.data["records"].forEach((element) {
+              travelStories.add(mapTravelStory(element));
+            });
+            return travelStories;
+          }
         }
       }
+
+      return [];
+    }catch (e){
+      return [];
     }
 
-    return [];
   }
 
   Future<List<PopularDestination>> getPopularDestinations(int pageId) async {
-    FlyternHttpResponse response = await getRequest(
-        HotelBookingHttpRequestEndpointGetViewAllRecommeded,
-        {"pageid": pageId.toString()});
-    List<PopularDestination> popularDestination = [];
-    if (response.success) {
-      if (response.data != null) {
-        if (response.data["records"] != null) {
-          response.data["records"].forEach((element) {
-            popularDestination.add(mapPopularDestination(element));
-          });
-          return popularDestination;
+
+    try{
+
+      FlyternHttpResponse response = await getRequest(
+          HotelBookingHttpRequestEndpointGetViewAllRecommeded,
+          {"pageid": pageId.toString()});
+      List<PopularDestination> popularDestination = [];
+      if (response.success) {
+        if (response.data != null) {
+          if (response.data["records"] != null) {
+            response.data["records"].forEach((element) {
+              popularDestination.add(mapPopularDestination(element));
+            });
+            return popularDestination;
+          }
         }
       }
-    }
 
-    return [];
+      return [];
+    }catch (e){
+      return [];
+    }
   }
 
 }

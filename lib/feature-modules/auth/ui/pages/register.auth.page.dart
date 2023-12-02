@@ -42,8 +42,7 @@ class _AuthRegisterDetailsInputPageState
     // TODO: implement initState
     super.initState();
     isDirectFlow =getArguments !=null?getArguments[0]:true;
-    print("AuthRegisterDetailsInputPage");
-    print(isDirectFlow);
+
     registerController.changeMobileCountry(sharedController.selectedMobileCountry.value);
   }
 
@@ -366,10 +365,7 @@ class _AuthRegisterDetailsInputPageState
   }
 
   void openDocsBottomSheet(String item ) {
-    print("openDocsBottomSheet");
-    print(item);
-    print(sharedController.termsHtml);
-    print(sharedController.privacyHtml);
+
     showModalBottomSheet(
       useSafeArea: false,
         shape:   const RoundedRectangleBorder(

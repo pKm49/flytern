@@ -91,11 +91,7 @@ extension FlightBookingControllerSetter on FlightBookingController {
   }
 
   changeDate(int index, bool isReturnDate, DateTime dateTime, bool isFilter) {
-    print("changedate");
-    print(index);
-    print(isReturnDate);
-    print(dateTime);
-    print(dateTime);
+
     FlightSearchData newFlightSearchData = flightBookingHelperServices
         .changeDate(flightSearchData.value, index, dateTime, isReturnDate);
 
@@ -171,9 +167,7 @@ extension FlightBookingControllerSetter on FlightBookingController {
     String validityString = "";
     for (var i = 0; i < travelInfo.length; i++) {
 
-      print("travelInfo "+i.toString());
-      print("title");
-      print(travelInfo[i].title);
+
 
       if (travelInfo[i].title == "Title"|| travelInfo[i].title == "0") {
         validityString = "enter_title_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
@@ -186,8 +180,7 @@ extension FlightBookingControllerSetter on FlightBookingController {
 
         break;
       }
-      print("firstName");
-      print(travelInfo[i].firstName);
+
 
       if (travelInfo[i].firstName == "") {
         validityString = "enter_firstname_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
@@ -200,8 +193,7 @@ extension FlightBookingControllerSetter on FlightBookingController {
 
         break;
       }
-      print("lastName");
-      print(travelInfo[i].lastName);
+
       if (travelInfo[i].lastName == "") {
         validityString = "enter_lastname_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
             travelInfo[i].travellerType == "Adult"
@@ -213,8 +205,7 @@ extension FlightBookingControllerSetter on FlightBookingController {
 
         break;
       }
-      print("gender");
-      print(travelInfo[i].gender);
+
       if (travelInfo[i].gender == "Select" || travelInfo[i].gender == "0") {
         validityString = "enter_gender_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
             travelInfo[i].travellerType == "Adult"
@@ -226,9 +217,7 @@ extension FlightBookingControllerSetter on FlightBookingController {
 
         break;
       }
-      print("dateOfBirth");
-      print(travelInfo[i].dateOfBirth);
-      print(DefaultInvalidDate);
+
 
       if (travelInfo[i].dateOfBirth == DefaultInvalidDate) {
         validityString = "enter_dob_copax".tr.replaceAll(
@@ -242,7 +231,6 @@ extension FlightBookingControllerSetter on FlightBookingController {
 
         break;
       }
-      print(travelInfo[i].nationalityCode);
 
       if (travelInfo[i].nationalityCode == "") {
         validityString = "enter_nationality_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
@@ -255,7 +243,6 @@ extension FlightBookingControllerSetter on FlightBookingController {
 
         break;
       }
-      print(travelInfo[i].passportNumber);
 
       if (travelInfo[i].passportNumber == "") {
         validityString = "enter_passportnumber_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
@@ -268,7 +255,6 @@ extension FlightBookingControllerSetter on FlightBookingController {
 
         break;
       }
-      print(travelInfo[i].passportIssuedCountryCode);
 
       if (travelInfo[i].passportIssuedCountryCode == "") {
         validityString = "enter_passportcountry_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(
@@ -281,7 +267,6 @@ extension FlightBookingControllerSetter on FlightBookingController {
 
         break;
       }
-      print(travelInfo[i].passportExpiryDate);
 
       if (travelInfo[i].passportExpiryDate == DefaultInvalidDate) {
         validityString = "enter_passportexpiry_copax".tr.replaceAll("user","${travelInfo[i].travellerType} ${getIndex(

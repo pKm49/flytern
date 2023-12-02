@@ -28,24 +28,29 @@ class ActivityBookingHttpService {
 
   Future<DestinationResponse> getDestinations(
       int pageid, String countryisocode) async {
-    FlyternHttpResponse response = await getRequest(
-        ActivityBookingHttpRequestEndpointGetCities,
-        {"pageid": pageid, "countryisocode": countryisocode});
 
-    if (response.success) {
-      if (response.data != null) {
-        DestinationResponse destinationResponse =
-            mapDestinationResponse(response.data);
-        return destinationResponse;
+    try{
+      FlyternHttpResponse response = await getRequest(
+          ActivityBookingHttpRequestEndpointGetCities,
+          {"pageid": pageid, "countryisocode": countryisocode});
+
+      if (response.success) {
+        if (response.data != null) {
+          DestinationResponse destinationResponse =
+          mapDestinationResponse(response.data);
+          return destinationResponse;
+        }
       }
+
+      return mapDestinationResponse({});
+    }catch (e){
+      return mapDestinationResponse({});
+
     }
 
-    return mapDestinationResponse({});
   }
 
   Future<ActivityResponse> getActivities(String cityId) async {
-    FlyternHttpResponse response = await getRequest(
-        ActivityBookingHttpRequestEndpointGetActivities, {"cityId": cityId});
 
     List<ActivityData> activities = [];
     int objectID = -1;
@@ -54,52 +59,64 @@ class ActivityBookingHttpService {
     List<SortingDcs> tourCategoryDcs = [];
     List<SortingDcs> bestDealsDcs = [];
 
-    if (response.success) {
-      if (response.data != null) {
-        objectID = response.data["objectID"] ?? 0;
-        if (response.data["results"] != null) {
-          for (var i = 0; i < response.data["results"].length; i++) {
-            activities.add(mapActivityData(response.data["results"][i]));
+    try{
+      FlyternHttpResponse response = await getRequest(
+          ActivityBookingHttpRequestEndpointGetActivities, {"cityId": cityId});
+
+      if (response.success) {
+        if (response.data != null) {
+          objectID = response.data["objectID"] ?? 0;
+          if (response.data["results"] != null) {
+            for (var i = 0; i < response.data["results"].length; i++) {
+              activities.add(mapActivityData(response.data["results"][i]));
+            }
           }
-        }
-        if (response.data["sortingDcs"] != null) {
-          for (var i = 0; i < response.data["sortingDcs"].length; i++) {
-            sortingDcs.add(mapSortingDcs(response.data["sortingDcs"][i]));
+          if (response.data["sortingDcs"] != null) {
+            for (var i = 0; i < response.data["sortingDcs"].length; i++) {
+              sortingDcs.add(mapSortingDcs(response.data["sortingDcs"][i]));
+            }
           }
-        }
-        if (response.data["priceDcs"] != null) {
-          for (var i = 0; i < response.data["priceDcs"].length; i++) {
-            priceDcs.add(mapRangeDcs(response.data["priceDcs"][i]));
+          if (response.data["priceDcs"] != null) {
+            for (var i = 0; i < response.data["priceDcs"].length; i++) {
+              priceDcs.add(mapRangeDcs(response.data["priceDcs"][i]));
+            }
           }
-        }
-        if (response.data["tourCategoryDcs"] != null) {
-          for (var i = 0; i < response.data["tourCategoryDcs"].length; i++) {
-            tourCategoryDcs
-                .add(mapSortingDcs(response.data["tourCategoryDcs"][i]));
+          if (response.data["tourCategoryDcs"] != null) {
+            for (var i = 0; i < response.data["tourCategoryDcs"].length; i++) {
+              tourCategoryDcs
+                  .add(mapSortingDcs(response.data["tourCategoryDcs"][i]));
+            }
           }
-        }
-        if (response.data["bestDealsDcs"] != null) {
-          for (var i = 0; i < response.data["bestDealsDcs"].length; i++) {
-            bestDealsDcs.add(mapSortingDcs(response.data["bestDealsDcs"][i]));
+          if (response.data["bestDealsDcs"] != null) {
+            for (var i = 0; i < response.data["bestDealsDcs"].length; i++) {
+              bestDealsDcs.add(mapSortingDcs(response.data["bestDealsDcs"][i]));
+            }
           }
         }
       }
+      ActivityResponse activityResponse = ActivityResponse(
+          activities: activities,
+          objectID: objectID,
+          priceDcs: priceDcs,
+          sortingDcs: sortingDcs,
+          tourCategoryDcs: tourCategoryDcs,
+          bestDealsDcs: bestDealsDcs);
+      return activityResponse;
+    }catch (e){
+      ActivityResponse activityResponse = ActivityResponse(
+          activities: activities,
+          objectID: objectID,
+          priceDcs: priceDcs,
+          sortingDcs: sortingDcs,
+          tourCategoryDcs: tourCategoryDcs,
+          bestDealsDcs: bestDealsDcs);
+      return activityResponse;
     }
-    ActivityResponse activityResponse = ActivityResponse(
-        activities: activities,
-        objectID: objectID,
-        priceDcs: priceDcs,
-        sortingDcs: sortingDcs,
-        tourCategoryDcs: tourCategoryDcs,
-        bestDealsDcs: bestDealsDcs);
-    return activityResponse;
+
   }
 
   Future<ActivityResponse> filterActivities(
       ActivityFilterBody activityFilterBody) async {
-    FlyternHttpResponse response = await postRequest(
-        ActivityBookingHttpRequestEndpointFilterActivities,
-        activityFilterBody.toJson());
 
     List<ActivityData> activities = [];
     int objectID = -1;
@@ -108,285 +125,358 @@ class ActivityBookingHttpService {
     List<SortingDcs> tourCategoryDcs = [];
     List<SortingDcs> bestDealsDcs = [];
 
-    if (response.success) {
-      if (response.data != null) {
-        if (response.data["results"] != null) {
-          for (var i = 0; i < response.data["results"].length; i++) {
-            activities.add(mapActivityData(response.data["results"][i]));
+    try{
+      FlyternHttpResponse response = await postRequest(
+          ActivityBookingHttpRequestEndpointFilterActivities,
+          activityFilterBody.toJson());
+
+
+      if (response.success) {
+        if (response.data != null) {
+          if (response.data["results"] != null) {
+            for (var i = 0; i < response.data["results"].length; i++) {
+              activities.add(mapActivityData(response.data["results"][i]));
+            }
           }
         }
       }
+      ActivityResponse activityResponse = ActivityResponse(
+          activities: activities,
+          objectID: objectID,
+          priceDcs: priceDcs,
+          sortingDcs: sortingDcs,
+          tourCategoryDcs: tourCategoryDcs,
+          bestDealsDcs: bestDealsDcs);
+      return activityResponse;
+    }catch (e){
+      ActivityResponse activityResponse = ActivityResponse(
+          activities: activities,
+          objectID: objectID,
+          priceDcs: priceDcs,
+          sortingDcs: sortingDcs,
+          tourCategoryDcs: tourCategoryDcs,
+          bestDealsDcs: bestDealsDcs);
+      return activityResponse;
     }
-    ActivityResponse activityResponse = ActivityResponse(
-        activities: activities,
-        objectID: objectID,
-        priceDcs: priceDcs,
-        sortingDcs: sortingDcs,
-        tourCategoryDcs: tourCategoryDcs,
-        bestDealsDcs: bestDealsDcs);
-    return activityResponse;
+
+
   }
 
   Future<ActivityDetailsResponse > getActivityDetails(int objectId,int tourid) async {
-    FlyternHttpResponse response = await getRequest(
-        "$ActivityBookingHttpRequestEndpointGetActivityDetails",{
-          "objectid":objectId.toString(),
-          "tourid":tourid.toString(),
-    });
 
-    List<ActivityOption> activityOptions = [];
-    List<ActivityTransferType> activityTransferTypes = [];
+    try{
+      FlyternHttpResponse response = await getRequest(
+          "$ActivityBookingHttpRequestEndpointGetActivityDetails",{
+        "objectid":objectId.toString(),
+        "tourid":tourid.toString(),
+      });
 
-    if (response.success) {
-      if (response.data != null) {
-        ActivityDetails activityDetails = mapActivityDetails(
-            response.data["_eventdetails"], response.data["_eventimages"]);
+      List<ActivityOption> activityOptions = [];
+      List<ActivityTransferType> activityTransferTypes = [];
 
-        if (response.data["_eventoptions"] != null) {
-          response.data["_eventoptions"].forEach((element) {
-            activityOptions.add(mapActivityOption(element));
-          });
+      if (response.success) {
+        if (response.data != null) {
+          ActivityDetails activityDetails = mapActivityDetails(
+              response.data["_eventdetails"], response.data["_eventimages"]);
+
+          if (response.data["_eventoptions"] != null) {
+            response.data["_eventoptions"].forEach((element) {
+              activityOptions.add(mapActivityOption(element));
+            });
+          }
+
+          if (response.data["_eventtransfertypes"] != null) {
+            response.data["_eventtransfertypes"].forEach((element) {
+              activityTransferTypes.add(mapActivityTransferType(element));
+            });
+          }
+
+          return ActivityDetailsResponse(
+              activityDetails: activityDetails,
+              activityOptions: activityOptions,
+              activityTransferTypes: activityTransferTypes);
         }
-
-        if (response.data["_eventtransfertypes"] != null) {
-          response.data["_eventtransfertypes"].forEach((element) {
-            activityTransferTypes.add(mapActivityTransferType(element));
-          });
-        }
-        print("activityTransferTypes");
-        print(activityTransferTypes.length);
-        return ActivityDetailsResponse(
-            activityDetails: activityDetails,
-            activityOptions: activityOptions,
-            activityTransferTypes: activityTransferTypes);
       }
+
+      return getDefaultActivityDetailsResponse();
+    }catch (e){
+      return getDefaultActivityDetailsResponse();
     }
 
-    return getDefaultActivityDetailsResponse();
   }
 
   Future<ActivityTransferType > getActivityPriceInfo(ActivityPriceFetchBody activityPriceFetchBody) async {
-    FlyternHttpResponse response = await postRequest(
-        "$ActivityBookingHttpRequestEndpointGetActivityPriceDetails",activityPriceFetchBody.toJson());
+
+    try{
+
+      FlyternHttpResponse response = await postRequest(
+          "$ActivityBookingHttpRequestEndpointGetActivityPriceDetails",activityPriceFetchBody.toJson());
 
 
-    if (response.success) {
-      if (response.data != null) {
-        ActivityTransferType activityTransferType = mapActivityTransferType(
-            response.data  );
+      if (response.success) {
+        if (response.data != null) {
+          ActivityTransferType activityTransferType = mapActivityTransferType(
+              response.data  );
 
-        print("activityTransferTypes");
-        print(activityTransferType.currency);
-        print(activityTransferType.finalAmount);
-        return activityTransferType ;
+          return activityTransferType ;
+        }
       }
+
+      return mapActivityTransferType({});
+    }catch (e){
+      return mapActivityTransferType({});
+
     }
 
-    return mapActivityTransferType({});
   }
 
   Future<List<ActivityTimingOption> > getActivityTimingList(ActivityPriceFetchBody activityPriceFetchBody) async {
-    FlyternHttpResponse response = await postRequest(
-        "$ActivityBookingHttpRequestEndpointGetActivityTimingSelection",activityPriceFetchBody.toOptionTimingJson());
 
     List<ActivityTimingOption> activityTimingOptions = [];
 
-    if (response.success) {
-      if (response.data != null) {
+    try{
+      FlyternHttpResponse response = await postRequest(
+          "$ActivityBookingHttpRequestEndpointGetActivityTimingSelection",activityPriceFetchBody.toOptionTimingJson());
 
-        if (response.data["_lst"] != null) {
-          for (var i = 0; i < response.data["_lst"].length; i++) {
-            activityTimingOptions.add(mapActivityTimingOption(response.data["_lst"][i]));
+
+      if (response.success) {
+        if (response.data != null) {
+
+          if (response.data["_lst"] != null) {
+            for (var i = 0; i < response.data["_lst"].length; i++) {
+              activityTimingOptions.add(mapActivityTimingOption(response.data["_lst"][i]));
+            }
           }
         }
-       }
+      }
+
+      return activityTimingOptions;
+    }catch (e){
+      return activityTimingOptions;
+
     }
 
-    return activityTimingOptions;
   }
 
-  Future<String > confirmActivity(ActivityPriceFetchBody activityPriceFetchBody) async {
-    FlyternHttpResponse response = await postRequest(
-        "$ActivityBookingHttpRequestEndpointGetActivityConfirmEvent",activityPriceFetchBody.toActivityConfirmJson());
+  Future<String> confirmActivity(ActivityPriceFetchBody activityPriceFetchBody) async {
+
+    try{
+
+      FlyternHttpResponse response = await postRequest(
+          "$ActivityBookingHttpRequestEndpointGetActivityConfirmEvent",activityPriceFetchBody.toActivityConfirmJson());
 
 
-    if (response.success) {
-      if (response.data != null) {
+      if (response.success) {
+        if (response.data != null) {
 
-        print("confirmActivity");
-        print(response.data["status"]);
-        print(response.data["message"]);
-        if(response.data["status"]==true){
-          return "";
-        }else{
-          return response.data["message"];
+          if(response.data["status"]==true){
+            return "";
+          }else{
+            return response.data["message"];
+          }
         }
       }
+
+      return "something_went_wrong".tr;
+    }catch (e){
+      return "something_went_wrong".tr;
+
     }
 
-    return "something_went_wrong".tr;
   }
 
   Future<String> setUserData(
       ActivitySubmissionData packageSubmissionData) async {
-    FlyternHttpResponse response = await postRequest(
-        ActivityBookingHttpRequestEndpointSaveActivityDetails,
-        packageSubmissionData.toJson());
 
-    String bookingRef;
-    print("setUserData bookingRef");
+    try{
 
+      FlyternHttpResponse response = await postRequest(
+          ActivityBookingHttpRequestEndpointSaveActivityDetails,
+          packageSubmissionData.toJson());
 
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        bookingRef = response.data["bookingRef"] ?? "";
-        print("bookingRef");
-        print(bookingRef);
-        return bookingRef;
+      String bookingRef;
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          bookingRef = response.data["bookingRef"] ?? "";
+          return bookingRef;
+        }
       }
+
+      return "";
+    }catch (e){
+      return "";
     }
 
-    return "";
   }
 
   Future<bool> checkSmartPayment(String bookingRef) async {
-    FlyternHttpResponse response = await postRequest(
-        FlightBookingHttpRequestEndpointSmartPayment,
-        {"bookingRef": bookingRef});
 
-    print("getPaymentGateways");
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        if (response.data["isSuccess"] != null) {
-          return response.data["isSuccess"];
+    try{
+
+      FlyternHttpResponse response = await postRequest(
+          FlightBookingHttpRequestEndpointSmartPayment,
+          {"bookingRef": bookingRef});
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          if (response.data["isSuccess"] != null) {
+            return response.data["isSuccess"];
+          }
         }
       }
+
+      return false;
+    }catch (e){
+      return false;
     }
 
-    return false;
   }
 
   Future<GetGatewayData> getPaymentGateways(
       String bookingRef) async {
-    FlyternHttpResponse response = await postRequest(
-        FlightBookingHttpRequestEndpointGetGateways,
-        {
-          "bookingRef": bookingRef
-        });
-
     List<PaymentGateway> paymentGateways = [];
     List<BookingInfo>  bookingInfo = [];
     List<String> alertMsg = [];
     FlightDetails flightDetails = mapFlightDetails({});
     HotelDetails hotelDetails = mapHotelDetails({});
     ActivityDetails activityDetails = mapActivityDetails({},[]);
-
-    print("getPaymentGateways");
-    print(response.data["isGateway"]);
-    print(response.data["_gatewaylist"]);
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        if (response.data["isGateway"]) {
-          response.data["_gatewaylist"].forEach((element) {
-            paymentGateways.add(mapPaymentGateway(element));
+    try{
+      FlyternHttpResponse response = await postRequest(
+          FlightBookingHttpRequestEndpointGetGateways,
+          {
+            "bookingRef": bookingRef
           });
-        }
 
-        if (response.data["_activityservice"] != null) {
-          if (response.data["_activityservice"]["_eventdetails"] != null) {
-            activityDetails = mapActivityDetails(
-                response.data["_activityservice"]["_eventdetails"],
-                response.data["_activityservice"]["_eventimages"]??[]
-            );
+
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          if (response.data["isGateway"]) {
+            response.data["_gatewaylist"].forEach((element) {
+              paymentGateways.add(mapPaymentGateway(element));
+            });
+          }
+
+          if (response.data["_activityservice"] != null) {
+            if (response.data["_activityservice"]["_eventdetails"] != null) {
+              activityDetails = mapActivityDetails(
+                  response.data["_activityservice"]["_eventdetails"],
+                  response.data["_activityservice"]["_eventimages"]??[]
+              );
+            }
+          }
+          if (response.data["alertMsg"]!=null) {
+            response.data["alertMsg"].forEach((element) {
+              alertMsg.add(element);
+            });
+          }
+
+          if (response.data["_bookingInfo"]!=null) {
+            response.data["_bookingInfo"].forEach((element) {
+              bookingInfo.add(mapBookingInfo(element));
+            });
           }
         }
-        if (response.data["alertMsg"]!=null) {
-          response.data["alertMsg"].forEach((element) {
-            alertMsg.add(element);
-          });
-        }
-
-        if (response.data["_bookingInfo"]!=null) {
-          response.data["_bookingInfo"].forEach((element) {
-            bookingInfo.add(mapBookingInfo(element));
-          });
-        }
       }
+
+      return GetGatewayData(
+          hotelDetails:hotelDetails,
+          activityDetails: activityDetails,
+          paymentGateways: paymentGateways,
+          alert: alertMsg,
+          bookingInfo: bookingInfo,
+          flightDetails: flightDetails);
+    }catch (e){
+      return GetGatewayData(
+          hotelDetails:hotelDetails,
+          activityDetails: activityDetails,
+          paymentGateways: paymentGateways,
+          alert: alertMsg,
+          bookingInfo: bookingInfo,
+          flightDetails: flightDetails);
     }
 
-    return GetGatewayData(
-        hotelDetails:hotelDetails,
-        activityDetails: activityDetails,
-        paymentGateways: paymentGateways,
-        alert: alertMsg,
-        bookingInfo: bookingInfo,
-        flightDetails: flightDetails);
+
 
   }
 
   Future<bool> checkGatewayStatus(
       String bookingRef) async {
-    FlyternHttpResponse response = await postRequest(
-        FlightBookingHttpRequestEndpointCheckGatewayStatus,
-        {
-          "bookingRef": bookingRef
-        });
 
-    print("getPaymentGateways");
-    print(response.data["isGateway"]);
-    print(response.data["_gatewaylist"]);
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        if (response.data["isSuccess"] !=null) {
-          return response.data["isSuccess"];
+    try{
+      FlyternHttpResponse response = await postRequest(
+          FlightBookingHttpRequestEndpointCheckGatewayStatus,
+          {
+            "bookingRef": bookingRef
+          });
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          if (response.data["isSuccess"] !=null) {
+            return response.data["isSuccess"];
+          }
         }
       }
+
+      return false;
+    }catch (e){
+      return false;
+
     }
 
-    return false;
   }
 
   Future<PaymentConfirmationData> getConfirmationData(
       String bookingRef) async {
-    FlyternHttpResponse response = await postRequest(
-        FlightBookingHttpRequestEndpointConfirmation,
-        {
-          "bookingRef": bookingRef
-        });
 
-    print("getConfirmationData");
-    print(response.data["isIssued"]);
-    print(response.data["pdfLink"]);
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        PaymentConfirmationData paymentConfirmationData = mapPaymentpdfLinkData(response.data,true);
-        return paymentConfirmationData;
+    try{
+
+      FlyternHttpResponse response = await postRequest(
+          FlightBookingHttpRequestEndpointConfirmation,
+          {
+            "bookingRef": bookingRef
+          });
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          PaymentConfirmationData paymentConfirmationData = mapPaymentpdfLinkData(response.data,true);
+          return paymentConfirmationData;
+        }
       }
+
+      return mapPaymentpdfLinkData({},false);
+    }catch (e){
+      return mapPaymentpdfLinkData({},false);
     }
-
-    return mapPaymentpdfLinkData({},false);
   }
-
 
   Future<PaymentGatewayUrlData> setPaymentGateway(String processID,
       String paymentCode,
       String bookingRef) async {
-    FlyternHttpResponse response = await postRequest(
-        FlightBookingHttpRequestEndpointSetGateway,
-        {
-          "processID": processID,
-          "paymentCode": paymentCode,
-          "bookingRef": bookingRef
-        });
 
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        PaymentGatewayUrlData paymentGatewayUrlData = mapPaymentGatewayUrlData(response.data);
-        return paymentGatewayUrlData;
+    try{
+      FlyternHttpResponse response = await postRequest(
+          FlightBookingHttpRequestEndpointSetGateway,
+          {
+            "processID": processID,
+            "paymentCode": paymentCode,
+            "bookingRef": bookingRef
+          });
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          PaymentGatewayUrlData paymentGatewayUrlData = mapPaymentGatewayUrlData(response.data);
+          return paymentGatewayUrlData;
+        }
       }
+
+      return mapPaymentGatewayUrlData({});
+    }catch (e){
+      return mapPaymentGatewayUrlData({});
     }
 
-    return mapPaymentGatewayUrlData({});
+
   }
 
 }

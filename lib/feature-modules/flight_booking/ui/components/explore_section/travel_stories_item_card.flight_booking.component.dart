@@ -37,12 +37,6 @@ class TravelStoriesItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     rating = double.parse(ratings);
 
-    for (var i = 1; i <= 5; i++) {
-      print("star iterations");
-      print(i <= rating.round());
-      print(rating < i + 1 && rating > i);
-    }
-
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
 

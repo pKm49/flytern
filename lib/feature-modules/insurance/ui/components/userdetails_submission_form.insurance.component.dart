@@ -87,8 +87,6 @@ class _InsuranceUserDetailsSubmissionFormState
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("widget.index");
-    print(widget.index);
   }
 
   @override
@@ -414,7 +412,7 @@ class _InsuranceUserDetailsSubmissionFormState
   }
 
   updateData(){
-    print("updateData");
+
     widget.dataSubmitted(
         InsuranceTravellerInfo(
             relationshipCode:"",

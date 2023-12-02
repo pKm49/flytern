@@ -296,9 +296,7 @@ class _ProfileNewTravelStoryPageState extends State<ProfileNewTravelStoryPage> {
                   String? mimeStr = lookupMimeType(mediaFile.path);
                   if (mimeStr != null) {
                     fileType = mimeStr.split('/')[0];
-                    print("fileType");
-                    print("fileType");
-                    print(fileType == "video");
+
                     if (fileType == "video") {
                       initializeVideo();
                     } else {
@@ -335,8 +333,7 @@ class _ProfileNewTravelStoryPageState extends State<ProfileNewTravelStoryPage> {
     FocusManager.instance.primaryFocus?.unfocus();
     if ((titleController.text != "" || tripSummaryController.text != "") ||
         fileType != "") {
-      print("condition success");
-      travelStoryController.addTravelStory(UserTravelStory(
+       travelStoryController.addTravelStory(UserTravelStory(
           tripSummary: tripSummaryController.text,
           firstName: "",
           fileUrl: "",

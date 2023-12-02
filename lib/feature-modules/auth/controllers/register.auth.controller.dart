@@ -73,8 +73,7 @@ class RegisterController extends GetxController {
         Get.toNamed(Approute_registerOtp,arguments: [Approute_registerPersonalData,
           "${emailFieldController.value.text}",userId.value])
             ?.then((value) async {
-          print("valueee is");
-          print(value);
+
           if(value is AuthToken){
 
             if(value.accessToken != ""){
@@ -87,15 +86,13 @@ class RegisterController extends GetxController {
             }
 
           }
-          print("value");
-          print(value.toString());
         });
       }else{
         throw Exception("Something Went wrong, Please Try Again");
       }
       isSubmitting.value = false;
     }catch (e,t){
-      print(t);
+
       showSnackbar(Get.context!, e.toString(),"error");
       isSubmitting.value = false;
     }
@@ -129,8 +126,7 @@ class RegisterController extends GetxController {
   }
 
   void changeMobileCountry(Country selectedMobileCountry) {
-    print("changeMobileCountry");
-    print(selectedMobileCountry.countryCode);
+
     selectedCountry.value = selectedMobileCountry;
   }
 

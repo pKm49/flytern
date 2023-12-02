@@ -328,8 +328,7 @@ class _ActivityUserDetailsSubmissionPageState
         .toList();
     selectedPassenger = newGender;
     if (coPax.isNotEmpty) {
-      print(coPax[0].firstName);
-      print(coPax[0].lastName);
+
 
       firstNameController.text = coPax[0].firstName;
       lastNameController.text = coPax[0].lastName;

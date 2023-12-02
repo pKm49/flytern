@@ -52,9 +52,7 @@ extension HotelBookingControllerSetter on HotelBookingController {
 
 
   changeDate(  bool isCheckoutDate, DateTime dateTime ) {
-    print("changedate");
-    print(isCheckoutDate);
-    print(dateTime);
+
     HotelSearchData newHotelSearchData = hotelBookingHelperServices
         .changeDate(hotelSearchData.value,dateTime, isCheckoutDate);
 
@@ -125,11 +123,7 @@ extension HotelBookingControllerSetter on HotelBookingController {
     String validityString = "";
     for (var i = 0; i < travelInfo.length; i++) {
 
-      print("travelInfo "+i.toString());
-      print("title");
-      print(travelInfo[i].title);
-      print(travelInfo[i].firstName);
-      print(travelInfo[i].lastName);
+
 
       if (travelInfo[i].title == "Title"|| travelInfo[i].title == "0") {
         if(travelInfo[i].travellerType == "Adult"){
@@ -149,8 +143,6 @@ extension HotelBookingControllerSetter on HotelBookingController {
 
         break;
       }
-      print("firstName");
-      print(travelInfo[i].firstName);
 
       if (travelInfo[i].firstName == "") {
 
@@ -170,8 +162,7 @@ extension HotelBookingControllerSetter on HotelBookingController {
 
         break;
       }
-      print("lastName");
-      print(travelInfo[i].lastName);
+
       if (travelInfo[i].lastName == "") {
         if(travelInfo[i].travellerType == "Adult"){
           validityString = "enter_lastname_hotel_room_adult".tr.replaceAll("1",
@@ -189,8 +180,7 @@ extension HotelBookingControllerSetter on HotelBookingController {
 
         break;
       }
-      print("gender");
-      print(travelInfo[i].gender);
+
       if (travelInfo[i].gender == "Select" || travelInfo[i].gender == "") {
 
         if(travelInfo[i].travellerType == "Adult"){

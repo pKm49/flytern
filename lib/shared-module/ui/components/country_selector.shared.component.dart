@@ -51,8 +51,7 @@ class _CountrySelectorState extends State<CountrySelector> {
 
             TextFormField(
               onChanged: (String? value){
-                print("searchController clicked");
-                sharedController.updateCountryListByQuery(searchController.value.text,widget.isMobile);
+                 sharedController.updateCountryListByQuery(searchController.value.text,widget.isMobile);
               },
                 keyboardType: TextInputType.text,
                 controller: searchController,

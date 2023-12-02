@@ -178,17 +178,14 @@ class FlightBookingController extends GetxController {
   }
 
   Future<void> getInitialInfo() async {
-    ExploreData? exploreData = await flightBookingHttpService.getInitialInfo();
-    print("getInitialInfo completed");
-    print(exploreData != null);
-    if (exploreData != null) {
+    ExploreData exploreData = await flightBookingHttpService.getInitialInfo();
+
       cabinClasses.value = exploreData.cabinClasses;
       recommendedPackages.value = exploreData.recommendedPackages;
       popularDestinations.value = exploreData.popularDestinations;
       travelStories.value = exploreData.travelStories;
       quickSearch.value = exploreData.quickSearch;
       setDefaultSearchData();
-    }
 
     isInitialDataLoading.value = false;
   }
@@ -206,9 +203,7 @@ class FlightBookingController extends GetxController {
   }
 
   Future<void> getQuickSearchResult(FlightSearchData tFlightSearchData) async {
-    print("getQuickSearchResult");
-    print(tFlightSearchData.allowedCabins.length);
-    print(tFlightSearchData.adults);
+
     if (tFlightSearchData.allowedCabins.isNotEmpty &&
         tFlightSearchData.adults > 0 &&
         !isFlightSearchResponsesLoading.value) {
@@ -216,8 +211,7 @@ class FlightBookingController extends GetxController {
       flightSearchData.value = tFlightSearchData;
       Get.toNamed(Approute_flightsSearchResult);
 
-      print("getSearchResults called ");
-      isFlightSearchResponsesLoading.value = true;
+       isFlightSearchResponsesLoading.value = true;
       FlightSearchResult flightSearchResult = await flightBookingHttpService
           .getFlightSearchResults(tFlightSearchData);
       flightSearchResponses.value = flightSearchResult.searchResponses;
@@ -261,14 +255,12 @@ class FlightBookingController extends GetxController {
       } else {
         isModifySearchVisible.value = false;
       }
-      print("getSearchResults called ");
-      isFlightSearchFilterResponsesLoading.value = true;
+       isFlightSearchFilterResponsesLoading.value = true;
       isFlightSearchResponsesLoading.value = true;
       FlightSearchResult flightSearchResult = await flightBookingHttpService
           .getFlightSearchResults(flightSearchData.value);
       alertMsg.value = flightSearchResult.alertMsg;
-      print("alertMsg");
-      print(alertMsg);
+
       flightSearchResponses.value = flightSearchResult.searchResponses;
       if (flightSearchResponses.isNotEmpty) {
         objectId.value = flightSearchResponses.value[0].objectId;
@@ -340,8 +332,7 @@ class FlightBookingController extends GetxController {
     if (index > -1 && !isFlightMoreOptionsResponsesLoading.value) {
       Get.toNamed(Approute_flightsMoreOptions);
 
-      print("getMoreOptions called ");
-      isFlightMoreOptionsResponsesLoading.value = true;
+       isFlightMoreOptionsResponsesLoading.value = true;
       FlightSearchResult flightSearchResult =
           await flightBookingHttpService.getMoreOptions(index, objectId.value);
       moreOptionFlights.value = flightSearchResult.searchResponses;
@@ -355,18 +346,15 @@ class FlightBookingController extends GetxController {
     if (index > -1 && !isFlightDetailsLoading.value) {
       currentFlightIndex.value = index;
       isFlightDetailsLoading.value = true;
-      print("getMoreOptions called ");
 
-      print(isFlightDetailsLoading.value && currentFlightIndex.value == index);
-      FlightDetails tempFlightDetails = await flightBookingHttpService
+       FlightDetails tempFlightDetails = await flightBookingHttpService
           .getFlightDetails(index, objectId.value);
       flightDetails.value = tempFlightDetails;
       List<CabinInfo> selectedCabinInfo = flightDetails.value.cabinInfos
           .where((element) => element.id == flightDetails.value.selectedCabinId)
           .toList();
       if (selectedCabinInfo.isNotEmpty) {
-        print("selectedCabinInfo.isNotEmpty");
-        cabinInfo.value = selectedCabinInfo[0];
+         cabinInfo.value = selectedCabinInfo[0];
       }
       isFlightDetailsLoading.value = false;
       Get.toNamed(Approute_flightsDetails);
@@ -464,8 +452,7 @@ class FlightBookingController extends GetxController {
       flightDetails.value = getGatewayData.flightDetails;
       if (flightDetails.value.cabinInfos.isNotEmpty &&
           cabinInfo.value.id == "-1") {
-        print("selectedCabinInfo.isNotEmpty");
-        cabinInfo.value = flightDetails.value.cabinInfos[0];
+         cabinInfo.value = flightDetails.value.cabinInfos[0];
       }
     }
 
@@ -485,8 +472,6 @@ class FlightBookingController extends GetxController {
         await flightBookingHttpService.setPaymentGateway(
             selectedPaymentGateway.value.processID, selectedPaymentGateway.value.paymentCode, bookingRef.value);
 
-    print("paymentGatewayUrlData");
-    print(paymentGatewayUrlData.isOkRedirection);
 
     gatewayUrl.value = paymentGatewayUrlData.gatewayUrl;
     confirmationUrl.value = paymentGatewayUrlData.confirmationUrl;
@@ -518,17 +503,13 @@ class FlightBookingController extends GetxController {
     bool isSuccess =
         await flightBookingHttpService.checkGatewayStatus(bookingRef.value);
 
-    print("checkGatewayStatus isSuccess");
-    print(isSuccess);
-
     if (isSuccess) {
       showSnackbar(Get.context!, "payment_capture_success".tr, "info");
       getConfirmationData(bookingRef.value, false);
     } else {
       int iter = 0;
       Get.offNamedUntil(Approute_flightsSummary, (route) {
-        print("Get.currentRoute");
-        print(Get.currentRoute);
+
         return ++iter == 1;
       });
       showSnackbar(Get.context!, "payment_capture_error".tr, "error");
@@ -568,8 +549,7 @@ class FlightBookingController extends GetxController {
         Get.offNamedUntil(Approute_flightsConfirmation, arguments: [
           {"mode": "view"}
         ], (route) {
-          print("Get.currentRoute");
-          print(Get.currentRoute);
+
           return ++iter == 4;
         });
       }
@@ -579,8 +559,7 @@ class FlightBookingController extends GetxController {
 
         int iter = 0;
         Get.offNamedUntil(Approute_flightsSummary, (route) {
-          print("Get.currentRoute");
-          print(Get.currentRoute);
+
           return ++iter == 1;
         });
       }

@@ -176,8 +176,7 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
                       onPressed: ()   {
                         Get.toNamed(Approute_login,
                             arguments: [false])?.then((value) async {
-                          print("valueee is");
-                          print(value);
+
                           if(value is bool){
 
                             if(value){
@@ -185,8 +184,7 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
                             }
 
                           }
-                          print("value");
-                          print(value.toString());
+
                         });
                       },
                       child: Text("sign_in".tr),
@@ -197,8 +195,7 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
 
                         Get.toNamed(Approute_registerPersonalData,
                             arguments: [false])?.then((value) async {
-                          print("valueee is");
-                          print(value);
+
                           if(value is bool){
 
                             if(value){
@@ -206,8 +203,7 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
                             }
 
                           }
-                          print("value");
-                          print(value.toString());
+
                         });
                       },
                       child: Text("sign_up".tr),

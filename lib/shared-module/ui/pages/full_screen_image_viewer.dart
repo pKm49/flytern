@@ -20,8 +20,7 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> {
 
   @override
   void initState() {
-    print("getArguments");
-    print(getArguments);
+
     // TODO: implement initState
 
     super.initState();

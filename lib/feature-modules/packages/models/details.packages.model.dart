@@ -89,11 +89,9 @@ PackageDetails mapPackageDetails(dynamic payload) {
         ite.forEach((element) {
           itinerary.add(mapPackageItinerary(element ?? {}));
         });
-        print("decoded itenerary is");
-        print("decoded itenerary is");
+
       }catch (e,stac){
-        print(e);
-        print(stac);
+
       }
     });
   }

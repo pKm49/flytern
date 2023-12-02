@@ -37,9 +37,9 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
       if (_controller.position.atEdge) {
         bool isTop = _controller.position.pixels == 0;
         if (isTop) {
-          print('At the top');
+
         } else {
-          print('At the bottom');
+
           hotelBookingController.getHotelSearchResultsNextPage();
         }
       }
@@ -214,8 +214,7 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                                       border: flyternDefaultBorderBottomOnly),
                                   child: HotelSearchResultCard(
                                     onPressed: () {
-                                      print("clicked");
-                                      hotelBookingController.getHotelDetails(
+                                       hotelBookingController.getHotelDetails(
                                           hotelBookingController
                                               .hotelSearchResponses
                                               .value[i]
@@ -402,7 +401,7 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                   Navigator.pop(context);
                 },
                 setModalState: () {
-                  print('modalState Changed');
+
                   setModalState(() {});
                 });
           });

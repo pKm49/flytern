@@ -66,8 +66,7 @@ class CoPaxController extends GetxController {
         isGuest != null &&
         !isGuest) {
       List<UserCoPax> coPaxes = await profileHttpServices.getUserCoPaxs();
-      print("coPaxes.length");
-      print(coPaxes.length);
+
       userCopaxes.value = coPaxes;
     }
 
@@ -141,21 +140,16 @@ class CoPaxController extends GetxController {
 
       if (isSuccess) {
         Get.back();
-        print("copax_created completed");
         isSubmitting.value = false;
-        print("copax_created completed 1");
 
         showSnackbar(Get.context!,"copax_created".tr, "info");
-        print("copax_created completed 2");
 
         initializeAuditData(true);
-        print("copax_created completed 3");
 
         await getUserCoPassengers();
       }
     } catch (e) {
-      print("copax_created failed");
-      showSnackbar(Get.context!,e.toString(), "error");
+       showSnackbar(Get.context!,e.toString(), "error");
       isSubmitting.value = false;
     }
   }
@@ -181,21 +175,16 @@ class CoPaxController extends GetxController {
 
       if (isSuccess) {
         Get.back();
-        print("copax_updated completed");
-        isSubmitting.value = false;
-        print("copax_updated completed 1");
+         isSubmitting.value = false;
 
         showSnackbar(Get.context!,"copax_updated".tr, "info");
-        print("copax_updated completed 2");
 
         initializeAuditData(true);
-        print("copax_updated completed 3");
 
         await getUserCoPassengers();
       }
     } catch (e) {
-      print("copax_created failed");
-      showSnackbar(Get.context!,e.toString(), "error");
+       showSnackbar(Get.context!,e.toString(), "error");
       isSubmitting.value = false;
     }
   }
@@ -207,16 +196,13 @@ class CoPaxController extends GetxController {
       bool isSuccess = await profileHttpServices.deleteCoPax(id);
 
       if (isSuccess) {
-        print("copax_created completed");
-
         await getUserCoPassengers();
         isSubmitting.value = false;
-        print("copax_created completed 1");
 
         showSnackbar(Get.context!,"copax_deleted".tr, "info");
       }
     } catch (e) {
-      print("copax_created failed");
+
       showSnackbar(Get.context!,e.toString(), "error");
       isSubmitting.value = false;
     }
@@ -224,10 +210,7 @@ class CoPaxController extends GetxController {
 
   void updateEditForm(UserCoPax userCopax) {
 
-    print("updateEditForm");
-    print(sharedController.genders.length);
-    print(gender.value);
-    print(userCopax.gender);
+
     List<Gender> genders = sharedController.titleList
         .where((e) => e.code == userCopax.title)
         .toList();

@@ -47,7 +47,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
     tabController = TabController(vsync: this, length: 3, initialIndex: 0);
 
     tabController.addListener(() {
-      print("addListener called");
+
       if (selectedTab != tabController.index) {
         changeDate(tabController.index);
         selectedTab = tabController.index;
@@ -59,9 +59,9 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
       if (_controller.position.atEdge) {
         bool isTop = _controller.position.pixels == 0;
         if (isTop) {
-          print('At the top');
+
         } else {
-          print('At the bottom');
+
           flightBookingController.getFlightSearchResultsNextPage();
         }
       }
@@ -567,8 +567,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                   Navigator.pop(context);
                 },
                 setModalState: () {
-                  print('modalState Changed');
-                  setModalState(() {});
+                   setModalState(() {});
                 });
           });
         });
@@ -702,8 +701,6 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
   }
 
   changeDate(int index) {
-    print("changedate 1");
-    print(index);
 
     flightBookingController.changeDate(
         0,

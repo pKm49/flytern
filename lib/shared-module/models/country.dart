@@ -31,11 +31,6 @@ class Country {
 
 Country mapCountry(dynamic payload){
 
-  print("isDefault");
-  print(payload["countryName"]);
-  if(payload["countryName"] == "Kuwait"){
-    print(payload);
-  }
   return Country(
     countryName :payload["countryName"]??"",
     countryCode :payload["countryCode"]??"",

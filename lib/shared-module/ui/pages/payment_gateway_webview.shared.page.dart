@@ -74,8 +74,7 @@ class _PaymentGatewayWebViewState extends State<PaymentGatewayWebView> {
           },
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
-            print('navigate url ${request.url}');
-            if (request.url
+             if (request.url
                 .contains('https://api2.poundkw.com/api/payment/success')) {
               Future.delayed(const Duration(seconds: 1), () {
                 //asynchronous delay

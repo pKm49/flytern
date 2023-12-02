@@ -236,8 +236,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                                       .where((element) => element.id == newZone)
                                       .toList();
                               if (selectedCabinInfo.isNotEmpty) {
-                                print("selectedCabinInfo.isNotEmpty");
-                                flightBookingController.changeSelectedCabinClass(
+                                 flightBookingController.changeSelectedCabinClass(
                                     selectedCabinInfo[0]);
                               }
                             },

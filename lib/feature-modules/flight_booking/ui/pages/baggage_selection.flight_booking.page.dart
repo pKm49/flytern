@@ -185,8 +185,7 @@ class _FlightBaggageSelectionPageState extends State<FlightBaggageSelectionPage>
                                 groupValue: getSelectedExtraPackage(),
                                 onChanged: (value) {
                                   setState(() {
-                                    print(value);
-                                    if(value != null){
+                                     if(value != null){
                                       flightBookingController.selectExtraPackage(flightBookingController
                                           .addonExtraPackages[i]);
                                     }

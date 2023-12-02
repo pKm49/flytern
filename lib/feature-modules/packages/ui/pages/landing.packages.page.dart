@@ -33,9 +33,9 @@ class _PackageBookingLandingPageState extends State<PackageBookingLandingPage> {
       if (_controller.position.atEdge) {
         bool isTop = _controller.position.pixels == 0;
         if (isTop) {
-          print('At the top');
+
         } else {
-          print('At the bottom');
+
           packageBookingController.getPackages( packageBookingController.pageId.value+1,
               packageBookingController.countryisocode.value);
         }

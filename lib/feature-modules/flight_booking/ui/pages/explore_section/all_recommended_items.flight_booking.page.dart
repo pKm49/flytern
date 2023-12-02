@@ -32,10 +32,8 @@ class _AllRecommendedItemsPageState extends State<AllRecommendedItemsPage> {
       if (_controller.position.atEdge) {
         bool isTop = _controller.position.pixels == 0;
         if (isTop) {
-          print('At the top');
-        } else {
-          print('At the bottom');
-          flightBookingController.getRecommendedForyou();
+         } else {
+           flightBookingController.getRecommendedForyou();
         }
       }
     });

@@ -213,14 +213,12 @@ class _CoreSettingsPageState extends State<CoreSettingsPage> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? selectedMobileCountry = prefs.getString('selectedMobileCountry');
     final String? selectedLanguage = prefs.getString('selectedLanguage');
-    print("selectedMobileCountry");
-    print(selectedMobileCountry);
+
     if (selectedMobileCountry != ''  ) {
       List<Country> tCountriesList = sharedController.mobileCountries
           .where((element) => selectedMobileCountry == element.countryCode)
           .toList();
-      print("isNotEmpty");
-      print(tCountriesList.isNotEmpty);
+
       if(tCountriesList.isNotEmpty){
         sharedController.changeMobileCountry(tCountriesList[0]);
       }

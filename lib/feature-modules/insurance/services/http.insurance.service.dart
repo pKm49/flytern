@@ -18,76 +18,92 @@ import 'package:flytern/shared-module/services/http-services/http_request_handle
 class InsuranceBookingHttpService {
 
   Future<InsuranceInitialData> getInitialInfo() async {
-    FlyternHttpResponse response =
-    await getRequest(InsuranceBookingHttpRequestEndpointGetInitalInfo, null);
-    InsuranceInitialData insuranceInitialData;
-    if (response.success) {
-      if (response.data != null) {
-        InsuranceInitialData insuranceInitialData = mapInsuranceInitialData(response.data);
-        return insuranceInitialData;
+    try{
+      FlyternHttpResponse response =
+      await getRequest(InsuranceBookingHttpRequestEndpointGetInitalInfo, null);
+      InsuranceInitialData insuranceInitialData;
+      if (response.success) {
+        if (response.data != null) {
+          InsuranceInitialData insuranceInitialData = mapInsuranceInitialData(response.data);
+          return insuranceInitialData;
+        }
       }
+
+      return mapInsuranceInitialData({});
+    }catch (e){
+      return mapInsuranceInitialData({});
     }
 
-    return mapInsuranceInitialData({});
   }
 
   Future<InsurancePriceData> getPrice(InsurancePriceGetBody insurancePriceGetBody) async {
-    FlyternHttpResponse response =
-    await postRequest(InsuranceBookingHttpRequestEndpointGetPrice, insurancePriceGetBody.toJson());
 
-    if (response.success) {
-      if (response.data != null) {
-        InsurancePriceData insurancePriceData = mapInsurancePriceData(response.data);
-        return insurancePriceData;
+    try{
+
+      FlyternHttpResponse response =
+      await postRequest(InsuranceBookingHttpRequestEndpointGetPrice, insurancePriceGetBody.toJson());
+
+      if (response.success) {
+        if (response.data != null) {
+          InsurancePriceData insurancePriceData = mapInsurancePriceData(response.data);
+          return insurancePriceData;
+        }
       }
-    }
 
-    return mapInsurancePriceData({});
+      return mapInsurancePriceData({});
+    }catch (e){
+      return mapInsurancePriceData({});
+    }
   }
 
   Future<String> setUserData(InsuranceTravellerData insuranceTravellerData) async {
 
-    FlyternHttpResponse response = await postRequest(
-        InsuranceBookingHttpRequestEndpointSetUserData,
-        insuranceTravellerData.toJson());
+    try{
 
-    String bookingRef;
 
-    if (response.success && response.statusCode ==200) {
-      if (response.data != null  ) {
-        bookingRef = response.data["bookingRef"]??"";
-        return bookingRef;
+      FlyternHttpResponse response = await postRequest(
+          InsuranceBookingHttpRequestEndpointSetUserData,
+          insuranceTravellerData.toJson());
+
+      String bookingRef;
+
+      if (response.success && response.statusCode ==200) {
+        if (response.data != null  ) {
+          bookingRef = response.data["bookingRef"]??"";
+          return bookingRef;
+        }
       }
-    }
 
-    return "";
+      return "";
+    }catch (e){
+      return "";
+    }
   }
 
   Future<bool> checkSmartPayment(String bookingRef) async {
-    FlyternHttpResponse response = await postRequest(
-        FlightBookingHttpRequestEndpointSmartPayment,
-        {"bookingRef": bookingRef});
 
-    print("getPaymentGateways");
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        if (response.data["isSuccess"] != null) {
-          return response.data["isSuccess"];
+    try{
+      FlyternHttpResponse response = await postRequest(
+          FlightBookingHttpRequestEndpointSmartPayment,
+          {"bookingRef": bookingRef});
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          if (response.data["isSuccess"] != null) {
+            return response.data["isSuccess"];
+          }
         }
       }
+
+      return false;
+    }catch (e){
+      return false;
     }
 
-    return false;
   }
 
   Future<GetGatewayData> getPaymentGateways(
       String bookingRef) async {
-    FlyternHttpResponse response = await postRequest(
-        InsuranceBookingHttpRequestEndpointGetGateways,
-        {
-          "bookingRef": bookingRef
-        });
-
     List<PaymentGateway> paymentGateways = [];
     List<BookingInfo>  bookingInfo = [];
     List<String> alertMsg = [];
@@ -95,111 +111,131 @@ class InsuranceBookingHttpService {
     HotelDetails hotelDetails = mapHotelDetails({});
     ActivityDetails activityDetails = mapActivityDetails({},[]);
 
-    print("getPaymentGateways");
-    print(response.data["isGateway"]);
-    print(response.data["_gatewaylist"]);
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        if (response.data["isGateway"]) {
-          response.data["_gatewaylist"].forEach((element) {
-            paymentGateways.add(mapPaymentGateway(element));
+    try{
+      FlyternHttpResponse response = await postRequest(
+          InsuranceBookingHttpRequestEndpointGetGateways,
+          {
+            "bookingRef": bookingRef
           });
-        }
 
-        // if (response.data["_flightservice"] != null) {
-        //   if (response.data["_flightservice"]["_flightDetail"] != null) {
-        //     flightDetails = mapFlightDetails(
-        //         response.data["_flightservice"]["_flightDetail"]);
-        //     print("flightDetails");
-        //     print(flightDetails.objectId);
-        //   }
-        // }
-        if (response.data["alertMsg"]!=null) {
-          response.data["alertMsg"].forEach((element) {
-            alertMsg.add(element);
-          });
-        }
 
-        if (response.data["_bookingInfo"]!=null) {
-          response.data["_bookingInfo"].forEach((element) {
-            bookingInfo.add(mapBookingInfo(element));
-          });
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          if (response.data["isGateway"]) {
+            response.data["_gatewaylist"].forEach((element) {
+              paymentGateways.add(mapPaymentGateway(element));
+            });
+          }
+
+          if (response.data["alertMsg"]!=null) {
+            response.data["alertMsg"].forEach((element) {
+              alertMsg.add(element);
+            });
+          }
+
+          if (response.data["_bookingInfo"]!=null) {
+            response.data["_bookingInfo"].forEach((element) {
+              bookingInfo.add(mapBookingInfo(element));
+            });
+          }
         }
       }
+
+      return GetGatewayData(
+          hotelDetails:hotelDetails,
+          activityDetails: activityDetails,
+          paymentGateways: paymentGateways,
+          alert: alertMsg,
+          bookingInfo: bookingInfo,
+          flightDetails: flightDetails);
+    }catch (e){
+      return GetGatewayData(
+          hotelDetails:hotelDetails,
+          activityDetails: activityDetails,
+          paymentGateways: paymentGateways,
+          alert: alertMsg,
+          bookingInfo: bookingInfo,
+          flightDetails: flightDetails);
     }
 
-    return GetGatewayData(
-        hotelDetails:hotelDetails,
-        activityDetails: activityDetails,
-        paymentGateways: paymentGateways,
-        alert: alertMsg,
-        bookingInfo: bookingInfo,
-        flightDetails: flightDetails);
+
 
   }
 
   Future<PaymentGatewayUrlData> setPaymentGateway(String processID,
       String paymentCode,
       String bookingRef) async {
-    FlyternHttpResponse response = await postRequest(
-        InsuranceBookingHttpRequestEndpointSetGateway,
-        {
-          "processID": processID,
-          "paymentCode": paymentCode,
-          "bookingRef": bookingRef
-        });
 
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        PaymentGatewayUrlData paymentGatewayUrlData = mapPaymentGatewayUrlData(response.data);
-        return paymentGatewayUrlData;
+    try{
+
+      FlyternHttpResponse response = await postRequest(
+          InsuranceBookingHttpRequestEndpointSetGateway,
+          {
+            "processID": processID,
+            "paymentCode": paymentCode,
+            "bookingRef": bookingRef
+          });
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          PaymentGatewayUrlData paymentGatewayUrlData = mapPaymentGatewayUrlData(response.data);
+          return paymentGatewayUrlData;
+        }
       }
-    }
 
-    return mapPaymentGatewayUrlData({});
+      return mapPaymentGatewayUrlData({});
+    }catch (e){
+      return mapPaymentGatewayUrlData({});
+    }
   }
 
   Future<bool> checkGatewayStatus(
       String bookingRef) async {
-    FlyternHttpResponse response = await postRequest(
-        InsuranceBookingHttpRequestEndpointCheckGatewayStatus,
-        {
-          "bookingRef": bookingRef
-        });
 
-    print("getPaymentGateways");
-    print(response.data["isGateway"]);
-    print(response.data["_gatewaylist"]);
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        if (response.data["isSuccess"] !=null) {
-          return response.data["isSuccess"];
+    try{
+      FlyternHttpResponse response = await postRequest(
+          InsuranceBookingHttpRequestEndpointCheckGatewayStatus,
+          {
+            "bookingRef": bookingRef
+          });
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          if (response.data["isSuccess"] !=null) {
+            return response.data["isSuccess"];
+          }
         }
       }
+
+      return false;
+    }catch (e){
+      return false;
     }
 
-    return false;
   }
 
   Future<PaymentConfirmationData> getConfirmationData(
       String bookingRef) async {
-    FlyternHttpResponse response = await postRequest(
-        InsuranceBookingHttpRequestEndpointConfirmation,
-        {
-          "bookingRef": bookingRef
-        });
 
-    print("getConfirmationData");
-    print(response.data["isIssued"]);
-    print(response.data["pdfLink"]);
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        PaymentConfirmationData paymentConfirmationData = mapPaymentpdfLinkData(response.data,true);
-        return paymentConfirmationData;
+    try{
+      FlyternHttpResponse response = await postRequest(
+          InsuranceBookingHttpRequestEndpointConfirmation,
+          {
+            "bookingRef": bookingRef
+          });
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          PaymentConfirmationData paymentConfirmationData = mapPaymentpdfLinkData(response.data,true);
+          return paymentConfirmationData;
+        }
       }
+
+      return mapPaymentpdfLinkData({},false);
+    }catch (e){
+      return mapPaymentpdfLinkData({},false);
     }
 
-    return mapPaymentpdfLinkData({},false);
   }
 
 }

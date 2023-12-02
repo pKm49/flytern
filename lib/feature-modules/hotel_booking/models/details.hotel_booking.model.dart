@@ -51,14 +51,7 @@ HotelDetails mapHotelDetails(dynamic payload) {
   List<HotelRoom> rooms = [];
   List<String> imageUrls = [];
 
-  print("mapHotelDetails");
-  print(payload["imageUrl"]);
-  print("_lstBasicDetails");
-  print(payload["_lstBasicDetails"]);
-  print("_lstamenitys");
-  print(payload["_lstamenitys"]);
-  print("_lstRooms");
-  print(payload["_lstRooms"]);
+
   if (payload["imageUrl"] != null) {
     payload["imageUrl"].forEach((element) {
       imageUrls.add(element);

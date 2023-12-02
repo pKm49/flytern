@@ -408,20 +408,17 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                               hotelBookingController
                                       .nationality.value.countryName !=
                                   "select_nationality".tr) {
-                            print("condition true");
-                            print("select_destination".tr);
-                            print(hotelBookingController.selectedDestination.value
-                                .uniqueCombination);
+
                             hotelBookingController.getSearchResults(true);
                           } else {
-                            print("condition false 1");
+
                             if (hotelBookingController.selectedDestination.value
                                 .uniqueCombination ==
                                 "select_destination".tr &&
                                 hotelBookingController
                                     .nationality.value.countryName ==
                                     "select_nationality".tr) {
-                              print("condition false 2");
+
 
                               showSnackbar(context,
                                   "hotel_form_validation_message".tr, "error");
@@ -429,7 +426,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                             if (hotelBookingController.selectedDestination.value
                                 .uniqueCombination ==
                                 "select_destination".tr  ) {
-                              print("condition false 3");
+
 
                               showSnackbar(context,
                                   "hotel_form_validation_message_2".tr, "error");
@@ -437,7 +434,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                             if (hotelBookingController
                                 .nationality.value.countryName ==
                                 "select_nationality".tr) {
-                              print("condition false 4");
+
 
                               showSnackbar(context,
                                   "hotel_form_validation_message_3".tr, "error");

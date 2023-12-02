@@ -36,8 +36,7 @@ class TravelStoryController extends GetxController {
         isGuest != null && !isGuest){
 
       List<UserTravelStory> travelStories = await profileHttpServices.getUserTravelStories();
-      print("travelStories.length");
-      print(travelStories.length);
+
       userTravelStories.value = travelStories;
 
     }
@@ -53,23 +52,14 @@ class TravelStoryController extends GetxController {
 
      if(isSuccess){
        Get.back();
-       print("createTravelStory completed");
        isSubmitting.value = false;
-       print("createTravelStory completed 1");
-
        showSnackbar(Get.context!,"travel_story_created".tr,"info");
-       print("createTravelStory completed 2");
-
-
-       print("createTravelStory completed 3");
-
        await getUserTravelStories();
 
      }
 
     }catch (e){
-      print("createTravelStory failed");
-      showSnackbar(Get.context!, e.toString(),"error");
+       showSnackbar(Get.context!, e.toString(),"error");
       isSubmitting.value = false;
     }
   }

@@ -33,8 +33,7 @@ class MyActivityBooking {
 }
 
 MyActivityBooking mapMyActivityBooking(dynamic payload){
-  print("mapMyActivityBooking");
-  print(payload["travelmateid"]);
+
   return MyActivityBooking(
     bookingReference :payload["bookingReference"]??-1,
     hotelImageUrl :payload["hotelImageUrl"]??"",

@@ -71,9 +71,7 @@ class _ProfileEditEmailPageState extends State<ProfileEditEmailPage> {
                 width: double.infinity,
                 child: ElevatedButton(style: getElevatedButtonStyle(context),
                     onPressed: () {
-                      print("email changed");
-                      print(profileController.emailController.value.text);
-                      print(profileController.userDetails.value.email);
+
                       if (profileController.emailController.value.text
                           != profileController.userDetails.value.email &&
                           !profileController.isEmailSubmitting.value) {

@@ -298,7 +298,6 @@ class _InsuranceUserDetailsSubmissionPageState
   }
 
   void initializeForms() {
-    print("initializeForms");
 
     insuranceBookingController.saveContactInfo(
         mobileCntry, mobileNumber, email);
@@ -328,10 +327,7 @@ class _InsuranceUserDetailsSubmissionPageState
         sonRelationshipCode = element.id;
       }
     }
-    print("contributorRelationshipCode");
-    print(contributorRelationshipCode);
-    print("spouseRelationshipCode");
-    print(spouseRelationshipCode);
+
     contributorExpansionControllers.add(ExpansionTileController());
 
     travelInfo.add(mapInsuranceTravellerInfo(
@@ -367,22 +363,11 @@ class _InsuranceUserDetailsSubmissionPageState
     tabController =
         TabController(vsync: this, length: tabLength, initialIndex: 0);
 
-    print("travelInfo length");
-    print(travelInfo.length);
-    for (var i = 0; i < travelInfo.length; i++) {
-      print("travelInfo $i");
-      print(travelInfo[i].toJson());
-    }
     setState(() {});
   }
 
   void updateTravellerInfor(index, InsuranceTravellerInfo newTravelInfo) {
-    print("updateTravellerInfor");
-    print(index);
-    print(newTravelInfo.relationshipCode);
-    print(newTravelInfo.firstName);
-    print(newTravelInfo.gender);
-    print(travelInfo.length);
+
     List<InsuranceTravellerInfo> tempTravelInfo = [];
     for (var i = 0; i < travelInfo.length; i++) {
       if ((i + 1) != index) {

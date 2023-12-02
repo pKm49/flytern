@@ -69,12 +69,9 @@ class PhotoSelector extends StatelessWidget {
   }
 
   openFilePicker() async {
-    print("openFilePicker");
-    print(isVideosAllowed);
     if(isVideosAllowed){
       getPictureFromGallery();
     }else{
-      print("opening ImagePicker");
 
       final _picker = ImagePicker();
       final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -87,8 +84,6 @@ class PhotoSelector extends StatelessWidget {
   }
 
   Future<void> getPictureFromGallery() async {
-
-    print("opening file picker");
 
     List<String> allowedExtensions = ['jpg', 'png', 'jpeg'];
     List<String> allowedVideExtensions = ['mp4', 'avi'];
@@ -107,8 +102,7 @@ class PhotoSelector extends StatelessWidget {
     if(mimeStr == null) return;
 
     String fileType = mimeStr.split('/')[0];
-    print("fileType");
-    print(fileType);
+
     if(fileType == "image"){
         await cropImage(result1.files.first.path!);
     }else{

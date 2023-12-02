@@ -404,9 +404,6 @@ class ActivityBookingController extends GetxController {
         await activityBookingHttpService.setPaymentGateway(
             selectedGateway.value.processID, selectedGateway.value.paymentCode, bookingRef.value);
 
-    print("paymentGatewayUrlData");
-    print(paymentGatewayUrlData.isOkRedirection);
-
     gatewayUrl.value = paymentGatewayUrlData.gatewayUrl;
     confirmationUrl.value = paymentGatewayUrlData.confirmationUrl;
 
@@ -437,8 +434,6 @@ class ActivityBookingController extends GetxController {
     bool isSuccess =
         await activityBookingHttpService.checkGatewayStatus(bookingRef.value);
 
-    print("checkGatewayStatus isSuccess");
-    print(isSuccess);
 
     if (isSuccess) {
       showSnackbar(Get.context!, "payment_capture_success".tr, "info");
@@ -446,8 +441,7 @@ class ActivityBookingController extends GetxController {
     } else {
       int iter = 0;
       Get.offNamedUntil(Approute_activitiesSummary, (route) {
-        print("Get.currentRoute");
-        print(Get.currentRoute);
+
         return ++iter == 1;
       });
       showSnackbar(Get.context!, "payment_capture_error".tr, "error");
@@ -483,8 +477,7 @@ class ActivityBookingController extends GetxController {
         Get.offNamedUntil(Approute_activitiesConfirmation, arguments: [
           {"mode": "view"}
         ], (route) {
-          print("Get.currentRoute");
-          print(Get.currentRoute);
+
           return ++iter == 4;
         });
       }
@@ -498,8 +491,7 @@ class ActivityBookingController extends GetxController {
 
         int iter = 0;
         Get.offNamedUntil(Approute_activitiesSummary, (route) {
-          print("Get.currentRoute");
-          print(Get.currentRoute);
+
           return ++iter == 1;
         });
       }
@@ -599,15 +591,12 @@ class ActivityBookingController extends GetxController {
             startTime: '0',
             timeSlotId: ''));
 
-    print("transferId before update");
-    print(selectedActivityTransferType.value.transferId);
+
     activityTransferTypes.value.forEach((element) {
-      print("element.transferId i");
-      print(element.transferId);
+
     });
     selectedActivityTransferType.value = activityTransferType;
-    print("transferId after update");
-    print(selectedActivityTransferType.value.transferId);
+
     isDetailsDataLoading.value = false;
     isPriceDataLoading.value = false;
     confirmActivity();

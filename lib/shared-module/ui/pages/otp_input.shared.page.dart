@@ -35,8 +35,6 @@ class _OTPInputPageState extends State<OTPInputPage> {
 
   @override
   void initState() {
-    print("getArguments");
-    print(getArguments);
     // TODO: implement initState
 
     from = getArguments[0];
@@ -92,7 +90,6 @@ class _OTPInputPageState extends State<OTPInputPage> {
               textFieldAlignment: MainAxisAlignment.spaceAround,
               fieldStyle: FieldStyle.box,
               onCompleted: (pin) {
-                print("Completed: " + pin);
                 setState(() {
                    sharedController.updateOtp(pin);
                 });

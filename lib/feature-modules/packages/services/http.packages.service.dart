@@ -9,52 +9,70 @@ import 'package:flytern/shared-module/services/http-services/http_request_handle
 class PackageBookingHttpService {
 
   Future<PackageResponse?> getPackages(int pageid, String countryisocode) async {
-    FlyternHttpResponse response =
-    await getRequest(PackageBookingHttpRequestEndpointGetPackages, {
-      "pageid":pageid,
-      "countryisocode":countryisocode
-    });
 
-    if (response.success) {
-      if (response.data != null) {
-        PackageResponse packageResponse = mapPackageResponse(response.data);
-        return packageResponse;
+    try{
+
+      FlyternHttpResponse response =
+      await getRequest(PackageBookingHttpRequestEndpointGetPackages, {
+        "pageid":pageid,
+        "countryisocode":countryisocode
+      });
+
+      if (response.success) {
+        if (response.data != null) {
+          PackageResponse packageResponse = mapPackageResponse(response.data);
+          return packageResponse;
+        }
       }
+
+      return mapPackageResponse({});
+    }catch (e){
+      return mapPackageResponse({});
     }
 
-    return mapPackageResponse({});
   }
 
   Future<PackageDetails?> getPackageDetails(int refId) async {
-    FlyternHttpResponse response =
-    await getRequest("$PackageBookingHttpRequestEndpointGetPackageDetails$refId",null);
 
-    if (response.success) {
-      if (response.data != null) {
-        PackageDetails packageDetails = mapPackageDetails(response.data);
-        return packageDetails;
+    try{
+
+      FlyternHttpResponse response =
+      await getRequest("$PackageBookingHttpRequestEndpointGetPackageDetails$refId",null);
+
+      if (response.success) {
+        if (response.data != null) {
+          PackageDetails packageDetails = mapPackageDetails(response.data);
+          return packageDetails;
+        }
       }
-    }
 
-    return mapPackageDetails({});
+      return mapPackageDetails({});
+    }catch (e){
+      return mapPackageDetails({});
+    }
   }
 
   Future<String> setUserData(PackageSubmissionData packageSubmissionData) async {
 
-    FlyternHttpResponse response = await postRequest(
-        PackageBookingHttpRequestEndpointSavePackageDetails,
-        packageSubmissionData.toJson());
+    try{
 
-    String bookingRef;
+      FlyternHttpResponse response = await postRequest(
+          PackageBookingHttpRequestEndpointSavePackageDetails,
+          packageSubmissionData.toJson());
 
-    if (response.success && response.statusCode ==200) {
-      if (response.data != null  ) {
-        bookingRef = response.data["bookingRef"]??"";
-        return bookingRef;
+      String bookingRef;
+
+      if (response.success && response.statusCode ==200) {
+        if (response.data != null  ) {
+          bookingRef = response.data["bookingRef"]??"";
+          return bookingRef;
+        }
       }
-    }
 
-    return "";
+      return "";
+    }catch (e){
+      return "";
+    }
   }
 
 }

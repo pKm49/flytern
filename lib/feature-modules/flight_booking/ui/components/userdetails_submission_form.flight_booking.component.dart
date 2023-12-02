@@ -94,8 +94,6 @@ class _FlightUserDetailsSubmissionFormState
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("widget.index");
-    print(widget.index);
   }
 
   @override
@@ -488,8 +486,7 @@ class _FlightUserDetailsSubmissionFormState
       lastNameController.text = coPax[0].lastName;
       passportNumberController.text = coPax[0].passportNumber;
       final f = DateFormat('dd-MM-yyyy');
-      print("copax dotb");
-      print(coPax[0].dateOfBirth);
+
       if (coPax[0].dateOfBirth == DefaultInvalidDate) {
         dobController.text = f.format(getMinimumDate());
         dateOfBirth = getMinimumDate();

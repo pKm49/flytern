@@ -252,10 +252,7 @@ class _FlightUserDetailsSubmissionPageState
   }
 
   void initializeForms() {
-    print("initializeForms");
-    print(flightBookingController.flightPretravellerData.value.adult);
-    print(flightBookingController.flightPretravellerData.value.child);
-    print(flightBookingController.flightPretravellerData.value.infant);
+
     flightBookingController.saveContactInfo(mobileCntry, mobileNumber, email);
 
     int total = flightBookingController.flightPretravellerData.value.adult +
@@ -296,12 +293,7 @@ class _FlightUserDetailsSubmissionPageState
         TabController(vsync: this, length: tabLength, initialIndex: 0);
 
     for (var i = 0; i < total; i++) {
-      print(" add default travelInfo");
-      print(i);
-      print(total);
-      print(flightBookingController.flightPretravellerData.value.adult);
-      print(flightBookingController.flightPretravellerData.value.child);
-      print(flightBookingController.flightPretravellerData.value.infant);
+
       travelInfo.add(mapTravelInfo({
         "no": i + 1,
         "travellerType": ((i + 1) <=
@@ -325,12 +317,7 @@ class _FlightUserDetailsSubmissionPageState
   }
 
   void updateTravellerInfor(index, TravelInfo newTravelInfo) {
-    print("updateTravellerInfor");
-    print(index);
-    print(newTravelInfo.title);
-    print(newTravelInfo.firstName);
-    print(newTravelInfo.gender);
-    print(travelInfo.length);
+
     List<TravelInfo> tempTravelInfo = [];
     for (var i = 0; i < travelInfo.length; i++) {
       if ((i + 1) != index) {

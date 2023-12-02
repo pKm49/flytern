@@ -42,8 +42,7 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
-    print(insuranceBookingController.isInitialDataLoading.value);
-    return Obx(
+     return Obx(
       () => Scaffold(
           appBar: AppBar(
             title: Text('travel_insurance'.tr),
@@ -220,8 +219,7 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
                                       .insurancePriceGetBody.value.policy_type,
                                   onChanged: (value) {
                                     setState(() {
-                                      print(value);
-                                      insuranceBookingController
+                                       insuranceBookingController
                                           .changePolicyType(value);
                                     });
                                   },
@@ -504,8 +502,7 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
     final Uri _url = Uri.parse(urlString);
 
     if (!await launchUrl(_url)) {
-      print('Could not launch $_url');
-    }
+     }
   }
 
   void openInsuranceFamilyMemberSelector() {

@@ -20,7 +20,6 @@ showToaster( BuildContext context ,Color color,String text){
 
   FToast fToast = FToast();
   fToast.init(context);
-  print("showToaster showToaster");
   double screenwidth = MediaQuery.of(context).size.width;
 
   Widget toast = Container(

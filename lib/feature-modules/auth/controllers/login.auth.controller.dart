@@ -25,8 +25,7 @@ class LoginController extends GetxController {
   }
 
   submitLoginForm(bool isDirectFlow) async {
-  print("submitLoginForm");
-  print(isDirectFlow);
+
     isSubmitting.value = true;
 
     try{
@@ -39,8 +38,7 @@ class LoginController extends GetxController {
       AuthToken authToken  = await authHttpService.login(loginCredential);
 
       if(authToken.accessToken != ""){
-        print("accessToken not empty");
-        print(isDirectFlow);
+
         saveAuthTokenToSharedPreference(authToken);
         if(!isDirectFlow){
           Get.back(result: true);
@@ -53,8 +51,6 @@ class LoginController extends GetxController {
             arguments: [Approute_login,
           "your_mobile".tr,userId.value])
             ?.then((value) async {
-          print("valueee is");
-          print(value);
           if(value is AuthToken){
 
             if(value.accessToken != ""){
@@ -67,8 +63,6 @@ class LoginController extends GetxController {
             }
 
           }
-          print("value");
-          print(value.toString());
         });
       }
       isSubmitting.value = false;
@@ -79,49 +73,9 @@ class LoginController extends GetxController {
 
   }
 
-  // verifyOtp(String otp) async {
-  //
-  //   if(userId.value != ""){
-  //     isSubmitting.value = true;
-  //     try{
-  //
-  //       AuthToken authToken  = await authHttpService.verifyOtp(userId.value,otp);
-  //
-  //       if(authToken.accessToken != ""){
-  //         saveAuthTokenToSharedPreference(authToken);
-  //         Get.offAllNamed(Approute_landingpage);
-  //       }
-  //       isSubmitting.value = false;
-  //     }catch (e){
-  //       showSnackbar(Get.context!, e.toString(),"error");
-  //       isSubmitting.value = false;
-  //     }
-  //   }
-  //
-  // }
-
   void updateOtp(String otpString) {
     otp.value = otpString;
   }
-
-  // resendOtp( ) async {
-  //
-  //   if(userId.value !=""){
-  //     isSubmitting.value = true;
-  //     try{
-  //
-  //       await authHttpService.resendOtp(userId.value);
-  //       showSnackbar(Get.context!,"otp_resend".tr,"info");
-  //       isSubmitting.value = false;
-  //     }catch (e,t){
-  //       print(t);
-  //       showSnackbar(Get.context!, e.toString(),"error");
-  //       isSubmitting.value = false;
-  //     }
-  //
-  //   }
-  //
-  // }
 
 
 }

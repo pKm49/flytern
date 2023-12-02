@@ -54,8 +54,7 @@ class _HotelUserDetailsSubmissionFormState
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("widget.index");
-  }
+   }
 
   @override
   Widget build(BuildContext context) {

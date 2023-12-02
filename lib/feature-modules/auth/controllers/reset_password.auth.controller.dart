@@ -59,8 +59,7 @@ class ResetPasswordController extends GetxController {
         Get.toNamed(Approute_resetPasswordOtp,arguments: [Approute_resetPasswordMobile,
           "${selectedCountry.value.code} ${mobileController.value.text}",userId.value])
             ?.then((value) async {
-              print("valueee is");
-              print(value);
+
           if(value is AuthToken){
 
                   if(value.accessToken != ""){
@@ -69,61 +68,17 @@ class ResetPasswordController extends GetxController {
                   }
 
           }
-          print("value");
-          print(value.toString());
         });
       }else{
         throw Exception("Something Went wrong, Please Try Again");
       }
       isSubmitting.value = false;
     }catch (e,t){
-      print(t);
       showSnackbar(Get.context!, e.toString(),"error");
       isSubmitting.value = false;
     }
 
   }
-
-  // resendOtp( ) async {
-  //
-  //   if(userId.value !=""){
-  //     isSubmitting.value = true;
-  //     try{
-  //
-  //       await authHttpService.resendOtp(userId.value);
-  //       showSnackbar(Get.context!,"otp_resend".tr,"info");
-  //
-  //       isSubmitting.value = false;
-  //     }catch (e,t){
-  //       print(t);
-  //       showSnackbar(Get.context!, e.toString(),"error");
-  //       isSubmitting.value = false;
-  //     }
-  //
-  //   }
-  //
-  // }
-  //
-  // verifyOtp(String otp) async {
-  //
-  //   if(userId.value != ""){
-  //     isSubmitting.value = true;
-  //     try{
-  //
-  //       AuthToken authToken  = await authHttpService.verifyOtp(userId.value,otp);
-  //
-  //       if(authToken.accessToken != ""){
-  //         saveAuthTokenToSharedPreference(authToken);
-  //         Get.offNamed(Approute_resetPasswordNewpassword);
-  //       }
-  //       isSubmitting.value = false;
-  //     }catch (e){
-  //       showSnackbar(Get.context!, e.toString(),"error");
-  //       isSubmitting.value = false;
-  //     }
-  //   }
-  //
-  // }
 
   updatePassword() async {
 

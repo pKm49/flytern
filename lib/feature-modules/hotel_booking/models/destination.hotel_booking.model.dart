@@ -35,9 +35,6 @@ class HotelDestination {
 
 HotelDestination mapHotelDestination(dynamic payload){
 
-  print("mapHotelDestination");
-  print("select_destination".tr);
-
   String cityName = payload["cityName"]??("select_destination".tr);
   String uniqueCombination = payload["uniqueCombination"]??("select_destination".tr);
 

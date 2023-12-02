@@ -5,8 +5,7 @@ import 'dart:ui';
 
 
 ThemeData getThemeData( String type, String locale) {
-  print("locale is");
-  print(locale);
+
   return type == 'light'
       ? ThemeData(
           snackBarTheme:

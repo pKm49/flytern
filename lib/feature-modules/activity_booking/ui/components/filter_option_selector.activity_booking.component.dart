@@ -466,9 +466,7 @@ class _ActivityFilterOptionSelectorState
         sortingDcs: selectedFilterOptions.sortingDcs,
         tourCategoryDcs: selectedFilterOptions.tourCategoryDcs,
         bestDealsDcs: selectedFilterOptions.bestDealsDcs);
-    print("setPriceRange");
-    print(selectedFilterOptions.priceDcs[0].min);
-    print(selectedFilterOptions.priceDcs[0].max);
+
     _currentSliderValue = rangeValues;
     setState(() {});
     widget.setModalState();

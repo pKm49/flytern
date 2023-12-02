@@ -38,9 +38,6 @@ class HotelTravelInfo {
 
 HotelTravelInfo mapHotelTravelInfo(dynamic payload) {
 
-  print("mapHotelTravelInfo");
-  print(payload);
-
   return HotelTravelInfo(
     typeIndex: payload["typeIndex"] ?? -1,
     roomIndex: payload["roomIndex"] ?? -1,

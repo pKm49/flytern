@@ -473,10 +473,8 @@ class _HotelBookingConfirmationPageState
 
   Future<void> _launchUrl(String urlString) async {
     final Uri _url = Uri.parse(urlString);
-    print("urlString");
-    print(urlString);
+
     if (!await launchUrl(_url)) {
-      print('Could not launch $_url');
     }
   }
 

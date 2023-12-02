@@ -112,9 +112,7 @@ class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
                 child: ElevatedButton(
                     style: getElevatedButtonStyle(context),
                     onPressed: () {
-                      print("mobile changed");
-                      print(profileController.mobileController.value.text);
-                      print(profileController.userDetails.value.phoneNumber);
+
                       if (profileController.mobileController.value.text !=
                               profileController.userDetails.value.phoneNumber &&
                           !profileController.isMobileSubmitting.value) {

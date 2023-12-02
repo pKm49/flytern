@@ -10,7 +10,6 @@ import 'package:flytern/shared-module/services/http-services/http_request_handle
 class ProfileHttpServices{
 
   Future<bool> updateUserDetails(UserDetails userDetails, File? file ) async {
-    print("updateUserDetails");
 
     try{
       FlyternHttpResponse response = await fileUpload(
@@ -21,17 +20,16 @@ class ProfileHttpServices{
       if(response.success && response.statusCode == 200){
         return true;
       }else{
-        throw Exception(response.errors[0]);
+        return false;
       }
 
     }catch (e){
-      rethrow;
+      return false;
     }
 
   }
 
   Future<bool> updatePassword(String newPassword) async {
-    print("updateUserDetails");
 
     try{
       FlyternHttpResponse response = await patchRequest(ProfileHttpRequestEndpointUpdateUserPassword,
@@ -43,17 +41,17 @@ class ProfileHttpServices{
       if(response.success && response.statusCode == 200){
         return true;
       }else{
-        throw Exception(response.errors[0]);
+        return false;
       }
 
     }catch (e){
-      rethrow;
+      return false;
     }
 
   }
 
   Future<String> changeMobile(String countryCode,String mobile) async {
-    print("updateUserDetails");
+
 
     try{
       FlyternHttpResponse response = await postRequest(ProfileHttpRequestEndpointUpdateUserMobile,
@@ -70,11 +68,11 @@ class ProfileHttpServices{
         }
         return "";
       }else{
-        throw Exception(response.errors[0]);
+        return "";
       }
 
     }catch (e){
-      rethrow;
+      return "";
     }
 
   }
@@ -95,50 +93,59 @@ class ProfileHttpServices{
         }
         return "";
       }else{
-        throw Exception(response.errors[0]);
+        return "";
       }
 
     }catch (e){
-      rethrow;
+      return "";
     }
 
   }
 
   Future<UserDetails> getUserDetails() async {
 
-    FlyternHttpResponse response = await getRequest(ProfileHttpRequestEndpointGetUserDetails,null);
+    try{
+      FlyternHttpResponse response = await getRequest(ProfileHttpRequestEndpointGetUserDetails,null);
 
-    if(response.success){
-      if(response.data != null){
-        UserDetails userDetails =  mapUserDetails(response.data,false);
-        return userDetails;
+      if(response.success){
+        if(response.data != null){
+          UserDetails userDetails =  mapUserDetails(response.data,false);
+          return userDetails;
+        }
       }
+
+      return mapUserDetails({},true);
+    }catch (e){
+      return mapUserDetails({},true);
     }
 
-    return mapUserDetails({},true);
+
 
   }
 
   Future<List<UserTravelStory>> getUserTravelStories() async {
-    print("getUserTravelStories");
-    FlyternHttpResponse response = await getRequest(ProfileHttpRequestEndpointGetUserTravelStories,null);
+    try{
 
-    if(response.success){
-      if(response.data != null){
-        List<UserTravelStory> travelStories = [];
-        response.data.forEach((element) {
-          travelStories.add(mapUserTravelStory(element));
-        });
-        return travelStories;
+      FlyternHttpResponse response = await getRequest(ProfileHttpRequestEndpointGetUserTravelStories,null);
+
+      if(response.success){
+        if(response.data != null){
+          List<UserTravelStory> travelStories = [];
+          response.data.forEach((element) {
+            travelStories.add(mapUserTravelStory(element));
+          });
+          return travelStories;
+        }
       }
-    }
 
-    return [];
+      return [];
+    }catch (e){
+      return [];
+    }
 
   }
 
  Future<bool> createTravelStory(UserTravelStory travelStory,  File? file) async {
-    print("createTravelStory");
 
     try{
       FlyternHttpResponse response = await fileUpload(
@@ -148,17 +155,16 @@ class ProfileHttpServices{
       if(response.success && response.statusCode == 200){
         return true;
       }else{
-        throw Exception(response.errors[0]);
+        return true;
       }
 
     }catch (e){
-      rethrow;
+      return true;
     }
 
   }
 
   Future<bool> createCoPax(UserCoPax userCoPax ) async {
-    print("createTravelStory");
 
     try{
       FlyternHttpResponse response = await postRequest(
@@ -166,17 +172,17 @@ class ProfileHttpServices{
       if(response.success && response.statusCode == 200){
         return true;
       }else{
-        throw Exception(response.errors[0]);
+        return false;
       }
 
     }catch (e){
-      rethrow;
+      return false;
     }
 
   }
 
   Future<bool> updateCoPax(UserCoPax userCoPax ) async {
-    print("createTravelStory");
+
 
     try{
       FlyternHttpResponse response = await postRequest(
@@ -184,17 +190,17 @@ class ProfileHttpServices{
       if(response.success && response.statusCode == 200){
         return true;
       }else{
-        throw Exception(response.errors[0]);
+        return false;
       }
 
     }catch (e){
-      rethrow;
+      return false;
     }
 
   }
 
   Future<bool> deleteCoPax(int id ) async {
-    print("createTravelStory");
+
 
     try{
       FlyternHttpResponse response = await postRequest(
@@ -202,48 +208,61 @@ class ProfileHttpServices{
       if(response.success && response.statusCode == 200){
         return true;
       }else{
-        throw Exception(response.errors[0]);
+        return false;
       }
 
     }catch (e){
-      rethrow;
+      return false;
     }
 
   }
 
   Future<List<UserCoPax>> getUserCoPaxs() async {
-    print("getUserCoPaxs");
-    FlyternHttpResponse response = await getRequest(ProfileHttpRequestEndpointGetUserCoPaxs,null);
 
-    if(response.success){
-      if(response.data != null){
-        List<UserCoPax> coPaxes = [];
-        response.data.forEach((element) {
-          coPaxes.add(mapUserCoPax(element));
-        });
-        return coPaxes;
+    try{
+      FlyternHttpResponse response = await getRequest(ProfileHttpRequestEndpointGetUserCoPaxs,null);
+
+      if(response.success){
+        if(response.data != null){
+          List<UserCoPax> coPaxes = [];
+          response.data.forEach((element) {
+            coPaxes.add(mapUserCoPax(element));
+          });
+          return coPaxes;
+        }
       }
+
+      return [];
+    }catch (e){
+      return [];
     }
 
-    return [];
 
   }
 
   Future<MyBookingResponse> getMyBookings(int pageId,String servicetype) async {
-    FlyternHttpResponse response = await getRequest(ProfileHttpRequestEndpointGetUserBookings,
-        {
-          "pageid":pageId.toString(),
-          "servicetype":servicetype,
-        });
 
-    if(response.success){
-      if(response.data != null){
-        MyBookingResponse myBookingResponse = mapMyBookingResponse(response.data);
-        return myBookingResponse;
+
+    try{
+
+      FlyternHttpResponse response = await getRequest(ProfileHttpRequestEndpointGetUserBookings,
+          {
+            "pageid":pageId.toString(),
+            "servicetype":servicetype,
+          });
+
+      if(response.success){
+        if(response.data != null){
+          MyBookingResponse myBookingResponse = mapMyBookingResponse(response.data);
+          return myBookingResponse;
+        }
       }
+
+      return mapMyBookingResponse({});
+    }catch (e){
+      return mapMyBookingResponse({});
     }
 
-    return mapMyBookingResponse({});
-
   }
+
 }

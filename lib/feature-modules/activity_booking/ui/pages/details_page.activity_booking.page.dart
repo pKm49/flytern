@@ -345,7 +345,7 @@ class _ActivityDetailsPageState extends State<ActivityDetailsPage> {
                                           element.tourOptionId == newZone)
                                       .toList();
                               if (selectedActivityOption.isNotEmpty) {
-                                print("selectedActivityOption.isNotEmpty");
+
                                 activityBookingController
                                     .changeSelectedActivityOption(
                                         selectedActivityOption[0]);
@@ -413,8 +413,7 @@ class _ActivityDetailsPageState extends State<ActivityDetailsPage> {
                                           element.transferId == newZone)
                                       .toList();
                               if (selectedActivityTransferType.isNotEmpty) {
-                                print("selectedActivityOption.isNotEmpty");
-                                activityBookingController
+                                 activityBookingController
                                     .changeSelectedActivityTransferType(
                                         selectedActivityTransferType[0]);
                               }
@@ -819,7 +818,7 @@ class _ActivityDetailsPageState extends State<ActivityDetailsPage> {
     final Uri _url = Uri.parse(urlString);
 
     if (!await launchUrl(_url)) {
-      print('Could not launch $_url');
+
     }
   }
 

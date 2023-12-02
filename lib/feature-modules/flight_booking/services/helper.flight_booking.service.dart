@@ -209,8 +209,6 @@ class FlightBookingHelperServices {
       int infantCount,
       List<CabinClass> cabinClasses) {
 
-    print("cabinClasses.length");
-    print(cabinClasses.length);
     List<FlightAllowedCabin> allowedCabins = [];
     for (var i = 0; i < cabinClasses.length; i++) {
       allowedCabins.add(FlightAllowedCabin(

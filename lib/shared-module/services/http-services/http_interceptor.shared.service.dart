@@ -32,18 +32,12 @@ class FlyternHttpInterceptor implements InterceptorContract {
         data.headers["DeviceID"] = deviceId??"";
       }
 
-      print("does contain");
-      print(data.url.contains(CoreHttpRequestEndpoint_GetNewAccesToken));
-      if(data.url.contains(CoreHttpRequestEndpoint_GetNewAccesToken)){
+       if(data.url.contains(CoreHttpRequestEndpoint_GetNewAccesToken)){
         String? refreshToken = await getRefreshToken();
         data.headers["RefreshToken"] = refreshToken ;
       }
 
-      print(" interceptRequest data.headers");
-      print(data.headers);
     } catch (e) {
-      print("interceptRequest error");
-      print(e);
     }
     return data;
   }
@@ -67,7 +61,7 @@ class FlyternHttpInterceptor implements InterceptorContract {
         }
       }
     } catch (e) {
-      print(e);
+
     }
     return data;
   }
@@ -103,8 +97,6 @@ class FlyternHttpInterceptor implements InterceptorContract {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? refreshToken = prefs.getString('refreshToken');
 
-    print("getRefreshToken");
-    print(refreshToken);
     return refreshToken??"";
   }
 

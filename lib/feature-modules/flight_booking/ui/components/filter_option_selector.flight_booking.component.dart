@@ -633,9 +633,7 @@ class _FlightFilterOptionSelectorState
         departureTimeDcs: selectedFilterOptions.departureTimeDcs,
         arrivalTimeDcs: selectedFilterOptions.arrivalTimeDcs,
         stopDcs: selectedFilterOptions.stopDcs);
-    print("setPriceRange");
-    print(selectedFilterOptions.priceDcs[0].min);
-    print(selectedFilterOptions.priceDcs[0].max);
+
     _currentSliderValue = rangeValues;
     setState(() {});
     widget.setModalState();

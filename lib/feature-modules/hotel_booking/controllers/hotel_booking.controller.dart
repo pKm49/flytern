@@ -170,8 +170,7 @@ class HotelBookingController extends GetxController {
         hotelSearchData.value.destination != "" &&
         !isHotelSearchResponsesLoading.value) {
       objectId.value = -1;
-      print("getSearchResults called ");
-      isHotelSearchResponsesLoading.value = true;
+       isHotelSearchResponsesLoading.value = true;
       if (isNavigationRequired) {
         Get.toNamed(Approute_hotelsSearchResult);
       } else {
@@ -181,8 +180,7 @@ class HotelBookingController extends GetxController {
       HotelSearchResult hotelSearchResult = await hotelBookingHttpService
           .getHotelSearchResults(hotelSearchData.value);
       hotelSearchResponses.value = hotelSearchResult.searchResponses;
-      print("hotelSearchResponses value ");
-      print(hotelSearchResponses.isNotEmpty);
+
       objectId.value = hotelSearchResult.objectID;
       alertMsg.value = hotelSearchResult.alertMsg;
       if (hotelSearchResponses.isNotEmpty) {
@@ -214,22 +212,17 @@ class HotelBookingController extends GetxController {
         tHotelSearchData.destination != "" &&
         !isHotelSearchResponsesLoading.value) {
       objectId.value = -1;
-      print("getSearchResults called ");
-      isHotelSearchResponsesLoading.value = true;
+       isHotelSearchResponsesLoading.value = true;
       Get.toNamed(Approute_hotelsSearchResult);
 
       HotelSearchResult hotelSearchResult =
           await hotelBookingHttpService.getHotelSearchResults(tHotelSearchData);
       hotelSearchResponses.value = hotelSearchResult.searchResponses;
-      print("hotelSearchResponses value ");
-      print(hotelSearchResult.objectID);
-      print(hotelSearchResult.alertMsg);
-      print(hotelSearchResponses.isNotEmpty);
+
 
       objectId.value = hotelSearchResult.objectID;
       alertMsg.value = hotelSearchResult.alertMsg;
-      print(alertMsg.value);
-      if (hotelSearchResponses.isNotEmpty) {
+       if (hotelSearchResponses.isNotEmpty) {
         hotelId.value = hotelSearchResponses.value[0].hotelId;
         priceUnit.value = hotelSearchResponses.value[0].priceUnit;
         startDate.value = hotelSearchData.value.checkInDate;
@@ -280,28 +273,22 @@ class HotelBookingController extends GetxController {
   }
 
   Future<void> getHotelDetails(int tHotelid) async {
-    print(tHotelid);
-    print(tHotelid > -1);
-    print(!isHotelDetailsLoading.value);
+
     if (tHotelid > -1 && !isHotelDetailsLoading.value) {
       selectedImageIndex.value = -1;
       selectedRoomImageIndex.value = -1;
 
       Get.toNamed(Approute_hotelsDetails);
-      print("inside");
-      hotelId.value = tHotelid;
+       hotelId.value = tHotelid;
       isHotelDetailsLoading.value = true;
-      print("getMoreOptions called ");
-      selectedRoom.value = [];
+       selectedRoom.value = [];
       selectedRoomOption.value = [];
       selectedRoomSelectionIndex.value = 0;
 
       HotelDetails tempHotelDetails = await hotelBookingHttpService
           .getHotelDetails(hotelId.value, objectId.value);
       hotelDetails.value = tempHotelDetails;
-      print("room length after maping");
-      print(hotelDetails.value.rooms.length);
-      print(hotelDetails.value.alertMsg);
+
 
       selectedImageIndex.value =
           hotelDetails.value.imageUrls.isNotEmpty ? 0 : -1;
@@ -318,10 +305,6 @@ class HotelBookingController extends GetxController {
         }
       }
 
-      print("selectedRoom length");
-      print(hotelSearchData.value.rooms.length);
-      print(selectedRoom.length);
-      print(selectedRoomOption.length);
 
       isHotelDetailsLoading.value = false;
 
@@ -422,8 +405,6 @@ class HotelBookingController extends GetxController {
         await hotelBookingHttpService.setPaymentGateway(
             selectedPaymentGateway.value.processID, selectedPaymentGateway.value.paymentCode, bookingRef.value);
 
-    print("paymentGatewayUrlData");
-    print(paymentGatewayUrlData.isOkRedirection);
 
     gatewayUrl.value = paymentGatewayUrlData.gatewayUrl;
     confirmationUrl.value = paymentGatewayUrlData.confirmationUrl;
@@ -455,17 +436,13 @@ class HotelBookingController extends GetxController {
     bool isSuccess =
         await hotelBookingHttpService.checkGatewayStatus(bookingRef.value);
 
-    print("checkGatewayStatus isSuccess");
-    print(isSuccess);
-
     if (isSuccess) {
       showSnackbar(Get.context!, "payment_capture_success".tr, "info");
       getConfirmationData(bookingRef.value,false);
     } else {
       int iter = 0;
       Get.offNamedUntil(Approute_hotelsSummary, (route) {
-        print("Get.currentRoute");
-        print(Get.currentRoute);
+
         return ++iter == 1;
       });
       showSnackbar(Get.context!, "payment_capture_error".tr, "error");
@@ -503,8 +480,7 @@ class HotelBookingController extends GetxController {
         Get.offNamedUntil(Approute_hotelsConfirmation, arguments: [
           {"mode": "view"}
         ], (route) {
-          print("Get.currentRoute");
-          print(Get.currentRoute);
+
           return ++iter == 4;
         });
       }
@@ -515,8 +491,7 @@ class HotelBookingController extends GetxController {
 
         int iter = 0;
         Get.offNamedUntil(Approute_hotelsSummary, (route) {
-          print("Get.currentRoute");
-          print(Get.currentRoute);
+
           return ++iter == 1;
         });
       }

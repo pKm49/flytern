@@ -492,9 +492,7 @@ class _HotelFilterOptionSelectorState extends State<HotelFilterOptionSelector> {
         sortingDcs: selectedFilterOptions.sortingDcs,
         locationDcs: selectedFilterOptions.locationDcs,
         ratingDcs: selectedFilterOptions.ratingDcs);
-    print("setPriceRange");
-    print(selectedFilterOptions.priceDcs[0].min);
-    print(selectedFilterOptions.priceDcs[0].max);
+
     _currentSliderValue = rangeValues;
     setState(() {});
     widget.setModalState();

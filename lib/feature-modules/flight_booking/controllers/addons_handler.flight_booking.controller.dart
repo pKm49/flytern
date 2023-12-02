@@ -244,10 +244,7 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
             flightAddonSetSeatData
                 .value.listOfSelection[i].passengerID ==
                 selectedPassengerForSeat.value)){
-          print("cond 1");
-          print(seat.position);
-          print(seat.seatId);
-          print(rowId);
+
           listOfSelection.add(  FlightAddonSeatSelection(
               routeID: flightAddonSetSeatData
                   .value.listOfSelection[i].routeID,
@@ -259,8 +256,7 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
               seatId: seat.seatId)
           );
         }else{
-          print("cond 2");
-          listOfSelection.add(flightAddonSetSeatData
+           listOfSelection.add(flightAddonSetSeatData
               .value.listOfSelection[i]);
         }
       }
@@ -293,8 +289,7 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
                   .value.listOfSelection[i].passengerID )
           );
         }else{
-          print("cond 2");
-          listOfSelection.add(flightAddonSetMealData
+           listOfSelection.add(flightAddonSetMealData
               .value.listOfSelection[i]);
         }
       }
@@ -328,8 +323,7 @@ extension FlightBookingControllerAddonsHandler on FlightBookingController {
           );
 
         }else{
-          print("cond 2");
-          listOfSelection.add(flightAddonSetExtraPackageData
+           listOfSelection.add(flightAddonSetExtraPackageData
               .value.listOfSelection[i]);
         }
       }

@@ -163,22 +163,15 @@ class _HotelUserDetailsSubmissionPageState
   }
 
   void initializeForms() {
-    print("initializeForms");
-    hotelBookingController.saveContactInfo(mobileCntry, mobileNumber, email);
+     hotelBookingController.saveContactInfo(mobileCntry, mobileNumber, email);
     tabLength = hotelBookingController.hotelPretravellerData.value.rooms.length;
     tabController = TabController(
         vsync: this,
         length: hotelBookingController.hotelPretravellerData.value.rooms.length,
         initialIndex: 0);
-    print("rooms length");
-    print(hotelBookingController.hotelPretravellerData.value.rooms.length);
-    print("rooms count");
 
     hotelBookingController.hotelPretravellerData.value.rooms.forEach((element) {
 
-      print(" user count");
-      print(element.adults);
-      print(element.childs);
     });
     int roomUserCount = 0;
     for (var i = 0;
@@ -187,15 +180,12 @@ class _HotelUserDetailsSubmissionPageState
       roomsExpansionControllers.add([]);
       roomsExpansionControllerKeys.add([]);
 
-      print(" iterarion count" + i.toString());
-       if(hotelBookingController.hotelPretravellerData.value.rooms[i].adults>0){
+        if(hotelBookingController.hotelPretravellerData.value.rooms[i].adults>0){
 
 
-         print(" inside adult "  );
-         for (var ind = 0; ind < hotelBookingController.hotelPretravellerData.value.rooms[i].adults; ind++) {
+          for (var ind = 0; ind < hotelBookingController.hotelPretravellerData.value.rooms[i].adults; ind++) {
            roomUserCount++;
-           print("adult iterarion count" + i.toString());
-           roomsExpansionControllers[i].add(ExpansionTileController());
+            roomsExpansionControllers[i].add(ExpansionTileController());
            roomsExpansionControllerKeys[i].add(PageStorageKey("${'adult'.tr} ${ind+1}-${i + 1}"));
 
            travelInfo.add(mapHotelTravelInfo({
@@ -239,23 +229,15 @@ class _HotelUserDetailsSubmissionPageState
 
   void updateTravellerInfor(int roomIndex, int userIndex, HotelTravelInfo newHotelTravelInfo) {
 
-    print("updateTravellerInfor");
-    print(newHotelTravelInfo.firstName);
-    print(newHotelTravelInfo.lastName);
-    print(userIndex);
-    print(roomIndex);
+
     List<HotelTravelInfo> tempHotelTravelInfo = [];
     for (var i = 0; i < travelInfo.length; i++) {
-      print("user ${i} roomIndex ${travelInfo[i].roomIndex}");
-      print("user ${i} userIndex ${travelInfo[i].userIndex}");
 
       if (travelInfo[i].roomIndex != roomIndex &&
           travelInfo[i].userIndex != userIndex) {
-        print("user pass");
-        tempHotelTravelInfo.add(travelInfo[i]);
+         tempHotelTravelInfo.add(travelInfo[i]);
       } else {
-        print("user in");
-        tempHotelTravelInfo.add(HotelTravelInfo(
+         tempHotelTravelInfo.add(HotelTravelInfo(
             roomIndex: travelInfo[i].roomIndex,
             typeIndex: travelInfo[i].typeIndex,
             userIndex: travelInfo[i].userIndex,

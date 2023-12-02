@@ -15,8 +15,7 @@ FlightAddonSeatRow mapFlightAddonSeatRow(dynamic payload) {
     columns.add(mapFlightAddonSeatColumn(element));
   });
 
-  print("columns.length");
-  print(columns.length);
+
   return FlightAddonSeatRow(row: payload["row"] ?? -1,
       columns: columns);
 }

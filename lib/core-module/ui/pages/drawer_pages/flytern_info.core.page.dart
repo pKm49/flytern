@@ -26,8 +26,7 @@ class _CoreInfoPageState extends State<CoreInfoPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("initstate info");
-    sharedController.getBusinessInfo(InfoType.SOCIAL);
+     sharedController.getBusinessInfo(InfoType.SOCIAL);
   }
 
   @override
@@ -231,8 +230,7 @@ class _CoreInfoPageState extends State<CoreInfoPage> {
     final Uri _url = Uri.parse(urlString);
 
     if (!await launchUrl(_url)) {
-      print('Could not launch $_url');
-    }
+     }
   }
 
 }

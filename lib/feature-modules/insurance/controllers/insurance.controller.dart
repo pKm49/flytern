@@ -101,15 +101,8 @@ class InsuranceBookingController extends GetxController {
 
   void saveTravellersData(List<InsuranceTravellerInfo> travelInfo) {
     String validityString = "";
-    for (var i = 0; i < travelInfo.length; i++) {
-      print("travelInfo " + i.toString());
-      print(travelInfo[i].toJson());
-    }
-    for (var i = 0; i < travelInfo.length; i++) {
-      print("travelInfo " + i.toString());
-      print("firstName");
-      print(travelInfo[i].firstName);
 
+    for (var i = 0; i < travelInfo.length; i++) {
       if (travelInfo[i].firstName == "") {
         validityString = "enter_firstname_copax"
             .tr
@@ -117,8 +110,7 @@ class InsuranceBookingController extends GetxController {
 
         break;
       }
-      print("lastName");
-      print(travelInfo[i].lastName);
+
       if (travelInfo[i].lastName == "") {
         validityString = "enter_lastname_copax"
             .tr
@@ -126,9 +118,7 @@ class InsuranceBookingController extends GetxController {
 
         break;
       }
-      print("dateOfBirth");
-      print(travelInfo[i].dateOfBirth);
-      print(DefaultInvalidDate);
+
 
       if (travelInfo[i].dateOfBirth == DefaultInvalidDate) {
         validityString = "enter_dob_copax"
@@ -137,7 +127,7 @@ class InsuranceBookingController extends GetxController {
 
         break;
       }
-      print(travelInfo[i].nationalityCode);
+
 
       if (travelInfo[i].nationalityCode == "") {
         validityString = "enter_nationality_copax"
@@ -146,8 +136,7 @@ class InsuranceBookingController extends GetxController {
 
         break;
       }
-      print("civilID");
-      print(travelInfo[i].civilID);
+
       if (travelInfo[i].civilID == "") {
         validityString = "enter_civilid_copax"
             .tr
@@ -171,10 +160,8 @@ class InsuranceBookingController extends GetxController {
       isInsuranceSaveTravellerLoading.value = true;
       selectedTravelInfo.value = travelInfo;
       String tempBookingRef = "";
-      print("setTravellerData");
 
-      print(policyDate.value);
-      InsuranceTravellerData insuranceTravellerData = InsuranceTravellerData(
+       InsuranceTravellerData insuranceTravellerData = InsuranceTravellerData(
           covid: policyHeaderObj.value.id,
           policyType: policyTypeObj.value.id,
           contributor: contributor.value,
@@ -195,7 +182,6 @@ class InsuranceBookingController extends GetxController {
         bookingRef.value = tempBookingRef;
         getPaymentGateways(false,bookingRef.value);
       } else {
-        print("something_went_wrong 1");
 
         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
       }
@@ -298,8 +284,6 @@ class InsuranceBookingController extends GetxController {
   }
 
   getUserId(InsuranceTravellerInfo travelInfo, int index) {
-    print("travelInfo.relationshipCode");
-    print(travelInfo.relationshipCode);
 
     for (var element in insuranceInitialData.value.lstPolicyRelationship) {
       if (element.id == travelInfo.relationshipCode) {
@@ -366,9 +350,6 @@ class InsuranceBookingController extends GetxController {
         await insuranceBookingHttpService.setPaymentGateway(
             selectedPaymentGateway.value.processID, selectedPaymentGateway.value.paymentCode, bookingRef.value);
 
-    print("paymentGatewayUrlData");
-    print(paymentGatewayUrlData.isOkRedirection);
-
     gatewayUrl.value = paymentGatewayUrlData.gatewayUrl;
     confirmationUrl.value = paymentGatewayUrlData.confirmationUrl;
 
@@ -388,7 +369,6 @@ class InsuranceBookingController extends GetxController {
 
       checkGatewayStatus();
     } else {
-      print("something_went_wrong 3");
 
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
@@ -401,17 +381,13 @@ class InsuranceBookingController extends GetxController {
     bool isSuccess =
         await insuranceBookingHttpService.checkGatewayStatus(bookingRef.value);
 
-    print("checkGatewayStatus isSuccess");
-    print(isSuccess);
-
     if (isSuccess) {
       showSnackbar(Get.context!, "payment_capture_success".tr, "info");
       getConfirmationData(bookingRef.value,false);
     } else {
       int iter = 0;
       Get.offNamedUntil(Approute_insuranceSummary, (route) {
-        print("Get.currentRoute");
-        print(Get.currentRoute);
+
         return ++iter == 1;
       });
       showSnackbar(Get.context!, "payment_capture_error".tr, "error");
@@ -450,8 +426,7 @@ class InsuranceBookingController extends GetxController {
         Get.offNamedUntil(Approute_insuranceConfirmation,arguments:[
           {"mode": "view"}
         ], (route) {
-          print("Get.currentRoute");
-          print(Get.currentRoute);
+
           return ++iter == 3;
         });
       }
@@ -461,8 +436,7 @@ class InsuranceBookingController extends GetxController {
 
         int iter = 0;
         Get.offNamedUntil(Approute_insuranceSummary, (route) {
-          print("Get.currentRoute");
-          print(Get.currentRoute);
+
           return ++iter == 1;
         });
       }

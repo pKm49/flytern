@@ -45,9 +45,9 @@ class _ActivitiesListPageState extends State<ActivitiesListPage> {
        if (_controller.position.atEdge) {
          bool isTop = _controller.position.pixels == 0;
          if (isTop) {
-           print('At the top');
+
          } else {
-           print('At the bottom');
+
            activityBookingController.getNextPageActivities();
          }
        }
@@ -291,7 +291,7 @@ class _ActivitiesListPageState extends State<ActivitiesListPage> {
                   Navigator.pop(context);
                 },
                 setModalState: () {
-                  print('modalState Changed');
+
                   setModalState(() {});
                 });
           });

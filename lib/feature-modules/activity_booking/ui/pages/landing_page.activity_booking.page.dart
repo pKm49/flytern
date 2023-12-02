@@ -34,10 +34,8 @@ class _ActivityBookingLandingPageState
        if (_controller.position.atEdge) {
          bool isTop = _controller.position.pixels == 0;
          if (isTop) {
-           print('At the top');
-         } else {
-           print('At the bottom');
-           activityBookingController.getCities( activityBookingController.pageId.value+1,
+          } else {
+            activityBookingController.getCities( activityBookingController.pageId.value+1,
                activityBookingController.countryisocode.value);
          }
        }

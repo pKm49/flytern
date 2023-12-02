@@ -22,7 +22,6 @@ class _DocumentPageState extends State<DocumentPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("initstate info");
     sharedController.getBusinessInfo(InfoType.SOCIAL);
   }
 
@@ -71,16 +70,9 @@ class _DocumentPageState extends State<DocumentPage> {
       ),
     );
   }
-  Future<void> _launchUrl(String urlString) async {
-    final Uri _url = Uri.parse(urlString);
 
-    if (!await launchUrl(_url)) {
-      print('Could not launch $_url');
-    }
-  }
 
   getHtmlData() {
-    print("");
     switch (sharedController.currentInfoType.value){
       case InfoType.ABOUTUS:{
          return sharedController.aboutHtml.value;

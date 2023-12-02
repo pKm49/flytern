@@ -79,13 +79,7 @@ class HotelBookingHelperServices {
       int childCount,
       List<int> childAges) {
 
-    print("updatePassengerCount");
-    print(index.toString());
-    print(adultCount.toString());
-    print(childCount.toString());
-    print(childAges.toString());
-    print(hotelSearchData.rooms.length );
-    print(hotelSearchData.rooms.length >= index + 1);
+
 
     if (hotelSearchData.rooms.length >= index + 1) {
       List<HotelSearchItemRoomData> hotelRooms = [];

@@ -33,8 +33,6 @@ class _AuthLoginPageState extends State<AuthLoginPage> {
     super.initState();
     isDirectFlow =getArguments !=null?getArguments[0]:true;
 
-    print("AuthLoginPage");
-    print(isDirectFlow);
   }
 
   @override

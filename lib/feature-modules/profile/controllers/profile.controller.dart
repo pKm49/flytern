@@ -130,12 +130,6 @@ class ProfileController extends GetxController {
     final String? refreshToken = prefs.getString('refreshToken');
     final String? expiryOnString = prefs.getString('expiryOn');
 
-    print("isGuest");
-    print(isGuest);
-    print(accessToken);
-    print(refreshToken);
-    print(expiryOnString);
-
     if (accessToken != null &&
         accessToken != '' &&
         refreshToken != null &&
@@ -222,20 +216,15 @@ class ProfileController extends GetxController {
 
       if (isSuccess) {
         Get.back();
-        print("user update completed");
-        isProfileSubmitting.value = false;
-        print("user update completed 1");
+         isProfileSubmitting.value = false;
 
         showSnackbar(Get.context!, "profile_updated".tr, "info");
-        print("user update completed 2");
 
-        print("user update completed 3");
 
         await getUserDetails();
       }
     } catch (e) {
-      print("user update failed");
-      showSnackbar(Get.context!, e.toString(), "error");
+       showSnackbar(Get.context!, e.toString(), "error");
       isProfileSubmitting.value = false;
     }
   }
@@ -275,9 +264,7 @@ class ProfileController extends GetxController {
             final coreController = Get.find<CoreController>();
             coreController.handleLogout();
           }
-          print("value");
-          print(value.toString());
-        });
+         });
         if (isMobile) {
           isMobileSubmitting.value = false;
         } else {
@@ -285,8 +272,7 @@ class ProfileController extends GetxController {
         }
       }
     } catch (e, stackk) {
-      print("user update failed");
-      print(stackk);
+
       showSnackbar(Get.context!, e.toString(), "error");
       if (isMobile) {
         isMobileSubmitting.value = false;
@@ -309,8 +295,7 @@ class ProfileController extends GetxController {
         coreController.handleLogout();
       }
     } catch (e) {
-      print("user update failed");
-      showSnackbar(Get.context!, e.toString(), "error");
+       showSnackbar(Get.context!, e.toString(), "error");
       isPasswordSubmitting.value = false;
     }
   }

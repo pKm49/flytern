@@ -94,8 +94,7 @@ class SharedController extends GetxController {
   }
 
   updateCountryListByQuery(String query, bool isMobile) {
-    print("updateCountryListByQuery");
-    print(query);
+
     if (query == "") {
       if (isMobile) {
         mobileCountriesToShow.value = mobileCountries.value;
@@ -185,8 +184,7 @@ class SharedController extends GetxController {
 
   Future<String> getFirebaseMessagingToken() async {
     String firebaseMessagingToken = await FirebaseMessaging.instance.getToken()??"";
-    print('fcm : ' + firebaseMessagingToken);
-    return firebaseMessagingToken;
+     return firebaseMessagingToken;
   }
 
   resendOtp(String userId) async {
@@ -197,8 +195,7 @@ class SharedController extends GetxController {
         showSnackbar(Get.context!, "otp_resend".tr, "info");
         isOtpSubmitting.value = false;
       } catch (e, t) {
-        print(t);
-        showSnackbar(Get.context!, e.toString(), "error");
+         showSnackbar(Get.context!, e.toString(), "error");
         isOtpSubmitting.value = false;
       }
     }
@@ -215,9 +212,7 @@ class SharedController extends GetxController {
           isOtpSubmitting.value = false;
         }
       } catch (e, stack) {
-        print("stack");
-        print(stack);
-        showSnackbar(Get.context!, e.toString(), "error");
+         showSnackbar(Get.context!, e.toString(), "error");
         isOtpSubmitting.value = false;
       }
     }
@@ -228,8 +223,6 @@ class SharedController extends GetxController {
   }
 
   getBusinessInfo(InfoType infoType) async {
-    print("getBusinessInfo");
-    print(isInfoLoading.value);
 
     if (!isInfoLoading.value) {
       currentInfoType.value = infoType;
@@ -272,8 +265,7 @@ class SharedController extends GetxController {
       InfoResponseData infoResponseData =
           await sharedHttpService.getInfo(infoType.name);
 
-      print("content");
-      print(infoResponseData.content);
+
       switch (infoType) {
         case InfoType.ABOUTUS:
           {
@@ -317,9 +309,7 @@ class SharedController extends GetxController {
   }
 
   Future<void> updateMobileCountryList(List<Country> mobileCountryList) async {
-    print("updateMobileCountryList");
-    print(mobileCountryList[0].countryCode);
-    print(mobileCountryList[0].countryName);
+
     mobileCountries.value = mobileCountryList;
     mobileCountriesToShow.value = mobileCountryList;
     final SharedPreferences prefs = await SharedPreferences.getInstance();

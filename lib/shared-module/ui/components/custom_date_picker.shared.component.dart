@@ -107,13 +107,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           addVerticalSpace(flyternSpaceSmall),
           InkWell(
             onTap: () {
-              print("date selected");
-              print(selectedDOB.year);
-              print(selectedDOB.month);
-              print(selectedDOB.day);
-              print(DateTime.now().year);
-              print(DateTime.now().month);
-              print(DateTime.now().day);
+
               if (selectedDOB.year == DateTime.now().year &&
                   selectedDOB.month == DateTime.now().month &&
                   selectedDOB.day == DateTime.now().day) {
