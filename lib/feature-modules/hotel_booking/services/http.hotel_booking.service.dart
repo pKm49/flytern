@@ -214,6 +214,7 @@ class HotelBookingHttpService {
 
     return "";
   }
+
   Future<bool> checkSmartPayment(String bookingRef) async {
     FlyternHttpResponse response = await postRequest(
         FlightBookingHttpRequestEndpointSmartPayment,
@@ -230,6 +231,7 @@ class HotelBookingHttpService {
 
     return false;
   }
+
   Future<GetGatewayData> getPaymentGateways(String bookingRef) async {
     FlyternHttpResponse response = await postRequest(
         HotelBookingHttpRequestEndpointGetGateways, {"bookingRef": bookingRef});
@@ -397,4 +399,5 @@ class HotelBookingHttpService {
 
     return [];
   }
+
 }

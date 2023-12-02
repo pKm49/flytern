@@ -8,6 +8,7 @@ import 'package:flytern/shared-module/models/auth_token.dart';
 import 'package:flytern/shared-module/services/http-services/http_request_handler.shared.service.dart';
 
 class AuthHttpService {
+
   Future<AuthToken> login(LoginCredential loginCredential) async {
     FlyternHttpResponse response = await postRequest(
         AuthHttpRequestEndpointLogin, loginCredential.toJson());

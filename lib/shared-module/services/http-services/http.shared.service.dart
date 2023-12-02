@@ -25,7 +25,7 @@ class SharedHttpService {
     return mapSupportInfo({});
   }
 
-  getPreRegisterSupportInfo( ) async {
+  Future<BusinessDoc> getPreRegisterSupportInfo( ) async {
     FlyternHttpResponse response = await getRequest(
         SharedHttpRequestEndpointGetPreRegisterInfo, null);
 
@@ -36,7 +36,7 @@ class SharedHttpService {
       }
     }
 
-    return null;
+    return mapBusinessDoc({});
   }
 
   Future<InfoResponseData> getInfo(String type ) async {
@@ -57,8 +57,7 @@ class SharedHttpService {
     return mapInfoResponseData({});
   }
 
-
-  setDeviceInfo(SetDeviceInfoRequestBody setDeviceInfoRequestBody ) async {
+  Future<void> setDeviceInfo(SetDeviceInfoRequestBody setDeviceInfoRequestBody ) async {
 
     FlyternHttpResponse response = await postRequest(
         SharedHttpRequestEndpointSetDeviceInfo,setDeviceInfoRequestBody.toJson());
@@ -68,11 +67,6 @@ class SharedHttpService {
   Future<void> resendOtp(String userId) async {
     FlyternHttpResponse response =
     await postRequest(SharedHttpRequestEndpointResendOTP, {"userID": userId});
-
-    print("resendOtp response.message ");
-    print(response.message);
-    print(response.errors);
-    print(response.success);
 
     try {
       if (response.success && response.data != null) {

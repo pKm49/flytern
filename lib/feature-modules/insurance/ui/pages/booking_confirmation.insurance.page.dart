@@ -219,7 +219,7 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
                           child: Container(
                             padding: flyternLargePaddingHorizontal.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceLarge),
                             color: flyternBackgroundWhite,
-                            child:  Text("get_eticket".tr,
+                            child:  Text("get_eticket_insurance".tr,
                                 style: getBodyMediumStyle(context).copyWith(
                                     decoration: TextDecoration.underline,
                                     color: flyternTertiaryColor)),

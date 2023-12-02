@@ -3,6 +3,7 @@ import 'package:flytern/core-module/controllers/core.controller.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
  import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
+import 'package:flytern/shared-module/services/utility-services/flight_userdata_input_formatter.dart';
 import 'package:flytern/shared-module/services/utility-services/form_validator.shared.service.dart';
  import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
@@ -53,6 +54,9 @@ class _SmartPaymentPageState extends State<SmartPaymentPage> {
                         top: flyternSpaceLarge, bottom: flyternSpaceMedium),
                     color: flyternBackgroundWhite,
                     child: TextFormField(
+                        inputFormatters: [
+                          FlightUserDataTextFormatter(),
+                        ],
                         controller: bookingIdController,
                         validator: (value) =>
                             checkIfNameFormValid(value, "booking_id".tr),

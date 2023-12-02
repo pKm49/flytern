@@ -7,107 +7,132 @@ import 'package:flytern/shared-module/models/auth_token.dart';
 import 'package:flytern/shared-module/models/flytern_http_response.dart';
 import 'package:flytern/shared-module/services/http-services/http_request_handler.shared.service.dart';
 
-class CoreHttpServices{
-
+class CoreHttpServices {
   Future<List<Notification>> getNotifications() async {
-
     List<Notification> notifications = [];
 
-    FlyternHttpResponse response = await getRequest(CoreHttpRequestEndpoint_GetNotifications,null);
+    try {
+      FlyternHttpResponse response =
+          await getRequest(CoreHttpRequestEndpoint_GetNotifications, null);
 
-    if(response.success && response.statusCode == 200){
-      if(response.data != null){
-
-        if(response.data["notification"] !=null){
-          response.data["notification"].forEach((element) {
-            notifications.add(mapNotification(element));
-          });
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          if (response.data["notification"] != null) {
+            response.data["notification"].forEach((element) {
+              notifications.add(mapNotification(element));
+            });
+          }
         }
       }
+
+      return notifications;
+    } catch (e) {
+      return notifications;
     }
-
-    return notifications;
-
   }
 
   Future<ServiceBookingStatus> checkSmartPayment(String bookingRef) async {
-    FlyternHttpResponse response = await postRequest(
-        CoreBookingHttpRequestEndpointSmartPayment,
-        {"bookingRef": bookingRef});
-
     bool isSuccess = false;
     String servicetype = "FLIGHT";
 
-    print("getPaymentGateways");
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        if (response.data["isSuccess"] != null) {
-          isSuccess =response.data["isSuccess"];
-        }
-        if (response.data["servicetype"] != null) {
-          servicetype =response.data["servicetype"];
+    try {
+      FlyternHttpResponse response = await postRequest(
+          CoreBookingHttpRequestEndpointSmartPayment,
+          {"bookingRef": bookingRef});
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          if (response.data["isSuccess"] != null) {
+            isSuccess = response.data["isSuccess"];
+          }
+          if (response.data["servicetype"] != null) {
+            servicetype = response.data["servicetype"];
+          }
         }
       }
-    }
 
-    return ServiceBookingStatus(isSuccess: isSuccess, servicetype: servicetype);
+      return ServiceBookingStatus(
+          isSuccess: isSuccess, servicetype: servicetype);
+    } catch (e) {
+      return ServiceBookingStatus(
+          isSuccess: isSuccess, servicetype: servicetype);
+    }
   }
 
-  Future<ServiceBookingStatus> findBooking(String bookingRef, String email ) async {
-    FlyternHttpResponse response = await postRequest(
-        CoreBookingHttpRequestEndpointViewBooking,
-        {"bookingRef": bookingRef,
-          "email": email,
-          "mobileNumber": "",
-          "mobileCountryCode": ""});
-
+  Future<ServiceBookingStatus> findBooking(
+      String bookingRef, String email) async {
     bool isSuccess = false;
     String servicetype = "FLIGHT";
 
-    print("getPaymentGateways");
-    if (response.success && response.statusCode == 200) {
-      if (response.data != null) {
-        if (response.data["isSuccess"] != null) {
-          isSuccess =response.data["isSuccess"];
+    try {
+      FlyternHttpResponse response =
+          await postRequest(CoreBookingHttpRequestEndpointViewBooking, {
+        "bookingRef": bookingRef,
+        "email": email,
+        "mobileNumber": "",
+        "mobileCountryCode": ""
+      });
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          if (response.data["isSuccess"] != null) {
+            isSuccess = response.data["isSuccess"];
+          }
+          if (response.data["servicetype"] != null) {
+            servicetype = response.data["servicetype"];
+          }
         }
-        if (response.data["servicetype"] != null) {
-          servicetype =response.data["servicetype"];
+      }
+
+      return ServiceBookingStatus(
+          isSuccess: isSuccess, servicetype: servicetype);
+    } catch (e) {
+      return ServiceBookingStatus(
+          isSuccess: isSuccess, servicetype: servicetype);
+    }
+  }
+
+  Future<AuthToken> getGuestToken() async {
+
+    try{
+      FlyternHttpResponse response =
+      await getRequest(CoreHttpRequestEndpoint_GetGuestToken, null);
+
+      if (response.success) {
+        if (response.data != null) {
+          AuthToken authToken = mapAuthToken(response.data, true);
+          return authToken;
         }
       }
+
+      return mapAuthToken({}, true);
+    }catch (e){
+      return mapAuthToken({}, true);
+
     }
 
-    return ServiceBookingStatus(isSuccess: isSuccess, servicetype: servicetype);
+
   }
 
+  Future<AuthToken> getRefreshedToken() async {
 
-  getGuestToken() async {
+    try{
 
-    FlyternHttpResponse response = await getRequest(CoreHttpRequestEndpoint_GetGuestToken,null);
+      FlyternHttpResponse response =
+      await getRequest(CoreHttpRequestEndpoint_GetNewAccesToken, null);
 
-    if(response.success){
-      if(response.data != null){
-        AuthToken authToken = mapAuthToken(response.data, true);
-        return authToken;
+      if (response.success) {
+        if (response.data != null) {
+          AuthToken authToken = mapAuthToken(response.data, false);
+          return authToken;
+        }
       }
+
+      return mapAuthToken({}, true);
+    }catch (e){
+      return mapAuthToken({}, true);
+
     }
 
-    return mapAuthToken({},true);
-
   }
-
-  getRefreshedToken() async {
-
-    FlyternHttpResponse response = await getRequest(CoreHttpRequestEndpoint_GetNewAccesToken,null);
-
-    if(response.success){
-      if(response.data != null){
-        AuthToken authToken = mapAuthToken(response.data,false);
-        return authToken;
-      }
-    }
-
-    return mapAuthToken({},true);
-
-  }
-
 }

@@ -104,7 +104,7 @@ class ProfileHttpServices{
 
   }
 
-  getUserDetails() async {
+  Future<UserDetails> getUserDetails() async {
 
     FlyternHttpResponse response = await getRequest(ProfileHttpRequestEndpointGetUserDetails,null);
 
@@ -119,7 +119,7 @@ class ProfileHttpServices{
 
   }
 
-  getUserTravelStories() async {
+  Future<List<UserTravelStory>> getUserTravelStories() async {
     print("getUserTravelStories");
     FlyternHttpResponse response = await getRequest(ProfileHttpRequestEndpointGetUserTravelStories,null);
 
@@ -211,7 +211,7 @@ class ProfileHttpServices{
 
   }
 
-  getUserCoPaxs() async {
+  Future<List<UserCoPax>> getUserCoPaxs() async {
     print("getUserCoPaxs");
     FlyternHttpResponse response = await getRequest(ProfileHttpRequestEndpointGetUserCoPaxs,null);
 

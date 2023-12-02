@@ -37,6 +37,7 @@ import 'package:flytern/shared-module/models/support_info.dart';
 import 'package:flytern/shared-module/services/http-services/http_request_handler.shared.service.dart';
 
 class FlightBookingHttpService {
+
   Future<ExploreData?> getInitialInfo() async {
     FlyternHttpResponse response =
         await getRequest(FlightBookingHttpRequestEndpointGetInitalInfo, null);
@@ -321,9 +322,7 @@ class FlightBookingHttpService {
     HotelDetails hotelDetails = mapHotelDetails({});
     ActivityDetails activityDetails = mapActivityDetails({},[]);
 
-    print("getPaymentGateways");
-    print(response.data["isGateway"]);
-    print(response.data["_gatewaylist"]);
+
     if (response.success && response.statusCode == 200) {
       if (response.data != null) {
         if (response.data["isGateway"]) {
@@ -331,9 +330,7 @@ class FlightBookingHttpService {
             paymentGateways.add(mapPaymentGateway(element));
           });
         }
-        print("flightDetails");
-        print(response.data["_flightservice"]);
-        print(response.data["_flightservice"]["_flightDetail"]);
+
         if (response.data["_flightservice"] != null) {
           if (response.data["_flightservice"]["_flightDetail"] != null) {
             flightDetails = mapFlightDetails(
@@ -624,4 +621,5 @@ class FlightBookingHttpService {
 
     return [];
   }
+
 }

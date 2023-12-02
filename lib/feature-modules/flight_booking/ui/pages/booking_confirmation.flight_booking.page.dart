@@ -265,7 +265,7 @@ class _FlightBookingConfirmationPageState
                                   top: flyternSpaceSmall,
                                   bottom: flyternSpaceLarge),
                               color: flyternBackgroundWhite,
-                              child: Text("get_eticket".tr,
+                              child: Text("get_eticket_flight".tr,
                                   style: getBodyMediumStyle(context).copyWith(
                                       decoration: TextDecoration.underline,
                                       color: flyternTertiaryColor)),

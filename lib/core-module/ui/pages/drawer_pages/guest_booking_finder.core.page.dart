@@ -8,6 +8,7 @@ import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.co
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/models/country.dart';
+import 'package:flytern/shared-module/services/utility-services/flight_userdata_input_formatter.dart';
 import 'package:flytern/shared-module/services/utility-services/form_validator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
@@ -73,6 +74,9 @@ class _GuestBookingPageState extends State<GuestBookingPage> {
                         top: flyternSpaceLarge, bottom: flyternSpaceMedium),
                     color: flyternBackgroundWhite,
                     child: TextFormField(
+                        inputFormatters: [
+                          FlightUserDataTextFormatter(),
+                        ],
                         controller: bookingIdController,
                         validator: (value) =>
                             checkIfNameFormValid(value, "booking_id".tr),

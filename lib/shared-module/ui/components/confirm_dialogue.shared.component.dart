@@ -46,36 +46,45 @@ class ConfirmDialogue extends StatelessWidget {
             addVerticalSpace(flyternSpaceMedium),
             Divider(
               thickness: 1.5,
-            ),
-            addVerticalSpace(flyternSpaceMedium),
+            ) ,
             Row(
               children: [
                 Expanded(
-                    child: InkWell(
-                  onTap: () {
+                  flex: 1,
+                  child: InkWell(
+                    onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Text(
-                    "no".tr,
-                    style: getBodyMediumStyle(context).copyWith(
-                      fontWeight: flyternFontWeightBold,
-                     color: flyternPrimaryColor
-                    ),
-                    textAlign: TextAlign.center,
+                    child:  Container(
+                      padding: flyternSmallPaddingVertical,
+                      child: Text(
+                      "no".tr,
+                      style: getBodyMediumStyle(context).copyWith(
+                        fontWeight: flyternFontWeightBold,
+                       color: flyternPrimaryColor
+                      ),
+                      textAlign: TextAlign.center,
                   ),
-                )),
+                    ),
+                  ),
+                ),
                 Expanded(
-                    child: InkWell(
-                  onTap: () {
+                  flex: 1,
+                  child: InkWell(
+                    onTap: () {
                     onClick();
                   },
-                  child: Text(
-                    "yes".tr,
-                    style: getBodyMediumStyle(context)
-                        .copyWith(fontWeight: FontWeight.bold,color: flyternGuideRed),
-                    textAlign: TextAlign.center,
+                    child:  Container(
+                      padding: flyternSmallPaddingVertical,
+                      child: Text(
+                      "yes".tr,
+                      style: getBodyMediumStyle(context)
+                          .copyWith(fontWeight: FontWeight.bold,color: flyternGuideRed),
+                      textAlign: TextAlign.center,
                   ),
-                ))
+                    ),
+                  ),
+                )
               ],
             )
           ],
