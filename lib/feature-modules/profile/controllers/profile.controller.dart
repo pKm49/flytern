@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flytern/core-module/controllers/core.controller.dart';
 import 'package:flytern/feature-modules/profile/controllers/copax.profile.controller.dart';
 import 'package:flytern/feature-modules/profile/controllers/travel_story.profile.controller.dart';
-import 'package:flytern/feature-modules/profile/constants/booking_categories.profile.constant.dart';
-import 'package:flytern/feature-modules/profile/models/my_activity.profile.model.dart';
+ import 'package:flytern/feature-modules/profile/models/my_activity.profile.model.dart';
 import 'package:flytern/feature-modules/profile/models/my_booking_response.profile.model.dart';
 import 'package:flytern/feature-modules/profile/models/my_flight_booking.profile.model.dart';
 import 'package:flytern/feature-modules/profile/models/my_hotel_booking.profile.model.dart';
@@ -15,13 +14,12 @@ import 'package:flytern/feature-modules/profile/models/my_package.profile.model.
 import 'package:flytern/feature-modules/profile/services/http.profile.service.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
-import 'package:flytern/shared-module/models/auth_token.dart';
-import 'package:flytern/core-module/services/http.core.service.dart';
+import 'package:flytern/shared-module/constants/service_types.core.constant.dart';
+import 'package:flytern/shared-module/models/auth_token.dart'; 
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/models/country.dart';
 import 'package:flytern/shared-module/models/gender.dart';
-import 'package:flytern/shared-module/models/user_details.dart';
-import 'package:flytern/shared-module/services/utility-services/local_storage_handler.shared.service.dart';
+import 'package:flytern/shared-module/models/user_details.dart'; 
 import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -99,7 +97,7 @@ class ProfileController extends GetxController {
   var totalPages = 1.obs;
   var currentPage = 1.obs;
   var pageSize = 10.obs;
-  var currentService = BookingCategory.FLIGHT.obs;
+  var currentService = ServiceType.FLIGHT.obs;
   var isPasswordVisible = false.obs;
   var isConfirmPasswordVisible = false.obs;
 
@@ -262,8 +260,8 @@ class ProfileController extends GetxController {
           if (value is AuthToken) {
             showSnackbar(Get.context!,
                 isMobile ? "mobile_updated".tr : "email_updated", "info");
-            final coreController = Get.find<CoreController>();
-            coreController.handleLogout();
+            final sharedController = Get.find<SharedController>();
+            sharedController.handleLogout();
           }
          });
         if (isMobile) {
@@ -292,8 +290,8 @@ class ProfileController extends GetxController {
       if (isSuccess) {
         isPasswordSubmitting.value = false;
         showSnackbar(Get.context!, "password_updated".tr, "info");
-        final coreController = Get.find<CoreController>();
-        coreController.handleLogout();
+        final sharedController = Get.find<SharedController>();
+        sharedController.handleLogout();
       }
     } catch (e) {
        showSnackbar(Get.context!, e.toString(), "error");
@@ -343,7 +341,7 @@ class ProfileController extends GetxController {
 
   }
 
-  Future<void> getMyBookings(int pageId, BookingCategory servicetype) async {
+  Future<void> getMyBookings(int pageId, ServiceType servicetype) async {
     currentPage.value = 1;
     currentService.value = servicetype;
     isMyBookingsLoading.value = true;
@@ -352,24 +350,24 @@ class ProfileController extends GetxController {
     totalPages.value = myBookingResponse.totalPages;
     pageSize.value = myBookingResponse.pageSize;
     switch (servicetype){
-      case BookingCategory.FLIGHT:{
+      case ServiceType.FLIGHT:{
         myFlightBookingResponse.value = myBookingResponse.myFlightBookingResponse;
         break;
       }
-      case BookingCategory.HOTEL:{
+      case ServiceType.HOTEL:{
         myHotelBookingResponse.value = myBookingResponse.myHotelBookingResponse;
         break;
       }
-      case  BookingCategory.INSURANCE:{
+      case  ServiceType.INSURANCE:{
         myInsuranceBookingResponse.value =
             myBookingResponse.myInsuranceBookingResponse;
         break;
       }
-      case BookingCategory.PACKAGE:{
+      case ServiceType.PACKAGE:{
         myPackageBookingResponse.value = myBookingResponse.myPackageBookingResponse;
         break;
       }
-      case BookingCategory.ACTIVITY:{
+      case ServiceType.ACTIVITY:{
         myActivityBookingResponse.value =
             myBookingResponse.myActivityBookingResponse;
         break;

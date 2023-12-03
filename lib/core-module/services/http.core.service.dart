@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flytern/core-module/constants/http_request_endpoints.core.constant.dart';
-import 'package:flytern/core-module/constants/service_types.core.constant.dart';
+import 'package:flytern/shared-module/constants/service_types.core.constant.dart';
 import 'package:flytern/core-module/models/notification.core.model.dart';
 import 'package:flytern/core-module/models/service_booking_status.dart';
 import 'package:flytern/shared-module/models/auth_token.dart';
@@ -94,47 +94,5 @@ class CoreHttpServices {
     }
   }
 
-  Future<AuthToken> getGuestToken() async {
 
-    try{
-      FlyternHttpResponse response =
-      await getRequest(CoreHttpRequestEndpoint_GetGuestToken, null);
-
-      if (response.success) {
-        if (response.data != null) {
-          AuthToken authToken = mapAuthToken(response.data, true);
-          return authToken;
-        }
-      }
-
-      return mapAuthToken({}, true);
-    }catch (e){
-      return mapAuthToken({}, true);
-
-    }
-
-
-  }
-
-  Future<AuthToken> getRefreshedToken() async {
-
-    try{
-
-      FlyternHttpResponse response =
-      await getRequest(CoreHttpRequestEndpoint_GetNewAccesToken, null);
-
-      if (response.success) {
-        if (response.data != null) {
-          AuthToken authToken = mapAuthToken(response.data, false);
-          return authToken;
-        }
-      }
-
-      return mapAuthToken({}, true);
-    }catch (e){
-      return mapAuthToken({}, true);
-
-    }
-
-  }
 }

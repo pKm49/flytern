@@ -15,11 +15,15 @@ import 'package:flytern/shared-module/models/info_response_data.dart';
 import 'package:flytern/shared-module/models/language.dart';
 import 'package:flytern/shared-module/models/support_info.dart';
 import 'package:flytern/shared-module/services/http-services/http.shared.service.dart';
+import 'package:flytern/shared-module/services/utility-services/local_storage_handler.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedController extends GetxController {
+
+  var isAuthTokenSet = false.obs;
+
   var otp = "".obs;
   var isOtpSubmitting = false.obs;
   var isInfoLoading = false.obs;
@@ -72,11 +76,76 @@ class SharedController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    setAuthToken();
     genders.value = availableGenders;
     languages.value = availableLanguages;
     countries.value = availableCountries;
     countriesToShow.value = availableCountries;
   }
+
+  Future<void> setAuthToken() async {
+    isAuthTokenSet.value = false;
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedHttpService = SharedHttpService();
+
+    final bool? isGuest = prefs.getBool('isGuest');
+    final String? accessToken = prefs.getString('accessToken');
+    final String? refreshToken = prefs.getString('refreshToken');
+    final String? expiryOnString = prefs.getString('expiryOn');
+    final String? selectedLanguage = prefs.getString('selectedLanguage');
+    final String? selectedMobileCountry = prefs.getString('selectedMobileCountry');
+
+    if (accessToken != null &&
+        accessToken != '' &&
+        refreshToken != null &&
+        refreshToken != '' &&
+        expiryOnString != null &&
+        expiryOnString != '' &&
+        !isGuest!) {
+      DateTime expiryOn = DateTime.parse(expiryOnString);
+
+      if (DateTime.now().isAfter(expiryOn)) {
+        AuthToken authToken = await sharedHttpService.getRefreshedToken();
+        if (authToken.accessToken != "") {
+          saveAuthTokenToSharedPreference(authToken);
+        }
+      }
+      Get.offAllNamed(Approute_landingpage);
+    } else {
+      AuthToken authToken = await sharedHttpService.getGuestToken();
+
+      if (authToken.accessToken != "") {
+        saveAuthTokenToSharedPreference(authToken);
+      }
+
+      if (selectedLanguage != null &&
+          selectedLanguage != '' &&
+          selectedMobileCountry != null &&
+          selectedMobileCountry != '' ){
+        Get.offAllNamed(Approute_landingpage);
+      }
+      isAuthTokenSet.value = true;
+    }
+
+    final sharedController = Get.find<SharedController>();
+    sharedController.getInitialInfo();
+    sharedController.getPreRegisterInfo();
+  }
+
+
+  Future<void> handleLogout() async {
+    AuthToken authToken = AuthToken(
+        accessToken: "",
+        refreshToken: "",
+        expiryOn: DateTime.now(),
+        isGuest: true);
+    saveAuthTokenToSharedPreference(authToken);
+    setAuthToken();
+    Get.offAllNamed(Approute_langaugeSelector);
+  }
+
+
 
   changeLanguage(Language language) async {
     selectedLanguage.value = language;

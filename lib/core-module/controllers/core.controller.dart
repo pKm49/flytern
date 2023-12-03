@@ -1,5 +1,5 @@
 
-import 'package:flytern/core-module/constants/service_types.core.constant.dart';
+import 'package:flytern/shared-module/constants/service_types.core.constant.dart';
 import 'package:flytern/core-module/models/notification.core.model.dart';
 import 'package:flytern/core-module/models/service_booking_status.dart';
 import 'package:flytern/feature-modules/activity_booking/controllers/activity_booking.controller.dart';
@@ -16,7 +16,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CoreController extends GetxController {
-  var isAuthTokenSet = false.obs;
+
   var notifications = <Notification>[].obs;
   var isNotificationsLoading = false.obs;
   var isSmartPaymentCheckLoading = false.obs;
@@ -25,75 +25,14 @@ class CoreController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    setAuthToken();
   }
 
-  Future<void> setAuthToken() async {
-    isAuthTokenSet.value = false;
-
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var coreHttpServices = CoreHttpServices();
-
-    final bool? isGuest = prefs.getBool('isGuest');
-    final String? accessToken = prefs.getString('accessToken');
-    final String? refreshToken = prefs.getString('refreshToken');
-    final String? expiryOnString = prefs.getString('expiryOn');
-    final String? selectedLanguage = prefs.getString('selectedLanguage');
-    final String? selectedMobileCountry = prefs.getString('selectedMobileCountry');
-
-    if (accessToken != null &&
-        accessToken != '' &&
-        refreshToken != null &&
-        refreshToken != '' &&
-        expiryOnString != null &&
-        expiryOnString != '' &&
-        !isGuest!) {
-      DateTime expiryOn = DateTime.parse(expiryOnString);
-
-      if (DateTime.now().isAfter(expiryOn)) {
-        AuthToken authToken = await coreHttpServices.getRefreshedToken();
-        if (authToken.accessToken != "") {
-          saveAuthTokenToSharedPreference(authToken);
-        }
-      }
-      Get.offAllNamed(Approute_landingpage);
-    } else {
-      AuthToken authToken = await coreHttpServices.getGuestToken();
-
-      if (authToken.accessToken != "") {
-        saveAuthTokenToSharedPreference(authToken);
-      }
-
-      if (selectedLanguage != null &&
-          selectedLanguage != '' &&
-          selectedMobileCountry != null &&
-          selectedMobileCountry != '' ){
-        Get.offAllNamed(Approute_landingpage);
-      }
-      isAuthTokenSet.value = true;
-    }
-
-    final sharedController = Get.find<SharedController>();
-    sharedController.getInitialInfo();
-    sharedController.getPreRegisterInfo();
-  }
 
   getNotifications() async {
     isNotificationsLoading.value = true;
     var coreHttpServices = CoreHttpServices();
     notifications.value = await coreHttpServices.getNotifications();
     isNotificationsLoading.value = false;
-  }
-
-  Future<void> handleLogout() async {
-    AuthToken authToken = AuthToken(
-        accessToken: "",
-        refreshToken: "",
-        expiryOn: DateTime.now(),
-        isGuest: true);
-    saveAuthTokenToSharedPreference(authToken);
-    setAuthToken();
-    Get.offAllNamed(Approute_langaugeSelector);
   }
 
   checkSmartPayment(String tempBookingRef) async {

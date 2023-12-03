@@ -4,4 +4,6 @@ const String SharedHttpRequestEndpointGetBusinessInfo = "/coreapi/api/Supports/I
 const String SharedHttpRequestEndpointSetDeviceInfo = "/coreapi/api/Supports/SaveDeviceLang";
 const String SharedHttpRequestEndpointResendOTP = "/coreapi/api/Users/ResendOTP";
 const String SharedHttpRequestEndpointVerifyOTP = "/coreapi/api/Users/VerifyOTP";
+const String SharedHttpRequestEndpoint_GetNewAccesToken = "/coreapi/api/Auths/RefreshToken";
+const String SharedHttpRequestEndpoint_GetGuestToken = "/coreapi/api/Auths/Token";
 

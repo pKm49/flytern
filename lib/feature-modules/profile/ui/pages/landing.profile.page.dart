@@ -5,6 +5,7 @@ import 'package:flytern/shared-module/constants/app_specific/route_names.shared.
 import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
+import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:flytern/shared-module/ui/components/confirm_dialogue.shared.component.dart';
@@ -22,7 +23,6 @@ class ProfileLandingPage extends StatefulWidget {
 class _ProfileLandingPageState extends State<ProfileLandingPage> {
 
   final profileController = Get.find<ProfileController>();
-  final coreController = Get.find<CoreController>();
 
   @override
   Widget build(BuildContext context) {
@@ -273,7 +273,8 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
       context: context,
       builder: (_) => ConfirmDialogue(
           onClick: () async {
-            coreController.handleLogout();
+            final sharedController = Get.find<SharedController>();
+            sharedController.handleLogout();
           },
           titleKey: 'logout'.tr + " ?",
           subtitleKey: 'logout_confirm'.tr),

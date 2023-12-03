@@ -67,7 +67,7 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
           child: Stack(
             children: [
               Visibility(
-                visible: !coreController.isAuthTokenSet.value,
+                visible: !sharedController.isAuthTokenSet.value,
                 child: Container(
                   width: screenwidth,
                   padding: const EdgeInsets.only(bottom: flyternSpaceLarge * 2),
@@ -78,7 +78,7 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                 ),
               ),
               Visibility(
-                visible: coreController.isAuthTokenSet.value,
+                visible: sharedController.isAuthTokenSet.value,
                 child: Container(
                     width: screenwidth,
                     padding: const EdgeInsets.only(bottom: flyternSpaceLarge * 2),
@@ -108,7 +108,7 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                     )),
               ),
               Visibility(
-                visible: coreController.isAuthTokenSet.value,
+                visible: sharedController.isAuthTokenSet.value,
                 child: SizedBox(
                   height: screenheight,
                   width: screenwidth,

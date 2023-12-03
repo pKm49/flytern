@@ -9,6 +9,50 @@ import 'package:flytern/shared-module/services/http-services/http_request_handle
 
 class SharedHttpService {
 
+  Future<AuthToken> getGuestToken() async {
+
+    try{
+      FlyternHttpResponse response =
+      await getRequest(SharedHttpRequestEndpoint_GetGuestToken, null);
+
+      if (response.success) {
+        if (response.data != null) {
+          AuthToken authToken = mapAuthToken(response.data, true);
+          return authToken;
+        }
+      }
+
+      return mapAuthToken({}, true);
+    }catch (e){
+      return mapAuthToken({}, true);
+
+    }
+
+
+  }
+
+  Future<AuthToken> getRefreshedToken() async {
+
+    try{
+
+      FlyternHttpResponse response =
+      await getRequest(SharedHttpRequestEndpoint_GetNewAccesToken, null);
+
+      if (response.success) {
+        if (response.data != null) {
+          AuthToken authToken = mapAuthToken(response.data, false);
+          return authToken;
+        }
+      }
+
+      return mapAuthToken({}, true);
+    }catch (e){
+      return mapAuthToken({}, true);
+
+    }
+
+  }
+
   Future<SupportInfo> getInitialSupportInfo( ) async {
 
     try{

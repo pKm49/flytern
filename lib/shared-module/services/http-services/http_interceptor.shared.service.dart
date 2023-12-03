@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 // import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flytern/core-module/constants/http_request_endpoints.core.constant.dart';
+import 'package:flytern/shared-module/constants/business_specific/http_request_endpoints.shared.constant.dart';
 import 'package:http_interceptor/http_interceptor.dart';
  import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flytern/config/env.dart' as env;
@@ -27,12 +28,12 @@ class FlyternHttpInterceptor implements InterceptorContract {
       }
 
       data.headers["Host"]=env.apiEndPoint;
-      if(data.url.contains(CoreHttpRequestEndpoint_GetGuestToken)){
+      if(data.url.contains(SharedHttpRequestEndpoint_GetGuestToken)){
         String? deviceId = await _getId();
         data.headers["DeviceID"] = deviceId??"";
       }
 
-       if(data.url.contains(CoreHttpRequestEndpoint_GetNewAccesToken)){
+       if(data.url.contains(SharedHttpRequestEndpoint_GetNewAccesToken)){
         String? refreshToken = await getRefreshToken();
         data.headers["RefreshToken"] = refreshToken ;
       }

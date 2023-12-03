@@ -7,6 +7,7 @@ import 'package:flytern/feature-modules/profile/controllers/profile.controller.d
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
+import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:flytern/shared-module/ui/components/confirm_dialogue.shared.component.dart';
@@ -23,7 +24,7 @@ class CoreDrawerMenuPage extends StatefulWidget {
 }
 
 class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
-  final coreController = Get.find<CoreController>();
+  final sharedController = Get.find<SharedController>();
   final profileController = Get.find<ProfileController>();
 
   @override
@@ -257,7 +258,7 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
       context: context,
       builder: (_) => ConfirmDialogue(
           onClick: () async {
-            coreController.handleLogout();
+            sharedController.handleLogout();
           },
           titleKey: 'logout'.tr + " ?",
           subtitleKey: 'logout_confirm'.tr),

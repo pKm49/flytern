@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile.controller.dart';
-import 'package:flytern/feature-modules/profile/constants/booking_categories.profile.constant.dart';
-import 'package:flytern/feature-modules/profile/ui/pages/my_bookings_pages/my_activities_list.profile.page.dart';
+ import 'package:flytern/feature-modules/profile/ui/pages/my_bookings_pages/my_activities_list.profile.page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/my_bookings_pages/my_flight_bookings_list.profile.page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/my_bookings_pages/my_hotel_bookings_list.profile.page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/my_bookings_pages/my_insurances_list.profile.page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/my_bookings_pages/my_packages_list.profile.page.dart';
+import 'package:flytern/shared-module/constants/service_types.core.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:get/get.dart';
@@ -29,7 +29,7 @@ class _ProfileMyBookingsPageState extends State<ProfileMyBookingsPage>
   void initState() {
     super.initState();
     tabController = TabController(vsync: this, length: 5, initialIndex: 0);
-    profileController.getMyBookings(1,BookingCategory.FLIGHT);
+    profileController.getMyBookings(1,ServiceType.FLIGHT);
     tabController.addListener(() {
       if (selectedTab != tabController.index) {
         profileController.getMyBookings(1,getBookingService(tabController.index));
@@ -125,14 +125,14 @@ class _ProfileMyBookingsPageState extends State<ProfileMyBookingsPage>
     );
   }
 
-  BookingCategory getBookingService(int index) {
+  ServiceType getBookingService(int index) {
     switch (index){
-      case 0:return BookingCategory.FLIGHT;
-      case 1:return BookingCategory.HOTEL;
-      case 2:return BookingCategory.PACKAGE ;
-      case 3:return BookingCategory.ACTIVITY;
-      case 4:return BookingCategory.INSURANCE ;
-      default:return BookingCategory.FLIGHT;
+      case 0:return ServiceType.FLIGHT;
+      case 1:return ServiceType.HOTEL;
+      case 2:return ServiceType.PACKAGE ;
+      case 3:return ServiceType.ACTIVITY;
+      case 4:return ServiceType.INSURANCE ;
+      default:return ServiceType.FLIGHT;
     }
   }
 }
