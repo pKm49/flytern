@@ -33,148 +33,154 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
 
     return Container(
       width: screenwidth*.85,
+      height: screenheight,
       padding: flyternLargePaddingAll,
       color: flyternBackgroundWhite,
       child: Obx(
-        () => ListView(
+        () => Column(
           children: [
-            addVerticalSpace(flyternSpaceLarge),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor: 0,
-                onPressed: () {
-                  Get.toNamed(Approute_coreSmartPayment);
-                },
-                theme: 'dark',
-                border: 'bottom',
-                buttonTitle: "smart_payment".tr,
-                preIconData: Ionicons.cash_outline,
-                postIconData: Ionicons.chevron_forward,
+            Expanded(
+              child: ListView(
+                children: [
+                  addVerticalSpace(flyternSpaceLarge),
+                  SizedBox(
+                    width: double.infinity,
+                    child: PrePostIconButton(
+                      specialColor: 0,
+                      onPressed: () {
+                        Get.toNamed(Approute_coreSmartPayment);
+                      },
+                      theme: 'dark',
+                      border: 'bottom',
+                      buttonTitle: "smart_payment".tr,
+                      preIconData: Ionicons.cash_outline,
+                      postIconData: Ionicons.chevron_forward,
+                    ),
+                  ),
+                  Visibility(
+                      visible: profileController.userDetails.value.email == "",
+                      child: addVerticalSpace(flyternSpaceSmall)),
+                  Visibility(
+                    visible: profileController.userDetails.value.email == "",
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: PrePostIconButton(
+                        specialColor: 0,
+                        onPressed: () {
+                          Get.toNamed(Approute_coreGuestBookingFinder);
+                        },
+                        theme: 'dark',
+                        border: 'bottom',
+                        buttonTitle: "my_bookings".tr,
+                        preIconData: Ionicons.list_outline,
+                        postIconData: Ionicons.chevron_forward,
+                      ),
+                    ),
+                  ),
+                  // addVerticalSpace(flyternSpaceSmall),
+                  // SizedBox(
+                  //   width: double.infinity,
+                  //   child: PrePostIconButton(
+                  //     specialColor: 0,
+                  //     onPressed: () {
+                  //       Get.toNamed(Approute_insuranceLandingPage);
+                  //     },
+                  //     theme: 'dark',
+                  //     border: 'bottom',
+                  //     buttonTitle: "travel_insurance".tr,
+                  //     preIconData: Ionicons.pulse_outline,
+                  //     postIconData: Ionicons.chevron_forward,
+                  //   ),
+                  // ),
+                  // addVerticalSpace(flyternSpaceSmall),
+                  // SizedBox(
+                  //   width: double.infinity,
+                  //   child: PrePostIconButton(
+                  //     specialColor: 0,
+                  //     onPressed: () {},
+                  //     theme: 'dark',
+                  //     border: 'bottom',
+                  //     buttonTitle: "extra_miles".tr,
+                  //     preIconData: Ionicons.walk_outline,
+                  //     postIconData: Ionicons.chevron_forward,
+                  //   ),
+                  // ),
+                  // addVerticalSpace(flyternSpaceSmall),
+                  // SizedBox(
+                  //   width: double.infinity,
+                  //   child: PrePostIconButton(
+                  //     specialColor: 0,
+                  //     onPressed: () {},
+                  //     theme: 'dark',
+                  //     border: 'bottom',
+                  //     buttonTitle: "gift_cards".tr,
+                  //     preIconData: Ionicons.gift_outline,
+                  //     postIconData: Ionicons.chevron_forward,
+                  //   ),
+                  // ),
+                  // addVerticalSpace(flyternSpaceSmall),
+                  // SizedBox(
+                  //   width: double.infinity,
+                  //   child: PrePostIconButton(
+                  //     specialColor: 0,
+                  //     onPressed: () {},
+                  //     theme: 'dark',
+                  //     border: 'bottom',
+                  //     buttonTitle: "travel_tips".tr,
+                  //     preIconData: Ionicons.trail_sign_outline,
+                  //     postIconData: Ionicons.chevron_forward,
+                  //   ),
+                  // ),
+                  addVerticalSpace(flyternSpaceSmall),
+                  SizedBox(
+                    width: double.infinity,
+                    child: PrePostIconButton(
+                      specialColor: 0,
+                      onPressed: () {
+                        Get.toNamed(Approute_coreAppSettings);
+                      },
+                      theme: 'dark',
+                      border: 'bottom',
+                      buttonTitle: "app_settings".tr,
+                      preIconData: Ionicons.settings_outline,
+                      postIconData: Ionicons.chevron_forward,
+                    ),
+                  ),
+                  addVerticalSpace(flyternSpaceSmall),
+                  SizedBox(
+                    width: double.infinity,
+                    child: PrePostIconButton(
+                      specialColor: 0,
+                      onPressed: () {
+                        Get.toNamed(Approute_coreAppInfo);
+                      },
+                      theme: 'dark',
+                      border: 'bottom',
+                      buttonTitle: "info".tr,
+                      preIconData: Ionicons.information_circle_outline,
+                      postIconData: Ionicons.chevron_forward,
+                    ),
+                  ),
+                  addVerticalSpace(flyternSpaceSmall),
+                  SizedBox(
+                    width: double.infinity,
+                    child: PrePostIconButton(
+                      specialColor: 0,
+                      onPressed: () {
+                        launchRatingPage();
+                      },
+                      theme: 'dark',
+                      border:  '',
+                      buttonTitle: "rating".tr,
+                      preIconData: Ionicons.star_outline,
+                      postIconData: Ionicons.chevron_forward,
+                    ),
+                  ),
+
+
+                ],
               ),
             ),
-            Visibility(
-                visible: profileController.userDetails.value.email == "",
-                child: addVerticalSpace(flyternSpaceSmall)),
-            Visibility(
-              visible: profileController.userDetails.value.email == "",
-              child: SizedBox(
-                width: double.infinity,
-                child: PrePostIconButton(
-                  specialColor: 0,
-                  onPressed: () {
-                    Get.toNamed(Approute_coreGuestBookingFinder);
-                  },
-                  theme: 'dark',
-                  border: 'bottom',
-                  buttonTitle: "my_bookings".tr,
-                  preIconData: Ionicons.list_outline,
-                  postIconData: Ionicons.chevron_forward,
-                ),
-              ),
-            ),
-            addVerticalSpace(flyternSpaceSmall),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor: 0,
-                onPressed: () {
-                  Get.toNamed(Approute_insuranceLandingPage);
-                },
-                theme: 'dark',
-                border: 'bottom',
-                buttonTitle: "travel_insurance".tr,
-                preIconData: Ionicons.pulse_outline,
-                postIconData: Ionicons.chevron_forward,
-              ),
-            ),
-            addVerticalSpace(flyternSpaceSmall),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor: 0,
-                onPressed: () {},
-                theme: 'dark',
-                border: 'bottom',
-                buttonTitle: "extra_miles".tr,
-                preIconData: Ionicons.walk_outline,
-                postIconData: Ionicons.chevron_forward,
-              ),
-            ),
-            addVerticalSpace(flyternSpaceSmall),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor: 0,
-                onPressed: () {},
-                theme: 'dark',
-                border: 'bottom',
-                buttonTitle: "gift_cards".tr,
-                preIconData: Ionicons.gift_outline,
-                postIconData: Ionicons.chevron_forward,
-              ),
-            ),
-            addVerticalSpace(flyternSpaceSmall),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor: 0,
-                onPressed: () {},
-                theme: 'dark',
-                border: 'bottom',
-                buttonTitle: "travel_tips".tr,
-                preIconData: Ionicons.trail_sign_outline,
-                postIconData: Ionicons.chevron_forward,
-              ),
-            ),
-            addVerticalSpace(flyternSpaceSmall),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor: 0,
-                onPressed: () {
-                  Get.toNamed(Approute_coreAppSettings);
-                },
-                theme: 'dark',
-                border: 'bottom',
-                buttonTitle: "app_settings".tr,
-                preIconData: Ionicons.settings_outline,
-                postIconData: Ionicons.chevron_forward,
-              ),
-            ),
-            addVerticalSpace(flyternSpaceSmall),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor: 0,
-                onPressed: () {
-                  Get.toNamed(Approute_coreAppInfo);
-                },
-                theme: 'dark',
-                border: 'bottom',
-                buttonTitle: "info".tr,
-                preIconData: Ionicons.information_circle_outline,
-                postIconData: Ionicons.chevron_forward,
-              ),
-            ),
-            addVerticalSpace(flyternSpaceSmall),
-            SizedBox(
-              width: double.infinity,
-              child: PrePostIconButton(
-                specialColor: 0,
-                onPressed: () {
-                  launchRatingPage();
-                },
-                theme: 'dark',
-                border: profileController.userDetails.value.email != ""
-                    ? 'bottom'
-                    : '',
-                buttonTitle: "rating".tr,
-                preIconData: Ionicons.star_outline,
-                postIconData: Ionicons.chevron_forward,
-              ),
-            ),
-            addVerticalSpace(flyternSpaceSmall),
             Visibility(
               visible: profileController.userDetails.value.email != "",
               child: SizedBox(

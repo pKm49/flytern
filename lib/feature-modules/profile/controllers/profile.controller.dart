@@ -57,7 +57,7 @@ class ProfileController extends GetxController {
   var dob = DefaultInvalidDate.obs;
   var passportExpiry = DefaultInvalidDate.obs;
   var editCoPaxId = 0.obs;
-  var gender = "Male".obs;
+  var gender = "0".obs;
   var nationalityCode = "".obs;
   var passportIssuedCountryCode = "".obs;
   var isMyBookingsLoading = false.obs;
@@ -108,7 +108,7 @@ class ProfileController extends GetxController {
     super.onInit();
     getUserDetails();
     travelStoryController.getUserTravelStories();
-    coPaxController.getUserCoPassengers();
+
   }
 
 
@@ -151,6 +151,7 @@ class ProfileController extends GetxController {
     }
 
     isProfileDataLoading.value = false;
+    coPaxController.getUserCoPassengers();
   }
 
   void changeGender(Gender newGender) {

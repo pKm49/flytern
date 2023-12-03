@@ -71,7 +71,7 @@ class _CountrySelectorState extends State<CountrySelector> {
                     InkWell(
                       onTap: () async {
                         if(  widget.isGlobal == true){
-                          await sharedController.changeCountry(
+                          await sharedController.changeMobileCountry(
                               widget.isMobile?
                               sharedController.mobileCountriesToShow[i]:
                               sharedController.countriesToShow[i]);

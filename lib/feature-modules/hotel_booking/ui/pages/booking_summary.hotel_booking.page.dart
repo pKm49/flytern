@@ -46,11 +46,15 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
           body: Stack(
             children: [
               Visibility(
-                  visible: hotelBookingController
+                  visible:  hotelBookingController
+                      .isHotelConfirmationDataLoading.value ||
+                      hotelBookingController
+                          .isHotelGatewayStatusCheckLoading.value ||
+                      hotelBookingController
                       .isHotelTravellerDataSaveLoading.value,
                   child: Container(
                     width: screenwidth,
-                    height: screenheight * .8,
+                    height: screenheight * .9,
                     color: flyternGrey10,
                     child: Center(
                         child: LoadingAnimationWidget.prograssiveDots(
@@ -60,7 +64,11 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                   )),
 
               Visibility(
-                visible: !hotelBookingController
+                visible: ! hotelBookingController
+                    .isHotelConfirmationDataLoading.value &&
+                    !hotelBookingController
+                        .isHotelGatewayStatusCheckLoading.value &&
+                    !hotelBookingController
                     .isHotelTravellerDataSaveLoading.value,
                 child: Container(
                   width: screenwidth,
@@ -359,7 +367,15 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
               ),
             ],
           ),
-            bottomSheet:hotelBookingController.paymentGateways.isEmpty?Container(width: screenwidth,height: 1,): Container(
+            bottomSheet:
+
+            hotelBookingController
+                .isHotelConfirmationDataLoading.value ||
+                hotelBookingController
+                    .isHotelGatewayStatusCheckLoading.value ||
+                hotelBookingController
+                    .isHotelTravellerDataSaveLoading.value ||
+            hotelBookingController.paymentGateways.isEmpty?Container(width: screenwidth,height: 1,): Container(
               width: screenwidth,
               color: flyternBackgroundWhite,
               height: 60 + (flyternSpaceSmall * 2),

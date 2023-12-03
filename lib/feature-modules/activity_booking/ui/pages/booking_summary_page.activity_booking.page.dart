@@ -54,10 +54,14 @@ class _ActivityBookingSummaryPageState
           body: Stack(
             children: [
               Visibility(
-                  visible: activityBookingController.isSaveContactLoading.value,
+                  visible:activityBookingController
+                      .isActivityConfirmationDataLoading.value ||
+                       activityBookingController
+                          .isActivityGatewayStatusCheckLoading.value ||
+                      activityBookingController.isSaveContactLoading.value,
                   child: Container(
                     width: screenwidth,
-                    height: screenheight * .8,
+                    height: screenheight * .9,
                     color: flyternGrey10,
                     child: Center(
                         child: LoadingAnimationWidget.prograssiveDots(
@@ -66,7 +70,11 @@ class _ActivityBookingSummaryPageState
                     )),
                   )),
               Visibility(
-                visible: !activityBookingController.isSaveContactLoading.value,
+                visible: !activityBookingController
+                    .isActivityConfirmationDataLoading.value &&
+                    !activityBookingController
+                        .isActivityGatewayStatusCheckLoading.value &&
+                    !activityBookingController.isSaveContactLoading.value,
                 child: Container(
                   width: screenwidth,
                   height: screenheight,
@@ -348,7 +356,16 @@ class _ActivityBookingSummaryPageState
               ),
             ],
           ),
-          bottomSheet:activityBookingController.paymentGateways.isEmpty?Container(width: screenwidth,height: 1): Container(
+          bottomSheet:
+
+          activityBookingController
+              .isActivityConfirmationDataLoading.value ||
+              activityBookingController
+                  .isActivityGatewayStatusCheckLoading.value ||
+              activityBookingController.isSaveContactLoading.value ||
+          activityBookingController.paymentGateways.isEmpty?
+
+          Container(width: screenwidth,height: 1): Container(
             width: screenwidth,
             color: flyternBackgroundWhite,
             height: 60 + (flyternSpaceSmall * 2),

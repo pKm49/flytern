@@ -65,6 +65,10 @@ class SharedController extends GetxController {
   var currentInfoTitle = "About Us".obs;
   var currentInfoType = InfoType.ABOUTUS.obs;
 
+
+  var paymentGatewayIsLoading = true.obs;
+  var paymentGatewayIsBackConfirmed = false.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -359,5 +363,19 @@ class SharedController extends GetxController {
   void resetCountryList() {
     mobileCountriesToShow.value = mobileCountries;
     countriesToShow.value = countries;
+  }
+
+  paymentGatewayGoback(bool status, String summaryPageUrl){
+    print("paymentGatewayGoback");
+      Get.back(result: status);
+  }
+
+  void changePaymentGatewayLoading(bool status) {
+    paymentGatewayIsLoading.value = status;
+  }
+
+  void changePaymentGatewayBackConfirmation() {
+    paymentGatewayIsBackConfirmed.value = !paymentGatewayIsBackConfirmed.value;
+
   }
 }

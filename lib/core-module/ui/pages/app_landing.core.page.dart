@@ -4,6 +4,7 @@ import 'package:flytern/core-module/ui/components/drawer_menu.core.component.dar
 import 'package:flytern/feature-modules/activity_booking/ui/pages/landing_page.activity_booking.page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/landing.flight_booking.page.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/landing.hotel_booking.page.dart';
+import 'package:flytern/feature-modules/insurance/ui/pages/landing.insurance.page.dart';
 import 'package:flytern/feature-modules/packages/ui/pages/landing.packages.page.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile.controller.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/landing.profile.page.dart';
@@ -29,7 +30,7 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
     const FlightBookingLandingPage(),
     const HotelBookingLandingPage(),
     const PackageBookingLandingPage(),
-    const ActivityBookingLandingPage(),
+    const InsuranceLandingPage(),
     const ProfileLandingPage()
   ];
   String pageTitle = "flights";
@@ -157,14 +158,26 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
                 BottomNavigationBarItem(
                   icon: Padding(
                     padding: const EdgeInsets.only(bottom:flyternSpaceExtraSmall),
-                    child: Icon(Icons.local_activity_outlined ),
+                    child: Icon(Icons.monitor_heart_outlined ),
                   ),
                   activeIcon: Padding(
                     padding: const EdgeInsets.only(bottom:flyternSpaceExtraSmall),
-                    child: Icon(Icons.local_activity ),
+                    child: Icon(Icons.monitor_heart ),
                   ),
-                  label: "activities".tr,
+                  label: "insurance".tr,
                 ),
+
+                // BottomNavigationBarItem(
+                //   icon: Padding(
+                //     padding: const EdgeInsets.only(bottom:flyternSpaceExtraSmall),
+                //     child: Icon(Icons.local_activity_outlined ),
+                //   ),
+                //   activeIcon: Padding(
+                //     padding: const EdgeInsets.only(bottom:flyternSpaceExtraSmall),
+                //     child: Icon(Icons.local_activity ),
+                //   ),
+                //   label: "activities".tr,
+                // ),
 
                 BottomNavigationBarItem(
                   icon: Padding(
@@ -203,7 +216,8 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
         }
       case 3:
         {
-          newTitle = "activities".tr;
+          // newTitle = "activities".tr;
+          newTitle = "insurance".tr;
           break;
         }
       case 4:

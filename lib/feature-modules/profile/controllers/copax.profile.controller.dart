@@ -27,7 +27,7 @@ class CoPaxController extends GetxController {
   Rx<TextEditingController> titleController = TextEditingController().obs;
 
   var profileHttpServices = ProfileHttpServices();
-  var title = "1".obs;
+  var title = "0".obs;
   var selectedTitle = Gender(code: "", name: "", isDefault: false).obs;
   var dob = DefaultInvalidDate.obs;
   var passportExpiry = DefaultInvalidDate.obs;
@@ -74,8 +74,10 @@ class CoPaxController extends GetxController {
   }
 
   initializeAuditData(bool mode) {
+
     isCreation.value = mode;
     gender.value = "0";
+    title.value = "0";
     nationalityController.value.text = "";
     passportCountryController.value.text = "";
     passportExpiryController.value.text = "";

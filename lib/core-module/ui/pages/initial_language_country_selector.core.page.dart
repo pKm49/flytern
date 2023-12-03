@@ -157,13 +157,13 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                                             children: [
                                               Image.network(
                                                   sharedController
-                                                      .selectedCountry.value.flag,
+                                                      .selectedMobileCountry.value.flag,
                                                   width: 30),
                                               addHorizontalSpace(flyternSpaceSmall),
                                               Expanded(
                                                 child: Text(
                                                     sharedController
-                                                        .selectedCountry.value.countryCode,
+                                                        .selectedMobileCountry.value.countryCode,
                                                     style:
                                                         getBodyMediumStyle(context)),
                                               ),

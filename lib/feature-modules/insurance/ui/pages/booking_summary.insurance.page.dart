@@ -44,11 +44,15 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
           body: Stack(
             children: [
               Visibility(
-                  visible: insuranceBookingController
+                  visible:insuranceBookingController
+                      .isInsuranceConfirmationDataLoading.value ||
+                      insuranceBookingController
+                          .isInsuranceGatewayStatusCheckLoading.value ||
+                      insuranceBookingController
                       .isInsuranceSaveTravellerLoading.value,
                   child: Container(
                     width: screenwidth,
-                    height: screenheight * .8,
+                    height: screenheight * .9,
                     color: flyternGrey10,
                     child: Center(
                         child: LoadingAnimationWidget.prograssiveDots(
@@ -59,6 +63,12 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
 
               Visibility(
                 visible: !insuranceBookingController
+                    .isInsuranceConfirmationDataLoading.value &&
+                    !insuranceBookingController
+                        .isInsuranceConfirmationDataLoading.value &&
+                    !insuranceBookingController
+                        .isInsuranceGatewayStatusCheckLoading.value &&
+                    !insuranceBookingController
                     .isInsuranceSaveTravellerLoading.value,
                 child: Container(
                   width: screenwidth,
@@ -326,7 +336,14 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
               ),
             ],
           ),
-          bottomSheet: insuranceBookingController.paymentGateways.isEmpty?Container(width: screenwidth,height: 1,):Container(
+          bottomSheet:
+          insuranceBookingController
+              .isInsuranceConfirmationDataLoading.value ||
+              insuranceBookingController
+                  .isInsuranceGatewayStatusCheckLoading.value ||
+              insuranceBookingController
+                  .isInsuranceSaveTravellerLoading.value ||
+          insuranceBookingController.paymentGateways.isEmpty?Container(width: screenwidth,height: 1,):Container(
             width: screenwidth,
             color: flyternBackgroundWhite,
             height: 60+(flyternSpaceSmall*2),

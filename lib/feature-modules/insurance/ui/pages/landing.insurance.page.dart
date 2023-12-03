@@ -44,9 +44,9 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
     double screenheight = MediaQuery.of(context).size.height;
      return Obx(
       () => Scaffold(
-          appBar: AppBar(
-            title: Text('travel_insurance'.tr),
-          ),
+          // appBar: AppBar(
+          //   title: Text('travel_insurance'.tr),
+          // ),
           body: Stack(
             children: [
               Visibility(

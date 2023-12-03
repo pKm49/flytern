@@ -33,6 +33,7 @@ class InsuranceBookingController extends GetxController {
   var insurancePriceGetBody = mapInsurancePriceGetBody({}).obs;
 
   var bookingRef = "".obs;
+  var paymentRef = "".obs;
   var mobileCntry = "".obs;
   var mobileNumber = "".obs;
   var email = "".obs;
@@ -57,7 +58,6 @@ class InsuranceBookingController extends GetxController {
   var policyDate = DefaultInvalidDate.obs;
   var selectedTravelInfo = <InsuranceTravellerInfo>[].obs;
 
-
   Rx<TextEditingController> policyDateController = TextEditingController().obs;
   var paymentGateways = <PaymentGateway>[].obs;
   var selectedPaymentGateway = mapPaymentGateway({}).obs;
@@ -69,26 +69,23 @@ class InsuranceBookingController extends GetxController {
   }
 
   Future<void> getInitialInfo() async {
-
-    if(insuranceInitialData.value.lstPolicyType.isNotEmpty) {
+    if (insuranceInitialData.value.lstPolicyType.isNotEmpty) {
       await Future.delayed(const Duration(seconds: 1));
     }
-      isInitialDataLoading.value = true;
+    isInitialDataLoading.value = true;
 
-      InsuranceInitialData tempInsuranceInitialData =
-      await insuranceBookingHttpService.getInitialInfo();
+    InsuranceInitialData tempInsuranceInitialData =
+        await insuranceBookingHttpService.getInitialInfo();
 
-      if (tempInsuranceInitialData.lstPolicyHeaderType.isNotEmpty) {
-        insuranceInitialData.value = tempInsuranceInitialData;
-        policyDateController.value.text =
-            getFormattedDate(insuranceInitialData.value.minPolicyDate);
-        policyDate.value = insuranceInitialData.value.minPolicyDate;
-        getInitialPrice();
-      }
+    if (tempInsuranceInitialData.lstPolicyHeaderType.isNotEmpty) {
+      insuranceInitialData.value = tempInsuranceInitialData;
+      policyDateController.value.text =
+          getFormattedDate(insuranceInitialData.value.minPolicyDate);
+      policyDate.value = insuranceInitialData.value.minPolicyDate;
+      getInitialPrice();
+    }
 
-      isInitialDataLoading.value = false;
-
-
+    isInitialDataLoading.value = false;
   }
 
   Future<void> getPrice(InsurancePriceGetBody tempInsurancePriceGetBody) async {
@@ -119,7 +116,6 @@ class InsuranceBookingController extends GetxController {
         break;
       }
 
-
       if (travelInfo[i].dateOfBirth == DefaultInvalidDate) {
         validityString = "enter_dob_copax"
             .tr
@@ -127,7 +123,6 @@ class InsuranceBookingController extends GetxController {
 
         break;
       }
-
 
       if (travelInfo[i].nationalityCode == "") {
         validityString = "enter_nationality_copax"
@@ -161,7 +156,7 @@ class InsuranceBookingController extends GetxController {
       selectedTravelInfo.value = travelInfo;
       String tempBookingRef = "";
 
-       InsuranceTravellerData insuranceTravellerData = InsuranceTravellerData(
+      InsuranceTravellerData insuranceTravellerData = InsuranceTravellerData(
           covid: policyHeaderObj.value.id,
           policyType: policyTypeObj.value.id,
           contributor: contributor.value,
@@ -180,9 +175,8 @@ class InsuranceBookingController extends GetxController {
       isInsuranceSaveTravellerLoading.value = false;
       if (tempBookingRef != "") {
         bookingRef.value = tempBookingRef;
-        getPaymentGateways(false,bookingRef.value);
+        getPaymentGateways(false, bookingRef.value);
       } else {
-
         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
       }
     }
@@ -284,7 +278,6 @@ class InsuranceBookingController extends GetxController {
   }
 
   getUserId(InsuranceTravellerInfo travelInfo, int index) {
-
     for (var element in insuranceInitialData.value.lstPolicyRelationship) {
       if (element.id == travelInfo.relationshipCode) {
         return element.name;
@@ -306,21 +299,20 @@ class InsuranceBookingController extends GetxController {
     isSmartPaymentCheckLoading.value = true;
 
     bool isSuccess =
-    await insuranceBookingHttpService.checkSmartPayment(tempBookingRef);
+        await insuranceBookingHttpService.checkSmartPayment(tempBookingRef);
 
     if (isSuccess) {
       bookingRef.value = tempBookingRef;
-      getPaymentGateways(true,tempBookingRef);
+      getPaymentGateways(true, tempBookingRef);
     } else {
       isSmartPaymentCheckLoading.value = false;
       showSnackbar(Get.context!, "couldnt_find_booking".tr, "error");
     }
   }
 
-
-  Future<void> getPaymentGateways(bool isSmartpayment, String tempBookingRef) async {
-
-    if(isSmartpayment){
+  Future<void> getPaymentGateways(
+      bool isSmartpayment, String tempBookingRef) async {
+    if (isSmartpayment) {
       bookingRef.value = tempBookingRef;
     }
     isInsuranceSaveTravellerLoading.value = true;
@@ -339,7 +331,7 @@ class InsuranceBookingController extends GetxController {
     }
 
     Get.toNamed(Approute_insuranceSummary);
-    isSmartPaymentCheckLoading.value= false;
+    isSmartPaymentCheckLoading.value = false;
     isInsuranceSaveTravellerLoading.value = false;
   }
 
@@ -348,28 +340,23 @@ class InsuranceBookingController extends GetxController {
 
     PaymentGatewayUrlData paymentGatewayUrlData =
         await insuranceBookingHttpService.setPaymentGateway(
-            selectedPaymentGateway.value.processID, selectedPaymentGateway.value.paymentCode, bookingRef.value);
+            selectedPaymentGateway.value.processID,
+            selectedPaymentGateway.value.paymentCode,
+            bookingRef.value);
 
     gatewayUrl.value = paymentGatewayUrlData.gatewayUrl;
     confirmationUrl.value = paymentGatewayUrlData.confirmationUrl;
+    paymentRef.value = paymentGatewayUrlData.paymentRef;
 
     if (gatewayUrl.value != "") {
-      // Get.toNamed(Approute_paymentPage,
-      //         arguments: [gatewayUrl.value, confirmationUrl.value])
-      //     ?.then((value) {
-      //       if(value){
-      //         checkGatewayStatus();
-      //       }else{
-      //         Get.offAllNamed(Approute_flightsSummary,
-      //             predicate: (route) => Get.currentRoute == Approute_userDetailsSubmission);
-      //         showSnackbar(Get.context!, "payment_capture_error".tr,"error");
-      //       }
-      //
-      // });
+      Get.toNamed(Approute_paymentPage,
+          arguments: [gatewayUrl.value, confirmationUrl.value, Approute_insuranceSummary])?.then((value) {
+        checkGatewayStatus();
 
-      checkGatewayStatus();
+      });
+
+      // checkGatewayStatus();
     } else {
-
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
 
@@ -379,24 +366,21 @@ class InsuranceBookingController extends GetxController {
   Future<void> checkGatewayStatus() async {
     isInsuranceGatewayStatusCheckLoading.value = true;
     bool isSuccess =
-        await insuranceBookingHttpService.checkGatewayStatus(bookingRef.value);
+        await insuranceBookingHttpService.checkGatewayStatus(paymentRef.value);
 
     if (isSuccess) {
       showSnackbar(Get.context!, "payment_capture_success".tr, "info");
-      getConfirmationData(bookingRef.value,false);
+      getConfirmationData(bookingRef.value, false);
     } else {
-      int iter = 0;
-      Get.offNamedUntil(Approute_insuranceSummary, (route) {
-
-        return ++iter == 1;
-      });
+      getPaymentGateways(false, bookingRef.value);
       showSnackbar(Get.context!, "payment_capture_error".tr, "error");
     }
 
     isInsuranceGatewayStatusCheckLoading.value = false;
   }
 
-  Future<void> getConfirmationData(String bookingRef,bool isBookingFinder) async {
+  Future<void> getConfirmationData(
+      String bookingRef, bool isBookingFinder) async {
     isInsuranceConfirmationDataLoading.value = true;
     bookingInfo.value = [];
     paymentInfo.value = [];
@@ -405,7 +389,6 @@ class InsuranceBookingController extends GetxController {
     isIssued.value = false;
     PaymentConfirmationData paymentConfirmationData =
         await insuranceBookingHttpService.getConfirmationData(bookingRef);
-
 
     if (paymentConfirmationData.isSuccess) {
       pdfLink.value = paymentConfirmationData.pdfLink;
@@ -416,27 +399,25 @@ class InsuranceBookingController extends GetxController {
       alert.value = paymentConfirmationData.alertMsg;
       // confirmationMessage.value = paymentConfirmationData.alertMsg;
 
-      if(isBookingFinder){
+      if (isBookingFinder) {
         Get.toNamed(Approute_insuranceConfirmation, arguments: [
           {"mode": "edit"}
         ]);
-      }else{
+      } else {
         showSnackbar(Get.context!, "insurance_booking_success".tr, "info");
         int iter = 0;
-        Get.offNamedUntil(Approute_insuranceConfirmation,arguments:[
+        Get.offNamedUntil(Approute_insuranceConfirmation, arguments: [
           {"mode": "view"}
         ], (route) {
-
           return ++iter == 3;
         });
       }
     } else {
-      if(!isBookingFinder){
+      if (!isBookingFinder) {
         showSnackbar(Get.context!, "booking_failed".tr, "error");
 
         int iter = 0;
         Get.offNamedUntil(Approute_insuranceSummary, (route) {
-
           return ++iter == 1;
         });
       }
@@ -455,7 +436,6 @@ class InsuranceBookingController extends GetxController {
 
       if (tempPaymentGateways.isNotEmpty) {
         selectedPaymentGateway.value = tempPaymentGateways[0];
-
       }
     }
   }
@@ -464,8 +444,5 @@ class InsuranceBookingController extends GetxController {
     bookingRef.value = "";
     selectedTravelInfo.value = [];
     Get.offAllNamed(Approute_landingpage);
-
   }
-
-
 }

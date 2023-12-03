@@ -1,9 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
-import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
+import 'package:flytern/shared-module/controllers/shared.controller.dart';
+import 'package:flytern/shared-module/ui/components/confirm_dialogue.shared.component.dart';
 import 'package:get/get.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class PaymentGatewayWebView extends StatefulWidget {
 
@@ -14,11 +16,17 @@ class PaymentGatewayWebView extends StatefulWidget {
 }
 
 class _PaymentGatewayWebViewState extends State<PaymentGatewayWebView> {
-  var controller = WebViewController();
+
+  late InAppWebViewController controller;
+
   String gatewayUrl="";
   String confirmationUrl="";
-  var isLoading = true;
+  String summaryPageUrl="";
+
   var getArguments = Get.arguments;
+  final sharedController = Get.find<SharedController>();
+
+
 
   @override
   void initState() {
@@ -29,69 +37,157 @@ class _PaymentGatewayWebViewState extends State<PaymentGatewayWebView> {
 
   @override
   Widget build(BuildContext context) {
+    double screenwidth = MediaQuery.of(context).size.width;
+    double screenheight = MediaQuery.of(context).size.height;
 
-    return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
-      child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: flyternBackgroundWhite,
-          appBar: AppBar(
-            title: Text('complete_payment'.tr),
-          ),
-          body: Stack(
-            children: [
-              WebViewWidget(controller: controller),
-              isLoading
-                  ? const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.black,
+    return  WillPopScope(
+        onWillPop: () async {
+          return (await showDialog(
+            context: context,
+            builder: (_) => ConfirmDialogue(
+                onClick: () async {
+                  Navigator.of(context).pop(true);
+                },
+                titleKey: 'cancel_booking'.tr + " ?",
+                subtitleKey: 'cancel_confirm'.tr),
+          )
+          ) ?? false;
+
+
+
+        },
+        child: Obx(
+              ()=> Scaffold(
+              resizeToAvoidBottomInset: false,
+              backgroundColor: flyternBackgroundWhite,
+              appBar: AppBar(
+                title: Text('complete_payment'.tr),
+              ),
+              body:  Stack(
+                children: [
+                  Visibility(
+                    visible: sharedController.paymentGatewayIsLoading.value,
+                    child: Container(
+                      width: screenwidth,
+                      height: screenheight,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.black,
+                        ),
                       ),
-                    )
-                  : Stack(),
-            ],
-          )),
-    );
+                    ),
+                  ),
+                  InAppWebView(
+                    initialUrlRequest: URLRequest(url:Uri.parse(gatewayUrl) ),
+                    initialOptions: InAppWebViewGroupOptions(
+                        crossPlatform: InAppWebViewOptions(
+
+                        )
+                    ),
+                    onReceivedServerTrustAuthRequest: (controller, challenge) async {
+                      return ServerTrustAuthResponse(action: ServerTrustAuthResponseAction.PROCEED);
+                    },
+                    onWebViewCreated: (InAppWebViewController controller) {
+                      controller = controller;
+                    },
+                    onUpdateVisitedHistory: (InAppWebViewController controller, Uri? url, bool? flag) {
+                      print("onUpdateVisitedHistory");
+                      print(url);
+                      print(flag);
+                      if(url.toString().contains(confirmationUrl) ){
+                        setBack(true);
+                      }
+                    },
+                    onLoadStart: (InAppWebViewController controller, Uri? url) {
+                        print("onLoadStart");
+                        print(url);
+                    },
+                    onLoadStop: (InAppWebViewController controller, Uri? url) async {
+                      print("onLoadStop");
+                      print(url);
+                      sharedController.changePaymentGatewayLoading(false);
+                    },
+                    onProgressChanged: (InAppWebViewController controller, int progress) {
+                      print("onProgressChanged");
+                      print(progress);
+                      if(progress == 100){
+                        sharedController.changePaymentGatewayLoading(false);
+                      }else{
+                        sharedController.changePaymentGatewayLoading(true);
+                      }
+
+                    },
+                  ),
+                ],
+              )),
+        ),
+      );
+
   }
 
   void setWebviewController() {
     gatewayUrl = getArguments[0];
     confirmationUrl = getArguments[1];
-    controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0x00000000))
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {
-            // Update loading bar.
-          },
-          onPageStarted: (String url) {},
-          onPageFinished: (String url) {
-            setState(() {
-              isLoading = false;
-            });
-          },
-          onWebResourceError: (WebResourceError error) {},
-          onNavigationRequest: (NavigationRequest request) {
-             if (request.url
-                .contains('https://api2.poundkw.com/api/payment/success')) {
-              Future.delayed(const Duration(seconds: 1), () {
-                //asynchronous delay
-                // Get.until((route) => Get.currentRoute == '/OrderComplete');
-                Get.back(result: true);
+    summaryPageUrl = getArguments[2];
+    // controller = WebViewController()
+    //   ..setJavaScriptMode(JavaScriptMode.unrestricted)
+    //   ..setBackgroundColor(const Color(0x00000000))
+    //   ..setNavigationDelegate(
+    //     NavigationDelegate(
+    //       onProgress: (int progress) {
+    //         // Update loading bar.
+    //       },
+    //       onPageStarted: (String url) {},
+    //       onPageFinished: (String url) {
+    //         print("onPageFinished");
+    //         print(url);
+    //         setState(() {
+    //           isLoading = false;
+    //         });
+    //       },
+    //       onWebResourceError: (WebResourceError error) {
+    //         print("WebResourceError");
+    //         print(error);
+    //       },
+    //       onNavigationRequest: (NavigationRequest request) {
+    //         print("NavigationRequest");
+    //         print(request.url);
+    //          if (request.url
+    //             .contains(confirmationUrl)) {
+    //           Future.delayed(const Duration(seconds: 1), () {
+    //             //asynchronous delay
+    //             // Get.until((route) => Get.currentRoute == '/OrderComplete');
+    //             Get.back(result: true);
+    //
+    //           });
+    //         }else{
+    //           Get.back(result: false);
+    //
+    //         }
+    //         return NavigationDecision.navigate;
+    //       },
+    //     ),
+    //   );
+    // controller.loadRequest(Uri.parse(gatewayUrl));
 
-              });
-            }else{
-              Get.back(result: false);
 
-            }
-            return NavigationDecision.navigate;
-          },
-        ),
-      );
+  }
 
-    controller.loadRequest(Uri.parse(gatewayUrl));
+
+  handleError(e) {
+    print("catch error");
+    print(e);
+  }
+
+  Future<void> setBack(bool status) async {
+
+    sharedController.changePaymentGatewayLoading(false);
+    sharedController.changePaymentGatewayBackConfirmation();
+    setState(() {
+    });
+
+    await Future.delayed(const Duration(seconds: 2));
+    sharedController.paymentGatewayGoback(status,summaryPageUrl);
 
   }
 }

@@ -129,6 +129,7 @@ class FlightBookingController extends GetxController {
   var sortingDc = SortingDcs(value: "-1", name: "", isDefault: false).obs;
 
   var bookingRef = "".obs;
+  var paymentRef = "".obs;
   var isSeatSelection = false.obs;
   var isMealSelection = false.obs;
   var isExtraBaggageSelection = false.obs;
@@ -475,43 +476,39 @@ class FlightBookingController extends GetxController {
 
     gatewayUrl.value = paymentGatewayUrlData.gatewayUrl;
     confirmationUrl.value = paymentGatewayUrlData.confirmationUrl;
+    paymentRef.value = paymentGatewayUrlData.paymentRef;
 
     if (gatewayUrl.value != "") {
-      // Get.toNamed(Approute_paymentPage,
-      //         arguments: [gatewayUrl.value, confirmationUrl.value])
-      //     ?.then((value) {
-      //       if(value){
-      //         checkGatewayStatus();
-      //       }else{
-      //         Get.offAllNamed(Approute_flightsSummary,
-      //             predicate: (route) => Get.currentRoute == Approute_userDetailsSubmission);
-      //         showSnackbar(Get.context!, "payment_capture_error".tr,"error");
-      //       }
-      //
-      // });
 
-      checkGatewayStatus();
+      Get.toNamed(Approute_paymentPage,
+              arguments: [gatewayUrl.value, confirmationUrl.value,Approute_flightsSummary])
+          ?.then((value) {
+            print("Get back from Approute_paymentPage");
+            print("value");
+            print(value);
+            isFlightSavePaymentGatewayLoading.value = false;
+            checkGatewayStatus();
+
+      });
+
+      // checkGatewayStatus();
     } else {
+      isFlightSavePaymentGatewayLoading.value = false;
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
 
-    isFlightSavePaymentGatewayLoading.value = false;
   }
 
   Future<void> checkGatewayStatus() async {
     isFlightGatewayStatusCheckLoading.value = true;
     bool isSuccess =
-        await flightBookingHttpService.checkGatewayStatus(bookingRef.value);
+        await flightBookingHttpService.checkGatewayStatus(paymentRef.value);
 
     if (isSuccess) {
-      showSnackbar(Get.context!, "payment_capture_success".tr, "info");
+      // showSnackbar(Get.context!, "payment_capture_success".tr, "info");
       getConfirmationData(bookingRef.value, false);
     } else {
-      int iter = 0;
-      Get.offNamedUntil(Approute_flightsSummary, (route) {
-
-        return ++iter == 1;
-      });
+      getPaymentGateways(false, bookingRef.value);
       showSnackbar(Get.context!, "payment_capture_error".tr, "error");
     }
 

@@ -74,6 +74,7 @@ class HotelBookingController extends GetxController {
   var selectedDestination = mapHotelDestination({}).obs;
   var destination = "".obs;
   var bookingRef = "".obs;
+  var paymentRef = "".obs;
   var priceUnit = "KWD".obs;
   var selectedRoomSelectionIndex = 0.obs;
    var hotelId = (-1).obs;
@@ -408,22 +409,17 @@ class HotelBookingController extends GetxController {
 
     gatewayUrl.value = paymentGatewayUrlData.gatewayUrl;
     confirmationUrl.value = paymentGatewayUrlData.confirmationUrl;
+    paymentRef.value = paymentGatewayUrlData.paymentRef;
 
     if (gatewayUrl.value != "") {
-      // Get.toNamed(Approute_paymentPage,
-      //         arguments: [gatewayUrl.value, confirmationUrl.value])
-      //     ?.then((value) {
-      //       if(value){
-      //         checkGatewayStatus();
-      //       }else{
-      //         Get.offAllNamed(Approute_hotelsSummary,
-      //             predicate: (route) => Get.currentRoute == Approute_userDetailsSubmission);
-      //         showSnackbar(Get.context!, "payment_capture_error".tr,"error");
-      //       }
-      //
-      // });
+      Get.toNamed(Approute_paymentPage,
+              arguments: [gatewayUrl.value, confirmationUrl.value,Approute_hotelsSummary])
+          ?.then((value) {
+        checkGatewayStatus();
 
-      checkGatewayStatus();
+      });
+
+      // checkGatewayStatus();
     } else {
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
@@ -434,17 +430,13 @@ class HotelBookingController extends GetxController {
   Future<void> checkGatewayStatus() async {
     isHotelGatewayStatusCheckLoading.value = true;
     bool isSuccess =
-        await hotelBookingHttpService.checkGatewayStatus(bookingRef.value);
+        await hotelBookingHttpService.checkGatewayStatus(paymentRef.value);
 
     if (isSuccess) {
       showSnackbar(Get.context!, "payment_capture_success".tr, "info");
       getConfirmationData(bookingRef.value,false);
     } else {
-      int iter = 0;
-      Get.offNamedUntil(Approute_hotelsSummary, (route) {
-
-        return ++iter == 1;
-      });
+      getPaymentGateways(false, bookingRef.value);
       showSnackbar(Get.context!, "payment_capture_error".tr, "error");
     }
 
