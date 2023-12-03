@@ -6,7 +6,6 @@ import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.
 import 'package:flytern/shared-module/constants/business_specific/info_types.shared.constant.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class DocumentPage extends StatefulWidget {
   const DocumentPage({super.key});

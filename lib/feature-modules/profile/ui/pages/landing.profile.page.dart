@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/core-module/controllers/core.controller.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
-import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
@@ -21,7 +19,6 @@ class ProfileLandingPage extends StatefulWidget {
 }
 
 class _ProfileLandingPageState extends State<ProfileLandingPage> {
-
   final profileController = Get.find<ProfileController>();
 
   @override
@@ -33,13 +30,13 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
       height: screenheight,
       width: screenwidth,
       color: flyternGrey10,
-      child:Obx(
-            ()=>  ListView(
+      child: Obx(
+        () => ListView(
           children: [
             Visibility(
-              visible: profileController.userDetails.value.email!="",
+              visible: profileController.userDetails.value.email != "",
               child: Container(
-                width: screenwidth  ,
+                width: screenwidth,
                 padding: flyternLargePaddingAll,
                 margin: flyternMediumPaddingVertical,
                 decoration: BoxDecoration(
@@ -48,35 +45,49 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                 child: Row(
                   children: [
                     Container(
-                      height: screenwidth*.22,
-                      width: screenwidth*.22,
+                      height: screenwidth * .22,
+                      width: screenwidth * .22,
                       clipBehavior: Clip.hardEdge,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(1000),
                       ),
-                      child:profileController.userDetails.value.imgUrl !=""?
-                      Image.network(profileController.userDetails.value.imgUrl,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Icon(Ionicons.person_circle,size: screenwidth*.2);
-                        },)
-                          :Icon(Ionicons.person_circle,size: screenwidth*.2) ,
+                      child: profileController.userDetails.value.imgUrl != ""
+                          ? Image.network(
+                              profileController.userDetails.value.imgUrl,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Icon(Ionicons.person_circle,
+                                    size: screenwidth * .2);
+                              },
+                            )
+                          : Icon(Ionicons.person_circle,
+                              size: screenwidth * .2),
                     ),
                     addHorizontalSpace(flyternSpaceMedium),
-                    Expanded(child:
-                    Column(
+                    Expanded(
+                        child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("${profileController.userDetails.value.firstName} ${profileController.userDetails.value.lastName}",style: getHeadlineMediumStyle(context).copyWith(  color: flyternGrey80),),
+                        Text(
+                          "${profileController.userDetails.value.firstName} ${profileController.userDetails.value.lastName}",
+                          style: getHeadlineMediumStyle(context)
+                              .copyWith(color: flyternGrey80),
+                        ),
                         addVerticalSpace(flyternSpaceExtraSmall),
-                        Text("${profileController.userDetails.value.email}",style: getLabelLargeStyle(context).copyWith(color: flyternGrey40),),
-                        addVerticalSpace(flyternSpaceSmall*1.5),
+                        Text(
+                          "${profileController.userDetails.value.email}",
+                          style: getLabelLargeStyle(context)
+                              .copyWith(color: flyternGrey40),
+                        ),
+                        addVerticalSpace(flyternSpaceSmall * 1.5),
                         InkWell(
-                            onTap: (){
+                            onTap: () {
                               Get.toNamed(Approute_profileViewProfile);
                             },
-                            child: Text("view_profile".tr,style: getBodyMediumStyle(context).copyWith(color: flyternPrimaryColor,decoration: TextDecoration.underline))),
-
+                            child: Text("view_profile".tr,
+                                style: getBodyMediumStyle(context).copyWith(
+                                    color: flyternPrimaryColor,
+                                    decoration: TextDecoration.underline))),
                       ],
                     ))
                   ],
@@ -84,7 +95,7 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
               ),
             ),
             Visibility(
-              visible: profileController.userDetails.value.email!="",
+              visible: profileController.userDetails.value.email != "",
               child: Container(
                 color: flyternBackgroundWhite,
                 padding: flyternLargePaddingHorizontal,
@@ -97,7 +108,6 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                         specialColor: 0,
                         onPressed: () {
                           Get.toNamed(Approute_profileMyBookings);
-
                         },
                         theme: 'dark',
                         border: 'bottom',
@@ -113,7 +123,6 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                         specialColor: 0,
                         onPressed: () {
                           Get.toNamed(Approute_profileMyTravelStories);
-
                         },
                         theme: 'dark',
                         border: 'bottom',
@@ -144,7 +153,6 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                         specialColor: 0,
                         onPressed: () {
                           Get.toNamed(Approute_profileEditMobile);
-
                         },
                         theme: 'dark',
                         border: 'bottom',
@@ -175,7 +183,6 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                         specialColor: 0,
                         onPressed: () {
                           Get.toNamed(Approute_profileEditProfile);
-
                         },
                         theme: 'dark',
                         border: 'bottom',
@@ -191,7 +198,6 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                         specialColor: 0,
                         onPressed: () {
                           Get.toNamed(Approute_profileResetPassword);
-
                         },
                         theme: 'dark',
                         border: 'bottom',
@@ -223,39 +229,46 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
               ),
             ),
             Visibility(
-                visible: profileController.userDetails.value.email=="",
+                visible: profileController.userDetails.value.email == "",
                 child: Container(
-                  padding: flyternLargePaddingAll ,
+                  padding: flyternLargePaddingAll,
                   color: flyternBackgroundWhite,
                   margin: flyternLargePaddingVertical,
-                  height: screenheight*.25,
+                  height: screenheight * .25,
                   width: screenwidth,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("sign_in_message".tr,style: getHeadlineMediumStyle(context),textAlign: TextAlign.center),
+                      Text("sign_in_message".tr,
+                          style: getHeadlineMediumStyle(context),
+                          textAlign: TextAlign.center),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Expanded(
                             child: ElevatedButton(
-                              child:   Text("sign_in".tr),
+                              child: Text("sign_in".tr),
                               onPressed: () async {
-                                Get.toNamed(Approute_login,
-                                    arguments: [true]);
+                                Get.toNamed(Approute_login, arguments: [true]);
                               },
                               style: getElevatedButtonStyle(context).copyWith(
-                                  backgroundColor: MaterialStateProperty.all<Color>(flyternSecondaryColor)
-                              ),),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          flyternSecondaryColor)),
+                            ),
                           ),
-                          SizedBox(height: flyternSpaceMedium,width: 20,),
+                          SizedBox(
+                            height: flyternSpaceMedium,
+                            width: 20,
+                          ),
                           Expanded(
-                            child: ElevatedButton(style: getElevatedButtonStyle(context),
+                            child: ElevatedButton(
+                                style: getElevatedButtonStyle(context),
                                 onPressed: () async {
                                   Get.toNamed(Approute_registerPersonalData);
                                 },
-                                child:Text("create_account".tr )),
+                                child: Text("create_account".tr)),
                           ),
                         ],
                       ),

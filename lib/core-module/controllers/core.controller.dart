@@ -27,7 +27,6 @@ class CoreController extends GetxController {
     super.onInit();
   }
 
-
   getNotifications() async {
     isNotificationsLoading.value = true;
     var coreHttpServices = CoreHttpServices();

@@ -355,20 +355,6 @@ class HotelBookingController extends GetxController {
     }
   }
 
-  checkSmartPayment(String tempBookingRef) async {
-    isSmartPaymentCheckLoading.value = true;
-
-    bool isSuccess =
-        await hotelBookingHttpService.checkSmartPayment(tempBookingRef);
-
-    if (isSuccess) {
-      bookingRef.value = tempBookingRef;
-      getPaymentGateways(true, tempBookingRef);
-    } else {
-      isSmartPaymentCheckLoading.value = false;
-      showSnackbar(Get.context!, "couldnt_find_booking".tr, "error");
-    }
-  }
 
   Future<void> getPaymentGateways(
       bool isSmartpayment, String tempBookingRef) async {

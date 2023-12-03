@@ -310,29 +310,6 @@ class ActivityBookingHttpService {
 
   }
 
-  Future<bool> checkSmartPayment(String bookingRef) async {
-
-    try{
-
-      FlyternHttpResponse response = await postRequest(
-          FlightBookingHttpRequestEndpointSmartPayment,
-          {"bookingRef": bookingRef});
-
-      if (response.success && response.statusCode == 200) {
-        if (response.data != null) {
-          if (response.data["isSuccess"] != null) {
-            return response.data["isSuccess"];
-          }
-        }
-      }
-
-      return false;
-    }catch (e){
-      return false;
-    }
-
-  }
-
   Future<GetGatewayData> getPaymentGateways(
       String bookingRef) async {
     List<PaymentGateway> paymentGateways = [];

@@ -64,7 +64,7 @@ class CoreHttpServices {
   Future<ServiceBookingStatus> findBooking(
       String bookingRef, String email) async {
     bool isSuccess = false;
-    String servicetype = "FLIGHT";
+    String servicetype = ServiceType.FLIGHT.name;
 
     try {
       FlyternHttpResponse response =
@@ -93,6 +93,5 @@ class CoreHttpServices {
           isSuccess: isSuccess, servicetype: servicetype);
     }
   }
-
 
 }
