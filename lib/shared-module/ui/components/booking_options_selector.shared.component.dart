@@ -90,7 +90,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                 fontWeight: flyternFontWeightBold),
                             textAlign: TextAlign.center),
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             Navigator.pop(context);
                           },
                           child: Text("cancel".tr,
@@ -144,7 +144,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                   onTap: () {
                                     if (adultCount > 1) {
                                       setState(() {
-                                        adultCount--;
+                                        reduceAdultCount();
                                       });
                                     }
                                   },
@@ -161,7 +161,9 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                     child: InkWell(
                                   onTap: () {
                                     setState(() {
-                                      adultCount++;
+                                      if (  getAdultMaxCountConditionStatusMet()) {
+                                        adultCount++;
+                                      }
                                     });
                                   },
                                   child: Icon(CupertinoIcons.plus_square,
@@ -190,7 +192,10 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                     style:
                                         getBodyMediumStyle(context).copyWith()),
                                 addVerticalSpace(flyternSpaceExtraSmall),
-                                Text(widget.bookingServiceNumber==1? "children_description".tr:"children_description_hotel".tr,
+                                Text(
+                                    widget.bookingServiceNumber == 1
+                                        ? "children_description".tr
+                                        : "children_description_hotel".tr,
                                     style: getBodyMediumStyle(context)
                                         .copyWith(color: flyternGrey40)),
                               ],
@@ -224,8 +229,11 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                     child: InkWell(
                                   onTap: () {
                                     setState(() {
-                                      childCount++;
-                                      childAges.add(childCount);
+                                      if (  getChildMaxCountConditionStatusMet()) {
+                                        childCount++;
+                                        childAges.add(childCount);
+                                      }
+
                                     });
                                   },
                                   child: Icon(CupertinoIcons.plus_square,
@@ -292,7 +300,9 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                       child: InkWell(
                                     onTap: () {
                                       setState(() {
-                                        infantCount++;
+                                        if (  getInfantMaxCountConditionStatusMet()) {
+                                          infantCount++;
+                                        }
                                       });
                                     },
                                     child: Icon(CupertinoIcons.plus_square,
@@ -308,58 +318,63 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                   Visibility(
                       visible: widget.bookingServiceNumber == 1,
                       child: addVerticalSpace(flyternSpaceExtraSmall)),
-
                   Visibility(
-                      visible:
-                      widget.bookingServiceNumber == 1  ,
+                      visible: widget.bookingServiceNumber == 1,
                       child: Padding(
                           padding: flyternLargePaddingHorizontal,
                           child: Divider())),
                   Visibility(
-                      visible: widget.bookingServiceNumber == 1  ,
+                      visible: widget.bookingServiceNumber == 1,
                       child: addVerticalSpace(flyternSpaceLarge)),
                   Visibility(
-                      visible:childCount>0 && widget.bookingServiceNumber == 2,
-                      child: addVerticalSpace(flyternSpaceLarge*2)),
+                      visible:
+                          childCount > 0 && widget.bookingServiceNumber == 2,
+                      child: addVerticalSpace(flyternSpaceLarge * 2)),
                   for (var i = 0; i < childCount; i++)
                     Visibility(
                       visible: widget.bookingServiceNumber == 2,
                       child: Container(
-                        decoration: BoxDecoration(
-                          border: flyternDefaultBorderBottomOnly
-                        ),
-                          padding: flyternLargePaddingHorizontal.copyWith(bottom: flyternSpaceSmall,
-                          top: flyternSpaceSmall),
+                          decoration: BoxDecoration(
+                              border: flyternDefaultBorderBottomOnly),
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              bottom: flyternSpaceSmall,
+                              top: flyternSpaceSmall),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
-                                flex:2,
-                                child: Text("age_for_child".tr.replaceAll("1",(i+1).toString()),
+                                flex: 2,
+                                child: Text(
+                                    "age_for_child"
+                                        .tr
+                                        .replaceAll("1", (i + 1).toString()),
                                     style: getBodyMediumStyle(context)),
                               ),
                               Expanded(
-                                flex:1,
+                                flex: 1,
                                 child: Container(
                                   decoration:
-                                  flyternBorderedContainerSmallDecoration,
+                                      flyternBorderedContainerSmallDecoration,
                                   padding: flyternMediumPaddingHorizontal,
                                   child: DropDownSelector(
                                     titleText: "",
-                                    selected:"0",
+                                    selected: "0",
                                     items: [
-                                      for(var ind =0; ind<17;ind++)
-                                        GeneralItem(id: ind.toString(),
+                                      for (var ind = 0; ind < 17; ind++)
+                                        GeneralItem(
+                                            id: ind.toString(),
                                             name: ind.toString(),
                                             imageUrl: "")
                                     ],
-                                    hintText:"" ,
+                                    hintText: "",
                                     valueChanged: (newLang) {
                                       List<int> tChildAges = [];
-                                      for(var indx=0;indx<childCount;indx++){
-                                        if(i==indx){
+                                      for (var indx = 0;
+                                          indx < childCount;
+                                          indx++) {
+                                        if (i == indx) {
                                           tChildAges.add(int.parse(newLang));
-                                        }else{
+                                        } else {
                                           tChildAges.add(childAges[i]);
                                         }
                                       }
@@ -370,8 +385,6 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                             ],
                           )),
                     ),
-
-
                   Visibility(
                       visible: widget.bookingServiceNumber == 1,
                       child: addVerticalSpace(flyternSpaceLarge)),
@@ -471,5 +484,48 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
       return flyternSecondaryColor;
     }
     return flyternBackgroundWhite;
+  }
+
+  bool getAdultMaxCountConditionStatusMet() {
+    if (widget.bookingServiceNumber != 1) {
+      return adultCount<6;
+    }
+
+    if(adultCount+childCount+infantCount < 9){
+      return true;
+    }
+    return false;
+  }
+
+  void reduceAdultCount() {
+    adultCount--;
+    if(infantCount>0){
+      infantCount--;
+    }
+    setState(() {
+
+    });
+  }
+
+  bool getChildMaxCountConditionStatusMet() {
+    if (widget.bookingServiceNumber != 1) {
+      return childCount<4;
+    }
+
+    if(adultCount+childCount+infantCount < 9){
+      return true;
+    }
+    return false;
+  }
+
+  bool getInfantMaxCountConditionStatusMet() {
+    if (widget.bookingServiceNumber != 1) {
+      return true;
+    }
+
+    if( adultCount+childCount+infantCount < 9 && infantCount < adultCount){
+      return true;
+    }
+    return false;
   }
 }
