@@ -417,7 +417,7 @@ class _FlightFilterOptionSelectorState
                                               ? widget.availableFilterOptions
                                                   .priceDcs[0].max
                                               : 0);
-                                      i += 100)
+                                      i += getPriceRangeDivision())
                                     Expanded(
                                         child: Text("$i",
                                             textAlign: i <=
@@ -445,7 +445,7 @@ class _FlightFilterOptionSelectorState
                                           .priceDcs.isNotEmpty
                                       ? (widget.availableFilterOptions
                                                   .priceDcs[0].max /
-                                              100)
+                                      getPriceRangeDivision())
                                           .round()
                                       : 3,
                                   activeColor: flyternSecondaryColor,
@@ -674,5 +674,11 @@ class _FlightFilterOptionSelectorState
         departureTimeDcs: [],
         arrivalTimeDcs: [],
         stopDcs: []));
+  }
+
+  num getPriceRangeDivision() {
+    return (widget.availableFilterOptions
+        .priceDcs[0].max - widget.availableFilterOptions
+        .priceDcs[0].min)/5;
   }
 }

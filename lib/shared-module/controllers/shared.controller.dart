@@ -142,7 +142,7 @@ class SharedController extends GetxController {
         isGuest: true);
     saveAuthTokenToSharedPreference(authToken);
     setAuthToken();
-    Get.offAllNamed(Approute_langaugeSelector);
+    Get.offAllNamed(Approute_login);
   }
 
 

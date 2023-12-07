@@ -173,9 +173,9 @@ class _HotelFilterOptionSelectorState extends State<HotelFilterOptionSelector> {
                                               ? widget.availableFilterOptions
                                                   .priceDcs[0].max
                                               : 0);
-                                      i += 100)
+                                      i += getPriceRangeDivision())
                                     Expanded(
-                                        child: Text("$i",
+                                        child: Text("${i.round()}",
                                             textAlign: i <=
                                                     (widget.availableFilterOptions
                                                             .priceDcs.isNotEmpty
@@ -201,7 +201,7 @@ class _HotelFilterOptionSelectorState extends State<HotelFilterOptionSelector> {
                                           .priceDcs.isNotEmpty
                                       ? (widget.availableFilterOptions
                                                   .priceDcs[0].max /
-                                              100)
+                                      getPriceRangeDivision())
                                           .round()
                                       : 3,
                                   activeColor: flyternSecondaryColor,
@@ -525,5 +525,11 @@ class _HotelFilterOptionSelectorState extends State<HotelFilterOptionSelector> {
         locationDcs: [],
         ratingDcs: [],
         objectID: -1));
+  }
+
+  num getPriceRangeDivision() {
+    return (widget.availableFilterOptions
+        .priceDcs[0].max - widget.availableFilterOptions
+        .priceDcs[0].min)/5;
   }
 }

@@ -6,6 +6,7 @@ import 'package:flytern/feature-modules/auth/models/register_credential.auth.mod
 import 'package:flytern/shared-module/models/flytern_http_response.dart';
 import 'package:flytern/shared-module/models/auth_token.dart';
 import 'package:flytern/shared-module/services/http-services/http_request_handler.shared.service.dart';
+import 'package:get/get.dart';
 
 class AuthHttpService {
   Future<AuthToken> login(LoginCredential loginCredential) async {
@@ -27,10 +28,14 @@ class AuthHttpService {
           return authToken;
         }
       } else {
-        return mapAuthToken({}, true);
+        print("else reached");
+        throw (response.errors.isNotEmpty?response.errors[0]:"something_went_wrong".tr);
       }
     } catch (e) {
-      return mapAuthToken({}, true);
+      print("catch reached");
+
+      rethrow;
+
     }
   }
 
@@ -46,12 +51,16 @@ class AuthHttpService {
 
       if (response.success && response.data != null) {
         String userId = response.data["userID"] ?? "";
-        return userId;
+        if(userId !=""){
+          return userId;
+        }else{
+          throw (response.errors.isNotEmpty?response.errors[0]:"something_went_wrong".tr);
+        }
       } else {
-        return "";
+        throw (response.errors.isNotEmpty?response.errors[0]:"something_went_wrong".tr);
       }
     } catch (e) {
-      return "";
+      rethrow;
     }
   }
 
@@ -67,12 +76,12 @@ class AuthHttpService {
           String userId = response.data["userID"] ?? "";
           return userId;
         }
-        return "";
+        throw (response.errors.isNotEmpty?response.errors[0]:"something_went_wrong".tr);
       } else {
-        return "";
+        throw (response.errors.isNotEmpty?response.errors[0]:"something_went_wrong".tr);
       }
     } catch (e) {
-      return "";
+      rethrow;
     }
   }
 
