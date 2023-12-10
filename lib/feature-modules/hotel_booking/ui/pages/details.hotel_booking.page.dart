@@ -664,7 +664,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
 
                         Visibility(
                           visible: hotelBookingController
-                                  .getCancellationPolicyLength() >
+                                  .getRoomsLength() >
                               0,
                           child: Padding(
                             padding: flyternLargePaddingAll.copyWith(

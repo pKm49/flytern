@@ -22,6 +22,7 @@ class HotelDetails {
   final List<HotelAmenity> amenitys;
   final List<HotelRoom> rooms;
   final List<String> imageUrls;
+  final List<String> roomRateConditions;
 
   HotelDetails(
       {required this.priceUnit,
@@ -41,6 +42,7 @@ class HotelDetails {
       required this.imageUrls,
       required this.basicDetails,
       required this.amenitys,
+      required this.roomRateConditions,
       required this.rooms});
 
 }
@@ -50,6 +52,7 @@ HotelDetails mapHotelDetails(dynamic payload) {
   List<HotelAmenity> amenitys = [];
   List<HotelRoom> rooms = [];
   List<String> imageUrls = [];
+  List<String> roomRateConditions = [];
 
 
   if (payload["imageUrl"] != null) {
@@ -57,6 +60,13 @@ HotelDetails mapHotelDetails(dynamic payload) {
       imageUrls.add(element);
     });
   }
+
+  if (payload["roomRateConditions"] != null) {
+    payload["roomRateConditions"].forEach((element) {
+      roomRateConditions.add(element);
+    });
+  }
+
   if (payload["_lstBasicDetails"] != null) {
     payload["_lstBasicDetails"].forEach((element) {
       basicDetails.add(mapHotelBasicDetail(element));
@@ -91,6 +101,7 @@ HotelDetails mapHotelDetails(dynamic payload) {
     hotelName: payload["hotelName"] ?? "",
     descriptionInfo: payload["descriptionInfo"] ?? "",
     imageUrls: imageUrls,
+    roomRateConditions: roomRateConditions,
     basicDetails: basicDetails,
     amenitys: amenitys,
     rooms: rooms,
@@ -113,6 +124,7 @@ HotelDetails getDefaultHotelDetails() {
     descriptionInfo: '',
     imageUrls: [],
     basicDetails: [],
+    roomRateConditions: [],
     amenitys: [],
     rooms: [],
     address: '',

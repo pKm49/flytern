@@ -139,7 +139,7 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
                         Navigator.pop(context);
                         Get.toNamed(widget.route,
                             arguments: [
-                              {"mobileCntry":selectedCountry.code,
+                              {"mobileCntry":profileController.selectedCountry.value.code,
                                 "mobileNumber":profileController.mobileController.value.text,
                                 "email":profileController.emailController.value.text
                               },

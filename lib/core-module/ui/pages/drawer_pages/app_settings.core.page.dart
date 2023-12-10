@@ -158,7 +158,7 @@ class _CoreSettingsPageState extends State<CoreSettingsPage> {
                     width: double.infinity,
                     child: ElevatedButton(
                         onPressed: () async {
-                          await sharedController.setDeviceLanguageAndCountry();
+                          await sharedController.setDeviceLanguageAndCountry(false);
                         },
                         style: getElevatedButtonStyle(context),
                         child:sharedController.isSetDeviceLanguageAndCountrySubmitting.value?

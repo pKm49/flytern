@@ -372,9 +372,7 @@ class HotelBookingController extends GetxController {
     bookingInfo.value = getGatewayData.bookingInfo;
     alert.value = getGatewayData.alert;
 
-    if (isSmartpayment) {
-      hotelDetails.value = getGatewayData.hotelDetails;
-    }
+    hotelDetails.value = getGatewayData.hotelDetails;
 
     if (getGatewayData.paymentGateways.isNotEmpty) {
       updateProcessId(getGatewayData.paymentGateways[0].processID);

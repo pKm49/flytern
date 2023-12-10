@@ -459,7 +459,6 @@ class FlightBookingController extends GetxController {
 
     if (tempPaymentGateway.isNotEmpty) {
       updateProcessId(tempPaymentGateway[0].processID);
-
     }
     Get.toNamed(Approute_flightsSummary);
     isSmartPaymentCheckLoading.value = false;

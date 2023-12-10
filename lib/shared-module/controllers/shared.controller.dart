@@ -231,7 +231,7 @@ class SharedController extends GetxController {
     privacyHtml.value = businessDoc.privacy;
   }
 
-  Future<void> setDeviceLanguageAndCountry() async {
+  Future<void> setDeviceLanguageAndCountry(bool isRedirection) async {
     isSetDeviceLanguageAndCountrySubmitting.value = true;
     String firebaseToken = await getFirebaseMessagingToken();
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -251,13 +251,20 @@ class SharedController extends GetxController {
     await sharedHttpService.setDeviceInfo(setDeviceInfoRequestBody);
     isSetDeviceLanguageAndCountrySubmitting.value = false;
     showSnackbar(Get.context!, "settings_updated".tr, "info");
+    if(isRedirection){
+      Get.toNamed(Approute_authSelector);
+    }
 
-    return;
   }
 
   Future<String> getFirebaseMessagingToken() async {
-    String firebaseMessagingToken = await FirebaseMessaging.instance.getToken()??"";
-     return firebaseMessagingToken;
+    try{
+      String firebaseMessagingToken = await FirebaseMessaging.instance.getToken()??"";
+      return firebaseMessagingToken;
+    }catch (e){
+      return e.toString();
+    }
+
   }
 
   resendOtp(String userId) async {
