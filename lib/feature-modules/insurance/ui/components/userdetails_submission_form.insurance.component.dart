@@ -109,6 +109,7 @@ class _InsuranceUserDetailsSubmissionFormState
                         top: flyternSpaceExtraSmall,
                         bottom: flyternSpaceExtraSmall),
                     child: DropDownSelector(
+                      validator: (value) => null,
                       key: selectPassengerDropDownKey,
                       titleText: "select_passenger".tr,
                       selected: selectedPassenger,

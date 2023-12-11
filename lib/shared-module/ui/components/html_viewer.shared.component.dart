@@ -14,6 +14,8 @@ class SharedHtmlViewerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
 
@@ -30,6 +32,26 @@ class SharedHtmlViewerPage extends StatelessWidget {
           Expanded(child: SingleChildScrollView(
             child: Html(
               data: htmlData,
+              style: {
+                "p":Style(
+                  lineHeight:LineHeight(1.2),
+                ),
+                "h1":Style(
+                  lineHeight:LineHeight(1.5),
+                ),
+                "h2":Style(
+                  lineHeight:LineHeight(1.5),
+                ),
+                "h3":Style(
+                  lineHeight:LineHeight(1.5),
+                ),
+                "h4":Style(
+                  lineHeight:LineHeight(1.5),
+                ),
+                "h5":Style(
+                  lineHeight:LineHeight(1.5),
+                ),
+              },
             ),
           ))
         ],

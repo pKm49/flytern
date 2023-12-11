@@ -118,6 +118,7 @@ class _FlightUserDetailsSubmissionFormState
                         top: flyternSpaceExtraSmall,
                         bottom: flyternSpaceExtraSmall),
                     child: DropDownSelector(
+                      validator: (value) =>null,
                       key: selectPassengerDropDownKey,
                       titleText: "select_passenger".tr,
                       selected: selectedPassenger,
@@ -158,6 +159,8 @@ class _FlightUserDetailsSubmissionFormState
                           top: flyternSpaceExtraSmall,
                           bottom: flyternSpaceExtraSmall),
                       child: DropDownSelector(
+                        validator: (value) =>
+                            checkIfDropDownFormValid(value,"0","title".tr),
                         key: titleDropDownKey,
                         titleText: "title".tr,
                         selected: title,
@@ -232,6 +235,8 @@ class _FlightUserDetailsSubmissionFormState
                         top: flyternSpaceExtraSmall,
                         bottom: flyternSpaceExtraSmall),
                     child: DropDownSelector(
+                      validator: (value) =>
+                          checkIfDropDownFormValid(value,"0", "gender".tr),
                       key: genderDropDownKey,
                       titleText: "gender".tr,
                       selected: gender,

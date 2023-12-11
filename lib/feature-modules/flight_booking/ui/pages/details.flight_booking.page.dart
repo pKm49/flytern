@@ -210,6 +210,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                                 flyternBorderRadiusExtraSmall),
                           ),
                           child: DropDownSelector(
+                            validator: (value) => null,
                             titleText: "select_cabin_class".tr,
                             selected:
                                 flightBookingController.cabinInfo.value.id != "-1"

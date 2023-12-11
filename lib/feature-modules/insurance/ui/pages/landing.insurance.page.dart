@@ -303,6 +303,7 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
                               top: flyternSpaceExtraSmall,
                               bottom: flyternSpaceExtraSmall),
                           child: DropDownSelector(
+                            validator: (value) => null,
                             key: policyPlanDropDownKey,
                             titleText: "policy_plan".tr,
                             selected: insuranceBookingController
@@ -362,6 +363,7 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
                                     top: flyternSpaceExtraSmall,
                                     bottom: flyternSpaceExtraSmall),
                                 child: DropDownSelector(
+                                  validator: (value) => null,
                                   key: policyTimeDropDownKey,
                                   titleText: "policy_time".tr,
                                   selected: insuranceBookingController

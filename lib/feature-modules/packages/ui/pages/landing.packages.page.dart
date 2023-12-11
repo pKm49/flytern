@@ -65,6 +65,7 @@ class _PackageBookingLandingPageState extends State<PackageBookingLandingPage> {
                       BorderRadius.circular(flyternBorderRadiusExtraSmall),
                 ),
                 child: DropDownSelector(
+                  validator: (value) => null,
                   titleText: "select_destination".tr,
                   selected: packageBookingController.countryisocode.value,
                   items: [

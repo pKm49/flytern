@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -25,6 +26,7 @@ class SharedController extends GetxController {
   var isAuthTokenSet = false.obs;
 
   var otp = "".obs;
+  var otpResendCount = 0.obs;
   var isOtpSubmitting = false.obs;
   var isInfoLoading = false.obs;
 
@@ -227,12 +229,19 @@ class SharedController extends GetxController {
   Future<void> getPreRegisterInfo() async {
     BusinessDoc businessDoc =
         await sharedHttpService.getPreRegisterSupportInfo();
+    log("getPreRegisterInfo");
+    log(businessDoc.privacy);
     termsHtml.value = businessDoc.terms;
     privacyHtml.value = businessDoc.privacy;
   }
 
   Future<void> setDeviceLanguageAndCountry(bool isRedirection) async {
     isSetDeviceLanguageAndCountrySubmitting.value = true;
+    await Future<void>.delayed(
+      const Duration(
+        seconds: 2,
+      ),
+    );
     String firebaseToken = await getFirebaseMessagingToken();
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
@@ -267,11 +276,17 @@ class SharedController extends GetxController {
 
   }
 
+  resetOtpResendCount(){
+    otp.value = "";
+    otpResendCount.value = 0;
+  }
+
   resendOtp(String userId) async {
-    if (userId != "") {
+    if (userId != "" && otpResendCount.value<3) {
       isOtpSubmitting.value = true;
       try {
         await sharedHttpService.resendOtp(userId);
+        otpResendCount.value = otpResendCount.value +1;
         showSnackbar(Get.context!, "otp_resend".tr, "info");
         isOtpSubmitting.value = false;
       } catch (e, t) {

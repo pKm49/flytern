@@ -357,6 +357,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                       flyternBorderedContainerSmallDecoration,
                                   padding: flyternMediumPaddingHorizontal,
                                   child: DropDownSelector(
+                                    validator: (value) => null,
                                     titleText: "",
                                     selected: "0",
                                     items: [

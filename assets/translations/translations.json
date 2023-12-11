@@ -14,7 +14,7 @@
       "dont_have_account": "Don't have an account?",
       "sign_up": "Sign Up",
       "reset_password": "Reset Password",
-      "reset_password_message": "Enter the email address associated with your account and we'll send verification code to reset your password.",
+      "reset_password_message": "Enter the mobile number associated with your account and we'll send verification code to reset your password.",
       "submit": "Submit",
       "otp_verification": "OTP Verification",
       "otp_verification_message": "Please enter the OTP you received to",
@@ -366,7 +366,9 @@
       "enter_firstname_hotel_room_child": "Enter Firstname for child 1 in Room 2",
       "enter_lastname_hotel_room_child": "Enter Lastname for child 1 in Room 2",
       "enter_gender_hotel_room_child": "Enter Gender for child 1 in Room 2",
-      "roomRateConditions": "Room Rate Conditions"
+      "roomRateConditions": "Room Rate Conditions",
+      "agree_terms_n_conditions": "Please agree Terms & Privacy Policies to continue",
+      "enter_otp_tocontinue": "Please enter OTP to continue"
 
     }
   },
@@ -385,7 +387,7 @@
       "dont_have_account": "ليس لديك حساب؟",
       "sign_up": "اشترك",
       "reset_password": "إعادة تعيين كلمة المرور",
-      "reset_password_message": "أدخل عنوان البريد الإلكتروني المرتبط بحسابك وسنرسل رمز التحقق لإعادة تعيين كلمة مرورك.",
+      "reset_password_message": "أدخل رقم الهاتف المحمول المرتبط بحسابك وسنرسل رمز التحقق لإعادة تعيين كلمة مرورك.",
       "submit": "إرسال",
       "otp_verification": "التحقق باستخدام كلمة مرور لمرة واحدة",
       "otp_verification_message": "يُرجى إدخال كلمة المرور لمرة واحدة التي استلمتها من أجل",
@@ -737,7 +739,9 @@
       "enter_firstname_hotel_room_child": "Enter Firstname for child 1 in Room 2",
       "enter_lastname_hotel_room_child": "Enter Lastname for child 1 in Room 2",
       "enter_gender_hotel_room_child": "Enter Gender for child 1 in Room 2",
-      "roomRateConditions": "Room Rate Conditions"
+      "roomRateConditions": "Room Rate Conditions",
+      "agree_terms_n_conditions": "Please agree Terms & Privacy Policies to continue",
+      "enter_otp_tocontinue": "Please enter OTP to continue"
     }
   }
 ]

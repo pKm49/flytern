@@ -312,6 +312,7 @@ class _ActivityDetailsPageState extends State<ActivityDetailsPage> {
                                 flyternBorderRadiusExtraSmall),
                           ),
                           child: DropDownSelector(
+                            validator: (value)=>null,
                             titleText: "select_tour_option".tr,
                             selected: activityBookingController
                                         .selectedActivityOption
@@ -375,6 +376,7 @@ class _ActivityDetailsPageState extends State<ActivityDetailsPage> {
                                 flyternBorderRadiusExtraSmall),
                           ),
                           child: DropDownSelector(
+                            validator: (value)=>null,
                             titleText: "select_transfer_type".tr,
                             selected: activityBookingController
                                         .selectedActivityTransferType

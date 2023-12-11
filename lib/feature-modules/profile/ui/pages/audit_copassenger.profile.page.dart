@@ -67,40 +67,32 @@ class _ProfileAuditCopassengerPageState
                     child: Row(
                       children: [
                         Expanded(
-                          flex: 2,
-                          child: Container(
-                            decoration:
-                            flyternBorderedContainerSmallDecoration.copyWith(
-                                color: flyternGrey20,
-                                border: Border.all(
-                                    color: flyternGrey20, width: .2)),
-                            padding: flyternMediumPaddingHorizontal.copyWith(
-                                top: flyternSpaceExtraSmall,
-                                bottom: flyternSpaceExtraSmall),
-                            child: DropDownSelector(
-                              key: titleDropDownKey,
-                              titleText: "title".tr,
-                              selected: coPaxController.title.value,
-                              items: [ for (var i = 0;
-                              i < sharedController.titleList.length;
-                              i++)
-                                GeneralItem(
-                                    imageUrl: "",
-                                    id: sharedController.titleList[i].code,
-                                    name: sharedController.titleList[i].name),
-                              ],
+                          flex: 3,
+                          child: DropDownSelector(
+                            validator: (value) =>
+                                checkIfDropDownFormValid(value,"0", "title".tr),
+                            key: titleDropDownKey,
+                            titleText: "title".tr,
                               hintText: "title".tr,
-                              valueChanged: (newGender) {
-                                List<Gender> titles = sharedController.titleList
-                                    .where((e) => e.code == newGender)
-                                    .toList();
-                                if (titles.isNotEmpty) {
-                                  coPaxController.changeTitle(titles[0]);
-                                }
+                            selected: coPaxController.title.value,
+                            items: [ for (var i = 0;
+                            i < sharedController.titleList.length;
+                            i++)
+                              GeneralItem(
+                                  imageUrl: "",
+                                  id: sharedController.titleList[i].code,
+                                  name: sharedController.titleList[i].name),
+                            ],
+                            valueChanged: (newGender) {
+                              List<Gender> titles = sharedController.titleList
+                                  .where((e) => e.code == newGender)
+                                  .toList();
+                              if (titles.isNotEmpty) {
+                                coPaxController.changeTitle(titles[0]);
+                              }
 
-                              },
-                            ),
-                          ),
+                            },
+                          )
                         ),
                         addHorizontalSpace(flyternSpaceMedium),
 
@@ -146,38 +138,30 @@ class _ProfileAuditCopassengerPageState
                     child: Row(
                       children: [
                         Expanded(
-                            child: Container(
-                          decoration:
-                              flyternBorderedContainerSmallDecoration.copyWith(
-                                  color: flyternGrey20,
-                                  border: Border.all(
-                                      color: flyternGrey20, width: .2)),
-                          padding: flyternMediumPaddingHorizontal.copyWith(
-                              top: flyternSpaceExtraSmall,
-                              bottom: flyternSpaceExtraSmall),
-                          child: DropDownSelector(
-                            titleText: "gender".tr,
-                            selected: coPaxController.gender.value,
-                            items: [
-                              for (var i = 0;
-                                  i < sharedController.genders.length;
-                                  i++)
-                                GeneralItem(
-                                    imageUrl: "",
-                                    id: sharedController.genders[i].code,
-                                    name: sharedController.genders[i].name)
-                            ],
-                            hintText: "gender".tr,
-                            valueChanged: (newGender) {
-                              List<Gender> genders = sharedController.genders
-                                  .where((e) => e.code == newGender)
-                                  .toList();
-                              if (genders.isNotEmpty) {
-                                coPaxController.changeGender(genders[0]);
-                              }
-                            },
-                          ),
-                        )),
+                            child: DropDownSelector(
+                              validator: (value) =>
+                                  checkIfDropDownFormValid(value,"0", "gender".tr),
+                              titleText: "gender".tr,
+                              selected: coPaxController.gender.value,
+                              items: [
+                                for (var i = 0;
+                                    i < sharedController.genders.length;
+                                    i++)
+                                  GeneralItem(
+                                      imageUrl: "",
+                                      id: sharedController.genders[i].code,
+                                      name: sharedController.genders[i].name)
+                              ],
+                              hintText: "gender".tr,
+                              valueChanged: (newGender) {
+                                List<Gender> genders = sharedController.genders
+                                    .where((e) => e.code == newGender)
+                                    .toList();
+                                if (genders.isNotEmpty) {
+                                  coPaxController.changeGender(genders[0]);
+                                }
+                              },
+                            )),
                         addHorizontalSpace(flyternSpaceMedium),
                         Expanded(
                           child: TextFormField(

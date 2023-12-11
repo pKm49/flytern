@@ -65,6 +65,7 @@ class _ActivityBookingLandingPageState
                       BorderRadius.circular(flyternBorderRadiusExtraSmall),
                 ),
                 child: DropDownSelector(
+                  validator: (value)=>null,
                   titleText: "select_destination".tr,
                   selected: activityBookingController.countryisocode.value,
                   items: [

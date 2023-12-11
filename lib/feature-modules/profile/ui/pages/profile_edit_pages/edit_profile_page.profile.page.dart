@@ -185,6 +185,8 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
                               top: flyternSpaceExtraSmall,
                               bottom: flyternSpaceExtraSmall),
                           child: DropDownSelector(
+                            validator: (value) =>
+                                checkIfDropDownFormValid(value,"0", "gender".tr),
                             titleText: "gender".tr,
                             selected: profileController.gender.value,
                             items: [

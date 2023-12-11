@@ -145,3 +145,11 @@ String? checkIfNameFormValid(String? name, String fieldName) {
   return null;
 }
 
+String? checkIfDropDownFormValid(String? selectedId,String DefaultId, String fieldName) {
+
+  if ( selectedId == DefaultId) {
+    return "Provide valid "+fieldName;
+  }
+
+  return null;
+}

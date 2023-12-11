@@ -84,6 +84,7 @@ class _ActivitiesListPageState extends State<ActivitiesListPage> {
                     BorderRadius.circular(flyternBorderRadiusExtraSmall),
                   ),
                   child: DropDownSelector(
+                    validator: (value)=>null,
                     titleText: "select_destination".tr,
                     selected: activityBookingController.cityId.value,
                     items: [

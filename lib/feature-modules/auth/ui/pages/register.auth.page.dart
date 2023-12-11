@@ -11,6 +11,7 @@ import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/models/country.dart';
 import 'package:flytern/shared-module/services/utility-services/form_validator.shared.service.dart';
+import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:flytern/shared-module/ui/components/country_selector.shared.component.dart';
@@ -317,10 +318,13 @@ class _AuthRegisterDetailsInputPageState
                   child: ElevatedButton(style: getElevatedButtonStyle(context),
                       onPressed: ()   {
                         if (registerFormKey.currentState!.validate() &&
-                            !registerController.isSubmitting.value &&
-                          registerController.isTermsAndPrivacyAgreed.value) {
-                          FocusManager.instance.primaryFocus?.unfocus();
-                          registerController.submitRegisterForm(isDirectFlow);
+                            !registerController.isSubmitting.value  ) {
+                          if(!registerController.isTermsAndPrivacyAgreed.value){
+                            showSnackbar(context, "agree_terms_n_conditions".tr, "error");
+                          }else{
+                            FocusManager.instance.primaryFocus?.unfocus();
+                            registerController.submitRegisterForm(isDirectFlow);
+                          }
                         }
                       }, child:registerController.isSubmitting.value
                           ? LoadingAnimationWidget.prograssiveDots(
@@ -365,7 +369,8 @@ class _AuthRegisterDetailsInputPageState
   }
 
   void openDocsBottomSheet(String item ) {
-
+    print("htmlData");
+    print(sharedController.termsHtml.value);
     showModalBottomSheet(
       useSafeArea: false,
         shape:   const RoundedRectangleBorder(
@@ -375,6 +380,7 @@ class _AuthRegisterDetailsInputPageState
         isScrollControlled: true,
         context: context,
         builder: (context) {
+
           return SharedHtmlViewerPage(
             title:item.tr,
             htmlData:item=="privacy_policy"?

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/auth/controllers/login.auth.controller.dart';
@@ -8,6 +9,7 @@ import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
+import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:get/get.dart';
@@ -40,7 +42,7 @@ class _OTPInputPageState extends State<OTPInputPage> {
     from = getArguments[0];
     otpTarget = getArguments[1];
     userId = getArguments[2];
-
+   sharedController.resetOtpResendCount();
     startTimer();
     super.initState();
   }
@@ -139,10 +141,14 @@ class _OTPInputPageState extends State<OTPInputPage> {
                 child: ElevatedButton(
                     style: getElevatedButtonStyle(context),
                     onPressed: () {
-                      if (sharedController.otp.value != '' && !sharedController.isOtpSubmitting.value) {
+                      if (isValidOtp(sharedController.otp.value) && !sharedController.isOtpSubmitting.value) {
                         FocusManager.instance.primaryFocus?.unfocus();
                         sharedController
                             .verifyOtp(sharedController.otp.value,userId);
+                      }else{
+                        if(!isValidOtp(sharedController.otp.value)){
+                          showSnackbar(context, "enter_otp_tocontinue".tr, "error");
+                        }
                       }
                     },
                     child: sharedController.isOtpSubmitting.value
@@ -154,32 +160,35 @@ class _OTPInputPageState extends State<OTPInputPage> {
               ),
             ),
             addVerticalSpace(flyternSpaceLarge),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "didnt_recieve_code".tr,
-                  style: getBodyMediumStyle(context).copyWith(),
-                ),
-                addHorizontalSpace(flyternSpaceSmall),
-                InkWell(
-                  onTap: (){
-                    sharedController.resendOtp(userId);
-                    timeInSeconds = 60;
-                    setState(() {
-
-                    });
-                    startTimer();
-                  },
-                  child: Text(
-                    "resend".tr,
-                    style: getBodyMediumStyle(context).copyWith(
-                        fontWeight: flyternFontWeightBold,
-                        color: flyternSecondaryColor),
+            Visibility(
+              visible: sharedController.otpResendCount.value<3,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "didnt_recieve_code".tr,
+                    style: getBodyMediumStyle(context).copyWith(),
                   ),
-                ),
-              ],
+                  addHorizontalSpace(flyternSpaceSmall),
+                  InkWell(
+                    onTap: (){
+                      sharedController.resendOtp(userId);
+                      timeInSeconds = 60;
+                      setState(() {
+
+                      });
+                      startTimer();
+                    },
+                    child: Text(
+                      "resend".tr,
+                      style: getBodyMediumStyle(context).copyWith(
+                          fontWeight: flyternFontWeightBold,
+                          color: flyternSecondaryColor),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -203,5 +212,16 @@ class _OTPInputPageState extends State<OTPInputPage> {
         }
       },
     );
+  }
+
+  bool isValidOtp(String value) {
+    print("isValidOtp");
+    if(value == ""){
+      return false;
+    }
+    if(value.length!=6){
+      return false;
+    }
+    return true;
   }
 }
