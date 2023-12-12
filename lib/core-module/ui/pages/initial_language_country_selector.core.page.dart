@@ -181,46 +181,28 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                                     ),
                                     addHorizontalSpace(flyternSpaceMedium),
                                     Expanded(
-                                      child: Container(
-                                        decoration:
-                                            flyternBorderedContainerSmallDecoration,
-                                        padding: flyternMediumPaddingHorizontal.copyWith(top: flyternSpaceExtraSmall,
-                                        bottom: flyternSpaceExtraSmall),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(Ionicons.language_outline,
-                                                color: flyternGrey40),
-                                            addHorizontalSpace(flyternSpaceSmall),
-                                            Expanded(
-                                              child: DropDownSelector(
-                                                validator: (value) => null,
-                                                titleText: sharedController.selectedLanguage.value.name,
-                                                selected:sharedController.selectedLanguage.value.code  ,
-                                                items: [
-                                                   for(var i =0; i<sharedController.languages.length;i++)
-                                                     GeneralItem(id: sharedController.languages[i].code,
-                                                         name: sharedController.languages[i].name,
-                                                     imageUrl: "")
-                                                ],
-                                                hintText:"" ,
-                                                valueChanged: (newLang) {
+                                      child: DropDownSelector(
+                                        validator: (value) => null,
+                                        titleText: sharedController.selectedLanguage.value.name,
+                                        selected:sharedController.selectedLanguage.value.code,
+                                        items: [
+                                           for(var i =0; i<sharedController.languages.length;i++)
+                                             GeneralItem(id: sharedController.languages[i].code,
+                                                 name: sharedController.languages[i].name,
+                                             imageUrl: "")
+                                        ],
+                                        hintText:"" ,
+                                        valueChanged: (newLang) {
 
-                                                  List<Language> langs = sharedController.languages.where((e) => e.code == newLang).toList();
-                                                  if(langs.isNotEmpty){
-                                                    sharedController
-                                                        .changeLanguage(
-                                                        langs[0]
-                                                    );
-                                                  }
+                                          List<Language> langs = sharedController.languages.where((e) => e.code == newLang).toList();
+                                          if(langs.isNotEmpty){
+                                            sharedController
+                                                .changeLanguage(
+                                                langs[0]
+                                            );
+                                          }
 
-
-                                                },
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                        },
                                       ),
                                     ),
                                   ],
