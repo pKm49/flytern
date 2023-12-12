@@ -200,15 +200,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                         padding: flyternLargePaddingHorizontal,
                         decoration: BoxDecoration(color: flyternBackgroundWhite),
                         child: Container(
-                          width: screenwidth - flyternSpaceMedium * 2,
-                          padding: flyternMediumPaddingHorizontal,
-                          margin: flyternLargePaddingVertical,
-                          decoration: BoxDecoration(
-                            color: flyternBackgroundWhite,
-                            border: flyternDefaultBorderAll,
-                            borderRadius: BorderRadius.circular(
-                                flyternBorderRadiusExtraSmall),
-                          ),
+                          padding: flyternLargePaddingVertical,
                           child: DropDownSelector(
                             validator: (value) => null,
                             titleText: "select_cabin_class".tr,

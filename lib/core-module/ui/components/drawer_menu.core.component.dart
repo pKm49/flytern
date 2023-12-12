@@ -240,7 +240,7 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
 
   Future<void> launchRatingPage() async {
     if (Platform.isAndroid || Platform.isIOS) {
-      final appId = Platform.isAndroid ? 'com.oneglobal.flytern' : 'id284882215';
+      final appId = Platform.isAndroid ? 'com.oneglobal.flytern' : '6469104609';
       final url = Uri.parse(
         Platform.isAndroid
             ? "market://details?id=$appId"

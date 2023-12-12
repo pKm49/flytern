@@ -175,40 +175,30 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
                     child: Row(
                       children: [
                         Expanded(
-                            child: Container(
-                          decoration:
-                              flyternBorderedContainerSmallDecoration.copyWith(
-                                  color: flyternGrey20,
-                                  border: Border.all(
-                                      color: flyternGrey20, width: .2)),
-                          padding: flyternMediumPaddingHorizontal.copyWith(
-                              top: flyternSpaceExtraSmall,
-                              bottom: flyternSpaceExtraSmall),
-                          child: DropDownSelector(
-                            validator: (value) =>
-                                checkIfDropDownFormValid(value,"0", "gender".tr),
-                            titleText: "gender".tr,
-                            selected: profileController.gender.value,
-                            items: [
-                              for (var i = 0;
-                                  i < sharedController.genders.length;
-                                  i++)
-                                GeneralItem(
-                                  imageUrl: "",
-                                    id: sharedController.genders[i].code,
-                                    name: sharedController.genders[i].name)
-                            ],
-                            hintText: "gender".tr,
-                            valueChanged: (newGender) {
-                              List<Gender> genders = sharedController.genders
-                                  .where((e) => e.code == newGender)
-                                  .toList();
-                              if (genders.isNotEmpty) {
-                                profileController.changeGender(genders[0]);
-                              }
-                            },
-                          ),
-                        )),
+                            child: DropDownSelector(
+                              validator: (value) =>
+                                  checkIfDropDownFormValid(value,"0", "gender".tr),
+                              titleText: "gender".tr,
+                              selected: profileController.gender.value,
+                              items: [
+                                for (var i = 0;
+                                    i < sharedController.genders.length;
+                                    i++)
+                                  GeneralItem(
+                                    imageUrl: "",
+                                      id: sharedController.genders[i].code,
+                                      name: sharedController.genders[i].name)
+                              ],
+                              hintText: "gender".tr,
+                              valueChanged: (newGender) {
+                                List<Gender> genders = sharedController.genders
+                                    .where((e) => e.code == newGender)
+                                    .toList();
+                                if (genders.isNotEmpty) {
+                                  profileController.changeGender(genders[0]);
+                                }
+                              },
+                            )),
                         addHorizontalSpace(flyternSpaceMedium),
                         Expanded(
                           child: TextFormField(

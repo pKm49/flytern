@@ -352,35 +352,30 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                               ),
                               Expanded(
                                 flex: 1,
-                                child: Container(
-                                  decoration:
-                                      flyternBorderedContainerSmallDecoration,
-                                  padding: flyternMediumPaddingHorizontal,
-                                  child: DropDownSelector(
-                                    validator: (value) => null,
-                                    titleText: "",
-                                    selected: "0",
-                                    items: [
-                                      for (var ind = 0; ind < 17; ind++)
-                                        GeneralItem(
-                                            id: ind.toString(),
-                                            name: ind.toString(),
-                                            imageUrl: "")
-                                    ],
-                                    hintText: "",
-                                    valueChanged: (newLang) {
-                                      List<int> tChildAges = [];
-                                      for (var indx = 0;
-                                          indx < childCount;
-                                          indx++) {
-                                        if (i == indx) {
-                                          tChildAges.add(int.parse(newLang));
-                                        } else {
-                                          tChildAges.add(childAges[i]);
-                                        }
+                                child: DropDownSelector(
+                                  validator: (value) => null,
+                                  titleText: "",
+                                  selected: "0",
+                                  items: [
+                                    for (var ind = 0; ind < 17; ind++)
+                                      GeneralItem(
+                                          id: ind.toString(),
+                                          name: ind.toString(),
+                                          imageUrl: "")
+                                  ],
+                                  hintText: "",
+                                  valueChanged: (newLang) {
+                                    List<int> tChildAges = [];
+                                    for (var indx = 0;
+                                        indx < childCount;
+                                        indx++) {
+                                      if (i == indx) {
+                                        tChildAges.add(int.parse(newLang));
+                                      } else {
+                                        tChildAges.add(childAges[i]);
                                       }
-                                    },
-                                  ),
+                                    }
+                                  },
                                 ),
                               ),
                             ],

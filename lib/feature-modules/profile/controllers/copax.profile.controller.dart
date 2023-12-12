@@ -73,7 +73,7 @@ class CoPaxController extends GetxController {
     isCopaxDataLoading.value = false;
   }
 
-  initializeAuditData(bool mode) {
+  initializeAuditData(bool mode, bool isNavigation) {
 
     isCreation.value = mode;
     gender.value = "0";
@@ -90,6 +90,10 @@ class CoPaxController extends GetxController {
     nationalityCode.value = "";
     passportIssuedCountryCode.value = "";
     isSubmitting = false.obs;
+    if(isNavigation){
+      Get.toNamed(Approute_profileAuditCopassenger);
+
+    }
   }
 
   void changeGender(Gender newGender) {
@@ -146,7 +150,7 @@ class CoPaxController extends GetxController {
 
         showSnackbar(Get.context!,"copax_created".tr, "info");
 
-        initializeAuditData(true);
+        initializeAuditData(true,false);
 
         await getUserCoPassengers();
       }
@@ -181,7 +185,7 @@ class CoPaxController extends GetxController {
 
         showSnackbar(Get.context!,"copax_updated".tr, "info");
 
-        initializeAuditData(true);
+        initializeAuditData(true,false);
 
         await getUserCoPassengers();
       }

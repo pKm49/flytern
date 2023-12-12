@@ -55,6 +55,7 @@ class _FlightUserDetailsSubmissionFormState
       TextEditingController();
 
   Gender selectedTitle = Gender(code: "0", name: "Title", isDefault: false);
+  final coPaxController = Get.find<CoPaxController>();
 
   Gender selectedGender = Gender(code: "0", name: "Gender", isDefault: false);
   String selectedPassenger = "0";
@@ -69,7 +70,6 @@ class _FlightUserDetailsSubmissionFormState
   final GlobalKey<FormState> selectPassengerDropDownKey =
       GlobalKey<FormState>();
 
-  final coPaxController = Get.find<CoPaxController>();
   final sharedController = Get.find<SharedController>();
 
   var nationality = Country(
@@ -104,41 +104,31 @@ class _FlightUserDetailsSubmissionFormState
         child: Wrap(
           children: [
             Visibility(
-              visible: coPaxController.userCopaxes.isNotEmpty,
+              visible:  getUserCopaxes(widget.index).isNotEmpty,
               child: Container(
                   padding: EdgeInsets.only(bottom: flyternSpaceMedium),
                   color: flyternBackgroundWhite,
-                  child: Container(
-                    decoration:
-                        flyternBorderedContainerSmallDecoration.copyWith(
-                            color: flyternGrey20,
-                            border:
-                                Border.all(color: flyternGrey20, width: .2)),
-                    padding: flyternMediumPaddingHorizontal.copyWith(
-                        top: flyternSpaceExtraSmall,
-                        bottom: flyternSpaceExtraSmall),
-                    child: DropDownSelector(
-                      validator: (value) =>null,
-                      key: selectPassengerDropDownKey,
-                      titleText: "select_passenger".tr,
-                      selected: selectedPassenger,
-                      items: [
+                  child: DropDownSelector(
+                    validator: (value) =>null,
+                    key: selectPassengerDropDownKey,
+                    titleText: "select_passenger".tr,
+                    selected: selectedPassenger,
+                    items: [
+                      GeneralItem(
+                          imageUrl: "", id: "0", name: "select_passenger".tr),
+                      for (var i = 0;
+                          i < getUserCopaxes(widget.index).length;
+                          i++)
                         GeneralItem(
-                            imageUrl: "", id: "0", name: "select_passenger".tr),
-                        for (var i = 0;
-                            i < coPaxController.userCopaxes.length;
-                            i++)
-                          GeneralItem(
-                              imageUrl: "",
-                              id: coPaxController.userCopaxes[i].id.toString(),
-                              name:
-                                  "${coPaxController.userCopaxes[i].firstName} ${coPaxController.userCopaxes[i].lastName}")
-                      ],
-                      hintText: "select_passenger".tr,
-                      valueChanged: (newGender) {
-                        changeSelectedPassenger(newGender);
-                      },
-                    ),
+                            imageUrl: "",
+                            id:  getUserCopaxes(widget.index)[i].id.toString(),
+                            name:
+                                "${ getUserCopaxes(widget.index)[i].firstName} ${ getUserCopaxes(widget.index)[i].lastName}")
+                    ],
+                    hintText: "select_passenger".tr,
+                    valueChanged: (newGender) {
+                      changeSelectedPassenger(newGender);
+                    },
                   )),
             ),
             Container(
@@ -148,40 +138,30 @@ class _FlightUserDetailsSubmissionFormState
               child: Row(
                 children: [
                   Expanded(
-                    flex: 2,
-                    child: Container(
-                      decoration:
-                          flyternBorderedContainerSmallDecoration.copyWith(
-                              color: flyternGrey20,
-                              border:
-                                  Border.all(color: flyternGrey20, width: .2)),
-                      padding: flyternMediumPaddingHorizontal.copyWith(
-                          top: flyternSpaceExtraSmall,
-                          bottom: flyternSpaceExtraSmall),
-                      child: DropDownSelector(
-                        validator: (value) =>
-                            checkIfDropDownFormValid(value,"0","title".tr),
-                        key: titleDropDownKey,
-                        titleText: "title".tr,
-                        selected: title,
-                        items: [ for (var i = 0;
-                        i < sharedController.titleList.length;
-                        i++)
-                          GeneralItem(
-                              imageUrl: "",
-                              id: sharedController.titleList[i].code,
-                              name: sharedController.titleList[i].name),
-                        ],
-                        hintText: "title".tr,
-                        valueChanged: (newGender) {
-                          List<Gender> titles = sharedController.titleList
-                              .where((e) => e.code == newGender)
-                              .toList();
-                          if (titles.isNotEmpty) {
-                            changeTitle(titles[0]);
-                          }
-                        },
-                      ),
+                    flex: 3,
+                    child: DropDownSelector(
+                      validator: (value) =>
+                          checkIfDropDownFormValid(value,"0","title".tr),
+                      key: titleDropDownKey,
+                      titleText: "title".tr,
+                      selected: title,
+                      items: [ for (var i = 0;
+                      i < sharedController.titleList.length;
+                      i++)
+                        GeneralItem(
+                            imageUrl: "",
+                            id: sharedController.titleList[i].code,
+                            name: sharedController.titleList[i].name),
+                      ],
+                      hintText: "title".tr,
+                      valueChanged: (newGender) {
+                        List<Gender> titles = sharedController.titleList
+                            .where((e) => e.code == newGender)
+                            .toList();
+                        if (titles.isNotEmpty) {
+                          changeTitle(titles[0]);
+                        }
+                      },
                     ),
                   ),
                   addHorizontalSpace(flyternSpaceMedium),
@@ -225,45 +205,35 @@ class _FlightUserDetailsSubmissionFormState
               child: Row(
                 children: [
                   Expanded(
-                      child: Container(
-                    decoration:
-                        flyternBorderedContainerSmallDecoration.copyWith(
-                            color: flyternGrey20,
-                            border:
-                                Border.all(color: flyternGrey20, width: .2)),
-                    padding: flyternMediumPaddingHorizontal.copyWith(
-                        top: flyternSpaceExtraSmall,
-                        bottom: flyternSpaceExtraSmall),
-                    child: DropDownSelector(
-                      validator: (value) =>
-                          checkIfDropDownFormValid(value,"0", "gender".tr),
-                      key: genderDropDownKey,
-                      titleText: "gender".tr,
-                      selected: gender,
-                      items: [
-                        for (var i = 0;
-                            i <
-                                sharedController.genderList.value
-                                    .length;
-                            i++)
-                          GeneralItem(
-                              imageUrl: "",
-                              id: sharedController.genderList.value[i]
-                                  .code,
-                              name: sharedController.genderList.value[i]
-                                  . name)
-                      ],
-                      hintText: "gender".tr,
-                      valueChanged: (newGender) {
-                        List<Gender> genders = sharedController.genderList.value
-                            .where((e) => e.code == newGender)
-                            .toList();
-                        if (genders.isNotEmpty) {
-                          changeGender(genders[0]);
-                        }
-                      },
-                    ),
-                  )),
+                      child: DropDownSelector(
+                        validator: (value) =>
+                            checkIfDropDownFormValid(value,"0", "gender".tr),
+                        key: genderDropDownKey,
+                        titleText: "gender".tr,
+                        selected: gender,
+                        items: [
+                          for (var i = 0;
+                              i <
+                                  sharedController.genderList.value
+                                      .length;
+                              i++)
+                            GeneralItem(
+                                imageUrl: "",
+                                id: sharedController.genderList.value[i]
+                                    .code,
+                                name: sharedController.genderList.value[i]
+                                    . name)
+                        ],
+                        hintText: "gender".tr,
+                        valueChanged: (newGender) {
+                          List<Gender> genders = sharedController.genderList.value
+                              .where((e) => e.code == newGender)
+                              .toList();
+                          if (genders.isNotEmpty) {
+                            changeGender(genders[0]);
+                          }
+                        },
+                      )),
                   addHorizontalSpace(flyternSpaceMedium),
                   Expanded(
                     child: TextFormField(
@@ -475,7 +445,7 @@ class _FlightUserDetailsSubmissionFormState
   }
 
   void changeSelectedPassenger(String newGender) {
-    List<UserCoPax> coPax = coPaxController.userCopaxes
+    List<UserCoPax> coPax =  getUserCopaxes(widget.index)
         .where((p0) => p0.id.toString() == newGender)
         .toList();
     selectedPassenger = newGender;
@@ -633,6 +603,7 @@ class _FlightUserDetailsSubmissionFormState
 
   updateData() {
     widget.dataSubmitted(TravelInfo(
+        selectedCopaxId:selectedPassenger,
         no: widget.index,
         frequentFlyerNo: frequentFlyerNoController.value.text,
         travellerType: widget.itemTypeIndex == 0
@@ -654,4 +625,48 @@ class _FlightUserDetailsSubmissionFormState
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+
+
+  List<UserCoPax> getUserCopaxes(int itemIndex ) {
+
+    List<String> selectedUserCopaxes = widget.flightBookingController.travelInfo.value.map((e) => e.selectedCopaxId).where((element) =>
+    element != widget.flightBookingController.travelInfo.value[itemIndex-1].selectedCopaxId).toList();
+    print("getUserCopaxes");
+    print(itemIndex);
+    print(selectedUserCopaxes);
+    List<UserCoPax> allowedCopaxes =  coPaxController.userCopaxes.value.where((element) =>
+    !selectedUserCopaxes.contains(element.id.toString())
+    ).toList();
+
+    if(widget.flightBookingController.travelInfo.value[itemIndex-1].travellerType=="Adult"){
+      allowedCopaxes = allowedCopaxes.where((element) =>
+      element.dateOfBirth.isBefore(widget.flightBookingController
+          .flightPretravellerData.value.adultMaxDOB)  &&
+          element.dateOfBirth.isAfter(widget.flightBookingController
+              .flightPretravellerData.value.adultMinDOB)
+      ).toList();
+    }
+
+    if(widget.flightBookingController.travelInfo.value[itemIndex-1].travellerType=="Child"){
+      allowedCopaxes = allowedCopaxes.where((element) =>
+      element.dateOfBirth.isBefore(widget.flightBookingController
+          .flightPretravellerData.value.childMaxDOB)  &&
+          element.dateOfBirth.isAfter(widget.flightBookingController
+              .flightPretravellerData.value.childMinDOB)
+      ).toList();
+    }
+
+    if(widget.flightBookingController.travelInfo.value[itemIndex-1].travellerType=="Infant"){
+      allowedCopaxes = allowedCopaxes.where((element) =>
+      element.dateOfBirth.isBefore(widget.flightBookingController
+          .flightPretravellerData.value.infantMaxDOB)  &&
+          element.dateOfBirth.isAfter(widget.flightBookingController
+              .flightPretravellerData.value.infantMinDOB)
+      ).toList();
+    }
+
+    return allowedCopaxes;
+
+  }
+
 }

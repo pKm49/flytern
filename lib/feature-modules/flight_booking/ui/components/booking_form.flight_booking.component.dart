@@ -184,6 +184,18 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                                 .value
                                                 .searchList[index]
                                                 .arrival
+                                                .airportName.length>18?widget
+                                                .flightBookingController
+                                                .flightSearchData
+                                                .value
+                                                .searchList[index]
+                                                .arrival
+                                                .airportName.substring(0,18):widget
+                                                .flightBookingController
+                                                .flightSearchData
+                                                .value
+                                                .searchList[index]
+                                                .arrival
                                                 .airportName,
                                             sideNumber: 2,
                                           ),
@@ -587,12 +599,19 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
             selectedDate: currentDateTime,
             minimumDate: isReturn
                 ? widget.flightBookingController.flightSearchData.value
-                    .searchList[index].departureDate
+                    .searchList[index].departureDate :
+            widget.flightBookingController.flightSearchData.value.mode ==
+                FlightMode.MULTICITY?
+            index !=0? widget.flightBookingController.flightSearchData.value
+                .searchList[index-1].departureDate
+            :DateTime.now()
                 : DateTime.now(),
             maximumDate: isReturn
                 ? widget.flightBookingController.flightSearchData.value
                     .searchList[index].departureDate
-                    .add(Duration(days: 365))
+                    .add(Duration(days: 365)):
+            widget.flightBookingController.flightSearchData.value.mode ==
+            FlightMode.MULTICITY?currentDateTime.add(Duration(days: 365))
                 : DateTime.now().add(Duration(days: 365)),
             dateSelected: (DateTime? dateTime) {
               if (dateTime != null && dateTime.isAfter(DateTime.now())) {

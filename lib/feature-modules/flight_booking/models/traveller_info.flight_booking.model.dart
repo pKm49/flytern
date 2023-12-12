@@ -6,6 +6,7 @@ class TravelInfo {
   final String frequentFlyerNo;
   final String travellerType;
   final String title;
+  final String selectedCopaxId;
   final String firstName;
   final String lastName;
   final String gender;
@@ -18,6 +19,7 @@ class TravelInfo {
   TravelInfo(
       {required this.no,
       required this.frequentFlyerNo,
+      required this.selectedCopaxId,
       required this.travellerType,
       required this.title,
       required this.firstName,
@@ -48,6 +50,7 @@ class TravelInfo {
 TravelInfo mapTravelInfo(dynamic payload) {
   return TravelInfo(
     no: payload["no"] ?? -1,
+    selectedCopaxId: payload["selectedCopaxId"] ?? "0",
     frequentFlyerNo: payload["frequentFlyerNo"] ?? "",
     travellerType: payload["travellerType"] ?? "",
     title: payload["title"] ?? "",

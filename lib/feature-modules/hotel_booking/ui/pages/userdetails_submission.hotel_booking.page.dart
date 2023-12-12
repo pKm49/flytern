@@ -20,14 +20,12 @@ class HotelUserDetailsSubmissionPage extends StatefulWidget {
 class _HotelUserDetailsSubmissionPageState
     extends State<HotelUserDetailsSubmissionPage>
     with SingleTickerProviderStateMixin {
-
-   final List<List<ExpansionTileController>> roomsExpansionControllers = [];
-   final List<List<PageStorageKey>> roomsExpansionControllerKeys = [];
+  final List<List<ExpansionTileController>> roomsExpansionControllers = [];
+  final List<List<PageStorageKey>> roomsExpansionControllerKeys = [];
 
   dynamic argumentData = Get.arguments;
   final hotelBookingController = Get.find<HotelBookingController>();
   late TabController tabController;
-  List<HotelTravelInfo> travelInfo = [];
 
   String mobileCntry = "";
   String mobileNumber = "";
@@ -42,7 +40,7 @@ class _HotelUserDetailsSubmissionPageState
     mobileCntry = argumentData[0]['mobileCntry'];
     mobileNumber = argumentData[0]['mobileNumber'];
     email = argumentData[0]['email'];
-
+    hotelBookingController.updateTravellerInfo([]);
     initializeForms();
   }
 
@@ -96,40 +94,45 @@ class _HotelUserDetailsSubmissionPageState
               ),
               Expanded(
                   child: TabBarView(
-                    controller: tabController,
-                    children: [
-                      for (var i = 0; i < tabLength; i++)
-                        ListView.builder(
-                          itemBuilder: (context, index) {
-                            return  Container(
-                              padding: flyternLargePaddingHorizontal,
-                              color: flyternBackgroundWhite,
-                              child: ExpansionTile(
-                                maintainState: true,
-                                initiallyExpanded: index == 0,
-                                tilePadding: EdgeInsets.zero,
-                                controller: roomsExpansionControllers[i][index],
-                                title: Text("${roomsExpansionControllerKeys[i][index].value.toString().split("-")[0]}"),
-                                children: <Widget>[
-                                  Container(
-                                      padding: EdgeInsets.only(bottom: flyternSpaceLarge),
-                                      color: flyternBackgroundWhite,
-                                      child: HotelUserDetailsSubmissionForm(
-                                        hotelBookingController: hotelBookingController,
-                                        dataSubmitted: (HotelTravelInfo travelInfo) {
-                                          updateTravellerInfor(i,index+1, travelInfo);
-                                        },
-                                      ))
-                                ],
-                              ),
-                            );
-
-                          },
-                          itemCount: roomsExpansionControllers[i].length,
-                        ),
-                    ],
-                  )),
-
+                controller: tabController,
+                children: [
+                  for (var i = 0; i < tabLength; i++)
+                    ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: flyternLargePaddingHorizontal,
+                          color: flyternBackgroundWhite,
+                          child: ExpansionTile(
+                            maintainState: true,
+                            initiallyExpanded: index == 0,
+                            tilePadding: EdgeInsets.zero,
+                            controller: roomsExpansionControllers[i][index],
+                            title: Text(
+                                "${roomsExpansionControllerKeys[i][index].value.toString().split("-")[0]}"),
+                            children: <Widget>[
+                              Container(
+                                  padding: EdgeInsets.only(
+                                      bottom: flyternSpaceLarge),
+                                  color: flyternBackgroundWhite,
+                                  child: HotelUserDetailsSubmissionForm(
+                                    roomIndex: i,
+                                    userIndex: index + 1,
+                                    hotelBookingController:
+                                        hotelBookingController,
+                                    dataSubmitted:
+                                        (HotelTravelInfo travelInfo) {
+                                      updateTravellerInfor(
+                                          i, index + 1, travelInfo);
+                                    },
+                                  ))
+                            ],
+                          ),
+                        );
+                      },
+                      itemCount: roomsExpansionControllers[i].length,
+                    ),
+                ],
+              )),
               addVerticalSpace(flyternSpaceLarge * 4)
             ],
           ),
@@ -146,7 +149,8 @@ class _HotelUserDetailsSubmissionPageState
               child: ElevatedButton(
                   style: getElevatedButtonStyle(context),
                   onPressed: () {
-                    hotelBookingController.saveTravellersData(travelInfo);
+                    hotelBookingController.saveTravellersData(
+                        hotelBookingController.travelInfo.value);
                   },
                   child: hotelBookingController
                           .isHotelTravellerDataSaveLoading.value
@@ -163,16 +167,15 @@ class _HotelUserDetailsSubmissionPageState
   }
 
   void initializeForms() {
-     hotelBookingController.saveContactInfo(mobileCntry, mobileNumber, email);
+    hotelBookingController.saveContactInfo(mobileCntry, mobileNumber, email);
     tabLength = hotelBookingController.hotelPretravellerData.value.rooms.length;
     tabController = TabController(
         vsync: this,
         length: hotelBookingController.hotelPretravellerData.value.rooms.length,
         initialIndex: 0);
 
-    hotelBookingController.hotelPretravellerData.value.rooms.forEach((element) {
-
-    });
+    hotelBookingController.hotelPretravellerData.value.rooms
+        .forEach((element) {});
     int roomUserCount = 0;
     for (var i = 0;
         i < hotelBookingController.hotelPretravellerData.value.rooms.length;
@@ -180,76 +183,114 @@ class _HotelUserDetailsSubmissionPageState
       roomsExpansionControllers.add([]);
       roomsExpansionControllerKeys.add([]);
 
-        if(hotelBookingController.hotelPretravellerData.value.rooms[i].adults>0){
+      print("user count for $i room");
+      print(hotelBookingController.hotelPretravellerData.value.rooms[i].adults);
+      print(hotelBookingController.hotelPretravellerData.value.rooms[i].childs);
 
+      if (hotelBookingController.hotelPretravellerData.value.rooms[i].adults >
+          0) {
+        for (var ind = 0;
+            ind <
+                hotelBookingController
+                    .hotelPretravellerData.value.rooms[i].adults;
+            ind++) {
+          roomUserCount++;
+          roomsExpansionControllers[i].add(ExpansionTileController());
+          roomsExpansionControllerKeys[i]
+              .add(PageStorageKey("${'adult'.tr} ${ind + 1}-${i + 1}"));
 
-          for (var ind = 0; ind < hotelBookingController.hotelPretravellerData.value.rooms[i].adults; ind++) {
-           roomUserCount++;
-            roomsExpansionControllers[i].add(ExpansionTileController());
-           roomsExpansionControllerKeys[i].add(PageStorageKey("${'adult'.tr} ${ind+1}-${i + 1}"));
+          hotelBookingController.addTravellerInfo(mapHotelTravelInfo({
+            "roomIndex": i,
+            "typeIndex": ind + 1,
+            "userIndex": roomUserCount,
+            "travellerType": "Adult",
+            'roomId': hotelBookingController.hotelDetails.value.rooms[0].roomid,
+            'hotelOptionid':
+                hotelBookingController.selectedRoomOption.value[0].roomOptionid
+          }));
+        }
+      }
 
-           travelInfo.add(mapHotelTravelInfo({
-             "roomIndex":i,
-             "typeIndex":ind+1,
-             "userIndex":roomUserCount,
-             "travellerType":  "Adult",
-             'roomId': hotelBookingController.hotelDetails.value.rooms[0].roomid,
-             'hotelOptionid':
-             hotelBookingController.selectedRoomOption.value[0].roomOptionid
-           }));
+      if (hotelBookingController.hotelPretravellerData.value.rooms[i].childs >
+          0) {
+        for (var ind = 0;
+            ind <
+                hotelBookingController
+                    .hotelPretravellerData.value.rooms[i].childs;
+            ind++) {
+          roomUserCount++;
+          roomsExpansionControllers[i].add(ExpansionTileController());
+          roomsExpansionControllerKeys[i]
+              .add(PageStorageKey("${'child'.tr} ${ind + 1}-${i + 1}"));
 
-         }
-
-
-       }
-
-       if(hotelBookingController.hotelPretravellerData.value.rooms[i].childs>0){
-         for (var ind = 0; ind < hotelBookingController.hotelPretravellerData.value.rooms[i].childs; ind++) {
-           roomUserCount++;
-           roomsExpansionControllers[i].add(ExpansionTileController());
-           roomsExpansionControllerKeys[i].add(PageStorageKey("${'child'.tr} ${ind+1}-${i + 1}"));
-
-           travelInfo.add(mapHotelTravelInfo({
-             "roomIndex":i,
-             "typeIndex":ind+1,
-             "userIndex":roomUserCount,
-             "travellerType":  "Child",
-             'roomId': hotelBookingController.hotelDetails.value.rooms[0].roomid,
-             'hotelOptionid':
-             hotelBookingController.selectedRoomOption.value[0].roomOptionid
-           }));
-         }
-
-       }
+          hotelBookingController.addTravellerInfo(mapHotelTravelInfo({
+            "roomIndex": i,
+            "typeIndex": ind + 1,
+            "userIndex": roomUserCount,
+            "travellerType": "Child",
+            'roomId': hotelBookingController.hotelDetails.value.rooms[0].roomid,
+            'hotelOptionid':
+                hotelBookingController.selectedRoomOption.value[0].roomOptionid
+          }));
+        }
+      }
       roomUserCount = 0;
     }
 
+    hotelBookingController.travelInfo.forEach((element) {
+      print("travelInfo 1");
+      print(element.roomIndex);
+      print(element.typeIndex);
+      print(element.userIndex);
+      print(element.title);
+      print(element.gender);
+      print(element.firstName);
+      print(element.lastName);
+    });
     setState(() {});
   }
 
-  void updateTravellerInfor(int roomIndex, int userIndex, HotelTravelInfo newHotelTravelInfo) {
+  void updateTravellerInfor(
+      int roomIndex, int userIndex, HotelTravelInfo newHotelTravelInfo) {
 
+    print("updateTravellerInfor updateTravellerInfor");
+    print(roomIndex);
+    print(userIndex);
+    print(newHotelTravelInfo.firstName);
 
     List<HotelTravelInfo> tempHotelTravelInfo = [];
-    for (var i = 0; i < travelInfo.length; i++) {
+    for (var i = 0; i < hotelBookingController.travelInfo.value.length; i++) {
 
-      if (travelInfo[i].roomIndex != roomIndex &&
-          travelInfo[i].userIndex != userIndex) {
-         tempHotelTravelInfo.add(travelInfo[i]);
+      print("traveller info $i");
+      print(hotelBookingController.travelInfo.value[i].roomIndex);
+      print(hotelBookingController.travelInfo.value[i].userIndex);
+      print(hotelBookingController.travelInfo.value[i].firstName);
+
+      if (hotelBookingController.travelInfo.value[i].roomIndex != roomIndex ||
+          hotelBookingController.travelInfo.value[i].userIndex != userIndex) {
+        print("roomIndex & userIndex not equal");
+        print(hotelBookingController.travelInfo.value[i].firstName);
+        tempHotelTravelInfo.add(hotelBookingController.travelInfo.value[i]);
       } else {
-         tempHotelTravelInfo.add(HotelTravelInfo(
-            roomIndex: travelInfo[i].roomIndex,
-            typeIndex: travelInfo[i].typeIndex,
-            userIndex: travelInfo[i].userIndex,
-            travellerType:  travelInfo[i].travellerType,
-            hotelOptionid: travelInfo[i].hotelOptionid,
-            roomId: travelInfo[i].roomId,
+        print("roomIndex & userIndex is equal");
+        print(newHotelTravelInfo.firstName);
+        tempHotelTravelInfo.add(HotelTravelInfo(
+            selectedCopaxId: newHotelTravelInfo.selectedCopaxId,
+            roomIndex: hotelBookingController.travelInfo.value[i].roomIndex,
+            typeIndex: hotelBookingController.travelInfo.value[i].typeIndex,
+            userIndex: hotelBookingController.travelInfo.value[i].userIndex,
+            travellerType:
+                hotelBookingController.travelInfo.value[i].travellerType,
+            hotelOptionid:
+                hotelBookingController.travelInfo.value[i].hotelOptionid,
+            roomId: hotelBookingController.travelInfo.value[i].roomId,
             title: newHotelTravelInfo.title,
             firstName: newHotelTravelInfo.firstName,
             lastName: newHotelTravelInfo.lastName,
             gender: newHotelTravelInfo.gender));
       }
+
     }
-    travelInfo = tempHotelTravelInfo;
+    hotelBookingController.updateTravellerInfo(tempHotelTravelInfo);
   }
 }

@@ -773,13 +773,16 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                             ),
                           ),
 
-                          Padding(
-                            padding: flyternLargePaddingAll.copyWith(
-                                bottom: flyternSpaceMedium),
-                            child: Text(
-                              "roomRateConditions".tr,
-                              style: getBodyMediumStyle(context)
-                                  .copyWith(fontWeight: flyternFontWeightBold),
+                          Visibility(
+                            visible: hotelBookingController.hotelDetails.value.roomRateConditions.isNotEmpty,
+                            child: Padding(
+                              padding: flyternLargePaddingAll.copyWith(
+                                  bottom: flyternSpaceMedium),
+                              child: Text(
+                                "roomRateConditions".tr,
+                                style: getBodyMediumStyle(context)
+                                    .copyWith(fontWeight: flyternFontWeightBold),
+                              ),
                             ),
                           ),
                           for (var i = 0;

@@ -66,7 +66,7 @@ class FlightBookingController extends GetxController {
   var flightAddonSetMealData = getDummyFlightAddonSetMeal({}).obs;
   var flightAddonSetExtraPackageData =
       getDummyFlightAddonSetExtraPackage({}).obs;
-
+  var travelInfo = <TravelInfo>[].obs;
   var alertMsg = "".obs;
   var isGetSeatsLoading = false.obs;
   var isGetMealsLoading = false.obs;
@@ -266,9 +266,8 @@ class FlightBookingController extends GetxController {
       if (flightSearchResponses.isNotEmpty) {
         objectId.value = flightSearchResponses.value[0].objectId;
         currency.value = flightSearchResponses.value[0].currency;
-        if (isNavigationRequired) {
-          startDate.value = flightSearchData.value.searchList[0].departureDate;
-        }
+        startDate.value = flightSearchData.value.searchList[0].departureDate;
+
       }
       sortingDcs.value = flightSearchResult.sortingDcs;
       if (sortingDcs.isNotEmpty) {
@@ -749,5 +748,14 @@ class FlightBookingController extends GetxController {
     }
   }
 
+  void updateTravellerInfo(List<TravelInfo> tempTravelInfo) {
+    travelInfo.value = tempTravelInfo;
+  }
+
+  void addTravellerInfo(TravelInfo tTravelInfo) {
+    List<TravelInfo> tempTravelInfo = travelInfo.value;
+     tempTravelInfo.add(tTravelInfo);
+    travelInfo.value = tempTravelInfo;
+  }
 
 }

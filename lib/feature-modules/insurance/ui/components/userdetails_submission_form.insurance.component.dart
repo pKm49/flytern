@@ -101,35 +101,27 @@ class _InsuranceUserDetailsSubmissionFormState
               child: Container(
                   padding: EdgeInsets.only(bottom: flyternSpaceMedium,top: flyternSpaceSmall),
                   color: flyternBackgroundWhite,
-                  child: Container(
-                    decoration: flyternBorderedContainerSmallDecoration.copyWith(
-                        color: flyternGrey20,
-                        border: Border.all(color: flyternGrey20, width: .2)),
-                    padding: flyternMediumPaddingHorizontal.copyWith(
-                        top: flyternSpaceExtraSmall,
-                        bottom: flyternSpaceExtraSmall),
-                    child: DropDownSelector(
-                      validator: (value) => null,
-                      key: selectPassengerDropDownKey,
-                      titleText: "select_passenger".tr,
-                      selected: selectedPassenger,
-                      items: [
+                  child: DropDownSelector(
+                    validator: (value) => null,
+                    key: selectPassengerDropDownKey,
+                    titleText: "select_passenger".tr,
+                    selected: selectedPassenger,
+                    items: [
+                      GeneralItem(
+                          imageUrl: "", id: "0", name: "select_passenger".tr),
+                      for (var i = 0;
+                          i < coPaxController.userCopaxes.length;
+                          i++)
                         GeneralItem(
-                            imageUrl: "", id: "0", name: "select_passenger".tr),
-                        for (var i = 0;
-                            i < coPaxController.userCopaxes.length;
-                            i++)
-                          GeneralItem(
-                              imageUrl: "",
-                              id: coPaxController.userCopaxes[i].id.toString(),
-                              name:
-                                  "${coPaxController.userCopaxes[i].firstName} ${coPaxController.userCopaxes[i].lastName}")
-                      ],
-                      hintText: "select_passenger".tr,
-                      valueChanged: (newGender) {
-                        changeSelectedPassenger(newGender);
-                      },
-                    ),
+                            imageUrl: "",
+                            id: coPaxController.userCopaxes[i].id.toString(),
+                            name:
+                                "${coPaxController.userCopaxes[i].firstName} ${coPaxController.userCopaxes[i].lastName}")
+                    ],
+                    hintText: "select_passenger".tr,
+                    valueChanged: (newGender) {
+                      changeSelectedPassenger(newGender);
+                    },
                   )),
             ),
             Container(

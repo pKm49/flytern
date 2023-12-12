@@ -55,15 +55,7 @@ class _PackageBookingLandingPageState extends State<PackageBookingLandingPage> {
         child: Column(
           children: [
             Container(
-                width: screenwidth - flyternSpaceMedium * 2,
-                padding: flyternMediumPaddingHorizontal,
-                margin: flyternMediumPaddingAll,
-                decoration: BoxDecoration(
-                  color: flyternBackgroundWhite,
-                  boxShadow: flyternItemShadow,
-                  borderRadius:
-                      BorderRadius.circular(flyternBorderRadiusExtraSmall),
-                ),
+                padding: flyternMediumPaddingAll,
                 child: DropDownSelector(
                   validator: (value) => null,
                   titleText: "select_destination".tr,

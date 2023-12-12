@@ -89,7 +89,7 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                       ),
                       child: Wrap(
                         children: [
-                          for (var i = 1; i < 4; i++)
+                          for (var i = 1; i < 5; i++)
                             Container(
                               padding: flyternSmallPaddingHorizontal.copyWith(
                                   top: flyternSpaceExtraSmall,
@@ -365,6 +365,15 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
 
     if (index == 3) {
       return "${"rooms_no".tr.replaceAll("2", hotelBookingController.hotelSearchData.value.rooms.length.toString())}";
+    }
+
+    if(index == 4){
+        num durationDays = hotelBookingController.hotelSearchData.value.checkOutDate.difference(
+            hotelBookingController.hotelSearchData.value.checkInDate
+        ).inDays;
+
+        return "night_count".tr.replaceAll("1", durationDays.toString());
+
     }
 
     return searchParamsPreviewString;

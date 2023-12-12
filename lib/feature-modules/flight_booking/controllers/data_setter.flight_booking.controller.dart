@@ -103,7 +103,7 @@ extension FlightBookingControllerSetter on FlightBookingController {
           .changeDate(newFlightSearchData, index, dateTime, true);
 
     }
-
+    startDate.value = newFlightSearchData.searchList[0].departureDate;
     flightSearchData.value = newFlightSearchData;
     if(isFilter){
       getSearchResults(false);

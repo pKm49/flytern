@@ -85,8 +85,10 @@ class FlightBookingHelperServices {
             .searchList[flightSearchData.searchList.length - 1].arrival,
         arrival: flightSearchData
             .searchList[flightSearchData.searchList.length - 1].departure,
-        departureDate: DateTime.now(),
-        returnDate: DateTime.now());
+        departureDate: flightSearchData
+            .searchList[flightSearchData.searchList.length - 1].departureDate,
+        returnDate:  flightSearchData
+            .searchList[flightSearchData.searchList.length - 1].departureDate,);
     flightSearchItems.add(flightSearchItem);
     return FlightSearchData(
         promoCode: flightSearchData.promoCode,

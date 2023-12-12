@@ -293,51 +293,41 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
                       Container(
                         color: flyternBackgroundWhite,
                         padding: flyternLargePaddingAll,
-                        child: Container(
-                          decoration:
-                              flyternBorderedContainerSmallDecoration.copyWith(
-                                  color: flyternGrey10,
-                                  border: Border.all(
-                                      color: flyternGrey10, width: .2)),
-                          padding: flyternMediumPaddingHorizontal.copyWith(
-                              top: flyternSpaceExtraSmall,
-                              bottom: flyternSpaceExtraSmall),
-                          child: DropDownSelector(
-                            validator: (value) => null,
-                            key: policyPlanDropDownKey,
-                            titleText: "policy_plan".tr,
-                            selected: insuranceBookingController
-                                .insurancePriceGetBody.value.policyplan,
-                            items: [
-                              GeneralItem(
-                                  imageUrl: "",
-                                  id: "0",
-                                  name: "select_policy_plan".tr),
-                              for (var i = 0;
-                                  i <
-                                      insuranceBookingController
-                                          .insuranceInitialData
-                                          .value
-                                          .lstPolicyOption
-                                          .length;
-                                  i++)
-                                GeneralItem(
-                                    imageUrl: "",
-                                    id: insuranceBookingController
+                        child: DropDownSelector(
+                          validator: (value) => null,
+                          key: policyPlanDropDownKey,
+                          titleText: "policy_plan".tr,
+                          selected: insuranceBookingController
+                              .insurancePriceGetBody.value.policyplan,
+                          items: [
+                            GeneralItem(
+                                imageUrl: "",
+                                id: "0",
+                                name: "select_policy_plan".tr),
+                            for (var i = 0;
+                                i <
+                                    insuranceBookingController
                                         .insuranceInitialData
                                         .value
-                                        .lstPolicyOption[i]
-                                        .id
-                                        .toString(),
-                                    name:
-                                        "${insuranceBookingController.insuranceInitialData.value.lstPolicyOption[i].name}")
-                            ],
-                            hintText: "select_policy_plan".tr,
-                            valueChanged: (newPlan) {
-                              insuranceBookingController
-                                  .changePolicyPlan((newPlan));
-                            },
-                          ),
+                                        .lstPolicyOption
+                                        .length;
+                                i++)
+                              GeneralItem(
+                                  imageUrl: "",
+                                  id: insuranceBookingController
+                                      .insuranceInitialData
+                                      .value
+                                      .lstPolicyOption[i]
+                                      .id
+                                      .toString(),
+                                  name:
+                                      "${insuranceBookingController.insuranceInitialData.value.lstPolicyOption[i].name}")
+                          ],
+                          hintText: "select_policy_plan".tr,
+                          valueChanged: (newPlan) {
+                            insuranceBookingController
+                                .changePolicyPlan((newPlan));
+                          },
                         ),
                       ),
                       Padding(
@@ -353,51 +343,41 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
                         child: Row(
                           children: [
                             Expanded(
-                              child: Container(
-                                decoration:
-                                flyternBorderedContainerSmallDecoration.copyWith(
-                                    color: flyternGrey10,
-                                    border: Border.all(
-                                        color: flyternGrey10, width: .2)),
-                                padding: flyternMediumPaddingHorizontal.copyWith(
-                                    top: flyternSpaceExtraSmall,
-                                    bottom: flyternSpaceExtraSmall),
-                                child: DropDownSelector(
-                                  validator: (value) => null,
-                                  key: policyTimeDropDownKey,
-                                  titleText: "policy_time".tr,
-                                  selected: insuranceBookingController
-                                      .insurancePriceGetBody.value.policyperiod,
-                                  items: [
+                              child: DropDownSelector(
+                                validator: (value) => null,
+                                key: policyTimeDropDownKey,
+                                titleText: "policy_time".tr,
+                                selected: insuranceBookingController
+                                    .insurancePriceGetBody.value.policyperiod,
+                                items: [
+                                  GeneralItem(
+                                      imageUrl: "",
+                                      id: "0",
+                                      name: "select_policy_period".tr),
+                                  for (var i = 0;
+                                  i <
+                                      insuranceBookingController
+                                          .insuranceInitialData
+                                          .value
+                                          .lstPolicyPeriod
+                                          .length;
+                                  i++)
                                     GeneralItem(
                                         imageUrl: "",
-                                        id: "0",
-                                        name: "select_policy_period".tr),
-                                    for (var i = 0;
-                                    i <
-                                        insuranceBookingController
+                                        id: insuranceBookingController
                                             .insuranceInitialData
                                             .value
-                                            .lstPolicyPeriod
-                                            .length;
-                                    i++)
-                                      GeneralItem(
-                                          imageUrl: "",
-                                          id: insuranceBookingController
-                                              .insuranceInitialData
-                                              .value
-                                              .lstPolicyPeriod[i]
-                                              .id
-                                              .toString(),
-                                          name:
-                                          "${insuranceBookingController.insuranceInitialData.value.lstPolicyPeriod[i].name}")
-                                  ],
-                                  hintText: "select_policy_period".tr,
-                                  valueChanged: (newPlan) {
-                                    insuranceBookingController
-                                        .changePolicyPeriod((newPlan));
-                                  },
-                                ),
+                                            .lstPolicyPeriod[i]
+                                            .id
+                                            .toString(),
+                                        name:
+                                        "${insuranceBookingController.insuranceInitialData.value.lstPolicyPeriod[i].name}")
+                                ],
+                                hintText: "select_policy_period".tr,
+                                valueChanged: (newPlan) {
+                                  insuranceBookingController
+                                      .changePolicyPeriod((newPlan));
+                                },
                               ),
                             ),
                             addHorizontalSpace(flyternSpaceMedium),

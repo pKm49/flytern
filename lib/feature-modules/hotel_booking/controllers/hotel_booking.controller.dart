@@ -89,6 +89,8 @@ class HotelBookingController extends GetxController {
   var isIssued = false.obs;
   var bookingInfo = <BookingInfo>[].obs;
   var paymentInfo = <BookingInfo>[].obs;
+  var travelInfo = <HotelTravelInfo>[].obs;
+
 
   var alert = <String>[].obs;
   var selectedImageIndex = (-1).obs;
@@ -373,6 +375,9 @@ class HotelBookingController extends GetxController {
     alert.value = getGatewayData.alert;
 
     hotelDetails.value = getGatewayData.hotelDetails;
+    selectedRoom.value = hotelDetails.value.rooms;
+    selectedRoomOption.value = hotelDetails.value.rooms.isNotEmpty?  hotelDetails.value.rooms[0].roomOptions:[];
+    selectedRoomSelectionIndex.value =  hotelDetails.value.rooms.isNotEmpty?0:-1;
 
     if (getGatewayData.paymentGateways.isNotEmpty) {
       updateProcessId(getGatewayData.paymentGateways[0].processID);
@@ -445,6 +450,9 @@ class HotelBookingController extends GetxController {
       alert.value = paymentConfirmationData.alertMsg;
       hotelDetails.value = paymentConfirmationData.hotelDetails;
       // confirmationMessage.value = paymentConfirmationData.alertMsg;
+      selectedRoom.value = hotelDetails.value.rooms;
+      selectedRoomOption.value = hotelDetails.value.rooms.isNotEmpty?  hotelDetails.value.rooms[0].roomOptions:[];
+      selectedRoomSelectionIndex.value =  hotelDetails.value.rooms.isNotEmpty?0:-1;
 
       if(isBookingFinder){
         Get.toNamed(Approute_hotelsConfirmation, arguments: [
@@ -582,4 +590,25 @@ class HotelBookingController extends GetxController {
       isHotelSearchPageResponsesLoading.value = false;
     }
   }
+
+  void updateTravellerInfo(List<HotelTravelInfo> tempTravelInfo) {
+    tempTravelInfo.forEach((element) {
+      print("travelInfo 2");
+      print(element.roomIndex);
+      print(element.typeIndex);
+      print(element.userIndex);
+      print(element.title);
+      print(element.gender);
+      print(element.firstName);
+      print(element.lastName);
+    });
+    travelInfo.value = tempTravelInfo;
+  }
+
+  void addTravellerInfo(HotelTravelInfo tTravelInfo) {
+    List<HotelTravelInfo> tempTravelInfo = travelInfo.value;
+    tempTravelInfo.add(tTravelInfo);
+    travelInfo.value = tempTravelInfo;
+  }
+
 }

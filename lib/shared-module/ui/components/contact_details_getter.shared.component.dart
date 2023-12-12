@@ -28,15 +28,6 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
   final GlobalKey<FormState> setContactDetailsFormKey = GlobalKey<FormState>();
   final sharedController = Get.find<SharedController>();
 
-  var selectedCountry = Country(
-      isDefault: 1,
-      countryName: "India",
-      countryCode: "IND",
-      countryISOCode: "IN",
-      countryName_Ar: "الهند",
-      flag: "https://flagcdn.com/48x36/in.png",
-      code: "+91");
-
   @override
   void initState() {
     // TODO: implement initState
@@ -86,12 +77,12 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
                       child: Container(
                         decoration:
                         flyternBorderedContainerSmallDecoration.copyWith(
-                            color: flyternGrey10,
+                            color: flyternGrey20,
                             border: Border.all(
-                                color: Colors.transparent, width: 0)),
+                                color: flyternGrey40, width: 0)),
                         padding: flyternMediumPaddingAll.copyWith(
-                            top: flyternSpaceLarge,
-                            bottom: flyternSpaceLarge),
+                            top: flyternSpaceMedium,
+                            bottom: flyternSpaceMedium),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -234,7 +225,6 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
               isGlobal: false,
               countrySelected: (Country? country) {
             if (country != null) {
-              selectedCountry=country;
               profileController.changeMobileCountry(country);
               setState(() {
 

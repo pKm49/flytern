@@ -262,6 +262,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                   visible:
                       !flightBookingController
                           .isFlightSearchFilterResponsesLoading.value &&
+                          !flightBookingController.flightSearchResponses.value.isEmpty &&
                       !flightBookingController.isModifySearchVisible.value,
                   child: Container(
                       padding: flyternMediumPaddingHorizontal,

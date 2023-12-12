@@ -222,8 +222,11 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                           )),
                     ],
                   ),
-                  addVerticalSpace(flyternSpaceMedium),
-                  Container(
+                  Padding(
+                    padding: flyternSmallPaddingVertical,
+                    child: Text(getDuration(),style: getBodyMediumStyle(context).copyWith(color: flyternTertiaryColor),),
+                  ),
+                   Container(
                     height: hotelBookingController
                                 .hotelSearchData.value.rooms.length ==
                             1
@@ -559,7 +562,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
         builder: (context) {
           return CustomDatePicker(
             minimumDate:isCheckoutDate?hotelBookingController
-                .hotelSearchData.value.checkInDate: DateTime.now(),
+                .hotelSearchData.value.checkInDate.add(Duration(days: 1)): DateTime.now(),
             maximumDate:isCheckoutDate?hotelBookingController
                 .hotelSearchData.value.checkInDate.add(Duration(days: 365))
                 : DateTime.now().add(Duration(days: 365)),
@@ -605,5 +608,13 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
               childAges: hotelBookingController
                   .hotelSearchData.value.rooms[index].childAges);
         });
+  }
+
+  String getDuration() {
+    num durationDays = hotelBookingController.hotelSearchData.value.checkOutDate.difference(
+        hotelBookingController.hotelSearchData.value.checkInDate
+    ).inDays;
+
+   return "night_count".tr.replaceAll("1", durationDays.toString());
   }
 }
