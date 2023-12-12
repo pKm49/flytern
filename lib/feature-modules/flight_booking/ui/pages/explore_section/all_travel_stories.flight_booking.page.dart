@@ -56,7 +56,7 @@ class _AllTravellStoriesPageState extends State<AllTravellStoriesPage> {
         title: Text("travel_stories".tr),
       ),
       body: Obx(
-            ()=> Stack(
+            ()=> Column(
           children: [
 
             Expanded(
