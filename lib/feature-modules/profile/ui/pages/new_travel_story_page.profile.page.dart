@@ -137,7 +137,6 @@ class _ProfileNewTravelStoryPageState extends State<ProfileNewTravelStoryPage> {
                               child: Container(
                                   width: screenwidth - (flyternSpaceLarge * 2),
                                   color: flyternSecondaryColorBg,
-                                  height: 200,
                                   child: AspectRatio(
                                     aspectRatio: 9 / 16,
                                     // Use the VideoPlayer widget to display the video.
@@ -323,10 +322,10 @@ class _ProfileNewTravelStoryPageState extends State<ProfileNewTravelStoryPage> {
     );
     _initializeVideoPlayerFuture = _controller.initialize();
     _controller.setLooping(true);
-    _initializeVideoPlayerFuture.then((_) =>
-        setState(() {
+    _initializeVideoPlayerFuture.then((_) => setState(() {
+      _controller.play();
+    }));
 
-        }));
   }
 
   void handleSubmission() {

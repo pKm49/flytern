@@ -43,6 +43,7 @@ class InsuranceBookingController extends GetxController {
   var policyPeriodObj = GeneralItem(id: '-1', name: '').obs;
   var policyOptionObj = GeneralItem(id: '-1', name: '').obs;
 
+
   var contributor = 1.obs;
   var son = 0.obs;
   var daughter = 0.obs;
@@ -50,6 +51,7 @@ class InsuranceBookingController extends GetxController {
   var gatewayUrl = "".obs;
   var pdfLink = "".obs;
   var isIssued = false.obs;
+  var travelInfo = <InsuranceTravellerInfo>[].obs;
   var paymentInfo = <BookingInfo>[].obs;
   var bookingInfo = <BookingInfo>[].obs;
   var alert = <String>[].obs;
@@ -430,5 +432,17 @@ class InsuranceBookingController extends GetxController {
     bookingRef.value = "";
     selectedTravelInfo.value = [];
     Get.offAllNamed(Approute_landingpage);
+  }
+
+
+  void updateTravellerInfo(List<InsuranceTravellerInfo> tempTravelInfo) {
+
+    travelInfo.value = tempTravelInfo;
+  }
+
+  void addTravellerInfo(InsuranceTravellerInfo tTravelInfo) {
+    List<InsuranceTravellerInfo> tempTravelInfo = travelInfo.value;
+    tempTravelInfo.add(tTravelInfo);
+    travelInfo.value = tempTravelInfo;
   }
 }

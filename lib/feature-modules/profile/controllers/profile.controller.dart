@@ -189,43 +189,48 @@ class ProfileController extends GetxController {
   }
 
   void updateProfile(File? file) async {
-    isProfileSubmitting.value = true;
-    try {
-      UserDetails userDetails = UserDetails(
-          isGuest: false,
-          gender: gender.value,
-          firstName: firsNameController.value.text,
-          lastName: lastNameController.value.text,
-          passportNumber: passportNumberController.value.text,
-          dateOfBirth: dob.value,
-          passportIssuerCountryCode: passportIssuedCountryCode.value,
-          passportIssuerCountryName: "",
-          nationalityCode: nationalityCode.value,
-          nationalityName: "",
-          passportExpiry: passportExpiry.value,
-          phoneCountryCode: '',
-          imgUrl: '',
-          userName: '',
-          email: '',
-          phoneNumber: '',
-          genders: []);
+    print("updateProfile called");
 
-      bool isSuccess =
-          await profileHttpServices.updateUserDetails(userDetails, file);
+    if(!isProfileSubmitting.value){
+      isProfileSubmitting.value = true;
+      try {
+        UserDetails userDetails = UserDetails(
+            isGuest: false,
+            gender: gender.value,
+            firstName: firsNameController.value.text,
+            lastName: lastNameController.value.text,
+            passportNumber: passportNumberController.value.text,
+            dateOfBirth: dob.value,
+            passportIssuerCountryCode: passportIssuedCountryCode.value,
+            passportIssuerCountryName: "",
+            nationalityCode: nationalityCode.value,
+            nationalityName: "",
+            passportExpiry: passportExpiry.value,
+            phoneCountryCode: '',
+            imgUrl: '',
+            userName: '',
+            email: '',
+            phoneNumber: '',
+            genders: []);
 
-      if (isSuccess) {
-        Get.back();
-         isProfileSubmitting.value = false;
+        bool isSuccess =
+        await profileHttpServices.updateUserDetails(userDetails, file);
 
-        showSnackbar(Get.context!, "profile_updated".tr, "info");
+        if (isSuccess) {
+          Get.back();
+          isProfileSubmitting.value = false;
+
+          showSnackbar(Get.context!, "profile_updated".tr, "info");
 
 
-        await getUserDetails();
+          await getUserDetails();
+        }
+      } catch (e) {
+        showSnackbar(Get.context!, e.toString(), "error");
+        isProfileSubmitting.value = false;
       }
-    } catch (e) {
-       showSnackbar(Get.context!, e.toString(), "error");
-      isProfileSubmitting.value = false;
     }
+
   }
 
   sendOTP(bool isMobile) async {

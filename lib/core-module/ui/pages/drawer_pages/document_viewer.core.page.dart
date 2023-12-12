@@ -61,6 +61,26 @@ class _DocumentPageState extends State<DocumentPage> {
                   child: SingleChildScrollView(
                     child: Html(
                       data: getHtmlData(),
+                      style: {
+                        "p":Style(
+                          lineHeight:LineHeight(1.2),
+                        ),
+                        "h1":Style(
+                          lineHeight:LineHeight(1.5),
+                        ),
+                        "h2":Style(
+                          lineHeight:LineHeight(1.5),
+                        ),
+                        "h3":Style(
+                          lineHeight:LineHeight(1.5),
+                        ),
+                        "h4":Style(
+                          lineHeight:LineHeight(1.5),
+                        ),
+                        "h5":Style(
+                          lineHeight:LineHeight(1.5),
+                        ),
+                      },
                     ),
                   ),
                 )),

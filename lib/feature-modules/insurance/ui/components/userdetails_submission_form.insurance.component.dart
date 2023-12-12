@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart'; 
- import 'package:flytern/feature-modules/insurance/controllers/insurance.controller.dart';
+import 'package:flutter/material.dart';
+import 'package:flytern/feature-modules/insurance/controllers/insurance.controller.dart';
 import 'package:flytern/feature-modules/insurance/models/traveller_info.insurance.model.dart';
 import 'package:flytern/feature-modules/profile/controllers/copax.profile.controller.dart';
 import 'package:flytern/feature-modules/profile/models/user-copax.profile.model.dart';
@@ -16,11 +16,10 @@ import 'package:flytern/shared-module/services/utility-services/widget_generator
 import 'package:flytern/shared-module/ui/components/country_selector.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/custom_date_picker.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/dropdown_selector.shared.component.dart';
- import 'package:get/get.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class InsuranceUserDetailsSubmissionForm extends StatefulWidget  {
-
+class InsuranceUserDetailsSubmissionForm extends StatefulWidget {
   int index;
   InsuranceBookingController insuranceBookingController;
   final Function(InsuranceTravellerInfo travelInfo) dataSubmitted;
@@ -37,24 +36,25 @@ class InsuranceUserDetailsSubmissionForm extends StatefulWidget  {
 }
 
 class _InsuranceUserDetailsSubmissionFormState
-    extends State<InsuranceUserDetailsSubmissionForm> with AutomaticKeepAliveClientMixin<InsuranceUserDetailsSubmissionForm> {
-
-   TextEditingController firstNameController = TextEditingController();
+    extends State<InsuranceUserDetailsSubmissionForm>
+    with AutomaticKeepAliveClientMixin<InsuranceUserDetailsSubmissionForm> {
+  TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController passportNumberController = TextEditingController();
   TextEditingController civilIdController = TextEditingController();
   TextEditingController dobController = TextEditingController();
   TextEditingController nationalityController = TextEditingController();
+  final insuranceBookingController = Get.find<InsuranceBookingController>();
 
-  Gender selectedTitle  = Gender(code: "0", name: "Title", isDefault: false);
-  Gender selectedGender  = Gender(code: "0", name: "Gender", isDefault: false);
+  Gender selectedTitle = Gender(code: "0", name: "Title", isDefault: false);
+  Gender selectedGender = Gender(code: "0", name: "Gender", isDefault: false);
   String selectedPassenger = "0";
   String gender = "0";
   String title = "0";
   String frequentFlyerNo = "0";
-   final sharedController = Get.find<SharedController>();
+  final sharedController = Get.find<SharedController>();
 
-   DateTime dateOfBirth = DefaultInvalidDate;
+  DateTime dateOfBirth = DefaultInvalidDate;
   DateTime passportExpiryDate = DefaultInvalidDate;
   final GlobalKey<FormState> userDetailsForm = GlobalKey<FormState>();
   final GlobalKey<FormState> genderDropDownKey = GlobalKey<FormState>();
@@ -97,9 +97,10 @@ class _InsuranceUserDetailsSubmissionFormState
         child: Wrap(
           children: [
             Visibility(
-              visible: coPaxController.userCopaxes.isNotEmpty,
+              visible: getUserCopaxes(widget.index).isNotEmpty,
               child: Container(
-                  padding: EdgeInsets.only(bottom: flyternSpaceMedium,top: flyternSpaceSmall),
+                  padding: EdgeInsets.only(
+                      bottom: flyternSpaceMedium, top: flyternSpaceSmall),
                   color: flyternBackgroundWhite,
                   child: DropDownSelector(
                     validator: (value) => null,
@@ -110,13 +111,13 @@ class _InsuranceUserDetailsSubmissionFormState
                       GeneralItem(
                           imageUrl: "", id: "0", name: "select_passenger".tr),
                       for (var i = 0;
-                          i < coPaxController.userCopaxes.length;
+                          i < getUserCopaxes(widget.index).length;
                           i++)
                         GeneralItem(
                             imageUrl: "",
-                            id: coPaxController.userCopaxes[i].id.toString(),
+                            id: getUserCopaxes(widget.index)[i].id.toString(),
                             name:
-                                "${coPaxController.userCopaxes[i].firstName} ${coPaxController.userCopaxes[i].lastName}")
+                                "${getUserCopaxes(widget.index)[i].firstName} ${getUserCopaxes(widget.index)[i].lastName}")
                     ],
                     hintText: "select_passenger".tr,
                     valueChanged: (newGender) {
@@ -125,7 +126,8 @@ class _InsuranceUserDetailsSubmissionFormState
                   )),
             ),
             Container(
-              padding: EdgeInsets.only(bottom: flyternSpaceMedium,top: flyternSpaceSmall),
+              padding: EdgeInsets.only(
+                  bottom: flyternSpaceMedium, top: flyternSpaceSmall),
               color: flyternBackgroundWhite,
               child: Row(
                 children: [
@@ -152,7 +154,6 @@ class _InsuranceUserDetailsSubmissionFormState
                           FlightUserDataTextFormatter(),
                         ],
                         onChanged: updateData(),
-
                         controller: lastNameController,
                         validator: (value) =>
                             checkIfNameFormValid(value, "last_name".tr),
@@ -203,7 +204,6 @@ class _InsuranceUserDetailsSubmissionFormState
                     labelText: "enter_nationality".tr,
                   )),
             ),
-
             Container(
                 padding: EdgeInsets.only(bottom: flyternSpaceMedium),
                 color: flyternBackgroundWhite,
@@ -223,7 +223,7 @@ class _InsuranceUserDetailsSubmissionFormState
               padding: EdgeInsets.only(bottom: flyternSpaceMedium),
               color: flyternBackgroundWhite,
               child: TextFormField(
-                onChanged: updateData(),
+                  onChanged: updateData(),
                   inputFormatters: [
                     FlightUserDataTextFormatter(),
                   ],
@@ -235,7 +235,6 @@ class _InsuranceUserDetailsSubmissionFormState
                     labelText: "enter_passport".tr,
                   )),
             ),
-
           ],
         ),
       ),
@@ -245,8 +244,7 @@ class _InsuranceUserDetailsSubmissionFormState
   void changeGender(Gender newGender) {
     gender = newGender.code;
     selectedGender = newGender;
-    setState(() {
-    });
+    setState(() {});
     updateData();
   }
 
@@ -264,8 +262,10 @@ class _InsuranceUserDetailsSubmissionFormState
         builder: (context) {
           return CustomDatePicker(
             selectedDate: dateTime,
-            maximumDate: widget.insuranceBookingController.insuranceInitialData.value.maxDateOfBirth,
-            minimumDate: widget.insuranceBookingController.insuranceInitialData.value.minDateOfBirth,
+            maximumDate: insuranceBookingController
+                .insuranceInitialData.value.maxDateOfBirth,
+            minimumDate: insuranceBookingController
+                .insuranceInitialData.value.minDateOfBirth,
             dateSelected: (DateTime? dateTime) {
               if (dateTime != null) {
                 if (isDOB) {
@@ -283,9 +283,7 @@ class _InsuranceUserDetailsSubmissionFormState
     dobController.text = f.format(dateTime);
     setState(() {});
     updateData();
-
   }
-
 
   void openCountrySelector(bool isNationality) {
     showModalBottomSheet(
@@ -299,7 +297,7 @@ class _InsuranceUserDetailsSubmissionFormState
         context: context,
         builder: (context) {
           return CountrySelector(
-            isMobile:false,
+            isMobile: false,
             isGlobal: false,
             countrySelected: (Country? country) {
               if (country != null) {
@@ -317,9 +315,7 @@ class _InsuranceUserDetailsSubmissionFormState
     nationalityController.text = "${country.countryName} (${country.code})";
     setState(() {});
     updateData();
-
   }
-
 
   void changeTitle(Gender newTitle) {
     title = newTitle.code;
@@ -332,7 +328,6 @@ class _InsuranceUserDetailsSubmissionFormState
     frequentFlyerNo = yesNo;
     setState(() {});
     updateData();
-
   }
 
   void changeSelectedPassenger(String newGender) {
@@ -342,36 +337,37 @@ class _InsuranceUserDetailsSubmissionFormState
     selectedPassenger = newGender;
 
     if (coPax.isNotEmpty) {
-
-      firstNameController.text =    coPax[0].firstName;
-      lastNameController.text =    coPax[0].lastName;
-      passportNumberController.text =    coPax[0].passportNumber;
+      firstNameController.text = coPax[0].firstName;
+      lastNameController.text = coPax[0].lastName;
+      passportNumberController.text = coPax[0].passportNumber;
       final f = DateFormat('dd-MM-yyyy');
       dobController.text = f.format(coPax[0].dateOfBirth);
       dateOfBirth = coPax[0].dateOfBirth;
       final sharedController = Get.find<SharedController>();
-      if(coPax[0].dateOfBirth == DefaultInvalidDate){
+      if (coPax[0].dateOfBirth == DefaultInvalidDate) {
         dobController.text = f.format(DefaultMinimumDate);
         dateOfBirth = DefaultMinimumDate;
-      }else{
+      } else {
         dobController.text = f.format(coPax[0].dateOfBirth);
         dateOfBirth = coPax[0].dateOfBirth;
       }
 
-      List<Country> nationCountry = sharedController.countries.value.where((element) =>
-      element.countryISOCode == coPax[0].nationalityCode).toList();
-      if(nationCountry.isNotEmpty){
+      List<Country> nationCountry = sharedController.countries.value
+          .where(
+              (element) => element.countryISOCode == coPax[0].nationalityCode)
+          .toList();
+      if (nationCountry.isNotEmpty) {
         nationality = nationCountry[0];
         nationalityController.text =
-        "${ nationCountry[0].countryName} (${ nationCountry[0].code})";
+            "${nationCountry[0].countryName} (${nationCountry[0].code})";
       }
 
       setState(() {});
       updateData();
-    }else {
+    } else {
       dobController.text = "";
       dateOfBirth = DefaultInvalidDate;
-      passportNumberController.text =    "";
+      passportNumberController.text = "";
       nationalityController.text = "";
       nationality = Country(
           isDefault: 1,
@@ -397,28 +393,55 @@ class _InsuranceUserDetailsSubmissionFormState
           ? sharedController.titleList[0]
           : Gender(code: "0", name: "Title", isDefault: false);
 
-
       setState(() {});
       updateData();
     }
-
   }
 
-  updateData(){
-
-    widget.dataSubmitted(
-        InsuranceTravellerInfo(
-            relationshipCode:"",
-            civilID: civilIdController.text,
-            firstName: firstNameController.text,
-            lastName: lastNameController.text,
-            gender: selectedGender.code,
-            dateOfBirth: dateOfBirth,
-            passportNumber: passportNumberController.text,
-            nationalityCode:nationality.countryISOCode, ));
+  updateData() {
+    widget.dataSubmitted(InsuranceTravellerInfo(
+      selectedCopaxId: selectedPassenger,
+      relationshipCode: "",
+      civilID: civilIdController.text,
+      firstName: firstNameController.text,
+      lastName: lastNameController.text,
+      gender: selectedGender.code,
+      dateOfBirth: dateOfBirth,
+      passportNumber: passportNumberController.text,
+      nationalityCode: nationality.countryISOCode,
+    ));
   }
 
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+
+  List<UserCoPax> getUserCopaxes(int index) {
+    List<String> selectedUserCopaxes = widget
+        .insuranceBookingController.travelInfo.value
+        .map((e) => e.selectedCopaxId)
+        .where((element) =>
+            element !=
+            widget.insuranceBookingController.travelInfo.value[index - 1]
+                .selectedCopaxId)
+        .toList();
+
+    print(selectedUserCopaxes);
+    List<UserCoPax> allowedCopaxes = coPaxController.userCopaxes.value
+        .where(
+            (element) => !selectedUserCopaxes.contains(element.id.toString()))
+        .toList();
+
+    allowedCopaxes = allowedCopaxes
+        .where((element) =>
+            element.dateOfBirth.isBefore(insuranceBookingController
+                .insuranceInitialData.value.maxDateOfBirth) &&
+            element.dateOfBirth.isAfter(insuranceBookingController
+                .insuranceInitialData.value.minDateOfBirth))
+        .toList();
+
+    print(allowedCopaxes.length);
+
+    return allowedCopaxes;
+  }
 }

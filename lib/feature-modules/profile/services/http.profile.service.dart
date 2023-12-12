@@ -10,7 +10,7 @@ import 'package:flytern/shared-module/services/http-services/http_request_handle
 class ProfileHttpServices{
 
   Future<bool> updateUserDetails(UserDetails userDetails, File? file ) async {
-
+    print("updateUserDetails called");
     try{
       FlyternHttpResponse response = await fileUpload(
         userDetails.toJson(),

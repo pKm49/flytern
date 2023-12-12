@@ -35,7 +35,6 @@ class _InsuranceUserDetailsSubmissionPageState
   dynamic argumentData = Get.arguments;
   final insuranceBookingController = Get.find<InsuranceBookingController>();
   late TabController tabController;
-  List<InsuranceTravellerInfo> travelInfo = [];
   int tabLength = 1;
   String mobileCntry = "";
   String mobileNumber = "";
@@ -49,7 +48,7 @@ class _InsuranceUserDetailsSubmissionPageState
     mobileCntry = argumentData[0]['mobileCntry'];
     mobileNumber = argumentData[0]['mobileNumber'];
     email = argumentData[0]['email'];
-
+    insuranceBookingController.updateTravellerInfo([]);
     initializeForms();
   }
 
@@ -255,7 +254,7 @@ class _InsuranceUserDetailsSubmissionPageState
                         await Future.delayed(const Duration(seconds: 1));
 
                         insuranceBookingController.saveTravellersData(
-                            travelInfo);
+                            insuranceBookingController.travelInfo);
                       },
                       child: insuranceBookingController
                           .isInsuranceSaveTravellerLoading.value
@@ -330,14 +329,14 @@ class _InsuranceUserDetailsSubmissionPageState
 
     contributorExpansionControllers.add(ExpansionTileController());
 
-    travelInfo.add(mapInsuranceTravellerInfo(
+    insuranceBookingController.addTravellerInfo(mapInsuranceTravellerInfo(
         {"relationshipCode": contributorRelationshipCode}));
 
     if (insuranceBookingController.spouse.value > 0) {
       tabLength++;
       spouseExpansionControllers.add(ExpansionTileController());
 
-      travelInfo.add(mapInsuranceTravellerInfo(
+      insuranceBookingController.addTravellerInfo(mapInsuranceTravellerInfo(
           {"relationshipCode": spouseRelationshipCode}));
     }
 
@@ -346,7 +345,7 @@ class _InsuranceUserDetailsSubmissionPageState
       for (var i = 0; i < insuranceBookingController.daughter.value; i++) {
         daughterExpansionControllers.add(ExpansionTileController());
 
-        travelInfo.add(mapInsuranceTravellerInfo(
+        insuranceBookingController.addTravellerInfo(mapInsuranceTravellerInfo(
             {"relationshipCode": daughterRelationshipCode}));
       }
     }
@@ -355,7 +354,7 @@ class _InsuranceUserDetailsSubmissionPageState
       tabLength++;
       for (var i = 0; i < insuranceBookingController.son.value; i++) {
         sonExpansionControllers.add(ExpansionTileController());
-        travelInfo.add(mapInsuranceTravellerInfo(
+        insuranceBookingController.addTravellerInfo(mapInsuranceTravellerInfo(
             {"relationshipCode": sonRelationshipCode}));
       }
     }
@@ -369,13 +368,14 @@ class _InsuranceUserDetailsSubmissionPageState
   void updateTravellerInfor(index, InsuranceTravellerInfo newTravelInfo) {
 
     List<InsuranceTravellerInfo> tempTravelInfo = [];
-    for (var i = 0; i < travelInfo.length; i++) {
+    for (var i = 0; i < insuranceBookingController.travelInfo.value.length; i++) {
       if ((i + 1) != index) {
-        tempTravelInfo.add(travelInfo[i]);
+        tempTravelInfo.add(insuranceBookingController.travelInfo.value[i]);
       } else {
 
         tempTravelInfo.add(InsuranceTravellerInfo(
-            relationshipCode: travelInfo[i].relationshipCode,
+            selectedCopaxId:newTravelInfo.selectedCopaxId,
+            relationshipCode: insuranceBookingController.travelInfo.value[i].relationshipCode,
             firstName: newTravelInfo.firstName,
             lastName: newTravelInfo.lastName,
             gender: newTravelInfo.gender,
@@ -385,7 +385,7 @@ class _InsuranceUserDetailsSubmissionPageState
             civilID: newTravelInfo.civilID));
       }
     }
-    travelInfo = tempTravelInfo;
+    insuranceBookingController.updateTravellerInfo(tempTravelInfo);
   }
 
   getTabTitle(int i) {

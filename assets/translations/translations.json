@@ -370,7 +370,8 @@
       "enter_passportnumber_copax": "Enter Passport Number for user",
       "enter_civilid_copax": "Enter Civil Id for user",
       "enter_passportcountry_copax": "Enter Passport Country for user",
-      "enter_passportexpiry_copax": "Enter Passport Expiry for user"
+      "enter_passportexpiry_copax": "Enter Passport Expiry for user",
+      "non_stop": "No Stops"
     }
   },
   {
@@ -744,7 +745,9 @@
       "enter_civilid_copax": "Enter Civil Id for user",
       "enter_passportcountry_copax": "Enter Passport Country for user",
       "enter_passportexpiry_copax": "Enter Passport Expiry for user",
-      "provide_valid_item": "Provide valid item"
+      "provide_valid_item": "Provide valid item",
+      "non_stop": "No Stops"
+
     }
   }
 ]

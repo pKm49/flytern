@@ -213,6 +213,11 @@ List<String> getStringListFromDynamic(List<dynamic> list) {
 
 fileUpload(dynamic body, File? file, String field, String endpoint,
     String requestType) async {
+
+  print("fileUpload called");
+  print(endpoint);
+  print(Uri.https(env.apiEndPoint, "$endpoint").toString());
+  print(body);
   try {
     Map<String, String> headers = {
       "Accept": "application/json",

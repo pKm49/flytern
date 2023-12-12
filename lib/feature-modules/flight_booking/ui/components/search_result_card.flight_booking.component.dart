@@ -61,7 +61,7 @@ class FlightSearchResultCard extends StatelessWidget {
                     visible: flightSearchResponse.dTOSegments.isNotEmpty,
                     child: DataCapsuleCard(
                       label:
-                          "${flightSearchResponse.dTOSegments.isNotEmpty ? flightSearchResponse.dTOSegments[0].stops : 0} ${'stops'.tr}",
+                          getStopsLength(),
                       theme: 2,
                     ),
                   ),
@@ -233,5 +233,15 @@ class FlightSearchResultCard extends StatelessWidget {
       return toCountry.split(",").toList()[0];
     }
     return toCountry;
+  }
+
+  getStopsLength() {
+    if(flightSearchResponse.dTOSegments.isEmpty){
+      return "non_stop".tr;
+    }
+    if(flightSearchResponse.dTOSegments[0].stops-1 == 0){
+      return "non_stop".tr;
+    }
+    return "${flightSearchResponse.dTOSegments[0].stops-1 } ${'stops'.tr}";
   }
 }

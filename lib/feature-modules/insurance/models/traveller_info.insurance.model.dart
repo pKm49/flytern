@@ -6,6 +6,7 @@ class InsuranceTravellerInfo {
   final String relationshipCode;
   final String firstName;
   final String lastName;
+  final String selectedCopaxId;
   final String gender;
   final DateTime dateOfBirth;
   final String passportNumber;
@@ -18,6 +19,7 @@ class InsuranceTravellerInfo {
       required this.firstName,
       required this.lastName,
       required this.gender,
+      required this.selectedCopaxId,
       required this.dateOfBirth,
       required this.passportNumber,
       required this.nationalityCode,
@@ -40,6 +42,7 @@ InsuranceTravellerInfo mapInsuranceTravellerInfo(dynamic payload) {
     firstName: payload["firstName"] ?? "",
     lastName: payload["lastName"] ?? "",
     gender: payload["gender"] ?? "",
+    selectedCopaxId: payload["selectedCopaxId"] ?? "0",
     dateOfBirth: payload["dateOfBirth"] != null
         ? DateTime.parse(getParsableDateString(payload["dateOfBirth"]))
         : DefaultAdultMinimumDate,

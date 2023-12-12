@@ -592,16 +592,7 @@ class HotelBookingController extends GetxController {
   }
 
   void updateTravellerInfo(List<HotelTravelInfo> tempTravelInfo) {
-    tempTravelInfo.forEach((element) {
-      print("travelInfo 2");
-      print(element.roomIndex);
-      print(element.typeIndex);
-      print(element.userIndex);
-      print(element.title);
-      print(element.gender);
-      print(element.firstName);
-      print(element.lastName);
-    });
+
     travelInfo.value = tempTravelInfo;
   }
 
