@@ -158,7 +158,7 @@ class ProfileController extends GetxController {
 
   void changeNationality(Country country) {
     nationalityController.value.text =
-        "${country.countryName} (${country.code})";
+        "${country.countryName}";
     nationalityCode.value = country.countryISOCode;
   }
 
@@ -168,7 +168,7 @@ class ProfileController extends GetxController {
 
   void changePassportCountry(Country country) {
     passportCountryController.value.text =
-        "${country.countryName} (${country.code})";
+        "${country.countryName}";
     passportIssuedCountryCode.value = country.countryISOCode;
   }
 
@@ -324,7 +324,9 @@ class ProfileController extends GetxController {
         userDetails.passportIssuerCountryName;
     passportExpiryController.value.text =
         getFormattedDate(userDetails.passportExpiry);
-    dobController.value.text =  getFormattedDate(userDetails.dateOfBirth);
+    dobController.value.text = ( userDetails.dateOfBirth.day == DefaultInvalidDate.day &&
+        userDetails.dateOfBirth.month == DefaultInvalidDate.month &&
+        userDetails.dateOfBirth.year == DefaultInvalidDate.year )? "":getFormattedDate(userDetails.dateOfBirth);
     firsNameController.value.text = userDetails.firstName;
     lastNameController.value.text = userDetails.lastName;
     passportNumberController.value.text = userDetails.passportNumber;

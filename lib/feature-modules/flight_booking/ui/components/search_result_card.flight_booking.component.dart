@@ -242,6 +242,9 @@ class FlightSearchResultCard extends StatelessWidget {
     if(flightSearchResponse.dTOSegments[0].stops-1 == 0){
       return "non_stop".tr;
     }
+    if(flightSearchResponse.dTOSegments[0].stops-1 == 1){
+      return "single_stop".tr;
+    }
     return "${flightSearchResponse.dTOSegments[0].stops-1 } ${'stops'.tr}";
   }
 }

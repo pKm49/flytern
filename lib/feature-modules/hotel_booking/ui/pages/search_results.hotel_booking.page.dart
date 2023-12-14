@@ -371,7 +371,9 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
         num durationDays = hotelBookingController.hotelSearchData.value.checkOutDate.difference(
             hotelBookingController.hotelSearchData.value.checkInDate
         ).inDays;
-
+        if(durationDays == 1){
+          return "single_night".tr;
+        }
         return "night_count".tr.replaceAll("1", durationDays.toString());
 
     }

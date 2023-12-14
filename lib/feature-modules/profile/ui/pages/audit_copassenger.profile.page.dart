@@ -340,7 +340,7 @@ class _ProfileAuditCopassengerPageState
           return CustomDatePicker(
             selectedDate: dateTime,
             minimumDate: isDOB?DefaultAdultMinimumDate:DateTime.now(),
-            maximumDate: isDOB?DefaultAdultMaximumDate:DateTime(2080),
+            maximumDate: isDOB?DateTime.now():DateTime(2080),
             dateSelected: (DateTime? dateTime) {
               if (dateTime != null) {
                 if (isDOB) {

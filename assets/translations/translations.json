@@ -371,7 +371,12 @@
       "enter_civilid_copax": "Enter Civil Id for user",
       "enter_passportcountry_copax": "Enter Passport Country for user",
       "enter_passportexpiry_copax": "Enter Passport Expiry for user",
-      "non_stop": "No Stops"
+      "non_stop": "Non-Stop",
+      "single_stop": "1 Stop",
+      "single_night": "1 Night",
+      "complete_payment": "Complete Payment",
+      "register_welcome_message": "Congratulations! Your registration is confirmed. Get set to explore the world with ease and excitement!"
+
     }
   },
   {
@@ -746,7 +751,11 @@
       "enter_passportcountry_copax": "Enter Passport Country for user",
       "enter_passportexpiry_copax": "Enter Passport Expiry for user",
       "provide_valid_item": "Provide valid item",
-      "non_stop": "No Stops"
+      "non_stop": "No Stops",
+      "single_stop": "1 Stop",
+      "single_night": "1 Night",
+      "complete_payment": "Complete Payment",
+      "register_welcome_message": "Congratulations! Your registration is confirmed. Get set to explore the world with ease and excitement!"
 
     }
   }

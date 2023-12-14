@@ -204,7 +204,7 @@ class _HotelUserDetailsSubmissionPageState
             "typeIndex": ind + 1,
             "userIndex": roomUserCount,
             "travellerType": "Adult",
-            'roomId': hotelBookingController.hotelDetails.value.rooms[0].roomid,
+            'roomId': hotelBookingController.hotelDetails.value.rooms[i].roomid,
             'hotelOptionid':
                 hotelBookingController.selectedRoomOption.value[0].roomOptionid
           }));
@@ -228,7 +228,7 @@ class _HotelUserDetailsSubmissionPageState
             "typeIndex": ind + 1,
             "userIndex": roomUserCount,
             "travellerType": "Child",
-            'roomId': hotelBookingController.hotelDetails.value.rooms[0].roomid,
+            'roomId': hotelBookingController.hotelDetails.value.rooms[i].roomid,
             'hotelOptionid':
                 hotelBookingController.selectedRoomOption.value[0].roomOptionid
           }));

@@ -35,48 +35,61 @@ class ExploreData {
 
 ExploreData mapExploreData(dynamic payload){
 
-  List<FlightSearchData> quickSearch = [];
-  List<CabinClass> tempCabinClasses = [];
-  List<RecommendedPackage> tempRecommendedPackages = [];
-  List<PopularDestination> tempPopularDestinations = [];
-  List<TravelStory> tempTravelStories = [];
+    List<FlightSearchData> quickSearch = [];
+    List<CabinClass> tempCabinClasses = [];
+    List<RecommendedPackage> tempRecommendedPackages = [];
+    List<PopularDestination> tempPopularDestinations = [];
+    List<TravelStory> tempTravelStories = [];
 
-  if(payload["quickSearch"] != null){
-    payload["quickSearch"].forEach((element) {
-      quickSearch.add(mapFlightSearchData(element));
-    });
-  }
+    if(payload["quickSearch"] != null){
+      payload["quickSearch"].forEach((element) {
+        if(element !=null){
+          quickSearch.add(mapFlightSearchData(element));
+        }
+      });
+    }
 
-  if(payload["cabinClass"] != null){
-    payload["cabinClass"].forEach((element) {
-      tempCabinClasses.add(mapCabinClass(element));
-    });
-  }
+    if(payload["cabinClass"] != null){
+      payload["cabinClass"].forEach((element) {
+        if(element !=null){
+          tempCabinClasses.add(mapCabinClass(element));
+        }
 
-  if(payload["recommends"] != null){
-    payload["recommends"].forEach((element) {
-      tempRecommendedPackages.add(mapRecommendedPackage(element));
-    });
-  }
+      });
+    }
 
-  if(payload["popularDestinations"] != null){
-    payload["popularDestinations"].forEach((element) {
-      tempPopularDestinations.add(mapPopularDestination(element));
-    });
-  }
+    if(payload["recommends"] != null){
+      payload["recommends"].forEach((element) {
+        if(element !=null){
+          tempRecommendedPackages.add(mapRecommendedPackage(element));
+        }
+      });
+    }
 
-  if(payload["travelStories"] != null){
-    payload["travelStories"].forEach((element) {
-      tempTravelStories.add(mapTravelStory(element));
-    });
-  }
+    if(payload["popularDestinations"] != null){
+      payload["popularDestinations"].forEach((element) {
+        if(element !=null){
+          tempPopularDestinations.add(mapPopularDestination(element));
+        }
+      });
+    }
+
+    if(payload["travelStories"] != null){
+      payload["travelStories"].forEach((element) {
+        if(element !=null){
+          tempTravelStories.add(mapTravelStory(element));
+        }
+      });
+    }
 
 
-  return ExploreData(
-    cabinClasses :tempCabinClasses,
-    recommendedPackages :tempRecommendedPackages,
-    popularDestinations :tempPopularDestinations,
-    travelStories :tempTravelStories,
-    quickSearch: quickSearch
-  );
+    return ExploreData(
+        cabinClasses :tempCabinClasses,
+        recommendedPackages :tempRecommendedPackages,
+        popularDestinations :tempPopularDestinations,
+        travelStories :tempTravelStories,
+        quickSearch: quickSearch
+    );
+
+
 }

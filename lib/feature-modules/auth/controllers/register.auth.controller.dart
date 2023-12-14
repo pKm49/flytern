@@ -81,6 +81,8 @@ class RegisterController extends GetxController {
               if(!isDirectFlow){
                 Get.back(result: true);
               }else{
+
+                showSnackbar(Get.context!, "register_welcome_message".tr,"info");
                 Get.offAllNamed(Approute_landingpage);
               }
             }

@@ -103,13 +103,13 @@ class CoPaxController extends GetxController {
 
   void changeNationality(Country country) {
     nationalityController.value.text =
-        "${country.countryName} (${country.code})";
+        "${country.countryName}";
     nationalityCode.value = country.countryISOCode;
   }
 
   void changePassportCountry(Country country) {
     passportCountryController.value.text =
-        "${country.countryName} (${country.code})";
+        "${country.countryName}";
     passportIssuedCountryCode.value = country.countryISOCode;
   }
 

@@ -23,6 +23,7 @@ class PackageBookingController extends GetxController {
   var destinations = <Country>[].obs;
   var packageDetails = getDefaultPackageDetails().obs;
   var pageId = 1.obs;
+  var isSearchScrollOver = false.obs;
   var packageId = 1.obs;
   var countryisocode = "ALL".obs;
   var bookingRef = "".obs;
@@ -41,43 +42,53 @@ class PackageBookingController extends GetxController {
   }
 
   Future<void> getPackages(int newPageId, String newCountryisocode) async {
-    if(newPageId==1){
-      isInitialDataLoading.value = true;
-    }else{
-      isInitialDataPageLoading.value = true;
 
-    }
+    if(!isSearchScrollOver.value || newPageId == 1){
 
-
-    pageId.value = newPageId;
-    countryisocode.value = newCountryisocode;
-
-    PackageResponse? packageResponse = await packageBookingHttpService.getPackages(newPageId,newCountryisocode);
-
-    if (packageResponse != null) {
-
-      if(newCountryisocode == "ALL"){
-        destinations.value = packageResponse.destinations;
-      }
-      if(newPageId == 1){
-        packages.value =  packageResponse.packages;
+      if(newPageId==1){
+        isInitialDataLoading.value = true;
+        isSearchScrollOver.value = false;
       }else{
-
-        List<PackageData> tempPackages = [];
-
-        for (var element in packages.value) {
-          tempPackages.add(element);
-        }
-
-        for (var element in packageResponse.packages) {
-          tempPackages.add(element);
-        }
-        packages.value = tempPackages;
+        isInitialDataPageLoading.value = true;
       }
+
+
+      pageId.value = newPageId;
+      countryisocode.value = newCountryisocode;
+
+      PackageResponse? packageResponse = await packageBookingHttpService.getPackages(newPageId,newCountryisocode);
+
+      if (packageResponse != null) {
+
+        if(newCountryisocode == "ALL" && packageResponse.destinations.isNotEmpty){
+          destinations.value = packageResponse.destinations;
+        }
+
+        if(packageResponse.packages.isEmpty){
+          isSearchScrollOver.value = true;
+        }
+
+        if(newPageId == 1){
+          packages.value =  packageResponse.packages;
+        }else{
+
+          List<PackageData> tempPackages = [];
+
+          for (var element in packages.value) {
+            tempPackages.add(element);
+          }
+
+          for (var element in packageResponse.packages) {
+            tempPackages.add(element);
+          }
+          packages.value = tempPackages;
+        }
+      }
+
+      isInitialDataPageLoading.value = false;
+      isInitialDataLoading.value = false;
     }
 
-    isInitialDataPageLoading.value = false;
-    isInitialDataLoading.value = false;
   }
 
   Future<void> getPackageDetails(int refId) async {

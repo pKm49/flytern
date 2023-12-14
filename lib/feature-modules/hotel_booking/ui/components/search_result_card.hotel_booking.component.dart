@@ -76,12 +76,12 @@ class _HotelSearchResultCardState extends State<HotelSearchResultCard> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(Ionicons.star, color: flyternAccentColor,size: flyternFontSize16,),
-                            addHorizontalSpace(flyternSpaceExtraSmall),
-                            Text(
-                              widget.hotelSearchResponse.rating.toString(),
-                              style: getBodyMediumStyle(context),
-                            ),
+                            for(var i=0;i<widget.hotelSearchResponse.rating.round();i++)
+                             Padding(
+                               padding: const EdgeInsets.only(right:flyternSpaceExtraSmall),
+                               child: Icon(Ionicons.star, color: flyternAccentColor,size: flyternFontSize12),
+                             )
+
                           ],
                         ))
                   ],

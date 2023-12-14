@@ -41,6 +41,9 @@ class FlightBookingHttpService {
     try {
       FlyternHttpResponse response =
           await getRequest(FlightBookingHttpRequestEndpointGetInitalInfo, null);
+      print("getInitialInfo");
+      print(response.data);
+      print(response.success);
 
       if (response.success) {
         if (response.data != null) {

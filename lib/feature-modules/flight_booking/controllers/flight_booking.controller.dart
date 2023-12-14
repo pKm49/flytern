@@ -92,9 +92,13 @@ class FlightBookingController extends GetxController {
 
   var isPassengersSelected = false.obs;
   var searchResultsPage = 1.obs;
+  var isSearchScrollOver = false.obs;
   var travelStoriesPage = 1.obs;
+  var isTravelStoriesPageScrollOver = false.obs;
   var popularDestinationsPage = 1.obs;
+  var isPopularDestinationsPageScrollOver = false.obs;
   var recommendedPage = 1.obs;
+  var isRecommendedPageScrollOver = false.obs;
 
   var isModifySearchVisible = false.obs;
   var isFlightDestinationsLoading = false.obs;
@@ -181,12 +185,15 @@ class FlightBookingController extends GetxController {
   Future<void> getInitialInfo() async {
     ExploreData exploreData = await flightBookingHttpService.getInitialInfo();
 
-      cabinClasses.value = exploreData.cabinClasses;
-      recommendedPackages.value = exploreData.recommendedPackages;
-      popularDestinations.value = exploreData.popularDestinations;
-      travelStories.value = exploreData.travelStories;
-      quickSearch.value = exploreData.quickSearch;
-      setDefaultSearchData();
+    print(exploreData.cabinClasses.length);
+    print(exploreData.recommendedPackages.length);
+    print(exploreData.popularDestinations.length);
+    cabinClasses.value = exploreData.cabinClasses;
+    recommendedPackages.value = exploreData.recommendedPackages;
+    popularDestinations.value = exploreData.popularDestinations;
+    travelStories.value = exploreData.travelStories;
+    quickSearch.value = exploreData.quickSearch;
+    setDefaultSearchData();
 
     isInitialDataLoading.value = false;
   }
@@ -204,15 +211,15 @@ class FlightBookingController extends GetxController {
   }
 
   Future<void> getQuickSearchResult(FlightSearchData tFlightSearchData) async {
-
     if (tFlightSearchData.allowedCabins.isNotEmpty &&
         tFlightSearchData.adults > 0 &&
         !isFlightSearchResponsesLoading.value) {
       searchResultsPage.value = 1;
+      isSearchScrollOver.value = false;
       flightSearchData.value = tFlightSearchData;
       Get.toNamed(Approute_flightsSearchResult);
 
-       isFlightSearchResponsesLoading.value = true;
+      isFlightSearchResponsesLoading.value = true;
       FlightSearchResult flightSearchResult = await flightBookingHttpService
           .getFlightSearchResults(tFlightSearchData);
       flightSearchResponses.value = flightSearchResult.searchResponses;
@@ -250,13 +257,13 @@ class FlightBookingController extends GetxController {
         flightSearchData.value.adults > 0 &&
         !isFlightSearchResponsesLoading.value) {
       searchResultsPage.value = 1;
-
+      isSearchScrollOver.value = false;
       if (isNavigationRequired) {
         Get.toNamed(Approute_flightsSearchResult);
       } else {
         isModifySearchVisible.value = false;
       }
-       isFlightSearchFilterResponsesLoading.value = true;
+      isFlightSearchFilterResponsesLoading.value = true;
       isFlightSearchResponsesLoading.value = true;
       FlightSearchResult flightSearchResult = await flightBookingHttpService
           .getFlightSearchResults(flightSearchData.value);
@@ -267,7 +274,6 @@ class FlightBookingController extends GetxController {
         objectId.value = flightSearchResponses.value[0].objectId;
         currency.value = flightSearchResponses.value[0].currency;
         startDate.value = flightSearchData.value.searchList[0].departureDate;
-
       }
       sortingDcs.value = flightSearchResult.sortingDcs;
       if (sortingDcs.isNotEmpty) {
@@ -296,7 +302,7 @@ class FlightBookingController extends GetxController {
     if (!isFlightSearchFilterResponsesLoading.value) {
       isFlightSearchFilterResponsesLoading.value = true;
       searchResultsPage.value = 1;
-
+      isSearchScrollOver.value = false;
       FlightFilterBody flightFilterBody = FlightFilterBody(
         pageId: 1,
         objectID: objectId.value,
@@ -318,9 +324,8 @@ class FlightBookingController extends GetxController {
         sortingDc: sortingDc.value.value,
       );
 
-      FlightSearchResult flightSearchResult =
-          await flightBookingHttpService
-              .getFlightSearchResultsFiltered(flightFilterBody);
+      FlightSearchResult flightSearchResult = await flightBookingHttpService
+          .getFlightSearchResultsFiltered(flightFilterBody);
 
       alertMsg.value = flightSearchResult.alertMsg;
       flightSearchResponses.value = flightSearchResult.searchResponses;
@@ -332,7 +337,7 @@ class FlightBookingController extends GetxController {
     if (index > -1 && !isFlightMoreOptionsResponsesLoading.value) {
       Get.toNamed(Approute_flightsMoreOptions);
 
-       isFlightMoreOptionsResponsesLoading.value = true;
+      isFlightMoreOptionsResponsesLoading.value = true;
       FlightSearchResult flightSearchResult =
           await flightBookingHttpService.getMoreOptions(index, objectId.value);
       moreOptionFlights.value = flightSearchResult.searchResponses;
@@ -347,14 +352,14 @@ class FlightBookingController extends GetxController {
       currentFlightIndex.value = index;
       isFlightDetailsLoading.value = true;
 
-       FlightDetails tempFlightDetails = await flightBookingHttpService
+      FlightDetails tempFlightDetails = await flightBookingHttpService
           .getFlightDetails(index, objectId.value);
       flightDetails.value = tempFlightDetails;
       List<CabinInfo> selectedCabinInfo = flightDetails.value.cabinInfos
           .where((element) => element.id == flightDetails.value.selectedCabinId)
           .toList();
       if (selectedCabinInfo.isNotEmpty) {
-         cabinInfo.value = selectedCabinInfo[0];
+        cabinInfo.value = selectedCabinInfo[0];
       }
       isFlightDetailsLoading.value = false;
       Get.toNamed(Approute_flightsDetails);
@@ -452,7 +457,7 @@ class FlightBookingController extends GetxController {
       flightDetails.value = getGatewayData.flightDetails;
       if (flightDetails.value.cabinInfos.isNotEmpty &&
           cabinInfo.value.id == "-1") {
-         cabinInfo.value = flightDetails.value.cabinInfos[0];
+        cabinInfo.value = flightDetails.value.cabinInfos[0];
       }
     }
 
@@ -469,24 +474,25 @@ class FlightBookingController extends GetxController {
 
     PaymentGatewayUrlData paymentGatewayUrlData =
         await flightBookingHttpService.setPaymentGateway(
-            selectedPaymentGateway.value.processID, selectedPaymentGateway.value.paymentCode, bookingRef.value);
-
+            selectedPaymentGateway.value.processID,
+            selectedPaymentGateway.value.paymentCode,
+            bookingRef.value);
 
     gatewayUrl.value = paymentGatewayUrlData.gatewayUrl;
     confirmationUrl.value = paymentGatewayUrlData.confirmationUrl;
     paymentRef.value = paymentGatewayUrlData.paymentRef;
 
     if (gatewayUrl.value != "") {
-
-      Get.toNamed(Approute_paymentPage,
-              arguments: [gatewayUrl.value, confirmationUrl.value,Approute_flightsSummary])
-          ?.then((value) {
-            print("Get back from Approute_paymentPage");
-            print("value");
-            print(value);
-            isFlightSavePaymentGatewayLoading.value = false;
-            checkGatewayStatus();
-
+      Get.toNamed(Approute_paymentPage, arguments: [
+        gatewayUrl.value,
+        confirmationUrl.value,
+        Approute_flightsSummary
+      ])?.then((value) {
+        print("Get back from Approute_paymentPage");
+        print("value");
+        print(value);
+        isFlightSavePaymentGatewayLoading.value = false;
+        checkGatewayStatus();
       });
 
       // checkGatewayStatus();
@@ -494,7 +500,6 @@ class FlightBookingController extends GetxController {
       isFlightSavePaymentGatewayLoading.value = false;
       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
     }
-
   }
 
   Future<void> checkGatewayStatus() async {
@@ -544,7 +549,6 @@ class FlightBookingController extends GetxController {
         Get.offNamedUntil(Approute_flightsConfirmation, arguments: [
           {"mode": "view"}
         ], (route) {
-
           return ++iter == 4;
         });
       }
@@ -554,7 +558,6 @@ class FlightBookingController extends GetxController {
 
         int iter = 0;
         Get.offNamedUntil(Approute_flightsSummary, (route) {
-
           return ++iter == 1;
         });
       }
@@ -566,70 +569,93 @@ class FlightBookingController extends GetxController {
   }
 
   Future<void> getRecommendedForyou() async {
-    recommendedPage.value = recommendedPage.value + 1;
-    isRecommendedPageLoading.value = true;
 
-    List<RecommendedPackage> tRecommendedPackages =
-        await flightBookingHttpService.getRecommended(recommendedPage.value);
+    if(!isRecommendedPageScrollOver.value){
+      recommendedPage.value = recommendedPage.value + 1;
+      isRecommendedPageLoading.value = true;
 
-    List<RecommendedPackage> tempRecommendedPackages = [];
+      List<RecommendedPackage> tRecommendedPackages =
+      await flightBookingHttpService.getRecommended(recommendedPage.value);
 
-    for (var element in recommendedPackages.value) {
-      tempRecommendedPackages.add(element);
+      List<RecommendedPackage> tempRecommendedPackages = [];
+
+      if(tRecommendedPackages.isEmpty){
+        isRecommendedPageScrollOver.value = true;
+      }
+
+      for (var element in recommendedPackages.value) {
+        tempRecommendedPackages.add(element);
+      }
+
+      for (var element in tRecommendedPackages) {
+        tempRecommendedPackages.add(element);
+      }
+
+      recommendedPackages.value = tempRecommendedPackages;
+
+      isRecommendedPageLoading.value = false;
     }
 
-    for (var element in tRecommendedPackages) {
-      tempRecommendedPackages.add(element);
-    }
 
-    recommendedPackages.value = tempRecommendedPackages;
-
-    isRecommendedPageLoading.value = false;
   }
 
   Future<void> getTravelStories() async {
-    travelStoriesPage.value = travelStoriesPage.value + 1;
-    isTravelStoriesPageLoading.value = true;
+    if (!isTravelStoriesPageScrollOver.value) {
+      travelStoriesPage.value = travelStoriesPage.value + 1;
+      isTravelStoriesPageLoading.value = true;
 
-    List<TravelStory> tTravelStories = await flightBookingHttpService
-        .getTravelStories(travelStoriesPage.value);
+      List<TravelStory> tTravelStories = await flightBookingHttpService
+          .getTravelStories(travelStoriesPage.value);
 
-    List<TravelStory> tempTravelStories = [];
+      List<TravelStory> tempTravelStories = [];
 
-    for (var element in travelStories.value) {
-      tempTravelStories.add(element);
+      if (tTravelStories.isEmpty) {
+        isTravelStoriesPageScrollOver.value = true;
+      }
+      for (var element in travelStories.value) {
+        tempTravelStories.add(element);
+      }
+
+      for (var element in tTravelStories) {
+        tempTravelStories.add(element);
+      }
+
+      travelStories.value = tempTravelStories;
+
+      isTravelStoriesPageLoading.value = false;
     }
-
-    for (var element in tTravelStories) {
-      tempTravelStories.add(element);
-    }
-
-    travelStories.value = tTravelStories;
-
-    isTravelStoriesPageLoading.value = false;
   }
 
   Future<void> getPopularPackages() async {
-    popularDestinationsPage.value = popularDestinationsPage.value + 1;
-    isPopularDestinationsPageLoading.value = true;
 
-    List<PopularDestination> tPopularDestinations =
-        await flightBookingHttpService
-            .getPopularDestinations(travelStoriesPage.value);
+    if(!isPopularDestinationsPageScrollOver.value){
+      popularDestinationsPage.value = popularDestinationsPage.value + 1;
+      isPopularDestinationsPageLoading.value = true;
 
-    List<PopularDestination> tempPopularDestinations = [];
+      List<PopularDestination> tPopularDestinations =
+      await flightBookingHttpService
+          .getPopularDestinations(travelStoriesPage.value);
 
-    for (var element in popularDestinations.value) {
-      tempPopularDestinations.add(element);
+      if(tPopularDestinations.isEmpty){
+        isPopularDestinationsPageScrollOver.value = true;
+      }
+
+      List<PopularDestination> tempPopularDestinations = [];
+
+      for (var element in popularDestinations.value) {
+        tempPopularDestinations.add(element);
+      }
+
+      for (var element in tPopularDestinations) {
+        tempPopularDestinations.add(element);
+      }
+
+      popularDestinations.value = tempPopularDestinations;
+
+      isPopularDestinationsPageLoading.value = false;
     }
 
-    for (var element in tPopularDestinations) {
-      tempPopularDestinations.add(element);
-    }
 
-    popularDestinations.value = tempPopularDestinations;
-
-    isPopularDestinationsPageLoading.value = false;
   }
 
   void updateProcessId(String? value) {
@@ -640,7 +666,6 @@ class FlightBookingController extends GetxController {
 
       if (tempPaymentGateways.isNotEmpty) {
         selectedPaymentGateway.value = tempPaymentGateways[0];
-
       }
     }
   }
@@ -700,7 +725,8 @@ class FlightBookingController extends GetxController {
   }
 
   Future<void> getFlightSearchResultsNextPage() async {
-    if (!isFlightSearchPageResponsesLoading.value) {
+    if (!isFlightSearchPageResponsesLoading.value &&
+        !isSearchScrollOver.value) {
       isFlightSearchPageResponsesLoading.value = true;
       searchResultsPage.value = searchResultsPage.value + 1;
 
@@ -725,12 +751,14 @@ class FlightBookingController extends GetxController {
         sortingDc: sortingDc.value.value,
       );
 
-      FlightSearchResult flightSearchResult =
-      await flightBookingHttpService
+      FlightSearchResult flightSearchResult = await flightBookingHttpService
           .getFlightSearchResultsFiltered(flightFilterBody);
 
       alertMsg.value = flightSearchResult.alertMsg;
 
+      if (flightSearchResult.searchResponses.isEmpty) {
+        isSearchScrollOver.value = true;
+      }
 
       List<FlightSearchResponse> tFlightSearchResponse = [];
 
@@ -754,8 +782,7 @@ class FlightBookingController extends GetxController {
 
   void addTravellerInfo(TravelInfo tTravelInfo) {
     List<TravelInfo> tempTravelInfo = travelInfo.value;
-     tempTravelInfo.add(tTravelInfo);
+    tempTravelInfo.add(tTravelInfo);
     travelInfo.value = tempTravelInfo;
   }
-
 }

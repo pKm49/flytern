@@ -23,6 +23,8 @@ import 'package:flytern/shared-module/models/payment_gateway.dart';
 import 'package:flytern/shared-module/models/payment_gateway_url_data.dart';
 import 'package:flytern/shared-module/models/support_info.dart';
 import 'package:flytern/shared-module/services/http-services/http_request_handler.shared.service.dart';
+import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
+import 'package:get/get.dart';
 
 class HotelBookingHttpService {
 
@@ -208,6 +210,9 @@ class HotelBookingHttpService {
 
       HotelDetails flightDetails;
 
+      print("getHotelDetails");
+      print(response.success);
+      print(response.errors);
       if (response.success && response.statusCode == 200) {
         if (response.data != null) {
           flightDetails = mapHotelDetails(response.data);
@@ -215,8 +220,10 @@ class HotelBookingHttpService {
         }
       }
 
-      return mapHotelDetails({});
+      throw response.errors.isNotEmpty?response.errors[0]:"something_went_wrong".tr;
+
     }catch (e){
+
       return mapHotelDetails({});
     }
 

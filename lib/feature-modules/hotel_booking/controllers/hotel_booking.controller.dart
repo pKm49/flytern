@@ -34,7 +34,6 @@ part 'data_setter.hotel_booking.controller.dart';
 part 'data_getter.hotel_booking.controller.dart';
 
 class HotelBookingController extends GetxController {
-
   var isTravelStoriesLoading = false.obs;
   var isRecommendedLoading = false.obs;
   var isPopularDestinationsLoading = false.obs;
@@ -77,10 +76,11 @@ class HotelBookingController extends GetxController {
   var paymentRef = "".obs;
   var priceUnit = "KWD".obs;
   var selectedRoomSelectionIndex = 0.obs;
-   var hotelId = (-1).obs;
+  var hotelId = (-1).obs;
   var objectId = (-1).obs;
   var alertMsg = "".obs;
   var searchResultsPage = 1.obs;
+  var isSearchScrollOver = false.obs;
 
   var gatewayUrl = "".obs;
   var confirmationUrl = "".obs;
@@ -91,11 +91,9 @@ class HotelBookingController extends GetxController {
   var paymentInfo = <BookingInfo>[].obs;
   var travelInfo = <HotelTravelInfo>[].obs;
 
-
   var alert = <String>[].obs;
   var selectedImageIndex = (-1).obs;
   var selectedRoomImageIndex = (-1).obs;
-
 
   var sortingDcs = <SortingDcs>[].obs;
   var ratingDcs = <SortingDcs>[].obs;
@@ -125,6 +123,7 @@ class HotelBookingController extends GetxController {
   var mobileNumber = "".obs;
   var email = "".obs;
   bool isInitial = true;
+
   @override
   void onInit() {
     super.onInit();
@@ -137,7 +136,7 @@ class HotelBookingController extends GetxController {
 
     quickSearch.value = await hotelBookingHttpService.getRecentSearch();
 
-    if(isInitial){
+    if (isInitial) {
       selectedDestination.value = mapHotelDestination({});
       nationality.value = Country(
           isDefault: 1,
@@ -155,7 +154,6 @@ class HotelBookingController extends GetxController {
 
   Future<List<HotelDestination>> getHotelDestinations(
       String searchQuery) async {
-
     isHotelDestinationsLoading.value = true;
 
     if (searchQuery != "") {
@@ -173,13 +171,14 @@ class HotelBookingController extends GetxController {
         hotelSearchData.value.destination != "" &&
         !isHotelSearchResponsesLoading.value) {
       objectId.value = -1;
-       isHotelSearchResponsesLoading.value = true;
+      isHotelSearchResponsesLoading.value = true;
       if (isNavigationRequired) {
         Get.toNamed(Approute_hotelsSearchResult);
       } else {
         isModifySearchVisible.value = false;
       }
-
+      isSearchScrollOver.value = false;
+      searchResultsPage.value = 1;
       HotelSearchResult hotelSearchResult = await hotelBookingHttpService
           .getHotelSearchResults(hotelSearchData.value);
       hotelSearchResponses.value = hotelSearchResult.searchResponses;
@@ -215,17 +214,17 @@ class HotelBookingController extends GetxController {
         tHotelSearchData.destination != "" &&
         !isHotelSearchResponsesLoading.value) {
       objectId.value = -1;
-       isHotelSearchResponsesLoading.value = true;
+      isHotelSearchResponsesLoading.value = true;
       Get.toNamed(Approute_hotelsSearchResult);
-
+      isSearchScrollOver.value = false;
+      searchResultsPage.value = 1;
       HotelSearchResult hotelSearchResult =
           await hotelBookingHttpService.getHotelSearchResults(tHotelSearchData);
       hotelSearchResponses.value = hotelSearchResult.searchResponses;
 
-
       objectId.value = hotelSearchResult.objectID;
       alertMsg.value = hotelSearchResult.alertMsg;
-       if (hotelSearchResponses.isNotEmpty) {
+      if (hotelSearchResponses.isNotEmpty) {
         hotelId.value = hotelSearchResponses.value[0].hotelId;
         priceUnit.value = hotelSearchResponses.value[0].priceUnit;
         startDate.value = hotelSearchData.value.checkInDate;
@@ -249,7 +248,8 @@ class HotelBookingController extends GetxController {
   Future<void> filterSearchResults() async {
     if (!isHotelSearchFilterResponsesLoading.value) {
       isHotelSearchFilterResponsesLoading.value = true;
-
+      isSearchScrollOver.value = false;
+      searchResultsPage.value = 1;
       HotelFilterBody hotelFilterBody = HotelFilterBody(
         pageId: 1,
         objectID: objectId.value,
@@ -265,9 +265,8 @@ class HotelBookingController extends GetxController {
         sortingDc: sortingDc.value.value,
       );
 
-          HotelSearchResult hotelSearchResult =
-          await hotelBookingHttpService
-              .getHotelSearchResultsFiltered(hotelFilterBody);
+      HotelSearchResult hotelSearchResult = await hotelBookingHttpService
+          .getHotelSearchResultsFiltered(hotelFilterBody);
 
       alertMsg.value = hotelSearchResult.alertMsg;
       hotelSearchResponses.value = hotelSearchResult.searchResponses;
@@ -276,22 +275,20 @@ class HotelBookingController extends GetxController {
   }
 
   Future<void> getHotelDetails(int tHotelid) async {
-
     if (tHotelid > -1 && !isHotelDetailsLoading.value) {
       selectedImageIndex.value = -1;
       selectedRoomImageIndex.value = -1;
 
       Get.toNamed(Approute_hotelsDetails);
-       hotelId.value = tHotelid;
+      hotelId.value = tHotelid;
       isHotelDetailsLoading.value = true;
-       selectedRoom.value = [];
+      selectedRoom.value = [];
       selectedRoomOption.value = [];
       selectedRoomSelectionIndex.value = 0;
 
       HotelDetails tempHotelDetails = await hotelBookingHttpService
           .getHotelDetails(hotelId.value, objectId.value);
       hotelDetails.value = tempHotelDetails;
-
 
       selectedImageIndex.value =
           hotelDetails.value.imageUrls.isNotEmpty ? 0 : -1;
@@ -308,7 +305,6 @@ class HotelBookingController extends GetxController {
         }
       }
 
-
       isHotelDetailsLoading.value = false;
 
       getPreTravellerData();
@@ -320,10 +316,8 @@ class HotelBookingController extends GetxController {
       isHotelPretravellerDataLoading.value = true;
       HotelPretravellerData tempHotelPretravellerData =
           await hotelBookingHttpService.getPreTravellerData(
-            objectId.value, hotelId.value
-          );
+              objectId.value, hotelId.value);
       isHotelPretravellerDataLoading.value = false;
-
 
       if (tempHotelPretravellerData.rooms.isNotEmpty) {
         hotelPretravellerData.value = tempHotelPretravellerData;
@@ -338,8 +332,8 @@ class HotelBookingController extends GetxController {
       String tempBookingRef = "";
       HotelTravellerData hotelTravellerData = HotelTravellerData(
           travellerinfo: travelInfo,
-          bookingCode:selectedRoomOption[ selectedRoomSelectionIndex
-              .value].bookingCode,
+          bookingCode:
+              selectedRoomOption[selectedRoomSelectionIndex.value].bookingCode,
           hotelID: hotelId.value,
           objectID: objectId.value,
           mobileCntry: mobileCntry.value,
@@ -356,7 +350,6 @@ class HotelBookingController extends GetxController {
       }
     }
   }
-
 
   Future<void> getPaymentGateways(
       bool isSmartpayment, String tempBookingRef) async {
@@ -376,8 +369,11 @@ class HotelBookingController extends GetxController {
 
     hotelDetails.value = getGatewayData.hotelDetails;
     selectedRoom.value = hotelDetails.value.rooms;
-    selectedRoomOption.value = hotelDetails.value.rooms.isNotEmpty?  hotelDetails.value.rooms[0].roomOptions:[];
-    selectedRoomSelectionIndex.value =  hotelDetails.value.rooms.isNotEmpty?0:-1;
+    selectedRoomOption.value = hotelDetails.value.rooms.isNotEmpty
+        ? hotelDetails.value.rooms[0].roomOptions
+        : [];
+    selectedRoomSelectionIndex.value =
+        hotelDetails.value.rooms.isNotEmpty ? 0 : -1;
 
     if (getGatewayData.paymentGateways.isNotEmpty) {
       updateProcessId(getGatewayData.paymentGateways[0].processID);
@@ -393,19 +389,21 @@ class HotelBookingController extends GetxController {
 
     PaymentGatewayUrlData paymentGatewayUrlData =
         await hotelBookingHttpService.setPaymentGateway(
-            selectedPaymentGateway.value.processID, selectedPaymentGateway.value.paymentCode, bookingRef.value);
-
+            selectedPaymentGateway.value.processID,
+            selectedPaymentGateway.value.paymentCode,
+            bookingRef.value);
 
     gatewayUrl.value = paymentGatewayUrlData.gatewayUrl;
     confirmationUrl.value = paymentGatewayUrlData.confirmationUrl;
     paymentRef.value = paymentGatewayUrlData.paymentRef;
 
     if (gatewayUrl.value != "") {
-      Get.toNamed(Approute_paymentPage,
-              arguments: [gatewayUrl.value, confirmationUrl.value,Approute_hotelsSummary])
-          ?.then((value) {
+      Get.toNamed(Approute_paymentPage, arguments: [
+        gatewayUrl.value,
+        confirmationUrl.value,
+        Approute_hotelsSummary
+      ])?.then((value) {
         checkGatewayStatus();
-
       });
 
       // checkGatewayStatus();
@@ -423,7 +421,7 @@ class HotelBookingController extends GetxController {
 
     if (isSuccess) {
       showSnackbar(Get.context!, "payment_capture_success".tr, "info");
-      getConfirmationData(bookingRef.value,false);
+      getConfirmationData(bookingRef.value, false);
     } else {
       getPaymentGateways(false, bookingRef.value);
       showSnackbar(Get.context!, "payment_capture_error".tr, "error");
@@ -432,7 +430,8 @@ class HotelBookingController extends GetxController {
     isHotelGatewayStatusCheckLoading.value = false;
   }
 
-  Future<void> getConfirmationData(String bookingRef,bool isBookingFinder) async {
+  Future<void> getConfirmationData(
+      String bookingRef, bool isBookingFinder) async {
     isHotelConfirmationDataLoading.value = true;
     bookingInfo.value = [];
     paymentInfo.value = [];
@@ -451,31 +450,31 @@ class HotelBookingController extends GetxController {
       hotelDetails.value = paymentConfirmationData.hotelDetails;
       // confirmationMessage.value = paymentConfirmationData.alertMsg;
       selectedRoom.value = hotelDetails.value.rooms;
-      selectedRoomOption.value = hotelDetails.value.rooms.isNotEmpty?  hotelDetails.value.rooms[0].roomOptions:[];
-      selectedRoomSelectionIndex.value =  hotelDetails.value.rooms.isNotEmpty?0:-1;
+      selectedRoomOption.value = hotelDetails.value.rooms.isNotEmpty
+          ? hotelDetails.value.rooms[0].roomOptions
+          : [];
+      selectedRoomSelectionIndex.value =
+          hotelDetails.value.rooms.isNotEmpty ? 0 : -1;
 
-      if(isBookingFinder){
+      if (isBookingFinder) {
         Get.toNamed(Approute_hotelsConfirmation, arguments: [
           {"mode": "edit"}
         ]);
-      }else{
+      } else {
         showSnackbar(Get.context!, "hotel_booking_success".tr, "info");
         int iter = 0;
         Get.offNamedUntil(Approute_hotelsConfirmation, arguments: [
           {"mode": "view"}
         ], (route) {
-
           return ++iter == 4;
         });
       }
-
     } else {
-      if(!isBookingFinder){
+      if (!isBookingFinder) {
         showSnackbar(Get.context!, "booking_failed".tr, "error");
 
         int iter = 0;
         Get.offNamedUntil(Approute_hotelsSummary, (route) {
-
           return ++iter == 1;
         });
       }
@@ -494,7 +493,6 @@ class HotelBookingController extends GetxController {
 
       if (tempPaymentGateways.isNotEmpty) {
         selectedPaymentGateway.value = tempPaymentGateways[0];
-
       }
     }
   }
@@ -548,12 +546,10 @@ class HotelBookingController extends GetxController {
     selectedRoomImageIndex.value = index;
   }
 
-
   Future<void> getHotelSearchResultsNextPage() async {
-    if (!isHotelSearchPageResponsesLoading.value) {
+    if (!isHotelSearchPageResponsesLoading.value && !isSearchScrollOver.value) {
       isHotelSearchPageResponsesLoading.value = true;
       searchResultsPage.value = searchResultsPage.value + 1;
-
 
       HotelFilterBody hotelFilterBody = HotelFilterBody(
         pageId: searchResultsPage.value,
@@ -570,8 +566,7 @@ class HotelBookingController extends GetxController {
         sortingDc: sortingDc.value.value,
       );
 
-      HotelSearchResult hotelSearchResult =
-      await hotelBookingHttpService
+      HotelSearchResult hotelSearchResult = await hotelBookingHttpService
           .getHotelSearchResultsFiltered(hotelFilterBody);
 
       alertMsg.value = hotelSearchResult.alertMsg;
@@ -579,6 +574,10 @@ class HotelBookingController extends GetxController {
 
       for (var element in hotelSearchResponses.value) {
         tHotelSearchResponse.add(element);
+      }
+
+      if (hotelSearchResult.searchResponses.isEmpty) {
+        isSearchScrollOver.value = true;
       }
 
       for (var element in hotelSearchResult.searchResponses) {
@@ -592,7 +591,6 @@ class HotelBookingController extends GetxController {
   }
 
   void updateTravellerInfo(List<HotelTravelInfo> tempTravelInfo) {
-
     travelInfo.value = tempTravelInfo;
   }
 
@@ -601,5 +599,4 @@ class HotelBookingController extends GetxController {
     tempTravelInfo.add(tTravelInfo);
     travelInfo.value = tempTravelInfo;
   }
-
 }

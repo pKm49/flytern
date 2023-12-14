@@ -385,13 +385,23 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                                       color: flyternGrey40,
                                       fontWeight: FontWeight.w400),
                                 ),
-                                addVerticalSpace(flyternSpaceExtraSmall * 1.5),
-                                Text(
-                                    hotelBookingController
-                                        .nationality.value.countryName,
-                                    style: getLabelLargeStyle(context).copyWith(
-                                      color: flyternGrey80,
-                                    )),
+
+                                  Visibility(
+                                      visible: hotelBookingController
+                                          .nationality.value.countryName !=
+                                          "select_nationality".tr,
+                                    child: addVerticalSpace(flyternSpaceExtraSmall * 1.5)),
+                                Visibility(
+                                  visible: hotelBookingController
+                                      .nationality.value.countryName !=
+                                      "select_nationality".tr,
+                                  child: Text(
+                                      hotelBookingController
+                                          .nationality.value.countryName,
+                                      style: getLabelLargeStyle(context).copyWith(
+                                        color:flyternGrey80,
+                                      )),
+                                ),
                               ],
                             ),
                           )
@@ -614,6 +624,10 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
     num durationDays = hotelBookingController.hotelSearchData.value.checkOutDate.difference(
         hotelBookingController.hotelSearchData.value.checkInDate
     ).inDays;
+
+    if(durationDays == 1){
+      return "single_night".tr;
+    }
 
    return "night_count".tr.replaceAll("1", durationDays.toString());
   }

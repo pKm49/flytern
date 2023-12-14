@@ -138,7 +138,6 @@ class _FlightUserDetailsSubmissionFormState
               child: Row(
                 children: [
                   Expanded(
-                    flex: 3,
                     child: DropDownSelector(
                       validator: (value) =>
                           checkIfDropDownFormValid(value,"0","title".tr),
@@ -166,45 +165,6 @@ class _FlightUserDetailsSubmissionFormState
                   ),
                   addHorizontalSpace(flyternSpaceMedium),
                   Expanded(
-                    flex: 3,
-                    child: TextFormField(
-                        inputFormatters: [
-                          FlightUserDataTextFormatter(),
-                        ],
-                        onChanged: updateData(),
-                        controller: firstNameController,
-                        validator: (value) =>
-                            checkIfNameFormValid(value, "first_name".tr),
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          labelText: "first_name".tr,
-                        )),
-                  ),
-                  addHorizontalSpace(flyternSpaceMedium),
-                  Expanded(
-                    flex: 3,
-                    child: TextFormField(
-                        inputFormatters: [
-                          FlightUserDataTextFormatter(),
-                        ],
-                        onChanged: updateData(),
-                        controller: lastNameController,
-                        validator: (value) =>
-                            checkIfNameFormValid(value, "last_name".tr),
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          labelText: "last_name".tr,
-                        )),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(bottom: flyternSpaceMedium),
-              color: flyternBackgroundWhite,
-              child: Row(
-                children: [
-                  Expanded(
                       child: DropDownSelector(
                         validator: (value) =>
                             checkIfDropDownFormValid(value,"0", "gender".tr),
@@ -213,10 +173,10 @@ class _FlightUserDetailsSubmissionFormState
                         selected: gender,
                         items: [
                           for (var i = 0;
-                              i <
-                                  sharedController.genderList.value
-                                      .length;
-                              i++)
+                          i <
+                              sharedController.genderList.value
+                                  .length;
+                          i++)
                             GeneralItem(
                                 imageUrl: "",
                                 id: sharedController.genderList.value[i]
@@ -250,6 +210,46 @@ class _FlightUserDetailsSubmissionFormState
                           labelText: "dob".tr,
                         )),
                   ),
+                ],
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(bottom: flyternSpaceMedium),
+              color: flyternBackgroundWhite,
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: TextFormField(
+                        inputFormatters: [
+                          FlightUserDataTextFormatter(),
+                        ],
+                        onChanged: updateData(),
+                        controller: firstNameController,
+                        validator: (value) =>
+                            checkIfNameFormValid(value, "first_name".tr),
+                        keyboardType: TextInputType.name,
+                        decoration: InputDecoration(
+                          labelText: "first_name".tr,
+                        )),
+                  ),
+                  addHorizontalSpace(flyternSpaceMedium),
+                  Expanded(
+                    flex: 1,
+                    child: TextFormField(
+                        inputFormatters: [
+                          FlightUserDataTextFormatter(),
+                        ],
+                        onChanged: updateData(),
+                        controller: lastNameController,
+                        validator: (value) =>
+                            checkIfNameFormValid(value, "last_name".tr),
+                        keyboardType: TextInputType.name,
+                        decoration: InputDecoration(
+                          labelText: "last_name".tr,
+                        )),
+                  ),
+
                 ],
               ),
             ),
