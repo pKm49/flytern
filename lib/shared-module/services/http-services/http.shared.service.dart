@@ -15,7 +15,7 @@ class SharedHttpService {
       FlyternHttpResponse response =
       await getRequest(SharedHttpRequestEndpoint_GetGuestToken, null);
 
-      if (response.success) {
+      if (response.success && response.statusCode == 200) {
         if (response.data != null) {
           AuthToken authToken = mapAuthToken(response.data, true);
           return authToken;
@@ -38,7 +38,7 @@ class SharedHttpService {
       FlyternHttpResponse response =
       await getRequest(SharedHttpRequestEndpoint_GetNewAccesToken, null);
 
-      if (response.success) {
+      if (response.success && response.statusCode == 200) {
         if (response.data != null) {
           AuthToken authToken = mapAuthToken(response.data, false);
           return authToken;

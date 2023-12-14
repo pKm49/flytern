@@ -224,7 +224,7 @@ class HotelBookingHttpService {
 
     }catch (e){
 
-      return mapHotelDetails({});
+      rethrow;
     }
 
   }

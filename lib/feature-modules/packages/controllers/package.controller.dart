@@ -9,7 +9,6 @@ import 'package:flytern/shared-module/services/utility-services/toaster_snackbar
 import 'package:get/get.dart';
 
 class PackageBookingController extends GetxController {
-
   var isPackagesLoading = false.obs;
   var isInitialDataLoading = true.obs;
   var isInitialDataPageLoading = false.obs;
@@ -38,40 +37,37 @@ class PackageBookingController extends GetxController {
   }
 
   Future<void> getInitialInfo() async {
-    getPackages(1,"ALL");
+    getPackages(1, "ALL");
   }
 
   Future<void> getPackages(int newPageId, String newCountryisocode) async {
-
-    if(!isSearchScrollOver.value || newPageId == 1){
-
-      if(newPageId==1){
+    if (!isSearchScrollOver.value || newPageId == 1) {
+      if (newPageId == 1) {
         isInitialDataLoading.value = true;
         isSearchScrollOver.value = false;
-      }else{
+      } else {
         isInitialDataPageLoading.value = true;
       }
-
 
       pageId.value = newPageId;
       countryisocode.value = newCountryisocode;
 
-      PackageResponse? packageResponse = await packageBookingHttpService.getPackages(newPageId,newCountryisocode);
+      PackageResponse? packageResponse = await packageBookingHttpService
+          .getPackages(newPageId, newCountryisocode);
 
       if (packageResponse != null) {
-
-        if(newCountryisocode == "ALL" && packageResponse.destinations.isNotEmpty){
+        if (newCountryisocode == "ALL" &&
+            packageResponse.destinations.isNotEmpty) {
           destinations.value = packageResponse.destinations;
         }
 
-        if(packageResponse.packages.isEmpty){
+        if (packageResponse.packages.isEmpty) {
           isSearchScrollOver.value = true;
         }
 
-        if(newPageId == 1){
-          packages.value =  packageResponse.packages;
-        }else{
-
+        if (newPageId == 1) {
+          packages.value = packageResponse.packages;
+        } else {
           List<PackageData> tempPackages = [];
 
           for (var element in packages.value) {
@@ -88,53 +84,60 @@ class PackageBookingController extends GetxController {
       isInitialDataPageLoading.value = false;
       isInitialDataLoading.value = false;
     }
-
   }
 
   Future<void> getPackageDetails(int refId) async {
+    try {
+      isDetailsDataLoading.value = true;
+      Get.toNamed(Approute_packagesDetails);
+      selectedImageIndex.value = -1;
+      packageId.value = refId;
+      PackageDetails? tempPackageDetails =
+          await packageBookingHttpService.getPackageDetails(refId);
+      if (tempPackageDetails != null) {
+        packageDetails.value = tempPackageDetails;
+        selectedImageIndex.value =
+            packageDetails.value.subImages.isNotEmpty ? 0 : -1;
 
-    isDetailsDataLoading.value = true;
-    selectedImageIndex.value = -1;
-    packageId.value = refId;
-    PackageDetails? tempPackageDetails = await packageBookingHttpService.getPackageDetails(refId);
-    if (tempPackageDetails != null) {
-      packageDetails.value = tempPackageDetails;
-      selectedImageIndex.value =
-      packageDetails.value.subImages.isNotEmpty ? 0 : -1;
+      }
+      isDetailsDataLoading.value = false;
+    } catch (e) {
+      Get.back();
+      showSnackbar(Get.context!, "something_went_wrong".tr, "error");
 
+      selectedImageIndex.value = -1;
+      packageId.value = refId;
+      isDetailsDataLoading.value = false;
     }
-    isDetailsDataLoading.value = false;
-
   }
 
   Future<void> setTravellerData() async {
-      isSaveContactLoading.value = true;
-      String tempBookingRef = "";
-      PackageSubmissionData packageSubmissionData = PackageSubmissionData(
-          packageID: packageId.value,
-          mobileCntry: mobileCntry.value,
-          mobileNumber: mobileNumber.value,
-          email: email.value);
-      tempBookingRef =
-      await packageBookingHttpService.setUserData(packageSubmissionData);
-      isSaveContactLoading.value = false;
-      if (tempBookingRef != "") {
-        bookingRef.value = tempBookingRef;
-      } else {
-        showSnackbar(Get.context!, "something_went_wrong".tr, "error");
-      }
-
+    isSaveContactLoading.value = true;
+    String tempBookingRef = "";
+    PackageSubmissionData packageSubmissionData = PackageSubmissionData(
+        packageID: packageId.value,
+        mobileCntry: mobileCntry.value,
+        mobileNumber: mobileNumber.value,
+        email: email.value);
+    tempBookingRef =
+        await packageBookingHttpService.setUserData(packageSubmissionData);
+    isSaveContactLoading.value = false;
+    if (tempBookingRef != "") {
+      bookingRef.value = tempBookingRef;
+    } else {
+      showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+    }
   }
 
-  void saveContactInfo(String tMobileCntry, String tMobileNumber, String tEmail) {
-    mobileCntry.value =tMobileCntry;
-    mobileNumber.value =tMobileNumber;
-    email.value =tEmail;
+  void saveContactInfo(
+      String tMobileCntry, String tMobileNumber, String tEmail) {
+    mobileCntry.value = tMobileCntry;
+    mobileNumber.value = tMobileNumber;
+    email.value = tEmail;
     setTravellerData();
   }
 
   void resetAndNavigateToHome() {
-
     isPackagesLoading.value = false;
     isInitialDataLoading.value = true;
     isDetailsDataLoading.value = true;
@@ -153,8 +156,9 @@ class PackageBookingController extends GetxController {
     mobileNumber.value = "";
     email.value = "";
 
-     Get.offAllNamed(Approute_landingpage);
+    Get.offAllNamed(Approute_landingpage);
   }
+
   void changeSelectedImage(int index) {
     selectedImageIndex.value = index;
   }

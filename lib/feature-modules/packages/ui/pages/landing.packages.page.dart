@@ -113,7 +113,7 @@ class _PackageBookingLandingPageState extends State<PackageBookingLandingPage> {
                                         .packages[index].ratings,
                                 packageSelected: () {
                                   packageBookingController.getPackageDetails(packageBookingController.packages[index].refID);
-                                  Get.toNamed(Approute_packagesDetails);
+
                                 }),
                             Padding(
                               padding: const EdgeInsets.symmetric(

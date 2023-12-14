@@ -503,7 +503,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
           ),
         ),
         bottomSheet:flightBookingController
-            .flightDetails.value.cabinInfos.isNotEmpty? Container(
+            .flightDetails.value.cabinInfos.isNotEmpty && !flightBookingController.isFlightDetailsLoading.value ? Container(
           width: screenwidth,
           color: flyternBackgroundWhite,
           height: 60 + (flyternSpaceSmall * 2),

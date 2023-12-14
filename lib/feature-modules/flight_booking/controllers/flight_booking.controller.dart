@@ -349,28 +349,28 @@ class FlightBookingController extends GetxController {
 
   Future<void> getFlightDetails(int index) async {
     if (index > -1 && !isFlightDetailsLoading.value) {
-      currentFlightIndex.value = index;
-      isFlightDetailsLoading.value = true;
 
-      FlightDetails tempFlightDetails = await flightBookingHttpService
-          .getFlightDetails(index, objectId.value);
-      flightDetails.value = tempFlightDetails;
-      List<CabinInfo> selectedCabinInfo = flightDetails.value.cabinInfos
-          .where((element) => element.id == flightDetails.value.selectedCabinId)
-          .toList();
-      if (selectedCabinInfo.isNotEmpty) {
-        cabinInfo.value = selectedCabinInfo[0];
+      try{
+        currentFlightIndex.value = index;
+        isFlightDetailsLoading.value = true;
+        Get.toNamed(Approute_flightsDetails);
+        FlightDetails tempFlightDetails = await flightBookingHttpService
+            .getFlightDetails(index, objectId.value);
+        flightDetails.value = tempFlightDetails;
+        List<CabinInfo> selectedCabinInfo = flightDetails.value.cabinInfos
+            .where((element) => element.id == flightDetails.value.selectedCabinId)
+            .toList();
+        if (selectedCabinInfo.isNotEmpty) {
+          cabinInfo.value = selectedCabinInfo[0];
+        }
+        isFlightDetailsLoading.value = false;
+
+      }catch (e){
+        isFlightDetailsLoading.value = false;
+        Get.back();
+        showSnackbar(Get.context!, "something_went_wrong".tr, "error");
       }
-      isFlightDetailsLoading.value = false;
-      Get.toNamed(Approute_flightsDetails);
-      // if (flightDetails.value.priceChanged) {
-      //   showSnackbar(
-      //       Get.context!, flightDetails.value.priceChangedMessage, "info");
-      // }
-      // if (flightDetails.value.scheduleChanged) {
-      //   showSnackbar(
-      //       Get.context!, flightDetails.value.scheduleChangedMessage, "info");
-      // }
+
     }
   }
 

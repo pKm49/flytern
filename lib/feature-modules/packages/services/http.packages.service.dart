@@ -5,6 +5,7 @@ import 'package:flytern/feature-modules/packages/models/response.packages.model.
 import 'package:flytern/feature-modules/packages/models/submission_data.packages.model.dart';
 import 'package:flytern/shared-module/models/flytern_http_response.dart';
 import 'package:flytern/shared-module/services/http-services/http_request_handler.shared.service.dart';
+import 'package:get/get.dart';
 
 class PackageBookingHttpService {
 
@@ -45,10 +46,10 @@ class PackageBookingHttpService {
           return packageDetails;
         }
       }
+      throw response.errors.isNotEmpty?response.errors[0]:"something_went_wrong".tr;
 
-      return mapPackageDetails({});
-    }catch (e){
-      return mapPackageDetails({});
+     }catch (e){
+      rethrow;
     }
   }
 

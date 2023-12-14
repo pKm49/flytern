@@ -276,38 +276,53 @@ class HotelBookingController extends GetxController {
 
   Future<void> getHotelDetails(int tHotelid) async {
     if (tHotelid > -1 && !isHotelDetailsLoading.value) {
-      selectedImageIndex.value = -1;
-      selectedRoomImageIndex.value = -1;
 
-      Get.toNamed(Approute_hotelsDetails);
-      hotelId.value = tHotelid;
-      isHotelDetailsLoading.value = true;
-      selectedRoom.value = [];
-      selectedRoomOption.value = [];
-      selectedRoomSelectionIndex.value = 0;
+      try{
+        selectedImageIndex.value = -1;
+        selectedRoomImageIndex.value = -1;
 
-      HotelDetails tempHotelDetails = await hotelBookingHttpService
-          .getHotelDetails(hotelId.value, objectId.value);
-      hotelDetails.value = tempHotelDetails;
+        Get.toNamed(Approute_hotelsDetails);
+        hotelId.value = tHotelid;
+        isHotelDetailsLoading.value = true;
+        selectedRoom.value = [];
+        selectedRoomOption.value = [];
+        selectedRoomSelectionIndex.value = 0;
 
-      selectedImageIndex.value =
-          hotelDetails.value.imageUrls.isNotEmpty ? 0 : -1;
+        HotelDetails tempHotelDetails = await hotelBookingHttpService
+            .getHotelDetails(hotelId.value, objectId.value);
+        hotelDetails.value = tempHotelDetails;
 
-      if (hotelDetails.value.rooms.isNotEmpty) {
-        for (var i = 0; i < hotelSearchData.value.rooms.length; i++) {
-          selectedRoom.value.add(hotelDetails.value.rooms[0]);
-        }
-        if (hotelDetails.value.rooms[0].roomOptions.isNotEmpty) {
+        selectedImageIndex.value =
+        hotelDetails.value.imageUrls.isNotEmpty ? 0 : -1;
+
+        if (hotelDetails.value.rooms.isNotEmpty) {
           for (var i = 0; i < hotelSearchData.value.rooms.length; i++) {
-            selectedRoomOption.value
-                .add(hotelDetails.value.rooms[0].roomOptions[0]);
+            selectedRoom.value.add(hotelDetails.value.rooms[0]);
+          }
+          if (hotelDetails.value.rooms[0].roomOptions.isNotEmpty) {
+            for (var i = 0; i < hotelSearchData.value.rooms.length; i++) {
+              selectedRoomOption.value
+                  .add(hotelDetails.value.rooms[0].roomOptions[0]);
+            }
           }
         }
+
+        isHotelDetailsLoading.value = false;
+
+        getPreTravellerData();
+
+      }catch (e){
+        Get.back();
+        selectedImageIndex.value = -1;
+        selectedRoomImageIndex.value = -1;
+        hotelId.value = tHotelid;
+        isHotelDetailsLoading.value = false;
+        selectedRoom.value = [];
+        selectedRoomOption.value = [];
+        selectedRoomSelectionIndex.value = 0;
+        showSnackbar(Get.context!, "something_went_wrong".tr, "error");
       }
 
-      isHotelDetailsLoading.value = false;
-
-      getPreTravellerData();
     }
   }
 

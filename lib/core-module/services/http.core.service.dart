@@ -21,7 +21,9 @@ class CoreHttpServices {
         if (response.data != null) {
           if (response.data["notification"] != null) {
             response.data["notification"].forEach((element) {
-              notifications.add(mapNotification(element));
+              if(element !=null){
+                notifications.add(mapNotification(element));
+              }
             });
           }
         }

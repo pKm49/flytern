@@ -22,7 +22,7 @@ class InsuranceBookingHttpService {
       FlyternHttpResponse response =
       await getRequest(InsuranceBookingHttpRequestEndpointGetInitalInfo, null);
       InsuranceInitialData insuranceInitialData;
-      if (response.success) {
+      if (response.success && response.statusCode == 200) {
         if (response.data != null) {
           InsuranceInitialData insuranceInitialData = mapInsuranceInitialData(response.data);
           return insuranceInitialData;
