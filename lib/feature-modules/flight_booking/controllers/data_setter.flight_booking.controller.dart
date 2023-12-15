@@ -218,7 +218,6 @@ extension FlightBookingControllerSetter on FlightBookingController {
         break;
       }
 
-
       if (travelInfo[i].dateOfBirth == DefaultInvalidDate) {
         validityString = "enter_dob_copax".tr.replaceAll(
             "user","${travelInfo[i].travellerType} ${getIndex(

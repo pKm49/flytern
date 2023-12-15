@@ -38,7 +38,7 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
       child: Obx(
         ()=> Scaffold(
           appBar: AppBar(
-            title: Text('summary'.tr),
+            title: Text('payment_summary'.tr),
             elevation: 0.5,
           ),
           body: Stack(
@@ -376,7 +376,10 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
                             )),
                         addHorizontalSpace(flyternSpaceSmall),
                         Icon(
-                          Ionicons.chevron_forward,
+                          Localizations.localeOf(context)
+                              .languageCode
+                              .toString() ==
+                              'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                           size: flyternFontSize20,
                         )
                       ],

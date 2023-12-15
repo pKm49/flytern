@@ -113,7 +113,10 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                         border: 'bottom',
                         buttonTitle: "my_bookings".tr,
                         preIconData: Ionicons.list_outline,
-                        postIconData: Ionicons.chevron_forward,
+                        postIconData:Localizations.localeOf(context)
+                            .languageCode
+                            .toString() ==
+                            'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                       ),
                     ),
                     addVerticalSpace(flyternSpaceSmall),
@@ -128,7 +131,10 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                         border: 'bottom',
                         buttonTitle: "my_travel_stories".tr,
                         preIconData: Ionicons.reader_outline,
-                        postIconData: Ionicons.chevron_forward,
+                        postIconData:Localizations.localeOf(context)
+                            .languageCode
+                            .toString() ==
+                            'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                       ),
                     ),
                     addVerticalSpace(flyternSpaceSmall),
@@ -143,7 +149,10 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                         border: 'bottom',
                         buttonTitle: "co_passengers".tr,
                         preIconData: Ionicons.people_outline,
-                        postIconData: Ionicons.chevron_forward,
+                        postIconData:Localizations.localeOf(context)
+                            .languageCode
+                            .toString() ==
+                            'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                       ),
                     ),
                     addVerticalSpace(flyternSpaceSmall),
@@ -158,7 +167,10 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                         border: 'bottom',
                         buttonTitle: "change_mobile".tr,
                         preIconData: Ionicons.call_outline,
-                        postIconData: Ionicons.chevron_forward,
+                        postIconData:Localizations.localeOf(context)
+                            .languageCode
+                            .toString() ==
+                            'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                       ),
                     ),
                     addVerticalSpace(flyternSpaceSmall),
@@ -173,7 +185,10 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                         border: 'bottom',
                         buttonTitle: "change_email".tr,
                         preIconData: Ionicons.mail_outline,
-                        postIconData: Ionicons.chevron_forward,
+                        postIconData:Localizations.localeOf(context)
+                            .languageCode
+                            .toString() ==
+                            'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                       ),
                     ),
                     addVerticalSpace(flyternSpaceSmall),
@@ -188,7 +203,10 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                         border: 'bottom',
                         buttonTitle: "edit_profile".tr,
                         preIconData: Ionicons.create_outline,
-                        postIconData: Ionicons.chevron_forward,
+                        postIconData:Localizations.localeOf(context)
+                            .languageCode
+                            .toString() ==
+                            'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                       ),
                     ),
                     addVerticalSpace(flyternSpaceSmall),
@@ -203,7 +221,10 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                         border: 'bottom',
                         buttonTitle: "change_password".tr,
                         preIconData: Ionicons.lock_closed_outline,
-                        postIconData: Ionicons.chevron_forward,
+                        postIconData:Localizations.localeOf(context)
+                            .languageCode
+                            .toString() ==
+                            'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                       ),
                     ),
                     addVerticalSpace(flyternSpaceSmall),
@@ -220,7 +241,10 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                           border: '',
                           buttonTitle: "logout".tr,
                           preIconData: Ionicons.log_out_outline,
-                          postIconData: Ionicons.chevron_forward,
+                          postIconData:Localizations.localeOf(context)
+                              .languageCode
+                              .toString() ==
+                              'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                         ),
                       ),
                     ),

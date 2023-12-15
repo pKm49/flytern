@@ -376,7 +376,10 @@ class _PackageDetailsPageState extends State<PackageDetailsPage> {
                       ),
                       Text("select".tr),
                       addHorizontalSpace(flyternSpaceSmall),
-                      Icon(Ionicons.chevron_forward,size: flyternFontSize20)
+                      Icon(Localizations.localeOf(context)
+                          .languageCode
+                          .toString() ==
+                          'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,size: flyternFontSize20)
                     ],
                   )) ,
             ),

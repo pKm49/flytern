@@ -38,7 +38,7 @@ class _ActivityUserDetailsSubmissionPageState
   final sharedController = Get.find<SharedController>();
 
   Gender selectedTitle = Gender(code: "0", name: "Title", isDefault: false);
-  String selectedPassenger = "0";
+  String selectedPassenger = "-1";
   String title = "0";
   DateTime dateOfBirth = DefaultInvalidDate;
   DateTime passportExpiryDate = DefaultInvalidDate;
@@ -127,7 +127,7 @@ class _ActivityUserDetailsSubmissionPageState
                           items: [
                             GeneralItem(
                                 imageUrl: "",
-                                id: "0",
+                                id: "-1",
                                 name: "select_passenger".tr),
                             for (var i = 0;
                                 i < coPaxController.userCopaxes.length;

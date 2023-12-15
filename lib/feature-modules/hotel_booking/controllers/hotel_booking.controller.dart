@@ -70,7 +70,10 @@ class HotelBookingController extends GetxController {
 
   var sortingDc = SortingDcs(value: "-1", name: "", isDefault: false).obs;
 
-  var selectedDestination = mapHotelDestination({}).obs;
+  var selectedDestination = mapHotelDestination({
+    "cityName": "select_destination".tr,
+    "uniqueCombination": "select_destination".tr,
+  }).obs;
   var destination = "".obs;
   var bookingRef = "".obs;
   var paymentRef = "".obs;
@@ -137,7 +140,10 @@ class HotelBookingController extends GetxController {
     quickSearch.value = await hotelBookingHttpService.getRecentSearch();
 
     if (isInitial) {
-      selectedDestination.value = mapHotelDestination({});
+      selectedDestination.value = mapHotelDestination({
+        "cityName": "select_destination".tr,
+        "uniqueCombination": "select_destination".tr,
+      });
       nationality.value = Country(
           isDefault: 1,
           countryName: ("select_nationality".tr),
@@ -164,6 +170,23 @@ class HotelBookingController extends GetxController {
     } else {
       return [];
     }
+  }
+
+  resetDestinationAndNationality(){
+
+    selectedDestination.value = mapHotelDestination({
+      "cityName": "select_destination".tr,
+      "uniqueCombination": "select_destination".tr,
+    });
+
+    nationality.value = Country(
+        isDefault: 1,
+        countryName: ("select_nationality".tr),
+        countryCode: "",
+        countryISOCode: "",
+        countryName_Ar: "",
+        flag: "",
+        code: "");
   }
 
   Future<void> getSearchResults(bool isNavigationRequired) async {
@@ -276,8 +299,7 @@ class HotelBookingController extends GetxController {
 
   Future<void> getHotelDetails(int tHotelid) async {
     if (tHotelid > -1 && !isHotelDetailsLoading.value) {
-
-      try{
+      try {
         selectedImageIndex.value = -1;
         selectedRoomImageIndex.value = -1;
 
@@ -293,7 +315,7 @@ class HotelBookingController extends GetxController {
         hotelDetails.value = tempHotelDetails;
 
         selectedImageIndex.value =
-        hotelDetails.value.imageUrls.isNotEmpty ? 0 : -1;
+            hotelDetails.value.imageUrls.isNotEmpty ? 0 : -1;
 
         if (hotelDetails.value.rooms.isNotEmpty) {
           for (var i = 0; i < hotelSearchData.value.rooms.length; i++) {
@@ -310,8 +332,7 @@ class HotelBookingController extends GetxController {
         isHotelDetailsLoading.value = false;
 
         getPreTravellerData();
-
-      }catch (e){
+      } catch (e) {
         Get.back();
         selectedImageIndex.value = -1;
         selectedRoomImageIndex.value = -1;
@@ -322,7 +343,6 @@ class HotelBookingController extends GetxController {
         selectedRoomSelectionIndex.value = 0;
         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
       }
-
     }
   }
 

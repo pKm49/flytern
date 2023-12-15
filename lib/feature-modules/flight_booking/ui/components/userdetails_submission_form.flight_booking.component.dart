@@ -58,7 +58,7 @@ class _FlightUserDetailsSubmissionFormState
   final coPaxController = Get.find<CoPaxController>();
 
   Gender selectedGender = Gender(code: "0", name: "Gender", isDefault: false);
-  String selectedPassenger = "0";
+  String selectedPassenger = "-1";
   String gender = "0";
   String title = "0";
   DateTime dateOfBirth = DefaultInvalidDate;
@@ -115,7 +115,7 @@ class _FlightUserDetailsSubmissionFormState
                     selected: selectedPassenger,
                     items: [
                       GeneralItem(
-                          imageUrl: "", id: "0", name: "select_passenger".tr),
+                          imageUrl: "", id: "-1", name: "select_passenger".tr),
                       for (var i = 0;
                           i < getUserCopaxes(widget.index).length;
                           i++)

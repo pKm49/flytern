@@ -209,7 +209,10 @@ class _ProfileInsurancePurchaseListState
                                   color: flyternBackgroundWhite,
                                   size: 20,
                                 )
-                                    : Icon(Ionicons.chevron_forward)),
+                                    : Icon(Localizations.localeOf(context)
+                                    .languageCode
+                                    .toString() ==
+                                    'ar'? Ionicons.chevron_back :Ionicons.chevron_forward, )),
                           ),
                         ],
                       ),

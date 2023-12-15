@@ -48,7 +48,7 @@ class _ActivityBookingSummaryPageState
       child: Obx(
         () => Scaffold(
           appBar: AppBar(
-            title: Text('summary'.tr),
+            title: Text('payment_summary'.tr),
             elevation: 0.5,
           ),
           body: Stack(
@@ -399,8 +399,10 @@ class _ActivityBookingSummaryPageState
                               size: 20,
                             )),
                         addHorizontalSpace(flyternSpaceSmall),
-                        Icon(
-                          Ionicons.chevron_forward,
+                        Icon( Localizations.localeOf(context)
+                            .languageCode
+                            .toString() ==
+                            'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                           size: flyternFontSize20,
                         )
                       ],

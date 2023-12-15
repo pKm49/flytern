@@ -88,7 +88,10 @@ class _CoreInfoPageState extends State<CoreInfoPage> {
                                 border: 'bottom',
                                 buttonTitle: "about_us".tr,
                                 preIconData: Ionicons.information_circle_outline,
-                                postIconData: Ionicons.chevron_forward,
+                                postIconData: Localizations.localeOf(context)
+                                    .languageCode
+                                    .toString() ==
+                                    'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                               ),
                             ),
                           ),
@@ -107,7 +110,10 @@ class _CoreInfoPageState extends State<CoreInfoPage> {
                                 border: 'bottom',
                                 buttonTitle: "contact_us".tr,
                                 preIconData: Ionicons.call_outline,
-                                postIconData: Ionicons.chevron_forward,
+                                postIconData: Localizations.localeOf(context)
+                                    .languageCode
+                                    .toString() ==
+                                    'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                               ),
                             ),
                           ),
@@ -126,7 +132,10 @@ class _CoreInfoPageState extends State<CoreInfoPage> {
                                 border: 'bottom',
                                 buttonTitle: "terms_n_conditions".tr,
                                 preIconData: Ionicons.document_outline,
-                                postIconData: Ionicons.chevron_forward,
+                                postIconData: Localizations.localeOf(context)
+                                    .languageCode
+                                    .toString() ==
+                                    'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                               ),
                             ),
                           ),
@@ -145,7 +154,10 @@ class _CoreInfoPageState extends State<CoreInfoPage> {
                                 border: 'bottom',
                                 buttonTitle: "privacy_policy".tr,
                                 preIconData: Ionicons.lock_closed_outline,
-                                postIconData: Ionicons.chevron_forward,
+                                postIconData: Localizations.localeOf(context)
+                                    .languageCode
+                                    .toString() ==
+                                    'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                               ),
                             ),
                           ),

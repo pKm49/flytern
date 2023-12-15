@@ -55,7 +55,10 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
                       border: 'bottom',
                       buttonTitle: "smart_payment".tr,
                       preIconData: Ionicons.cash_outline,
-                      postIconData: Ionicons.chevron_forward,
+                      postIconData:Localizations.localeOf(context)
+                          .languageCode
+                          .toString() ==
+                          'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                     ),
                   ),
                   Visibility(
@@ -74,7 +77,10 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
                         border: 'bottom',
                         buttonTitle: "my_bookings".tr,
                         preIconData: Ionicons.list_outline,
-                        postIconData: Ionicons.chevron_forward,
+                        postIconData:Localizations.localeOf(context)
+                            .languageCode
+                            .toString() ==
+                            'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                       ),
                     ),
                   ),
@@ -144,7 +150,10 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
                       border: 'bottom',
                       buttonTitle: "app_settings".tr,
                       preIconData: Ionicons.settings_outline,
-                      postIconData: Ionicons.chevron_forward,
+                      postIconData:Localizations.localeOf(context)
+                          .languageCode
+                          .toString() ==
+                          'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                     ),
                   ),
                   addVerticalSpace(flyternSpaceSmall),
@@ -159,7 +168,10 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
                       border: 'bottom',
                       buttonTitle: "info".tr,
                       preIconData: Ionicons.information_circle_outline,
-                      postIconData: Ionicons.chevron_forward,
+                      postIconData:Localizations.localeOf(context)
+                          .languageCode
+                          .toString() ==
+                          'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                     ),
                   ),
                   addVerticalSpace(flyternSpaceSmall),
@@ -174,7 +186,10 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
                       border:  '',
                       buttonTitle: "rating".tr,
                       preIconData: Ionicons.star_outline,
-                      postIconData: Ionicons.chevron_forward,
+                      postIconData:Localizations.localeOf(context)
+                          .languageCode
+                          .toString() ==
+                          'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                     ),
                   ),
 
@@ -195,7 +210,10 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
                   border: '',
                   buttonTitle: "logout".tr,
                   preIconData: Ionicons.log_out_outline,
-                  postIconData: Ionicons.chevron_forward,
+                  postIconData:Localizations.localeOf(context)
+                      .languageCode
+                      .toString() ==
+                      'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                 ),
               ),
             ),

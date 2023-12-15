@@ -657,7 +657,10 @@ class _FlightSeatSelectionPageState extends State<FlightSeatSelectionPage> {
                                 )),
                             addHorizontalSpace(flyternSpaceSmall),
                             Icon(
-                              Ionicons.chevron_forward,
+                              Localizations.localeOf(context)
+                                  .languageCode
+                                  .toString() ==
+                                  'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                               size: flyternFontSize20,
                             )
                           ],

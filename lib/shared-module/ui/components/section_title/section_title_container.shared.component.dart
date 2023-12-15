@@ -38,7 +38,7 @@ class SectionTitleContainer extends StatelessWidget {
           ),
         ),
         Expanded(
-            flex: 1,
+            flex: 2,
             child: InkWell(
               onTap: (){
                 Get.toNamed(linkUrl);
@@ -52,7 +52,10 @@ class SectionTitleContainer extends StatelessWidget {
                         .copyWith(color: flyternTertiaryColor),
                   ),
                   addHorizontalSpace(flyternSpaceExtraSmall),
-                  Icon(Ionicons.chevron_forward,
+                  Icon(Localizations.localeOf(context)
+                      .languageCode
+                      .toString() ==
+                      'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                       color: flyternTertiaryColor,
                       size: flyternFontSize20)
                 ],

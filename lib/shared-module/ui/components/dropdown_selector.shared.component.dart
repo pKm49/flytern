@@ -27,6 +27,19 @@ class DropDownSelector extends StatefulWidget {
 class _DropDownSelectorState extends State<DropDownSelector> {
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    print("dropdown items");
+    print(widget.titleText);
+    widget.items.forEach((element) {
+      print("element ${element.name}-${element.id}");
+    });
+
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     double screenheight = ((MediaQuery.of(context).size.height * .9) - 60.0);

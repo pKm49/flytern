@@ -48,7 +48,7 @@ class _InsuranceUserDetailsSubmissionFormState
 
   Gender selectedTitle = Gender(code: "0", name: "Title", isDefault: false);
   Gender selectedGender = Gender(code: "0", name: "Gender", isDefault: false);
-  String selectedPassenger = "0";
+  String selectedPassenger = "-1";
   String gender = "0";
   String title = "0";
   String frequentFlyerNo = "0";
@@ -109,7 +109,7 @@ class _InsuranceUserDetailsSubmissionFormState
                     selected: selectedPassenger,
                     items: [
                       GeneralItem(
-                          imageUrl: "", id: "0", name: "select_passenger".tr),
+                          imageUrl: "", id: "-1", name: "select_passenger".tr),
                       for (var i = 0;
                           i < getUserCopaxes(widget.index).length;
                           i++)

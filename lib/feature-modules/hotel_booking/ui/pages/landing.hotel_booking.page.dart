@@ -35,6 +35,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
   @override
   void initState() {
     super.initState();
+    hotelBookingController.resetDestinationAndNationality();
   }
 
   @override
@@ -278,15 +279,17 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                                       openHotelOptionsSelector(index);
                                     },
                                     child: Container(
-                                      height: 75,
+                                      height: 80,
                                       decoration:
                                           flyternBorderedContainerSmallDecoration
                                               .copyWith(
                                                   border: Border.all(
                                                       color: flyternGrey20,
                                                       width: .5)),
-                                      padding: flyternMediumPaddingAll,
+                                      padding: flyternMediumPaddingAll.copyWith(top: flyternSpaceSmall,bottom: flyternSpaceSmall),
                                       child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
                                           const Icon(Ionicons.bed_outline,
                                               color: flyternSecondaryColor,
@@ -415,6 +418,9 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                     child: ElevatedButton(
                         style: getElevatedButtonStyle(context),
                         onPressed: () {
+                          print(hotelBookingController.selectedDestination.value
+                              .uniqueCombination);
+                          print("select_destination".tr);
                           if (hotelBookingController.selectedDestination.value
                                       .uniqueCombination !=
                                   "select_destination".tr &&

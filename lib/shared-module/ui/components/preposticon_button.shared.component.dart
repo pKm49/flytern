@@ -2,6 +2,7 @@ import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PrePostIconButton extends StatelessWidget {
   final num? specialColor;
@@ -40,7 +41,15 @@ class PrePostIconButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Visibility(visible: preIconData != null, child: Padding(
-                padding: const EdgeInsets.only(right:  flyternSpaceMedium),
+                padding:   EdgeInsets.only(
+                    left: (Localizations.localeOf(context)
+                        .languageCode
+                        .toString() ==
+                        'ar'? flyternSpaceMedium:0 ),
+                    right:( Localizations.localeOf(context)
+                        .languageCode
+                        .toString() ==
+                        'ar'?0: flyternSpaceMedium) ),
                 child: Icon(preIconData,color:
                 specialColor ==1?flyternGuideRed:
                 specialColor ==2?flyternPrimaryColor:
