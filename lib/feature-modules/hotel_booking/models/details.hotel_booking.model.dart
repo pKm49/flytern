@@ -57,31 +57,46 @@ HotelDetails mapHotelDetails(dynamic payload) {
 
   if (payload["imageUrl"] != null) {
     payload["imageUrl"].forEach((element) {
-      imageUrls.add(element);
+      if(element != null){
+        imageUrls.add(element);
+      }
+
     });
   }
 
   if (payload["roomRateConditions"] != null) {
     payload["roomRateConditions"].forEach((element) {
-      roomRateConditions.add(element);
+      if(element != null){
+        roomRateConditions.add(element);
+      }
+
     });
   }
 
   if (payload["_lstBasicDetails"] != null) {
     payload["_lstBasicDetails"].forEach((element) {
-      basicDetails.add(mapHotelBasicDetail(element));
+      if(element != null){
+        basicDetails.add(mapHotelBasicDetail(element));
+      }
+
     });
   }
 
   if (payload["_lstamenitys"] != null) {
     payload["_lstamenitys"].forEach((element) {
-      amenitys.add(mapHotelAmenity(element));
+      if(element != null){
+        amenitys.add(mapHotelAmenity(element));
+      }
+
     });
   }
 
   if (payload["_lstRooms"] != null) {
     payload["_lstRooms"].forEach((element) {
-      rooms.add(mapHotelRoom(element));
+      if(element != null){
+        rooms.add(mapHotelRoom(element));
+      }
+
     });
   }
 

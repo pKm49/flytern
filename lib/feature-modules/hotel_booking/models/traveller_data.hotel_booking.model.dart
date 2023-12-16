@@ -36,7 +36,10 @@ class HotelTravellerData {
   getTravellerInfo() {
     List<dynamic> travellers = [];
     travellerinfo.forEach((element) {
-      travellers.add(element.toJson());
+      if(element != null){
+        travellers.add(element.toJson());
+      }
+
     });
     return travellers;
   }

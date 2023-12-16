@@ -95,4 +95,5 @@ class CoreController extends GetxController {
       showSnackbar(Get.context!, "couldnt_find_booking".tr, "error");
     }
   }
+
 }

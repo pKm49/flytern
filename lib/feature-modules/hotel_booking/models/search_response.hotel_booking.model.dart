@@ -28,7 +28,10 @@ HotelSearchResponse mapHotelSearchResponse(dynamic payload) {
 
   if(payload["information"] !=null){
     payload["information"].forEach((element) {
-      information.add(element);
+      if(element != null){
+        information.add(element);
+      }
+
     });
   }
 

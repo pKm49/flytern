@@ -24,18 +24,28 @@ HotelPretravellerData mapHotelPretravellerData(dynamic payload) {
 
   if (payload["rooms"] != null) {
     payload["rooms"].forEach((element) {
-      rooms.add(mapHotelSearchItem(element));
+      if(element != null){
+        rooms.add(mapHotelSearchItem(element));
+      }
+
     });
   }
   if (payload["genderList"] != null) {
     payload["genderList"].forEach((element) {
-      genderList.add(mapGender(element));
+      if(element != null){
+        genderList.add(mapGender(element));
+      }
+
     });
   }
 
   if (payload["titleList"] != null) {
     payload["titleList"].forEach((element) {
-      titleList.add(mapGender(element));
+      if(element != null){
+        titleList.add(mapGender(element));
+      }
+
+
     });
   }
 

@@ -40,7 +40,10 @@ class HotelSearchData {
   List<dynamic> getRooms(List<HotelSearchItemRoomData> searchList) {
     List<dynamic> searchLists = [];
     searchList.forEach((element) {
-      searchLists.add(element.toJson());
+      if(element != null){
+        searchLists.add(element.toJson());
+      }
+
     });
     return searchLists;
   }
@@ -51,7 +54,10 @@ HotelSearchData mapHotelSearchData(dynamic payload) {
 
   if (payload["rooms"] != null) {
     payload["rooms"].forEach((element) {
-      rooms.add(mapHotelSearchItem(element));
+      if(element != null){
+        rooms.add(mapHotelSearchItem(element));
+      }
+
     });
   }
 

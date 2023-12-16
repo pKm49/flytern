@@ -23,15 +23,21 @@ FlightAddonGetSeat mapFlightAddonGetSeat(dynamic payload){
   List<FlightAddonFlightClass> flightClass = [];
 
   payload["routes"].forEach((element) {
-    routes.add(mapFlightAddonRoute(element));
+    if(element != null){
+      routes.add(mapFlightAddonRoute(element));
+    }
   });
 
   payload["passengers"].forEach((element) {
-    passengers.add(mapFlightAddonPassenger(element));
+    if(element != null){
+      passengers.add(mapFlightAddonPassenger(element));
+    }
   });
 
   payload["flightClass"].forEach((element) {
-    flightClass.add(mapFlightAddonFlightClass(element));
+    if(element != null){
+      flightClass.add(mapFlightAddonFlightClass(element));
+    }
   });
 
   return FlightAddonGetSeat(

@@ -12,7 +12,9 @@ FlightAddonSeatRow mapFlightAddonSeatRow(dynamic payload) {
   List<FlightAddonSeatColumn> columns = [];
 
   payload["columns"].forEach((element) {
-    columns.add(mapFlightAddonSeatColumn(element));
+    if(element != null){
+      columns.add(mapFlightAddonSeatColumn(element));
+    }
   });
 
 

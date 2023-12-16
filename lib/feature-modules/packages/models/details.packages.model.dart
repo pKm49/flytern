@@ -56,13 +56,21 @@ PackageDetails mapPackageDetails(dynamic payload) {
 
   if (payload["packages"] != null) {
     payload["packages"].forEach((element) {
-      packages.add(mapPackageData(element));
+      if(element != null){
+        packages.add(mapPackageData(element));
+      }
+
     });
   }
 
   if (payload["packageHeaderImage"] != null) {
     payload["packageHeaderImage"].forEach((element) {
-      subImages.add(element["headerimage"] ?? "");
+      if(element != null){
+        if(element["headerimage"] != null){
+          subImages.add(element["headerimage"] ?? "");
+        }
+      }
+
     });
   }
 
@@ -70,7 +78,9 @@ PackageDetails mapPackageDetails(dynamic payload) {
 
   if (payload["packageSubImages"] != null) {
     payload["packageSubImages"].forEach((element) {
-      subImages.add(element["image"] ?? "");
+      if(element != null){
+        subImages.add(element["image"] ?? "");
+      }
     });
   }
 

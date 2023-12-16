@@ -42,25 +42,37 @@ FlightPretravellerData mapFlightPretravellerData(dynamic payload) {
 
   if (payload["countriesList"] != null) {
     payload["countriesList"].forEach((element) {
-      countriesList.add(mapCountry(element));
+      if(element != null){
+        countriesList.add(mapCountry(element));
+      }
+
     });
   }
 
   if (payload["mobileCountryList"] != null) {
     payload["mobileCountryList"].forEach((element) {
-      mobileCountryList.add(mapCountry(element));
+      if(element != null){
+        mobileCountryList.add(mapCountry(element));
+      }
+
     });
   }
 
   if (payload["genderList"] != null) {
     payload["genderList"].forEach((element) {
-      genderList.add(mapGender(element));
+      if(element != null){
+        genderList.add(mapGender(element));
+      }
+
     });
   }
 
   if (payload["titleList"] != null) {
     payload["titleList"].forEach((element) {
-      titleList.add(mapGender(element));
+      if(element != null){
+        titleList.add(mapGender(element));
+      }
+
     });
   }
 

@@ -36,7 +36,9 @@ class ActivitySubmissionData {
 
     List<dynamic>  tEventlstInfo = [];
     eventlstInfo.forEach((element) {
-      tEventlstInfo.add(element.toTravelDataJson());
+      if(element != null){
+        tEventlstInfo.add(element.toTravelDataJson());
+      }
     });
 
     return tEventlstInfo;

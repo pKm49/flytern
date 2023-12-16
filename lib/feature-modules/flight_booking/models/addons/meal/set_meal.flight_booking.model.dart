@@ -17,7 +17,9 @@ List<dynamic> getListOfSelection(List<FlightAddonMealSelection> listOfSelection)
   List<dynamic> tLstOfSelection = [];
 
   listOfSelection.forEach((element) {
-    tLstOfSelection.add(element.toJson());
+    if(element != null){
+      tLstOfSelection.add(element.toJson());
+    }
   });
 
   return tLstOfSelection;

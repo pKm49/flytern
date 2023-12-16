@@ -292,7 +292,10 @@ class HotelBookingHttpService {
         if (response.data != null) {
           if (response.data["isGateway"]) {
             response.data["_gatewaylist"].forEach((element) {
-              paymentGateways.add(mapPaymentGateway(element));
+              if(element !=null){
+                paymentGateways.add(mapPaymentGateway(element));
+              }
+
             });
           }
 
@@ -302,13 +305,19 @@ class HotelBookingHttpService {
           }
           if (response.data["alertMsg"]!=null) {
             response.data["alertMsg"].forEach((element) {
-              alertMsg.add(element);
+              if(element !=null){
+                alertMsg.add(element);
+              }
+
             });
           }
 
           if (response.data["_bookingInfo"]!=null) {
             response.data["_bookingInfo"].forEach((element) {
-              bookingInfo.add(mapBookingInfo(element));
+              if(element !=null){
+                bookingInfo.add(mapBookingInfo(element));
+              }
+
             });
           }
         }
@@ -416,7 +425,10 @@ class HotelBookingHttpService {
         if (response.data != null) {
           if (response.data["records"] != null) {
             response.data["records"].forEach((element) {
-              recommendedPackages.add(mapRecommendedPackage(element));
+              if(element !=null){
+                recommendedPackages.add(mapRecommendedPackage(element));
+              }
+
             });
             return recommendedPackages;
           }
@@ -441,7 +453,10 @@ class HotelBookingHttpService {
         if (response.data != null) {
           if (response.data["records"] != null) {
             response.data["records"].forEach((element) {
-              travelStories.add(mapTravelStory(element));
+              if(element !=null){
+                travelStories.add(mapTravelStory(element));
+              }
+
             });
             return travelStories;
           }
@@ -467,7 +482,10 @@ class HotelBookingHttpService {
         if (response.data != null) {
           if (response.data["records"] != null) {
             response.data["records"].forEach((element) {
-              popularDestination.add(mapPopularDestination(element));
+              if(element !=null){
+                popularDestination.add(mapPopularDestination(element));
+              }
+
             });
             return popularDestination;
           }

@@ -32,7 +32,9 @@ FlightAddonFlightClass mapFlightAddonFlightClass(dynamic payload) {
   List<FlightAddonSeatRow> seats = [];
 
   payload["seats"].forEach((element) {
-    seats.add(mapFlightAddonSeatRow(element));
+    if(element != null){
+      seats.add(mapFlightAddonSeatRow(element));
+    }
   });
 
   bool wifi = false;

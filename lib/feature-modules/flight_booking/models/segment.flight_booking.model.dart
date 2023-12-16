@@ -25,12 +25,18 @@ FlightSegment mapFlightSegment(dynamic payload) {
   List<FlightSegmentBuggageDetails> flightSegmentBaggages = [];
   if (payload["flightSegmentDetails"] != null) {
     payload["flightSegmentDetails"].forEach((element) {
-      flightSegmentDetails.add(mapFlightSegmentDetails(element));
+      if(element != null){
+        flightSegmentDetails.add(mapFlightSegmentDetails(element));
+      }
+
     });
   }
   if (payload["baggage"] != null) {
     payload["baggage"].forEach((element) {
-      flightSegmentBaggages.add(mapFlightSegmentBuggageDetails(element));
+      if(element != null){
+        flightSegmentBaggages.add(mapFlightSegmentBuggageDetails(element));
+      }
+
     });
   }
   return FlightSegment(

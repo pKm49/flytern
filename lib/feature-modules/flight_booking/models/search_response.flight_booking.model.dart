@@ -46,7 +46,10 @@ FlightSearchResponse mapFlightSearchResponse(dynamic payload) {
   List<FlightSearchResponseDtoSegment> flightSearchResponseDtoSegments = [];
   if(payload["dTOSegments"] != null){
     payload["dTOSegments"].forEach((element) {
-      flightSearchResponseDtoSegments.add(mapFlightSearchResponseDtoSegment(element));
+      if(element != null){
+        flightSearchResponseDtoSegments.add(mapFlightSearchResponseDtoSegment(element));
+      }
+
     });
   }
   return FlightSearchResponse(

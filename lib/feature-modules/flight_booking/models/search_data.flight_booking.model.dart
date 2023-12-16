@@ -40,7 +40,10 @@ class FlightSearchData {
   List<dynamic> getSearchList(List<FlightSearchItem> searchList) {
     List<dynamic> searchLists = [];
     searchList.forEach((element) {
-      searchLists.add(element.toJson());
+      if(element != null){
+        searchLists.add(element.toJson());
+      }
+
     });
     return searchLists;
   }
@@ -48,7 +51,9 @@ class FlightSearchData {
   List<dynamic> getAllowedCabins(List<FlightAllowedCabin> allowedCabins) {
     List<dynamic> allowedCabinsList = [];
     allowedCabins.forEach((element) {
-      allowedCabinsList.add(element.toJson());
+      if(element != null){
+        allowedCabinsList.add(element.toJson());
+      }
     });
     return allowedCabinsList;
   }
@@ -63,14 +68,20 @@ FlightSearchData mapFlightSearchData(dynamic payload){
 
   if(payload["searchList"] != null){
     payload["searchList"].forEach((element) {
-      searchList.add(mapFlightSearchItem(element));
+      if(element != null){
+        searchList.add(mapFlightSearchItem(element));
+      }
+
     });
   }
 
 
   if(payload["allowedCabins"] != null){
     payload["allowedCabins"].forEach((element) {
-      allowedCabins.add(mapFlightAllowedCabin(element));
+      if(element != null){
+        allowedCabins.add(mapFlightAllowedCabin(element));
+      }
+
     });
   }
 

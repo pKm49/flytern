@@ -52,18 +52,26 @@ PaymentConfirmationData mapPaymentpdfLinkData(dynamic payload,bool isSuccess) {
 
   if (payload["alertMsg"]!=null) {
     payload["alertMsg"].forEach((element) {
-      alertMsg.add(element);
+      if(element != null){
+        alertMsg.add(element);
+      }
     });
   }
   if (payload["_bookingInfo"]!=null) {
     payload["_bookingInfo"].forEach((element) {
-      bookingInfo.add(mapBookingInfo(element));
+      if(element != null){
+        bookingInfo.add(mapBookingInfo(element));
+      }
+
     });
   }
 
   if (payload["_paymentInfo"]!=null) {
     payload["_paymentInfo"].forEach((element) {
-      paymentInfo.add(mapBookingInfo(element));
+      if(element != null){
+        paymentInfo.add(mapBookingInfo(element));
+      }
+
     });
   }
 

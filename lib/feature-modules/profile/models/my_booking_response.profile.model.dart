@@ -36,30 +36,45 @@ MyBookingResponse mapMyBookingResponse(dynamic payload) {
 
   if (payload["_MyActivityBookingResponse"] != null) {
     payload["_MyActivityBookingResponse"].forEach((element) {
-      myActivityBookingResponse.add(mapMyActivityBooking(element));
+      if(element != null){
+        myActivityBookingResponse.add(mapMyActivityBooking(element));
+      }
+
     });
   }
 
   if (payload["_MyFlightBookingResponse"] != null) {
     payload["_MyFlightBookingResponse"].forEach((element) {
-      myFlightBookingResponse.add(mapMyFlightBooking(element));
+      if(element != null){
+        myFlightBookingResponse.add(mapMyFlightBooking(element));
+      }
+
     });
   }
 
   if (payload["_MyHotelBookingResponse"] != null) {
     payload["_MyHotelBookingResponse"].forEach((element) {
-      myHotelBookingResponse.add(mapMyHotelBooking(element));
+      if(element != null){
+        myHotelBookingResponse.add(mapMyHotelBooking(element));
+      }
+
     });
   }
   if (payload["_MyInsuranceBookingResponse"] != null) {
     payload["_MyInsuranceBookingResponse"].forEach((element) {
-      myInsuranceBookingResponse.add(mapMyInsuranceBooking(element));
+      if(element != null){
+        myInsuranceBookingResponse.add(mapMyInsuranceBooking(element));
+      }
+
     });
   }
 
   if (payload["_MyPackageBookingResponse"] != null) {
     payload["_MyPackageBookingResponse"].forEach((element) {
-      myPackageBookingResponse.add(mapMyPackageBooking(element));
+      if(element != null){
+        myPackageBookingResponse.add(mapMyPackageBooking(element));
+      }
+
     });
   }
 

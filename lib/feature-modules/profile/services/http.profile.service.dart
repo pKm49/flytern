@@ -132,7 +132,10 @@ class ProfileHttpServices{
         if(response.data != null){
           List<UserTravelStory> travelStories = [];
           response.data.forEach((element) {
-            travelStories.add(mapUserTravelStory(element));
+            if(element !=null){
+              travelStories.add(mapUserTravelStory(element));
+            }
+
           });
           return travelStories;
         }
@@ -226,7 +229,10 @@ class ProfileHttpServices{
         if(response.data != null){
           List<UserCoPax> coPaxes = [];
           response.data.forEach((element) {
-            coPaxes.add(mapUserCoPax(element));
+            if(element !=null){
+              coPaxes.add(mapUserCoPax(element));
+            }
+
           });
           return coPaxes;
         }

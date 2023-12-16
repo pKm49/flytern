@@ -102,19 +102,28 @@ class InsuranceBookingHttpService {
         if (response.data != null) {
           if (response.data["isGateway"]) {
             response.data["_gatewaylist"].forEach((element) {
-              paymentGateways.add(mapPaymentGateway(element));
+              if(element !=null){
+                paymentGateways.add(mapPaymentGateway(element));
+              }
+
             });
           }
 
           if (response.data["alertMsg"]!=null) {
             response.data["alertMsg"].forEach((element) {
-              alertMsg.add(element);
+              if(element !=null){
+                alertMsg.add(element);
+              }
+
             });
           }
 
           if (response.data["_bookingInfo"]!=null) {
             response.data["_bookingInfo"].forEach((element) {
-              bookingInfo.add(mapBookingInfo(element));
+              if(element !=null){
+                bookingInfo.add(mapBookingInfo(element));
+              }
+
             });
           }
         }

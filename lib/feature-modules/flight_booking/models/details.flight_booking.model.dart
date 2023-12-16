@@ -54,12 +54,16 @@ FlightDetails mapFlightDetails(dynamic payload) {
 
   if (payload["flightSegments"] != null) {
     payload["flightSegments"].forEach((element) {
-      flightSegments.add(mapFlightSegment(element));
+      if(element != null){
+        flightSegments.add(mapFlightSegment(element));
+      }
     });
   }
   if (payload["_lstCabinInfos"] != null) {
     payload["_lstCabinInfos"].forEach((element) {
-      cabinInfos.add(mapCabinInfo(element));
+      if(element != null){
+        cabinInfos.add(mapCabinInfo(element));
+      }
     });
   }
 
@@ -68,7 +72,9 @@ FlightDetails mapFlightDetails(dynamic payload) {
       fareRule = payload["fareRule"];
     } else {
       payload["fareRule"].forEach((element) {
-        fareRule += element;
+        if(element != null){
+          fareRule += element;
+        }
       });
     }
   }
@@ -78,7 +84,10 @@ FlightDetails mapFlightDetails(dynamic payload) {
       errorMessage = payload["errorMessage"];
     } else {
       payload["errorMessage"].forEach((element) {
-        errorMessage += element;
+        if(element != null){
+          errorMessage += element;
+        }
+
       });
     }
   }
@@ -88,7 +97,10 @@ FlightDetails mapFlightDetails(dynamic payload) {
       warningMessage = payload["warningMessage"];
     } else {
       payload["warningMessage"].forEach((element) {
-        warningMessage += element;
+        if(element != null){
+          warningMessage += element;
+        }
+
       });
     }
   }

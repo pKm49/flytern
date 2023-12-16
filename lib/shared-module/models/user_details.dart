@@ -56,7 +56,10 @@ UserDetails mapUserDetails(dynamic payload,bool isGuest){
   List<Gender> tempGenders = [];
   if(payload["genderList"] != null){
     payload["genderList"].forEach((element) {
-      tempGenders.add(mapGender(element));
+      if(element != null){
+        tempGenders.add(mapGender(element));
+      }
+
     });
   }
   return UserDetails(

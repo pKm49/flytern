@@ -38,47 +38,65 @@ InsuranceInitialData mapInsuranceInitialData(dynamic payload) {
 
   if (payload["_lstPolicyRelationship"] != null) {
     payload["_lstPolicyRelationship"].forEach((element) {
-      lstPolicyRelationship.add(GeneralItem(
-          id: element["code"] ?? "", name: element["information"] ?? ""));
+      if(element != null){
+        lstPolicyRelationship.add(GeneralItem(
+            id: element["code"] ?? "", name: element["information"] ?? ""));
+      }
+
     });
   }
 
   if (payload["_lstPolicyHeaderType"] != null) {
     payload["_lstPolicyHeaderType"].forEach((element) {
-      lstPolicyHeaderType.add(GeneralItem(
-          id: element["code"] ?? "", name: element["information"] ?? ""));
+      if(element != null){
+        lstPolicyHeaderType.add(GeneralItem(
+            id: element["code"] ?? "", name: element["information"] ?? ""));
+      }
+
     });
   }
 
   if (payload["_lstPolicyType"] != null) {
     payload["_lstPolicyType"].forEach((element) {
-      lstPolicyType.add(GeneralItem(
-          id: element["typeCode"].toString(),
-          name: element["information"] ?? ""));
+      if(element != null){
+        lstPolicyType.add(GeneralItem(
+            id: element["typeCode"].toString(),
+            name: element["information"] ?? ""));
+      }
+
     });
   }
 
   if (payload["_lstPolicyOption"] != null) {
     payload["_lstPolicyOption"].forEach((element) {
-      lstPolicyOption.add(GeneralItem(
-          id: element["optionCode"].toString(),
-          name: element["information"] ?? ""));
+      if(element != null){
+        lstPolicyOption.add(GeneralItem(
+            id: element["optionCode"].toString(),
+            name: element["information"] ?? ""));
+      }
+
     });
   }
 
   if (payload["_lstPolicyPeriod"] != null) {
     payload["_lstPolicyPeriod"].forEach((element) {
-      lstPolicyPeriod.add(GeneralItem(
-          id: element["periodCode"].toString(),
-          name: element["information"] ?? ""));
+      if(element != null){
+        lstPolicyPeriod.add(GeneralItem(
+            id: element["periodCode"].toString(),
+            name: element["information"] ?? ""));
+      }
+
     });
   }
 
   if (payload["_lstPolicyNationality"] != null) {
     payload["_lstPolicyNationality"].forEach((element) {
-      lstPolicyNationality.add(GeneralItem(
-          id: element["code"].toString(),
-          name: element["information"] ?? ""));
+      if(element != null){
+        lstPolicyNationality.add(GeneralItem(
+            id: element["code"].toString(),
+            name: element["information"] ?? ""));
+      }
+
     });
   }
 

@@ -17,7 +17,10 @@ MyInsuranceBooking mapMyInsuranceBooking(dynamic payload) {
 
   if (payload["_Listrecords"] != null) {
     payload["_Listrecords"].forEach((element) {
-      myHotelBookingListRecords.add(mapMyInsuranceBookingListRecord(element));
+      if(element != null){
+        myHotelBookingListRecords.add(mapMyInsuranceBookingListRecord(element));
+      }
+
     });
   }
 

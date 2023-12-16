@@ -31,7 +31,10 @@ HotelSearchItemRoomData mapHotelSearchItem(dynamic payload) {
 
   if(payload["childAges"] != null){
     payload["childAges"].forEach((element) {
-      childAges.add(int.parse(element.toString()));
+      if(element != null){
+        childAges.add(int.parse(element.toString()));
+      }
+
     });
   }
   return HotelSearchItemRoomData(

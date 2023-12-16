@@ -32,13 +32,19 @@ MyFlightBooking mapMyFlightBooking(dynamic payload) {
 
   if (payload["_Listflight"] != null) {
     payload["_Listflight"].forEach((element) {
-      myFlightBookingListflights.add(mapMyFlightBookingListflight(element));
+      if(element != null){
+        myFlightBookingListflights.add(mapMyFlightBookingListflight(element));
+      }
+
     });
   }
 
   if (payload["_Listrecords"] != null) {
     payload["_Listrecords"].forEach((element) {
-      myFlightBookingListRecords.add(mapMyFlightBookingListRecord(element));
+      if(element != null){
+        myFlightBookingListRecords.add(mapMyFlightBookingListRecord(element));
+      }
+
     });
   }
 

@@ -20,7 +20,10 @@ BusinessDoc mapBusinessDoc(dynamic payload) {
 
   if (payload["country"] != null) {
     payload["country"].forEach((element) {
-      tempCountries.add(mapCountry(element));
+      if(element != null){
+        tempCountries.add(mapCountry(element));
+      }
+
     });
   }
   return BusinessDoc(

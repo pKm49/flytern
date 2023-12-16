@@ -21,13 +21,17 @@ DestinationResponse mapDestinationResponse(dynamic payload){
 
   if(payload["activitityCities"] != null){
     payload["activitityCities"].forEach((element) {
-      cities.add(mapActivityCity(element));
+      if(element != null){
+        cities.add(mapActivityCity(element));
+      }
     });
   }
 
   if(payload["destinations"] != null){
     payload["destinations"].forEach((element) {
-      destinations.add(mapCountry(element));
+      if(element != null){
+        destinations.add(mapCountry(element));
+      }
     });
   }
 

@@ -34,7 +34,10 @@ MyHotelBooking mapMyHotelBooking(dynamic payload) {
 
   if (payload["_Listrecords"] != null) {
     payload["_Listrecords"].forEach((element) {
-      myHotelBookingListRecords.add(mapMyHotelBookingListRecord(element));
+      if(element != null){
+        myHotelBookingListRecords.add(mapMyHotelBookingListRecord(element));
+      }
+
     });
   }
 

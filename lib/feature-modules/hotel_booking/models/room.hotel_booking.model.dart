@@ -20,7 +20,10 @@ HotelRoom mapHotelRoom(dynamic payload) {
   List<HotelRoomOption> roomOptions = [];
   if (payload["_lstRoomsDtls"] != null) {
     payload["_lstRoomsDtls"].forEach((element) {
-      roomOptions.add(mapHotelRoomDetails(element));
+      if(element != null){
+        roomOptions.add(mapHotelRoomDetails(element));
+      }
+
     });
   }
   return HotelRoom(

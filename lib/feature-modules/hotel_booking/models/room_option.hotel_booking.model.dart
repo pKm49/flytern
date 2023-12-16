@@ -43,25 +43,37 @@ HotelRoomOption mapHotelRoomDetails(dynamic payload) {
   List<String> roomsList = [];
   if(payload["imageURLs"] !=null){
     payload["imageURLs"].forEach((element) {
-      imageUrls.add(element);
+      if(element != null){
+        imageUrls.add(element);
+      }
+
     });
   }
   if(payload["roomsList"] !=null){
     payload["roomsList"].forEach((element) {
-      roomsList.add(element);
+      if(element != null){
+        roomsList.add(element);
+      }
+
     });
   }
 
   if(payload["shortdesc"] !=null) {
     payload["shortdesc"].forEach((element) {
-      shortdesc.add(element);
+      if(element != null){
+        shortdesc.add(element);
+      }
+
     });
   }
 
   if(payload["cancelPolicies"] !=null) {
     if (payload["cancelPolicies"] != null) {
       payload["cancelPolicies"].forEach((element) {
-        cancelPolicies.add(mapHotelRoomOptionCancelPolicy(element));
+        if(element != null){
+          cancelPolicies.add(mapHotelRoomOptionCancelPolicy(element));
+        }
+
       });
     }
   }

@@ -22,13 +22,19 @@ PackageResponse mapPackageResponse(dynamic payload){
 
   if(payload["packages"] != null){
     payload["packages"].forEach((element) {
-      packages.add(mapPackageData(element));
+      if(element != null){
+        packages.add(mapPackageData(element));
+      }
+
     });
   }
 
   if(payload["destinations"] != null){
     payload["destinations"].forEach((element) {
-      destinations.add(mapCountry(element));
+      if(element != null){
+        destinations.add(mapCountry(element));
+      }
+
     });
   }
 
