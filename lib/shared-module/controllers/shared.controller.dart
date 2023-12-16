@@ -131,6 +131,7 @@ class SharedController extends GetxController {
     }
 
     final sharedController = Get.find<SharedController>();
+     setDeviceLanguageAndCountry(false,false);
     sharedController.getInitialInfo();
     sharedController.getPreRegisterInfo();
   }
@@ -235,7 +236,7 @@ class SharedController extends GetxController {
     privacyHtml.value = businessDoc.privacy;
   }
 
-  Future<void> setDeviceLanguageAndCountry(bool isRedirection) async {
+  Future<void> setDeviceLanguageAndCountry(bool isRedirection,bool isToast) async {
     isSetDeviceLanguageAndCountrySubmitting.value = true;
     await Future<void>.delayed(
       const Duration(
@@ -259,7 +260,9 @@ class SharedController extends GetxController {
 
     await sharedHttpService.setDeviceInfo(setDeviceInfoRequestBody);
     isSetDeviceLanguageAndCountrySubmitting.value = false;
-    showSnackbar(Get.context!, "settings_updated".tr, "info");
+    if(isToast){
+      showSnackbar(Get.context!, "settings_updated".tr, "info");
+    }
     if(isRedirection){
       Get.toNamed(Approute_authSelector);
     }
@@ -268,7 +271,10 @@ class SharedController extends GetxController {
 
   Future<String> getFirebaseMessagingToken() async {
     try{
+      await Future.delayed(const Duration(seconds: 2));
       String firebaseMessagingToken = await FirebaseMessaging.instance.getToken()??"";
+      print("firebaseMessagingToken");
+      print(firebaseMessagingToken);
       return firebaseMessagingToken;
     }catch (e){
       return e.toString();

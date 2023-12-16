@@ -41,7 +41,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
   int adultCount = 0;
   int childCount = 0;
   int infantCount = 0;
-  List<String> selectedCabinClasses = [];
+  String selectedCabinClasses = "";
   List<int> childAges = [];
 
   @override
@@ -51,7 +51,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
     adultCount = widget.selectedAdultCount;
     childCount = widget.selectedChildCount;
     infantCount = widget.selectedInfantCount;
-    selectedCabinClasses = widget.selectedCabinClasses;
+    selectedCabinClasses = widget.selectedCabinClasses[0];
     childAges = widget.childAges;
     setState(() {});
   }
@@ -161,7 +161,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                     child: InkWell(
                                   onTap: () {
                                     setState(() {
-                                      if (  getAdultMaxCountConditionStatusMet()) {
+                                      if (getAdultMaxCountConditionStatusMet()) {
                                         adultCount++;
                                       }
                                     });
@@ -229,11 +229,10 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                     child: InkWell(
                                   onTap: () {
                                     setState(() {
-                                      if (  getChildMaxCountConditionStatusMet()) {
+                                      if (getChildMaxCountConditionStatusMet()) {
                                         childCount++;
                                         childAges.add(childCount);
                                       }
-
                                     });
                                   },
                                   child: Icon(CupertinoIcons.plus_square,
@@ -300,7 +299,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                       child: InkWell(
                                     onTap: () {
                                       setState(() {
-                                        if (  getInfantMaxCountConditionStatusMet()) {
+                                        if (getInfantMaxCountConditionStatusMet()) {
                                           infantCount++;
                                         }
                                       });
@@ -406,32 +405,21 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                             children: [
                               Text(widget.cabinClasses[i].name,
                                   style: getBodyMediumStyle(context)),
-                              Checkbox(
-                                checkColor: Colors.white,
-                                fillColor:
-                                    MaterialStateProperty.resolveWith(getColor),
-                                value: selectedCabinClasses
-                                    .contains(widget.cabinClasses[i].value),
-                                onChanged: (bool? value) {
-                                  if (value != null) {
-                                    if (value) {
-                                      selectedCabinClasses.contains(
-                                              widget.cabinClasses[i].value)
-                                          ? null
-                                          : selectedCabinClasses.add(
-                                              widget.cabinClasses[i].value);
-                                    } else {
-                                      selectedCabinClasses.contains(
-                                              widget.cabinClasses[i].value)
-                                          ? selectedCabinClasses.remove(
-                                              widget.cabinClasses[i].value)
-                                          : null;
+                              Radio(
+                                activeColor: flyternSecondaryColor,
+                                value: widget.cabinClasses[i].value,
+                                groupValue: selectedCabinClasses,
+                                onChanged: (value) {
+                                  setState(() {
+                                    if (value != null) {
+                                      selectedCabinClasses =
+                                          widget.cabinClasses[i].value;
                                     }
-
                                     setState(() {});
-                                  }
+                                  });
                                 },
                               ),
+
                             ],
                           )),
                     ),
@@ -448,7 +436,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                   infantCount,
                   widget.cabinClasses
                       .where((element) =>
-                          selectedCabinClasses.contains(element.value))
+                          selectedCabinClasses == element.value)
                       .toList(),
                   childAges);
             },
@@ -484,10 +472,10 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
 
   bool getAdultMaxCountConditionStatusMet() {
     if (widget.bookingServiceNumber != 1) {
-      return adultCount<6;
+      return adultCount < 6;
     }
 
-    if(adultCount+childCount+infantCount < 9){
+    if (adultCount + childCount + infantCount < 9) {
       return true;
     }
     return false;
@@ -495,20 +483,18 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
 
   void reduceAdultCount() {
     adultCount--;
-    if(infantCount>0){
+    if (infantCount > 0) {
       infantCount--;
     }
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   bool getChildMaxCountConditionStatusMet() {
     if (widget.bookingServiceNumber != 1) {
-      return childCount<4;
+      return childCount < 4;
     }
 
-    if(adultCount+childCount+infantCount < 9){
+    if (adultCount + childCount + infantCount < 9) {
       return true;
     }
     return false;
@@ -519,7 +505,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
       return true;
     }
 
-    if( adultCount+childCount+infantCount < 9 && infantCount < adultCount){
+    if (adultCount + childCount + infantCount < 9 && infantCount < adultCount) {
       return true;
     }
     return false;

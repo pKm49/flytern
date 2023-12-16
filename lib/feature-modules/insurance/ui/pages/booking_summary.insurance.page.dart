@@ -76,6 +76,27 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
                   color: flyternGrey10,
                   child: ListView(
                     children: [
+
+                      Visibility(
+                        visible:insuranceBookingController.alert.isEmpty
+                            && insuranceBookingController.paymentGateways.isEmpty &&
+                            getBookingInfoGroupLength(
+                                insuranceBookingController.bookingInfo)>
+                                0  ,
+                        child: Container(
+                          padding: flyternMediumPaddingAll,
+                          margin: flyternLargePaddingAll.copyWith(
+                              bottom: flyternSpaceMedium),
+                          decoration: BoxDecoration(
+                            color: flyternPrimaryColorBg,
+                            borderRadius: BorderRadius.circular(
+                                flyternBorderRadiusExtraSmall),
+                          ),
+                          child: Text("couldnt_find_booking".tr),
+                        ),
+                      ),
+                      
+                      
                       for (var i = 0;
                       i < insuranceBookingController.alert.length;
                       i++)

@@ -95,6 +95,27 @@ class _ActivityBookingConfirmationPageState extends State<ActivityBookingConfirm
                   color: flyternGrey10,
                   child: ListView(
                     children: [
+
+                      Visibility(
+                        visible:activityBookingController.alert.isEmpty
+                            && activityBookingController.paymentGateways.isEmpty &&
+                            getBookingInfoGroupLength(
+                                activityBookingController.bookingInfo)>
+                                0  ,
+                        child: Container(
+                          padding: flyternMediumPaddingAll,
+                          margin: flyternLargePaddingAll.copyWith(
+                              bottom: flyternSpaceMedium),
+                          decoration: BoxDecoration(
+                            color: flyternPrimaryColorBg,
+                            borderRadius: BorderRadius.circular(
+                                flyternBorderRadiusExtraSmall),
+                          ),
+                          child: Text("couldnt_find_booking".tr),
+                        ),
+                      ),
+
+
                       addVerticalSpace(flyternSpaceLarge  ),
                       Visibility(
                           visible: mode == "view",

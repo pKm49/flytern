@@ -82,7 +82,7 @@ class _GuestBookingPageState extends State<GuestBookingPage> {
                     color: flyternBackgroundWhite,
                     padding: flyternLargePaddingAll.copyWith(top: 0),
                     child: DataCapsuleCard(
-                      label: "Note : " + "enter_booking_id_message".tr,
+                      label:  "enter_booking_id_message".tr,
                       theme: 2,
                     ),
                   ),

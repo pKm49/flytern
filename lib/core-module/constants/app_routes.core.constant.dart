@@ -2,6 +2,7 @@ import 'package:flytern/core-module/ui/pages/drawer_pages/document_viewer.core.p
 import 'package:flytern/core-module/ui/pages/drawer_pages/guest_booking_finder.core.page.dart';
 import 'package:flytern/core-module/ui/pages/drawer_pages/flytern_info.core.page.dart';
 import 'package:flytern/core-module/ui/pages/app_landing.core.page.dart';
+import 'package:flytern/core-module/ui/pages/drawer_pages/help_center.core.page.dart';
 import 'package:flytern/core-module/ui/pages/initial_language_country_selector.core.page.dart';
 import 'package:flytern/core-module/ui/pages/drawer_pages/app_settings.core.page.dart';
 import 'package:flytern/core-module/ui/pages/drawer_pages/smart_payment.core.page.dart';
@@ -127,7 +128,7 @@ getAppRoutes() => [
 
       GetPage(
         name: Approute_imageViewer,
-        page: () =>   FullScreenImageViewer(),
+        page: () => FullScreenImageViewer(),
       ),
 
       // flight booking
@@ -326,6 +327,11 @@ getAppRoutes() => [
       GetPage(
         name: Approute_coreSmartPayment,
         page: () => const SmartPaymentPage(),
+      ),
+
+      GetPage(
+        name: Approute_helpCenter,
+        page: () => const HelpCenterPage(),
       ),
 
       GetPage(

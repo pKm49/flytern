@@ -183,7 +183,7 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
                         launchRatingPage();
                       },
                       theme: 'dark',
-                      border:  '',
+                      border:  'bottom',
                       buttonTitle: "rating".tr,
                       preIconData: Ionicons.star_outline,
                       postIconData:Localizations.localeOf(context)
@@ -192,7 +192,25 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
                           'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                     ),
                   ),
+                  addVerticalSpace(flyternSpaceSmall),
+                  SizedBox(
+                    width: double.infinity,
+                    child: PrePostIconButton(
+                      specialColor: 0,
+                      onPressed: () {
 
+                        Get.toNamed(Approute_helpCenter);
+                      },
+                      theme: 'dark',
+                      border:  '',
+                      buttonTitle: "help_center".tr,
+                      preIconData: Ionicons.help_circle_outline,
+                      postIconData:Localizations.localeOf(context)
+                          .languageCode
+                          .toString() ==
+                          'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
+                    ),
+                  ),
 
                 ],
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flytern/core-module/services/notification_controller.dart';
 import 'package:flytern/core-module/ui/components/drawer_menu.core.component.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/pages/landing_page.activity_booking.page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/landing.flight_booking.page.dart';
@@ -14,6 +15,7 @@ import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
  import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CoreLandingPage extends StatefulWidget {
   const CoreLandingPage({super.key});
@@ -34,11 +36,21 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
     const ProfileLandingPage()
   ];
   String pageTitle = "flights";
-
+  var getArguments = Get.arguments;
   final profileController = Get.put(ProfileController());
 
   @override
   void initState() {
+    print( "getArguments" );
+    print( getArguments );
+    if(getArguments !=null){
+      print( getArguments[0]);
+      if(getArguments[0] !=null){
+        _launchUrl(getArguments[0] );
+      }
+    }
+
+
     super.initState();
     _tabController = TabController(length: _tabList.length, vsync: this);
 
@@ -229,5 +241,12 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
     setState(() {
       pageTitle = newTitle;
     });
+  }
+
+  Future<void> _launchUrl(String urlString) async {
+    final Uri _url = Uri.parse(urlString);
+
+    if (!await launchUrl(_url)) {
+    }
   }
 }

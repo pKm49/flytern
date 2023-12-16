@@ -7,6 +7,7 @@ import 'package:flytern/core-module/models/service_booking_status.dart';
 import 'package:flytern/shared-module/models/auth_token.dart';
 import 'package:flytern/shared-module/models/flytern_http_response.dart';
 import 'package:flytern/shared-module/services/http-services/http_request_handler.shared.service.dart';
+import 'package:get/get.dart';
 
 class CoreHttpServices {
 
@@ -62,6 +63,42 @@ class CoreHttpServices {
           isSuccess: isSuccess, servicetype: servicetype);
     }
   }
+
+
+  Future<String> submitEnquiry(String mobile,
+      String countryCode,
+      String email,
+      String bookingId,
+      String enquiry) async {
+    String successMessage = "enquiry_success_message".tr;
+    try {
+      FlyternHttpResponse response =
+      await postRequest(CoreBookingHttpRequestEndpointSubmitEnquiry, {
+        "countryCode": countryCode,
+        "mobile": mobile,
+        "email": bookingId,
+        "mobileNumber": "enquiry",
+        "mobileCountryCode": ""
+      });
+
+
+      if (response.success && response.statusCode == 200) {
+        if (response.data != null) {
+          successMessage = response.data;
+        }else{
+          successMessage = "enquiry_success_message".tr;
+        }
+      }else{
+        successMessage = "something_went_wrong".tr;
+      }
+
+      return successMessage;
+
+    } catch (e) {
+      return "something_went_wrong".tr;
+    }
+  }
+
 
   Future<ServiceBookingStatus> findBooking(
       String bookingRef, String email) async {

@@ -35,12 +35,12 @@ class FlightBookingLandingPage extends StatefulWidget {
 class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
     with SingleTickerProviderStateMixin {
 
-  final flightBookingController = Get.put(FlightBookingController());
+  final flightBookingController = Get.find<FlightBookingController>();
   var flightBookingHelperServices = FlightBookingHelperServices();
-  final packageBookingController = Get.put(PackageBookingController());
-  final insuranceBookingController = Get.put(InsuranceBookingController());
-  final hotelBookingController = Get.put(HotelBookingController());
-  final activityBookingController = Get.put(ActivityBookingController());
+  final packageBookingController = Get.find<PackageBookingController>();
+  final insuranceBookingController =Get.find<InsuranceBookingController>();
+  final hotelBookingController =Get.find<HotelBookingController>();
+  final activityBookingController = Get.find<ActivityBookingController>();
 
   @override
   void initState() {

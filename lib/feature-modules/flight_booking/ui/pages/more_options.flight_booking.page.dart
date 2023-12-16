@@ -102,9 +102,11 @@ class _FlightMoreOptionsPageState extends State<FlightMoreOptionsPage>
                                     flightBookingController:flightBookingController ,
                                     flightSearchResponse:
                                         flightBookingController
-                                            .moreOptionFlights[index],
+                                            .moreOptionFlights.value[index],
                                     onPressed: () {
-                                      Get.toNamed(Approute_flightsDetails);
+                                      flightBookingController.getFlightDetails(flightBookingController
+                                          .moreOptionFlights.value[index]
+                                          .index);
                                     }, onMoreOptionsPressed: () {  },
                                   ));
                             }))),
