@@ -375,6 +375,7 @@
       "single_stop": "1 Stop",
       "single_night": "1 Night",
       "complete_payment": "Complete Payment",
+      "enquiry": "Your Query",
       "help_center": "Help Center",
       "send_message": "Send Message",
       "help_center_message": "Please share your details, Our team will review your inquiry and respond promptly",
@@ -759,9 +760,10 @@
       "single_night": "1 ليلة",
       "complete_payment": "أكمل دفعتك",
       "help_center": "مركز المساعدة",
-      "send_message": "Send Message",
-      "help_center_message": "Please share your details, Our team will review your inquiry and respond promptly",
-       "register_welcome_message": "تهانينا! تم تأكيد تسجيلك. استعد لاستكشاف العالم بسهولة وإثارة!"
+      "enquiry": "سؤال",
+      "send_message": "أرسل رسالة",
+      "help_center_message": "يرجى مشاركة التفاصيل الخاصة بك، وسيقوم فريقنا بمراجعة استفسارك والرد على الفور",
+      "register_welcome_message": "تهانينا! تم تأكيد تسجيلك. استعد لاستكشاف العالم بسهولة وإثارة!"
     }
   }
 ]

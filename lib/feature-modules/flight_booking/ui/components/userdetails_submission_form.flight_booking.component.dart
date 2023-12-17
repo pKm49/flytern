@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
-import 'package:flytern/shared-module/models/sorting_dcs.dart';
 import 'package:flytern/feature-modules/flight_booking/models/traveller_info.flight_booking.model.dart';
 import 'package:flytern/feature-modules/profile/controllers/copax.profile.controller.dart';
 import 'package:flytern/feature-modules/profile/models/user-copax.profile.model.dart';
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
-import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/models/country.dart';
 import 'package:flytern/shared-module/models/gender.dart';
 import 'package:flytern/shared-module/models/general_item.dart';
@@ -17,8 +15,7 @@ import 'package:flytern/shared-module/services/utility-services/widget_generator
 import 'package:flytern/shared-module/ui/components/country_selector.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/custom_date_picker.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/dropdown_selector.shared.component.dart';
-import 'package:flytern/shared-module/ui/components/sort_option_selector.shared.component.dart';
-import 'package:get/get.dart';
+ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class FlightUserDetailsSubmissionForm extends StatefulWidget {
@@ -194,6 +191,63 @@ class _FlightUserDetailsSubmissionFormState
                           }
                         },
                       )),
+                ],
+              ),
+            ),
+
+
+            Container(
+              padding: EdgeInsets.only(bottom: flyternSpaceMedium),
+              color: flyternBackgroundWhite,
+              child: TextFormField(
+                  inputFormatters: [
+                    FlightUserDataTextFormatter(),
+                  ],
+                  onChanged: updateData(),
+                  controller: firstNameController,
+                  validator: (value) =>
+                      checkIfNameFormValid(value, "first_name".tr),
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    labelText: "first_name".tr,
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.only(bottom: flyternSpaceMedium),
+              color: flyternBackgroundWhite,
+              child:TextFormField(
+                  inputFormatters: [
+                    FlightUserDataTextFormatter(),
+                  ],
+                  onChanged: updateData(),
+                  controller: lastNameController,
+                  validator: (value) =>
+                      checkIfNameFormValid(value, "last_name".tr),
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    labelText: "last_name".tr,
+                  ))
+            ),
+
+            Container(
+              padding: EdgeInsets.only(bottom: flyternSpaceMedium),
+              color: flyternBackgroundWhite,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                        readOnly: true,
+                        onTap: () {
+                          openCountrySelector(true);
+                        },
+                        controller: nationalityController,
+                        validator: (value) =>
+                            checkIfNameFormValid(value, "nationality".tr),
+                        keyboardType: TextInputType.name,
+                        decoration: InputDecoration(
+                          labelText: "enter_nationality".tr,
+                        )),
+                  ),
                   addHorizontalSpace(flyternSpaceMedium),
                   Expanded(
                     child: TextFormField(
@@ -213,62 +267,7 @@ class _FlightUserDetailsSubmissionFormState
                 ],
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(bottom: flyternSpaceMedium),
-              color: flyternBackgroundWhite,
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: TextFormField(
-                        inputFormatters: [
-                          FlightUserDataTextFormatter(),
-                        ],
-                        onChanged: updateData(),
-                        controller: firstNameController,
-                        validator: (value) =>
-                            checkIfNameFormValid(value, "first_name".tr),
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          labelText: "first_name".tr,
-                        )),
-                  ),
-                  addHorizontalSpace(flyternSpaceMedium),
-                  Expanded(
-                    flex: 1,
-                    child: TextFormField(
-                        inputFormatters: [
-                          FlightUserDataTextFormatter(),
-                        ],
-                        onChanged: updateData(),
-                        controller: lastNameController,
-                        validator: (value) =>
-                            checkIfNameFormValid(value, "last_name".tr),
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          labelText: "last_name".tr,
-                        )),
-                  ),
 
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(bottom: flyternSpaceMedium),
-              color: flyternBackgroundWhite,
-              child: TextFormField(
-                  readOnly: true,
-                  onTap: () {
-                    openCountrySelector(true);
-                  },
-                  controller: nationalityController,
-                  validator: (value) =>
-                      checkIfNameFormValid(value, "nationality".tr),
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    labelText: "enter_nationality".tr,
-                  )),
-            ),
             Container(
               padding: EdgeInsets.only(bottom: flyternSpaceMedium),
               color: flyternBackgroundWhite,

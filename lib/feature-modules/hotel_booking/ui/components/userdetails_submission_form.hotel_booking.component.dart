@@ -98,100 +98,97 @@ class _HotelUserDetailsSubmissionFormState
                     },
                   )),
             ),
-            Container(
 
-              margin: EdgeInsets.only(top: flyternSpaceMedium),
-              child: DropDownSelector(
-                validator: (value) =>
-                    checkIfDropDownFormValid(value,"0", "title".tr),
-                key: titleDropDownKey,
-                titleText: "title".tr,
-                selected: title,
-                items: [
-                  for (var i = 0; i < sharedController.titleList.length; i++)
-                    GeneralItem(
-                        imageUrl: "",
-                        id: sharedController.titleList[i].code,
-                        name: sharedController.titleList[i].name),
-                ],
-                hintText: "title".tr,
-                valueChanged: (newGender) {
-                  List<Gender> titles = sharedController.titleList
-                      .where((e) => e.code == newGender)
-                      .toList();
-                  if (titles.isNotEmpty) {
-                    changeTitle(titles[0]);
-                  }
-                },
-              ),
-            ),
             Container(
               padding: EdgeInsets.only(top: flyternSpaceMedium),
               color: flyternBackgroundWhite,
               child: Row(
                 children: [
-                  Expanded(
-                    flex: 3,
-                    child: TextFormField(
-                        inputFormatters: [
-                          FlightUserDataTextFormatter(),
-                        ],
-                        controller: firstNameController,
-                        onChanged: updateData(),
-                        validator: (value) =>
-                            checkIfNameFormValid(value, "first_name".tr),
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          labelText: "first_name".tr,
-                        )),
-                  ),
+                  Expanded(child: DropDownSelector(
+                    validator: (value) =>
+                        checkIfDropDownFormValid(value,"0", "title".tr),
+                    key: titleDropDownKey,
+                    titleText: "title".tr,
+                    selected: title,
+                    items: [
+                      for (var i = 0; i < sharedController.titleList.length; i++)
+                        GeneralItem(
+                            imageUrl: "",
+                            id: sharedController.titleList[i].code,
+                            name: sharedController.titleList[i].name),
+                    ],
+                    hintText: "title".tr,
+                    valueChanged: (newGender) {
+                      List<Gender> titles = sharedController.titleList
+                          .where((e) => e.code == newGender)
+                          .toList();
+                      if (titles.isNotEmpty) {
+                        changeTitle(titles[0]);
+                      }
+                    },
+                  )),
                   addHorizontalSpace(flyternSpaceMedium),
-                  Expanded(
-                    flex: 3,
-                    child: TextFormField(
-                        inputFormatters: [
-                          FlightUserDataTextFormatter(),
-                        ],
-                        controller: lastNameController,
-                        onChanged: updateData(),
-                        validator: (value) =>
-                            checkIfNameFormValid(value, "last_name".tr),
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          labelText: "last_name".tr,
-                        )),
-                  ),
+                  Expanded(child: DropDownSelector(
+                    validator: (value) =>
+                        checkIfNameFormValid(value, "gender".tr),
+                    key: genderDropDownKey,
+                    titleText: "gender".tr,
+                    selected: gender,
+                    items: [
+                      for (var i = 0;
+                      i < sharedController.genderList.value.length;
+                      i++)
+                        GeneralItem(
+                            imageUrl: "",
+                            id: sharedController.genderList.value[i].code,
+                            name: sharedController.genderList.value[i].name)
+                    ],
+                    hintText: "gender".tr,
+                    valueChanged: (newGender) {
+                      List<Gender> genders = sharedController.genderList.value
+                          .where((e) => e.code == newGender)
+                          .toList();
+                      if (genders.isNotEmpty) {
+                        changeGender(genders[0]);
+                      }
+                    },
+                  ))
+
                 ],
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: flyternSpaceMedium),
-              color: flyternBackgroundWhite,
-              child: DropDownSelector(
-              validator: (value) =>
-                checkIfNameFormValid(value, "gender".tr),
-              key: genderDropDownKey,
-              titleText: "gender".tr,
-              selected: gender,
-              items: [
-              for (var i = 0;
-                  i < sharedController.genderList.value.length;
-                  i++)
-                GeneralItem(
-                    imageUrl: "",
-                    id: sharedController.genderList.value[i].code,
-                    name: sharedController.genderList.value[i].name)
-              ],
-              hintText: "gender".tr,
-              valueChanged: (newGender) {
-              List<Gender> genders = sharedController.genderList.value
-                  .where((e) => e.code == newGender)
-                  .toList();
-              if (genders.isNotEmpty) {
-                changeGender(genders[0]);
-              }
-              },
-              ),
+
+              margin: EdgeInsets.only(top: flyternSpaceMedium),
+              child: TextFormField(
+                  inputFormatters: [
+                    FlightUserDataTextFormatter(),
+                  ],
+                  controller: firstNameController,
+                  onChanged: updateData(),
+                  validator: (value) =>
+                      checkIfNameFormValid(value, "first_name".tr),
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    labelText: "first_name".tr,
+                  )),
+            ),
+
+            Container(
+
+              margin: EdgeInsets.only(top: flyternSpaceMedium),
+              child: TextFormField(
+                  inputFormatters: [
+                    FlightUserDataTextFormatter(),
+                  ],
+                  controller: lastNameController,
+                  onChanged: updateData(),
+                  validator: (value) =>
+                      checkIfNameFormValid(value, "last_name".tr),
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    labelText: "last_name".tr,
+                  )),
             ),
           ],
         ),

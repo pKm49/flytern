@@ -126,44 +126,38 @@ class _InsuranceUserDetailsSubmissionFormState
                   )),
             ),
             Container(
-              padding: EdgeInsets.only(
-                  bottom: flyternSpaceMedium, top: flyternSpaceSmall),
+              padding: EdgeInsets.only(bottom: flyternSpaceMedium,
+                  top: flyternSpaceMedium),
               color: flyternBackgroundWhite,
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: TextFormField(
-                        inputFormatters: [
-                          FlightUserDataTextFormatter(),
-                        ],
-                        controller: firstNameController,
-                        validator: (value) =>
-                            checkIfNameFormValid(value, "first_name".tr),
-                        onChanged: updateData(),
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          labelText: "first_name".tr,
-                        )),
-                  ),
-                  addHorizontalSpace(flyternSpaceMedium),
-                  Expanded(
-                    flex: 3,
-                    child: TextFormField(
-                        inputFormatters: [
-                          FlightUserDataTextFormatter(),
-                        ],
-                        onChanged: updateData(),
-                        controller: lastNameController,
-                        validator: (value) =>
-                            checkIfNameFormValid(value, "last_name".tr),
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          labelText: "last_name".tr,
-                        )),
-                  ),
-                ],
-              ),
+              child: TextFormField(
+                  inputFormatters: [
+                    FlightUserDataTextFormatter(),
+                  ],
+                  controller: firstNameController,
+                  validator: (value) =>
+                      checkIfNameFormValid(value, "first_name".tr),
+                  onChanged: updateData(),
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    labelText: "first_name".tr,
+                  )),
+            ),
+
+            Container(
+              padding: EdgeInsets.only(bottom: flyternSpaceMedium),
+              color: flyternBackgroundWhite,
+              child: TextFormField(
+                  inputFormatters: [
+                    FlightUserDataTextFormatter(),
+                  ],
+                  onChanged: updateData(),
+                  controller: lastNameController,
+                  validator: (value) =>
+                      checkIfNameFormValid(value, "last_name".tr),
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    labelText: "last_name".tr,
+                  )),
             ),
             Container(
               padding: EdgeInsets.only(bottom: flyternSpaceMedium),
@@ -185,25 +179,24 @@ class _InsuranceUserDetailsSubmissionFormState
                           labelText: "dob".tr,
                         )),
                   ),
+                  addHorizontalSpace(flyternSpaceMedium),
+
+                  Expanded(child: TextFormField(
+                      readOnly: true,
+                      onTap: () {
+                        openCountrySelector(true);
+                      },
+                      controller: nationalityController,
+                      validator: (value) =>
+                          checkIfNameFormValid(value, "nationality".tr),
+                      keyboardType: TextInputType.name,
+                      decoration: InputDecoration(
+                        labelText: "enter_nationality".tr,
+                      )))
                 ],
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(bottom: flyternSpaceMedium),
-              color: flyternBackgroundWhite,
-              child: TextFormField(
-                  readOnly: true,
-                  onTap: () {
-                    openCountrySelector(true);
-                  },
-                  controller: nationalityController,
-                  validator: (value) =>
-                      checkIfNameFormValid(value, "nationality".tr),
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    labelText: "enter_nationality".tr,
-                  )),
-            ),
+
             Container(
                 padding: EdgeInsets.only(bottom: flyternSpaceMedium),
                 color: flyternBackgroundWhite,

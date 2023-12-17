@@ -64,7 +64,7 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
                     color: flyternSecondaryColor,
                   )),
               Visibility(
-                visible: coPaxController.userCopaxes.isEmpty,
+                visible: getCopax().isEmpty,
                 child: Container(
                   width: screenwidth,
                   color: flyternBackgroundWhite,
@@ -78,20 +78,20 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
               ),
               Expanded(
                 child: ListView.builder(
-                    itemCount: coPaxController.userCopaxes.length,
+                    itemCount: getCopax().length,
                     itemBuilder: (BuildContext context, int index) {
                       return  UserDetailsCard(
                         onDelete: (){
-                          showDeleteConfirmDialog(coPaxController.userCopaxes[index].id);
+                          showDeleteConfirmDialog(getCopax()[index].id);
                         },
                         onEdit: (){
-                          coPaxController.updateEditForm(coPaxController.userCopaxes[index]);
+                          coPaxController.updateEditForm(getCopax()[index]);
                         },
                         isActionAllowed: true,
-                        passportNumber: coPaxController.userCopaxes[index].passportNumber,
-                        name: "${coPaxController.userCopaxes[index].title} ${coPaxController.userCopaxes[index].firstName} ${coPaxController.userCopaxes[index].lastName}",
-                        age: getAge(coPaxController.userCopaxes[index].dateOfBirth),
-                        gender: coPaxController.userCopaxes[index].gender,
+                        passportNumber: getCopax()[index].passportNumber,
+                        name: "${getCopax()[index].title} ${getCopax()[index].firstName} ${getCopax()[index].lastName}",
+                        age: getAge(getCopax()[index].dateOfBirth),
+                        gender: getCopax()[index].gender,
                       );
                     }),
               ),
@@ -126,5 +126,10 @@ class _ProfileMyCoPassengersPageState extends State<ProfileMyCoPassengersPage> {
     int dobYear = dateOfBirth.year;
     return "${currenYear - dobYear} years";
   }
+
+  List<UserCoPax> getCopax() {
+    return coPaxController.userCopaxes.where((p0) => p0.id != 0).toList() ;
+  }
+ 
 
 }

@@ -1,10 +1,12 @@
 
+import 'package:get/get.dart';
+
 String? checkIfEmailValid(String? email) {
   String validOtpPattern = r'(^$)|(^.*@.*\..*$)';
   RegExp validOtpRegex = new RegExp(validOtpPattern);
 
   if (email!.isEmpty || !validOtpRegex.hasMatch(email)) {
-    return "Provide a valid Email";
+    return "provide_valid_item".tr.replaceAll("item", "email".tr);
   }
 
 
@@ -16,7 +18,8 @@ String? checkIfMobileNumberValid(String? mobile) {
   RegExp validMobileRegex = new RegExp(validMobilePattern);
 
   if (mobile!.isEmpty || !validMobileRegex.hasMatch(mobile)) {
-    return "Provide valid mobile";
+    return "provide_valid_item".tr.replaceAll("item", "mobile".tr);
+
   }
 
   return null;
@@ -28,7 +31,7 @@ String? checkIfPasswordFieldValid(String? password) {
   RegExp validPasswordRegex = new RegExp(validPasswordPattern);
 
   if (password!.isEmpty || !validPasswordRegex.hasMatch(password)) {
-    return "Minimum 5 characters with atleast 1 digit and 1 letter";
+    return "password_criteria".tr;
   }
 
   return null;
@@ -42,11 +45,11 @@ String? checkIfConfirmPasswordFieldValid(
 
   if (confirmPassword!.isEmpty ||
       !validPasswordRegex.hasMatch(confirmPassword)) {
-    return "Minimum 5 characters with atleast 1 digit and 1 letter";
+    return "password_criteria".tr;
   }
 
   if (confirmPassword != password) {
-    return "Confirm password must be same as password";
+    return "confirm_password_error".tr;
   }
 
   return null;
@@ -60,86 +63,26 @@ checkIfLoginFormValid(mobile, password) {
   RegExp validPasswordRegex = RegExp(validPasswordPattern);
 
   if (mobile.isEmpty || !validMobileRegex.hasMatch(mobile)) {
-    return "Provide valid mobile";
+    return "provide_valid_item".tr.replaceAll("item", "mobile".tr);
   }
 
   if (password.isEmpty || !validPasswordRegex.hasMatch(password)) {
-    return "Password must be minimum 5 characters with atleast 1 digit and 1 letter";
+    return "password_criteria".tr;
   }
 
   return "";
-}
-
-checkIfRegisterFormValid(name, mobile, password, dob, mob, yob, place, gender) {
-  String validNamePattern = r'^[A-Za-z ]{3,}$';
-  String validMobilePattern = r'^([0-9])+$';
-  String validPasswordPattern =
-      r'^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)\S{5,}$';
-  RegExp validMobileRegex = new RegExp(validMobilePattern);
-  RegExp validPasswordRegex = new RegExp(validPasswordPattern);
-  RegExp validNameRegex = new RegExp(validNamePattern);
-
-  if (name.isEmpty || !validNameRegex.hasMatch(name)) {
-    return "Please provide a valid name";
-  }
-
-  if (mobile.isEmpty || !validMobileRegex.hasMatch(mobile)) {
-    return "Please provide a valid mobile number";
-  }
-
-  if (password.isEmpty || !validPasswordRegex.hasMatch(password)) {
-    return "Password must be minimum 5 characters with atleast 1 digit and 1 letter";
-  }
-
-  if (place.isEmpty) {
-    return "Please provide a valid Place";
-  }
-
-  if (place.isEmpty || gender == "Gender") {
-    return "Please provide a valid Gender Type";
-  }
-
-  if (dob.isEmpty || dob == "DD") {
-    return "Please provide a valid Date Of Birth";
-  }
-
-  if (mob.isEmpty || mob == "MM") {
-    return "Please provide a valid Month Of Birth";
-  }
-
-  if (yob.isEmpty || yob == "YYYY") {
-    return "Please provide a valid Year Of Birth";
-  }
-
-  return "";
-}
-
-String? checkIfOtpInputFormValid(String? otp) {
-  String validOtpPattern = r'^[0-9]{1}$';
-  RegExp validOtpRegex = new RegExp(validOtpPattern);
-
-  if (otp!.isEmpty || !validOtpRegex.hasMatch(otp)) {
-    return "Must be 1 digits";
-  }
-
-  return null;
-}
-
-String? checkIfOtpFormValid(String? otp) {
-  String validOtpPattern = r'^[0-9]{6}$';
-  RegExp validOtpRegex = new RegExp(validOtpPattern);
-
-  if (otp!.isEmpty || !validOtpRegex.hasMatch(otp)) {
-    return "Must be 6 digits";
-  }
-
-  return null;
 }
 
 String? checkIfNameFormValid(String? name, String fieldName) {
 
   if ( name!.isEmpty) {
-    return "Provide valid "+fieldName;
+    return "provide_valid_item".tr.replaceAll("item", fieldName);
+  }
+
+  if(fieldName== "first_name".tr || fieldName== "last_name".tr){
+    if(name.length <3){
+      return "provide_valid_item".tr.replaceAll("item", fieldName);
+    }
   }
 
   return null;
@@ -148,7 +91,8 @@ String? checkIfNameFormValid(String? name, String fieldName) {
 String? checkIfDropDownFormValid(String? selectedId,String DefaultId, String fieldName) {
 
   if ( selectedId == DefaultId) {
-    return "Provide valid "+fieldName;
+    return "provide_valid_item".tr.replaceAll("item", fieldName);
+
   }
 
   return null;

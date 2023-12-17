@@ -51,7 +51,7 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
     adultCount = widget.selectedAdultCount;
     childCount = widget.selectedChildCount;
     infantCount = widget.selectedInfantCount;
-    selectedCabinClasses = widget.selectedCabinClasses[0];
+    selectedCabinClasses = widget.selectedCabinClasses.isNotEmpty?widget.selectedCabinClasses[0]:"";
     childAges = widget.childAges;
     setState(() {});
   }
