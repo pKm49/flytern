@@ -67,7 +67,6 @@ class _ProfileAuditCopassengerPageState
                     child: Row(
                       children: [
                         Expanded(
-                          flex: 3,
                           child: DropDownSelector(
                             validator: (value) =>
                                 checkIfDropDownFormValid(value,"0", "title".tr),
@@ -95,48 +94,6 @@ class _ProfileAuditCopassengerPageState
                           )
                         ),
                         addHorizontalSpace(flyternSpaceMedium),
-
-                        Expanded(
-                          flex: 3,
-                          child: TextFormField(
-                              inputFormatters: [
-                                FlightUserDataTextFormatter(),
-                              ],
-                              controller:
-                                  coPaxController.firsNameController.value,
-                              validator: (value) =>
-                                  checkIfNameFormValid(value, "first_name".tr),
-                              keyboardType: TextInputType.name,
-                              decoration: InputDecoration(
-                                labelText: "first_name".tr,
-                              )),
-                        ),
-                        addHorizontalSpace(flyternSpaceMedium),
-                        Expanded(
-                          flex: 3,
-                          child: TextFormField(
-                              inputFormatters: [
-                                FlightUserDataTextFormatter(),
-                              ],
-                              controller:
-                                  coPaxController.lastNameController.value,
-                              validator: (value) =>
-                                  checkIfNameFormValid(value, "last_name".tr),
-                              keyboardType: TextInputType.name,
-                              decoration: InputDecoration(
-                                labelText: "last_name".tr,
-                              )),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: flyternLargePaddingHorizontal.copyWith(
-                        top: flyternSpaceExtraSmall,
-                        bottom: flyternSpaceMedium),
-                    color: flyternBackgroundWhite,
-                    child: Row(
-                      children: [
                         Expanded(
                             child: DropDownSelector(
                               validator: (value) =>
@@ -145,8 +102,8 @@ class _ProfileAuditCopassengerPageState
                               selected: coPaxController.gender.value,
                               items: [
                                 for (var i = 0;
-                                    i < sharedController.genders.length;
-                                    i++)
+                                i < sharedController.genders.length;
+                                i++)
                                   GeneralItem(
                                       imageUrl: "",
                                       id: sharedController.genders[i].code,
@@ -162,42 +119,84 @@ class _ProfileAuditCopassengerPageState
                                 }
                               },
                             )),
-                        addHorizontalSpace(flyternSpaceMedium),
-                        Expanded(
-                          child: TextFormField(
-                              readOnly: true,
-                              onTap: () {
-                                showDOBPickerDialog(true,coPaxController.dob.value);
-                              },
-                              controller: coPaxController.dobController.value,
-                              validator: (value) =>
-                                  checkIfNameFormValid(value, "dob".tr),
-                              keyboardType: TextInputType.name,
-                              decoration: InputDecoration(
-                                hintText: "DD-MM-YY",
-                                labelText: "dob".tr,
-                              )),
-                        ),
                       ],
                     ),
+                  ),
+
+                  Container(
+                    padding: flyternLargePaddingHorizontal.copyWith(
+                        top: 0, bottom: flyternSpaceMedium),
+                    color: flyternBackgroundWhite,
+                    child: TextFormField(
+                        inputFormatters: [
+                          FlightUserDataTextFormatter(),
+                        ],
+                        controller:
+                        coPaxController.firsNameController.value,
+                        validator: (value) =>
+                            checkIfNameFormValid(value, "first_name".tr),
+                        keyboardType: TextInputType.name,
+                        decoration: InputDecoration(
+                          labelText: "first_name".tr,
+                        )),
                   ),
                   Container(
                     padding: flyternLargePaddingHorizontal.copyWith(
                         top: 0, bottom: flyternSpaceMedium),
                     color: flyternBackgroundWhite,
                     child: TextFormField(
-                        readOnly: true,
-                        onTap: () {
-                          openCountrySelector(true);
-                        },
-                        controller: coPaxController.nationalityController.value,
+                        inputFormatters: [
+                          FlightUserDataTextFormatter(),
+                        ],
+                        controller:
+                        coPaxController.lastNameController.value,
                         validator: (value) =>
-                            checkIfNameFormValid(value, "nationality".tr),
+                            checkIfNameFormValid(value, "last_name".tr),
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
-                          labelText: "enter_nationality".tr,
+                          labelText: "last_name".tr,
                         )),
                   ),
+                  Container(
+                    padding: flyternLargePaddingHorizontal.copyWith(
+                        top: flyternSpaceExtraSmall,
+                        bottom: flyternSpaceMedium),
+                    color: flyternBackgroundWhite,
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: TextFormField(
+                                readOnly: true,
+                                onTap: () {
+                                  showDOBPickerDialog(true,coPaxController.dob.value);
+                                },
+                                controller: coPaxController.dobController.value,
+                                validator: (value) =>
+                                    checkIfNameFormValid(value, "dob".tr),
+                                keyboardType: TextInputType.name,
+                                decoration: InputDecoration(
+                                  hintText: "DD-MM-YY",
+                                  labelText: "dob".tr,
+                                ))),
+                        addHorizontalSpace(flyternSpaceMedium),
+                        Expanded(
+                          child: TextFormField(
+                              readOnly: true,
+                              onTap: () {
+                                openCountrySelector(true);
+                              },
+                              controller: coPaxController.nationalityController.value,
+                              validator: (value) =>
+                                  checkIfNameFormValid(value, "nationality".tr),
+                              keyboardType: TextInputType.name,
+                              decoration: InputDecoration(
+                                labelText: "enter_nationality".tr,
+                              )),
+                        ),
+                      ],
+                    ),
+                  ),
+
                   Container(
                     padding: flyternLargePaddingHorizontal.copyWith(
                         top: 0, bottom: flyternSpaceMedium),
