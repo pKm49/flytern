@@ -281,7 +281,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                               fontWeight: FontWeight.bold),
                           unselectedLabelColor: flyternGrey40,
                           tabs: <Tab>[
-                            for (var i = 0; i < 3; i++)
+                            for (var i = -1; i < 2; i++)
                               Tab(
                                 text: getLargeFormattedDate(
                                     flightBookingController.startDate.value
@@ -379,7 +379,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                           color: flyternGrey10,
                           child: ListView.builder(
                               scrollDirection: Axis.vertical,
-                              itemCount: 2,
+                              itemCount: 3,
                               itemBuilder: (BuildContext context, int index) {
                                 return Container(
                                     margin: const EdgeInsets.only(
@@ -621,6 +621,20 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
       return searchParamsPreviewString;
     }
 
+    if(index == 5){
+
+      if(flightBookingController.totalFlights.value < flightBookingController.flightSearchResponses.length){
+        return "flight_count".tr.replaceAll("1",flightBookingController.flightSearchResponses.length.toString());
+      }
+
+      if(flightBookingController.totalFlights.value == 1){
+        return "flight_count_single".tr;
+      }
+
+      return "flight_count".tr.replaceAll("1",flightBookingController.totalFlights.value.toString());
+
+    }
+
     return searchParamsPreviewString = "";
 
   }
@@ -676,6 +690,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
   FlightSearchResult getAvailableFilterOptions() {
     return FlightSearchResult(
       pageSize: 0,
+      totalFlights: 0,
       alertMsg: "",
       searchResponses: [],
       priceDcs: flightBookingController.priceDcs.value,
@@ -691,6 +706,8 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
     return FlightSearchResult(
       pageSize: 0,
       alertMsg: "",
+      totalFlights: 0,
+
       searchResponses: [],
       priceDcs: flightBookingController.selectedPriceDcs.value,
       sortingDcs: [],

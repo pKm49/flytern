@@ -379,8 +379,12 @@
       "help_center": "Help Center",
       "send_message": "Send Message",
       "help_center_message": "Please share your details, Our team will review your inquiry and respond promptly",
-      "register_welcome_message": "Congratulations! Your registration is confirmed. Get set to explore the world with ease and excitement!"
+      "register_welcome_message": "Congratulations! Your registration is confirmed. Get set to explore the world with ease and excitement!",
 
+      "hotel_count": "1 Hotels",
+      "flight_count": "1 Flights",
+      "hotel_count_single": "1 Hotel",
+      "flight_count_single": "1 Flight"
     }
   },
   {

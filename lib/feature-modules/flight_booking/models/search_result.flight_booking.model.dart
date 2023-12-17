@@ -12,6 +12,7 @@ class FlightSearchResult {
   final List<SortingDcs> stopDcs;
   final String alertMsg;
   final int pageSize;
+  final int totalFlights;
 
   FlightSearchResult(
       {required this.searchResponses,
@@ -22,5 +23,6 @@ class FlightSearchResult {
       required this.arrivalTimeDcs,
       required this.alertMsg,
       required this.pageSize,
+      required this.totalFlights,
       required this.stopDcs});
 }

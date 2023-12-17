@@ -89,7 +89,7 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                       ),
                       child: Wrap(
                         children: [
-                          for (var i = 1; i < 5; i++)
+                          for (var i = 1; i < 6; i++)
                             Container(
                               padding: flyternSmallPaddingHorizontal.copyWith(
                                   top: flyternSpaceExtraSmall,
@@ -377,6 +377,19 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
         return "night_count".tr.replaceAll("1", durationDays.toString());
 
     }
+    if(index == 5){
+
+      if(hotelBookingController.totalHotels.value < hotelBookingController.hotelSearchResponses.length){
+        return "hotel_count".tr.replaceAll("1",hotelBookingController.hotelSearchResponses.length.toString());
+      }
+
+      if(hotelBookingController.totalHotels.value == 1){
+        return "hotel_count_single".tr;
+      }
+
+      return "hotel_count".tr.replaceAll("1",hotelBookingController.totalHotels.value.toString());
+
+    }
 
     return searchParamsPreviewString;
   }
@@ -430,6 +443,7 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
     return HotelSearchResult(
         objectID: -1,
         alertMsg: "",
+        totalHotels:0,
         searchResponses: [],
         priceDcs: hotelBookingController.priceDcs.value,
         sortingDcs: [],
@@ -441,6 +455,7 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
     return HotelSearchResult(
         objectID: -1,
         alertMsg: "",
+        totalHotels:0,
         searchResponses: [],
         priceDcs: hotelBookingController.selectedPriceDcs.value,
         sortingDcs: [],

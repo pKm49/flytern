@@ -86,6 +86,7 @@ class HotelBookingHttpService {
     List<SortingDcs> ratingDcs = [];
     List<SortingDcs> locationDcs = [];
     int objectID = -1;
+    int totalHotels = 0;
     String alertMsg = "";
 
     try {
@@ -95,6 +96,7 @@ class HotelBookingHttpService {
 
       if (response.success) {
         if (response.data != null) {
+          totalHotels = response.data["totalHotels"] ?? 0;
           objectID = response.data["objectID"] ?? -1;
           alertMsg = response.data["alertMsg"] ?? "";
 
@@ -128,6 +130,7 @@ class HotelBookingHttpService {
       }
       HotelSearchResult flightSearchResult = HotelSearchResult(
         alertMsg:alertMsg,
+        totalHotels:totalHotels,
         objectID: objectID,
         searchResponses: searchResponses,
         priceDcs: priceDcs,
@@ -141,6 +144,7 @@ class HotelBookingHttpService {
       HotelSearchResult flightSearchResult = HotelSearchResult(
         alertMsg:alertMsg,
         objectID: objectID,
+        totalHotels:totalHotels,
         searchResponses: searchResponses,
         priceDcs: priceDcs,
         sortingDcs: sortingDcs,
@@ -159,6 +163,7 @@ class HotelBookingHttpService {
 
     List<HotelSearchResponse> searchResponses = [];
     String alertMsg = "";
+    int totalHotels = 0;
 
     try{
       FlyternHttpResponse response = await postRequest(
@@ -167,6 +172,7 @@ class HotelBookingHttpService {
       if (response.success && response.statusCode == 200) {
         if (response.data != null) {
           alertMsg = response.data["alertMsg"] ?? "";
+          totalHotels = response.data["totalHotels"] ?? 0;
 
           if (response.data["_lst"] != null) {
             for (var i = 0; i < response.data["_lst"].length; i++) {
@@ -180,6 +186,7 @@ class HotelBookingHttpService {
       return HotelSearchResult(
         alertMsg:alertMsg,
         objectID: -1,
+        totalHotels:totalHotels,
         searchResponses: searchResponses,
         priceDcs: [],
         sortingDcs: [],
@@ -190,6 +197,7 @@ class HotelBookingHttpService {
       return HotelSearchResult(
         alertMsg:alertMsg,
         objectID: -1,
+        totalHotels:totalHotels,
         searchResponses: searchResponses,
         priceDcs: [],
         sortingDcs: [],

@@ -222,6 +222,66 @@ class _HotelFilterOptionSelectorState extends State<HotelFilterOptionSelector> {
                         ),
                       ),
 
+                      //  Departure Time
+                      Visibility(
+                        visible:
+                        widget.availableFilterOptions.ratingDcs.isNotEmpty,
+                        child: const Padding(
+                          padding: flyternLargePaddingHorizontal,
+                          child: Divider(),
+                        ),
+                      ),
+                      Visibility(
+                        visible:
+                        widget.availableFilterOptions.ratingDcs.isNotEmpty,
+                        child: Padding(
+                          padding: flyternLargePaddingHorizontal.copyWith(
+                              top: flyternSpaceMedium),
+                          child: Text("rating".tr,
+                              style: getBodyMediumStyle(context)
+                                  .copyWith(fontWeight: flyternFontWeightBold)),
+                        ),
+                      ),
+                      Visibility(
+                        visible:
+                        widget.availableFilterOptions.ratingDcs.isNotEmpty,
+                        child: Padding(
+                          padding: flyternLargePaddingAll,
+                          child: Wrap(
+                            children: [
+                              for (var i = 0;
+                              i <
+                                  (widget.availableFilterOptions.ratingDcs
+                                      .isNotEmpty
+                                      ? widget.availableFilterOptions
+                                      .ratingDcs.length
+                                      : 0);
+                              i++)
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: flyternSpaceSmall,
+                                      bottom: flyternSpaceSmall),
+                                  child: SelectableTilePill(
+                                    onPressed: () {
+                                      manageSelection(
+                                          HotelFilterOptions.RATING,
+                                          selectedFilterOptions.ratingDcs,
+                                          widget.availableFilterOptions
+                                              .ratingDcs[i]);
+                                    },
+                                    label:
+                                    '${widget.availableFilterOptions.ratingDcs[i].name}',
+                                    isSelected: isItemSelected(
+                                        selectedFilterOptions.ratingDcs,
+                                        widget.availableFilterOptions
+                                            .ratingDcs[i]),
+                                    themeNumber: 2,
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
                       //airline
                       Visibility(
                         visible: widget
@@ -304,66 +364,6 @@ class _HotelFilterOptionSelectorState extends State<HotelFilterOptionSelector> {
                         ),
                       ),
 
-                      //  Departure Time
-                      Visibility(
-                        visible:
-                            widget.availableFilterOptions.ratingDcs.isNotEmpty,
-                        child: const Padding(
-                          padding: flyternLargePaddingHorizontal,
-                          child: Divider(),
-                        ),
-                      ),
-                      Visibility(
-                        visible:
-                            widget.availableFilterOptions.ratingDcs.isNotEmpty,
-                        child: Padding(
-                          padding: flyternLargePaddingHorizontal.copyWith(
-                              top: flyternSpaceMedium),
-                          child: Text("rating".tr,
-                              style: getBodyMediumStyle(context)
-                                  .copyWith(fontWeight: flyternFontWeightBold)),
-                        ),
-                      ),
-                      Visibility(
-                        visible:
-                            widget.availableFilterOptions.ratingDcs.isNotEmpty,
-                        child: Padding(
-                          padding: flyternLargePaddingAll,
-                          child: Wrap(
-                            children: [
-                              for (var i = 0;
-                                  i <
-                                      (widget.availableFilterOptions.ratingDcs
-                                              .isNotEmpty
-                                          ? widget.availableFilterOptions
-                                              .ratingDcs.length
-                                          : 0);
-                                  i++)
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      right: flyternSpaceSmall,
-                                      bottom: flyternSpaceSmall),
-                                  child: SelectableTilePill(
-                                    onPressed: () {
-                                      manageSelection(
-                                          HotelFilterOptions.RATING,
-                                          selectedFilterOptions.ratingDcs,
-                                          widget.availableFilterOptions
-                                              .ratingDcs[i]);
-                                    },
-                                    label:
-                                        '${widget.availableFilterOptions.ratingDcs[i].name}',
-                                    isSelected: isItemSelected(
-                                        selectedFilterOptions.ratingDcs,
-                                        widget.availableFilterOptions
-                                            .ratingDcs[i]),
-                                    themeNumber: 2,
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ),
-                      ),
                     ],
                   ))
                 ],
@@ -465,6 +465,7 @@ class _HotelFilterOptionSelectorState extends State<HotelFilterOptionSelector> {
     selectedFilterOptions = HotelSearchResult(
         alertMsg:"",
         objectID: -1,
+        totalHotels:0,
         searchResponses: [],
         priceDcs: selectedFilterOptions.priceDcs,
         sortingDcs: selectedFilterOptions.sortingDcs,
@@ -486,6 +487,7 @@ class _HotelFilterOptionSelectorState extends State<HotelFilterOptionSelector> {
 
     selectedFilterOptions = HotelSearchResult(
         objectID: -1,
+        totalHotels:0,
         alertMsg:"",
         searchResponses: [],
         priceDcs: priceRange,
@@ -521,6 +523,7 @@ class _HotelFilterOptionSelectorState extends State<HotelFilterOptionSelector> {
         alertMsg:"",
         searchResponses: [],
         priceDcs: [],
+        totalHotels:0,
         sortingDcs: [],
         locationDcs: [],
         ratingDcs: [],

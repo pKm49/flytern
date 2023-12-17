@@ -92,6 +92,7 @@ class FlightBookingController extends GetxController {
 
   var isPassengersSelected = false.obs;
   var searchResultsPage = 1.obs;
+  var totalFlights = (0).obs;
   var isSearchScrollOver = false.obs;
   var travelStoriesPage = 1.obs;
   var isTravelStoriesPageScrollOver = false.obs;
@@ -215,6 +216,7 @@ class FlightBookingController extends GetxController {
         tFlightSearchData.adults > 0 &&
         !isFlightSearchResponsesLoading.value) {
       searchResultsPage.value = 1;
+      totalFlights.value = 0;
       isSearchScrollOver.value = false;
       flightSearchData.value = tFlightSearchData;
       Get.toNamed(Approute_flightsSearchResult);
@@ -224,6 +226,7 @@ class FlightBookingController extends GetxController {
           .getFlightSearchResults(tFlightSearchData);
       flightSearchResponses.value = flightSearchResult.searchResponses;
       alertMsg.value = flightSearchResult.alertMsg;
+      totalFlights.value = flightSearchResult.totalFlights;
       if (flightSearchResponses.isNotEmpty) {
         objectId.value = flightSearchResponses.value[0].objectId;
         currency.value = flightSearchResponses.value[0].currency;
@@ -257,6 +260,7 @@ class FlightBookingController extends GetxController {
         flightSearchData.value.adults > 0 &&
         !isFlightSearchResponsesLoading.value) {
       searchResultsPage.value = 1;
+      totalFlights.value = 0;
       isSearchScrollOver.value = false;
       if (isNavigationRequired) {
         Get.toNamed(Approute_flightsSearchResult);
@@ -268,7 +272,7 @@ class FlightBookingController extends GetxController {
       FlightSearchResult flightSearchResult = await flightBookingHttpService
           .getFlightSearchResults(flightSearchData.value);
       alertMsg.value = flightSearchResult.alertMsg;
-
+      totalFlights.value = flightSearchResult.totalFlights;
       flightSearchResponses.value = flightSearchResult.searchResponses;
       if (flightSearchResponses.isNotEmpty) {
         objectId.value = flightSearchResponses.value[0].objectId;
@@ -302,6 +306,7 @@ class FlightBookingController extends GetxController {
     if (!isFlightSearchFilterResponsesLoading.value) {
       isFlightSearchFilterResponsesLoading.value = true;
       searchResultsPage.value = 1;
+      totalFlights.value = 0;
       isSearchScrollOver.value = false;
       FlightFilterBody flightFilterBody = FlightFilterBody(
         pageId: 1,
@@ -326,7 +331,7 @@ class FlightBookingController extends GetxController {
 
       FlightSearchResult flightSearchResult = await flightBookingHttpService
           .getFlightSearchResultsFiltered(flightFilterBody);
-
+      totalFlights.value = flightSearchResult.totalFlights;
       alertMsg.value = flightSearchResult.alertMsg;
       flightSearchResponses.value = flightSearchResult.searchResponses;
       isFlightSearchFilterResponsesLoading.value = false;
@@ -729,7 +734,7 @@ class FlightBookingController extends GetxController {
         !isSearchScrollOver.value) {
       isFlightSearchPageResponsesLoading.value = true;
       searchResultsPage.value = searchResultsPage.value + 1;
-
+      totalFlights.value = 0;
       FlightFilterBody flightFilterBody = FlightFilterBody(
         pageId: searchResultsPage.value,
         objectID: objectId.value,
@@ -755,7 +760,7 @@ class FlightBookingController extends GetxController {
           .getFlightSearchResultsFiltered(flightFilterBody);
 
       alertMsg.value = flightSearchResult.alertMsg;
-
+      totalFlights.value = flightSearchResult.totalFlights;
       if (flightSearchResult.searchResponses.isEmpty) {
         isSearchScrollOver.value = true;
       }

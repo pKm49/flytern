@@ -81,6 +81,7 @@ class HotelBookingController extends GetxController {
   var selectedRoomSelectionIndex = 0.obs;
   var hotelId = (-1).obs;
   var objectId = (-1).obs;
+  var totalHotels = (0).obs;
   var alertMsg = "".obs;
   var searchResultsPage = 1.obs;
   var isSearchScrollOver = false.obs;
@@ -194,6 +195,7 @@ class HotelBookingController extends GetxController {
         hotelSearchData.value.destination != "" &&
         !isHotelSearchResponsesLoading.value) {
       objectId.value = -1;
+      totalHotels.value = 0;
       isHotelSearchResponsesLoading.value = true;
       if (isNavigationRequired) {
         Get.toNamed(Approute_hotelsSearchResult);
@@ -206,6 +208,7 @@ class HotelBookingController extends GetxController {
           .getHotelSearchResults(hotelSearchData.value);
       hotelSearchResponses.value = hotelSearchResult.searchResponses;
 
+      totalHotels.value = hotelSearchResult.totalHotels;
       objectId.value = hotelSearchResult.objectID;
       alertMsg.value = hotelSearchResult.alertMsg;
       if (hotelSearchResponses.isNotEmpty) {
@@ -273,6 +276,7 @@ class HotelBookingController extends GetxController {
       isHotelSearchFilterResponsesLoading.value = true;
       isSearchScrollOver.value = false;
       searchResultsPage.value = 1;
+      totalHotels.value = 0;
       HotelFilterBody hotelFilterBody = HotelFilterBody(
         pageId: 1,
         objectID: objectId.value,
@@ -291,6 +295,7 @@ class HotelBookingController extends GetxController {
       HotelSearchResult hotelSearchResult = await hotelBookingHttpService
           .getHotelSearchResultsFiltered(hotelFilterBody);
 
+      totalHotels.value = hotelSearchResult.totalHotels;
       alertMsg.value = hotelSearchResult.alertMsg;
       hotelSearchResponses.value = hotelSearchResult.searchResponses;
       isHotelSearchFilterResponsesLoading.value = false;

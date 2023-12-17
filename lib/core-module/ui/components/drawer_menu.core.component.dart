@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flytern/core-module/controllers/core.controller.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
+import 'package:flytern/shared-module/constants/business_specific/info_types.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
@@ -190,6 +191,28 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
                           .languageCode
                           .toString() ==
                           'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
+                    ),
+                  ),
+                  addVerticalSpace(flyternSpaceSmall),
+                  Padding(
+                    padding: flyternLargePaddingHorizontal,
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: PrePostIconButton(
+                        specialColor: 0,
+                        onPressed: () {
+                          sharedController.getBusinessInfo(InfoType.CONTACTUS);
+
+                        },
+                        theme: 'dark',
+                        border: 'bottom',
+                        buttonTitle: "contact_us".tr,
+                        preIconData: Ionicons.call_outline,
+                        postIconData: Localizations.localeOf(context)
+                            .languageCode
+                            .toString() ==
+                            'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
+                      ),
                     ),
                   ),
                   addVerticalSpace(flyternSpaceSmall),

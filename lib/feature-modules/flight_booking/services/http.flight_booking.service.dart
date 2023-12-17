@@ -91,6 +91,7 @@ class FlightBookingHttpService {
     List<SortingDcs> departureTimeDcs = [];
     List<SortingDcs> arrivalTimeDcs = [];
     List<SortingDcs> stopDcs = [];
+    int totalFlights = 0;
     int pageSize = 0;
     String alertMsg = "";
 
@@ -141,6 +142,10 @@ class FlightBookingHttpService {
           if (response.data["alertMsg"] != null) {
             alertMsg = response.data["alertMsg"];
           }
+          if (response.data["totalFlights"] != null) {
+            totalFlights = response.data["totalFlights"];
+          }
+
           if (response.data["stopDcs"] != null) {
             for (var i = 0; i < response.data["stopDcs"].length; i++) {
               stopDcs.add(mapSortingDcs(response.data["stopDcs"][i]));
@@ -150,6 +155,7 @@ class FlightBookingHttpService {
       }
 
       FlightSearchResult flightSearchResult = FlightSearchResult(
+          totalFlights: totalFlights,
           pageSize: pageSize,
           alertMsg: alertMsg,
           searchResponses: searchResponses,
@@ -165,6 +171,7 @@ class FlightBookingHttpService {
       FlightSearchResult flightSearchResult = FlightSearchResult(
           pageSize: pageSize,
           alertMsg: alertMsg,
+          totalFlights:totalFlights,
           searchResponses: searchResponses,
           priceDcs: priceDcs,
           sortingDcs: sortingDcs,
@@ -180,6 +187,7 @@ class FlightBookingHttpService {
   Future<FlightSearchResult> getFlightSearchResultsFiltered(
       FlightFilterBody flightFilterBody) async {
     int pageSize = 0;
+    int totalFlights = 0;
     String alertMsg = "";
     List<FlightSearchResponse> searchResponses = [];
     try {
@@ -201,12 +209,16 @@ class FlightBookingHttpService {
           if (response.data["alertMsg"] != null) {
             alertMsg = response.data["alertMsg"];
           }
+          if (response.data["totalFlights"] != null) {
+            alertMsg = response.data[""];
+          }
         }
       }
 
       return FlightSearchResult(
           pageSize: pageSize,
           alertMsg: alertMsg,
+          totalFlights: totalFlights,
           searchResponses: searchResponses,
           priceDcs: [],
           sortingDcs: [],
@@ -217,6 +229,7 @@ class FlightBookingHttpService {
     } catch (e) {
       return FlightSearchResult(
           pageSize: pageSize,
+          totalFlights: totalFlights,
           alertMsg: alertMsg,
           searchResponses: searchResponses,
           priceDcs: [],
@@ -231,6 +244,7 @@ class FlightBookingHttpService {
   Future<FlightSearchResult> getMoreOptions(int index, int objectId) async {
     List<FlightSearchResponse> searchResponses = [];
 
+    int totalFlights = 0;
     int pageSize = 0;
     String alertMsg = "";
 
@@ -253,11 +267,15 @@ class FlightBookingHttpService {
           if (response.data["alertMsg"] != null) {
             alertMsg = response.data["alertMsg"];
           }
+          if (response.data["totalFlights"] != null) {
+            totalFlights = response.data["totalFlights"];
+          }
         }
       }
 
       FlightSearchResult flightSearchResult = FlightSearchResult(
           alertMsg: alertMsg,
+          totalFlights: totalFlights,
           pageSize: pageSize,
           searchResponses: searchResponses,
           priceDcs: [],
@@ -272,6 +290,7 @@ class FlightBookingHttpService {
       FlightSearchResult flightSearchResult = FlightSearchResult(
           alertMsg: alertMsg,
           pageSize: pageSize,
+          totalFlights: totalFlights,
           searchResponses: searchResponses,
           priceDcs: [],
           sortingDcs: [],
