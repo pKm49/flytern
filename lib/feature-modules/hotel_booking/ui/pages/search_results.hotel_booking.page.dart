@@ -90,23 +90,27 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                       child: Wrap(
                         children: [
                           for (var i = 1; i < 6; i++)
-                            Container(
-                              padding: flyternSmallPaddingHorizontal.copyWith(
-                                  top: flyternSpaceExtraSmall,
-                                  bottom: flyternSpaceExtraSmall),
-                              margin: EdgeInsets.only(
-                                  bottom: flyternSpaceSmall,
-                                  right: flyternSpaceSmall),
-                              decoration: BoxDecoration(
-                                color: flyternSecondaryColorBg,
-                                borderRadius: BorderRadius.circular(
-                                    flyternBorderRadiusExtraSmall),
-                              ),
-                              child: Text(
-                                getSearchParamsPreview(i),
-                                style: getLabelLargeStyle(context).copyWith(
-                                    color: flyternSecondaryColor,
-                                    fontSize: flyternFontSize12),
+                            Visibility(
+                              visible:i==5?!hotelBookingController
+                    .isHotelSearchResponsesLoading.value:true,
+                              child: Container(
+                                padding: flyternSmallPaddingHorizontal.copyWith(
+                                    top: flyternSpaceExtraSmall,
+                                    bottom: flyternSpaceExtraSmall),
+                                margin: EdgeInsets.only(
+                                    bottom: flyternSpaceSmall,
+                                    right: flyternSpaceSmall),
+                                decoration: BoxDecoration(
+                                  color: flyternSecondaryColorBg,
+                                  borderRadius: BorderRadius.circular(
+                                      flyternBorderRadiusExtraSmall),
+                                ),
+                                child: Text(
+                                  getSearchParamsPreview(i),
+                                  style: getLabelLargeStyle(context).copyWith(
+                                      color: flyternSecondaryColor,
+                                      fontSize: flyternFontSize12),
+                                ),
                               ),
                             )
                         ],
@@ -144,7 +148,7 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                                         addVerticalSpace(flyternSpaceExtraSmall),
                                         Text(hotelBookingController
                                             .sortingDc.value.name,
-                                            style: getBodyMediumStyle(context)
+                                            style: getLabelLargeStyle(context)
                                                 .copyWith(color: flyternGrey80)),
                                       ],
                                     ),
@@ -181,7 +185,7 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                                                     color: flyternGrey40)),
                                         addVerticalSpace(flyternSpaceExtraSmall),
                                         Text(getFilterTitle(),
-                                            style: getBodyMediumStyle(context)
+                                            style: getLabelLargeStyle(context)
                                                 .copyWith(color: flyternGrey80)),
                                       ],
                                     ),

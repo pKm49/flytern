@@ -44,7 +44,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
   @override
   void initState() {
     super.initState();
-    tabController = TabController(vsync: this, length: 3, initialIndex: 0);
+    tabController = TabController(vsync: this, length: 3, initialIndex: 1);
 
     tabController.addListener(() {
 
@@ -120,21 +120,25 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                     padding: flyternMediumPaddingHorizontal,
                     child: Wrap(
                       children: [
-                        for(var i=1;i<5;i++)
-                          Container(
-                            padding: flyternSmallPaddingHorizontal.copyWith(
-                                top: flyternSpaceExtraSmall,
-                                bottom: flyternSpaceExtraSmall),
-                            margin: EdgeInsets.only(bottom: flyternSpaceSmall,right: flyternSpaceSmall),
-                            decoration: BoxDecoration(
-                              color: flyternSecondaryColorBg,
-                              borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
-                            ),
-                            child: Text(
-                              getSearchParamsPreview(i),style: getLabelLargeStyle(context).copyWith(
-                            fontSize: flyternFontSize12,
-                                color:flyternSecondaryColor,
-                            ),
+                        for(var i=1;i<6;i++)
+                          Visibility(
+                            visible:i !=5?true: !flightBookingController
+                                .isFlightSearchResponsesLoading.value,
+                            child: Container(
+                              padding: flyternSmallPaddingHorizontal.copyWith(
+                                  top: flyternSpaceExtraSmall,
+                                  bottom: flyternSpaceExtraSmall),
+                              margin: EdgeInsets.only(bottom: flyternSpaceSmall,right: flyternSpaceSmall),
+                              decoration: BoxDecoration(
+                                color: flyternSecondaryColorBg,
+                                borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
+                              ),
+                              child: Text(
+                                getSearchParamsPreview(i),style: getLabelLargeStyle(context).copyWith(
+                              fontSize: flyternFontSize12,
+                                  color:flyternSecondaryColor,
+                              ),
+                              ),
                             ),
                           )
                       ],
@@ -192,7 +196,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                                         child: Text(
                                             flightBookingController
                                                 .sortingDc.value.name,
-                                            style: getBodyMediumStyle(context)
+                                            style: getLabelLargeStyle(context)
                                                 .copyWith(color: flyternGrey80)),
                                       ),
                                     ),
@@ -229,7 +233,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                                             color: flyternGrey60)),
                                     addVerticalSpace(flyternSpaceExtraSmall),
                                     Text(getFilterTitle(),
-                                        style: getBodyMediumStyle(context)
+                                        style: getLabelLargeStyle(context)
                                             .copyWith(color: flyternGrey80)),
                                   ],
                                 ),

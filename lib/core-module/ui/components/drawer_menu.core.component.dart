@@ -194,25 +194,22 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
                     ),
                   ),
                   addVerticalSpace(flyternSpaceSmall),
-                  Padding(
-                    padding: flyternLargePaddingHorizontal,
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: PrePostIconButton(
-                        specialColor: 0,
-                        onPressed: () {
-                          sharedController.getBusinessInfo(InfoType.CONTACTUS);
+                  SizedBox(
+                    width: double.infinity,
+                    child: PrePostIconButton(
+                      specialColor: 0,
+                      onPressed: () {
+                        sharedController.getBusinessInfo(InfoType.CONTACTUS);
 
-                        },
-                        theme: 'dark',
-                        border: 'bottom',
-                        buttonTitle: "contact_us".tr,
-                        preIconData: Ionicons.call_outline,
-                        postIconData: Localizations.localeOf(context)
-                            .languageCode
-                            .toString() ==
-                            'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
-                      ),
+                      },
+                      theme: 'dark',
+                      border: 'bottom',
+                      buttonTitle: "contact_us".tr,
+                      preIconData: Ionicons.call_outline,
+                      postIconData: Localizations.localeOf(context)
+                          .languageCode
+                          .toString() ==
+                          'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                     ),
                   ),
                   addVerticalSpace(flyternSpaceSmall),

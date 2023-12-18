@@ -6,6 +6,7 @@ import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.
 import 'package:flytern/shared-module/constants/business_specific/info_types.shared.constant.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DocumentPage extends StatefulWidget {
   const DocumentPage({super.key});
@@ -35,25 +36,23 @@ class _DocumentPageState extends State<DocumentPage> {
         elevation: 0.5,
       ),
       body: Obx(
-        ()=> Stack(
+        () => Stack(
           children: [
             Visibility(
-                visible:
-                sharedController.isInfoLoading.value,
+                visible: sharedController.isInfoLoading.value,
                 child: Container(
                   width: screenwidth,
                   height: screenheight * .9,
                   color: flyternGrey10,
                   child: Center(
                       child: LoadingAnimationWidget.prograssiveDots(
-                        color: flyternSecondaryColor,
-                        size: 50,
-                      )),
+                    color: flyternSecondaryColor,
+                    size: 50,
+                  )),
                 )),
             Visibility(
-                visible:
-                !sharedController.isInfoLoading.value &&
-                    getHtmlData() !="",
+                visible: !sharedController.isInfoLoading.value &&
+                    getHtmlData() != "",
                 child: Container(
                   width: screenwidth,
                   height: screenheight * .9,
@@ -61,24 +60,34 @@ class _DocumentPageState extends State<DocumentPage> {
                   child: SingleChildScrollView(
                     child: Html(
                       data: getHtmlData(),
+                      onLinkTap: (
+                        url,
+                        attributes,
+                        element,
+                      ) async {
+                        final Uri _url = Uri.parse(url!);
+                        print("onLinkTap");
+                        print(url);
+                        if (!await launchUrl(_url)) {}
+                      },
                       style: {
-                        "p":Style(
-                          lineHeight:LineHeight(1.2),
+                        "p": Style(
+                          lineHeight: LineHeight(1.2),
                         ),
-                        "h1":Style(
-                          lineHeight:LineHeight(1.5),
+                        "h1": Style(
+                          lineHeight: LineHeight(1.5),
                         ),
-                        "h2":Style(
-                          lineHeight:LineHeight(1.5),
+                        "h2": Style(
+                          lineHeight: LineHeight(1.5),
                         ),
-                        "h3":Style(
-                          lineHeight:LineHeight(1.5),
+                        "h3": Style(
+                          lineHeight: LineHeight(1.5),
                         ),
-                        "h4":Style(
-                          lineHeight:LineHeight(1.5),
+                        "h4": Style(
+                          lineHeight: LineHeight(1.5),
                         ),
-                        "h5":Style(
-                          lineHeight:LineHeight(1.5),
+                        "h5": Style(
+                          lineHeight: LineHeight(1.5),
                         ),
                       },
                     ),
@@ -90,25 +99,28 @@ class _DocumentPageState extends State<DocumentPage> {
     );
   }
 
-
   getHtmlData() {
-    switch (sharedController.currentInfoType.value){
-      case InfoType.ABOUTUS:{
-         return sharedController.aboutHtml.value;
-      }
-      case InfoType.TERMS:{
-        return sharedController.termsHtml.value;
-      }
-      case InfoType.PRIVACY:{
-        return sharedController.privacyHtml.value;
-      }
-      case InfoType.CONTACTUS:{
-        return sharedController.contactHtml.value;
-      }
-      case InfoType.SOCIAL:{
-        return "";
-      }
+    switch (sharedController.currentInfoType.value) {
+      case InfoType.ABOUTUS:
+        {
+          return sharedController.aboutHtml.value;
+        }
+      case InfoType.TERMS:
+        {
+          return sharedController.termsHtml.value;
+        }
+      case InfoType.PRIVACY:
+        {
+          return sharedController.privacyHtml.value;
+        }
+      case InfoType.CONTACTUS:
+        {
+          return sharedController.contactHtml.value;
+        }
+      case InfoType.SOCIAL:
+        {
+          return "";
+        }
     }
   }
-
 }

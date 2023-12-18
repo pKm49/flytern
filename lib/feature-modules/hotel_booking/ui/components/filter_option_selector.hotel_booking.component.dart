@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/hotel_booking/constants/filter_options.hotel_booking.constant.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/search_result.hotel_booking.model.dart';
+import 'package:flytern/feature-modules/hotel_booking/ui/components/star_rating_selector.dart';
 import 'package:flytern/shared-module/models/range_dcs.dart';
 import 'package:flytern/shared-module/models/sorting_dcs.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
@@ -137,6 +138,7 @@ class _HotelFilterOptionSelectorState extends State<HotelFilterOptionSelector> {
                           ),
                         ),
                       ),
+
                       // price
                       Visibility(
                         visible:
@@ -222,7 +224,7 @@ class _HotelFilterOptionSelectorState extends State<HotelFilterOptionSelector> {
                         ),
                       ),
 
-                      //  Departure Time
+                      //rating
                       Visibility(
                         visible:
                         widget.availableFilterOptions.ratingDcs.isNotEmpty,
@@ -257,32 +259,28 @@ class _HotelFilterOptionSelectorState extends State<HotelFilterOptionSelector> {
                                       .ratingDcs.length
                                       : 0);
                               i++)
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      right: flyternSpaceSmall,
-                                      bottom: flyternSpaceSmall),
-                                  child: SelectableTilePill(
-                                    onPressed: () {
-                                      manageSelection(
-                                          HotelFilterOptions.RATING,
-                                          selectedFilterOptions.ratingDcs,
-                                          widget.availableFilterOptions
-                                              .ratingDcs[i]);
-                                    },
-                                    label:
-                                    '${widget.availableFilterOptions.ratingDcs[i].name}',
-                                    isSelected: isItemSelected(
+                              Padding(
+                                padding:flyternSmallPaddingVertical,
+                                child:StarRatingSelector(
+                                  isSelected:isItemSelected(
+                                      selectedFilterOptions.ratingDcs,
+                                      widget.availableFilterOptions
+                                          .ratingDcs[i]),
+                                  onClick:  () {
+                                    manageSelection(
+                                        HotelFilterOptions.RATING,
                                         selectedFilterOptions.ratingDcs,
                                         widget.availableFilterOptions
-                                            .ratingDcs[i]),
-                                    themeNumber: 2,
-                                  ),
-                                ),
+                                            .ratingDcs[i]);
+                                  },
+                                  count:int.parse(widget.availableFilterOptions.ratingDcs[i].name)),
+                              ),
                             ],
                           ),
                         ),
                       ),
-                      //airline
+
+                      //location
                       Visibility(
                         visible: widget
                             .availableFilterOptions.locationDcs.isNotEmpty,
@@ -303,26 +301,6 @@ class _HotelFilterOptionSelectorState extends State<HotelFilterOptionSelector> {
                                   .copyWith(fontWeight: flyternFontWeightBold)),
                         ),
                       ),
-
-                      // Padding(
-                      //     padding:flyternLargePaddingHorizontal.copyWith(
-                      //       bottom: flyternSpaceExtraSmall
-                      //     ),
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //       children: [
-                      //         Text(widget.availableFilterOptions.locationDcs[i].name,
-                      //             style: getBodyMediumStyle(context) ),
-                      //         Checkbox(
-                      //           checkColor: Colors.white,
-                      //           fillColor: MaterialStateProperty.resolveWith(elementStyleHelpers.getColor),
-                      //           value: isAirlineSelected(widget.availableFilterOptions.locationDcs[i]),
-                      //           onChanged: (bool? value) {
-                      //              manageAirlineSelection(widget.availableFilterOptions.locationDcs[i]);
-                      //           },
-                      //         ),
-                      //       ],
-                      //     )),
                       Visibility(
                         visible:
                             widget.availableFilterOptions.ratingDcs.isNotEmpty,

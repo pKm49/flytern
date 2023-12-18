@@ -391,6 +391,8 @@ class SharedController extends GetxController {
         case InfoType.CONTACTUS:
           {
             contactHtml.value = infoResponseData.content;
+            print("infoResponseData.content");
+            print(infoResponseData.content);
             currentInfoTitle.value = "contact_us".tr;
             break;
           }

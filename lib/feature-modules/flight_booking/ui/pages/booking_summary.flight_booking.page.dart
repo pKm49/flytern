@@ -49,22 +49,65 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                       flightBookingController
                           .isFlightGatewayStatusCheckLoading.value ||
                       flightBookingController
+                          .isFlightSavePaymentGatewayLoading.value ||
+                      flightBookingController
                           .isFlightConfirmationDataLoading.value,
                   child: Container(
                     width: screenwidth,
                     height: screenheight * .9,
                     color: flyternGrey10,
                     child: Center(
-                        child: LoadingAnimationWidget.prograssiveDots(
-                      color: flyternSecondaryColor,
-                      size: 50,
-                    )),
+                        child: Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          alignment: WrapAlignment.center,
+                          children: [
+                            LoadingAnimationWidget.prograssiveDots(
+                              color: flyternSecondaryColor,
+                              size: 50,
+                            ),
+                            Visibility(
+                              visible: flightBookingController
+                                  .isFlightSavePaymentGatewayLoading.value,
+                              child: Padding(
+                                padding: flyternLargePaddingAll,
+                                child: DataCapsuleCard(
+                                  label: "flight_gateway_submission_message".tr,
+                                  theme: 1,
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              visible: flightBookingController
+                                  .isFlightConfirmationDataLoading.value,
+                              child: Padding(
+                                padding: flyternLargePaddingAll,
+                                child: DataCapsuleCard(
+                                  label: "flight_confirmation_loading_message".tr,
+                                  theme: 1,
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              visible: flightBookingController
+                                  .isFlightTravellerDataSaveLoading.value,
+                              child: Padding(
+                                padding: flyternLargePaddingAll,
+                                child: DataCapsuleCard(
+                                  label: "flight_traveller_submission_message".tr,
+                                  theme: 1,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )),
                   )),
               Visibility(
                 visible: !flightBookingController
                         .isFlightTravellerDataSaveLoading.value &&
                     !flightBookingController
                         .isFlightGatewayStatusCheckLoading.value &&
+                    !flightBookingController
+                        .isFlightSavePaymentGatewayLoading.value &&
                     !flightBookingController
                         .isFlightConfirmationDataLoading.value,
                 child: Container(
@@ -407,7 +450,8 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                       .isFlightTravellerDataSaveLoading.value ||
               flightBookingController
                   .isFlightGatewayStatusCheckLoading.value ||
-
+            flightBookingController
+                .isFlightSavePaymentGatewayLoading.value ||
                   flightBookingController
                       .isFlightConfirmationDataLoading.value ||
                   flightBookingController.paymentGateways.isEmpty

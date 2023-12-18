@@ -62,15 +62,56 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                           hotelBookingController
                               .isHotelGatewayStatusCheckLoading.value ||
                           hotelBookingController
+                              .isHotelSavePaymentGatewayLoading.value ||
+                          hotelBookingController
                               .isHotelTravellerDataSaveLoading.value,
                       child: Container(
                         width: screenwidth,
                         height: screenheight * .9,
                         color: flyternGrey10,
-                        child: Center(
-                            child: LoadingAnimationWidget.prograssiveDots(
-                              color: flyternSecondaryColor,
-                              size: 50,
+                        child:Center(
+                            child: Wrap(
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              alignment: WrapAlignment.center,
+                              children: [
+                                LoadingAnimationWidget.prograssiveDots(
+                                  color: flyternSecondaryColor,
+                                  size: 50,
+                                ),
+                                Visibility(
+                                  visible: hotelBookingController
+                                      .isHotelSavePaymentGatewayLoading.value,
+                                  child: Padding(
+                                    padding: flyternLargePaddingAll,
+                                    child: DataCapsuleCard(
+                                      label: "Hotel_gateway_submission_message".tr,
+                                      theme: 1,
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: hotelBookingController
+                                      .isHotelConfirmationDataLoading.value,
+                                  child: Padding(
+                                    padding: flyternLargePaddingAll,
+                                    child: DataCapsuleCard(
+                                      label: "Hotel_confirmation_loading_message".tr,
+                                      theme: 1,
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: hotelBookingController
+                                      .isHotelTravellerDataSaveLoading.value,
+                                  child: Padding(
+                                    padding: flyternLargePaddingAll,
+                                    child: DataCapsuleCard(
+                                      label: "Hotel_traveller_submission_message".tr,
+                                      theme: 1,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             )),
                       )),
 
@@ -79,6 +120,8 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                         .isHotelConfirmationDataLoading.value &&
                         !hotelBookingController
                             .isHotelGatewayStatusCheckLoading.value &&
+                        !hotelBookingController
+                            .isHotelSavePaymentGatewayLoading.value &&
                         !hotelBookingController
                             .isHotelTravellerDataSaveLoading.value,
                     child: Container(
@@ -830,15 +873,18 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                 ],
               ),
               bottomSheet:
-
+              hotelBookingController
+                  .isHotelSavePaymentGatewayLoading.value ||
               hotelBookingController
                   .isHotelConfirmationDataLoading.value ||
                   hotelBookingController
                       .isHotelGatewayStatusCheckLoading.value ||
                   hotelBookingController
                       .isHotelTravellerDataSaveLoading.value ||
-                  hotelBookingController.paymentGateways.isEmpty ? Container(
-                width: screenwidth, height: 1,) : Container(
+                  hotelBookingController.paymentGateways.isEmpty ? 
+              Container(
+                width: screenwidth, height: 1,)
+                  : Container(
                 width: screenwidth,
                 color: flyternBackgroundWhite,
                 height: 60 + (flyternSpaceSmall * 2),

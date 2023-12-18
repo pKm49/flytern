@@ -384,7 +384,13 @@
       "hotel_count": "1 Hotels",
       "flight_count": "1 Flights",
       "hotel_count_single": "1 Hotel",
-      "flight_count_single": "1 Flight"
+      "flight_count_single": "1 Flight",
+      "flight_traveller_submission_message": "Securing your seat – your travel experience is just a payment away!",
+      "flight_gateway_submission_message": "Crafting seamless payments – your submission page is moments away",
+      "flight_confirmation_loading_message": "Payment in progress – stay connected for your travel confirmation",
+      "hotel_traveller_submission_message": "Securing your reservation – your travel experience is just a payment away!",
+      "hotel_gateway_submission_message": "Crafting seamless payments – your submission page is moments away",
+      "hotel_confirmation_loading_message": "Payment in progress – stay connected for your travel confirmation"
     }
   },
   {
@@ -767,7 +773,18 @@
       "enquiry": "سؤال",
       "send_message": "أرسل رسالة",
       "help_center_message": "يرجى مشاركة التفاصيل الخاصة بك، وسيقوم فريقنا بمراجعة استفسارك والرد على الفور",
-      "register_welcome_message": "تهانينا! تم تأكيد تسجيلك. استعد لاستكشاف العالم بسهولة وإثارة!"
+      "register_welcome_message": "تهانينا! تم تأكيد تسجيلك. استعد لاستكشاف العالم بسهولة وإثارة!",
+
+      "hotel_count": "1 فنادق",
+      "flight_count": "1 رحلات جوية",
+      "hotel_count_single": "1 فندق",
+      "flight_count_single": "1 رحلة",
+      "flight_traveller_submission_message": "تأمين مقعدك - تجربة السفر الخاصة بك هي مجرد دفعة واحدة!",
+      "flight_gateway_submission_message": "صياغة مدفوعات سلسة - صفحة التقديم الخاصة بك على بعد لحظات",
+      "flight_confirmation_loading_message": "الدفع قيد التقدم - ابق على اتصال لتأكيد سفرك",
+      "hotel_traveller_submission_message": "تأمين حجزك - تجربة السفر الخاصة بك هي مجرد دفعة واحدة!",
+      "hotel_gateway_submission_message": "صياغة مدفوعات سلسة - صفحة التقديم الخاصة بك على بعد لحظات",
+      "hotel_confirmation_loading_message": "الدفع قيد التقدم - ابق على اتصال لتأكيد سفرك"
     }
   }
 ]
