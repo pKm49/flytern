@@ -7,13 +7,12 @@ import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 
 class CustomDatePicker extends StatefulWidget {
   DateTime selectedDate;
   DateTime? minimumDate;
   DateTime? maximumDate;
-
+  DatePickerMode? calendarViewMode;
   final Function(DateTime? dateTime) dateSelected;
 
   CustomDatePicker(
@@ -21,6 +20,7 @@ class CustomDatePicker extends StatefulWidget {
       required this.dateSelected,
       this.minimumDate,
       this.maximumDate,
+      this.calendarViewMode,
       required this.selectedDate});
 
   @override
@@ -85,6 +85,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                       children: [
                         CalendarDatePicker2(
                           config: CalendarDatePicker2Config(
+                            calendarViewMode:widget.calendarViewMode ?? DatePickerMode.day,
                         firstDate: widget.minimumDate ?? DefaultMinimumDate,
                         lastDate: widget.maximumDate ?? DefaultMaximumDate,
                           ),
@@ -111,7 +112,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               if (selectedDOB.year == DateTime.now().year &&
                   selectedDOB.month == DateTime.now().month &&
                   selectedDOB.day == DateTime.now().day) {
-                widget.dateSelected(widget.minimumDate);
+                widget.dateSelected(widget.selectedDate);
               } else {
                 widget.dateSelected(selectedDOB);
               }

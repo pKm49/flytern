@@ -84,7 +84,7 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                                   child: Padding(
                                     padding: flyternLargePaddingAll,
                                     child: DataCapsuleCard(
-                                      label: "Hotel_gateway_submission_message".tr,
+                                      label: "hotel_gateway_submission_message".tr,
                                       theme: 1,
                                     ),
                                   ),
@@ -95,7 +95,7 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                                   child: Padding(
                                     padding: flyternLargePaddingAll,
                                     child: DataCapsuleCard(
-                                      label: "Hotel_confirmation_loading_message".tr,
+                                      label: "hotel_confirmation_loading_message".tr,
                                       theme: 1,
                                     ),
                                   ),
@@ -106,7 +106,7 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                                   child: Padding(
                                     padding: flyternLargePaddingAll,
                                     child: DataCapsuleCard(
-                                      label: "Hotel_traveller_submission_message".tr,
+                                      label: "hotel_traveller_submission_message".tr,
                                       theme: 1,
                                     ),
                                   ),

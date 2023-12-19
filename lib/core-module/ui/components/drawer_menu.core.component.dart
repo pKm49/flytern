@@ -163,30 +163,13 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
                     child: PrePostIconButton(
                       specialColor: 0,
                       onPressed: () {
-                        Get.toNamed(Approute_coreAppInfo);
-                      },
-                      theme: 'dark',
-                      border: 'bottom',
-                      buttonTitle: "info".tr,
-                      preIconData: Ionicons.information_circle_outline,
-                      postIconData:Localizations.localeOf(context)
-                          .languageCode
-                          .toString() ==
-                          'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
-                    ),
-                  ),
-                  addVerticalSpace(flyternSpaceSmall),
-                  SizedBox(
-                    width: double.infinity,
-                    child: PrePostIconButton(
-                      specialColor: 0,
-                      onPressed: () {
-                        launchRatingPage();
+                        Navigator.pop(context);
+                        Get.toNamed(Approute_helpCenter);
                       },
                       theme: 'dark',
                       border:  'bottom',
-                      buttonTitle: "rating".tr,
-                      preIconData: Ionicons.star_outline,
+                      buttonTitle: "help_center".tr,
+                      preIconData: Ionicons.help_circle_outline,
                       postIconData:Localizations.localeOf(context)
                           .languageCode
                           .toString() ==
@@ -212,19 +195,37 @@ class _CoreDrawerMenuPageState extends State<CoreDrawerMenuPage> {
                           'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
                     ),
                   ),
+
                   addVerticalSpace(flyternSpaceSmall),
                   SizedBox(
                     width: double.infinity,
                     child: PrePostIconButton(
                       specialColor: 0,
                       onPressed: () {
-
-                        Get.toNamed(Approute_helpCenter);
+                        Get.toNamed(Approute_coreAppInfo);
+                      },
+                      theme: 'dark',
+                      border: 'bottom',
+                      buttonTitle: "info".tr,
+                      preIconData: Ionicons.information_circle_outline,
+                      postIconData:Localizations.localeOf(context)
+                          .languageCode
+                          .toString() ==
+                          'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
+                    ),
+                  ),
+                  addVerticalSpace(flyternSpaceSmall),
+                  SizedBox(
+                    width: double.infinity,
+                    child: PrePostIconButton(
+                      specialColor: 0,
+                      onPressed: () {
+                        launchRatingPage();
                       },
                       theme: 'dark',
                       border:  '',
-                      buttonTitle: "help_center".tr,
-                      preIconData: Ionicons.help_circle_outline,
+                      buttonTitle: "rating".tr,
+                      preIconData: Ionicons.star_outline,
                       postIconData:Localizations.localeOf(context)
                           .languageCode
                           .toString() ==

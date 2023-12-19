@@ -119,6 +119,7 @@ class ProfileController extends GetxController {
   }
 
   Future<void> getUserDetails() async {
+
     isProfileDataLoading.value = true;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -219,11 +220,11 @@ class ProfileController extends GetxController {
         if (isSuccess) {
           Get.back();
           isProfileSubmitting.value = false;
-
           showSnackbar(Get.context!, "profile_updated".tr, "info");
-
-
           await getUserDetails();
+        }else{
+          showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+          isProfileSubmitting.value = false;
         }
       } catch (e) {
         showSnackbar(Get.context!, e.toString(), "error");
@@ -257,18 +258,23 @@ class ProfileController extends GetxController {
                 : Approute_profileEditEmailOTP,
             arguments: [
               isMobile ? Approute_profileEditMobile : Approute_profileEditEmail,
-              isMobile
-                  ? "${selectedCountry.value.code} ${mobileController.value.text}"
-                  : "${emailController.value.text}",
+              "${selectedCountry.value.code} ${mobileController.value.text}" ,
               userId
             ])?.then((value) async {
           if (value is AuthToken) {
             showSnackbar(Get.context!,
-                isMobile ? "mobile_updated".tr : "email_updated", "info");
+                isMobile ? "mobile_updated".tr : "email_updated".tr, "info");
             final sharedController = Get.find<SharedController>();
             sharedController.handleLogout();
           }
          });
+        if (isMobile) {
+          isMobileSubmitting.value = false;
+        } else {
+          isEmailSubmitting.value = false;
+        }
+      }else{
+        showSnackbar(Get.context!, "something_went_wrong".tr, "error");
         if (isMobile) {
           isMobileSubmitting.value = false;
         } else {
@@ -293,16 +299,22 @@ class ProfileController extends GetxController {
           .updatePassword(passwordController.value.text);
 
       if (isSuccess) {
+        Get.back();
         isPasswordSubmitting.value = false;
         showSnackbar(Get.context!, "password_updated".tr, "info");
         final sharedController = Get.find<SharedController>();
         sharedController.handleLogout();
+      }else{
+        showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+        isPasswordSubmitting.value = false;
       }
     } catch (e) {
-       showSnackbar(Get.context!, e.toString(), "error");
+      showSnackbar(Get.context!, e.toString(), "error");
       isPasswordSubmitting.value = false;
     }
   }
+
+
 
   void updateEditForm(UserDetails userDetails) {
     final sharedController = Get.find<SharedController>();
@@ -350,37 +362,47 @@ class ProfileController extends GetxController {
 
   Future<void> getMyBookings(int pageId, ServiceType servicetype) async {
     currentPage.value = 1;
+    totalPages.value = 1;
+    pageSize.value = 10;
     currentService.value = servicetype;
     isMyBookingsLoading.value = true;
-    MyBookingResponse myBookingResponse =
-        await profileHttpServices.getMyBookings(pageId, servicetype.name);
-    totalPages.value = myBookingResponse.totalPages;
-    pageSize.value = myBookingResponse.pageSize;
-    switch (servicetype){
-      case ServiceType.FLIGHT:{
-        myFlightBookingResponse.value = myBookingResponse.myFlightBookingResponse;
-        break;
+
+    try{
+
+      MyBookingResponse myBookingResponse =
+      await profileHttpServices.getMyBookings(pageId, servicetype.name);
+      totalPages.value = myBookingResponse.totalPages;
+      pageSize.value = myBookingResponse.pageSize;
+      switch (servicetype){
+        case ServiceType.FLIGHT:{
+          myFlightBookingResponse.value = myBookingResponse.myFlightBookingResponse;
+          break;
+        }
+        case ServiceType.HOTEL:{
+          myHotelBookingResponse.value = myBookingResponse.myHotelBookingResponse;
+          break;
+        }
+        case  ServiceType.INSURANCE:{
+          myInsuranceBookingResponse.value =
+              myBookingResponse.myInsuranceBookingResponse;
+          break;
+        }
+        case ServiceType.PACKAGE:{
+          myPackageBookingResponse.value = myBookingResponse.myPackageBookingResponse;
+          break;
+        }
+        case ServiceType.ACTIVITY:{
+          myActivityBookingResponse.value =
+              myBookingResponse.myActivityBookingResponse;
+          break;
+        }
       }
-      case ServiceType.HOTEL:{
-        myHotelBookingResponse.value = myBookingResponse.myHotelBookingResponse;
-        break;
-      }
-      case  ServiceType.INSURANCE:{
-        myInsuranceBookingResponse.value =
-            myBookingResponse.myInsuranceBookingResponse;
-        break;
-      }
-      case ServiceType.PACKAGE:{
-        myPackageBookingResponse.value = myBookingResponse.myPackageBookingResponse;
-        break;
-      }
-      case ServiceType.ACTIVITY:{
-        myActivityBookingResponse.value =
-            myBookingResponse.myActivityBookingResponse;
-        break;
-      }
+
+      isMyBookingsLoading.value = false;
+    }catch (e){
+      showSnackbar(Get.context!, e.toString(), "error");
+      isMyBookingsLoading.value = false;
     }
 
-    isMyBookingsLoading.value = false;
   }
 }

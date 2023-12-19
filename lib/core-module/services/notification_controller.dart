@@ -1,185 +1,48 @@
-import 'dart:isolate';
-import 'dart:ui';
-
-import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart'
+as flutter_local_notifications;
 import 'package:flytern/feature-modules/activity_booking/controllers/activity_booking.controller.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
 import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
 import 'package:flytern/feature-modules/insurance/controllers/insurance.controller.dart';
 import 'package:flytern/firebase_options.dart';
-import 'package:flytern/main.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/service_types.core.constant.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-class NotificationController extends ChangeNotifier {
-  /// *********************************************
-  ///   SINGLETON PATTERN
-  /// *********************************************
-
-
-
-  static final NotificationController _instance =
-  NotificationController._internal();
-
-  factory NotificationController() {
-    return _instance;
-  }
-
-  NotificationController._internal();
-
-  /// *********************************************
-  ///  OBSERVER PATTERN
-  /// *********************************************
-
-  String _firebaseToken = '';
-  String get firebaseToken => _firebaseToken;
-
-  String _nativeToken = '';
-  String get nativeToken => _nativeToken;
-
-  ReceivedAction? initialAction;
-
-  /// *********************************************
-  ///   INITIALIZATION METHODS
-  /// *********************************************
-
-  static Future<void> initializeLocalNotifications(
-      {required bool debug}) async {
-    await AwesomeNotifications().initialize(
-      null, //'resource://drawable/res_app_icon',//
-      [
-        NotificationChannel(
-            channelKey: 'alerts',
-            channelName: 'Alerts',
-            channelDescription: 'Notification tests as alerts',
-            playSound: true,
-            importance: NotificationImportance.High,
-            defaultPrivacy: NotificationPrivacy.Private,
-            defaultColor: Colors.deepPurple,
-            ledColor: Colors.deepPurple)
-      ],
-      debug: debug,
-      languageCode: 'ko',
-    );
-
-    // Get initial notification action is optional
-    _instance.initialAction = await AwesomeNotifications()
-        .getInitialNotificationAction(removeFromActionEvents: false);
-  }
-
-  static Future<void> initializeRemoteNotifications(
-      {required bool debug}) async {
+class NotificationController {
+  Future<void> setupInteractedMessage() async {
+    print("setupInteractedMessage");
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    await AwesomeNotificationsFcm().initialize(
-        onFcmTokenHandle: NotificationController.myFcmTokenHandle,
-        onNativeTokenHandle: NotificationController.myNativeTokenHandle,
-        onFcmSilentDataHandle: NotificationController.mySilentDataHandle,
-        licenseKeys:
-        // On this example app, the app ID / Bundle Id are different
-        // for each platform, so i used the main Bundle ID + 1 variation
-        [
-          // me.carda.awesomeNotificationsFcmExample
-          'B3J3yxQbzzyz0KmkQR6rDlWB5N68sTWTEMV7k9HcPBroUh4RZ/Og2Fv6Wc/lE'
-              '2YaKuVY4FUERlDaSN4WJ0lMiiVoYIRtrwJBX6/fpPCbGNkSGuhrx0Rekk'
-              '+yUTQU3C3WCVf2D534rNF3OnYKUjshNgQN8do0KAihTK7n83eUD60=',
 
-          // me.carda.awesome_notifications_fcm_example
-          'UzRlt+SJ7XyVgmD1WV+7dDMaRitmKCKOivKaVsNkfAQfQfechRveuKblFnCp4'
-              'zifTPgRUGdFmJDiw1R/rfEtTIlZCBgK3Wa8MzUV4dypZZc5wQIIVsiqi0Zhaq'
-              'YtTevjLl3/wKvK8fWaEmUxdOJfFihY8FnlrSA48FW94XWIcFY=',
-        ],
-        debug: debug);
-  }
 
-  static Future<void> startListeningNotificationEvents() async {
-    AwesomeNotifications()
-        .setListeners(onActionReceivedMethod: onActionReceivedMethod);
-  }
-
-  static ReceivePort? receivePort;
-  static Future<void> initializeIsolateReceivePort() async {
-    receivePort = ReceivePort('Notification action port in main isolate')
-      ..listen(
-              (silentData) => onActionReceivedImplementationMethod(silentData)
-      );
-
-    IsolateNameServer.registerPortWithName(
-        receivePort!.sendPort,
-        'notification_action_port'
+// This function is called when ios app is opened, for android case `onDidReceiveNotificationResponse` function is called
+    FirebaseMessaging.onMessageOpenedApp.listen(
+          (RemoteMessage message) {
+            onActionReceivedImplementationMethod(message.data);
+      },
     );
-  }
-
-  ///  *********************************************
-  ///     LOCAL NOTIFICATION EVENTS
-  ///  *********************************************
-
-  static Future<void> getInitialNotificationAction() async {
-    ReceivedAction? receivedAction = await AwesomeNotifications()
-        .getInitialNotificationAction(removeFromActionEvents: true);
-    if (receivedAction == null) return;
-
-    // Fluttertoast.showToast(
-    //     msg: 'Notification action launched app: $receivedAction',
-    //   backgroundColor: Colors.deepPurple
-    // );
-    print('App launched by a notification action: $receivedAction');
-  }
-
-  @pragma('vm:entry-point')
-  static Future<void> onActionReceivedMethod(
-      ReceivedAction receivedAction) async {
-
-    print("onActionReceivedMethod");
-    if(
-    receivedAction.actionType == ActionType.SilentAction ||
-        receivedAction.actionType == ActionType.SilentBackgroundAction
-    ){
-      // For background actions, you must hold the execution until the end
-      print('Message sent via notification input: "${receivedAction.buttonKeyInput}"');
-      await executeLongTaskInBackground();
-      return;
-    }
-    else {
-      if (receivePort == null){
-        // onActionReceivedMethod was called inside a parallel dart isolate.
-        SendPort? sendPort = IsolateNameServer.lookupPortByName(
-            'notification_action_port'
-        );
-
-        if (sendPort != null){
-          // Redirecting the execution to main isolate process (this process is
-          // only necessary when you need to redirect the user to a new page or
-          // use a valid context)
-          sendPort.send(receivedAction);
-          return;
-        }
-      }
-    }
-
-    return onActionReceivedImplementationMethod(receivedAction);
+    enableIOSNotifications();
+    await registerNotificationListeners();
   }
 
   static Future<void> onActionReceivedImplementationMethod(
-      ReceivedAction receivedAction
+      Map<String, dynamic> data
       ) async {
 
 
     print("onActionReceivedImplementationMethod");
-    print(receivedAction);
-    print(receivedAction.payload);
-    print(receivedAction.payload?["Redirection"]);
-    print(receivedAction.payload?["ServiceType"]);
-    print(receivedAction.payload?["BookingRef"]);
-    print(receivedAction.payload?["Imageurl"]);
-    print(receivedAction.payload?["WebviewURL"]);
+
+    print(data);
+    print(data["Redirection"]);
+    print(data["ServiceType"]);
+    print(data["BookingRef"]);
+    print(data["Imageurl"]);
+    print(data["WebviewURL"]);
 
     String redirection = "NONE";
     String serviceType = "";
@@ -187,11 +50,11 @@ class NotificationController extends ChangeNotifier {
     String imageurl = "";
     String webviewUrl = "";
 
-    redirection = receivedAction.payload?["Redirection"]??"NONE";
-    serviceType = receivedAction.payload?["ServiceType"]??"";
-    bookingRef = receivedAction.payload?["BookingRef"]??"";
-    imageurl = receivedAction.payload?["Imageurl"]??"";
-    webviewUrl = receivedAction.payload?["WebviewURL"]??"";
+    redirection = data["Redirection"]??"NONE";
+    serviceType = data["ServiceType"]??"";
+    bookingRef = data["BookingRef"]??"";
+    imageurl = data["Imageurl"]??"";
+    webviewUrl = data["WebviewURL"]??"";
 
     switch(redirection){
       case "PAYMENT":{
@@ -252,221 +115,88 @@ class NotificationController extends ChangeNotifier {
       }
     }
 
-    MyApp.navigatorKey.currentState?.pushNamedAndRemoveUntil(
-        '/notification-page',
-            (route) =>
-        (route.settings.name != '/notification-page') || route.isFirst,
-        arguments: receivedAction);
   }
 
-  ///  *********************************************
-  ///     REMOTE NOTIFICATION EVENTS
-  ///  *********************************************
 
-  /// Use this method to execute on background when a silent data arrives
-  /// (even while terminated)
-  @pragma("vm:entry-point")
-  static Future<void> mySilentDataHandle(FcmSilentData silentData) async {
-    // Fluttertoast.showToast(
-    //     msg: 'Silent data received',
-    //     backgroundColor: Colors.blueAccent,
-    //     textColor: Colors.white,
-    //     fontSize: 16);
-
-    print('"SilentData": ${silentData.toString()}');
-
-    if (silentData.createdLifeCycle != NotificationLifeCycle.Foreground) {
-      print("bg");
-    } else {
-      print("FOREGROUND");
-    }
-
-    print('mySilentDataHandle received a FcmSilentData execution');
-    await executeLongTaskInBackground();
-  }
-
-  /// Use this method to detect when a new fcm token is received
-  @pragma("vm:entry-point")
-  static Future<void> myFcmTokenHandle(String token) async {
-
-    if (token.isNotEmpty){
-      // Fluttertoast.showToast(
-      //     msg: 'Fcm token received',
-      //     backgroundColor: Colors.blueAccent,
-      //     textColor: Colors.white,
-      //     fontSize: 16);
-
-      debugPrint('Firebase Token:"$token"');
-    }
-    else {
-      // Fluttertoast.showToast(
-      //     msg: 'Fcm token deleted',
-      //     backgroundColor: Colors.red,
-      //     textColor: Colors.white,
-      //     fontSize: 16);
-
-      debugPrint('Firebase Token deleted');
-    }
-
-    _instance._firebaseToken = token;
-    _instance.notifyListeners();
-  }
-
-  /// Use this method to detect when a new native token is received
-  @pragma("vm:entry-point")
-  static Future<void> myNativeTokenHandle(String token) async {
-    // Fluttertoast.showToast(
-    //     msg: 'Native token received',
-    //     backgroundColor: Colors.blueAccent,
-    //     textColor: Colors.white,
-    //     fontSize: 16);
-    debugPrint('Native Token:"$token"');
-
-    _instance._nativeToken = token;
-    _instance.notifyListeners();
-  }
-
-  ///  *********************************************
-  ///     BACKGROUND TASKS TEST
-  ///  *********************************************
-
-  static Future<void> executeLongTaskInBackground() async {
-    print("starting long task");
-    await Future.delayed(const Duration(seconds: 4));
-    final url = Uri.parse("http://google.com");
-    // final re = await http.get(url);
-    // print(re.body);
-    print("long task done");
-  }
-
-  ///  *********************************************
-  ///     REQUEST NOTIFICATION PERMISSIONS
-  ///  *********************************************
-
-  static Future<bool> displayNotificationRationale() async {
-    bool userAuthorized = false;
-    BuildContext context = MyApp.navigatorKey.currentContext!;
-    await showDialog(
-        context: context,
-        builder: (BuildContext ctx) {
-          return AlertDialog(
-            title: Text('Get Notified!',
-                style: Theme.of(context).textTheme.titleLarge),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Image.asset(
-                        'assets/animated-bell.gif',
-                        height: MediaQuery.of(context).size.height * 0.3,
-                        fit: BoxFit.fitWidth,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                    'Allow Awesome Notifications to send you beautiful notifications!'),
-              ],
-            ),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(ctx).pop();
-                  },
-                  child: Text(
-                    'Deny',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(color: Colors.red),
-                  )),
-              TextButton(
-                  onPressed: () async {
-                    userAuthorized = true;
-                    Navigator.of(ctx).pop();
-                  },
-                  child: Text(
-                    'Allow',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(color: Colors.deepPurple),
-                  )),
-            ],
-          );
-        });
-    return userAuthorized &&
-        await AwesomeNotifications().requestPermissionToSendNotifications();
-  }
-
-  ///  *********************************************
-  ///     LOCAL NOTIFICATION CREATION METHODS
-  ///  *********************************************
-
-  static Future<void> createNewNotification() async {
-    bool isAllowed = await AwesomeNotifications().isNotificationAllowed();
-
-    if (!isAllowed) {
-      isAllowed = await displayNotificationRationale();
-    }
-
-    if (!isAllowed) return;
-
-    await AwesomeNotifications().createNotification(
-        content: NotificationContent(
-            id: -1, // -1 is replaced by a random number
-            channelKey: 'alerts',
-            title: 'Huston! The eagle has landed!',
-            body:
-            "A small step for a man, but a giant leap to Flutter's community!",
-            bigPicture: 'https://storage.googleapis.com/cms-storage-bucket/d406c736e7c4c57f5f61.png',
-            largeIcon: 'https://storage.googleapis.com/cms-storage-bucket/0dbfcc7a59cd1cf16282.png',
-            notificationLayout: NotificationLayout.BigPicture,
-            payload: {'notificationId': '1234567890'}),
-        actionButtons: [
-          NotificationActionButton(key: 'REDIRECT', label: 'Redirect'),
-          NotificationActionButton(
-              key: 'REPLY',
-              label: 'Reply Message',
-              requireInputText: true,
-              actionType: ActionType.SilentAction
-          ),
-          NotificationActionButton(
-              key: 'DISMISS',
-              label: 'Dismiss',
-              actionType: ActionType.DismissAction,
-              isDangerousOption: true)
-        ]);
-  }
-
-  static Future<void> resetBadge() async {
-    await AwesomeNotifications().resetGlobalBadge();
-  }
-
-  static Future<void> deleteToken() async {
-    await AwesomeNotificationsFcm().deleteToken();
-    await Future.delayed(Duration(seconds: 5));
-    await requestFirebaseToken();
-  }
-
-  ///  *********************************************
-  ///     REMOTE TOKEN REQUESTS
-  ///  *********************************************
-
-  static Future<String> requestFirebaseToken() async {
-    if (await AwesomeNotificationsFcm().isFirebaseAvailable) {
-      try {
-        return await AwesomeNotificationsFcm().requestFirebaseAppToken();
-      } catch (exception) {
-        debugPrint('$exception');
+  Future<void> registerNotificationListeners() async {
+    final AndroidNotificationChannel channel = androidNotificationChannel();
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+    const AndroidInitializationSettings androidSettings =
+    AndroidInitializationSettings('@mipmap/ic_launcher');
+    const DarwinInitializationSettings iOSSettings =
+    DarwinInitializationSettings(
+      requestSoundPermission: false,
+      requestBadgePermission: false,
+      requestAlertPermission: false,
+    );
+    const InitializationSettings initSettings =
+    InitializationSettings(android: androidSettings, iOS: iOSSettings);
+    flutterLocalNotificationsPlugin.initialize(
+      initSettings,
+      onDidReceiveNotificationResponse: (NotificationResponse details) {
+// We're receiving the payload as string that looks like this
+// {buttontext: Button Text, subtitle: Subtitle, imageurl: , typevalue: 14, type: course_details}
+// So the code below is used to convert string to map and read whatever property you want
+        final List<String> str =
+        details.payload!.replaceAll('{', '').replaceAll('}', '').split(',');
+        final Map<String, dynamic> result = <String, dynamic>{};
+        for (int i = 0; i < str.length; i++) {
+          final List<String> s = str[i].split(':');
+          result.putIfAbsent(s[0].trim(), () => s[1].trim());
+        }
+       print("onDidReceiveNotificationResponse");
+       print(details);
+       print(result);
+         onActionReceivedImplementationMethod(result);
+      },
+    );
+// onMessage is called when the app is in foreground and a notification is received
+    FirebaseMessaging.onMessage.listen((RemoteMessage? message) {
+      print('firebase_message');
+      if(message != null){
+        print(message);
       }
-    } else {
-      debugPrint('Firebase is not available on this project');
-    }
-    return '';
+      final RemoteNotification? notification = message!.notification;
+      final AndroidNotification? android = message.notification?.android;
+// If `onMessage` is triggered with a notification, construct our own
+// local notification to show to users using the created channel.
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          flutter_local_notifications.NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              channelDescription: channel.description,
+              icon: android.smallIcon,
+            ),
+          ),
+          payload: message.data.toString(),
+        );
+      }
+    });
   }
+  Future<void> enableIOSNotifications() async {
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true, // Required to display a heads up notification
+      badge: true,
+      sound: true,
+    );
+  }
+  AndroidNotificationChannel androidNotificationChannel() =>
+      const AndroidNotificationChannel(
+        'high_importance_channel', // id
+        'High Importance Notifications', // title
+        description:
+        'This channel is used for important notifications.', // description
+        importance: Importance.max,
+      );
 }
-

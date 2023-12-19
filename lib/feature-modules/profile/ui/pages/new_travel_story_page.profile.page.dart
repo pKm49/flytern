@@ -134,14 +134,13 @@ class _ProfileNewTravelStoryPageState extends State<ProfileNewTravelStoryPage> {
                             ),
                             Visibility(
                               visible: fileType == "video",
-                              child: Container(
-                                  width: screenwidth - (flyternSpaceLarge * 2),
-                                  color: flyternSecondaryColorBg,
-                                  child: AspectRatio(
-                                    aspectRatio: 9 / 16,
-                                    // Use the VideoPlayer widget to display the video.
-                                    child: VideoPlayer(_controller),
-                                  )
+                              child: FittedBox(
+                                fit: BoxFit.cover,
+                                child: SizedBox(
+                                  height: _controller.value.size.height ?? 0,
+                                  width:_controller.value.size.width ?? 0,
+                                  child: VideoPlayer(_controller),
+                                ),
                               ),
                             ),
                           ],
@@ -323,18 +322,19 @@ class _ProfileNewTravelStoryPageState extends State<ProfileNewTravelStoryPage> {
     _initializeVideoPlayerFuture = _controller.initialize();
     _controller.setLooping(true);
     _initializeVideoPlayerFuture.then((_) => setState(() {
-      _controller.play();
+      // _controller.play();
     }));
 
   }
 
   void handleSubmission() {
     FocusManager.instance.primaryFocus?.unfocus();
-    if ((titleController.text != "" || tripSummaryController.text != "") ||
-        fileType != "") {
+    if ( titleController.text != "" || tripSummaryController.text != "" || fileType != "" ) {
        travelStoryController.addTravelStory(UserTravelStory(
           tripSummary: tripSummaryController.text,
           firstName: "",
+           previewImgUrl: "",
+
           fileUrl: "",
           status: "",
           bookingRef: "",

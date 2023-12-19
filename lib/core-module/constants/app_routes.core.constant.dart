@@ -22,6 +22,7 @@ import 'package:flytern/feature-modules/flight_booking/ui/pages/userdetails_subm
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/userdetails_submission.hotel_booking.page.dart';
 import 'package:flytern/feature-modules/packages/ui/pages/booking_confirmation.packages.page.dart';
 import 'package:flytern/shared-module/ui/pages/full_screen_image_viewer.dart';
+import 'package:flytern/shared-module/ui/pages/full_screen_video_viewer.dart';
 import 'package:flytern/shared-module/ui/pages/otp_input.shared.page.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/register.auth.page.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_credentials.auth.page.dart';
@@ -54,7 +55,6 @@ import 'package:flytern/feature-modules/profile/ui/pages/new_travel_story_page.p
 import 'package:flytern/feature-modules/profile/ui/pages/profile_edit_pages/reset_password_page.profile.page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/view_profile_page.profile.page.dart';
 import 'package:flytern/shared-module/ui/pages/payment_gateway_webview.shared.page.dart';
-import 'package:flytern/shared-module/ui/pages/userdetails_submission_page.shared.page.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:get/get.dart';
 
@@ -115,12 +115,6 @@ getAppRoutes() => [
         page: () => const AllTravellStoriesPage(),
       ),
 
-      // Common
-      GetPage(
-        name: Approute_userDetailsSubmission,
-        page: () => const UserDetailsSubmissionPage(),
-      ),
-
       GetPage(
         name: Approute_paymentPage,
         page: () => const PaymentGatewayWebView(),
@@ -129,6 +123,11 @@ getAppRoutes() => [
       GetPage(
         name: Approute_imageViewer,
         page: () => FullScreenImageViewer(),
+      ),
+
+      GetPage(
+        name: Approute_videoViewer,
+        page: () => FullScreenVideoViewer(),
       ),
 
       // flight booking

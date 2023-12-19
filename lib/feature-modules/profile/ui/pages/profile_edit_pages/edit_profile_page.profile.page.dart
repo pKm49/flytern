@@ -31,7 +31,6 @@ class ProfileEditProfilePage extends StatefulWidget {
 }
 
 class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
-
   final profileController = Get.find<ProfileController>();
   final GlobalKey<FormState> updateProfileFormKey = GlobalKey<FormState>();
   final sharedController = Get.find<SharedController>();
@@ -79,36 +78,51 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
                               height: screenwidth * .25,
                               width: screenwidth * .25,
                               child: Center(
-                                child: profileController.profilePicture.value == '' &&
-                                    profileController.userDetails.value.imgUrl == ''?
-                                Icon(Icons.camera_alt_outlined,
-                                    size: screenwidth * .08,
-                                    color: flyternGrey40):
-                                profileController.profilePicture.value !='' ?
-                                Image.memory(
-                                  base64Decode(profileController.profilePicture.value)  ,
-                                  height: screenwidth *  .35,
-                                  width: screenwidth * .35,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Container(
-                                      height: screenwidth * .35,
-                                      width: screenwidth * .35,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(1000),
-                                      ),
-                                      clipBehavior: Clip.hardEdge,
-                                      child: Icon(Icons.camera_alt_outlined,
-                                          size: screenwidth * .08,
-                                          color: flyternGrey40),
-                                    );
-                                  },
-                                  fit: BoxFit.cover,
-                                ):Image.network(profileController.userDetails.value.imgUrl,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return  Icon(Icons.camera_alt_outlined,
+                                child: profileController.profilePicture.value ==
+                                            '' &&
+                                        profileController
+                                                .userDetails.value.imgUrl ==
+                                            ''
+                                    ? Icon(Icons.camera_alt_outlined,
                                         size: screenwidth * .08,
-                                        color: flyternGrey40);
-                                  },),
+                                        color: flyternGrey40)
+                                    : profileController.profilePicture.value !=
+                                            ''
+                                        ? Image.memory(
+                                            base64Decode(profileController
+                                                .profilePicture.value),
+                                            height: screenwidth * .35,
+                                            width: screenwidth * .35,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return Container(
+                                                height: screenwidth * .35,
+                                                width: screenwidth * .35,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          1000),
+                                                ),
+                                                clipBehavior: Clip.hardEdge,
+                                                child: Icon(
+                                                    Icons.camera_alt_outlined,
+                                                    size: screenwidth * .08,
+                                                    color: flyternGrey40),
+                                              );
+                                            },
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Image.network(
+                                            profileController
+                                                .userDetails.value.imgUrl,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return Icon(
+                                                  Icons.camera_alt_outlined,
+                                                  size: screenwidth * .08,
+                                                  color: flyternGrey40);
+                                            },
+                                          ),
                               ),
                             ),
                           ),
@@ -176,35 +190,36 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
                       children: [
                         Expanded(
                             child: DropDownSelector(
-                              validator: (value) =>
-                                  checkIfDropDownFormValid(value,"0", "gender".tr),
-                              titleText: "gender".tr,
-                              selected: profileController.gender.value,
-                              items: [
-                                for (var i = 0;
-                                    i < sharedController.genders.length;
-                                    i++)
-                                  GeneralItem(
-                                    imageUrl: "",
-                                      id: sharedController.genders[i].code,
-                                      name: sharedController.genders[i].name)
-                              ],
-                              hintText: "gender".tr,
-                              valueChanged: (newGender) {
-                                List<Gender> genders = sharedController.genders
-                                    .where((e) => e.code == newGender)
-                                    .toList();
-                                if (genders.isNotEmpty) {
-                                  profileController.changeGender(genders[0]);
-                                }
-                              },
-                            )),
+                          validator: (value) =>
+                              checkIfDropDownFormValid(value, "0", "gender".tr),
+                          titleText: "gender".tr,
+                          selected: profileController.gender.value,
+                          items: [
+                            for (var i = 0;
+                                i < sharedController.genders.length;
+                                i++)
+                              GeneralItem(
+                                  imageUrl: "",
+                                  id: sharedController.genders[i].code,
+                                  name: sharedController.genders[i].name)
+                          ],
+                          hintText: "gender".tr,
+                          valueChanged: (newGender) {
+                            List<Gender> genders = sharedController.genders
+                                .where((e) => e.code == newGender)
+                                .toList();
+                            if (genders.isNotEmpty) {
+                              profileController.changeGender(genders[0]);
+                            }
+                          },
+                        )),
                         addHorizontalSpace(flyternSpaceMedium),
                         Expanded(
                           child: TextFormField(
                               readOnly: true,
                               onTap: () {
-                                showDOBPickerDialog(true,profileController.dob.value);
+                                showDOBPickerDialog(
+                                    true, profileController.dob.value);
                               },
                               controller: profileController.dobController.value,
                               validator: (value) =>
@@ -275,7 +290,8 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
                     child: TextFormField(
                         readOnly: true,
                         onTap: () {
-                          showDOBPickerDialog(false,profileController.passportExpiry.value);
+                          showDOBPickerDialog(
+                              false, profileController.passportExpiry.value);
                         },
                         controller:
                             profileController.passportExpiryController.value,
@@ -313,15 +329,16 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
                           !profileController.isProfileSubmitting.value) {
                         FocusManager.instance.primaryFocus?.unfocus();
                         profileController.updateProfile(
-                            profileController.profilePicture.value !=""?
-                            profilePictureFile:null);
+                            profileController.profilePicture.value != ""
+                                ? profilePictureFile
+                                : null);
                       }
                     },
                     child: profileController.isProfileSubmitting.value
                         ? LoadingAnimationWidget.prograssiveDots(
-                      color: flyternBackgroundWhite,
-                      size: 16,
-                    )
+                            color: flyternBackgroundWhite,
+                            size: 16,
+                          )
                         : Text("update".tr)),
               ),
             ),
@@ -370,8 +387,9 @@ class _ProfileEditProfilePageState extends State<ProfileEditProfilePage> {
         builder: (context) {
           return CustomDatePicker(
             selectedDate: dateTime,
-            minimumDate: isDOB?DefaultAdultMinimumDate:DateTime.now(),
-            maximumDate: isDOB?DefaultAdultMaximumDate:DateTime(2080),
+            minimumDate: isDOB ? DefaultAdultMinimumDate : DateTime.now(),
+            maximumDate: isDOB ? DefaultAdultMaximumDate : DateTime(2080),
+            calendarViewMode: DatePickerMode.year,
             dateSelected: (DateTime? dateTime) {
               if (dateTime != null) {
                 if (isDOB) {

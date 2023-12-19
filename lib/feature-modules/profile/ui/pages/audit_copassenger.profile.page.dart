@@ -340,6 +340,7 @@ class _ProfileAuditCopassengerPageState
             selectedDate: dateTime,
             minimumDate: isDOB?DefaultAdultMinimumDate:DateTime.now(),
             maximumDate: isDOB?DateTime.now():DateTime(2080),
+            calendarViewMode: DatePickerMode.year,
             dateSelected: (DateTime? dateTime) {
               if (dateTime != null) {
                 if (isDOB) {

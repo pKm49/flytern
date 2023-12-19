@@ -153,6 +153,10 @@ class CoPaxController extends GetxController {
         initializeAuditData(true,false);
 
         await getUserCoPassengers();
+      }else{
+        Get.back();
+        showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+        isSubmitting.value = false;
       }
     } catch (e) {
        showSnackbar(Get.context!,e.toString(), "error");
@@ -188,6 +192,10 @@ class CoPaxController extends GetxController {
         initializeAuditData(true,false);
 
         await getUserCoPassengers();
+      }else{
+        Get.back();
+        showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+        isSubmitting.value = false;
       }
     } catch (e) {
        showSnackbar(Get.context!,e.toString(), "error");
@@ -204,8 +212,10 @@ class CoPaxController extends GetxController {
       if (isSuccess) {
         await getUserCoPassengers();
         isSubmitting.value = false;
-
         showSnackbar(Get.context!,"copax_deleted".tr, "info");
+      }else{
+        showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+        isSubmitting.value = false;
       }
     } catch (e) {
 

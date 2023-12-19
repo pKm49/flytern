@@ -28,7 +28,7 @@ class _ProfileMyBookingsPageState extends State<ProfileMyBookingsPage>
   @override
   void initState() {
     super.initState();
-    tabController = TabController(vsync: this, length: 5, initialIndex: 0);
+    tabController = TabController(vsync: this, length: 4, initialIndex: 0);
     profileController.getMyBookings(1,ServiceType.FLIGHT);
     tabController.addListener(() {
       if (selectedTab != tabController.index) {
@@ -91,7 +91,7 @@ class _ProfileMyBookingsPageState extends State<ProfileMyBookingsPage>
                          Tab(text: "flight_bookings".tr),
                          Tab(text: "hotel_bookings".tr),
                          Tab(text: "package_bookings".tr),
-                         Tab(text: "activity_bookings".tr),
+                         // Tab(text: "activity_bookings".tr),
                          Tab(text: "insurance_purchases".tr),
                       ])
               ),
@@ -114,7 +114,7 @@ class _ProfileMyBookingsPageState extends State<ProfileMyBookingsPage>
                   ProfileFlightBookingsList(),
                   ProfileHotelBookingsList(),
                   ProfilePackageBookingsList(),
-                  ProfileActivityBookingsList(),
+                  // ProfileActivityBookingsList(),
                   ProfileInsurancePurchaseList(),
                 ])),
               )

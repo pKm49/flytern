@@ -42,7 +42,7 @@ InsuranceTravellerInfo mapInsuranceTravellerInfo(dynamic payload) {
     firstName: payload["firstName"] ?? "",
     lastName: payload["lastName"] ?? "",
     gender: payload["gender"] ?? "",
-    selectedCopaxId: payload["selectedCopaxId"] ?? "0",
+    selectedCopaxId: payload["selectedCopaxId"] ?? "-1",
     dateOfBirth: payload["dateOfBirth"] != null
         ? DateTime.parse(getParsableDateString(payload["dateOfBirth"]))
         : DefaultAdultMinimumDate,

@@ -150,7 +150,10 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                                         onTap: openCountrySelector,
                                         child: Container(
                                           decoration:
-                                              flyternBorderedContainerSmallDecoration,
+                                              flyternBorderedContainerSmallDecoration.copyWith(
+                                                color: flyternGrey20,
+                                                border: Border.all(color: flyternGrey60, width: .2)
+                                              ),
                                           padding: flyternMediumPaddingAll,
                                           child: Row(
                                             mainAxisAlignment:
@@ -212,7 +215,8 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                                   width: 20,
                                 ),
                                 SizedBox(
-                                  width:sharedController.isSetDeviceLanguageAndCountrySubmitting.value?double.maxFinite :double.infinity,
+                                  width:sharedController.isSetDeviceLanguageAndCountrySubmitting.value?
+                                  double.maxFinite :double.infinity,
                                   child: ElevatedButton(
                                       onPressed: () async {
                                         await sharedController.setDeviceLanguageAndCountry(true,true);

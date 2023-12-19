@@ -32,7 +32,7 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    profileController.updateEditForm(profileController.userDetails.value);
   }
 
   @override

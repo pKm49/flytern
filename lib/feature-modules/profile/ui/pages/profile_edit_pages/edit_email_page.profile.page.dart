@@ -26,6 +26,13 @@ class _ProfileEditEmailPageState extends State<ProfileEditEmailPage> {
   final sharedController = Get.find<SharedController>();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    profileController.updateEditForm(profileController.userDetails.value);
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     double screenwidth = MediaQuery.of(context).size.width;
@@ -37,25 +44,28 @@ class _ProfileEditEmailPageState extends State<ProfileEditEmailPage> {
         elevation: 0.5,
       ),
       body: Obx(
-        ()=> Container(
-          width: screenwidth,
-          height: screenheight,
-          color: flyternGrey10,
-          child: ListView(
-            children: [
-              Container(
-                padding: flyternLargePaddingAll,
-                color: flyternBackgroundWhite,
-                margin: flyternMediumPaddingVertical,
-                child: TextFormField(
-                    controller: profileController.emailController.value,
-                    validator: (value) => checkIfEmailValid(value),
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      labelText: "email".tr,
-                    )),
-              ),
-            ],
+        ()=> Form(
+          key: updateProfileFormKey,
+          child: Container(
+            width: screenwidth,
+            height: screenheight,
+            color: flyternGrey10,
+            child: ListView(
+              children: [
+                Container(
+                  padding: flyternLargePaddingAll,
+                  color: flyternBackgroundWhite,
+                  margin: flyternMediumPaddingVertical,
+                  child: TextFormField(
+                      controller: profileController.emailController.value,
+                      validator: (value) => checkIfEmailValid(value),
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        labelText: "email".tr,
+                      )),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -74,6 +84,7 @@ class _ProfileEditEmailPageState extends State<ProfileEditEmailPage> {
 
                       if (profileController.emailController.value.text
                           != profileController.userDetails.value.email &&
+                          updateProfileFormKey.currentState!.validate()   &&
                           !profileController.isEmailSubmitting.value) {
                         FocusManager.instance.primaryFocus?.unfocus();
                         profileController.sendOTP(false);

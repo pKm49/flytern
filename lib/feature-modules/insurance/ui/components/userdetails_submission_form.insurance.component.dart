@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/insurance/controllers/insurance.controller.dart';
 import 'package:flytern/feature-modules/insurance/models/traveller_info.insurance.model.dart';
@@ -53,6 +55,7 @@ class _InsuranceUserDetailsSubmissionFormState
   String title = "0";
   String frequentFlyerNo = "0";
   final sharedController = Get.find<SharedController>();
+  late Timer repeater;
 
   DateTime dateOfBirth = DefaultInvalidDate;
   DateTime passportExpiryDate = DefaultInvalidDate;
@@ -87,8 +90,15 @@ class _InsuranceUserDetailsSubmissionFormState
   void initState() {
     // TODO: implement initState
     super.initState();
+    setSetStateTimer();
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    repeater.cancel();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -259,6 +269,7 @@ class _InsuranceUserDetailsSubmissionFormState
                 .insuranceInitialData.value.maxDateOfBirth,
             minimumDate: insuranceBookingController
                 .insuranceInitialData.value.minDateOfBirth,
+            calendarViewMode: DatePickerMode.year,
             dateSelected: (DateTime? dateTime) {
               if (dateTime != null) {
                 if (isDOB) {
@@ -425,16 +436,26 @@ class _InsuranceUserDetailsSubmissionFormState
             (element) => !selectedUserCopaxes.contains(element.id.toString()))
         .toList();
 
-    allowedCopaxes = allowedCopaxes
-        .where((element) =>
-            element.dateOfBirth.isBefore(insuranceBookingController
-                .insuranceInitialData.value.maxDateOfBirth) &&
-            element.dateOfBirth.isAfter(insuranceBookingController
-                .insuranceInitialData.value.minDateOfBirth))
-        .toList();
-
-    print(allowedCopaxes.length);
+    // allowedCopaxes = allowedCopaxes
+    //     .where((element) =>
+    //         element.dateOfBirth.isBefore(insuranceBookingController
+    //             .insuranceInitialData.value.maxDateOfBirth) &&
+    //         element.dateOfBirth.isAfter(insuranceBookingController
+    //             .insuranceInitialData.value.minDateOfBirth))
+    //     .toList();
+    //
+    // print(allowedCopaxes.length);
 
     return allowedCopaxes;
   }
+
+  Future<void> setSetStateTimer() async {
+    await Future.delayed(const Duration(seconds: 2));
+    repeater = Timer.periodic(new Duration(seconds: 1), (timer) {
+      setState(() {
+
+      });
+    });
+  }
+
 }

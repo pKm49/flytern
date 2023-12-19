@@ -79,15 +79,16 @@ class _ProfileMyTravelStoriesPageState
                             border: flyternDefaultBorderBottomOnly
                         ),
                         child: TravelStoriesItemCard(
-                        status: travelStoryController.userTravelStories.value[index].status,
+                          previewImgUrl: travelStoryController.userTravelStories[index].previewImgUrl,
+                          status: travelStoryController.userTravelStories.value[index].status,
                           createdOn: travelStoryController.userTravelStories.value[index].createdOn,
                           title: travelStoryController.userTravelStories.value[index].title,
                           profilePicUrl: travelStoryController.userTravelStories.value[index].profileUrl,
                           name: travelStoryController.userTravelStories.value[index].firstName,
                           ratings: travelStoryController.userTravelStories.value[index].rating,
                           description: travelStoryController.userTravelStories.value[index].tripSummary,
-                          imageUrl:travelStoryController.userTravelStories.value[index].fileType == "Image"?
-                          travelStoryController.userTravelStories.value[index].fileUrl:"",
+                          imageUrl:travelStoryController.userTravelStories.value[index].fileUrl,
+                          fileType:travelStoryController.userTravelStories.value[index].fileType,
                         ),
                       );
                     }),

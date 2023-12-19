@@ -80,6 +80,7 @@ class CoreController extends GetxController {
 
     isEnquiryLoading.value = false;
     Get.back();
+
   }
 
   findBooking(String tempBookingRef, String email) async {

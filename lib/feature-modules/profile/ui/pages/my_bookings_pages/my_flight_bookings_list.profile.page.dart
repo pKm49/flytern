@@ -27,83 +27,99 @@ class _ProfileFlightBookingsListState extends State<ProfileFlightBookingsList> {
 
   @override
   Widget build(BuildContext context) {
-
     double screenwidth = MediaQuery.of(context).size.width;
+    double screenheight = MediaQuery.of(context).size.height;
 
-    return ListView.builder(
-        itemCount: profileController.myFlightBookingResponse.length,
-        itemBuilder: (context, index) => Container(
-              decoration: flyternShadowedContainerSmallDecoration,
-              padding: flyternMediumPaddingAll,
-              margin: flyternLargePaddingAll.copyWith(bottom: index== profileController.myFlightBookingResponse.length-1?flyternSpaceLarge:0),
-              width: screenwidth - (flyternSpaceLarge * 2),
-              child: Wrap(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: flyternSpaceSmall),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(flyternBorderRadiusExtraSmall)),
-                          child: Image.network(
-                              profileController
-                                  .myFlightBookingResponse[index].airlineImgUrl,
-                              height: 30,
-                              errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              height: 20,
-                              width: screenwidth * .2,
-                            );
-                          }),
-                        ),
-                        Expanded(child: Container()),
-
-                        DataCapsuleCard(
-                          label:
-                              "${profileController.myFlightBookingResponse[index].currency} ${profileController.myFlightBookingResponse[index].paidAmount}",
-                          theme: 1,
-                        ),
-                        Visibility(
-                            visible: profileController
+    return profileController.myFlightBookingResponse.isNotEmpty
+        ? ListView.builder(
+            itemCount: profileController.myFlightBookingResponse.length,
+            itemBuilder: (context, index) => Container(
+                  decoration: flyternShadowedContainerSmallDecoration,
+                  padding: flyternMediumPaddingAll,
+                  margin: flyternLargePaddingAll.copyWith(
+                      bottom: index ==
+                              profileController.myFlightBookingResponse.length -
+                                  1
+                          ? flyternSpaceLarge
+                          : 0),
+                  width: screenwidth - (flyternSpaceLarge * 2),
+                  child: Wrap(
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(bottom: flyternSpaceSmall),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(
+                                  flyternBorderRadiusExtraSmall)),
+                              child: Image.network(
+                                  profileController
+                                      .myFlightBookingResponse[index]
+                                      .airlineImgUrl,
+                                  height: 30,
+                                  errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  height: 20,
+                                  width: screenwidth * .2,
+                                );
+                              }),
+                            ),
+                            Expanded(child: Container()),
+                            DataCapsuleCard(
+                              label:
+                                  "${profileController.myFlightBookingResponse[index].currency} ${profileController.myFlightBookingResponse[index].paidAmount}",
+                              theme: 1,
+                            ),
+                            Visibility(
+                                visible: profileController
+                                        .myFlightBookingResponse[index]
+                                        .refundStatus !=
+                                    "",
+                                child: addHorizontalSpace(flyternSpaceSmall)),
+                            Visibility(
+                              visible: profileController
+                                      .myFlightBookingResponse[index]
+                                      .refundStatus !=
+                                  "",
+                              child: DataCapsuleCard(
+                                label: profileController
                                     .myFlightBookingResponse[index]
-                                    .refundStatus !=
-                                "",
-                            child: addHorizontalSpace(flyternSpaceSmall)),
-                        Visibility(
-                          visible: profileController
-                                  .myFlightBookingResponse[index]
-                                  .refundStatus !=
-                              "",
-                          child: DataCapsuleCard(
-                            label: profileController
-                                .myFlightBookingResponse[index].refundStatus,
-                            theme: 1,
-                          ),
+                                    .refundStatus,
+                                theme: 1,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                  for (var i = 0;
-                      i <
-                          profileController.myFlightBookingResponse[index]
-                              .myFlightBookingListflights.length;
-                      i++)
-                    Container(
-                      margin: EdgeInsets.only(bottom: flyternSpaceSmall,top: flyternSpaceSmall),
-                      padding: EdgeInsets.only(bottom: flyternSpaceMedium),
-                      decoration: BoxDecoration(
-                        border:i!= profileController.myFlightBookingResponse[index]
-                            .myFlightBookingListflights.length-1?flyternDefaultBorderBottomOnly:null
                       ),
-                      width: screenwidth -
-                          ((flyternSpaceLarge * 2) + (flyternSpaceMedium * 2)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                              child: Column(
+                      for (var i = 0;
+                          i <
+                              profileController.myFlightBookingResponse[index]
+                                  .myFlightBookingListflights.length;
+                          i++)
+                        Container(
+                          margin: EdgeInsets.only(
+                              bottom: flyternSpaceSmall,
+                              top: flyternSpaceSmall),
+                          padding: EdgeInsets.only(bottom: flyternSpaceMedium),
+                          decoration: BoxDecoration(
+                              border: i !=
+                                      profileController
+                                              .myFlightBookingResponse[index]
+                                              .myFlightBookingListflights
+                                              .length -
+                                          1
+                                  ? flyternDefaultBorderBottomOnly
+                                  : null),
+                          width: screenwidth -
+                              ((flyternSpaceLarge * 2) +
+                                  (flyternSpaceMedium * 2)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                  child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
@@ -113,31 +129,37 @@ class _ProfileFlightBookingsListState extends State<ProfileFlightBookingsList> {
                                         .deptAirportDtl),
                                     style: getLabelLargeStyle(context).copyWith(
                                         color: flyternGrey40,
-                                        fontWeight: FontWeight.  w400),
+                                        fontWeight: FontWeight.w400),
                                   ),
                                   addVerticalSpace(flyternSpaceExtraSmall),
-                                  Text(profileController
-                                      .myFlightBookingResponse[index]
-                                      .myFlightBookingListflights[i]
-                                      .deptAirport,
+                                  Text(
+                                      profileController
+                                          .myFlightBookingResponse[index]
+                                          .myFlightBookingListflights[i]
+                                          .deptAirport,
                                       style: getHeadlineLargeStyle(context)
-                                          .copyWith(fontSize: flyternFontSize24 * 1.5)),
+                                          .copyWith(
+                                              fontSize:
+                                                  flyternFontSize24 * 1.5)),
                                   addVerticalSpace(flyternSpaceExtraSmall),
-                                  Text(profileController
-                                      .myFlightBookingResponse[index]
-                                      .myFlightBookingListflights[i]
-                                      .depDate,maxLines: 2,textAlign: TextAlign.start),
+                                  Text(
+                                      profileController
+                                          .myFlightBookingResponse[index]
+                                          .myFlightBookingListflights[i]
+                                          .depDate,
+                                      maxLines: 2,
+                                      textAlign: TextAlign.start),
                                 ],
                               )),
-                          Padding(
-                            padding: flyternSmallPaddingHorizontal,
-                            child: Image.asset(
-                              ASSETS_FLIGHT_CHART_ICON,
-                              width: screenwidth * .3,
-                            ),
-                          ),
-                          Expanded(
-                              child: Column(
+                              Padding(
+                                padding: flyternSmallPaddingHorizontal,
+                                child: Image.asset(
+                                  ASSETS_FLIGHT_CHART_ICON,
+                                  width: screenwidth * .3,
+                                ),
+                              ),
+                              Expanded(
+                                  child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
@@ -147,141 +169,177 @@ class _ProfileFlightBookingsListState extends State<ProfileFlightBookingsList> {
                                         .deptAirportDtl),
                                     style: getLabelLargeStyle(context).copyWith(
                                         color: flyternGrey40,
-                                        fontWeight: FontWeight.  w400),
+                                        fontWeight: FontWeight.w400),
                                   ),
                                   addVerticalSpace(flyternSpaceExtraSmall),
-                                  Text(profileController
-                                      .myFlightBookingResponse[index]
-                                      .myFlightBookingListflights[i]
-                                      .deptAirport,
+                                  Text(
+                                      profileController
+                                          .myFlightBookingResponse[index]
+                                          .myFlightBookingListflights[i]
+                                          .deptAirport,
                                       style: getHeadlineLargeStyle(context)
-                                          .copyWith(fontSize: flyternFontSize24 * 1.5)),
+                                          .copyWith(
+                                              fontSize:
+                                                  flyternFontSize24 * 1.5)),
                                   addVerticalSpace(flyternSpaceExtraSmall),
-                                  Text(profileController
-                                      .myFlightBookingResponse[index]
-                                      .myFlightBookingListflights[i]
-                                      .depDate,maxLines: 2,textAlign: TextAlign.end),
+                                  Text(
+                                      profileController
+                                          .myFlightBookingResponse[index]
+                                          .myFlightBookingListflights[i]
+                                          .depDate,
+                                      maxLines: 2,
+                                      textAlign: TextAlign.end),
                                 ],
                               ))
+                            ],
+                          ),
+                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          for (var i = 0;
+                              i < (screenwidth - (screenwidth / 1.3));
+                              i++)
+                            Container(
+                              color: i % 2 == 0
+                                  ? flyternGrey40
+                                  : Colors.transparent,
+                              height: 1,
+                              width: 3,
+                            ),
                         ],
                       ),
-                    ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      for (var i = 0;
-                          i < (screenwidth - (screenwidth / 1.3));
-                          i++)
-                        Container(
-                          color:
-                              i % 2 == 0 ? flyternGrey40 : Colors.transparent,
-                          height: 1,
-                          width: 3,
+                      addVerticalSpace(flyternSpaceMedium),
+                      Visibility(
+                        visible: profileController
+                            .myFlightBookingResponse[index]
+                            .myFlightBookingListRecords
+                            .isNotEmpty,
+                        child: Row(
+                          children: [
+                            for (var i = 0;
+                                i <
+                                    (profileController
+                                                .myFlightBookingResponse[index]
+                                                .myFlightBookingListRecords
+                                                .length >
+                                            3
+                                        ? 3
+                                        : profileController
+                                            .myFlightBookingResponse[index]
+                                            .myFlightBookingListRecords
+                                            .length);
+                                i++)
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: i == 0
+                                      ? CrossAxisAlignment.start
+                                      : i == 1
+                                          ? CrossAxisAlignment.center
+                                          : CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      profileController
+                                          .myFlightBookingResponse[index]
+                                          .myFlightBookingListRecords[i]
+                                          .title,
+                                      style: getLabelLargeStyle(context)
+                                          .copyWith(
+                                              color: flyternGrey40,
+                                              fontWeight: FontWeight.w400),
+                                    ),
+                                    addVerticalSpace(flyternSpaceExtraSmall),
+                                    Text(
+                                      profileController
+                                          .myFlightBookingResponse[index]
+                                          .myFlightBookingListRecords[i]
+                                          .information,
+                                      style: getLabelLargeStyle(context)
+                                          .copyWith(
+                                              color: flyternGrey80,
+                                              fontWeight:
+                                                  flyternFontWeightBold),
+                                    ),
+                                  ],
+                                ),
+                              )
+                          ],
                         ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: flyternSpaceSmall),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(
+                                  flyternBorderRadiusExtraSmall)),
+                              child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    padding: MaterialStateProperty.all<
+                                            EdgeInsetsGeometry>(
+                                        EdgeInsets.symmetric(
+                                            horizontal: 0,
+                                            vertical: flyternSpaceExtraSmall)),
+                                  ),
+                                  onPressed: () {
+                                    if (!flightBookingController
+                                        .isFlightConfirmationDataLoading
+                                        .value) {
+                                      flightBookingController
+                                          .getConfirmationData(
+                                              profileController
+                                                  .myFlightBookingResponse
+                                                  .value[index]
+                                                  .bookingRef,
+                                              true)
+                                          .then((value) => {restCurrentRef()});
+                                      currentBookingRef = profileController
+                                          .myFlightBookingResponse
+                                          .value[index]
+                                          .bookingRef;
+
+                                      setState(() {});
+                                    }
+                                  },
+                                  child: (flightBookingController
+                                              .isFlightConfirmationDataLoading
+                                              .value &&
+                                          currentBookingRef ==
+                                              profileController
+                                                  .myFlightBookingResponse
+                                                  .value[index]
+                                                  .bookingRef)
+                                      ? LoadingAnimationWidget.prograssiveDots(
+                                          color: flyternBackgroundWhite,
+                                          size: 20,
+                                        )
+                                      : Icon(
+                                          Localizations.localeOf(context)
+                                                      .languageCode
+                                                      .toString() ==
+                                                  'ar'
+                                              ? Ionicons.chevron_back
+                                              : Ionicons.chevron_forward,
+                                        )),
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
-                  addVerticalSpace(flyternSpaceMedium),
-                  Visibility(
-                    visible: profileController.myFlightBookingResponse[index]
-                            .myFlightBookingListRecords.isNotEmpty ,
-                    child: Row(
-                      children: [
-                        for (var i = 0;
-                            i <(profileController.myFlightBookingResponse[index]
-                                .myFlightBookingListRecords.length>3?3:profileController
-                                .myFlightBookingResponse[index]
-                                .myFlightBookingListRecords.length);
-                            i++)
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: i == 0
-                                  ? CrossAxisAlignment.start
-                                  : i == 1
-                                      ? CrossAxisAlignment.center
-                                      : CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  profileController
-                                      .myFlightBookingResponse[index]
-                                      .myFlightBookingListRecords[i]
-                                      .title,
-                                  style: getLabelLargeStyle(context).copyWith(
-                                      color: flyternGrey40,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                                addVerticalSpace(flyternSpaceExtraSmall),
-                                Text(
-                                  profileController
-                                      .myFlightBookingResponse[index]
-                                      .myFlightBookingListRecords[i]
-                                      .information,
-                                  style: getLabelLargeStyle(context).copyWith(
-                                      color: flyternGrey80,
-                                      fontWeight: flyternFontWeightBold),
-                                ),
-                              ],
-                            ),
-                          )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: flyternSpaceSmall),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(flyternBorderRadiusExtraSmall)),
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                padding:
-                                MaterialStateProperty.all<EdgeInsetsGeometry>(
-                                    EdgeInsets.symmetric(
-                                        horizontal: 0,
-                                        vertical: flyternSpaceExtraSmall)),
-                              ),
-                              onPressed: () {
-                                if(!flightBookingController
-                                    .isFlightConfirmationDataLoading
-                                    .value){
-
-                                  flightBookingController.getConfirmationData(
-                                      profileController.myFlightBookingResponse
-                                          .value[index].bookingRef,
-                                      true).then((value) => {
-                                    restCurrentRef()
-                                  });
-                                  currentBookingRef = profileController.myFlightBookingResponse
-                                      .value[index].bookingRef;
-
-                                  setState(() {
-                                  });
-
-                                }
-
-                              },
-                              child: (flightBookingController
-                                  .isFlightConfirmationDataLoading
-                                  .value &&
-                                  currentBookingRef  == profileController.myFlightBookingResponse
-                                      .value[index].bookingRef)
-                                  ? LoadingAnimationWidget.prograssiveDots(
-                                color: flyternBackgroundWhite,
-                                size: 20,
-                              )
-                                  : Icon(Localizations.localeOf(context)
-                                  .languageCode
-                                  .toString() ==
-                                  'ar'? Ionicons.chevron_back :Ionicons.chevron_forward, )),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                ))
+        : Container(
+            width: screenwidth,
+            height: screenheight,
+            child: Center(
+              child: Center(
+                child: Text("no_item".tr, style: getBodyMediumStyle(context)),
               ),
-            ));
+            ),
+          );
     // ListView.builder(
     //   children: [
     //     // addVerticalSpace(flyternSpaceLarge),
@@ -314,10 +372,9 @@ class _ProfileFlightBookingsListState extends State<ProfileFlightBookingsList> {
     }
     return toCountry;
   }
-  restCurrentRef() {
-    currentBookingRef="";
-    setState(() {
-    });
-  }
 
+  restCurrentRef() {
+    currentBookingRef = "";
+    setState(() {});
+  }
 }

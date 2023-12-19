@@ -71,7 +71,7 @@ class RegisterController extends GetxController {
       if(userIdFromApi != ""){
         userId.value = userIdFromApi;
         Get.toNamed(Approute_registerOtp,arguments: [Approute_registerPersonalData,
-          "${emailFieldController.value.text}",userId.value])
+          "${selectedCountry.value.code} ${mobileController.value.text}",userId.value])
             ?.then((value) async {
 
           if(value is AuthToken){

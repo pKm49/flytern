@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/traveller_info.hotel_booking.model.dart';
@@ -47,7 +49,7 @@ class _HotelUserDetailsSubmissionFormState
   String title = "0";
   final sharedController = Get.find<SharedController>();
   final hotelBookingController = Get.find<HotelBookingController>();
-
+  late Timer repeater;
   final GlobalKey<FormState> userDetailsForm = GlobalKey<FormState>();
   final GlobalKey<FormState> genderDropDownKey = GlobalKey<FormState>();
   final GlobalKey<FormState> titleDropDownKey = GlobalKey<FormState>();
@@ -60,7 +62,15 @@ class _HotelUserDetailsSubmissionFormState
   void initState() {
     // TODO: implement initState
     super.initState();
+    setSetStateTimer();
    }
+
+   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    repeater.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -269,8 +279,8 @@ class _HotelUserDetailsSubmissionFormState
         userIndex: -1,
         travellerType: "",
         title: selectedTitle.code,
-        firstName: firstNameController.text,
-        lastName: lastNameController.text,
+        firstName: firstNameController.value.text,
+        lastName: lastNameController.value.text,
         gender: selectedGender.code,
         hotelOptionid: 1,
         roomId: 1));
@@ -324,5 +334,12 @@ class _HotelUserDetailsSubmissionFormState
 
 
   }
+  Future<void> setSetStateTimer() async {
+    await Future.delayed(const Duration(seconds: 2));
+    repeater = Timer.periodic(new Duration(seconds: 1), (timer) {
+      setState(() {
 
+      });
+    });
+  }
 }

@@ -75,11 +75,14 @@ class _AllTravellStoriesPageState extends State<AllTravellStoriesPage> {
                     createdOn: DefaultInvalidDate,
                     title: "",
                     status: "",
+                    previewImgUrl: flightBookingController.travelStories[i].previewImgUrl,
                     profilePicUrl: flightBookingController.travelStories[i].profileUrl,
                     name: flightBookingController.travelStories[i].name,
                     ratings:flightBookingController.travelStories[i].ratings,
                     description: flightBookingController.travelStories[i].shortDesc,
                     imageUrl: flightBookingController.travelStories[i].url,
+                    fileType: flightBookingController.travelStories[i].urlType,
+
                   ),
                 );
               }),

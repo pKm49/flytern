@@ -6,6 +6,7 @@ import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
+import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -62,82 +63,119 @@ class _HotelUserDetailsSubmissionPageState
           title: Text("submit_traveller_details".tr),
           elevation: .3,
         ),
-        body: Container(
-          width: screenwidth,
-          height: screenheight,
-          color: flyternGrey10,
-          child: Column(
-            children: [
-              Visibility(
-                visible: tabLength > 1,
+        body: Stack(
+          children: [
+            Visibility(
+                visible: hotelBookingController
+                    .isHotelTravellerDataSaveLoading.value,
                 child: Container(
-                    padding: flyternMediumPaddingHorizontal,
-                    decoration: BoxDecoration(
-                        border: flyternDefaultBorderBottomOnly,
-                        color: flyternBackgroundWhite),
-                    child: TabBar(
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        labelPadding: EdgeInsets.zero,
-                        indicatorColor: flyternSecondaryColor,
-                        indicatorWeight: 2,
-                        padding: EdgeInsets.zero,
-                        controller: tabController,
-                        labelColor: flyternSecondaryColor,
-                        labelStyle: const TextStyle(
+                  width: screenwidth,
+                  height: screenheight * .9,
+                  color: flyternGrey10,
+                  child: Center(
+                      child: Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        alignment: WrapAlignment.center,
+                        children: [
+                          LoadingAnimationWidget.prograssiveDots(
                             color: flyternSecondaryColor,
-                            fontWeight: FontWeight.bold),
-                        unselectedLabelColor: flyternGrey40,
-                        tabs: <Tab>[
-                          for (var i = 0; i < tabLength; i++)
-                            Tab(text: "${'room'.tr}-${i + 1}"),
-                        ])),
-              ),
-              Expanded(
-                  child: TabBarView(
-                controller: tabController,
-                children: [
-                  for (var i = 0; i < tabLength; i++)
-                    ListView.builder(
-                      itemBuilder: (context, index) {
-                        return Container(
-                          padding: flyternLargePaddingHorizontal,
-                          color: flyternBackgroundWhite,
-                          child: ExpansionTile(
-                            maintainState: true,
-                            initiallyExpanded: index == 0,
-                            tilePadding: EdgeInsets.zero,
-                            controller: roomsExpansionControllers[i][index],
-                            title: Text(
-                                "${roomsExpansionControllerKeys[i][index].value.toString().split("-")[0]}"),
-                            children: <Widget>[
-                              Container(
-                                  padding: EdgeInsets.only(
-                                      bottom: flyternSpaceLarge),
-                                  color: flyternBackgroundWhite,
-                                  child: HotelUserDetailsSubmissionForm(
-                                    roomIndex: i,
-                                    userIndex: index + 1,
-                                    hotelBookingController:
-                                        hotelBookingController,
-                                    dataSubmitted:
-                                        (HotelTravelInfo travelInfo) {
-                                      updateTravellerInfor(
-                                          i, index + 1, travelInfo);
-                                    },
-                                  ))
-                            ],
+                            size: 50,
                           ),
-                        );
-                      },
-                      itemCount: roomsExpansionControllers[i].length,
+                          Padding(
+                            padding: flyternLargePaddingAll,
+                            child: DataCapsuleCard(
+                              label: "hotel_traveller_submission_message".tr,
+                              theme: 1,
+                            ),
+                          ),
+                        ],
+                      )),
+                )),
+            Visibility(
+              visible: !hotelBookingController
+                  .isHotelTravellerDataSaveLoading.value,
+              child: Container(
+                width: screenwidth,
+                height: screenheight,
+                color: flyternGrey10,
+                child: Column(
+                  children: [
+                    Visibility(
+                      visible: tabLength > 1,
+                      child: Container(
+                          padding: flyternMediumPaddingHorizontal,
+                          decoration: BoxDecoration(
+                              border: flyternDefaultBorderBottomOnly,
+                              color: flyternBackgroundWhite),
+                          child: TabBar(
+                              indicatorSize: TabBarIndicatorSize.tab,
+                              labelPadding: EdgeInsets.zero,
+                              indicatorColor: flyternSecondaryColor,
+                              indicatorWeight: 2,
+                              padding: EdgeInsets.zero,
+                              controller: tabController,
+                              labelColor: flyternSecondaryColor,
+                              labelStyle: const TextStyle(
+                                  color: flyternSecondaryColor,
+                                  fontWeight: FontWeight.bold),
+                              unselectedLabelColor: flyternGrey40,
+                              tabs: <Tab>[
+                                for (var i = 0; i < tabLength; i++)
+                                  Tab(text: "${'room'.tr}-${i + 1}"),
+                              ])),
                     ),
-                ],
-              )),
-              addVerticalSpace(flyternSpaceLarge * 4)
-            ],
-          ),
+                    Expanded(
+                        child: TabBarView(
+                      controller: tabController,
+                      children: [
+                        for (var i = 0; i < tabLength; i++)
+                          ListView.builder(
+                            itemBuilder: (context, index) {
+                              return Container(
+                                padding: flyternLargePaddingHorizontal,
+                                color: flyternBackgroundWhite,
+                                child: ExpansionTile(
+                                  maintainState: true,
+                                  initiallyExpanded: index == 0,
+                                  tilePadding: EdgeInsets.zero,
+                                  controller: roomsExpansionControllers[i][index],
+                                  title: Text(
+                                      "${roomsExpansionControllerKeys[i][index].value.toString().split("-")[0]}"),
+                                  children: <Widget>[
+                                    Container(
+                                        padding: EdgeInsets.only(
+                                            bottom: flyternSpaceLarge),
+                                        color: flyternBackgroundWhite,
+                                        child: HotelUserDetailsSubmissionForm(
+                                          roomIndex: i,
+                                          userIndex: index + 1,
+                                          hotelBookingController:
+                                              hotelBookingController,
+                                          dataSubmitted:
+                                              (HotelTravelInfo travelInfo) {
+                                            updateTravellerInfor(
+                                                i, index + 1, travelInfo);
+                                          },
+                                        ))
+                                  ],
+                                ),
+                              );
+                            },
+                            itemCount: roomsExpansionControllers[i].length,
+                          ),
+                      ],
+                    )),
+                    addVerticalSpace(flyternSpaceLarge * 4)
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
-        bottomSheet: Container(
+        bottomSheet: hotelBookingController
+            .isHotelTravellerDataSaveLoading.value
+            ? Container(width: screenwidth, height: 60)
+        :Container(
           width: screenwidth,
           color: flyternBackgroundWhite,
           height: 60 + (flyternSpaceSmall * 2),
@@ -148,7 +186,9 @@ class _HotelUserDetailsSubmissionPageState
               width: double.infinity,
               child: ElevatedButton(
                   style: getElevatedButtonStyle(context),
-                  onPressed: () {
+                  onPressed: () async {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    await Future.delayed(const Duration(seconds: 1)); 
                     hotelBookingController.saveTravellersData(
                         hotelBookingController.travelInfo.value);
                   },

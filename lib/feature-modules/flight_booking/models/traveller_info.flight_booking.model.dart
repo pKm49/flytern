@@ -50,7 +50,7 @@ class TravelInfo {
 TravelInfo mapTravelInfo(dynamic payload) {
   return TravelInfo(
     no: payload["no"] ?? -1,
-    selectedCopaxId: payload["selectedCopaxId"] ?? "0",
+    selectedCopaxId: payload["selectedCopaxId"] ?? "-1",
     frequentFlyerNo: payload["frequentFlyerNo"] ?? "",
     travellerType: payload["travellerType"] ?? "",
     title: payload["title"] ?? "",

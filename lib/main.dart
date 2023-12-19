@@ -1,4 +1,6 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flytern/core-module/controllers/core.controller.dart';
 import 'package:flytern/core-module/controllers/localization.core.controller.dart';
@@ -18,17 +20,36 @@ import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
+  NotificationController notificationController = NotificationController();
+  notificationController.setupInteractedMessage( );
+  // await NotificationController.initializeRemoteNotifications(debug: true);
+  // await NotificationController.initializeIsolateReceivePort();
+  // await NotificationController.getInitialNotificationAction();
 
-  await NotificationController.initializeLocalNotifications(debug: true);
-  await NotificationController.initializeRemoteNotifications(debug: true);
-  await NotificationController.initializeIsolateReceivePort();
-  await NotificationController.getInitialNotificationAction();
 
+
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
+  await Permission.notification.isDenied.then((value) {
+    if (value) {
+      Permission.notification.request();
+    }
+  });
+
+  // await Permission.notification.isDenied.then(
+  //       (bool value) {
+  //     if (value) {
+  //       Permission.notification.request();
+  //     }
+  //   },
+  // );
+
 }
 
 ThemeManager _themeManager = ThemeManager();
@@ -67,8 +88,8 @@ class _MyAppState extends State<MyApp> {
 
     CoreTranslationController.initLanguages();
     _themeManager.addListener(themeListener);
-    NotificationController.startListeningNotificationEvents();
-    NotificationController.requestFirebaseToken();
+    // NotificationController.startListeningNotificationEvents();
+    // NotificationController.requestFirebaseToken();
     super.initState();
   }
 

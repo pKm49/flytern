@@ -25,6 +25,13 @@ class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
   final GlobalKey<FormState> updateProfileFormKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    profileController.updateEditForm(profileController.userDetails.value);
+  }
+
+  @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
@@ -35,67 +42,70 @@ class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
           elevation: 0.5,
         ),
         body: Obx(
-          () => Container(
-            width: screenwidth,
-            height: screenheight,
-            color: flyternGrey10,
-            child: ListView(
-              children: [
-                Container(
-                  padding: flyternLargePaddingAll,
-                  color: flyternBackgroundWhite,
-                  margin: flyternMediumPaddingVertical,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: InkWell(
-                          onTap: openCountrySelector,
-                          child: Container(
-                            decoration: flyternBorderedContainerSmallDecoration
-                                .copyWith(
-                                    color: flyternGrey10,
-                                    border: Border.all(
-                                        color: Colors.transparent, width: 0)),
-                            padding: flyternMediumPaddingAll.copyWith(
-                                top: flyternSpaceLarge,
-                                bottom: flyternSpaceLarge),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.network(
-                                    profileController
-                                        .selectedCountry.value.flag,
-                                    width: 17),
-                                addHorizontalSpace(flyternSpaceSmall),
-                                Expanded(
-                                  child: Text(
+          () => Form(
+            key: updateProfileFormKey,
+            child: Container(
+              width: screenwidth,
+              height: screenheight,
+              color: flyternGrey10,
+              child: ListView(
+                children: [
+                  Container(
+                    padding: flyternLargePaddingAll,
+                    color: flyternBackgroundWhite,
+                    margin: flyternMediumPaddingVertical,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: InkWell(
+                            onTap: openCountrySelector,
+                            child: Container(
+                              decoration: flyternBorderedContainerSmallDecoration
+                                  .copyWith(
+                                      color: flyternGrey20,
+                                      border: Border.all(
+                                          color: flyternGrey40, width: 0)),
+                              padding: flyternMediumPaddingAll.copyWith(
+                                  top: flyternSpaceMedium,
+                                  bottom: flyternSpaceMedium),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.network(
                                       profileController
-                                          .selectedCountry.value.code,
-                                      style: getBodyMediumStyle(context)),
-                                ),
-                              ],
+                                          .selectedCountry.value.flag,
+                                      width: 17),
+                                  addHorizontalSpace(flyternSpaceSmall),
+                                  Expanded(
+                                    child: Text(
+                                        profileController
+                                            .selectedCountry.value.code,
+                                        style: getBodyMediumStyle(context)),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      addHorizontalSpace(flyternSpaceMedium),
-                      Expanded(
-                        flex: 5,
-                        child: TextFormField(
-                            controller:
-                                profileController.mobileController.value,
-                            validator: (value) =>
-                                checkIfMobileNumberValid(value),
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: "mobile".tr,
-                            )),
-                      ),
-                    ],
+                        addHorizontalSpace(flyternSpaceMedium),
+                        Expanded(
+                          flex: 5,
+                          child: TextFormField(
+                              controller:
+                                  profileController.mobileController.value,
+                              validator: (value) =>
+                                  checkIfMobileNumberValid(value),
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                labelText: "mobile".tr,
+                              )),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -115,6 +125,7 @@ class _ProfileEditMobilePageState extends State<ProfileEditMobilePage> {
 
                       if (profileController.mobileController.value.text !=
                               profileController.userDetails.value.phoneNumber &&
+                          updateProfileFormKey.currentState!.validate()   &&
                           !profileController.isMobileSubmitting.value) {
                         FocusManager.instance.primaryFocus?.unfocus();
                         profileController.sendOTP(true);

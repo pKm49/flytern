@@ -195,6 +195,12 @@ class _ProfileViewProfilePageState extends State<ProfileViewProfilePage> {
   }
 
   String getFormattedDOB(DateTime dateOfBirth) {
+
+    if(( dateOfBirth.day == DefaultInvalidDate.day &&
+        dateOfBirth.month == DefaultInvalidDate.month &&
+        dateOfBirth.year == DefaultInvalidDate.year )){
+      return "";
+    }
     final f = DateFormat.yMMMMd('en_US');
     return f.format(dateOfBirth);
   }

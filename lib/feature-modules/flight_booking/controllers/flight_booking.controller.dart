@@ -83,6 +83,7 @@ class FlightBookingController extends GetxController {
   var addonMeals = <FlightAddonMeal>[].obs;
   var addonExtraPackages = <FlightAddonExtraPackage>[].obs;
 
+
   var isTravelStoriesLoading = false.obs;
   var isTravelStoriesPageLoading = false.obs;
   var isRecommendedLoading = false.obs;
@@ -184,11 +185,9 @@ class FlightBookingController extends GetxController {
   }
 
   Future<void> getInitialInfo() async {
+    sharedController.setDeviceLanguageAndCountry(false,false);
     ExploreData exploreData = await flightBookingHttpService.getInitialInfo();
 
-    print(exploreData.cabinClasses.length);
-    print(exploreData.recommendedPackages.length);
-    print(exploreData.popularDestinations.length);
     cabinClasses.value = exploreData.cabinClasses;
     recommendedPackages.value = exploreData.recommendedPackages;
     popularDestinations.value = exploreData.popularDestinations;
@@ -385,6 +384,7 @@ class FlightBookingController extends GetxController {
 
   Future<void> getPreTravellerData(int tempDetailId) async {
     if (!isFlightPretravellerDataLoading.value) {
+
       isFlightPretravellerDataLoading.value = true;
       detailId.value = tempDetailId;
       FlightPretravellerData tempFlightPretravellerData =
@@ -783,6 +783,7 @@ class FlightBookingController extends GetxController {
 
   void updateTravellerInfo(List<TravelInfo> tempTravelInfo) {
     travelInfo.value = tempTravelInfo;
+
   }
 
   void addTravellerInfo(TravelInfo tTravelInfo) {
@@ -790,4 +791,8 @@ class FlightBookingController extends GetxController {
     tempTravelInfo.add(tTravelInfo);
     travelInfo.value = tempTravelInfo;
   }
+
+
+
+
 }

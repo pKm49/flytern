@@ -137,7 +137,7 @@ extension HotelBookingControllerSetter on HotelBookingController {
           validityString = validityString.replaceAll("-2",
               "${travelInfo[i].roomIndex+1}");
         }else{
-          if(travelInfo[i].travellerType == "Adult"){
+          if(travelInfo[i].travellerType == "Child"){
             validityString = "enter_title_hotel_room_child".tr.replaceAll("-1",
                 "${travelInfo[i].typeIndex}");
             validityString = validityString.replaceAll("-2",
@@ -149,7 +149,7 @@ extension HotelBookingControllerSetter on HotelBookingController {
         break;
       }
       print(travelInfo[i].firstName);
-      if (travelInfo[i].firstName == "") {
+      if (travelInfo[i].firstName.length<3) {
 
         if(travelInfo[i].travellerType == "Adult"){
           validityString = "enter_firstname_hotel_room_adult".tr.replaceAll("-1",
@@ -157,7 +157,7 @@ extension HotelBookingControllerSetter on HotelBookingController {
           validityString = validityString.replaceAll("-2",
               "${travelInfo[i].roomIndex+1}");
         }else{
-          if(travelInfo[i].travellerType == "Adult"){
+          if(travelInfo[i].travellerType == "Child"){
             validityString = "enter_firstname_hotel_room_child".tr.replaceAll("-1",
                 "${travelInfo[i].typeIndex}");
             validityString = validityString.replaceAll("-2",
@@ -168,14 +168,14 @@ extension HotelBookingControllerSetter on HotelBookingController {
         break;
       }
       print(travelInfo[i].lastName);
-      if (travelInfo[i].lastName == "") {
+      if (travelInfo[i].lastName.length<3) {
         if(travelInfo[i].travellerType == "Adult"){
           validityString = "enter_lastname_hotel_room_adult".tr.replaceAll("-1",
               "${travelInfo[i].typeIndex}");
           validityString = validityString.replaceAll("-2",
               "${travelInfo[i].roomIndex+1}");
         }else{
-          if(travelInfo[i].travellerType == "Adult"){
+          if(travelInfo[i].travellerType == "Child"){
             validityString = "enter_lastname_hotel_room_child".tr.replaceAll("-1",
                 "${travelInfo[i].typeIndex}");
             validityString = validityString.replaceAll("-2",
@@ -194,7 +194,7 @@ extension HotelBookingControllerSetter on HotelBookingController {
           validityString = validityString.replaceAll("-2",
               "${travelInfo[i].roomIndex+1}");
         }else{
-          if(travelInfo[i].travellerType == "Adult"){
+          if(travelInfo[i].travellerType == "Child"){
             validityString = "enter_gender_hotel_room_child".tr.replaceAll("-1",
                 "${travelInfo[i].typeIndex}");
             validityString = validityString.replaceAll("-2",

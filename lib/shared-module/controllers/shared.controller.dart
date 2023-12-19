@@ -127,11 +127,11 @@ class SharedController extends GetxController {
           selectedMobileCountry != '' ){
         Get.offAllNamed(Approute_landingpage);
       }
+      await Future.delayed(const Duration(seconds: 1));
       isAuthTokenSet.value = true;
     }
 
     final sharedController = Get.find<SharedController>();
-     setDeviceLanguageAndCountry(false,false);
     sharedController.getInitialInfo();
     sharedController.getPreRegisterInfo();
   }
@@ -144,8 +144,11 @@ class SharedController extends GetxController {
         expiryOn: DateTime.now(),
         isGuest: true);
     saveAuthTokenToSharedPreference(authToken);
-    setAuthToken();
-    Get.offAllNamed(Approute_login);
+    AuthToken tauthToken = await sharedHttpService.getGuestToken();
+    if (tauthToken.accessToken != "") {
+      saveAuthTokenToSharedPreference(tauthToken);
+    }
+    Get.offAllNamed(Approute_authSelector);
   }
 
 
@@ -271,7 +274,7 @@ class SharedController extends GetxController {
 
   Future<String> getFirebaseMessagingToken() async {
     try{
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 3));
       String firebaseMessagingToken = await FirebaseMessaging.instance.getToken()??"";
       print("firebaseMessagingToken");
       print(firebaseMessagingToken);
@@ -291,10 +294,17 @@ class SharedController extends GetxController {
     if (userId != "" && otpResendCount.value<3) {
       isOtpSubmitting.value = true;
       try {
-        await sharedHttpService.resendOtp(userId);
-        otpResendCount.value = otpResendCount.value +1;
-        showSnackbar(Get.context!, "otp_resend".tr, "info");
-        isOtpSubmitting.value = false;
+       bool isSuccess = await sharedHttpService.resendOtp(userId);
+
+       if (isSuccess) {
+         otpResendCount.value = otpResendCount.value +1;
+         showSnackbar(Get.context!, "otp_resend".tr, "info");
+         isOtpSubmitting.value = false;
+       }else{
+         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+         isOtpSubmitting.value = false;
+       }
+
       } catch (e, t) {
          showSnackbar(Get.context!, e.toString(), "error");
         isOtpSubmitting.value = false;
@@ -310,6 +320,9 @@ class SharedController extends GetxController {
 
         if (authToken.accessToken != "") {
           Get.back(result: authToken);
+          isOtpSubmitting.value = false;
+        }else{
+          showSnackbar(Get.context!, "something_went_wrong".tr, "error");
           isOtpSubmitting.value = false;
         }
       } catch (e, stack) {
@@ -470,6 +483,8 @@ class SharedController extends GetxController {
   }
 
   void changePaymentGatewayLoading(bool status) {
+    print("changePaymentGatewayLoading");
+    print(status);
     paymentGatewayIsLoading.value = status;
   }
 

@@ -6,6 +6,7 @@ import 'package:flytern/shared-module/models/business_doc.dart';
  import 'package:flytern/shared-module/models/info_response_data.dart';
 import 'package:flytern/shared-module/models/support_info.dart';
 import 'package:flytern/shared-module/services/http-services/http_request_handler.shared.service.dart';
+import 'package:get/get.dart';
 
 class SharedHttpService {
 
@@ -152,14 +153,17 @@ class SharedHttpService {
       FlyternHttpResponse response = await postRequest(
           SharedHttpRequestEndpointVerifyOTP, {"otp": otp, "userID": userId});
 
+      print("verifyOtp");
+      print(response.data);
+      print(response.success);
       if (response.success && (response.statusCode == 200 || response.statusCode == 202)) {
         AuthToken authToken = mapAuthToken(response.data, false);
         return authToken;
       } else {
-        return mapAuthToken({},true);
+        throw response.data is String?response.data:"something_went_wrong".tr;
       }
     } catch (e) {
-      return mapAuthToken({},true);
+      rethrow;
     }
   }
 

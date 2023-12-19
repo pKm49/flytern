@@ -43,7 +43,7 @@ HotelTravelInfo mapHotelTravelInfo(dynamic payload) {
     typeIndex: payload["typeIndex"] ?? -1,
     roomIndex: payload["roomIndex"] ?? -1,
     userIndex: payload["userIndex"] ?? -1,
-    selectedCopaxId: payload["selectedCopaxId"] ?? "0",
+    selectedCopaxId: payload["selectedCopaxId"] ?? "-1",
     roomId: payload["roomId"] ?? -1,
     hotelOptionid: payload["hotelOptionid"] ?? -1,
     title: payload["title"] ?? "",

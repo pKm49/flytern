@@ -354,9 +354,9 @@ class _BookingOptionsSelectorState extends State<BookingOptionsSelector> {
                                 child: DropDownSelector(
                                   validator: (value) => null,
                                   titleText: "",
-                                  selected: "0",
+                                  selected: "1",
                                   items: [
-                                    for (var ind = 0; ind < 17; ind++)
+                                    for (var ind = 1; ind < 17; ind++)
                                       GeneralItem(
                                           id: ind.toString(),
                                           name: ind.toString(),

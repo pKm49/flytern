@@ -14,6 +14,7 @@ class UserTravelStory {
   final String fileType;
   final DateTime createdOn;
   final String profileUrl;
+  final String previewImgUrl;
 
   UserTravelStory({
     required this.tripSummary, required this.firstName, required this.fileUrl,
@@ -22,6 +23,7 @@ class UserTravelStory {
     required this.title,
     required this.createdOn,
     required this.rating,
+    required this.previewImgUrl,
   });
 
   Map toJson() => {
@@ -33,10 +35,15 @@ class UserTravelStory {
 }
 
 UserTravelStory mapUserTravelStory(dynamic payload){
+
+  print("mapUserTravelStory");
+  print(payload["fileType"]);
+  print(payload["fileUrl"]);
   return UserTravelStory(
     rating:payload["rating"]??-1,
     id :payload["id"]??-1,
     title :payload["title"]??"",
+    previewImgUrl :payload["previewImgUrl"]??"",
     createdOn :(payload["createdOn"] != null && payload["createdOn"] != "")?
     DateTime.parse(payload["createdOn"]): DefaultInvalidDate,
     tripSummary: payload["tripSummary"]??"",

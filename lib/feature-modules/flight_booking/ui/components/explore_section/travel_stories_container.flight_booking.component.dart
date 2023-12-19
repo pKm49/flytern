@@ -22,20 +22,25 @@ class TravelStoriesContainer extends StatelessWidget {
       color: flyternBackgroundWhite,
       child: Wrap(
         children: [
-          for (var i = 0; i < (travelStories.length>5?5:travelStories.length); i++)
+          for (var i = 0;
+              i < (travelStories.length > 5 ? 5 : travelStories.length);
+              i++)
             Container(
-              decoration: BoxDecoration(border:
-              i==(travelStories.length-1)?null:
-              flyternDefaultBorderBottomOnly),
+              decoration: BoxDecoration(
+                  border: i == (travelStories.length - 1)
+                      ? null
+                      : flyternDefaultBorderBottomOnly),
               child: TravelStoriesItemCard(
                 createdOn: DefaultInvalidDate,
                 title: "",
                 status: "",
+                previewImgUrl: travelStories[i].previewImgUrl,
                 profilePicUrl: travelStories[i].profileUrl,
                 name: travelStories[i].name,
-                ratings:travelStories[i].ratings,
+                ratings: travelStories[i].ratings,
                 description: travelStories[i].shortDesc,
                 imageUrl: travelStories[i].url,
+                fileType: travelStories[i].urlType,
               ),
             ),
         ],

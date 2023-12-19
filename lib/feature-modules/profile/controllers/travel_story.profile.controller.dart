@@ -55,7 +55,10 @@ class TravelStoryController extends GetxController {
        isSubmitting.value = false;
        showSnackbar(Get.context!,"travel_story_created".tr,"info");
        await getUserTravelStories();
-
+     }else{
+       Get.back();
+       showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+       isSubmitting.value = false;
      }
 
     }catch (e){

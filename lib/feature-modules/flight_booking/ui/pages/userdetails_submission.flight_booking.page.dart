@@ -6,6 +6,7 @@ import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
+import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -67,138 +68,175 @@ class _FlightUserDetailsSubmissionPageState
           title: Text("submit_traveller_details".tr),
           elevation: .3,
         ),
-        body: Container(
-          width: screenwidth,
-          height: screenheight,
-          color: flyternGrey10,
-          child: Column(
-            children: [
-              Visibility(
-                visible: tabLength>1,
+        body: Stack(
+          children: [
+            Visibility(
+                visible: flightBookingController
+                    .isFlightTravellerDataSaveLoading.value,
                 child: Container(
-                    padding: flyternMediumPaddingHorizontal,
-                    decoration: BoxDecoration(
-                        border: flyternDefaultBorderBottomOnly,
-                        color: flyternBackgroundWhite),
-                    child: TabBar(
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        labelPadding: EdgeInsets.zero,
-                        indicatorColor: flyternSecondaryColor,
-                        indicatorWeight: 2,
-                        padding: EdgeInsets.zero,
-                        controller: tabController,
-                        labelColor: flyternSecondaryColor,
-                        labelStyle: const TextStyle(
+                  width: screenwidth,
+                  height: screenheight * .9,
+                  color: flyternGrey10,
+                  child: Center(
+                      child: Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        alignment: WrapAlignment.center,
+                        children: [
+                          LoadingAnimationWidget.prograssiveDots(
                             color: flyternSecondaryColor,
-                            fontWeight: FontWeight.bold),
-                        unselectedLabelColor: flyternGrey40,
-                        tabs: <Tab>[
-                          for (var i = 0; i < tabLength; i++)
-                            Tab(
-                                text: i == 0
-                                    ? "${'adults'.tr} (${adultExpansionControllers.length})"
-                                    : i == 1
-                                        ? "${'children'.tr} (${childExpansionControllers.length})"
-                                        : "${'infants'.tr} (${infantExpansionControllers.length})"),
-                        ])),
-              ),
-              Expanded(
-                  child: TabBarView(
-                controller: tabController,
-                children: [
-                  for (var i = 0; i < tabLength; i++)
-                    ListView.builder(
-                      itemBuilder: (context, index) {
-                        return i == 0
-                            ? Container(
-                                padding: flyternLargePaddingHorizontal,
-                                color: flyternBackgroundWhite,
-                                child: ExpansionTile(
-                                  maintainState: true,
-                                  initiallyExpanded: index == 0,
-                                  tilePadding: EdgeInsets.zero,
-                                  controller: adultExpansionControllers[index],
-                                  title: Text("${'adult'.tr} ${index + 1}"),
-                                  children: <Widget>[
-                                    FlightUserDetailsSubmissionForm(
-                                      index: getIndex(0, index),
-                                      itemTypeIndex: 0,
-                                      flightBookingController:
-                                          flightBookingController,
-                                      dataSubmitted: (TravelInfo travelInfo) {
-                                        updateTravellerInfor(
-                                            getIndex(0, index), travelInfo);
-                                      },
-                                    )
-                                  ],
-                                ),
-                              )
-                            : i == 1
-                                ? Container(
-                                    padding: flyternLargePaddingHorizontal,
-                                    color: flyternBackgroundWhite,
-                                    child: ExpansionTile(
-                                      maintainState: true,
-                                      initiallyExpanded: index == 0,
-                                      tilePadding: EdgeInsets.zero,
-                                      controller:
-                                          childExpansionControllers[index],
-                                      title: Text("${'child'.tr} ${index + 1}"),
-                                      children: <Widget>[
-                                        FlightUserDetailsSubmissionForm(
-                                          index: getIndex(1, index),
-                                          itemTypeIndex: 1,
-                                          flightBookingController:
-                                              flightBookingController,
-                                          dataSubmitted:
-                                              (TravelInfo travelInfo) {
-                                            updateTravellerInfor(
-                                                getIndex(1, index), travelInfo);
-                                          },
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                : Container(
-                                    padding: flyternLargePaddingHorizontal,
-                                    color: flyternBackgroundWhite,
-                                    child: ExpansionTile(
-                                      maintainState: true,
-                                      initiallyExpanded: index == 0,
-                                      tilePadding: EdgeInsets.zero,
-                                      controller:
-                                          infantExpansionControllers[index],
-                                      title:
-                                          Text("${'infant'.tr} ${index + 1}"),
-                                      children: <Widget>[
-                                        FlightUserDetailsSubmissionForm(
-                                          index: getIndex(2, index),
-                                          itemTypeIndex: 2,
-                                          flightBookingController:
-                                              flightBookingController,
-                                          dataSubmitted:
-                                              (TravelInfo travelInfo) {
-                                            updateTravellerInfor(
-                                                getIndex(2, index), travelInfo);
-                                          },
-                                        )
-                                      ],
-                                    ),
-                                  );
-                      },
-                      itemCount: i == 0
-                          ? adultExpansionControllers.length
-                          : i == 1
-                              ? childExpansionControllers.length
-                              : infantExpansionControllers.length,
+                            size: 50,
+                          ),
+                          Padding(
+                            padding: flyternLargePaddingAll,
+                            child: DataCapsuleCard(
+                              label: "flight_traveller_submission_message".tr,
+                              theme: 1,
+                            ),
+                          ),
+                        ],
+                      )),
+                )),
+            Visibility(
+              visible: !flightBookingController
+                  .isFlightTravellerDataSaveLoading.value,
+              child: Container(
+                width: screenwidth,
+                height: screenheight,
+                color: flyternGrey10,
+                child: Column(
+                  children: [
+                    Visibility(
+                      visible: tabLength>1,
+                      child: Container(
+                          padding: flyternMediumPaddingHorizontal,
+                          decoration: BoxDecoration(
+                              border: flyternDefaultBorderBottomOnly,
+                              color: flyternBackgroundWhite),
+                          child: TabBar(
+                              indicatorSize: TabBarIndicatorSize.tab,
+                              labelPadding: EdgeInsets.zero,
+                              indicatorColor: flyternSecondaryColor,
+                              indicatorWeight: 2,
+                              padding: EdgeInsets.zero,
+                              controller: tabController,
+                              labelColor: flyternSecondaryColor,
+                              labelStyle: const TextStyle(
+                                  color: flyternSecondaryColor,
+                                  fontWeight: FontWeight.bold),
+                              unselectedLabelColor: flyternGrey40,
+                              tabs: <Tab>[
+                                for (var i = 0; i < tabLength; i++)
+                                  Tab(
+                                      text: i == 0
+                                          ? "${'adults'.tr} (${adultExpansionControllers.length})"
+                                          : i == 1
+                                              ? "${'children'.tr} (${childExpansionControllers.length})"
+                                              : "${'infants'.tr} (${infantExpansionControllers.length})"),
+                              ])),
                     ),
-                ],
-              )),
-              addVerticalSpace(flyternSpaceLarge * 4)
-            ],
-          ),
+                    Expanded(
+                        child: TabBarView(
+                      controller: tabController,
+                      children: [
+                        for (var i = 0; i < tabLength; i++)
+                          ListView.builder(
+                            itemBuilder: (context, index) {
+                              return i == 0
+                                  ? Container(
+                                      padding: flyternLargePaddingHorizontal,
+                                      color: flyternBackgroundWhite,
+                                      child: ExpansionTile(
+                                        maintainState: true,
+                                        initiallyExpanded: index == 0,
+                                        tilePadding: EdgeInsets.zero,
+                                        controller: adultExpansionControllers[index],
+                                        title: Text("${'adult'.tr} ${index + 1}"),
+                                        children: <Widget>[
+                                          FlightUserDetailsSubmissionForm(
+                                            index: getIndex(0, index),
+                                             itemTypeIndex: 0,
+                                            flightBookingController:
+                                                flightBookingController,
+                                            dataSubmitted: (TravelInfo travelInfo) {
+                                              updateTravellerInfor(
+                                                  getIndex(0, index), travelInfo);
+                                            },
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  : i == 1
+                                      ? Container(
+                                          padding: flyternLargePaddingHorizontal,
+                                          color: flyternBackgroundWhite,
+                                          child: ExpansionTile(
+                                            maintainState: true,
+                                            initiallyExpanded: index == 0,
+                                            tilePadding: EdgeInsets.zero,
+                                            controller:
+                                                childExpansionControllers[index],
+                                            title: Text("${'child'.tr} ${index + 1}"),
+                                            children: <Widget>[
+                                              FlightUserDetailsSubmissionForm(
+                                                index: getIndex(1, index),
+                                                 itemTypeIndex: 1,
+                                                flightBookingController:
+                                                    flightBookingController,
+                                                dataSubmitted:
+                                                    (TravelInfo travelInfo) {
+                                                  updateTravellerInfor(
+                                                      getIndex(1, index), travelInfo);
+                                                },
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      : Container(
+                                          padding: flyternLargePaddingHorizontal,
+                                          color: flyternBackgroundWhite,
+                                          child: ExpansionTile(
+                                            maintainState: true,
+                                            initiallyExpanded: index == 0,
+                                            tilePadding: EdgeInsets.zero,
+                                            controller:
+                                                infantExpansionControllers[index],
+                                            title:
+                                                Text("${'infant'.tr} ${index + 1}"),
+                                            children: <Widget>[
+                                              FlightUserDetailsSubmissionForm(
+                                                index: getIndex(2, index),
+                                                itemTypeIndex: 2,
+                                                 flightBookingController:
+                                                    flightBookingController,
+                                                dataSubmitted:
+                                                    (TravelInfo travelInfo) {
+                                                  updateTravellerInfor(
+                                                      getIndex(2, index), travelInfo);
+                                                },
+                                              )
+                                            ],
+                                          ),
+                                        );
+                            },
+                            itemCount: i == 0
+                                ? adultExpansionControllers.length
+                                : i == 1
+                                    ? childExpansionControllers.length
+                                    : infantExpansionControllers.length,
+                          ),
+                      ],
+                    )),
+                    addVerticalSpace(flyternSpaceLarge * 4)
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
-        bottomSheet: Container(
+        bottomSheet: flightBookingController
+            .isFlightTravellerDataSaveLoading.value
+            ? Container(width: screenwidth, height: 60)
+        : Container(
           width: screenwidth,
           color: flyternBackgroundWhite,
           height: 60 + (flyternSpaceSmall * 2),
@@ -209,8 +247,9 @@ class _FlightUserDetailsSubmissionPageState
               width: double.infinity,
               child: ElevatedButton(
                   style: getElevatedButtonStyle(context),
-                  onPressed: () {
+                  onPressed: () async {
                     FocusManager.instance.primaryFocus?.unfocus();
+                    await Future.delayed(const Duration(seconds: 1));
                     flightBookingController.saveTravellersData(flightBookingController.travelInfo.value);
                   },
                   child: flightBookingController
@@ -324,8 +363,6 @@ class _FlightUserDetailsSubmissionPageState
       }
     }
     flightBookingController.updateTravellerInfo(tempTravelInfo);
-
-
   }
 
   getAge(DateTime dateOfBirth) {

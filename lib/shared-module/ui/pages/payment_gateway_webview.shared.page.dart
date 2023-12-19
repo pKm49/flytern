@@ -22,6 +22,7 @@ class _PaymentGatewayWebViewState extends State<PaymentGatewayWebView> {
   String gatewayUrl="";
   String confirmationUrl="";
   String summaryPageUrl="";
+  bool isConfirmationReached = false;
 
   var getArguments = Get.arguments;
   final sharedController = Get.find<SharedController>();
@@ -33,6 +34,7 @@ class _PaymentGatewayWebViewState extends State<PaymentGatewayWebView> {
     // TODO: implement initState
     super.initState();
     setWebviewController();
+
   }
 
   @override
@@ -63,63 +65,69 @@ class _PaymentGatewayWebViewState extends State<PaymentGatewayWebView> {
               appBar: AppBar(
                 title: Text('complete_payment'.tr),
               ),
-              body:  Stack(
-                children: [
-                  Visibility(
-                    visible: sharedController.paymentGatewayIsLoading.value,
-                    child: Container(
-                      width: screenwidth,
-                      height: screenheight,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                  InAppWebView(
-                    initialUrlRequest: URLRequest(url:Uri.parse(gatewayUrl) ),
-                    initialOptions: InAppWebViewGroupOptions(
-                        crossPlatform: InAppWebViewOptions(
+              body:  InAppWebView(
+                initialUrlRequest: URLRequest(url:Uri.parse(gatewayUrl) ),
+                initialOptions: InAppWebViewGroupOptions(
+                    crossPlatform: InAppWebViewOptions(
+                    )
+                ),
+                onReceivedServerTrustAuthRequest: (controller, challenge) async {
+                  return ServerTrustAuthResponse(action: ServerTrustAuthResponseAction.PROCEED);
+                },
+                onWebViewCreated: (InAppWebViewController controller) {
+                  controller = controller;
+                },
+                onUpdateVisitedHistory: (InAppWebViewController controller, Uri? url, bool? flag) {
+                  print("onUpdateVisitedHistory");
+                  print(url);
+                  print(flag);
 
-                        )
-                    ),
-                    onReceivedServerTrustAuthRequest: (controller, challenge) async {
-                      return ServerTrustAuthResponse(action: ServerTrustAuthResponseAction.PROCEED);
-                    },
-                    onWebViewCreated: (InAppWebViewController controller) {
-                      controller = controller;
-                    },
-                    onUpdateVisitedHistory: (InAppWebViewController controller, Uri? url, bool? flag) {
-                      print("onUpdateVisitedHistory");
-                      print(url);
-                      print(flag);
-                      if(url.toString().contains(confirmationUrl) ){
-                        setBack(true);
-                      }
-                    },
-                    onLoadStart: (InAppWebViewController controller, Uri? url) {
-                        print("onLoadStart");
-                        print(url);
-                    },
-                    onLoadStop: (InAppWebViewController controller, Uri? url) async {
-                      print("onLoadStop");
-                      print(url);
+                  if(url.toString().contains(confirmationUrl) ){
+                    setBack(true);
+                  }
+                },
+                onLoadStart: (InAppWebViewController controller, Uri? url) {
+                    print("onLoadStart");
+                    print(url);
+                },
+                onLoadStop: (InAppWebViewController controller, Uri? url) async {
+                  print("onLoadStop");
+                  print(url);
+                  print(!url.toString().contains(confirmationUrl));
+                  if(!url.toString().contains(confirmationUrl) ){
+                    sharedController.changePaymentGatewayLoading(false);
+                  }else{
+                    isConfirmationReached = true;
+                    setState(() {
+
+                    });
+                  }
+
+                },
+                onProgressChanged: (InAppWebViewController controller, int progress) {
+                  print("onProgressChanged");
+                  print(progress);
+                  if(!isConfirmationReached){
+                    if(progress == 100){
                       sharedController.changePaymentGatewayLoading(false);
-                    },
-                    onProgressChanged: (InAppWebViewController controller, int progress) {
-                      print("onProgressChanged");
-                      print(progress);
-                      if(progress == 100){
-                        sharedController.changePaymentGatewayLoading(false);
-                      }else{
-                        sharedController.changePaymentGatewayLoading(true);
-                      }
+                    }else{
+                      sharedController.changePaymentGatewayLoading(true);
+                    }
+                  }
 
-                    },
+
+                },
+              ),
+              bottomSheet: (sharedController.paymentGatewayIsLoading.value || isConfirmationReached)? Container(
+                  width: screenwidth,
+                  height: screenheight,
+                  color: flyternBackgroundWhite,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.black,
+                    ),
                   ),
-                ],
-              )),
+                ):Container(width: screenwidth,height: 1,)),
         ),
       );
 
@@ -129,6 +137,10 @@ class _PaymentGatewayWebViewState extends State<PaymentGatewayWebView> {
     gatewayUrl = getArguments[0];
     confirmationUrl = getArguments[1];
     summaryPageUrl = getArguments[2];
+    isConfirmationReached = false;
+    setState(() {
+
+    });
     // controller = WebViewController()
     //   ..setJavaScriptMode(JavaScriptMode.unrestricted)
     //   ..setBackgroundColor(const Color(0x00000000))

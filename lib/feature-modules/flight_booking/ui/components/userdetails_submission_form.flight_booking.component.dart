@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
 import 'package:flytern/feature-modules/flight_booking/models/traveller_info.flight_booking.model.dart';
@@ -50,9 +52,10 @@ class _FlightUserDetailsSubmissionFormState
   TextEditingController nationalityController = TextEditingController();
   TextEditingController passportIssuedCountryController =
       TextEditingController();
+  final coPaxController = Get.find<CoPaxController>();
 
   Gender selectedTitle = Gender(code: "0", name: "Title", isDefault: false);
-  final coPaxController = Get.find<CoPaxController>();
+
 
   Gender selectedGender = Gender(code: "0", name: "Gender", isDefault: false);
   String selectedPassenger = "-1";
@@ -66,6 +69,7 @@ class _FlightUserDetailsSubmissionFormState
   final GlobalKey<FormState> frequentFlyerDropDownKey = GlobalKey<FormState>();
   final GlobalKey<FormState> selectPassengerDropDownKey =
       GlobalKey<FormState>();
+  late Timer repeater;
 
   final sharedController = Get.find<SharedController>();
 
@@ -87,11 +91,21 @@ class _FlightUserDetailsSubmissionFormState
       flag: "",
       code: "");
 
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    setSetStateTimer();
   }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    repeater.cancel();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -229,26 +243,29 @@ class _FlightUserDetailsSubmissionFormState
                   ))
             ),
 
+
+            Container(
+              padding: EdgeInsets.only(bottom: flyternSpaceMedium),
+              color: flyternBackgroundWhite,
+              child: TextFormField(
+                  readOnly: true,
+                  onTap: () {
+                    openCountrySelector(true);
+                  },
+                  controller: nationalityController,
+                  validator: (value) =>
+                      checkIfNameFormValid(value, "nationality".tr),
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    labelText: "enter_nationality".tr,
+                  )),
+            ),
+
             Container(
               padding: EdgeInsets.only(bottom: flyternSpaceMedium),
               color: flyternBackgroundWhite,
               child: Row(
                 children: [
-                  Expanded(
-                    child: TextFormField(
-                        readOnly: true,
-                        onTap: () {
-                          openCountrySelector(true);
-                        },
-                        controller: nationalityController,
-                        validator: (value) =>
-                            checkIfNameFormValid(value, "nationality".tr),
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          labelText: "enter_nationality".tr,
-                        )),
-                  ),
-                  addHorizontalSpace(flyternSpaceMedium),
                   Expanded(
                     child: TextFormField(
                         readOnly: true,
@@ -264,26 +281,25 @@ class _FlightUserDetailsSubmissionFormState
                           labelText: "dob".tr,
                         )),
                   ),
+                  addHorizontalSpace(flyternSpaceMedium),
+                  Expanded(
+                    child:TextFormField(
+                        inputFormatters: [
+                          FlightUserDataTextFormatter(),
+                        ],
+                        onChanged: updateData(),
+                        controller: passportNumberController,
+                        validator: (value) =>
+                            checkIfNameFormValid(value, "passport_number".tr),
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          labelText: "enter_passport".tr,
+                        )) ,
+                  ),
                 ],
               ),
             ),
 
-            Container(
-              padding: EdgeInsets.only(bottom: flyternSpaceMedium),
-              color: flyternBackgroundWhite,
-              child: TextFormField(
-                  inputFormatters: [
-                    FlightUserDataTextFormatter(),
-                  ],
-                  onChanged: updateData(),
-                  controller: passportNumberController,
-                  validator: (value) =>
-                      checkIfNameFormValid(value, "passport_number".tr),
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    labelText: "enter_passport".tr,
-                  )),
-            ),
             Container(
                 padding: EdgeInsets.only(bottom: flyternSpaceMedium),
                 color: flyternBackgroundWhite,
@@ -360,7 +376,8 @@ class _FlightUserDetailsSubmissionFormState
         builder: (context) {
           return CustomDatePicker(
             selectedDate: dateTime,
-            maximumDate: isDOB ? getMaximumDate() : DateTime(2100, 1, 1),
+            calendarViewMode: DatePickerMode.year,
+            maximumDate: isDOB ? getMaximumDate() : DateTime.now().add(const Duration(days: 36500)) ,
             minimumDate: isDOB
                 ? getMinimumDate()
                 : DateTime.now().add(const Duration(days: 1)),
@@ -448,6 +465,7 @@ class _FlightUserDetailsSubmissionFormState
         .where((p0) => p0.id.toString() == newGender)
         .toList();
     selectedPassenger = newGender;
+
 
     if (coPax.isNotEmpty) {
       List<Gender> coPaxGender = sharedController.genderList.value
@@ -601,6 +619,7 @@ class _FlightUserDetailsSubmissionFormState
   }
 
   updateData() {
+
     widget.dataSubmitted(TravelInfo(
         selectedCopaxId:selectedPassenger,
         no: widget.index,
@@ -611,20 +630,29 @@ class _FlightUserDetailsSubmissionFormState
                 ? "Child"
                 : "Infant",
         title: selectedTitle.code,
-        firstName: firstNameController.text,
-        lastName: lastNameController.text,
+        firstName: firstNameController.value.text,
+        lastName: lastNameController.value.text,
         gender: selectedGender.code,
         dateOfBirth: dateOfBirth,
-        passportNumber: passportNumberController.text,
+        passportNumber: passportNumberController.value.text,
         nationalityCode: nationality.countryISOCode,
         passportIssuedCountryCode: passportIssuedCountryCode.countryISOCode,
         passportExpiryDate: passportExpiryDate));
+
   }
 
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
+  Future<void> setSetStateTimer() async {
+    await Future.delayed(const Duration(seconds: 2));
+   repeater = Timer.periodic(new Duration(seconds: 1), (timer) {
+      setState(() {
+
+      });
+    });
+  }
 
   List<UserCoPax> getUserCopaxes(int itemIndex ) {
 
@@ -667,5 +695,7 @@ class _FlightUserDetailsSubmissionFormState
     return allowedCopaxes;
 
   }
+
+
 
 }

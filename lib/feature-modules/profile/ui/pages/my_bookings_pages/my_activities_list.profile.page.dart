@@ -30,7 +30,7 @@ class _ProfileActivityBookingsListState
   Widget build(BuildContext context) {
     double screenheight = MediaQuery.of(context).size.height;
     double screenwidth = MediaQuery.of(context).size.width;
-    return   ListView.builder(
+    return profileController.myActivityBookingResponse.isNotEmpty?  ListView.builder(
           itemCount: profileController.myActivityBookingResponse.length,
           itemBuilder: (context, index) => Container(
                 decoration: flyternShadowedContainerSmallDecoration,
@@ -196,7 +196,17 @@ class _ProfileActivityBookingsListState
                     )
                   ],
                 ),
-              ));
+              )):
+    Container(
+      width: screenwidth,
+      height: screenheight,
+      child: Center(
+        child:  Center(
+          child:
+          Text("no_item".tr, style: getBodyMediumStyle(context)),
+        ),
+      ),
+    );
   }
 
   String getFormattedDOB(DateTime dateOfBirth) {

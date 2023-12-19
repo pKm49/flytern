@@ -36,6 +36,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
   void initState() {
     super.initState();
     hotelBookingController.resetDestinationAndNationality();
+    hotelBookingController.getRecentSearch();
   }
 
   @override
@@ -225,7 +226,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                   ),
                   Padding(
                     padding: flyternSmallPaddingVertical,
-                    child: Text(getDuration(),style: getBodyMediumStyle(context).copyWith(color: flyternTertiaryColor),),
+                    child: Text(getDuration(),style: getBodyMediumStyle(context).copyWith(color: flyternSecondaryColor),),
                   ),
                    Container(
                     height: hotelBookingController
