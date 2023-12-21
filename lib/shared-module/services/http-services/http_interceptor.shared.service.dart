@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 // import 'package:device_info_plus/device_info_plus.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flytern/core-module/constants/http_request_endpoints.core.constant.dart';
 import 'package:flytern/shared-module/constants/business_specific/http_request_endpoints.shared.constant.dart';
 import 'package:http_interceptor/http_interceptor.dart';
@@ -30,6 +31,8 @@ class FlyternHttpInterceptor implements InterceptorContract {
       data.headers["Host"]=env.apiEndPoint;
       if(data.url.contains(SharedHttpRequestEndpoint_GetGuestToken)){
         String? deviceId = await _getId();
+        print("deviceId");
+        print(deviceId);
         data.headers["DeviceID"] = deviceId??"";
       }
 
@@ -81,16 +84,35 @@ class FlyternHttpInterceptor implements InterceptorContract {
 
   Future<String?> _getId() async {
     String idPattern = "FLYMOB";
-    // var deviceInfo = DeviceInfoPlugin();
-    if (Platform.isIOS) { // import 'dart:io'
-      idPattern += "IOS123123123";
-      // var iosDeviceInfo = await deviceInfo.iosInfo;
-      return  idPattern;; // unique ID on iOS
+      var deviceInfo = DeviceInfoPlugin();
+    String uniqueDeviceId = '';
+
+    if (Platform.isIOS) {
+      var iosDeviceInfo = await deviceInfo.iosInfo;
+      print("_getId iosDeviceInfo");
+      print(iosDeviceInfo.utsname);
+      print(iosDeviceInfo.model);
+      print(iosDeviceInfo.name);
+      print(iosDeviceInfo.identifierForVendor);
+      print(iosDeviceInfo.localizedModel);
+      uniqueDeviceId =
+      '$idPattern-IOS-${iosDeviceInfo.name}-${iosDeviceInfo.identifierForVendor}';
     } else if(Platform.isAndroid) {
-      idPattern += "AND123123123123";
-      // var androidDeviceInfo = await deviceInfo.androidInfo;
-      return idPattern;; // unique ID on Android
+      var androidDeviceInfo = await deviceInfo.androidInfo;
+      print("_getId");
+      print(androidDeviceInfo.manufacturer);
+      print(androidDeviceInfo.product);
+      print(androidDeviceInfo.brand);
+      print(androidDeviceInfo.model);
+      print(androidDeviceInfo.id);
+      print(androidDeviceInfo.type);
+      print(androidDeviceInfo.serialNumber);
+
+      uniqueDeviceId =
+      '$idPattern-AND-${androidDeviceInfo.brand}-${androidDeviceInfo.model}-${androidDeviceInfo.id}' ;
     }
+
+    return uniqueDeviceId;
   }
 
   Future<String> getRefreshToken() async {

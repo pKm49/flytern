@@ -92,7 +92,7 @@ class _FlightBookingConfirmationPageState
                       children: [
 
                         Visibility(
-                          visible:flightBookingController.alert.isEmpty && flightBookingController.paymentGateways.isEmpty &&
+                          visible:flightBookingController.alert.isEmpty  &&
                               flightBookingController
                                   .flightDetails.value.flightSegments.isEmpty,
                           child: Container(

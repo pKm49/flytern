@@ -86,7 +86,7 @@ class _ActivityBookingSummaryPageState
                         visible:activityBookingController.alert.isEmpty
                             && activityBookingController.paymentGateways.isEmpty &&
                             getBookingInfoGroupLength(
-                                activityBookingController.bookingInfo)>
+                                activityBookingController.bookingInfo)==
                                 0  ,
                         child: Container(
                           padding: flyternMediumPaddingAll,

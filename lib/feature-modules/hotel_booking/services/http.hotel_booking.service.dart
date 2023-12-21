@@ -128,6 +128,7 @@ class HotelBookingHttpService {
           }
         }
       }
+
       HotelSearchResult flightSearchResult = HotelSearchResult(
         alertMsg:alertMsg,
         totalHotels:totalHotels,

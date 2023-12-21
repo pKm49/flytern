@@ -135,7 +135,7 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                             visible:hotelBookingController.alert.isEmpty
                                 && hotelBookingController.paymentGateways.isEmpty &&
                                 hotelBookingController
-                                    .getRoomsLength() >
+                                    .getRoomsLength() ==
                                     0  ,
                             child: Container(
                               padding: flyternMediumPaddingAll,

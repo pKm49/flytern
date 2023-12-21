@@ -165,7 +165,7 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.all(
-                              Radius.circular(flyternBorderRadiusExtraSmall)),
+                              Radius.circular(flyternBlurRadiusSmall)),
                           child: Image.network(flightSegment.flightSegmentDetails[i].carrierImageUrl,
                               height: 25, errorBuilder: (context, error, stackTrace) {
                                 return Container(
@@ -232,17 +232,21 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                           ),
                         ],
                       )),
-                      Padding(
+                      Container(
+                        width: screenwidth*.2,
                         padding: flyternSmallPaddingHorizontal,
                         child: Column(
                           children: [
-                            Image.asset(ASSETS_FLIGHT_CHART_ICON,width: screenwidth*.15 ),
+                            Image.asset(ASSETS_FLIGHT_CHART_ICON,width: screenwidth*.2 ),
 //                                 addVerticalSpace(flyternSpaceSmall),
                             addVerticalSpace(flyternSpaceSmall),
-                            Text(
-                              flightSegment
-                                  .flightSegmentDetails[i].duration,
-                              style: getLabelLargeStyle(context),
+                            FittedBox(
+                              fit: BoxFit.contain,
+                              child: Text(
+                                flightSegment
+                                    .flightSegmentDetails[i].duration,
+                                style: getLabelLargeStyle(context),
+                              ),
                             )
                           ],
                         ),

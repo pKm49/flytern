@@ -12,6 +12,8 @@ class MyHotelBooking {
   final String hotelimageurl;
   final String checkin;
   final String checkout;
+  final String status;
+
   final List<MyHotelBookingListRecord> myHotelBookingListRecords;
 
   MyHotelBooking(
@@ -19,6 +21,7 @@ class MyHotelBooking {
       required this.checkin,
       required this.checkout,
       required this.bookingRef,
+      required this.status,
       required this.hotelTelephone,
       required this.address,
       required this.refundStatus,
@@ -42,6 +45,7 @@ MyHotelBooking mapMyHotelBooking(dynamic payload) {
   }
 
   return MyHotelBooking(
+    status: payload["status"] ?? "",
     currency: payload["currency"] ?? "",
     bookingRef: payload["bookingRef"] ?? "",
     paidAmount: payload["paidAmount"] ?? -1,

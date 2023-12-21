@@ -270,7 +270,7 @@
       "otp_expired": "OTP Expired",
       "no_item": "No Items To Display",
       "change_email": "Change Email",
-      "change_mobile": "Change Mobile",
+      "change_mobile": "Change Mobile Number",
       "travel_story_created": "The travel story has been successfully created",
       "copax_created": "Co-Passenger has been successfully created",
       "copax_deleted": "Co-Passenger has been successfully deleted",
@@ -788,8 +788,8 @@
       "hotel_traveller_submission_message": "تأمين حجزك - تجربتك في السفر على بُعد دفعة واحدة فقط!",
       "hotel_gateway_submission_message": "صياغة عمليات الدفع بسلاسة - صفحة تقديمك على بُعد لحظات.",
       "hotel_confirmation_loading_message": "الدفع قيد التنفيذ - تابع الاتصال لتأكيد سفرك.",
-      "media_permission_message":"Please grant Media Permissions to continue",
-      "camera_permission_message":"Please grant Camera Permissions to continue"
+      "media_permission_message":"يرجى منح أذونات الوسائط للمتابعة",
+      "camera_permission_message":"يرجى منح أذونات الكاميرا للمتابعة"
     }
   }
 ]

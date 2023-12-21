@@ -275,7 +275,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                         ImageUrl: ASSETS_COUPLE_ICON,
                         keyLabel: "adult".tr,
                         valueLabel:
-                            "${"base_fare".tr} : ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.adultBase}",
+                            "${"base_fare".tr} : ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.adultBase.toStringAsFixed(3)}",
                       ),
                     ),
 
@@ -299,7 +299,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                         ImageUrl: ASSETS_COUPLE_ICON,
                         keyLabel: "child".tr,
                         valueLabel:
-                            "${"base_fare".tr} : ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.childBase}",
+                            "${"base_fare".tr} : ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.childBase.toStringAsFixed(3)}",
                       ),
                     ),
 
@@ -324,7 +324,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                         keyLabel: "infant".tr,
                         valueLabel:
                             "${"base_fare".tr} : ${flightBookingController.cabinInfo.value.currency}"
-                            " ${flightBookingController.cabinInfo.value.infantBase}",
+                            " ${flightBookingController.cabinInfo.value.infantBase.toStringAsFixed(3)}",
                       ),
                     ),
 
@@ -355,7 +355,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                                 style: getBodyMediumStyle(context)
                                     .copyWith(color: flyternGrey60)),
                             Text(
-                                "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.totalBase}",
+                                "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.totalBase.toStringAsFixed(3)}",
                                 style: getBodyMediumStyle(context)
                                     .copyWith(color: flyternGrey80)),
                           ],
@@ -377,7 +377,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                                 style: getBodyMediumStyle(context)
                                     .copyWith(color: flyternGrey60)),
                             Text(
-                                "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.totalTax}",
+                                "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.totalTax.toStringAsFixed(3)}",
                                 style: getBodyMediumStyle(context)
                                     .copyWith(color: flyternGrey80)),
                           ],
@@ -399,7 +399,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                                 style: getBodyMediumStyle(context)
                                     .copyWith(color: flyternGrey60)),
                             Text(
-                                "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.totalPrice}",
+                                "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.totalPrice.toStringAsFixed(3)}",
                                 style: getBodyMediumStyle(context)
                                     .copyWith(color: flyternGrey80)),
                           ],
@@ -434,7 +434,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                                 style: getBodyMediumStyle(context)
                                     .copyWith(color: flyternGrey60)),
                             Text(
-                                " - ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.discount}",
+                                " - ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.discount.toStringAsFixed(3)}",
                                 style: getBodyMediumStyle(context)
                                     .copyWith(color: flyternGuideGreen)),
                           ],
@@ -465,7 +465,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                                 style: getBodyMediumStyle(context)
                                     .copyWith(color: flyternGrey60)),
                             Text(
-                                "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.finalAmount}",
+                                "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.finalAmount.toStringAsFixed(3)}",
                                 style: getBodyMediumStyle(context).copyWith(
                                     color: flyternGrey80,
                                     fontWeight: flyternFontWeightBold)),
@@ -524,7 +524,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                     children: [
                       Expanded(
                         child: Text(
-                            "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.finalAmount}"),
+                            "${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.finalAmount.toStringAsFixed(3)}"),
                       ),
                       Visibility(
                           visible: !flightBookingController

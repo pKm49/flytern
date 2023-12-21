@@ -117,23 +117,28 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                     child: Container(
                                       decoration: BoxDecoration(),
                                       clipBehavior: Clip.hardEdge,
-                                      child: FlightAirportLabelCard(
-                                        topLabel: "from".tr,
-                                        midLabel: widget
-                                            .flightBookingController
-                                            .flightSearchData
-                                            .value
-                                            .searchList[index]
-                                            .departure
-                                            .airportCode,
-                                        bottomLabel: widget
-                                            .flightBookingController
-                                            .flightSearchData
-                                            .value
-                                            .searchList[index]
-                                            .departure
-                                            .airportName,
-                                        sideNumber: 1,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          FlightAirportLabelCard(
+                                            topLabel: "from".tr,
+                                            midLabel: widget
+                                                .flightBookingController
+                                                .flightSearchData
+                                                .value
+                                                .searchList[index]
+                                                .departure
+                                                .airportCode,
+                                            bottomLabel: widget
+                                                .flightBookingController
+                                                .flightSearchData
+                                                .value
+                                                .searchList[index]
+                                                .departure
+                                                .airportName,
+                                            sideNumber: 1,
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -184,13 +189,13 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                                 .value
                                                 .searchList[index]
                                                 .arrival
-                                                .airportName.length>18?widget
+                                                .airportName.length>15?widget
                                                 .flightBookingController
                                                 .flightSearchData
                                                 .value
                                                 .searchList[index]
                                                 .arrival
-                                                .airportName.substring(0,18):widget
+                                                .airportName.substring(0,15):widget
                                                 .flightBookingController
                                                 .flightSearchData
                                                 .value

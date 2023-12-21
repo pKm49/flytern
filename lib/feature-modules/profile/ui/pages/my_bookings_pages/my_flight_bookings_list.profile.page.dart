@@ -166,7 +166,7 @@ class _ProfileFlightBookingsListState extends State<ProfileFlightBookingsList> {
                                     getTopLabel(profileController
                                         .myFlightBookingResponse[index]
                                         .myFlightBookingListflights[i]
-                                        .deptAirportDtl),
+                                        .arvlAirportDtl),
                                     style: getLabelLargeStyle(context).copyWith(
                                         color: flyternGrey40,
                                         fontWeight: FontWeight.w400),
@@ -176,7 +176,7 @@ class _ProfileFlightBookingsListState extends State<ProfileFlightBookingsList> {
                                       profileController
                                           .myFlightBookingResponse[index]
                                           .myFlightBookingListflights[i]
-                                          .deptAirport,
+                                          .arvlAirport,
                                       style: getHeadlineLargeStyle(context)
                                           .copyWith(
                                               fontSize:
@@ -186,7 +186,7 @@ class _ProfileFlightBookingsListState extends State<ProfileFlightBookingsList> {
                                       profileController
                                           .myFlightBookingResponse[index]
                                           .myFlightBookingListflights[i]
-                                          .depDate,
+                                          .depArvlDate,
                                       maxLines: 2,
                                       textAlign: TextAlign.end),
                                 ],
@@ -268,64 +268,115 @@ class _ProfileFlightBookingsListState extends State<ProfileFlightBookingsList> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: flyternSpaceSmall),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.all(Radius.circular(
-                                  flyternBorderRadiusExtraSmall)),
-                              child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    padding: MaterialStateProperty.all<
-                                            EdgeInsetsGeometry>(
-                                        EdgeInsets.symmetric(
-                                            horizontal: 0,
-                                            vertical: flyternSpaceExtraSmall)),
-                                  ),
-                                  onPressed: () {
-                                    if (!flightBookingController
-                                        .isFlightConfirmationDataLoading
-                                        .value) {
-                                      flightBookingController
-                                          .getConfirmationData(
-                                              profileController
-                                                  .myFlightBookingResponse
-                                                  .value[index]
-                                                  .bookingRef,
-                                              true)
-                                          .then((value) => {restCurrentRef()});
-                                      currentBookingRef = profileController
-                                          .myFlightBookingResponse
-                                          .value[index]
-                                          .bookingRef;
+                      Visibility(
+                        visible: profileController
+                            .myFlightBookingResponse
+                            .value[index]
+                            .status != "CANCELLED",
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: flyternSpaceSmall),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.all(Radius.circular(
+                                    flyternBorderRadiusExtraSmall)),
+                                child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      padding: MaterialStateProperty.all<
+                                              EdgeInsetsGeometry>(
+                                          EdgeInsets.symmetric(
+                                              horizontal: 0,
+                                              vertical: flyternSpaceExtraSmall)),
+                                    ),
+                                    onPressed: () {
+                                      if (profileController
+                                              .myFlightBookingResponse
+                                              .value[index]
+                                              .status !=
+                                          "CANCELLED") {
+                                        if (profileController
+                                                .myFlightBookingResponse
+                                                .value[index]
+                                                .status ==
+                                            "PENDING") {
+                                          if (!flightBookingController
+                                              .isFlightTravellerDataSaveLoading
+                                              .value) {
+                                            flightBookingController
+                                                .getPaymentGateways(
+                                                true,
+                                                profileController
+                                                    .myFlightBookingResponse
+                                                    .value[index]
+                                                    .bookingRef
+                                                )
+                                                .then(
+                                                    (value) => {restCurrentRef()});
+                                            currentBookingRef = profileController
+                                                .myFlightBookingResponse
+                                                .value[index]
+                                                .bookingRef;
 
-                                      setState(() {});
-                                    }
-                                  },
-                                  child: (flightBookingController
+                                            setState(() {});
+                                          }
+                                        }
+
+                                        if (profileController
+                                            .myFlightBookingResponse
+                                            .value[index]
+                                            .status ==
+                                            "ISSUED") {
+                                          if (!flightBookingController
                                               .isFlightConfirmationDataLoading
-                                              .value &&
-                                          currentBookingRef ==
-                                              profileController
-                                                  .myFlightBookingResponse
-                                                  .value[index]
-                                                  .bookingRef)
-                                      ? LoadingAnimationWidget.prograssiveDots(
-                                          color: flyternBackgroundWhite,
-                                          size: 20,
-                                        )
-                                      : Icon(
-                                          Localizations.localeOf(context)
-                                                      .languageCode
-                                                      .toString() ==
-                                                  'ar'
-                                              ? Ionicons.chevron_back
-                                              : Ionicons.chevron_forward,
-                                        )),
-                            ),
-                          ],
+                                              .value) {
+                                            flightBookingController
+                                                .getConfirmationData(
+                                                profileController
+                                                    .myFlightBookingResponse
+                                                    .value[index]
+                                                    .bookingRef,
+                                                true)
+                                                .then(
+                                                    (value) => {restCurrentRef()});
+                                            currentBookingRef = profileController
+                                                .myFlightBookingResponse
+                                                .value[index]
+                                                .bookingRef;
+
+                                            setState(() {});
+                                          }
+                                        }
+
+                                      }
+                                    },
+                                    child: ((flightBookingController
+                                                .isFlightConfirmationDataLoading
+                                                .value ||
+                                        flightBookingController
+                                            .isFlightTravellerDataSaveLoading
+                                            .value
+                                        ) &&
+                                            currentBookingRef ==
+                                                profileController
+                                                    .myFlightBookingResponse
+                                                    .value[index]
+                                                    .bookingRef)
+                                        ? LoadingAnimationWidget.prograssiveDots(
+                                            color: flyternBackgroundWhite,
+                                            size: 20,
+                                          )
+                                        : Icon(
+                                            Localizations.localeOf(context)
+                                                        .languageCode
+                                                        .toString() ==
+                                                    'ar'
+                                                ? Ionicons.chevron_back
+                                                : Ionicons.chevron_forward,
+                                          )),
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     ],

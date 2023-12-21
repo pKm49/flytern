@@ -13,6 +13,7 @@ class MyActivityBooking {
   final double grossSellingPrice;
   final String tmSaleCurrency;
   final String hotelImageUrl;
+  final String status;
 
 
 
@@ -20,6 +21,7 @@ class MyActivityBooking {
   MyActivityBooking({
     required this.bookingReference,
     required this.hotelImageUrl,
+    required this.status,
     required this.eventName,
     required this.eventDate,
     required this.tmSaleCurrency,
@@ -38,6 +40,7 @@ MyActivityBooking mapMyActivityBooking(dynamic payload){
     bookingReference :payload["bookingReference"]??-1,
     hotelImageUrl :payload["hotelImageUrl"]??"",
     eventName :payload["eventName"]??"",
+    status :payload["status"]??"",
     tmSaleCurrency :payload["tmSaleCurrency"]??"",
     grossSellingPrice :payload["grossSellingPrice"]??0.0,
     address :payload["address"]??"",

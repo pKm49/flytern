@@ -190,68 +190,118 @@ class _ProfileInsurancePurchaseListState
                             ],
                           ),
                         ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(top: flyternSpaceSmall),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.all(Radius.circular(
-                                    flyternBorderRadiusExtraSmall)),
-                                child: ElevatedButton(
-                                    style: ButtonStyle(
-                                      padding: MaterialStateProperty.all<
-                                              EdgeInsetsGeometry>(
-                                          EdgeInsets.symmetric(
-                                              horizontal: 0,
-                                              vertical:
-                                                  flyternSpaceExtraSmall)),
-                                    ),
-                                    onPressed: () {
-                                      if (!insuranceBookingController
-                                          .isInsuranceConfirmationDataLoading
-                                          .value) {
-                                        insuranceBookingController
-                                            .getConfirmationData(
+                        Visibility(
+                          visible: profileController
+                              .myInsuranceBookingResponse.value[index].status !=
+                              "CANCELLED",
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(top: flyternSpaceSmall),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.all(Radius.circular(
+                                      flyternBorderRadiusExtraSmall)),
+                                  child: ElevatedButton(
+                                      style: ButtonStyle(
+                                        padding: MaterialStateProperty.all<
+                                                EdgeInsetsGeometry>(
+                                            EdgeInsets.symmetric(
+                                                horizontal: 0,
+                                                vertical:
+                                                    flyternSpaceExtraSmall)),
+                                      ),
+                                      onPressed: () {
+
+                                        if (profileController
+                                            .myInsuranceBookingResponse
+                                            .value[index]
+                                            .status !=
+                                            "CANCELLED") {
+                                          if (profileController
+                                              .myInsuranceBookingResponse
+                                              .value[index]
+                                              .status ==
+                                              "PENDING") {
+                                            if (!insuranceBookingController
+                                                .isInsuranceSaveTravellerLoading
+                                                .value) {
+                                              insuranceBookingController
+                                                  .getPaymentGateways(
+                                                true,
                                                 profileController
                                                     .myInsuranceBookingResponse
                                                     .value[index]
                                                     .bookingRef,
-                                                true)
-                                            .then(
-                                                (value) => {restCurrentRef()});
-                                        currentBookingRef = profileController
-                                            .myInsuranceBookingResponse
-                                            .value[index]
-                                            .bookingRef;
+                                              )
+                                                  .then((value) =>
+                                              {restCurrentRef()});
+                                              currentBookingRef =
+                                                  profileController
+                                                      .myInsuranceBookingResponse
+                                                      .value[index]
+                                                      .bookingRef;
 
-                                        setState(() {});
-                                      }
-                                    },
-                                    child: (insuranceBookingController
+                                              setState(() {});
+                                            }
+                                          }
+
+                                          if (profileController
+                                              .myInsuranceBookingResponse
+                                              .value[index]
+                                              .status ==
+                                              "ISSUED") {
+                                            if (!insuranceBookingController
                                                 .isInsuranceConfirmationDataLoading
-                                                .value &&
-                                            currentBookingRef ==
-                                                profileController
-                                                    .myInsuranceBookingResponse
-                                                    .value[index]
-                                                    .bookingRef)
-                                        ? LoadingAnimationWidget
-                                            .prograssiveDots(
-                                            color: flyternBackgroundWhite,
-                                            size: 20,
-                                          )
-                                        : Icon(
-                                            Localizations.localeOf(context)
-                                                        .languageCode
-                                                        .toString() ==
-                                                    'ar'
-                                                ? Ionicons.chevron_back
-                                                : Ionicons.chevron_forward,
-                                          )),
-                              ),
-                            ],
+                                                .value) {
+                                              insuranceBookingController
+                                                  .getConfirmationData(
+                                                  profileController
+                                                      .myInsuranceBookingResponse
+                                                      .value[index]
+                                                      .bookingRef,
+                                                  true)
+                                                  .then((value) =>
+                                              {restCurrentRef()});
+                                              currentBookingRef =
+                                                  profileController
+                                                      .myInsuranceBookingResponse
+                                                      .value[index]
+                                                      .bookingRef;
+
+                                              setState(() {});
+                                            }
+                                          }
+                                        }
+
+                                      },
+                                      child: ((insuranceBookingController
+                                                  .isInsuranceConfirmationDataLoading
+                                                  .value || insuranceBookingController
+                                          .isInsuranceSaveTravellerLoading
+                                          .value) &&
+                                              currentBookingRef ==
+                                                  profileController
+                                                      .myInsuranceBookingResponse
+                                                      .value[index]
+                                                      .bookingRef)
+                                          ? LoadingAnimationWidget
+                                              .prograssiveDots(
+                                              color: flyternBackgroundWhite,
+                                              size: 20,
+                                            )
+                                          : Icon(
+                                              Localizations.localeOf(context)
+                                                          .languageCode
+                                                          .toString() ==
+                                                      'ar'
+                                                  ? Ionicons.chevron_back
+                                                  : Ionicons.chevron_forward,
+                                            )),
+                                ),
+                              ],
+                            ),
                           ),
                         )
                       ],

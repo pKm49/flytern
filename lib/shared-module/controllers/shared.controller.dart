@@ -98,6 +98,7 @@ class SharedController extends GetxController {
     final String? selectedLanguage = prefs.getString('selectedLanguage');
     final String? selectedMobileCountry = prefs.getString('selectedMobileCountry');
 
+
     if (accessToken != null &&
         accessToken != '' &&
         refreshToken != null &&
@@ -125,6 +126,14 @@ class SharedController extends GetxController {
           selectedLanguage != '' &&
           selectedMobileCountry != null &&
           selectedMobileCountry != '' ){
+        List<Language> langs = languages.where((e) => e.code == selectedLanguage).toList();
+        print("selectedLanguage");
+        print(selectedLanguage);
+        print(langs);
+        if(langs.isNotEmpty){
+          changeLanguage(langs[0]);
+        }
+
         Get.offAllNamed(Approute_landingpage);
       }
       await Future.delayed(const Duration(seconds: 1));

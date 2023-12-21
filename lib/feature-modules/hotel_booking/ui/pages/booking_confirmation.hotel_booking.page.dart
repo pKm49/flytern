@@ -85,10 +85,9 @@ class _HotelBookingConfirmationPageState
                     children: [
 
                       Visibility(
-                        visible:hotelBookingController.alert.isEmpty
-                            && hotelBookingController.paymentGateways.isEmpty &&
+                        visible:hotelBookingController.alert.isEmpty &&
                             hotelBookingController
-                                .getRoomsLength() >
+                                .getRoomsLength() ==
                                 0  ,
                         child: Container(
                           padding: flyternMediumPaddingAll,

@@ -34,7 +34,7 @@ class FlightSearchResultCard extends StatelessWidget {
     return Obx(
       ()=> Container(
         decoration: flyternBorderedContainerSmallDecoration,
-        padding: flyternMediumPaddingAll,
+        padding: flyternSmallHalfPaddingAll,
         width: screenwidth - (flyternSpaceLarge * 2),
         margin: flyternLargePaddingHorizontal,
         child: Wrap(
@@ -47,11 +47,11 @@ class FlightSearchResultCard extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.all(
-                        Radius.circular(flyternBorderRadiusExtraSmall)),
+                        Radius.circular(flyternBlurRadiusSmall)),
                     child: Image.network(flightSearchResponse.airlineImageUrl,
-                        height: 30, errorBuilder: (context, error, stackTrace) {
+                        height: 25, errorBuilder: (context, error, stackTrace) {
                       return Container(
-                        height: 20,
+                        height: 25,
                         width: screenwidth * .2,
                       );
                     }),
@@ -100,7 +100,8 @@ class FlightSearchResultCard extends StatelessWidget {
                         ],
                       ),
                     )),
-                    Padding(
+                    Container(
+                      width: screenwidth * .2,
                       padding: flyternSmallPaddingHorizontal,
                       child: Column(
                         children: [
@@ -110,7 +111,9 @@ class FlightSearchResultCard extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top:flyternSpaceSmall),
-                            child: Text( flightSearchResponse.dTOSegments[i].travelTime),
+                            child: FittedBox(
+                                fit: BoxFit.contain,
+                                child: Text( "${flightSearchResponse.dTOSegments[i].travelTime}")),
                           )
                         ],
                       ),
@@ -166,7 +169,9 @@ class FlightSearchResultCard extends StatelessWidget {
                         color: flyternGrey40),
                   ),
                 ),
-                addHorizontalSpace(flyternSpaceSmall),
+                Visibility(
+                    visible: flightSearchResponse.isSale,
+                    child: addHorizontalSpace(flyternSpaceSmall)),
                 Text(
                   "${flightSearchResponse.finalPrc.toStringAsFixed(3)} ${flightSearchResponse.currency}",
                   style: getHeadlineMediumStyle(context).copyWith(

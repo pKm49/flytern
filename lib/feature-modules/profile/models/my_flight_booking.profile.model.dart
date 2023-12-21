@@ -5,6 +5,7 @@ class MyFlightBooking {
   final String paidAmount;
   final String bookingRef;
   final String flightName;
+  final String status;
   final String cabinClass;
   final String refundStatus;
   final String currency;
@@ -16,6 +17,7 @@ class MyFlightBooking {
   MyFlightBooking(
       {required this.paidAmount,
       required this.bookingRef,
+      required this.status,
       required this.flightName,
       required this.cabinClass,
       required this.refundStatus,
@@ -51,6 +53,7 @@ MyFlightBooking mapMyFlightBooking(dynamic payload) {
   return MyFlightBooking(
     currency: payload["currency"] ?? "",
     bookingRef: payload["bookingRef"] ?? "",
+    status: payload["status"] ?? "",
     paidAmount: payload["paidAmount"].toString() ?? "",
     flightName: payload["flightName"] ?? "",
     cabinClass: payload["cabinClass"] ?? "",

@@ -20,6 +20,8 @@ class FlightAirportLabelCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
+
+      verticalDirection: VerticalDirection.down,
       direction: Axis.vertical,
       alignment: WrapAlignment.start,
       crossAxisAlignment:
@@ -58,15 +60,20 @@ class FlightAirportLabelCard extends StatelessWidget {
           ],
         ),
         addVerticalSpace(flyternSpaceExtraSmall),
-        Text(midLabel,
-            textAlign: sideNumber == 1 ? TextAlign.start : TextAlign.end,
-            style: getHeadlineLargeStyle(context)
-                .copyWith(fontSize: flyternFontSize24 * 1.5)),
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(midLabel,
+              textAlign: sideNumber == 1 ? TextAlign.start : TextAlign.end,
+              style: getHeadlineLargeStyle(context)
+                  .copyWith(fontSize: flyternFontSize24 * 1.3)),
+        ),
         Text(bottomLabel,
             style: getBodyMediumStyle(context),
             textAlign: sideNumber == 1 ? TextAlign.start : TextAlign.end,
             maxLines: 2),
+
       ],
     );
   }
+
 }

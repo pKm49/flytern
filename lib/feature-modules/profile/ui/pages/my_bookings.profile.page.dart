@@ -130,8 +130,7 @@ class _ProfileMyBookingsPageState extends State<ProfileMyBookingsPage>
       case 0:return ServiceType.FLIGHT;
       case 1:return ServiceType.HOTEL;
       case 2:return ServiceType.PACKAGE ;
-      case 3:return ServiceType.ACTIVITY;
-      case 4:return ServiceType.INSURANCE ;
+      case 3:return ServiceType.INSURANCE;
       default:return ServiceType.FLIGHT;
     }
   }

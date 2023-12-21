@@ -196,63 +196,117 @@ class _ProfileHotelBookingsListState extends State<ProfileHotelBookingsList> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: flyternSpaceSmall),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.all(Radius.circular(
-                                  flyternBorderRadiusExtraSmall)),
-                              child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    padding: MaterialStateProperty.all<
-                                            EdgeInsetsGeometry>(
-                                        EdgeInsets.symmetric(
-                                            horizontal: 0,
-                                            vertical: flyternSpaceExtraSmall)),
-                                  ),
-                                  onPressed: () {
-                                    if (!hotelBookingController
-                                        .isHotelConfirmationDataLoading.value) {
-                                      hotelBookingController
-                                          .getConfirmationData(
-                                              profileController
-                                                  .myHotelBookingResponse
-                                                  .value[index]
-                                                  .bookingRef,
-                                              true)
-                                          .then((value) => {restCurrentRef()});
-                                      currentBookingRef = profileController
-                                          .myHotelBookingResponse
-                                          .value[index]
-                                          .bookingRef;
+                      Visibility(
+                        visible: profileController
+                                .myHotelBookingResponse.value[index].status !=
+                            "CANCELLED",
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(top: flyternSpaceSmall),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.all(Radius.circular(
+                                    flyternBorderRadiusExtraSmall)),
+                                child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      padding: MaterialStateProperty.all<
+                                              EdgeInsetsGeometry>(
+                                          EdgeInsets.symmetric(
+                                              horizontal: 0,
+                                              vertical:
+                                                  flyternSpaceExtraSmall)),
+                                    ),
+                                    onPressed: () {
+                                      if (profileController
+                                              .myHotelBookingResponse
+                                              .value[index]
+                                              .status !=
+                                          "CANCELLED") {
+                                        if (profileController
+                                                .myHotelBookingResponse
+                                                .value[index]
+                                                .status ==
+                                            "PENDING") {
+                                          if (!hotelBookingController
+                                              .isHotelTravellerDataSaveLoading
+                                              .value) {
+                                            hotelBookingController
+                                                .getPaymentGateways(
+                                                  true,
+                                                  profileController
+                                                      .myHotelBookingResponse
+                                                      .value[index]
+                                                      .bookingRef,
+                                                )
+                                                .then((value) =>
+                                                    {restCurrentRef()});
+                                            currentBookingRef =
+                                                profileController
+                                                    .myHotelBookingResponse
+                                                    .value[index]
+                                                    .bookingRef;
 
-                                      setState(() {});
-                                    }
-                                  },
-                                  child: (hotelBookingController
+                                            setState(() {});
+                                          }
+                                        }
+
+                                        if (profileController
+                                                .myHotelBookingResponse
+                                                .value[index]
+                                                .status ==
+                                            "ISSUED") {
+                                          if (!hotelBookingController
                                               .isHotelConfirmationDataLoading
-                                              .value &&
-                                          currentBookingRef ==
-                                              profileController
-                                                  .myHotelBookingResponse
-                                                  .value[index]
-                                                  .bookingRef)
-                                      ? LoadingAnimationWidget.prograssiveDots(
-                                          color: flyternBackgroundWhite,
-                                          size: 20,
-                                        )
-                                      : Icon(
-                                          Localizations.localeOf(context)
-                                                      .languageCode
-                                                      .toString() ==
-                                                  'ar'
-                                              ? Ionicons.chevron_back
-                                              : Ionicons.chevron_forward,
-                                        )),
-                            ),
-                          ],
+                                              .value) {
+                                            hotelBookingController
+                                                .getConfirmationData(
+                                                    profileController
+                                                        .myHotelBookingResponse
+                                                        .value[index]
+                                                        .bookingRef,
+                                                    true)
+                                                .then((value) =>
+                                                    {restCurrentRef()});
+                                            currentBookingRef =
+                                                profileController
+                                                    .myHotelBookingResponse
+                                                    .value[index]
+                                                    .bookingRef;
+
+                                            setState(() {});
+                                          }
+                                        }
+                                      }
+                                    },
+                                    child: ((hotelBookingController
+                                                    .isHotelConfirmationDataLoading
+                                                    .value ||
+                                                hotelBookingController
+                                                    .isHotelTravellerDataSaveLoading
+                                                    .value) &&
+                                            currentBookingRef ==
+                                                profileController
+                                                    .myHotelBookingResponse
+                                                    .value[index]
+                                                    .bookingRef)
+                                        ? LoadingAnimationWidget
+                                            .prograssiveDots(
+                                            color: flyternBackgroundWhite,
+                                            size: 20,
+                                          )
+                                        : Icon(
+                                            Localizations.localeOf(context)
+                                                        .languageCode
+                                                        .toString() ==
+                                                    'ar'
+                                                ? Ionicons.chevron_back
+                                                : Ionicons.chevron_forward,
+                                          )),
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     ],

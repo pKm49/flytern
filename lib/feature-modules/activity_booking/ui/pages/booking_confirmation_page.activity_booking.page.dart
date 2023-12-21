@@ -97,10 +97,9 @@ class _ActivityBookingConfirmationPageState extends State<ActivityBookingConfirm
                     children: [
 
                       Visibility(
-                        visible:activityBookingController.alert.isEmpty
-                            && activityBookingController.paymentGateways.isEmpty &&
+                        visible:activityBookingController.alert.isEmpty &&
                             getBookingInfoGroupLength(
-                                activityBookingController.bookingInfo)>
+                                activityBookingController.bookingInfo)==
                                 0  ,
                         child: Container(
                           padding: flyternMediumPaddingAll,

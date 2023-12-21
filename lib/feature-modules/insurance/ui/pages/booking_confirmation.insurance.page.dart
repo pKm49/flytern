@@ -87,9 +87,9 @@ class _InsuranceBookingConfirmationPageState extends State<InsuranceBookingConfi
 
                       Visibility(
                         visible:insuranceBookingController.alert.isEmpty
-                            && insuranceBookingController.paymentGateways.isEmpty &&
+                             &&
                             getBookingInfoGroupLength(
-                                insuranceBookingController.bookingInfo)>
+                                insuranceBookingController.bookingInfo)==
                                 0  ,
                         child: Container(
                           padding: flyternMediumPaddingAll,

@@ -3,11 +3,13 @@ import 'package:intl/intl.dart';
 
 class MyInsuranceBooking {
   final String bookingRef;
+  final String status;
   final List<MyInsuranceBookingListRecord> myInsuranceBookingListRecords;
 
   MyInsuranceBooking(
       {
       required this.bookingRef,
+      required this.status,
       required this.myInsuranceBookingListRecords});
 }
 
@@ -26,6 +28,7 @@ MyInsuranceBooking mapMyInsuranceBooking(dynamic payload) {
 
   return MyInsuranceBooking(
     bookingRef: payload["bookingRef"] ?? "",
+    status: payload["status"] ?? "",
     myInsuranceBookingListRecords: myHotelBookingListRecords,
   );
 }
