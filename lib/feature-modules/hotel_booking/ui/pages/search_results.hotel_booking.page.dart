@@ -136,21 +136,26 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text("sort".tr,
-                                            style: getLabelLargeStyle(context)
-                                                .copyWith(
-                                                    fontWeight:
-                                                        flyternFontWeightLight,
-                                                    color: flyternGrey40)),
-                                        addVerticalSpace(flyternSpaceExtraSmall),
-                                        Text(hotelBookingController
-                                            .sortingDc.value.name,
-                                            style: getLabelLargeStyle(context)
-                                                .copyWith(color: flyternGrey80)),
-                                      ],
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("sort".tr,
+                                              style: getLabelLargeStyle(context)
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          flyternFontWeightLight,
+                                                      color: flyternGrey40)),
+                                          addVerticalSpace(flyternSpaceExtraSmall),
+                                          FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            child: Text(hotelBookingController
+                                                .sortingDc.value.name,
+                                                style: getLabelLargeStyle(context)
+                                                    .copyWith(color: flyternGrey80)),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     Icon(Ionicons.chevron_down,
                                         color: flyternGrey40)

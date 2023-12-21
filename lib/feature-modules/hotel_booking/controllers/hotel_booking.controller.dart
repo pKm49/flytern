@@ -179,14 +179,6 @@ class HotelBookingController extends GetxController {
       "uniqueCombination": "select_destination".tr,
     });
 
-    nationality.value = Country(
-        isDefault: 1,
-        countryName: ("select_nationality".tr),
-        countryCode: "",
-        countryISOCode: "",
-        countryName_Ar: "",
-        flag: "",
-        code: "");
   }
 
   Future<void> getSearchResults(bool isNavigationRequired) async {
@@ -405,6 +397,7 @@ class HotelBookingController extends GetxController {
     paymentGateways.value = getGatewayData.paymentGateways;
     bookingInfo.value = getGatewayData.bookingInfo;
     alert.value = getGatewayData.alert;
+
 
     hotelDetails.value = getGatewayData.hotelDetails;
     selectedRoom.value = hotelDetails.value.rooms;

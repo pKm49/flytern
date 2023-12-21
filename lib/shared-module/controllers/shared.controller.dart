@@ -228,12 +228,26 @@ class SharedController extends GetxController {
   Future<void> getInitialInfo() async {
     SupportInfo supportInfo = await sharedHttpService.getInitialSupportInfo();
 
-    languages.value = supportInfo.languages;
-    titleList.value = supportInfo.titleList;
-    genderList.value = supportInfo.genderList;
+    if(supportInfo.languages.isNotEmpty){
+      languages.value = supportInfo.languages;
+    }
 
-    updateMobileCountryList(supportInfo.mobileCountryList);
-    updateCountryList(supportInfo.countriesList);
+    if(supportInfo.titleList.isNotEmpty){
+      titleList.value = supportInfo.titleList;
+    }
+
+    if(supportInfo.genderList.isNotEmpty){
+      genderList.value = supportInfo.genderList;
+    }
+
+    if(supportInfo.mobileCountryList.isNotEmpty){
+      updateMobileCountryList(supportInfo.mobileCountryList);
+    }
+
+    if(supportInfo.countriesList.isNotEmpty){
+      updateCountryList(supportInfo.countriesList);
+    }
+
   }
 
   Future<void> getPreRegisterInfo() async {

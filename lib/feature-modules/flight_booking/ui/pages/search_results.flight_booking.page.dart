@@ -177,30 +177,35 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("sort".tr,
-                                        style: getLabelLargeStyle(context).copyWith(
-                                            fontWeight: flyternFontWeightLight,
-                                            color: flyternGrey60)),
-                                    Visibility(
-                                      visible: flightBookingController
-                                              .sortingDcs.value.isNotEmpty &&
-                                          flightBookingController
-                                                  .sortingDc.value.value !=
-                                              "-1",
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: flyternSpaceExtraSmall),
-                                        child: Text(
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text("sort".tr,
+                                          style: getLabelLargeStyle(context).copyWith(
+                                              fontWeight: flyternFontWeightLight,
+                                              color: flyternGrey60)),
+                                      Visibility(
+                                        visible: flightBookingController
+                                                .sortingDcs.value.isNotEmpty &&
                                             flightBookingController
-                                                .sortingDc.value.name,
-                                            style: getLabelLargeStyle(context)
-                                                .copyWith(color: flyternGrey80)),
+                                                    .sortingDc.value.value !=
+                                                "-1",
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: flyternSpaceExtraSmall),
+                                          child:FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            child: Text(
+                                                flightBookingController
+                                                    .sortingDc.value.name,
+                                                style: getLabelLargeStyle(context)
+                                                    .copyWith(color: flyternGrey80)),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                                 Icon(Ionicons.chevron_down,
                                     size: flyternFontSize20, color: flyternGrey40)
