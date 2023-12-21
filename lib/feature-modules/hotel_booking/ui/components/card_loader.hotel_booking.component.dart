@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/flight_booking/models/recommended_package.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/popular_package_list_card.flight_booking.component.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_item_card.flight_booking.component.dart';
-import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
+
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';

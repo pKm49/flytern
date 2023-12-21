@@ -8,7 +8,6 @@ import 'package:flytern/feature-modules/profile/models/user-copax.profile.model.
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
-import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/models/country.dart';
 import 'package:flytern/shared-module/models/gender.dart';
 import 'package:flytern/shared-module/models/general_item.dart';

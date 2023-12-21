@@ -16,8 +16,7 @@ import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
-import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
-import 'package:flytern/shared-module/ui/components/sort_option_selector.shared.component.dart';
+ import 'package:flytern/shared-module/ui/components/sort_option_selector.shared.component.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';

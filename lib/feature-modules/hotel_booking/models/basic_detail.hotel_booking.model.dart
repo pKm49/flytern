@@ -1,7 +1,4 @@
 
-import 'package:flytern/feature-modules/hotel_booking/models/amenity.hotel_booking.model.dart';
-import 'package:flytern/feature-modules/hotel_booking/models/room_option.hotel_booking.model.dart';
-
 class HotelBasicDetail {
   
   final String policyName;

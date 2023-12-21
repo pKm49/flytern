@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/profile/models/user-copax.profile.model.dart';

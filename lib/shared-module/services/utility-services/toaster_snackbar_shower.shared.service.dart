@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
-import 'package:get/get.dart';
 
 showSnackbar( BuildContext context, String text, String type){
 

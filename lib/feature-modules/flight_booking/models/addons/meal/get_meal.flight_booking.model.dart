@@ -1,5 +1,4 @@
-import 'package:flytern/feature-modules/flight_booking/models/addons/seat/flight_class.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/models/addons/meal/meal.flight_booking.model.dart';
+ import 'package:flytern/feature-modules/flight_booking/models/addons/meal/meal.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/passenger.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/route.flight_booking.model.dart';
 

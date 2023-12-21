@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flytern/feature-modules/activity_booking/models/city.activity_booking.model.dart';
 import 'package:flytern/feature-modules/activity_booking/models/data.activity_booking.model.dart';

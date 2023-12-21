@@ -1,11 +1,9 @@
 import 'package:flytern/feature-modules/flight_booking/models/cabin_class.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/search_data.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/models/search_response.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/models/popular_destination.flight_booking.model.dart';
+ import 'package:flytern/feature-modules/flight_booking/models/popular_destination.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/recommended_package.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/travel_story.flight_booking.model.dart';
-import 'package:flytern/shared-module/models/country.dart';
-import 'package:flytern/shared-module/models/language.dart';
+
 
 class ExploreData {
 

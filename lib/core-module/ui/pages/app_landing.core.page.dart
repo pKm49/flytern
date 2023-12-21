@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flytern/core-module/services/notification_controller.dart';
-import 'package:flytern/core-module/ui/components/drawer_menu.core.component.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/pages/landing_page.activity_booking.page.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/pages/landing.flight_booking.page.dart';
+ import 'package:flytern/core-module/ui/components/drawer_menu.core.component.dart';
+ import 'package:flytern/feature-modules/flight_booking/ui/pages/landing.flight_booking.page.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/landing.hotel_booking.page.dart';
 import 'package:flytern/feature-modules/insurance/ui/pages/landing.insurance.page.dart';
 import 'package:flytern/feature-modules/packages/ui/pages/landing.packages.page.dart';

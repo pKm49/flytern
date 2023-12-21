@@ -1,9 +1,7 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flytern/core-module/controllers/core.controller.dart';
-import 'package:flytern/feature-modules/profile/controllers/copax.profile.controller.dart';
+ import 'package:flytern/feature-modules/profile/controllers/copax.profile.controller.dart';
 import 'package:flytern/feature-modules/profile/controllers/travel_story.profile.controller.dart';
  import 'package:flytern/feature-modules/profile/models/my_activity.profile.model.dart';
 import 'package:flytern/feature-modules/profile/models/my_booking_response.profile.model.dart';

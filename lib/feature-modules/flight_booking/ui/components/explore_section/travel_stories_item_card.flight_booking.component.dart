@@ -9,7 +9,6 @@ import 'package:flytern/shared-module/services/utility-services/widget_propertie
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:video_player/video_player.dart';
 
 class TravelStoriesItemCard extends StatefulWidget {
   final String profilePicUrl;

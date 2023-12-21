@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flytern/core-module/controllers/core.controller.dart';
-import 'package:flytern/feature-modules/profile/controllers/profile.controller.dart';
+ import 'package:flytern/feature-modules/profile/controllers/profile.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/business_specific/info_types.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';

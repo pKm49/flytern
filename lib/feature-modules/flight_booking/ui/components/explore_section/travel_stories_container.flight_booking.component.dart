@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/flight_booking/models/popular_destination.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/models/travel_story.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/popular_package_list_card.flight_booking.component.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.flight_booking.component.dart';
+ import 'package:flytern/feature-modules/flight_booking/models/travel_story.flight_booking.model.dart';
+ import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.flight_booking.component.dart';
 import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
-import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
-import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
+ import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 
 class TravelStoriesContainer extends StatelessWidget {

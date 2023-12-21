@@ -3,7 +3,6 @@ import 'package:flytern/feature-modules/insurance/controllers/insurance.controll
 import 'package:flytern/shared-module/services/booking_info_helper.dart';
 import 'package:flytern/shared-module/ui/components/confirm_dialogue.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
-import 'package:flytern/shared-module/ui/components/user_details_card.shared.component.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';

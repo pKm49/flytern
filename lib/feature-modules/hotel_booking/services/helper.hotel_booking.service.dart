@@ -1,5 +1,4 @@
-import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
-import 'package:flytern/feature-modules/hotel_booking/models/destination.hotel_booking.model.dart';
+
 import 'package:flytern/feature-modules/hotel_booking/models/search_data.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/search_item_room_data.hotel_booking.model.dart';
 import 'package:get/get.dart';

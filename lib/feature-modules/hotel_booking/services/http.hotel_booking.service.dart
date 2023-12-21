@@ -1,6 +1,5 @@
 import 'package:flytern/feature-modules/activity_booking/models/details.activity_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/constants/http_request_endpoint.flight_booking.constant.dart';
- import 'package:flytern/feature-modules/flight_booking/models/details.flight_booking.model.dart';
+  import 'package:flytern/feature-modules/flight_booking/models/details.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/popular_destination.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/recommended_package.flight_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/constants/http_request_endpoints.hotel_booking.constant.dart';
@@ -21,10 +20,8 @@ import 'package:flytern/shared-module/models/flytern_http_response.dart';
 import 'package:flytern/shared-module/models/payment_confirmation_data.dart';
 import 'package:flytern/shared-module/models/payment_gateway.dart';
 import 'package:flytern/shared-module/models/payment_gateway_url_data.dart';
-import 'package:flytern/shared-module/models/support_info.dart';
-import 'package:flytern/shared-module/services/http-services/http_request_handler.shared.service.dart';
-import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
-import 'package:get/get.dart';
+ import 'package:flytern/shared-module/services/http-services/http_request_handler.shared.service.dart';
+ import 'package:get/get.dart';
 
 class HotelBookingHttpService {
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile.controller.dart';
- import 'package:flytern/feature-modules/profile/ui/pages/my_bookings_pages/my_activities_list.profile.page.dart';
-import 'package:flytern/feature-modules/profile/ui/pages/my_bookings_pages/my_flight_bookings_list.profile.page.dart';
+ import 'package:flytern/feature-modules/profile/ui/pages/my_bookings_pages/my_flight_bookings_list.profile.page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/my_bookings_pages/my_hotel_bookings_list.profile.page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/my_bookings_pages/my_insurances_list.profile.page.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/my_bookings_pages/my_packages_list.profile.page.dart';

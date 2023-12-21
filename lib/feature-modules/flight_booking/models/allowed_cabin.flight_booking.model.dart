@@ -1,4 +1,3 @@
-import 'package:flytern/feature-modules/flight_booking/models/destination.flight_booking.model.dart';
 
 class FlightAllowedCabin {
 

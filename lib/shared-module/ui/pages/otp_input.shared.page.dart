@@ -9,9 +9,6 @@ import 'package:flytern/shared-module/services/utility-services/widget_generator
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/otp_field_style.dart';
-import 'package:otp_text_field/style.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPInputPage extends StatefulWidget {

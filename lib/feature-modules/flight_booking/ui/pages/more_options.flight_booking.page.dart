@@ -4,12 +4,10 @@ import 'package:flytern/feature-modules/flight_booking/controllers/flight_bookin
 import 'package:flytern/feature-modules/flight_booking/models/search_item.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/search_result_card.flight_booking.component.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/search_result_card_loader.flight_booking.component.dart';
-import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
-import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
+ import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
-import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
+  import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 

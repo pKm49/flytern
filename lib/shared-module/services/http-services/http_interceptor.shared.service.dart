@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
-// import 'package:device_info_plus/device_info_plus.dart';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flytern/core-module/constants/http_request_endpoints.core.constant.dart';
-import 'package:flytern/shared-module/constants/business_specific/http_request_endpoints.shared.constant.dart';
+ import 'dart:io';
+ import 'package:device_info_plus/device_info_plus.dart';
+ import 'package:flytern/shared-module/constants/business_specific/http_request_endpoints.shared.constant.dart';
 import 'package:http_interceptor/http_interceptor.dart';
  import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flytern/config/env.dart' as env;

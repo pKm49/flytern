@@ -1,7 +1,5 @@
-import 'dart:ui';
 
-import 'package:flytern/core-module/services/app_localization.core.service.dart';
-import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
+ import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

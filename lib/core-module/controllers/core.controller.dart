@@ -5,14 +5,9 @@ import 'package:flytern/feature-modules/activity_booking/controllers/activity_bo
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
 import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
 import 'package:flytern/feature-modules/insurance/controllers/insurance.controller.dart';
-import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
-import 'package:flytern/shared-module/models/auth_token.dart';
-import 'package:flytern/core-module/services/http.core.service.dart';
-import 'package:flytern/shared-module/controllers/shared.controller.dart';
-import 'package:flytern/shared-module/services/utility-services/local_storage_handler.shared.service.dart';
-import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
+ import 'package:flytern/core-module/services/http.core.service.dart';
+ import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class CoreController extends GetxController {
   var notifications = <Notification>[].obs;

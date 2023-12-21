@@ -1,8 +1,5 @@
-import 'dart:convert';
 
 import 'package:flytern/feature-modules/activity_booking/models/data.activity_booking.model.dart';
-import 'package:flytern/feature-modules/activity_booking/models/itinerary.activity_booking.model.dart';
-import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
 
 class ActivityDetails extends ActivityData {
 

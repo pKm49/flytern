@@ -1,7 +1,4 @@
-import 'package:flytern/feature-modules/flight_booking/constants/flight_mode.flight_booking.constant.dart';
-import 'package:flytern/feature-modules/flight_booking/models/allowed_cabin.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/models/destination.flight_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/models/search_item.flight_booking.model.dart';
+
 import 'package:flytern/feature-modules/flight_booking/models/search_response_dto_segment.flight_booking.model.dart';
 
 class FlightSearchResponse {

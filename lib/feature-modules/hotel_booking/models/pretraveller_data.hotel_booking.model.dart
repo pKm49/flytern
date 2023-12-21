@@ -1,6 +1,5 @@
 import 'package:flytern/feature-modules/hotel_booking/models/search_item_room_data.hotel_booking.model.dart';
-import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
-import 'package:flytern/shared-module/models/country.dart';
+
 import 'package:flytern/shared-module/models/gender.dart';
 
 class HotelPretravellerData {

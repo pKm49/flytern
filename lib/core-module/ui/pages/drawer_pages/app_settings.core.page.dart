@@ -6,8 +6,7 @@ import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared
 import 'package:flytern/shared-module/models/country.dart';
 import 'package:flytern/shared-module/models/general_item.dart';
 import 'package:flytern/shared-module/models/language.dart';
-import 'package:flytern/shared-module/services/utility-services/form_validator.shared.service.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
+ import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:flytern/shared-module/ui/components/country_selector.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/dropdown_selector.shared.component.dart';

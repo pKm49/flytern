@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flytern/core-module/controllers/core.controller.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
-import 'package:flytern/shared-module/ui/components/selectable_text_pill.shared.component.dart';
-import 'package:get/get.dart';
+ import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
+ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 

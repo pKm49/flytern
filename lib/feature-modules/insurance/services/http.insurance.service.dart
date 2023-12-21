@@ -1,6 +1,5 @@
   import 'package:flytern/feature-modules/activity_booking/models/details.activity_booking.model.dart';
-import 'package:flytern/feature-modules/flight_booking/constants/http_request_endpoint.flight_booking.constant.dart';
-import 'package:flytern/feature-modules/flight_booking/models/details.flight_booking.model.dart';
+ import 'package:flytern/feature-modules/flight_booking/models/details.flight_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/details.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/insurance/constants/http_request_endpoints.insurance.constant.dart';
 import 'package:flytern/feature-modules/insurance/models/initial_data.insurance.model.dart';

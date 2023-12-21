@@ -8,7 +8,6 @@ import 'package:flytern/shared-module/services/utility-services/widget_generator
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:flytern/shared-module/ui/components/dropdown_selector.shared.component.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 
 class BookingOptionsSelector extends StatefulWidget {
   int bookingServiceNumber;

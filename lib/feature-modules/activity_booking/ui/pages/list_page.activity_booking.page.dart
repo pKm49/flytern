@@ -4,14 +4,7 @@ import 'package:flytern/feature-modules/activity_booking/models/response.activit
 import 'package:flytern/feature-modules/activity_booking/ui/components/filter_option_selector.activity_booking.component.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/components/list_card.activity_booking.component.dart';
 import 'package:flytern/feature-modules/activity_booking/ui/components/list_card_loader.activity_booking.component.dart';
-import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/popular_package_list_card.flight_booking.component.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/recommended_item_card.flight_booking.component.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/travel_stories_item_card.flight_booking.component.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/components/filter_option_selector.flight_booking.component.dart';
-import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
-import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
-import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
+ import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/models/general_item.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';

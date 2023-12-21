@@ -1,5 +1,4 @@
-import 'package:flytern/feature-modules/flight_booking/constants/http_request_endpoint.flight_booking.constant.dart';
-import 'package:flytern/feature-modules/packages/constants/http_request_endpoints.packages.constant.dart';
+ import 'package:flytern/feature-modules/packages/constants/http_request_endpoints.packages.constant.dart';
 import 'package:flytern/feature-modules/packages/models/details.packages.model.dart';
 import 'package:flytern/feature-modules/packages/models/response.packages.model.dart';
 import 'package:flytern/feature-modules/packages/models/submission_data.packages.model.dart';

@@ -1,5 +1,4 @@
-import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
-import 'package:intl/intl.dart';
+ import 'package:intl/intl.dart';
 
 class MyFlightBooking {
   final String paidAmount;

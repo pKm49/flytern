@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
-import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
-import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
+ import 'package:shimmer/shimmer.dart';
 
 class FlightAirportLabelCardLoader extends StatelessWidget {
 

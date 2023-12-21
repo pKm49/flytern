@@ -1,5 +1,4 @@
-import 'package:flytern/feature-modules/flight_booking/constants/flight_mode.flight_booking.constant.dart';
-import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
+ import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
 import 'package:flytern/shared-module/models/country.dart';
 import 'package:flytern/shared-module/models/gender.dart';
 

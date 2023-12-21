@@ -1,9 +1,7 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
-import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
-import 'package:flytern/shared-module/models/general_item.dart';
+ import 'package:flytern/shared-module/models/general_item.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:ionicons/ionicons.dart';
 

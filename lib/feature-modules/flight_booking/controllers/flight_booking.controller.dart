@@ -1,8 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flytern/feature-modules/flight_booking/constants/flight_mode.flight_booking.constant.dart';
-import 'package:flytern/feature-modules/flight_booking/constants/flight_mode.flight_booking.constant.dart';
-import 'package:flytern/feature-modules/flight_booking/models/addons/extra_package/extra_package.flight_booking.model.dart';
+ import 'package:flytern/feature-modules/flight_booking/models/addons/extra_package/extra_package.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/extra_package/extra_package_selection.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/extra_package/set_extra_package.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/meal/get_meal.flight_booking.model.dart';

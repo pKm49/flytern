@@ -1,5 +1,4 @@
-import 'package:flytern/feature-modules/hotel_booking/models/destination.hotel_booking.model.dart';
-import 'package:intl/intl.dart';
+ import 'package:intl/intl.dart';
 
 class HotelSearchItemRoomData {
 

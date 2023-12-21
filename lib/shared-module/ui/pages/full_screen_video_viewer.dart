@@ -3,8 +3,7 @@ import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:get/get.dart';
-import 'package:photo_view/photo_view.dart';
-import 'package:video_player/video_player.dart';
+ import 'package:video_player/video_player.dart';
 
 class FullScreenVideoViewer extends StatefulWidget {
   const FullScreenVideoViewer({super.key});

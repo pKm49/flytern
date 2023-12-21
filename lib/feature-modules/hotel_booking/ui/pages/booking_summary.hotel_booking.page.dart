@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
-import 'package:flytern/feature-modules/hotel_booking/models/room_option.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/search_response.hotel_booking.model.dart';
-import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/services/booking_info_helper.dart';
 import 'package:flytern/shared-module/ui/components/confirm_dialogue.shared.component.dart';
 import 'package:flytern/shared-module/ui/components/data_capsule_card.shared.component.dart';
-import 'package:flytern/shared-module/ui/components/user_details_card.shared.component.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/components/search_result_card.hotel_booking.component.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';

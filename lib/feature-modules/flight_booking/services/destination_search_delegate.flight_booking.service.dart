@@ -9,7 +9,6 @@ import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class DestinationSearchDelegate extends SearchDelegate {
