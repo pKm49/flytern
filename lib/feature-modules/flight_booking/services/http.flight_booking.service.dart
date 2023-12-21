@@ -309,7 +309,8 @@ class FlightBookingHttpService {
           {"objectID": objectId, "index": index});
 
       FlightDetails flightDetails;
-
+      print("response.data");
+      print(response.data);
       if (response.success && response.statusCode == 200) {
         if (response.data != null) {
           flightDetails = mapFlightDetails(response.data);

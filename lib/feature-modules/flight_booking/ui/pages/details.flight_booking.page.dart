@@ -274,8 +274,10 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                       child: FlightDetailsAddonServiceCard(
                         ImageUrl: ASSETS_COUPLE_ICON,
                         keyLabel: "adult".tr,
+                        value: " ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.adultBase.toStringAsFixed(3)}",
                         valueLabel:
-                            "${"base_fare".tr} : ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.adultBase.toStringAsFixed(3)}",
+                            "${"base_fare".tr}",
+
                       ),
                     ),
 
@@ -298,9 +300,10 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                       child: FlightDetailsAddonServiceCard(
                         ImageUrl: ASSETS_COUPLE_ICON,
                         keyLabel: "child".tr,
+                        value: " ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.childBase.toStringAsFixed(3)}",
                         valueLabel:
-                            "${"base_fare".tr} : ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.childBase.toStringAsFixed(3)}",
-                      ),
+                        "${"base_fare".tr}",
+                         ),
                     ),
 
                     Visibility(
@@ -322,9 +325,10 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                       child: FlightDetailsAddonServiceCard(
                         ImageUrl: ASSETS_COUPLE_ICON,
                         keyLabel: "infant".tr,
+                        value: " ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.infantBase.toStringAsFixed(3)}",
                         valueLabel:
-                            "${"base_fare".tr} : ${flightBookingController.cabinInfo.value.currency}"
-                            " ${flightBookingController.cabinInfo.value.infantBase.toStringAsFixed(3)}",
+                        "${"base_fare".tr}",
+
                       ),
                     ),
 

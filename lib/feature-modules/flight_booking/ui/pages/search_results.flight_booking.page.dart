@@ -609,7 +609,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
     }
 
     if(index == 3){
-      return "${flightBookingController.flightSearchData.value.mode.name}";
+      return "${getModeTranslated(flightBookingController.flightSearchData.value.mode.name)}";
     }
     searchParamsPreviewString = "";
     if(index == 4){
@@ -779,5 +779,16 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
         flightBookingController.departureTimeDcs.isNotEmpty||
         flightBookingController.stopDcs.isNotEmpty||
         flightBookingController.arrivalTimeDcs.isNotEmpty;
+  }
+
+  getModeTranslated(String name) {
+    if(name == FlightMode.ROUNDTRIP.name){
+      return "round_trip".tr;
+    }
+    if(name == FlightMode.ONEWAY.name){
+      return "one_way".tr;
+    }
+    return "multi_city".tr;
+
   }
 }

@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:debounce_throttle/debounce_throttle.dart';
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
 import 'package:flytern/feature-modules/flight_booking/models/destination.flight_booking.model.dart';
@@ -12,6 +15,17 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 class DestinationSearchDelegate extends SearchDelegate {
 
   final flightBookingController = Get.find<FlightBookingController>();
+
+  Completer<List<FlightDestination>> _completer = Completer();
+
+
+  late final Debouncer _debouncer = Debouncer(Duration(seconds: 1),
+      initialValue: '',
+      onChanged: (value) {
+        _completer.complete(flightBookingController.getFlightDestinations(value) ); // call the API endpoint
+      }
+  );
+
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -69,12 +83,16 @@ class DestinationSearchDelegate extends SearchDelegate {
             itemCount: snapshot.data?.length,
           );
         } else {
-          return Center(
-            child: LoadingAnimationWidget.prograssiveDots(
-              color: flyternSecondaryColor,
-              size: 50,
-            )
-          );
+          if(query !=""){
+            return Center(
+                child: LoadingAnimationWidget.prograssiveDots(
+                  color: flyternSecondaryColor,
+                  size: 50,
+                )
+            );
+          }else{
+            return Container();
+          }
         }
       },
     );
@@ -83,9 +101,11 @@ class DestinationSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    _debouncer.value = query; // update the _debouncer
+    _completer = Completer(); // re-create the _completer, 'cause old one might be completed already
 
     return FutureBuilder<List<FlightDestination>>(
-      future: flightBookingController.getFlightDestinations(query),
+      future:_completer.future,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return ListView.builder(
@@ -114,12 +134,16 @@ class DestinationSearchDelegate extends SearchDelegate {
             itemCount: snapshot.data?.length,
           );
         } else {
-          return Center(
-              child: LoadingAnimationWidget.prograssiveDots(
-                color: flyternSecondaryColor,
-                size: 50,
-              )
-          );
+          if(query !=""){
+            return Center(
+                child: LoadingAnimationWidget.prograssiveDots(
+                  color: flyternSecondaryColor,
+                  size: 50,
+                )
+            );
+          }else{
+            return Container();
+          }
         }
       },
     );

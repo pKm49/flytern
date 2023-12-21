@@ -24,10 +24,8 @@ class CoreSettingsPage extends StatefulWidget {
 }
 
 class _CoreSettingsPageState extends State<CoreSettingsPage> {
-
   bool isNotificationEnabled = true;
-   final sharedController = Get.find<SharedController>();
-
+  final sharedController = Get.find<SharedController>();
 
   @override
   void initState() {
@@ -50,118 +48,117 @@ class _CoreSettingsPageState extends State<CoreSettingsPage> {
         height: screenheight,
         color: flyternGrey10,
         child: Obx(
-              () => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: flyternLargePaddingAll,
-                  child: Text("country".tr,
-                      style: getBodyMediumStyle(context).copyWith(
-                          color: flyternGrey80,
-                          fontWeight: flyternFontWeightBold)),
-                ),
-                InkWell(
-                  onTap: openCountrySelector,
+          () => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: flyternLargePaddingAll,
+                child: Text("country".tr,
+                    style: getBodyMediumStyle(context).copyWith(
+                        color: flyternGrey80,
+                        fontWeight: flyternFontWeightBold)),
+              ),
+              InkWell(
+                onTap: openCountrySelector,
+                child: Container(
+                  color: flyternBackgroundWhite,
                   child: Container(
-                    color: flyternBackgroundWhite,
-                    child: Container(
-                      decoration:
-                      flyternBorderedContainerSmallDecoration.copyWith(color: flyternBackgroundWhite),
-                      padding: flyternMediumPaddingAll,
-                      margin: flyternLargePaddingAll,
-                      child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.center,
-                        children: [
-                          Image.network(
+                    decoration: flyternBorderedContainerSmallDecoration
+                        .copyWith(color: flyternBackgroundWhite),
+                    padding: flyternMediumPaddingAll,
+                    margin: flyternLargePaddingAll,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.network(
+                            sharedController.selectedMobileCountry.value.flag,
+                            width: 30),
+                        addHorizontalSpace(flyternSpaceSmall),
+                        Expanded(
+                          child: Text(
                               sharedController
-                                  .selectedMobileCountry.value.flag,
-                              width: 30),
-                          addHorizontalSpace(flyternSpaceSmall),
-                          Expanded(
-                            child: Text(
-                                sharedController
-                                    .selectedMobileCountry.value.countryCode,
-                                style:
-                                getBodyMediumStyle(context)),
-                          ),
-                          addHorizontalSpace(flyternSpaceMedium),
-                          Icon(
-                            Ionicons.caret_down,
-                            color: flyternGrey60,
-                            size: flyternFontSize16,
-                          )
-                        ],
-                      ),
+                                  .selectedMobileCountry.value.countryCode,
+                              style: getBodyMediumStyle(context)),
+                        ),
+                        addHorizontalSpace(flyternSpaceMedium),
+                        Icon(
+                          Ionicons.caret_down,
+                          color: flyternGrey60,
+                          size: flyternFontSize16,
+                        )
+                      ],
                     ),
                   ),
                 ),
-                Padding(
-                  padding: flyternLargePaddingAll,
-                  child: Text("language".tr,
-                      style: getBodyMediumStyle(context).copyWith(
-                          color: flyternGrey80,
-                          fontWeight: flyternFontWeightBold)),
-                ),
-                InkWell(
-                  onTap: openCountrySelector,
+              ),
+              Padding(
+                padding: flyternLargePaddingAll,
+                child: Text("language".tr,
+                    style: getBodyMediumStyle(context).copyWith(
+                        color: flyternGrey80,
+                        fontWeight: flyternFontWeightBold)),
+              ),
+              InkWell(
+                onTap: openCountrySelector,
+                child: Container(
+                  color: flyternBackgroundWhite,
                   child: Container(
-                    color: flyternBackgroundWhite,
-                    child: Container(
-                      decoration:
-                      flyternBorderedContainerSmallDecoration,
-                      padding: flyternLargePaddingAll,
-                      child: DropDownSelector(
-                        validator: (value) => null,
-                        titleText: sharedController.selectedLanguage.value.name,
-                        selected:sharedController.selectedLanguage.value.code  ,
-                        items: [
-                          for(var i =0; i<sharedController.languages.length;i++)
-                            GeneralItem(id: sharedController.languages[i].code,
-                                name: sharedController.languages[i].name,
-                                imageUrl: "")
-                        ],
-                        hintText:"" ,
-                        valueChanged: (newLang) {
-
-                          List<Language> langs = sharedController.languages.where((e) => e.code == newLang).toList();
-                          if(langs.isNotEmpty){
-                            sharedController
-                                .changeLanguage(
-                                langs[0]
-                            );
-                          }
-
-
-                        },
-                      ),
+                    decoration: flyternBorderedContainerSmallDecoration,
+                    padding: flyternLargePaddingAll,
+                    child: DropDownSelector(
+                      validator: (value) => null,
+                      titleText: sharedController.selectedLanguage.value.name,
+                      selected: sharedController.selectedLanguage.value.code,
+                      items: [
+                        for (var i = 0;
+                            i < sharedController.languages.length;
+                            i++)
+                          GeneralItem(
+                              id: sharedController.languages[i].code,
+                              name: sharedController.languages[i].name,
+                              imageUrl: "")
+                      ],
+                      hintText: "",
+                      valueChanged: (newLang) {
+                        List<Language> langs = sharedController.languages
+                            .where((e) => e.code == newLang)
+                            .toList();
+                        if (langs.isNotEmpty) {
+                          sharedController.changeLanguage(langs[0]);
+                        }
+                      },
                     ),
                   ),
                 ),
-                Expanded(child: Container()),
-
-                Container(
-                  color: flyternGrey10,
-                  padding: flyternLargePaddingAll,
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        onPressed: () async {
-                          await sharedController.setDeviceLanguageAndCountry(false,true);
-                        },
-                        style: getElevatedButtonStyle(context),
-                        child:sharedController.isSetDeviceLanguageAndCountrySubmitting.value?
-                        LoadingAnimationWidget.prograssiveDots(
-                          color: flyternBackgroundWhite,
-                          size: 16,
-                        ):Text("submit".tr)),
-                  ),
+              ),
+              Expanded(child: Container()),
+              Container(
+                color: flyternGrey10,
+                padding: flyternLargePaddingAll,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      onPressed: () async {
+                        await sharedController.setDeviceLanguageAndCountry(
+                            false, true);
+                      },
+                      style: getElevatedButtonStyle(context),
+                      child: sharedController
+                              .isSetDeviceLanguageAndCountrySubmitting.value
+                          ? LoadingAnimationWidget.prograssiveDots(
+                              color: flyternBackgroundWhite,
+                              size: 16,
+                            )
+                          : Text("submit".tr)),
                 ),
-              ],),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+
   void openCountrySelector() {
     showModalBottomSheet(
         useSafeArea: false,
@@ -174,10 +171,9 @@ class _CoreSettingsPageState extends State<CoreSettingsPage> {
         context: context,
         builder: (context) {
           return CountrySelector(
-            isMobile:true,
+            isMobile: true,
             isGlobal: true,
-            countrySelected: (Country? country){
-            },
+            countrySelected: (Country? country) {},
           );
         });
     // Get.bottomSheet(
@@ -196,23 +192,25 @@ class _CoreSettingsPageState extends State<CoreSettingsPage> {
 
   Future<void> setUserCountryAndLanguage() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? selectedMobileCountry = prefs.getString('selectedMobileCountry');
+    final String? selectedMobileCountry =
+        prefs.getString('selectedMobileCountry');
     final String? selectedLanguage = prefs.getString('selectedLanguage');
 
-    if (selectedMobileCountry != ''  ) {
+    sharedController.resetSetDeviceLanguageAndCountrySubmitting();
+    if (selectedMobileCountry != '') {
       List<Country> tCountriesList = sharedController.mobileCountries
           .where((element) => selectedMobileCountry == element.countryCode)
           .toList();
 
-      if(tCountriesList.isNotEmpty){
+      if (tCountriesList.isNotEmpty) {
         sharedController.changeMobileCountry(tCountriesList[0]);
       }
     }
-    if ( selectedLanguage != '') {
+    if (selectedLanguage != '') {
       List<Language> tLanguageList = sharedController.languages
           .where((element) => selectedMobileCountry == element.code)
           .toList();
-      if(tLanguageList.isNotEmpty){
+      if (tLanguageList.isNotEmpty) {
         sharedController.changeLanguage(tLanguageList[0]);
       }
     }

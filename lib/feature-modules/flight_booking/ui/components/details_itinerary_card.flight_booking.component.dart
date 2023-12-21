@@ -150,11 +150,13 @@ class FlightDetailsItineraryCard extends StatelessWidget {
               ],
             ),
           ),
+
           Divider(),
           for (var i = 0; i < flightSegment.flightSegmentDetails.length; i++)
             Wrap(
                children: [
                 //airline data
+
                 Visibility(
                   visible: flightSegment.flightSegmentDetails[i].flightNumber !="" &&
                       flightSegment.flightSegmentDetails[i].flightName !="" ,
@@ -237,7 +239,9 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                         padding: flyternSmallPaddingHorizontal,
                         child: Column(
                           children: [
-                            Image.asset(ASSETS_FLIGHT_CHART_ICON,width: screenwidth*.2 ),
+                            Image.asset(ASSETS_FLIGHT_CHART_ICON,width: screenwidth*.2,
+                              matchTextDirection: true,
+                            ),
 //                                 addVerticalSpace(flyternSpaceSmall),
                             addVerticalSpace(flyternSpaceSmall),
                             FittedBox(

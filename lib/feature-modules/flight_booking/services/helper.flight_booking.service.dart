@@ -191,7 +191,7 @@ class FlightBookingHelperServices {
        if(flightBookingController.flightSearchData.value.allowedCabins.isNotEmpty){
          returnString +=" - ";
          for(var i =0; i<flightBookingController.flightSearchData.value.allowedCabins.length;i++){
-           returnString += flightBookingController.flightSearchData.value.allowedCabins[i].value;
+           returnString += flightBookingController.flightSearchData.value.allowedCabins[i].name;
            if(i!=flightBookingController.flightSearchData.value.allowedCabins.length-1){
              returnString +=", ";
            }

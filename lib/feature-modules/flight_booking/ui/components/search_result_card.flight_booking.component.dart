@@ -83,7 +83,6 @@ class FlightSearchResultCard extends StatelessWidget {
                   children: [
                     Expanded(
                         child: Container(
-                      alignment: Alignment.centerLeft,
                       decoration: BoxDecoration(),
                       clipBehavior: Clip.hardEdge,
                       child: Column(
@@ -108,6 +107,7 @@ class FlightSearchResultCard extends StatelessWidget {
                           Image.asset(
                             ASSETS_FLIGHT_CHART_ICON,
                             width: screenwidth * .2,
+                            matchTextDirection: true,
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top:flyternSpaceSmall),
@@ -120,7 +120,6 @@ class FlightSearchResultCard extends StatelessWidget {
                     ),
                     Expanded(
                         child: Container(
-                      alignment: Alignment.centerRight,
                       decoration: BoxDecoration(),
                       clipBehavior: Clip.hardEdge,
                       child: Column(

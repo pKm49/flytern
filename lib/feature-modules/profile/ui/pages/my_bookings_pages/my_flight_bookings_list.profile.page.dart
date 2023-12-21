@@ -156,6 +156,8 @@ class _ProfileFlightBookingsListState extends State<ProfileFlightBookingsList> {
                                 child: Image.asset(
                                   ASSETS_FLIGHT_CHART_ICON,
                                   width: screenwidth * .3,
+                                  matchTextDirection: true,
+
                                 ),
                               ),
                               Expanded(

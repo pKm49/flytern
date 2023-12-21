@@ -160,10 +160,8 @@ class HotelBookingController extends GetxController {
   Future<List<HotelDestination>> getHotelDestinations(
       String searchQuery) async {
 
-
-    isHotelDestinationsLoading.value = true;
-
     if (searchQuery != "") {
+      isHotelDestinationsLoading.value = true;
       hotelDestinations.value =
           await hotelBookingHttpService.getHotelDestinations(searchQuery);
       isHotelDestinationsLoading.value = false;

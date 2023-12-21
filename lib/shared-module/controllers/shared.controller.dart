@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/business_specific/available_countries.shared.constant.dart';
 import 'package:flytern/shared-module/constants/business_specific/available_genders.shared.constant.dart';
@@ -162,7 +163,6 @@ class SharedController extends GetxController {
 
   changeLanguage(Language language) async {
     selectedLanguage.value = language;
-    Get.updateLocale(Locale(language.code));
   }
 
   changeCountry(Country country) async {
@@ -259,6 +259,10 @@ class SharedController extends GetxController {
     privacyHtml.value = businessDoc.privacy;
   }
 
+  resetSetDeviceLanguageAndCountrySubmitting(){
+    isSetDeviceLanguageAndCountrySubmitting.value = false;
+  }
+
   Future<void> setDeviceLanguageAndCountry(
       bool isRedirection, bool isToast) async {
     print("setDeviceLanguageAndCountry called");
@@ -285,8 +289,17 @@ class SharedController extends GetxController {
 
     await sharedHttpService.setDeviceInfo(setDeviceInfoRequestBody);
     isSetDeviceLanguageAndCountrySubmitting.value = false;
+    Get.updateLocale(Locale(selectedLanguage.value.code));
+
     if (isToast) {
       showSnackbar(Get.context!, "settings_updated".tr, "info");
+      if(!isRedirection){
+        print("isRedirection isSetDeviceLanguageAndCountrySubmitting");
+        getInitialInfo();
+        final flightBookingController = Get.find<FlightBookingController>();
+        flightBookingController.getInitialInfo();
+
+      }
     }
     if (isRedirection) {
       Get.toNamed(Approute_authSelector);

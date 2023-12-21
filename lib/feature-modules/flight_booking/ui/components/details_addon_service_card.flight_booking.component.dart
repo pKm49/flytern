@@ -13,8 +13,10 @@ class FlightDetailsAddonServiceCard extends StatelessWidget {
   String ImageUrl;
   String keyLabel;
   String valueLabel;
+  String value;
 
     FlightDetailsAddonServiceCard({super.key, required this.ImageUrl, required this.keyLabel,
+      required this.value,
     required this.valueLabel});
 
   @override
@@ -37,12 +39,22 @@ class FlightDetailsAddonServiceCard extends StatelessWidget {
               Expanded(
                   flex: 5,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment:
+
+                    MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(keyLabel,style: getBodyMediumStyle(context).copyWith(color: flyternGrey40),),
                       addVerticalSpace(flyternSpaceExtraSmall),
-                      Text(valueLabel,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80),),
+                     Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: [
+                          Text(valueLabel,style: getBodyMediumStyle(context).copyWith(color: flyternGrey80),) ,
+                         Expanded(child:  Text(value,
+                           textAlign: TextAlign.end,
+                           style: getBodyMediumStyle(context).copyWith(color: flyternGrey80),),)
+                       ],
+                     )
 
                     ],
                   ))
