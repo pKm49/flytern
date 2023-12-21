@@ -6,7 +6,7 @@ import 'package:flytern/feature-modules/flight_booking/models/destination.flight
 import 'package:flytern/feature-modules/flight_booking/models/search_data.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/search_item.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/services/destination_search_delegate.flight_booking.service.dart';
- import 'package:flytern/feature-modules/flight_booking/services/helper.flight_booking.service.dart';
+import 'package:flytern/feature-modules/flight_booking/services/helper.flight_booking.service.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/airport_lable_card.flight_booking.component.dart';
 import 'package:flytern/shared-module/services/delegates/input_getter_delegate.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/element_style_helper.shared.service.dart';
@@ -52,7 +52,6 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                 widget.flightBookingController.flightSearchData.value.searchList
                     .length),
             margin: EdgeInsets.only(bottom: flyternSpaceMedium),
-
             child: ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: widget.flightBookingController.flightSearchData.value
@@ -89,7 +88,6 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                               ),
                             ),
                           ),
-
                           Container(
                             decoration: flyternBorderedContainerSmallDecoration
                                 .copyWith(
@@ -97,7 +95,9 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                         color: flyternSecondaryColor,
                                         width: .5)),
                             padding: flyternMediumPaddingAll,
-                            width: screenwidth-((flyternSpaceLarge*2)+(flyternSpaceMedium*2)),
+                            width: screenwidth -
+                                ((flyternSpaceLarge * 2) +
+                                    (flyternSpaceMedium * 2)),
                             child: Row(
                               children: [
                                 Expanded(
@@ -118,7 +118,8 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                       decoration: BoxDecoration(),
                                       clipBehavior: Clip.hardEdge,
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           FlightAirportLabelCard(
                                             topLabel: "from".tr,
@@ -130,12 +131,29 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                                 .departure
                                                 .airportCode,
                                             bottomLabel: widget
-                                                .flightBookingController
-                                                .flightSearchData
-                                                .value
-                                                .searchList[index]
-                                                .departure
-                                                .airportName,
+                                                        .flightBookingController
+                                                        .flightSearchData
+                                                        .value
+                                                        .searchList[index]
+                                                        .departure
+                                                        .airportName
+                                                        .length >
+                                                    12
+                                                ? widget
+                                                    .flightBookingController
+                                                    .flightSearchData
+                                                    .value
+                                                    .searchList[index]
+                                                    .departure
+                                                    .airportName
+                                                    .substring(0, 12)
+                                                : widget
+                                                    .flightBookingController
+                                                    .flightSearchData
+                                                    .value
+                                                    .searchList[index]
+                                                    .departure
+                                                    .airportName,
                                             sideNumber: 1,
                                           ),
                                         ],
@@ -172,7 +190,8 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                       decoration: BoxDecoration(),
                                       clipBehavior: Clip.hardEdge,
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
                                         children: [
                                           FlightAirportLabelCard(
                                             topLabel: "to".tr,
@@ -184,24 +203,29 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                                 .arrival
                                                 .airportCode,
                                             bottomLabel: widget
-                                                .flightBookingController
-                                                .flightSearchData
-                                                .value
-                                                .searchList[index]
-                                                .arrival
-                                                .airportName.length>15?widget
-                                                .flightBookingController
-                                                .flightSearchData
-                                                .value
-                                                .searchList[index]
-                                                .arrival
-                                                .airportName.substring(0,15):widget
-                                                .flightBookingController
-                                                .flightSearchData
-                                                .value
-                                                .searchList[index]
-                                                .arrival
-                                                .airportName,
+                                                        .flightBookingController
+                                                        .flightSearchData
+                                                        .value
+                                                        .searchList[index]
+                                                        .arrival
+                                                        .airportName
+                                                        .length >
+                                                    12
+                                                ? widget
+                                                    .flightBookingController
+                                                    .flightSearchData
+                                                    .value
+                                                    .searchList[index]
+                                                    .arrival
+                                                    .airportName
+                                                    .substring(0, 12)
+                                                : widget
+                                                    .flightBookingController
+                                                    .flightSearchData
+                                                    .value
+                                                    .searchList[index]
+                                                    .arrival
+                                                    .airportName,
                                             sideNumber: 2,
                                           ),
                                         ],
@@ -212,7 +236,6 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                               ],
                             ),
                           ),
-
                           Padding(
                             padding:
                                 const EdgeInsets.only(top: flyternSpaceMedium),
@@ -266,7 +289,8 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                                                 FontWeight
                                                                     .w400),
                                                   ),
-                                                  addVerticalSpace(flyternSpaceSmall),
+                                                  addVerticalSpace(
+                                                      flyternSpaceSmall),
                                                   Text(
                                                       getFormattedDate(widget
                                                           .flightBookingController
@@ -324,7 +348,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                                   color: flyternSecondaryColor,
                                                   size: flyternFontSize20),
                                               addHorizontalSpace(
-                                                  flyternSpaceSmall ),
+                                                  flyternSpaceSmall),
                                               Expanded(
                                                 flex: 1,
                                                 child: Column(
@@ -345,7 +369,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                                                       .w400),
                                                     ),
                                                     addVerticalSpace(
-                                                        flyternSpaceSmall ),
+                                                        flyternSpaceSmall),
                                                     Text(
                                                         widget
                                                                     .flightBookingController
@@ -379,7 +403,6 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                               ],
                             ),
                           ),
-
                         ],
                       ),
                     )),
@@ -538,14 +561,13 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                 !widget.flightBookingController.isInitialDataLoading.value &&
                     widget.flightBookingController.quickSearch.isNotEmpty,
             child: Padding(
-                padding: EdgeInsets.only(top: flyternSpaceLarge,bottom: flyternSpaceMedium),
+                padding: EdgeInsets.only(
+                    top: flyternSpaceLarge, bottom: flyternSpaceMedium),
                 child: Row(
                   children: [
                     Icon(Ionicons.time_outline,
-                        size: flyternFontSize20,
-                        color: flyternSecondaryColor),
+                        size: flyternFontSize20, color: flyternSecondaryColor),
                     addHorizontalSpace(flyternSpaceSmall),
-
                     Text("recent_searches".tr,
                         style: getBodyMediumStyle(context)
                             .copyWith(fontWeight: flyternFontWeightBold)),
@@ -562,23 +584,29 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                 child: Wrap(
                   direction: Axis.horizontal,
                   children: [
-                    for(var i=0;i<widget.flightBookingController.quickSearch.length;i++)
-                    InkWell(
-                      onTap: () {
-                        widget.flightBookingController.getQuickSearchResult(
-                            widget.flightBookingController.quickSearch[i]);
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(right: flyternSpaceSmall,bottom: flyternSpaceSmall),
-                        padding: flyternExtraSmallPaddingAll.copyWith(
-                          left: flyternSpaceSmall,right: flyternSpaceSmall
-                        ),
-                        decoration:flyternBorderedContainerSmallDecoration.
-                        copyWith(border: Border.all(color: flyternTertiaryColor, width: .2)),
-                        child: Text(getSearchParamsPreview(widget
-                            .flightBookingController.quickSearch[i])),
-                      )
-                    )
+                    for (var i = 0;
+                        i < widget.flightBookingController.quickSearch.length;
+                        i++)
+                      InkWell(
+                          onTap: () {
+                            widget.flightBookingController.getQuickSearchResult(
+                                widget.flightBookingController.quickSearch[i]);
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                right: flyternSpaceSmall,
+                                bottom: flyternSpaceSmall),
+                            padding: flyternExtraSmallPaddingAll.copyWith(
+                                left: flyternSpaceSmall,
+                                right: flyternSpaceSmall),
+                            decoration: flyternBorderedContainerSmallDecoration
+                                .copyWith(
+                                    border: Border.all(
+                                        color: flyternTertiaryColor,
+                                        width: .2)),
+                            child: Text(getSearchParamsPreview(
+                                widget.flightBookingController.quickSearch[i])),
+                          ))
                   ],
                 )),
           ),
@@ -604,20 +632,22 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
             selectedDate: currentDateTime,
             minimumDate: isReturn
                 ? widget.flightBookingController.flightSearchData.value
-                    .searchList[index].departureDate :
-            widget.flightBookingController.flightSearchData.value.mode ==
-                FlightMode.MULTICITY?
-            index !=0? widget.flightBookingController.flightSearchData.value
-                .searchList[index-1].departureDate
-            :DateTime.now()
-                : DateTime.now(),
+                    .searchList[index].departureDate
+                : widget.flightBookingController.flightSearchData.value.mode ==
+                        FlightMode.MULTICITY
+                    ? index != 0
+                        ? widget.flightBookingController.flightSearchData.value
+                            .searchList[index - 1].departureDate
+                        : DateTime.now()
+                    : DateTime.now(),
             maximumDate: isReturn
                 ? widget.flightBookingController.flightSearchData.value
                     .searchList[index].departureDate
-                    .add(Duration(days: 365)):
-            widget.flightBookingController.flightSearchData.value.mode ==
-            FlightMode.MULTICITY?currentDateTime.add(Duration(days: 365))
-                : DateTime.now().add(Duration(days: 365)),
+                    .add(Duration(days: 365))
+                : widget.flightBookingController.flightSearchData.value.mode ==
+                        FlightMode.MULTICITY
+                    ? currentDateTime.add(Duration(days: 365))
+                    : DateTime.now().add(Duration(days: 365)),
             dateSelected: (DateTime? dateTime) {
               if (dateTime != null && dateTime.isAfter(DateTime.now())) {
                 widget.flightBookingController
