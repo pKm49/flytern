@@ -181,11 +181,11 @@ class FlightBookingController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getInitialInfo();
+    // getInitialInfo();
   }
 
   Future<void> getInitialInfo() async {
-    sharedController.setDeviceLanguageAndCountry(false,false);
+
     ExploreData exploreData = await flightBookingHttpService.getInitialInfo();
 
     cabinClasses.value = exploreData.cabinClasses;

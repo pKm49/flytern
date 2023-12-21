@@ -22,7 +22,6 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedController extends GetxController {
-
   var isAuthTokenSet = false.obs;
 
   var otp = "".obs;
@@ -71,7 +70,6 @@ class SharedController extends GetxController {
   var currentInfoTitle = "About Us".obs;
   var currentInfoType = InfoType.ABOUTUS.obs;
 
-
   var paymentGatewayIsLoading = true.obs;
   var paymentGatewayIsBackConfirmed = false.obs;
 
@@ -88,6 +86,8 @@ class SharedController extends GetxController {
   Future<void> setAuthToken() async {
     isAuthTokenSet.value = false;
 
+    var isAuthTokenSetTemp = false;
+
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var sharedHttpService = SharedHttpService();
 
@@ -96,8 +96,8 @@ class SharedController extends GetxController {
     final String? refreshToken = prefs.getString('refreshToken');
     final String? expiryOnString = prefs.getString('expiryOn');
     final String? selectedLanguage = prefs.getString('selectedLanguage');
-    final String? selectedMobileCountry = prefs.getString('selectedMobileCountry');
-
+    final String? selectedMobileCountry =
+        prefs.getString('selectedMobileCountry');
 
     if (accessToken != null &&
         accessToken != '' &&
@@ -114,7 +114,6 @@ class SharedController extends GetxController {
           saveAuthTokenToSharedPreference(authToken);
         }
       }
-      Get.offAllNamed(Approute_landingpage);
     } else {
       AuthToken authToken = await sharedHttpService.getGuestToken();
 
@@ -122,29 +121,30 @@ class SharedController extends GetxController {
         saveAuthTokenToSharedPreference(authToken);
       }
 
-      if (selectedLanguage != null &&
-          selectedLanguage != '' &&
-          selectedMobileCountry != null &&
-          selectedMobileCountry != '' ){
-        List<Language> langs = languages.where((e) => e.code == selectedLanguage).toList();
-        print("selectedLanguage");
-        print(selectedLanguage);
-        print(langs);
-        if(langs.isNotEmpty){
-          changeLanguage(langs[0]);
-        }
+    }
 
+    if (selectedLanguage != null &&
+        selectedLanguage != '' &&
+        selectedMobileCountry != null &&
+        selectedMobileCountry != '') {
+      List<Language> langs =
+          languages.where((e) => e.code == selectedLanguage).toList();
+      print("selectedLanguage");
+      print(selectedLanguage);
+      print(langs);
+      if (langs.isNotEmpty) {
+        changeLanguage(langs[0]);
         Get.offAllNamed(Approute_landingpage);
+      } else {
+        isAuthTokenSet.value = true;
       }
-      await Future.delayed(const Duration(seconds: 1));
+    } else {
       isAuthTokenSet.value = true;
     }
 
-    final sharedController = Get.find<SharedController>();
-    sharedController.getInitialInfo();
-    sharedController.getPreRegisterInfo();
+    getInitialInfo();
+    getPreRegisterInfo();
   }
-
 
   Future<void> handleLogout() async {
     AuthToken authToken = AuthToken(
@@ -159,8 +159,6 @@ class SharedController extends GetxController {
     }
     Get.offAllNamed(Approute_authSelector);
   }
-
-
 
   changeLanguage(Language language) async {
     selectedLanguage.value = language;
@@ -182,7 +180,6 @@ class SharedController extends GetxController {
   }
 
   updateCountryListByQuery(String query, bool isMobile) {
-
     if (query == "") {
       if (isMobile) {
         mobileCountriesToShow.value = mobileCountries.value;
@@ -248,7 +245,9 @@ class SharedController extends GetxController {
     privacyHtml.value = businessDoc.privacy;
   }
 
-  Future<void> setDeviceLanguageAndCountry(bool isRedirection,bool isToast) async {
+  Future<void> setDeviceLanguageAndCountry(
+      bool isRedirection, bool isToast) async {
+    print("setDeviceLanguageAndCountry called");
     isSetDeviceLanguageAndCountrySubmitting.value = true;
     await Future<void>.delayed(
       const Duration(
@@ -272,50 +271,48 @@ class SharedController extends GetxController {
 
     await sharedHttpService.setDeviceInfo(setDeviceInfoRequestBody);
     isSetDeviceLanguageAndCountrySubmitting.value = false;
-    if(isToast){
+    if (isToast) {
       showSnackbar(Get.context!, "settings_updated".tr, "info");
     }
-    if(isRedirection){
+    if (isRedirection) {
       Get.toNamed(Approute_authSelector);
     }
-
   }
 
   Future<String> getFirebaseMessagingToken() async {
-    try{
+    try {
       await Future.delayed(const Duration(seconds: 3));
-      String firebaseMessagingToken = await FirebaseMessaging.instance.getToken()??"";
+      String firebaseMessagingToken =
+          await FirebaseMessaging.instance.getToken() ?? "";
       print("firebaseMessagingToken");
       print(firebaseMessagingToken);
       return firebaseMessagingToken;
-    }catch (e){
+    } catch (e) {
       return e.toString();
     }
-
   }
 
-  resetOtpResendCount(){
+  resetOtpResendCount() {
     otp.value = "";
     otpResendCount.value = 0;
   }
 
   resendOtp(String userId) async {
-    if (userId != "" && otpResendCount.value<3) {
+    if (userId != "" && otpResendCount.value < 3) {
       isOtpSubmitting.value = true;
       try {
-       bool isSuccess = await sharedHttpService.resendOtp(userId);
+        bool isSuccess = await sharedHttpService.resendOtp(userId);
 
-       if (isSuccess) {
-         otpResendCount.value = otpResendCount.value +1;
-         showSnackbar(Get.context!, "otp_resend".tr, "info");
-         isOtpSubmitting.value = false;
-       }else{
-         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
-         isOtpSubmitting.value = false;
-       }
-
+        if (isSuccess) {
+          otpResendCount.value = otpResendCount.value + 1;
+          showSnackbar(Get.context!, "otp_resend".tr, "info");
+          isOtpSubmitting.value = false;
+        } else {
+          showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+          isOtpSubmitting.value = false;
+        }
       } catch (e, t) {
-         showSnackbar(Get.context!, e.toString(), "error");
+        showSnackbar(Get.context!, e.toString(), "error");
         isOtpSubmitting.value = false;
       }
     }
@@ -330,12 +327,12 @@ class SharedController extends GetxController {
         if (authToken.accessToken != "") {
           Get.back(result: authToken);
           isOtpSubmitting.value = false;
-        }else{
+        } else {
           showSnackbar(Get.context!, "something_went_wrong".tr, "error");
           isOtpSubmitting.value = false;
         }
       } catch (e, stack) {
-         showSnackbar(Get.context!, e.toString(), "error");
+        showSnackbar(Get.context!, e.toString(), "error");
         isOtpSubmitting.value = false;
       }
     }
@@ -346,7 +343,6 @@ class SharedController extends GetxController {
   }
 
   getBusinessInfo(InfoType infoType) async {
-
     if (!isInfoLoading.value) {
       currentInfoType.value = infoType;
 
@@ -387,7 +383,6 @@ class SharedController extends GetxController {
 
       InfoResponseData infoResponseData =
           await sharedHttpService.getInfo(infoType.name);
-
 
       switch (infoType) {
         case InfoType.ABOUTUS:
@@ -434,7 +429,6 @@ class SharedController extends GetxController {
   }
 
   Future<void> updateMobileCountryList(List<Country> mobileCountryList) async {
-
     mobileCountries.value = mobileCountryList;
     mobileCountriesToShow.value = mobileCountryList;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -486,9 +480,9 @@ class SharedController extends GetxController {
     countriesToShow.value = countries;
   }
 
-  paymentGatewayGoback(bool status, String summaryPageUrl){
+  paymentGatewayGoback(bool status, String summaryPageUrl) {
     print("paymentGatewayGoback");
-      Get.back(result: status);
+    Get.back(result: status);
   }
 
   void changePaymentGatewayLoading(bool status) {
@@ -499,6 +493,5 @@ class SharedController extends GetxController {
 
   void changePaymentGatewayBackConfirmation() {
     paymentGatewayIsBackConfirmed.value = !paymentGatewayIsBackConfirmed.value;
-
   }
 }

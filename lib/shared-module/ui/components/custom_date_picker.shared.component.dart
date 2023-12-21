@@ -35,7 +35,15 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    selectedDOB = widget.selectedDate;
+
+    if(widget.selectedDate.day == DefaultInvalidDate.day &&
+        widget.selectedDate.month == DefaultInvalidDate.month &&
+        widget.selectedDate.year == DefaultInvalidDate.year){
+      selectedDOB = DOBCalendarStartDate;
+    }else{
+      selectedDOB = widget.selectedDate;
+    }
+
   }
 
   @override

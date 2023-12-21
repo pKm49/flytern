@@ -12,6 +12,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OTPInputPage extends StatefulWidget {
   const OTPInputPage({super.key});
@@ -21,7 +22,6 @@ class OTPInputPage extends StatefulWidget {
 }
 
 class _OTPInputPageState extends State<OTPInputPage> {
-
   var getArguments = Get.arguments;
   String from = Approute_registerPersonalData;
   String otpTarget = "";
@@ -37,7 +37,7 @@ class _OTPInputPageState extends State<OTPInputPage> {
     from = getArguments[0];
     otpTarget = getArguments[1];
     userId = getArguments[2];
-   sharedController.resetOtpResendCount();
+    sharedController.resetOtpResendCount();
     startTimer();
     super.initState();
   }
@@ -50,7 +50,6 @@ class _OTPInputPageState extends State<OTPInputPage> {
 
   @override
   Widget build(BuildContext context) {
-
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
 
@@ -72,26 +71,54 @@ class _OTPInputPageState extends State<OTPInputPage> {
                 style: getBodyMediumStyle(context)
                     .copyWith(fontWeight: flyternFontWeightBold)),
             addVerticalSpace(flyternSpaceLarge * 2),
-            OTPTextField(
-              otpFieldStyle: OtpFieldStyle(
-                backgroundColor: flyternGrey20,
-                borderColor: flyternGrey20,
-                focusBorderColor: flyternGrey40,
-                disabledBorderColor: flyternGrey40,
-                errorBorderColor: flyternGuideRed,
-              ),
+            PinCodeTextField(
+              backgroundColor: flyternBackgroundWhite,
+              keyboardType: TextInputType.number,
+              appContext: context,
               length: 6,
-              width: MediaQuery.of(context).size.width,
-              fieldWidth: (screenwidth - (flyternSpaceLarge * 2)) / 7,
-              style: TextStyle(fontSize: 17),
-              textFieldAlignment: MainAxisAlignment.spaceAround,
-              fieldStyle: FieldStyle.box,
+              obscureText: false,
+              pinTheme: PinTheme(
+                inactiveColor: flyternGuideRed,
+                selectedColor: flyternGrey40,
+                selectedFillColor: flyternGrey40,
+                inactiveFillColor: flyternGuideRed,
+                activeFillColor: flyternPrimaryColor,
+                activeColor: flyternPrimaryColor,
+                shape: PinCodeFieldShape.box,
+                borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
+                fieldWidth: (screenwidth - (flyternSpaceLarge * 2)) / 7,
+                errorBorderColor:flyternGuideRed,
+
+              ),
+              onChanged: (value) {
+                setState(() {});
+              },
               onCompleted: (pin) {
                 setState(() {
-                   sharedController.updateOtp(pin);
+                  sharedController.updateOtp(pin);
                 });
               },
             ),
+            // OTPTextField(
+            //   otpFieldStyle: OtpFieldStyle(
+            //     backgroundColor: flyternGrey20,
+            //     borderColor: flyternGrey20,
+            //     focusBorderColor: flyternGrey40,
+            //     disabledBorderColor: flyternGrey40,
+            //     errorBorderColor: flyternGuideRed,
+            //   ),
+            //   length: 6,
+            //   width: MediaQuery.of(context).size.width,
+            //   fieldWidth: (screenwidth - (flyternSpaceLarge * 2)) / 7,
+            //   style: TextStyle(fontSize: 17),
+            //   textFieldAlignment: MainAxisAlignment.spaceAround,
+            //   fieldStyle: FieldStyle.box,
+            //   onCompleted: (pin) {
+            //     setState(() {
+            //       sharedController.updateOtp(pin);
+            //     });
+            //   },
+            // ),
             addVerticalSpace(flyternSpaceLarge),
             Visibility(
               visible: timeInSeconds > 0,
@@ -130,33 +157,36 @@ class _OTPInputPageState extends State<OTPInputPage> {
             ),
             addVerticalSpace(flyternSpaceLarge),
             Visibility(
-              visible:  timeInSeconds > 0,
+              visible: timeInSeconds > 0,
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                     style: getElevatedButtonStyle(context),
                     onPressed: () {
-                      if (isValidOtp(sharedController.otp.value) && !sharedController.isOtpSubmitting.value) {
+                      if (isValidOtp(sharedController.otp.value) &&
+                          !sharedController.isOtpSubmitting.value) {
                         FocusManager.instance.primaryFocus?.unfocus();
-                        sharedController
-                            .verifyOtp(sharedController.otp.value,userId);
-                      }else{
-                        if(!isValidOtp(sharedController.otp.value)){
-                          showSnackbar(context, "enter_otp_tocontinue".tr, "error");
+                        sharedController.verifyOtp(
+                            sharedController.otp.value, userId);
+                      } else {
+                        if (!isValidOtp(sharedController.otp.value)) {
+                          showSnackbar(
+                              context, "enter_otp_tocontinue".tr, "error");
                         }
                       }
                     },
                     child: sharedController.isOtpSubmitting.value
                         ? LoadingAnimationWidget.prograssiveDots(
-                      color: flyternBackgroundWhite,
-                      size: 16,
-                    )
+                            color: flyternBackgroundWhite,
+                            size: 16,
+                          )
                         : Text("verify".tr)),
               ),
             ),
             addVerticalSpace(flyternSpaceLarge),
             Visibility(
-              visible: sharedController.otpResendCount.value<3 && timeInSeconds==0,
+              visible: sharedController.otpResendCount.value < 3 &&
+                  timeInSeconds == 0,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -167,12 +197,10 @@ class _OTPInputPageState extends State<OTPInputPage> {
                   ),
                   addHorizontalSpace(flyternSpaceSmall),
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       sharedController.resendOtp(userId);
                       timeInSeconds = 120;
-                      setState(() {
-
-                      });
+                      setState(() {});
                       startTimer();
                     },
                     child: Text(
@@ -211,10 +239,10 @@ class _OTPInputPageState extends State<OTPInputPage> {
 
   bool isValidOtp(String value) {
     print("isValidOtp");
-    if(value == ""){
+    if (value == "") {
       return false;
     }
-    if(value.length!=6){
+    if (value.length != 6) {
       return false;
     }
     return true;
