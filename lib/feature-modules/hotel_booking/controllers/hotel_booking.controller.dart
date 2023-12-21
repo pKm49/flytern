@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flytern/feature-modules/hotel_booking/models/destination.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/details.hotel_booking.model.dart';
@@ -160,6 +159,8 @@ class HotelBookingController extends GetxController {
 
   Future<List<HotelDestination>> getHotelDestinations(
       String searchQuery) async {
+
+
     isHotelDestinationsLoading.value = true;
 
     if (searchQuery != "") {
@@ -168,6 +169,7 @@ class HotelBookingController extends GetxController {
       isHotelDestinationsLoading.value = false;
       return hotelDestinations.value;
     } else {
+      isHotelDestinationsLoading.value = false;
       return [];
     }
   }
