@@ -142,8 +142,7 @@ class HotelDestinationSearchDelegate extends SearchDelegate {
           }else{
             return Container();
           }
-          print("snapshot.connectionState");
-          print(snapshot.connectionState);
+
 
         }
       },

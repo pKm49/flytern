@@ -66,8 +66,7 @@ class _DocumentPageState extends State<DocumentPage> {
                         element,
                       ) async {
                         final Uri _url = Uri.parse(url!);
-                        print("onLinkTap");
-                        print(url);
+
                         if (!await launchUrl(_url)) {}
                       },
                       style: {

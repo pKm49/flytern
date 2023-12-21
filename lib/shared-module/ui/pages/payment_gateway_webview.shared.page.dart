@@ -78,22 +78,17 @@ class _PaymentGatewayWebViewState extends State<PaymentGatewayWebView> {
                   controller = controller;
                 },
                 onUpdateVisitedHistory: (InAppWebViewController controller, Uri? url, bool? flag) {
-                  print("onUpdateVisitedHistory");
-                  print(url);
-                  print(flag);
+
 
                   if(url.toString().contains(confirmationUrl) ){
                     setBack(true);
                   }
                 },
                 onLoadStart: (InAppWebViewController controller, Uri? url) {
-                    print("onLoadStart");
-                    print(url);
+
                 },
                 onLoadStop: (InAppWebViewController controller, Uri? url) async {
-                  print("onLoadStop");
-                  print(url);
-                  print(!url.toString().contains(confirmationUrl));
+
                   if(!url.toString().contains(confirmationUrl) ){
                     sharedController.changePaymentGatewayLoading(false);
                   }else{
@@ -105,8 +100,7 @@ class _PaymentGatewayWebViewState extends State<PaymentGatewayWebView> {
 
                 },
                 onProgressChanged: (InAppWebViewController controller, int progress) {
-                  print("onProgressChanged");
-                  print(progress);
+
                   if(!isConfirmationReached){
                     if(progress == 100){
                       sharedController.changePaymentGatewayLoading(false);
@@ -151,19 +145,16 @@ class _PaymentGatewayWebViewState extends State<PaymentGatewayWebView> {
     //       },
     //       onPageStarted: (String url) {},
     //       onPageFinished: (String url) {
-    //         print("onPageFinished");
-    //         print(url);
+
     //         setState(() {
     //           isLoading = false;
     //         });
     //       },
     //       onWebResourceError: (WebResourceError error) {
-    //         print("WebResourceError");
-    //         print(error);
+
     //       },
     //       onNavigationRequest: (NavigationRequest request) {
-    //         print("NavigationRequest");
-    //         print(request.url);
+
     //          if (request.url
     //             .contains(confirmationUrl)) {
     //           Future.delayed(const Duration(seconds: 1), () {
@@ -186,10 +177,6 @@ class _PaymentGatewayWebViewState extends State<PaymentGatewayWebView> {
   }
 
 
-  handleError(e) {
-    print("catch error");
-    print(e);
-  }
 
   Future<void> setBack(bool status) async {
 

@@ -130,9 +130,7 @@ class SharedController extends GetxController {
         selectedMobileCountry != '') {
       List<Language> langs =
           languages.where((e) => e.code == selectedLanguage).toList();
-      print("selectedLanguage");
-      print(selectedLanguage);
-      print(langs);
+
       if (langs.isNotEmpty) {
         changeLanguage(langs[0]);
         Get.offAllNamed(Approute_landingpage);
@@ -265,8 +263,7 @@ class SharedController extends GetxController {
 
   Future<void> setDeviceLanguageAndCountry(
       bool isRedirection, bool isToast) async {
-    print("setDeviceLanguageAndCountry called");
-    isSetDeviceLanguageAndCountrySubmitting.value = true;
+     isSetDeviceLanguageAndCountrySubmitting.value = true;
     await Future<void>.delayed(
       const Duration(
         seconds: 2,
@@ -294,8 +291,7 @@ class SharedController extends GetxController {
     if (isToast) {
       showSnackbar(Get.context!, "settings_updated".tr, "info");
       if(!isRedirection){
-        print("isRedirection isSetDeviceLanguageAndCountrySubmitting");
-        getInitialInfo();
+         getInitialInfo();
         final flightBookingController = Get.find<FlightBookingController>();
         flightBookingController.getInitialInfo();
 
@@ -311,8 +307,7 @@ class SharedController extends GetxController {
       await Future.delayed(const Duration(seconds: 3));
       String firebaseMessagingToken =
           await FirebaseMessaging.instance.getToken() ?? "";
-      print("firebaseMessagingToken");
-      print(firebaseMessagingToken);
+
       return firebaseMessagingToken;
     } catch (e) {
       return e.toString();
@@ -435,8 +430,7 @@ class SharedController extends GetxController {
         case InfoType.CONTACTUS:
           {
             contactHtml.value = infoResponseData.content;
-            print("infoResponseData.content");
-            print(infoResponseData.content);
+
             currentInfoTitle.value = "contact_us".tr;
             break;
           }
@@ -508,13 +502,12 @@ class SharedController extends GetxController {
   }
 
   paymentGatewayGoback(bool status, String summaryPageUrl) {
-    print("paymentGatewayGoback");
+
     Get.back(result: status);
   }
 
   void changePaymentGatewayLoading(bool status) {
-    print("changePaymentGatewayLoading");
-    print(status);
+
     paymentGatewayIsLoading.value = status;
   }
 

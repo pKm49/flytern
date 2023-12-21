@@ -62,8 +62,7 @@ class FlightSegmentDetails {
 }
 
 FlightSegmentDetails mapFlightSegmentDetails(dynamic payload) {
-  print("carrierImageUrl");
-  print(payload);
+
   return FlightSegmentDetails(
     carrierImageUrl: payload["carrierImageUrl"] ?? "",
     operatingCarrierImageUrl: payload["operatingCarrierImageUrl"] ?? "",

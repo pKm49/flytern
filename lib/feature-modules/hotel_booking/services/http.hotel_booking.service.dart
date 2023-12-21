@@ -219,9 +219,7 @@ class HotelBookingHttpService {
 
       HotelDetails flightDetails;
 
-      print("getHotelDetails");
-      print(response.success);
-      print(response.errors);
+
       if (response.success && response.statusCode == 200) {
         if (response.data != null) {
           flightDetails = mapHotelDetails(response.data);

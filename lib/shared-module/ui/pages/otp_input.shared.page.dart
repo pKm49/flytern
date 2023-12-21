@@ -238,7 +238,7 @@ class _OTPInputPageState extends State<OTPInputPage> {
   }
 
   bool isValidOtp(String value) {
-    print("isValidOtp");
+
     if (value == "") {
       return false;
     }

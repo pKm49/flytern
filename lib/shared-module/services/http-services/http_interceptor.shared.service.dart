@@ -31,8 +31,7 @@ class FlyternHttpInterceptor implements InterceptorContract {
       data.headers["Host"]=env.apiEndPoint;
       if(data.url.contains(SharedHttpRequestEndpoint_GetGuestToken)){
         String? deviceId = await _getId();
-        print("deviceId");
-        print(deviceId);
+
         data.headers["DeviceID"] = deviceId??"";
       }
 
@@ -89,24 +88,12 @@ class FlyternHttpInterceptor implements InterceptorContract {
 
     if (Platform.isIOS) {
       var iosDeviceInfo = await deviceInfo.iosInfo;
-      print("_getId iosDeviceInfo");
-      print(iosDeviceInfo.utsname);
-      print(iosDeviceInfo.model);
-      print(iosDeviceInfo.name);
-      print(iosDeviceInfo.identifierForVendor);
-      print(iosDeviceInfo.localizedModel);
+
       uniqueDeviceId =
       '$idPattern-IOS-${iosDeviceInfo.name}-${iosDeviceInfo.identifierForVendor}';
     } else if(Platform.isAndroid) {
       var androidDeviceInfo = await deviceInfo.androidInfo;
-      print("_getId");
-      print(androidDeviceInfo.manufacturer);
-      print(androidDeviceInfo.product);
-      print(androidDeviceInfo.brand);
-      print(androidDeviceInfo.model);
-      print(androidDeviceInfo.id);
-      print(androidDeviceInfo.type);
-      print(androidDeviceInfo.serialNumber);
+
 
       uniqueDeviceId =
       '$idPattern-AND-${androidDeviceInfo.brand}-${androidDeviceInfo.model}-${androidDeviceInfo.id}' ;

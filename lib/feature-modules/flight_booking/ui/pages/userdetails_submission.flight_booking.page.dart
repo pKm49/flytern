@@ -315,8 +315,7 @@ class _FlightUserDetailsSubmissionPageState
     }
 
     if (flightBookingController.flightPretravellerData.value.infant > 0) {
-      print("infant count >0");
-      tabLength++;
+       tabLength++;
       for (var i = 0;
           i < flightBookingController.flightPretravellerData.value.infant;
           i++) {

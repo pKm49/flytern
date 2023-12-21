@@ -153,9 +153,7 @@ class SharedHttpService {
       FlyternHttpResponse response = await postRequest(
           SharedHttpRequestEndpointVerifyOTP, {"otp": otp, "userID": userId});
 
-      print("verifyOtp");
-      print(response.data);
-      print(response.success);
+
       if (response.success && (response.statusCode == 200 || response.statusCode == 202)) {
         AuthToken authToken = mapAuthToken(response.data, false);
         return authToken;

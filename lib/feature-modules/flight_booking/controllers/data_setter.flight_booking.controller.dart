@@ -107,9 +107,7 @@ extension FlightBookingControllerSetter on FlightBookingController {
 
   void updatePassengerCountAndCabinClass(int adultCount, int childCount,
       int infantCount, List<CabinClass> cabinClasses) {
-    print("updatePassengerCountAndCabinClass");
-    print(cabinClasses[0].id);
-    print(cabinClasses[0].name);
+
     FlightSearchData newFlightSearchData =
     flightBookingHelperServices.updatePassengerCountAndCabinClass(
         flightSearchData.value,
@@ -290,10 +288,6 @@ extension FlightBookingControllerSetter on FlightBookingController {
   }
 
   getIndex(int itemTypeIndex, int localIndex) {
-
-    print("getIndex");
-    print(itemTypeIndex);
-    print(localIndex);
 
     int total = flightPretravellerData.value.adult +
         flightPretravellerData.value.child +

@@ -225,8 +225,7 @@ class _HotelUserDetailsSubmissionFormState
         .where((p0) => p0.id.toString() == newGender)
         .toList();
     selectedPassenger = newGender;
-    print("changeSelectedPassenger");
-    print(selectedPassenger);
+
     if (coPax.isNotEmpty) {
       List<Gender> coPaxGender = sharedController.genderList.value
           .where((element) => element.code == coPax[0].gender)
@@ -297,16 +296,14 @@ class _HotelUserDetailsSubmissionFormState
     element.roomIndex ==roomIndex && element.userIndex == userIndex).toList();
 
     if(hotelTravelInfo.isNotEmpty){
-      print("allowedCopaxes");
-      print(hotelTravelInfo[0].selectedCopaxId);
-      print(hotelTravelInfo[0].travellerType);
+
       List<String> selectedUserCopaxes = hotelBookingController.travelInfo.value.map(
               (e) => e.selectedCopaxId).toList();
-      print(selectedUserCopaxes);
+
       selectedUserCopaxes = selectedUserCopaxes.where((element) =>
       element != hotelTravelInfo[0].selectedCopaxId).toList();
 
-      print(selectedUserCopaxes);
+
       List<UserCoPax> allowedCopaxes =  coPaxController.userCopaxes.value.where((element) =>
       !selectedUserCopaxes.contains(element.id.toString())
       ).toList();
@@ -324,9 +321,6 @@ class _HotelUserDetailsSubmissionFormState
             element.dateOfBirth.isAfter(DefaultChildMinimumDate)
         ).toList();
       }
-
-
-      print(allowedCopaxes.length);
 
       return allowedCopaxes;
     }

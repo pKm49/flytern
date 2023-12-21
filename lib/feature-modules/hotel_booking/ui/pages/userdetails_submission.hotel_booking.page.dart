@@ -223,9 +223,6 @@ class _HotelUserDetailsSubmissionPageState
       roomsExpansionControllers.add([]);
       roomsExpansionControllerKeys.add([]);
 
-      print("user count for $i room");
-      print(hotelBookingController.hotelPretravellerData.value.rooms[i].adults);
-      print(hotelBookingController.hotelPretravellerData.value.rooms[i].childs);
 
       if (hotelBookingController.hotelPretravellerData.value.rooms[i].adults >
           0) {
@@ -278,14 +275,7 @@ class _HotelUserDetailsSubmissionPageState
     }
 
     hotelBookingController.travelInfo.forEach((element) {
-      print("travelInfo 1");
-      print(element.roomIndex);
-      print(element.typeIndex);
-      print(element.userIndex);
-      print(element.title);
-      print(element.gender);
-      print(element.firstName);
-      print(element.lastName);
+
     });
     setState(() {});
   }
@@ -293,27 +283,18 @@ class _HotelUserDetailsSubmissionPageState
   void updateTravellerInfor(
       int roomIndex, int userIndex, HotelTravelInfo newHotelTravelInfo) {
 
-    print("updateTravellerInfor updateTravellerInfor");
-    print(roomIndex);
-    print(userIndex);
-    print(newHotelTravelInfo.firstName);
 
     List<HotelTravelInfo> tempHotelTravelInfo = [];
     for (var i = 0; i < hotelBookingController.travelInfo.value.length; i++) {
 
-      print("traveller info $i");
-      print(hotelBookingController.travelInfo.value[i].roomIndex);
-      print(hotelBookingController.travelInfo.value[i].userIndex);
-      print(hotelBookingController.travelInfo.value[i].firstName);
+
 
       if (hotelBookingController.travelInfo.value[i].roomIndex != roomIndex ||
           hotelBookingController.travelInfo.value[i].userIndex != userIndex) {
-        print("roomIndex & userIndex not equal");
-        print(hotelBookingController.travelInfo.value[i].firstName);
+
         tempHotelTravelInfo.add(hotelBookingController.travelInfo.value[i]);
       } else {
-        print("roomIndex & userIndex is equal");
-        print(newHotelTravelInfo.firstName);
+
         tempHotelTravelInfo.add(HotelTravelInfo(
             selectedCopaxId: newHotelTravelInfo.selectedCopaxId,
             roomIndex: hotelBookingController.travelInfo.value[i].roomIndex,

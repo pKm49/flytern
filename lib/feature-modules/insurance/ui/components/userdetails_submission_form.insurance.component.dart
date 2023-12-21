@@ -430,8 +430,7 @@ class _InsuranceUserDetailsSubmissionFormState
                 .selectedCopaxId)
         .toList();
 
-    print(selectedUserCopaxes);
-    List<UserCoPax> allowedCopaxes = coPaxController.userCopaxes.value
+     List<UserCoPax> allowedCopaxes = coPaxController.userCopaxes.value
         .where(
             (element) => !selectedUserCopaxes.contains(element.id.toString()))
         .toList();
@@ -444,7 +443,7 @@ class _InsuranceUserDetailsSubmissionFormState
     //             .insuranceInitialData.value.minDateOfBirth))
     //     .toList();
     //
-    // print(allowedCopaxes.length);
+
 
     return allowedCopaxes;
   }

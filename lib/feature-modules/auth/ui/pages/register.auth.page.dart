@@ -369,8 +369,7 @@ class _AuthRegisterDetailsInputPageState
   }
 
   void openDocsBottomSheet(String item ) {
-    print("htmlData");
-    print(sharedController.termsHtml.value);
+
     showModalBottomSheet(
       useSafeArea: false,
         shape:   const RoundedRectangleBorder(

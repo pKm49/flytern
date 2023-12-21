@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
-
 import 'package:flytern/feature-modules/insurance/constants/http_request_endpoints.insurance.constant.dart';
 import 'package:http/http.dart' as httpForMultipart;
 import 'package:http_interceptor/http/http.dart';
@@ -12,9 +10,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 getRequest(endpoint, parameters) async {
   try {
-    print("getRequest called");
-    print(env.apiEndPoint + "$endpoint");
-    print(parameters);
+    // print("getRequest called");
+    // print(env.apiEndPoint + "$endpoint");
+    // print(parameters);
 
     final http = InterceptedHttp.build(interceptors: [
       FlyternHttpInterceptor(),
@@ -22,16 +20,16 @@ getRequest(endpoint, parameters) async {
 
     final httpResponse = await http.get(Uri.https(env.apiEndPoint, "$endpoint"),
         params: json.decode(json.encode(parameters)));
-    print(Uri.https(env.apiEndPoint, "$endpoint").toString());
-
-    print("httpResponse");
-    print(httpResponse.headers.toString());
-    print(httpResponse.body);
-    print("httpResponse");
+    // print(Uri.https(env.apiEndPoint, "$endpoint").toString());
+    //
+    // print("httpResponse");
+    // print(httpResponse.headers.toString());
+    // print(httpResponse.body);
+    // print("httpResponse");
     var httpResponseBody = json.decode(httpResponse.body);
     return generateSuccessResponse(httpResponseBody);
   } on SocketException {
-    print("SocketException");
+    // print("SocketException");
     return generateErrorResponse('Couldn\'t Connect, Try Again Later');
   } on FormatException catch (e, stack) {
     if (e.toString().contains("Request Not Implemented")) {
@@ -43,30 +41,30 @@ getRequest(endpoint, parameters) async {
     if (e.toString().contains("Request Not Authorised")) {
       return generateErrorResponse('Request Not Authorised');
     }
-    print("get FormatException exception");
-    print(e.toString());
-    print(stack.toString());
+    // print("get FormatException exception");
+    // print(e.toString());
+    // print(stack.toString());
     return generateErrorResponse('Something went wrong, try again');
   } on Exception catch (e) {
-    print("get exception");
-    print(e.toString());
+    // print("get exception");
+    // print(e.toString());
     return generateErrorResponse('Something went wrong, try again');
   }
 }
 
 postRequest(endpoint, body) async {
-  print("postRequest called");
-  print(endpoint);
-  print(Uri.https(env.apiEndPoint, "$endpoint").toString());
-  print(body);
+  // print("postRequest called");
+  // print(endpoint);
+  // print(Uri.https(env.apiEndPoint, "$endpoint").toString());
+  // print(body);
   try {
     final http = InterceptedHttp.build(interceptors: [
       FlyternHttpInterceptor(),
     ]);
-    print("postRequest called pass 1");
-    print(Uri.https(env.apiEndPoint, "$endpoint").toString());
-    print("postRequest request");
-    print(endpoint.toString().contains('postRequest'));
+    // print("postRequest called pass 1");
+    // print(Uri.https(env.apiEndPoint, "$endpoint").toString());
+    // print("postRequest request");
+    // print(endpoint.toString().contains('postRequest'));
     final httpResponse = await http.post(
         Uri.https(env.apiEndPoint, "$endpoint"),
         body: endpoint == InsuranceBookingHttpRequestEndpointGetPrice
@@ -77,23 +75,23 @@ postRequest(endpoint, body) async {
         params: endpoint == InsuranceBookingHttpRequestEndpointGetPrice
             ? body
             : null);
-    print("postRequest called pass 2");
-
-    print("post body");
-    print(httpResponse.headers);
-    print(httpResponse.statusCode);
-    print(httpResponse.body);
+    // print("postRequest called pass 2");
+    //
+    // print("post body");
+    // print(httpResponse.headers);
+    // print(httpResponse.statusCode);
+    // print(httpResponse.body);
     var httpResponseBody = json.decode(httpResponse.body);
 
     return generateSuccessResponse(httpResponseBody);
 
   } on SocketException {
-    print("post SocketException exception");
+   // print("post SocketException exception");
     return generateErrorResponse('Couldn\'t Connect, Try Again Later');
   } on FormatException catch (e, stacktrace) {
-    print("post FormatException exception");
-    print(e.toString());
-    print(stacktrace);
+    // print("post FormatException exception");
+    // print(e.toString());
+    // print(stacktrace);
     if (e.toString().contains("Request Not Implemented")) {
       return generateErrorResponse('Request Not Implemented');
     }
@@ -108,8 +106,8 @@ postRequest(endpoint, body) async {
 
     return generateErrorResponse('Something went wrong, try again');
   } on Exception catch (e) {
-    print("post exception");
-    print(e.toString());
+    // print("post exception");
+    // print(e.toString());
     return generateErrorResponse('Something went wrong, try again');
   }
 }
@@ -214,10 +212,10 @@ List<String> getStringListFromDynamic(List<dynamic> list) {
 fileUpload(dynamic body, File? file, String field, String endpoint,
     String requestType) async {
 
-  print("fileUpload called");
-  print(endpoint);
-  print(Uri.https(env.apiEndPoint, "$endpoint").toString());
-  print(body);
+  // print("fileUpload called");
+  // print(endpoint);
+  // print(Uri.https(env.apiEndPoint, "$endpoint").toString());
+  // print(body);
   try {
     Map<String, String> headers = {
       "Accept": "application/json",
@@ -250,12 +248,12 @@ fileUpload(dynamic body, File? file, String field, String endpoint,
 
     return generateSuccessResponse(httpResponseBody);
   } on SocketException {
-    print("post SocketException exception");
+    // print("post SocketException exception");
     return generateErrorResponse('Couldn\'t Connect, Try Again Later');
   } on FormatException catch (e, stacktrace) {
-    print("post FormatException exception");
-    print(e.toString());
-    print(stacktrace);
+    // print("post FormatException exception");
+    // print(e.toString());
+    // print(stacktrace);
     if (e.toString().contains("Request Not Implemented")) {
       return generateErrorResponse('Request Not Implemented');
     }
@@ -270,8 +268,8 @@ fileUpload(dynamic body, File? file, String field, String endpoint,
 
     return generateErrorResponse('Something went wrong, try again');
   } on Exception catch (e) {
-    print("post exception");
-    print(e.toString());
+    // print("post exception");
+    // print(e.toString());
     return generateErrorResponse('Something went wrong, try again');
   }
 }

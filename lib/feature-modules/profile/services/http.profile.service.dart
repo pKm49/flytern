@@ -11,8 +11,7 @@ import 'package:get/get.dart';
 class ProfileHttpServices {
 
   Future<bool> updateUserDetails(UserDetails userDetails, File? file) async {
-    print("updateUserDetails called");
-    try {
+     try {
       FlyternHttpResponse response = await fileUpload(userDetails.toJson(),
           file, 'File', ProfileHttpRequestEndpointUpdateUserDetails, "PUT");
 
@@ -77,8 +76,7 @@ class ProfileHttpServices {
       FlyternHttpResponse response = await postRequest(
           ProfileHttpRequestEndpointUpdateUserEmail, {"email": email});
 
-      print(response.data);
-      print("changeEmail");
+
       if (response.success && response.statusCode == 100) {
         if (response.data.containsKey('userID')) {
           String userId = response.data["userID"] ?? "";

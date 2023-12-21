@@ -28,11 +28,9 @@ class AuthHttpService {
           return authToken;
         }
       } else {
-        print("else reached");
-        throw (response.errors.isNotEmpty?response.errors[0]:"something_went_wrong".tr);
+         throw (response.errors.isNotEmpty?response.errors[0]:"something_went_wrong".tr);
       }
     } catch (e) {
-      print("catch reached");
 
       rethrow;
 

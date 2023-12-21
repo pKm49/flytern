@@ -36,9 +36,7 @@ class UserTravelStory {
 
 UserTravelStory mapUserTravelStory(dynamic payload){
 
-  print("mapUserTravelStory");
-  print(payload["fileType"]);
-  print(payload["fileUrl"]);
+
   return UserTravelStory(
     rating:payload["rating"]??-1,
     id :payload["id"]??-1,

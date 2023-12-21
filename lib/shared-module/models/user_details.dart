@@ -53,9 +53,6 @@ class UserDetails {
 
 UserDetails mapUserDetails(dynamic payload,bool isGuest){
 
-  print("mapUserDetails");
-  print("imgUrl");
-  print(payload["imgUrl"]);
 
   //https://flytern.com/images/15802.jpg
   //https://flytern.com/images/15802.jpg

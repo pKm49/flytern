@@ -14,8 +14,7 @@ import 'package:get/get.dart';
 
 class NotificationController {
   Future<void> setupInteractedMessage() async {
-    print("setupInteractedMessage");
-    await Firebase.initializeApp(
+     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
@@ -35,14 +34,6 @@ class NotificationController {
       ) async {
 
 
-    print("onActionReceivedImplementationMethod");
-
-    print(data);
-    print(data["Redirection"]);
-    print(data["ServiceType"]);
-    print(data["BookingRef"]);
-    print(data["Imageurl"]);
-    print(data["WebviewURL"]);
 
     String redirection = "NONE";
     String serviceType = "";
@@ -97,8 +88,7 @@ class NotificationController {
         break;
       }
       case "WEBVIEWURL":{
-        print("is WEBVIEWURL");
-        print(webviewUrl);
+
         if(webviewUrl !=""){
           Get.offAllNamed(Approute_landingpage,arguments: [
             webviewUrl
@@ -149,18 +139,13 @@ class NotificationController {
           final List<String> s = str[i].split(':');
           result.putIfAbsent(s[0].trim(), () => s[1].trim());
         }
-       print("onDidReceiveNotificationResponse");
-       print(details);
-       print(result);
+
          onActionReceivedImplementationMethod(result);
       },
     );
 // onMessage is called when the app is in foreground and a notification is received
     FirebaseMessaging.onMessage.listen((RemoteMessage? message) {
-      print('firebase_message');
-      if(message != null){
-        print(message);
-      }
+
       final RemoteNotification? notification = message!.notification;
       final AndroidNotification? android = message.notification?.android;
 // If `onMessage` is triggered with a notification, construct our own

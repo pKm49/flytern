@@ -31,12 +31,6 @@ class _DropDownSelectorState extends State<DropDownSelector> {
     // TODO: implement initState
     super.initState();
 
-    print("dropdown items");
-    print(widget.titleText);
-    widget.items.forEach((element) {
-      print("element ${element.name}-${element.id}");
-    });
-
   }
 
   @override

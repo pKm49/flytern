@@ -658,9 +658,7 @@ class _FlightUserDetailsSubmissionFormState
 
     List<String> selectedUserCopaxes = widget.flightBookingController.travelInfo.value.map((e) => e.selectedCopaxId).where((element) =>
     element != widget.flightBookingController.travelInfo.value[itemIndex-1].selectedCopaxId).toList();
-    print("getUserCopaxes");
-    print(itemIndex);
-    print(selectedUserCopaxes);
+
     List<UserCoPax> allowedCopaxes =  coPaxController.userCopaxes.value.where((element) =>
     !selectedUserCopaxes.contains(element.id.toString())
     ).toList();

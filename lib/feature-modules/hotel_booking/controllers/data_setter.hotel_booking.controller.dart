@@ -123,13 +123,10 @@ extension HotelBookingControllerSetter on HotelBookingController {
 
   void saveTravellersData(List<HotelTravelInfo> travelInfo) {
 
-    print("saveTravellersData");
-    print(travelInfo.length);
+
     String validityString = "";
     for (var i = 0; i < travelInfo.length; i++) {
 
-
-      print(travelInfo[i].title);
       if (travelInfo[i].title == "Title"|| travelInfo[i].title == "0") {
         if(travelInfo[i].travellerType == "Adult"){
           validityString = "enter_title_hotel_room_adult".tr.replaceAll("-1",
@@ -148,8 +145,7 @@ extension HotelBookingControllerSetter on HotelBookingController {
 
         break;
       }
-      print(travelInfo[i].firstName);
-      if (travelInfo[i].firstName.length<3) {
+       if (travelInfo[i].firstName.length<3) {
 
         if(travelInfo[i].travellerType == "Adult"){
           validityString = "enter_firstname_hotel_room_adult".tr.replaceAll("-1",
@@ -167,8 +163,7 @@ extension HotelBookingControllerSetter on HotelBookingController {
 
         break;
       }
-      print(travelInfo[i].lastName);
-      if (travelInfo[i].lastName.length<3) {
+       if (travelInfo[i].lastName.length<3) {
         if(travelInfo[i].travellerType == "Adult"){
           validityString = "enter_lastname_hotel_room_adult".tr.replaceAll("-1",
               "${travelInfo[i].typeIndex}");
@@ -185,8 +180,7 @@ extension HotelBookingControllerSetter on HotelBookingController {
 
         break;
       }
-      print(travelInfo[i].gender);
-      if (travelInfo[i].gender == "Select" || travelInfo[i].gender == "") {
+       if (travelInfo[i].gender == "Select" || travelInfo[i].gender == "") {
 
         if(travelInfo[i].travellerType == "Adult"){
           validityString = "enter_gender_hotel_room_adult".tr.replaceAll("-1",

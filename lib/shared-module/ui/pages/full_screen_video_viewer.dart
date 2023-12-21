@@ -111,7 +111,7 @@ class _FullScreenVideoViewerState extends State<FullScreenVideoViewer> {
 
     _controller.addListener(() {
       if (_controller.value.hasError) {
-        print(_controller.value.errorDescription);
+
       }
     });
   }

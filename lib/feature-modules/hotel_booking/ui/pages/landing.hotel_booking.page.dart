@@ -419,9 +419,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                     child: ElevatedButton(
                         style: getElevatedButtonStyle(context),
                         onPressed: () {
-                          print(hotelBookingController.selectedDestination.value
-                              .uniqueCombination);
-                          print("select_destination".tr);
+
                           if (hotelBookingController.selectedDestination.value
                                       .uniqueCombination !=
                                   "select_destination".tr &&

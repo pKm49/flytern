@@ -190,7 +190,6 @@ class ProfileController extends GetxController {
   }
 
   void updateProfile(File? file) async {
-    print("updateProfile called");
 
     if(!isProfileSubmitting.value){
       isProfileSubmitting.value = true;

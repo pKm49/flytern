@@ -494,9 +494,7 @@ class FlightBookingController extends GetxController {
         confirmationUrl.value,
         Approute_flightsSummary
       ])?.then((value) {
-        print("Get back from Approute_paymentPage");
-        print("value");
-        print(value);
+
         isFlightSavePaymentGatewayLoading.value = false;
         checkGatewayStatus();
       });

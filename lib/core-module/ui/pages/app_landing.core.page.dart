@@ -41,10 +41,9 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
 
   @override
   void initState() {
-    print( "getArguments" );
-    print( getArguments );
+
     if(getArguments !=null){
-      print( getArguments[0]);
+
       if(getArguments[0] !=null){
         _launchUrl(getArguments[0] );
       }
