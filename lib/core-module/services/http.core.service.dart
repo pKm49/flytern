@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:flytern/core-module/constants/http_request_endpoints.core.constant.dart';
 import 'package:flytern/shared-module/constants/service_types.core.constant.dart';
 import 'package:flytern/core-module/models/notification.core.model.dart';
@@ -69,17 +71,27 @@ class CoreHttpServices {
       String bookingId,
       String enquiry) async {
     String successMessage = "enquiry_success_message".tr;
+
+    log("submitEnquiry");
+    log(mobile);
+    log(countryCode);
+    log(email);
+    log(bookingId);
+    log(enquiry);
     try {
       FlyternHttpResponse response =
       await postRequest(CoreBookingHttpRequestEndpointSubmitEnquiry, {
-        "countryCode": countryCode,
+        "bookingRef": bookingId,
         "mobile": mobile,
-        "email": bookingId,
-        "mobileNumber": "enquiry",
-        "mobileCountryCode": ""
+        "email": email,
+        "moreDetails": enquiry,
+        "mobileCountryCode": countryCode
       });
 
-
+      log(response.success.toString());
+      log(response.statusCode.toString());
+      log(response.message.toString());
+      log(response.errors.toString());
       if (response.success && response.statusCode == 200) {
         if (response.data != null) {
           successMessage = response.data;
@@ -87,7 +99,8 @@ class CoreHttpServices {
           successMessage = "enquiry_success_message".tr;
         }
       }else{
-        successMessage = "something_went_wrong".tr;
+
+        successMessage = response.errors.isNotEmpty?response.errors[0]: "something_went_wrong".tr;
       }
 
       return successMessage;

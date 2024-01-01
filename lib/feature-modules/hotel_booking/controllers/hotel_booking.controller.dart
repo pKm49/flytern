@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flytern/feature-modules/hotel_booking/models/destination.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/details.hotel_booking.model.dart';
@@ -27,6 +29,7 @@ import 'package:flytern/shared-module/models/payment_gateway.dart';
 import 'package:flytern/shared-module/models/payment_gateway_url_data.dart';
 import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'data_setter.hotel_booking.controller.dart';
 
@@ -113,13 +116,13 @@ class HotelBookingController extends GetxController {
   var selectedRoomOption = <HotelRoomOption>[].obs;
   var hotelPretravellerData = mapHotelPretravellerData({}).obs;
   var nationality = Country(
-          isDefault: 1,
-          countryName: ("select_nationality".tr),
-          countryCode: "",
-          countryISOCode: "",
-          countryName_Ar: "",
-          flag: "",
-          code: "")
+      isDefault: 1,
+      countryName: ("select_nationality".tr),
+      countryCode: "",
+      countryISOCode: "",
+      countryName_Ar: "",
+      flag: "",
+      code: "")
       .obs;
 
   var mobileCntry = "".obs;
@@ -139,19 +142,7 @@ class HotelBookingController extends GetxController {
     quickSearch.value = await hotelBookingHttpService.getRecentSearch();
 
     if (isInitial) {
-      selectedDestination.value = mapHotelDestination({
-        "cityName": "select_destination".tr,
-        "uniqueCombination": "select_destination".tr,
-      });
-      nationality.value = Country(
-          isDefault: 1,
-          countryName: ("select_nationality".tr),
-          countryCode: "",
-          countryISOCode: "",
-          countryName_Ar: "",
-          flag: "",
-          code: "");
-      isInitial = false;
+      resetDestinationAndNationality();
     }
 
     isInitialDataLoading.value = false;
@@ -159,11 +150,10 @@ class HotelBookingController extends GetxController {
 
   Future<List<HotelDestination>> getHotelDestinations(
       String searchQuery) async {
-
     if (searchQuery != "") {
       isHotelDestinationsLoading.value = true;
       hotelDestinations.value =
-          await hotelBookingHttpService.getHotelDestinations(searchQuery);
+      await hotelBookingHttpService.getHotelDestinations(searchQuery);
       isHotelDestinationsLoading.value = false;
       return hotelDestinations.value;
     } else {
@@ -172,13 +162,35 @@ class HotelBookingController extends GetxController {
     }
   }
 
-  resetDestinationAndNationality(){
-
+  resetDestinationAndNationality() async {
     selectedDestination.value = mapHotelDestination({
       "cityName": "select_destination".tr,
       "uniqueCombination": "select_destination".tr,
     });
 
+    var sharedPreferences = await SharedPreferences.getInstance();
+    String? hotelnationalityString = sharedPreferences.getString(
+        "hotelnationality");
+
+    if (hotelnationalityString != null && hotelnationalityString != "") {
+      Map<String, String> hotelNationalityMap = jsonDecode(
+          hotelnationalityString);
+      log("resetDestinationAndNationality");
+      log(hotelnationalityString);
+      log(hotelNationalityMap.toString());
+      Country hotelNationality = Country(
+          countryName: hotelNationalityMap["countryName"]??("select_nationality".tr),
+          countryCode: hotelNationalityMap["countryCode"]??"",
+          countryISOCode: hotelNationalityMap["countryISOCode"]??"",
+          countryName_Ar: hotelNationalityMap["countryName_Ar"]??"",
+          flag: hotelNationalityMap["flag"]??"",
+          code: hotelNationalityMap["code"]??"",
+          isDefault:hotelNationalityMap["isDefault"] != null?int.parse(hotelNationalityMap["isDefault"].toString()):1
+
+      );
+      nationality.value = hotelNationality;
+
+    }
   }
 
   Future<void> getSearchResults(bool isNavigationRequired) async {
@@ -212,9 +224,9 @@ class HotelBookingController extends GetxController {
       sortingDcs.value = hotelSearchResult.sortingDcs;
       if (sortingDcs.isNotEmpty) {
         List<SortingDcs> defaultSort =
-            sortingDcs.where((p0) => p0.isDefault).toList();
+        sortingDcs.where((p0) => p0.isDefault).toList();
         sortingDc.value =
-            defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
+        defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
       }
       priceDcs.value = hotelSearchResult.priceDcs;
       ratingDcs.value = hotelSearchResult.ratingDcs;
@@ -236,7 +248,7 @@ class HotelBookingController extends GetxController {
       isSearchScrollOver.value = false;
       searchResultsPage.value = 1;
       HotelSearchResult hotelSearchResult =
-          await hotelBookingHttpService.getHotelSearchResults(tHotelSearchData);
+      await hotelBookingHttpService.getHotelSearchResults(tHotelSearchData);
       hotelSearchResponses.value = hotelSearchResult.searchResponses;
 
       objectId.value = hotelSearchResult.objectID;
@@ -249,9 +261,9 @@ class HotelBookingController extends GetxController {
       sortingDcs.value = hotelSearchResult.sortingDcs;
       if (sortingDcs.isNotEmpty) {
         List<SortingDcs> defaultSort =
-            sortingDcs.where((p0) => p0.isDefault).toList();
+        sortingDcs.where((p0) => p0.isDefault).toList();
         sortingDc.value =
-            defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
+        defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
       }
       priceDcs.value = hotelSearchResult.priceDcs;
       ratingDcs.value = hotelSearchResult.ratingDcs;
@@ -272,7 +284,8 @@ class HotelBookingController extends GetxController {
         pageId: 1,
         objectID: objectId.value,
         priceMinMaxDc: selectedPriceDcs.value.isNotEmpty
-            ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0].max}"
+            ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0]
+            .max}"
             : "",
         locationDcs: selectedlocationDcs.value.isNotEmpty
             ? getFilterValues(selectedlocationDcs.value)
@@ -311,7 +324,7 @@ class HotelBookingController extends GetxController {
         hotelDetails.value = tempHotelDetails;
 
         selectedImageIndex.value =
-            hotelDetails.value.imageUrls.isNotEmpty ? 0 : -1;
+        hotelDetails.value.imageUrls.isNotEmpty ? 0 : -1;
 
         if (hotelDetails.value.rooms.isNotEmpty) {
           for (var i = 0; i < hotelSearchData.value.rooms.length; i++) {
@@ -346,8 +359,8 @@ class HotelBookingController extends GetxController {
     if (!isHotelPretravellerDataLoading.value) {
       isHotelPretravellerDataLoading.value = true;
       HotelPretravellerData tempHotelPretravellerData =
-          await hotelBookingHttpService.getPreTravellerData(
-              objectId.value, hotelId.value);
+      await hotelBookingHttpService.getPreTravellerData(
+          objectId.value, hotelId.value);
       isHotelPretravellerDataLoading.value = false;
 
       if (tempHotelPretravellerData.rooms.isNotEmpty) {
@@ -364,14 +377,14 @@ class HotelBookingController extends GetxController {
       HotelTravellerData hotelTravellerData = HotelTravellerData(
           travellerinfo: travelInfo,
           bookingCode:
-              selectedRoomOption[selectedRoomSelectionIndex.value].bookingCode,
+          selectedRoomOption[selectedRoomSelectionIndex.value].bookingCode,
           hotelID: hotelId.value,
           objectID: objectId.value,
           mobileCntry: mobileCntry.value,
           mobileNumber: mobileNumber.value,
           email: email.value);
       tempBookingRef =
-          await hotelBookingHttpService.setTravellerData(hotelTravellerData);
+      await hotelBookingHttpService.setTravellerData(hotelTravellerData);
       isHotelTravellerDataSaveLoading.value = false;
       if (tempBookingRef != "") {
         bookingRef.value = tempBookingRef;
@@ -382,8 +395,8 @@ class HotelBookingController extends GetxController {
     }
   }
 
-  Future<void> getPaymentGateways(
-      bool isSmartpayment, String tempBookingRef) async {
+  Future<void> getPaymentGateways(bool isSmartpayment,
+      String tempBookingRef) async {
     if (isSmartpayment) {
       bookingRef.value = tempBookingRef;
     }
@@ -392,12 +405,11 @@ class HotelBookingController extends GetxController {
     alert.value = [];
     alert.value = [];
     GetGatewayData getGatewayData =
-        await hotelBookingHttpService.getPaymentGateways(bookingRef.value);
+    await hotelBookingHttpService.getPaymentGateways(bookingRef.value);
 
     paymentGateways.value = getGatewayData.paymentGateways;
     bookingInfo.value = getGatewayData.bookingInfo;
     alert.value = getGatewayData.alert;
-
 
     hotelDetails.value = getGatewayData.hotelDetails;
     selectedRoom.value = hotelDetails.value.rooms;
@@ -405,7 +417,7 @@ class HotelBookingController extends GetxController {
         ? hotelDetails.value.rooms[0].roomOptions
         : [];
     selectedRoomSelectionIndex.value =
-        hotelDetails.value.rooms.isNotEmpty ? 0 : -1;
+    hotelDetails.value.rooms.isNotEmpty ? 0 : -1;
 
     if (getGatewayData.paymentGateways.isNotEmpty) {
       updateProcessId(getGatewayData.paymentGateways[0].processID);
@@ -420,10 +432,10 @@ class HotelBookingController extends GetxController {
     isHotelSavePaymentGatewayLoading.value = true;
 
     PaymentGatewayUrlData paymentGatewayUrlData =
-        await hotelBookingHttpService.setPaymentGateway(
-            selectedPaymentGateway.value.processID,
-            selectedPaymentGateway.value.paymentCode,
-            bookingRef.value);
+    await hotelBookingHttpService.setPaymentGateway(
+        selectedPaymentGateway.value.processID,
+        selectedPaymentGateway.value.paymentCode,
+        bookingRef.value);
 
     gatewayUrl.value = paymentGatewayUrlData.gatewayUrl;
     confirmationUrl.value = paymentGatewayUrlData.confirmationUrl;
@@ -449,7 +461,7 @@ class HotelBookingController extends GetxController {
   Future<void> checkGatewayStatus() async {
     isHotelGatewayStatusCheckLoading.value = true;
     bool isSuccess =
-        await hotelBookingHttpService.checkGatewayStatus(paymentRef.value);
+    await hotelBookingHttpService.checkGatewayStatus(paymentRef.value);
 
     if (isSuccess) {
       showSnackbar(Get.context!, "payment_capture_success".tr, "info");
@@ -462,8 +474,8 @@ class HotelBookingController extends GetxController {
     isHotelGatewayStatusCheckLoading.value = false;
   }
 
-  Future<void> getConfirmationData(
-      String bookingRef, bool isBookingFinder) async {
+  Future<void> getConfirmationData(String bookingRef,
+      bool isBookingFinder) async {
     isHotelConfirmationDataLoading.value = true;
     bookingInfo.value = [];
     paymentInfo.value = [];
@@ -471,7 +483,7 @@ class HotelBookingController extends GetxController {
     pdfLink.value = "";
     isIssued.value = false;
     PaymentConfirmationData paymentConfirmationData =
-        await hotelBookingHttpService.getConfirmationData(bookingRef);
+    await hotelBookingHttpService.getConfirmationData(bookingRef);
 
     if (paymentConfirmationData.isSuccess) {
       pdfLink.value = paymentConfirmationData.pdfLink;
@@ -486,7 +498,7 @@ class HotelBookingController extends GetxController {
           ? hotelDetails.value.rooms[0].roomOptions
           : [];
       selectedRoomSelectionIndex.value =
-          hotelDetails.value.rooms.isNotEmpty ? 0 : -1;
+      hotelDetails.value.rooms.isNotEmpty ? 0 : -1;
 
       if (isBookingFinder) {
         Get.toNamed(Approute_hotelsConfirmation, arguments: [
@@ -587,7 +599,8 @@ class HotelBookingController extends GetxController {
         pageId: searchResultsPage.value,
         objectID: objectId.value,
         priceMinMaxDc: selectedPriceDcs.value.isNotEmpty
-            ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0].max}"
+            ? "${selectedPriceDcs.value[0].min}, ${selectedPriceDcs.value[0]
+            .max}"
             : "",
         locationDcs: selectedlocationDcs.value.isNotEmpty
             ? getFilterValues(selectedlocationDcs.value)

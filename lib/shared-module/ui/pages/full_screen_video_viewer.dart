@@ -24,7 +24,8 @@ class _FullScreenVideoViewerState extends State<FullScreenVideoViewer> {
     // TODO: implement initState
     super.initState();
     videoUrl = getArguments[0];
-
+    print("videoUrl");
+    print(videoUrl);
     initializeVideo(videoUrl);
   }
 

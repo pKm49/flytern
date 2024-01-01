@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 
 class TravelStoriesItemCard extends StatefulWidget {
+
   final String profilePicUrl;
   final String name;
   final String ratings;
@@ -46,6 +47,9 @@ class _TravelStoriesItemCardState extends State<TravelStoriesItemCard> {
 
   @override
   Widget build(BuildContext context) {
+    print("imageUrl");
+    print(widget.fileType);
+    print(widget.imageUrl);
     rating = double.parse(widget.ratings);
 
     double screenwidth = MediaQuery.of(context).size.width;
@@ -169,6 +173,10 @@ class _TravelStoriesItemCardState extends State<TravelStoriesItemCard> {
                           child: Center(
                             child: InkWell(
                               onTap: (){
+
+                                print("widget.fileType");
+                                print(widget.fileType);
+                                print(widget.imageUrl);
                                 Get.toNamed(Approute_videoViewer, arguments: [
                                   widget.imageUrl
                                 ]);

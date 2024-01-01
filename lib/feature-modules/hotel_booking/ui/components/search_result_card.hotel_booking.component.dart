@@ -67,7 +67,7 @@ class _HotelSearchResultCardState extends State<HotelSearchResultCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                        child:                 Text("${widget.hotelSearchResponse.priceUnit} ${widget.hotelSearchResponse.fromPrice}",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold, color: flyternSecondaryColor),),
+                        child:                 Text("${widget.hotelSearchResponse.priceUnit} ${widget.hotelSearchResponse.fromPrice.toStringAsFixed(3)}",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold, color: flyternSecondaryColor),),
                     ),
 
                     Expanded(

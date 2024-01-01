@@ -14,7 +14,9 @@ getRequest(endpoint, parameters) async {
     // print(env.apiEndPoint + "$endpoint");
     // print(parameters);
 
-    final http = InterceptedHttp.build(interceptors: [
+    final http = InterceptedHttp.build(
+
+        interceptors: [
       FlyternHttpInterceptor(),
     ]);
 
