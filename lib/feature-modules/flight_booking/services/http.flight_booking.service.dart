@@ -733,7 +733,7 @@ class FlightBookingHttpService {
   Future<List<TravelStory>> getTravelStories(int pageId) async {
     try {
       FlyternHttpResponse response = await getRequest(
-          FlightBookingHttpRequestEndpointGetViewAllRecommeded,
+          FlightBookingHttpRequestEndpointGetViewAllTravelStories,
           {"pageid": pageId.toString()});
       List<TravelStory> travelStories = [];
       if (response.success) {
@@ -759,7 +759,7 @@ class FlightBookingHttpService {
   Future<List<PopularDestination>> getPopularDestinations(int pageId) async {
     try {
       FlyternHttpResponse response = await getRequest(
-          FlightBookingHttpRequestEndpointGetViewAllRecommeded,
+          FlightBookingHttpRequestEndpointGetViewAllpopularDestinations,
           {"pageid": pageId.toString()});
       List<PopularDestination> popularDestination = [];
       if (response.success) {

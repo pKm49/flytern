@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flytern/core-module/services/app_update_checker.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/constants/business_specific/available_countries.shared.constant.dart';
@@ -86,63 +87,74 @@ class SharedController extends GetxController {
 
   Future<void> setAuthToken() async {
     isAuthTokenSet.value = false;
+    AppUpdateChecker appUpdateChecker = AppUpdateChecker();
 
-    var isAuthTokenSetTemp = false;
+    bool isUpdateAvailable = await appUpdateChecker.checkStatus();
+    print("isUpdateAvailable");
+    print(isUpdateAvailable);
+    if (!isUpdateAvailable) {
 
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var sharedHttpService = SharedHttpService();
+      isAuthTokenSet.value = false;
 
-    final bool? isGuest = prefs.getBool('isGuest');
-    final String? accessToken = prefs.getString('accessToken');
-    final String? refreshToken = prefs.getString('refreshToken');
-    final String? expiryOnString = prefs.getString('expiryOn');
-    final String? selectedLanguage = prefs.getString('selectedLanguage');
-    final String? selectedMobileCountry =
-        prefs.getString('selectedMobileCountry');
 
-    if (accessToken != null &&
-        accessToken != '' &&
-        refreshToken != null &&
-        refreshToken != '' &&
-        expiryOnString != null &&
-        expiryOnString != '' &&
-        !isGuest!) {
-      DateTime expiryOn = DateTime.parse(expiryOnString);
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      var sharedHttpService = SharedHttpService();
 
-      if (DateTime.now().isAfter(expiryOn)) {
-        AuthToken authToken = await sharedHttpService.getRefreshedToken();
+      final bool? isGuest = prefs.getBool('isGuest');
+      final String? accessToken = prefs.getString('accessToken');
+      final String? refreshToken = prefs.getString('refreshToken');
+      final String? expiryOnString = prefs.getString('expiryOn');
+      final String? selectedLanguage = prefs.getString('selectedLanguage');
+      final String? selectedMobileCountry =
+      prefs.getString('selectedMobileCountry');
+
+      if (accessToken != null &&
+          accessToken != '' &&
+          refreshToken != null &&
+          refreshToken != '' &&
+          expiryOnString != null &&
+          expiryOnString != '' &&
+          !isGuest!) {
+        DateTime expiryOn = DateTime.parse(expiryOnString);
+
+        if (DateTime.now().isAfter(expiryOn)) {
+          AuthToken authToken = await sharedHttpService.getRefreshedToken();
+          if (authToken.accessToken != "") {
+            saveAuthTokenToSharedPreference(authToken);
+          }
+        }
+      } else {
+        AuthToken authToken = await sharedHttpService.getGuestToken();
+
         if (authToken.accessToken != "") {
           saveAuthTokenToSharedPreference(authToken);
         }
-      }
-    } else {
-      AuthToken authToken = await sharedHttpService.getGuestToken();
 
-      if (authToken.accessToken != "") {
-        saveAuthTokenToSharedPreference(authToken);
       }
 
-    }
+      if (selectedLanguage != null &&
+          selectedLanguage != '' &&
+          selectedMobileCountry != null &&
+          selectedMobileCountry != '') {
+        List<Language> langs =
+        languages.where((e) => e.code == selectedLanguage).toList();
 
-    if (selectedLanguage != null &&
-        selectedLanguage != '' &&
-        selectedMobileCountry != null &&
-        selectedMobileCountry != '') {
-      List<Language> langs =
-          languages.where((e) => e.code == selectedLanguage).toList();
-
-      if (langs.isNotEmpty) {
-        changeLanguage(langs[0]);
-        Get.offAllNamed(Approute_landingpage);
+        if (langs.isNotEmpty) {
+          changeLanguage(langs[0]);
+          Get.offAllNamed(Approute_landingpage);
+        } else {
+          isAuthTokenSet.value = true;
+        }
       } else {
         isAuthTokenSet.value = true;
       }
-    } else {
+
+      getInitialInfo();
+      getPreRegisterInfo();
+    }else{
       isAuthTokenSet.value = true;
     }
 
-    getInitialInfo();
-    getPreRegisterInfo();
   }
 
   Future<void> handleLogout() async {

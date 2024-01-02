@@ -26,6 +26,7 @@ class _AllRecommendedItemsPageState extends State<AllRecommendedItemsPage> {
   @override
   void initState() {
     super.initState();
+    flightBookingController.getRecommendedForyou();
 
     // Setup the listener.
     _controller.addListener(() {

@@ -394,7 +394,10 @@
 
       "media_permission_message":"Please grant Media Permissions to continue",
       "camera_permission_message":"Please grant Camera Permissions to continue",
-      "no_internet": "Connect to internet and Try again"
+      "no_internet": "Connect to internet and Try again",
+      "app_update_title": "App Update Available!",
+      "app_update_content": "Enhance your experience with the latest version.",
+      "app_update_button_text": "Update Now"
 
     }
   },
@@ -792,7 +795,10 @@
       "hotel_confirmation_loading_message": "الدفع قيد التنفيذ - تابع الاتصال لتأكيد سفرك.",
       "media_permission_message":"يرجى منح أذونات الوسائط للمتابعة",
       "camera_permission_message":"يرجى منح أذونات الكاميرا للمتابعة",
-      "no_internet": "اتصل بالإنترنت وحاول مرة أخرى"
+      "no_internet": "اتصل بالإنترنت وحاول مرة أخرى",
+      "app_update_title": "تحديث التطبيق متاح!",
+      "app_update_content": "قم بتعزيز تجربتك مع الإصدار الأحدث.",
+      "app_update_button_text": "حدّث الآن"
     }
   }
 ]

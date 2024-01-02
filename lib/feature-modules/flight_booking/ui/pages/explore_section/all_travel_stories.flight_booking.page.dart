@@ -24,6 +24,7 @@ class _AllTravellStoriesPageState extends State<AllTravellStoriesPage> {
   @override
   void initState() {
     super.initState();
+    flightBookingController.getTravelStories();
 
     // Setup the listener.
     _controller.addListener(() {

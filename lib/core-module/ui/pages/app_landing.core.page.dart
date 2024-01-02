@@ -24,7 +24,7 @@ import 'package:flytern/shared-module/services/utility-services/widget_propertie
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:url_launcher/url_launcher.dart';
+ import 'package:url_launcher/url_launcher.dart';
 
 class CoreLandingPage extends StatefulWidget {
   const CoreLandingPage({super.key});
@@ -104,7 +104,7 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
 
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         centerTitle: isConnected?false:true,
         titleSpacing: 0,

@@ -641,7 +641,7 @@ class FlightBookingController extends GetxController {
 
       List<PopularDestination> tPopularDestinations =
       await flightBookingHttpService
-          .getPopularDestinations(travelStoriesPage.value);
+          .getPopularDestinations(popularDestinationsPage.value);
 
       if(tPopularDestinations.isEmpty){
         isPopularDestinationsPageScrollOver.value = true;
