@@ -16,10 +16,6 @@ class CoreController extends GetxController {
   var isBookingFinderLoading = false.obs;
   var isEnquiryLoading = false.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   getNotifications() async {
     isNotificationsLoading.value = true;

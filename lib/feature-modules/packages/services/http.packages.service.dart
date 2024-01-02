@@ -14,7 +14,7 @@ class PackageBookingHttpService {
 
       FlyternHttpResponse response =
       await getRequest(PackageBookingHttpRequestEndpointGetPackages, {
-        "pageid":pageid,
+        "pageid":pageid.toString(),
         "countryisocode":countryisocode
       });
 

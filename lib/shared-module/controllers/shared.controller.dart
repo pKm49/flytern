@@ -251,8 +251,8 @@ class SharedController extends GetxController {
   Future<void> getPreRegisterInfo() async {
     BusinessDoc businessDoc =
         await sharedHttpService.getPreRegisterSupportInfo();
-    log("getPreRegisterInfo");
-    log(businessDoc.privacy);
+    // log("getPreRegisterInfo");
+    // log(businessDoc.privacy);
     termsHtml.value = businessDoc.terms;
     privacyHtml.value = businessDoc.privacy;
   }

@@ -212,7 +212,7 @@ class HotelBookingHttpService {
     try{
       FlyternHttpResponse response = await getRequest(
           HotelBookingHttpRequestEndpointGetDetailHotels,
-          {"objectID": objectId, "hotelid": hotelid});
+          {"objectID": objectId.toString(), "hotelid": hotelid.toString()});
 
       HotelDetails flightDetails;
 
@@ -237,7 +237,7 @@ class HotelBookingHttpService {
 
     try{
       FlyternHttpResponse response = await getRequest(
-          HotelBookingHttpRequestEndpointGetPreTravellerData, {"objectId":objectId,"hotelId":hotelId});
+          HotelBookingHttpRequestEndpointGetPreTravellerData, {"objectId":objectId.toString(),"hotelId":hotelId.toString()});
 
       HotelPretravellerData flightPretravellerData;
 

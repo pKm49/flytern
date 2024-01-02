@@ -17,6 +17,7 @@ import 'package:flytern/feature-modules/hotel_booking/models/traveller_data.hote
 import 'package:flytern/feature-modules/hotel_booking/models/traveller_info.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/services/helper.hotel_booking.service.dart';
 import 'package:flytern/feature-modules/hotel_booking/services/http.hotel_booking.service.dart';
+import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/models/booking_info.dart';
 import 'package:flytern/shared-module/models/country.dart';
 import 'package:flytern/shared-module/models/get_gateway_data.shared.model.dart';
@@ -173,23 +174,34 @@ class HotelBookingController extends GetxController {
         "hotelnationality");
 
     if (hotelnationalityString != null && hotelnationalityString != "") {
-      Map<String, String> hotelNationalityMap = jsonDecode(
-          hotelnationalityString);
-      log("resetDestinationAndNationality");
-      log(hotelnationalityString);
-      log(hotelNationalityMap.toString());
-      Country hotelNationality = Country(
-          countryName: hotelNationalityMap["countryName"]??("select_nationality".tr),
-          countryCode: hotelNationalityMap["countryCode"]??"",
-          countryISOCode: hotelNationalityMap["countryISOCode"]??"",
-          countryName_Ar: hotelNationalityMap["countryName_Ar"]??"",
-          flag: hotelNationalityMap["flag"]??"",
-          code: hotelNationalityMap["code"]??"",
-          isDefault:hotelNationalityMap["isDefault"] != null?int.parse(hotelNationalityMap["isDefault"].toString()):1
+      // log("resetDestinationAndNationality");
+      // log(hotelnationalityString);
+      final sharedController = Get.find<SharedController>();
 
-      );
-      nationality.value = hotelNationality;
+      List<Country> countries = sharedController.countries.value.where((element) => element.code == hotelnationalityString).toList();
+      if(countries.isNotEmpty){
+        nationality.value = countries[0];
+      }else{
+        nationality.value = Country(
+            isDefault: 1,
+            countryName: ("select_nationality".tr),
+            countryCode: "",
+            countryISOCode: "",
+            countryName_Ar: "",
+            flag: "",
+            code: "");
+      }
 
+
+    }else{
+      nationality.value = Country(
+          isDefault: 1,
+          countryName: ("select_nationality".tr),
+          countryCode: "",
+          countryISOCode: "",
+          countryName_Ar: "",
+          flag: "",
+          code: "");
     }
   }
 

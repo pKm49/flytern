@@ -323,7 +323,7 @@ class FlightBookingHttpService {
     try {
       FlyternHttpResponse response = await getRequest(
           FlightBookingHttpRequestEndpointGetPreTravellerData,
-          {"detail_id": detailId});
+          {"detail_id": detailId.toString()});
 
       FlightPretravellerData flightPretravellerData;
 

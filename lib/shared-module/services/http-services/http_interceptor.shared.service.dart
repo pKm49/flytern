@@ -1,15 +1,17 @@
 import 'dart:convert';
- import 'dart:io';
- import 'package:device_info_plus/device_info_plus.dart';
- import 'package:flytern/shared-module/constants/business_specific/http_request_endpoints.shared.constant.dart';
+import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flytern/shared-module/constants/business_specific/http_request_endpoints.shared.constant.dart';
 import 'package:http_interceptor/http_interceptor.dart';
- import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flytern/config/env.dart' as env;
 
 class FlyternHttpInterceptor implements InterceptorContract {
 
   @override
   Future<RequestData> interceptRequest({required RequestData data}) async {
+
+
     try {
       var sharedPreferences = await SharedPreferences.getInstance();
       var Bearer = await sharedPreferences.getString("accessToken");
@@ -32,7 +34,7 @@ class FlyternHttpInterceptor implements InterceptorContract {
         data.headers["DeviceID"] = deviceId??"";
       }
 
-       if(data.url.contains(SharedHttpRequestEndpoint_GetNewAccesToken)){
+      if(data.url.contains(SharedHttpRequestEndpoint_GetNewAccesToken)){
         String? refreshToken = await getRefreshToken();
         data.headers["RefreshToken"] = refreshToken ;
       }
@@ -80,7 +82,7 @@ class FlyternHttpInterceptor implements InterceptorContract {
 
   Future<String?> _getId() async {
     String idPattern = "FLYMOB";
-      var deviceInfo = DeviceInfoPlugin();
+    var deviceInfo = DeviceInfoPlugin();
     String uniqueDeviceId = '';
 
     if (Platform.isIOS) {

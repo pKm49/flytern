@@ -393,7 +393,9 @@
       "hotel_confirmation_loading_message": "Payment in progress – stay connected for your travel confirmation",
 
       "media_permission_message":"Please grant Media Permissions to continue",
-      "camera_permission_message":"Please grant Camera Permissions to continue"
+      "camera_permission_message":"Please grant Camera Permissions to continue",
+      "no_internet": "Connect to internet and Try again"
+
     }
   },
   {
@@ -789,7 +791,8 @@
       "hotel_gateway_submission_message": "صياغة عمليات الدفع بسلاسة - صفحة تقديمك على بُعد لحظات.",
       "hotel_confirmation_loading_message": "الدفع قيد التنفيذ - تابع الاتصال لتأكيد سفرك.",
       "media_permission_message":"يرجى منح أذونات الوسائط للمتابعة",
-      "camera_permission_message":"يرجى منح أذونات الكاميرا للمتابعة"
+      "camera_permission_message":"يرجى منح أذونات الكاميرا للمتابعة",
+      "no_internet": "اتصل بالإنترنت وحاول مرة أخرى"
     }
   }
 ]

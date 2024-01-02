@@ -1,9 +1,16 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
  import 'package:flytern/core-module/ui/components/drawer_menu.core.component.dart';
+import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
  import 'package:flytern/feature-modules/flight_booking/ui/pages/landing.flight_booking.page.dart';
+import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/landing.hotel_booking.page.dart';
+import 'package:flytern/feature-modules/insurance/controllers/insurance.controller.dart';
 import 'package:flytern/feature-modules/insurance/ui/pages/landing.insurance.page.dart';
+import 'package:flytern/feature-modules/packages/controllers/package.controller.dart';
 import 'package:flytern/feature-modules/packages/ui/pages/landing.packages.page.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile.controller.dart';
 import 'package:flytern/feature-modules/profile/ui/pages/landing.profile.page.dart';
@@ -11,8 +18,12 @@ import 'package:flytern/shared-module/constants/app_specific/route_names.shared.
 import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
+import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
  import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:get/get.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CoreLandingPage extends StatefulWidget {
@@ -23,6 +34,8 @@ class CoreLandingPage extends StatefulWidget {
 }
 
 class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProviderStateMixin {
+
+  late StreamSubscription<InternetConnectionStatus> connectivityListener ;
 
   late TabController _tabController;
   int _currentIndex = 0;
@@ -36,6 +49,7 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
   String pageTitle = "flights";
   var getArguments = Get.arguments;
   final profileController = Get.put(ProfileController());
+  bool isConnected = true;
 
   @override
   void initState() {
@@ -58,14 +72,29 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
       });
     });
 
-
+    connectivityListener = InternetConnectionChecker().onStatusChange.listen((status) {
+      switch (status) {
+        case InternetConnectionStatus.connected:
+          setState(() {
+            isConnected = true;
+          });
+          getInitialData();
+          break;
+        case InternetConnectionStatus.disconnected:
+          setState(() {
+            isConnected = false;
+          });
+          break;
+      }
+    });
 
   }
 
   @override
   void dispose() {
+    isConnected = true;
     _tabController.dispose();
-
+    connectivityListener.cancel();
     super.dispose();
   }
 
@@ -75,11 +104,12 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
     double screenwidth = MediaQuery.of(context).size.width;
     double screenheight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
+    return  Scaffold(
       appBar: AppBar(
+        centerTitle: isConnected?false:true,
         titleSpacing: 0,
-        title: pageTitle == "flights"?
-        Image.asset(ASSETS_NAMELOGO,width: screenwidth*.33):Text(pageTitle),
+        title:isConnected? (pageTitle == "flights") ?
+        Image.asset(ASSETS_NAMELOGO,width: screenwidth*.33):Text(pageTitle):null,
       actions: [
         // Visibility(
         //     visible:  pageTitle == "flights" || pageTitle == "hotels".tr,
@@ -90,23 +120,51 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
         //         child: Icon(CupertinoIcons.search,color: flyternGrey80))),
         // addHorizontalSpace(flyternSpaceMedium),
         Visibility(
+          visible: isConnected,
             child: InkWell(
                 onTap: (){
                   Get.toNamed(Approute_notificationspage);
                 },
                 child: Icon(CupertinoIcons.bell,color: flyternGrey80))),
-        addHorizontalSpace(flyternSpaceMedium),
+        Visibility(
+            visible: isConnected,
+            child: addHorizontalSpace(flyternSpaceMedium)),
 
       ],
       ),
-      drawer: CoreDrawerMenuPage(),
-      body: Container(
+      drawer:isConnected? CoreDrawerMenuPage():null,
+      body:isConnected? Container(
           child: TabBarView(
             physics: NeverScrollableScrollPhysics(),
             controller: _tabController,
             children: _tabList,
-          )),
-        bottomNavigationBar:Container(
+          )):Container(
+        height: screenheight,
+        width: screenwidth,
+        padding: flyternLargePaddingAll,
+        child: Center(
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            runSpacing: flyternSpaceLarge,
+            spacing: flyternSpaceLarge,
+            direction: Axis.vertical,
+            children: [
+
+              Icon(Ionicons.wifi_outline,color: flyternTertiaryColor,size: screenwidth*.3,),
+              Padding(
+                padding:   EdgeInsets.only(top: flyternSpaceLarge*1),
+                child: Text("no_internet".tr,style: getHeadlineMediumStyle(context).copyWith(color: flyternSecondaryColor),textAlign: TextAlign.center,),
+              ),
+              Padding(
+                padding:   EdgeInsets.only(top: screenheight*.2),
+                child: Image.asset(ASSETS_NAMELOGO,width: screenwidth*.5),
+              ),
+            ],
+          ),
+        ),
+      ),
+        bottomNavigationBar:isConnected ? Container(
             decoration: flyternTopShadowedContainerLargeDecoration,
             child: BottomNavigationBar(
               showSelectedLabels: true,
@@ -201,8 +259,9 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
                 ),
               ],
             )
-        )
+        ):null
     );
+
   }
 
   Future<void> changeTitle(int index) async {
@@ -245,5 +304,51 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
 
     if (!await launchUrl(_url)) {
     }
+  }
+
+  void getInitialData() {
+    // log("getInitialData");
+    // log(_currentIndex.toString());
+
+    switch (_currentIndex) {
+      case 0:
+        {
+          // newTitle =  "flights";
+          final flightBookingController = Get.find<FlightBookingController>();
+          flightBookingController.getInitialInfo();
+          break;
+        }
+      case 1:
+        {
+          // newTitle =  "hotels".tr;
+          final hotelBookingController = Get.find<HotelBookingController>();
+          hotelBookingController.getRecentSearch();
+          break;
+        }
+      case 2:
+        {
+          // newTitle = "packages".tr;
+          final packageBookingController = Get.find<PackageBookingController>();
+          packageBookingController.getInitialInfo();
+          break;
+        }
+      case 3:
+        {
+          // newTitle = "activities".tr;
+          // newTitle = "insurance".tr;
+          final insuranceBookingController = Get.find<InsuranceBookingController>();
+          insuranceBookingController.getInitialInfo();
+          break;
+        }
+      case 4:
+        {
+          // newTitle = "profile".tr;
+          final profileController = Get.find<ProfileController>();
+          profileController.getUserDetails();
+          break;
+        }
+      default:break;
+    }
+
   }
 }

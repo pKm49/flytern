@@ -32,7 +32,7 @@ class ActivityBookingHttpService {
     try{
       FlyternHttpResponse response = await getRequest(
           ActivityBookingHttpRequestEndpointGetCities,
-          {"pageid": pageid, "countryisocode": countryisocode});
+          {"pageid": pageid.toString(), "countryisocode": countryisocode});
 
       if (response.success) {
         if (response.data != null) {

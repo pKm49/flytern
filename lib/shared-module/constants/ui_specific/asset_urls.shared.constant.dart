@@ -50,3 +50,5 @@ const String ASSETS_USER_2_SAMPLE = "assets/sample/user_2.png";
 const String ASSETS_USER_3_SAMPLE = "assets/sample/user_3.png";
 const String ASSETS_FLIGHT_1_SAMPLE = "assets/sample/flight_1.png";
 const String ASSETS_FLIGHT_2_SAMPLE = "assets/sample/flight_2.png";
+
+const String ASSETS_SSL_CERT = "assets/ssl_cert.crt";

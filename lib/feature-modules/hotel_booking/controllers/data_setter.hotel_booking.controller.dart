@@ -84,7 +84,7 @@ extension HotelBookingControllerSetter on HotelBookingController {
   Future<void> updateNationality(Country tNationality) async {
 
     var sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setString("hotelnationality", tNationality.toJson().toString());
+    sharedPreferences.setString("hotelnationality", tNationality.code);
 
     nationality.value = tNationality;
 

@@ -185,17 +185,21 @@ class FlightBookingController extends GetxController {
 
   Future<void> getInitialInfo() async {
 
-    sharedController.setDeviceLanguageAndCountry(false,false);
-    ExploreData exploreData = await flightBookingHttpService.getInitialInfo();
+      isInitialDataLoading.value = true;
+      print("flight getInitialInfo");
+      sharedController.setDeviceLanguageAndCountry(false,false);
+      ExploreData exploreData = await flightBookingHttpService.getInitialInfo();
 
-    cabinClasses.value = exploreData.cabinClasses;
-    recommendedPackages.value = exploreData.recommendedPackages;
-    popularDestinations.value = exploreData.popularDestinations;
-    travelStories.value = exploreData.travelStories;
-    quickSearch.value = exploreData.quickSearch;
-    setDefaultSearchData();
+      cabinClasses.value = exploreData.cabinClasses;
+      recommendedPackages.value = exploreData.recommendedPackages;
+      popularDestinations.value = exploreData.popularDestinations;
+      travelStories.value = exploreData.travelStories;
+      quickSearch.value = exploreData.quickSearch;
+      setDefaultSearchData();
 
-    isInitialDataLoading.value = false;
+      isInitialDataLoading.value = false;
+
+
   }
 
   Future<List<FlightDestination>> getFlightDestinations(

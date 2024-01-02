@@ -72,12 +72,12 @@ class CoreHttpServices {
       String enquiry) async {
     String successMessage = "enquiry_success_message".tr;
 
-    log("submitEnquiry");
-    log(mobile);
-    log(countryCode);
-    log(email);
-    log(bookingId);
-    log(enquiry);
+    // log("submitEnquiry");
+    // log(mobile);
+    // log(countryCode);
+    // log(email);
+    // log(bookingId);
+    // log(enquiry);
     try {
       FlyternHttpResponse response =
       await postRequest(CoreBookingHttpRequestEndpointSubmitEnquiry, {
@@ -88,10 +88,10 @@ class CoreHttpServices {
         "mobileCountryCode": countryCode
       });
 
-      log(response.success.toString());
-      log(response.statusCode.toString());
-      log(response.message.toString());
-      log(response.errors.toString());
+      // log(response.success.toString());
+      // log(response.statusCode.toString());
+      // log(response.message.toString());
+      // log(response.errors.toString());
       if (response.success && response.statusCode == 200) {
         if (response.data != null) {
           successMessage = response.data;
