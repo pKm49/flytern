@@ -144,6 +144,7 @@ class _CoreInfoPageState extends State<CoreInfoPage> {
                           Visibility(
                             visible: sharedController.twitterLink.value != "" ||
                                 sharedController.facebookLink.value != "" ||
+                                sharedController.linkedInLink.value != "" ||
                                 sharedController.instagramLink.value != "",
                             child: Padding(
                                 padding: flyternLargePaddingHorizontal,
@@ -163,6 +164,20 @@ class _CoreInfoPageState extends State<CoreInfoPage> {
                                             Ionicons.logo_facebook,
                                             color: flyternGrey60, size: flyternFontSize24*1.4
                                           ),
+                                        )),
+                                    Visibility(
+                                        visible:
+                                        sharedController.linkedInLink.value != "",
+                                        child: addHorizontalSpace(flyternSpaceMedium)),
+                                    Visibility(
+                                        visible:
+                                        sharedController.linkedInLink.value != "",
+                                        child: InkWell(
+                                          onTap: (){
+                                            _launchUrl(sharedController.linkedInLink.value);
+                                          },
+                                          child: Icon(Ionicons.logo_linkedin,
+                                              color: flyternGrey60,size: flyternFontSize24*1.4),
                                         )),
                                     Visibility(
                                         visible:

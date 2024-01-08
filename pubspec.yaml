@@ -59,7 +59,6 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   dotted_line: ^3.2.2
   url_launcher: ^6.2.1
-  webview_flutter: ^4.4.2
   calendar_date_picker2: ^0.5.3
   photo_view: ^0.14.0
   firebase_messaging: ^14.7.6
@@ -101,7 +100,6 @@ flutter:
   assets:
     - assets/
     - assets/icons/
-    - assets/sample/
     - assets/translations/
 
   # An image asset can refer to one or more resolution-specific "variants", see

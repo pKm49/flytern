@@ -193,7 +193,8 @@ class InsuranceBookingController extends GetxController {
       policyOptionObj.value = insuranceInitialData.value.lstPolicyOption[0];
       policyTypeObj.value = insuranceInitialData.value.lstPolicyType[0];
       policyPeriodObj.value = insuranceInitialData.value.lstPolicyPeriod[0];
-      getPrice(InsurancePriceGetBody(
+      getPrice(
+          InsurancePriceGetBody(
           covidtype: insuranceInitialData.value.lstPolicyHeaderType[0].id,
           policyplan: insuranceInitialData.value.lstPolicyOption[0].id,
           policy_type: insuranceInitialData.value.lstPolicyType[0].id,

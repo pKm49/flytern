@@ -3,7 +3,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart'
 as flutter_local_notifications;
-import 'package:flytern/feature-modules/activity_booking/controllers/activity_booking.controller.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
 import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
 import 'package:flytern/feature-modules/insurance/controllers/insurance.controller.dart';
@@ -56,9 +55,6 @@ class NotificationController {
           }else if(serviceType == ServiceType.HOTEL.name){
             final hotelBookingController = Get.find<HotelBookingController>();
             hotelBookingController.getPaymentGateways(true,bookingRef);
-          }else if(serviceType == ServiceType.ACTIVITY.name){
-            final activityBookingController = Get.find<ActivityBookingController>();
-            activityBookingController.getPaymentGateways(true,bookingRef);
           }else if(serviceType == ServiceType.INSURANCE.name){
             final insuranceBookingController = Get.find<InsuranceBookingController>();
             insuranceBookingController.getPaymentGateways(true,bookingRef);
@@ -75,9 +71,6 @@ class NotificationController {
           }else if(serviceType == ServiceType.HOTEL.name){
             final hotelBookingController = Get.find<HotelBookingController>();
             hotelBookingController.getConfirmationData(bookingRef,true );
-          }else if(serviceType == ServiceType.ACTIVITY.name){
-            final activityBookingController = Get.find<ActivityBookingController>();
-            activityBookingController.getConfirmationData(bookingRef,true );
           }else if(serviceType == ServiceType.INSURANCE.name){
             final insuranceBookingController = Get.find<InsuranceBookingController>();
             insuranceBookingController.getConfirmationData(bookingRef,true );

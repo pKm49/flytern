@@ -96,9 +96,11 @@ class _ProfileHotelBookingsListState extends State<ProfileHotelBookingsList> {
                                 width: screenwidth * .2,
                                 height: screenwidth * .2,
                                 errorBuilder: (context, error, stackTrace) {
-                                  return Image.asset(ASSETS_HOTEL_1_SAMPLE,
-                                      width: screenwidth * .2,
-                                      height: screenwidth * .2);
+                                  return Container(
+                                    width: screenwidth * .2,
+                                    height: screenwidth * .2,
+                                    color: flyternGrey20,
+                                  );
                                 },
                               )),
                           addHorizontalSpace(flyternSpaceMedium),

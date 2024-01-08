@@ -529,7 +529,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                                                                 flyternBorderRadiusExtraSmall),
                                                       ),
                                                       child: Text(
-                                                        "${value.currency} ${value.totalPrice}",
+                                                        "${value.currency} ${value.totalPrice.toStringAsFixed(3)}",
                                                         style: getLabelLargeStyle(
                                                                 context)
                                                             .copyWith(
@@ -791,7 +791,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                                         .copyWith(color: flyternGrey60)),
                                 Text(
                                     "${hotelBookingController.getSupplements(i).currency}"
-                                    " ${hotelBookingController.getSupplements(i).price}",
+                                    " ${hotelBookingController.getSupplements(i).price.toStringAsFixed(3)}",
                                     style: getBodyMediumStyle(context)
                                         .copyWith(color: flyternGrey80)),
                               ],

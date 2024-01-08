@@ -1,5 +1,4 @@
-  import 'package:flytern/feature-modules/activity_booking/models/details.activity_booking.model.dart';
- import 'package:flytern/feature-modules/flight_booking/models/details.flight_booking.model.dart';
+  import 'package:flytern/feature-modules/flight_booking/models/details.flight_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/details.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/insurance/constants/http_request_endpoints.insurance.constant.dart';
 import 'package:flytern/feature-modules/insurance/models/initial_data.insurance.model.dart';
@@ -36,6 +35,9 @@ class InsuranceBookingHttpService {
   }
 
   Future<InsurancePriceData> getPrice(InsurancePriceGetBody insurancePriceGetBody) async {
+
+    print("InsurancePriceData getPrice");
+    print(insurancePriceGetBody.toJson());
 
     try{
 
@@ -87,7 +89,6 @@ class InsuranceBookingHttpService {
     List<String> alertMsg = [];
     FlightDetails flightDetails = mapFlightDetails({});
     HotelDetails hotelDetails = mapHotelDetails({});
-    ActivityDetails activityDetails = mapActivityDetails({},[]);
 
     try{
       FlyternHttpResponse response = await postRequest(
@@ -130,16 +131,14 @@ class InsuranceBookingHttpService {
 
       return GetGatewayData(
           hotelDetails:hotelDetails,
-          activityDetails: activityDetails,
-          paymentGateways: paymentGateways,
+           paymentGateways: paymentGateways,
           alert: alertMsg,
           bookingInfo: bookingInfo,
           flightDetails: flightDetails);
     }catch (e){
       return GetGatewayData(
           hotelDetails:hotelDetails,
-          activityDetails: activityDetails,
-          paymentGateways: paymentGateways,
+           paymentGateways: paymentGateways,
           alert: alertMsg,
           bookingInfo: bookingInfo,
           flightDetails: flightDetails);

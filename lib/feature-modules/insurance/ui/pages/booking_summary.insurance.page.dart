@@ -221,7 +221,7 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
                             children: [
                               Text("grand_total".tr,style: getBodyMediumStyle(context).copyWith(color: flyternGrey60)),
                               Text("${insuranceBookingController.selectedPaymentGateway.value.currencyCode}"
-                                  " ${insuranceBookingController.selectedPaymentGateway.value.finalAmount}",
+                                  " ${insuranceBookingController.selectedPaymentGateway.value.finalAmount.toStringAsFixed(3)}",
                                   style: getBodyMediumStyle(context).copyWith(color: flyternGrey80,
                                       fontWeight: flyternFontWeightBold)),
                             ],
@@ -382,7 +382,7 @@ class _InsuranceBookingSummaryPageState extends State<InsuranceBookingSummaryPag
                         Expanded(
                           child: Text(
                               "${insuranceBookingController.selectedPaymentGateway.value.currencyCode}"
-                                  " ${(insuranceBookingController.selectedPaymentGateway.value.finalAmount )}"
+                                  " ${(insuranceBookingController.selectedPaymentGateway.value.finalAmount.toStringAsFixed(3) )}"
                           ),
                         ),
                         Visibility(

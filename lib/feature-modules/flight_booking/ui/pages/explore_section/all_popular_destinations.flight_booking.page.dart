@@ -82,6 +82,7 @@ class _AllPopularDestinationsPageState extends State<AllPopularDestinationsPage>
                             i==(flightBookingController.popularDestinations.length-1)?null:
                             flyternDefaultBorderBottomOnly),
                             child: PopularPackageListCard(
+                              currency: flightBookingController.popularDestinations[i].currency,
                               imageUrl: flightBookingController.popularDestinations[i].url,
                               title: flightBookingController.popularDestinations[i].name,
                               destination: flightBookingController.popularDestinations[i].destinations,

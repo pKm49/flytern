@@ -397,8 +397,8 @@
       "no_internet": "Connect to internet and Try again",
       "app_update_title": "App Update Available!",
       "app_update_content": "Enhance your experience with the latest version.",
-      "app_update_button_text": "Update Now"
-
+      "app_update_button_text": "Update Now",
+      "try_again": "Try Again"
     }
   },
   {
@@ -798,7 +798,8 @@
       "no_internet": "اتصل بالإنترنت وحاول مرة أخرى",
       "app_update_title": "تحديث التطبيق متاح!",
       "app_update_content": "قم بتعزيز تجربتك مع الإصدار الأحدث.",
-      "app_update_button_text": "حدّث الآن"
+      "app_update_button_text": "حدّث الآن",
+      "try_again": "حاول ثانية"
     }
   }
 ]

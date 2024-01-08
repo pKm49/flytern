@@ -1,5 +1,4 @@
-import 'package:flytern/feature-modules/activity_booking/models/details.activity_booking.model.dart';
-  import 'package:flytern/feature-modules/flight_booking/models/details.flight_booking.model.dart';
+   import 'package:flytern/feature-modules/flight_booking/models/details.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/popular_destination.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/recommended_package.flight_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/constants/http_request_endpoints.hotel_booking.constant.dart';
@@ -286,7 +285,6 @@ class HotelBookingHttpService {
     List<String> alertMsg = [];
     FlightDetails flightDetails = mapFlightDetails({});
     HotelDetails hotelDetails = mapHotelDetails({});
-    ActivityDetails activityDetails = mapActivityDetails({},[]);
 
     try{
       FlyternHttpResponse response = await postRequest(
@@ -329,7 +327,6 @@ class HotelBookingHttpService {
 
       return GetGatewayData(
           hotelDetails:hotelDetails,
-          activityDetails: activityDetails,
           paymentGateways: paymentGateways,
           alert: alertMsg,
           bookingInfo: bookingInfo,
@@ -337,7 +334,6 @@ class HotelBookingHttpService {
     }catch (e){
       return GetGatewayData(
           hotelDetails:hotelDetails,
-          activityDetails: activityDetails,
           paymentGateways: paymentGateways,
           alert: alertMsg,
           bookingInfo: bookingInfo,

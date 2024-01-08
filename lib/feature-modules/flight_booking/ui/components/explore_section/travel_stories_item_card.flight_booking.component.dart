@@ -162,8 +162,11 @@ class _TravelStoriesItemCardState extends State<TravelStoriesItemCard> {
                           height: screenheight*.25,
                           width: screenwidth - (flyternSpaceMedium * 2),
                           errorBuilder: (context, error, stackTrace) {
-                            return Image.asset(ASSETS_DESTINATION_1_SAMPLE,
-                                width: screenwidth - (flyternSpaceMedium * 2));
+                            return Container(
+                              height: screenheight*.25,
+                              width: screenwidth - (flyternSpaceMedium * 2),
+                              color: flyternGrey20,
+                            );
                           },
                         ),
                         Container(
@@ -207,8 +210,11 @@ class _TravelStoriesItemCardState extends State<TravelStoriesItemCard> {
                   widget.imageUrl,
                   width: screenwidth - (flyternSpaceMedium * 2),
                   errorBuilder: (context, error, stackTrace) {
-                    return Image.asset(ASSETS_DESTINATION_1_SAMPLE,
-                        width: screenwidth - (flyternSpaceMedium * 2));
+                    return  Container(
+                      height: 100,
+                      width: screenwidth - (flyternSpaceMedium * 2),
+                      color: flyternGrey20,
+                    );
                   },
                 )),
           ),

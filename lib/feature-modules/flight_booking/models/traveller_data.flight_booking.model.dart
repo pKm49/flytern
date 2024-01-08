@@ -5,7 +5,7 @@ class FlightTravellerData {
   final List<TravelInfo> travellerinfo;
   final int objectID;
   final int detailID;
-  final int cabinID;
+  final String cabinID;
   final String mobileCntry;
   final String mobileNumber;
   final String email;

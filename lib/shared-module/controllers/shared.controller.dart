@@ -68,6 +68,7 @@ class SharedController extends GetxController {
   var contactHtml = "".obs;
   var twitterLink = "".obs;
   var facebookLink = "".obs;
+  var linkedInLink = "".obs;
   var instagramLink = "".obs;
   var currentInfoTitle = "About Us".obs;
   var currentInfoType = InfoType.ABOUTUS.obs;
@@ -450,6 +451,7 @@ class SharedController extends GetxController {
           {
             twitterLink.value = infoResponseData.twitter;
             facebookLink.value = infoResponseData.facebook;
+            linkedInLink.value = infoResponseData.linkedIn;
             instagramLink.value = infoResponseData.instagram;
             currentInfoTitle.value = "social_account".tr;
 

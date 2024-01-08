@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ffi';
 
 import 'package:flytern/feature-modules/flight_booking/constants/flight_mode.flight_booking.constant.dart';
@@ -50,7 +51,6 @@ import 'package:get/get.dart';
 
 part 'data_setter.flight_booking.controller.dart';
 
-part 'addons_handler.flight_booking.controller.dart';
 
 class FlightBookingController extends GetxController {
   final sharedController = Get.find<SharedController>();
@@ -137,7 +137,6 @@ class FlightBookingController extends GetxController {
   var paymentRef = "".obs;
   var isSeatSelection = false.obs;
   var isMealSelection = false.obs;
-  var isExtraBaggageSelection = false.obs;
   var currency = "KWD".obs;
   var objectId = 1.obs;
   var detailId = 1.obs;
@@ -361,6 +360,9 @@ class FlightBookingController extends GetxController {
       try{
         currentFlightIndex.value = index;
         isFlightDetailsLoading.value = true;
+        flightDetails.value = getDefaultFlightDetails();
+        cabinInfo.value = mapCabinInfo({});
+        flightPretravellerData.value = mapFlightPretravellerData({});
         Get.toNamed(Approute_flightsDetails);
         FlightDetails tempFlightDetails = await flightBookingHttpService
             .getFlightDetails(index, objectId.value);
@@ -404,38 +406,37 @@ class FlightBookingController extends GetxController {
   }
 
   Future<void> setPreTravellerData(List<TravelInfo> travelInfo) async {
-    if (!isFlightTravellerDataSaveLoading.value) {
-      isFlightTravellerDataSaveLoading.value = true;
-      selectedTravelInfo.value = travelInfo;
-      String tempBookingRef = "";
-      FlightTravellerData flightTravellerData = FlightTravellerData(
-          travellerinfo: travelInfo,
-          objectID: objectId.value,
-          detailID: detailId.value,
-          cabinID: int.parse(cabinInfo.value.id),
-          mobileCntry: mobileCntry.value,
-          mobileNumber: mobileNumber.value,
-          email: email.value);
-      BookingRefData bookingRefData =
-          await flightBookingHttpService.setTravellerData(flightTravellerData);
-      isFlightTravellerDataSaveLoading.value = false;
-      tempBookingRef = bookingRefData.bookingRef;
-      if (tempBookingRef != "") {
-        bookingRef.value = tempBookingRef;
-        isSeatSelection.value = bookingRefData.isSeatSelection;
-        isMealSelection.value = bookingRefData.isMealSelection;
-        isExtraBaggageSelection.value = bookingRefData.isExtraBaggageSelection;
-        if (isSeatSelection.value == true ||
-            isMealSelection.value == true ||
-            isExtraBaggageSelection.value == true) {
-          Get.toNamed(Approute_flightsAddonServices);
-        } else {
-          getPaymentGateways(false, bookingRef.value);
-        }
-      } else {
-        showSnackbar(Get.context!, "something_went_wrong".tr, "error");
-      }
-    }
+   try{
+     if (!isFlightTravellerDataSaveLoading.value) {
+       isFlightTravellerDataSaveLoading.value = true;
+       selectedTravelInfo.value = travelInfo;
+       String tempBookingRef = "";
+       FlightTravellerData flightTravellerData = FlightTravellerData(
+           travellerinfo: travelInfo,
+           objectID: objectId.value,
+           detailID: detailId.value,
+           cabinID: cabinInfo.value.id,
+           mobileCntry: mobileCntry.value,
+           mobileNumber: mobileNumber.value,
+           email: email.value);
+       BookingRefData bookingRefData =
+       await flightBookingHttpService.setTravellerData(flightTravellerData);
+       isFlightTravellerDataSaveLoading.value = false;
+       tempBookingRef = bookingRefData.bookingRef;
+       if (tempBookingRef != "") {
+         bookingRef.value = tempBookingRef;
+
+         getPaymentGateways(false, bookingRef.value);
+
+       } else {
+         showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+       }
+     }
+   }catch (e){
+     log("setPreTravellerData");
+     log(e.toString());
+     isFlightTravellerDataSaveLoading.value = false;
+   }
   }
 
   Future<void> getPaymentGateways(
@@ -449,12 +450,7 @@ class FlightBookingController extends GetxController {
 
     alert.value = [];
     alert.value = [];
-    if (!isSmartpayment &&
-        (isSeatSelection.value ||
-            isMealSelection.value ||
-            isExtraBaggageSelection.value)) {
-      saveAddonsPrice();
-    }
+
     GetGatewayData getGatewayData =
         await flightBookingHttpService.getPaymentGateways(bookingRef.value);
     List<PaymentGateway> tempPaymentGateway = getGatewayData.paymentGateways;

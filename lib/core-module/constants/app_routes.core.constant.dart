@@ -7,11 +7,6 @@ import 'package:flytern/core-module/ui/pages/initial_language_country_selector.c
 import 'package:flytern/core-module/ui/pages/drawer_pages/app_settings.core.page.dart';
 import 'package:flytern/core-module/ui/pages/drawer_pages/smart_payment.core.page.dart';
 import 'package:flytern/core-module/ui/pages/notifications.core.page.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/pages/list_page.activity_booking.page.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/pages/booking_confirmation_page.activity_booking.page.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/pages/booking_summary_page.activity_booking.page.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/pages/details_page.activity_booking.page.dart';
-import 'package:flytern/feature-modules/activity_booking/ui/pages/userdetails_submission.activity_booking.page.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/auth_selector.auth.page.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/login.auth.page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/explore_section/all_popular_destinations.flight_booking.page.dart';
@@ -27,14 +22,10 @@ import 'package:flytern/shared-module/ui/pages/otp_input.shared.page.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/register.auth.page.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_credentials.auth.page.dart';
 import 'package:flytern/feature-modules/auth/ui/pages/reset_password/reset_password_new_password.auth.page.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/pages/addon_services.flight_booking.page.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/pages/baggage_selection.flight_booking.page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/booking_confirmation.flight_booking.page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/booking_summary.flight_booking.page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/details.flight_booking.page.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/pages/meal_selection.flight_booking.page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/search_results.flight_booking.page.dart';
-import 'package:flytern/feature-modules/flight_booking/ui/pages/seat_selection.flight_booking.page.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/booking_confirmation.hotel_booking.page.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/booking_summary.hotel_booking.page.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/details.hotel_booking.page.dart';
@@ -147,26 +138,6 @@ getAppRoutes() => [
         page: () => const FlightDetailsPage(),
       ),
 
-      GetPage(
-        name: Approute_flightsAddonServices,
-        page: () => const FlightAddonServicesPage(),
-      ),
-
-      GetPage(
-        name: Approute_flightsSeatSelection,
-        page: () => const FlightSeatSelectionPage(),
-      ),
-
-      GetPage(
-        name: Approute_flightsMealSelection,
-        page: () => const FlightMealSelectionPage(),
-      ),
-
-      GetPage(
-        name: Approute_flightsBaggageSelection,
-        page: () => const FlightBaggageSelectionPage(),
-      ),
-
       // Common
       GetPage(
         name: Approute_flightsUserSelection,
@@ -218,33 +189,6 @@ getAppRoutes() => [
       GetPage(
         name: Approute_packagesConfirmation,
         page: () => const PackageBookingConfirmationPage(),
-      ),
-
-//  activities Booking
-
-      GetPage(
-        name: Approute_activitiesList,
-        page: () => const ActivitiesListPage(),
-      ),
-
-      GetPage(
-        name: Approute_activitiesDetails,
-        page: () => const ActivityDetailsPage(),
-      ),
-
-      GetPage(
-        name: Approute_activitiesUserDataSubmission,
-        page: () => const ActivityUserDetailsSubmissionPage(),
-      ),
-
-      GetPage(
-        name: Approute_activitiesSummary,
-        page: () => const ActivityBookingSummaryPage(),
-      ),
-
-      GetPage(
-        name: Approute_activitiesConfirmation,
-        page: () => const ActivityBookingConfirmationPage(),
       ),
 
       // profile pages

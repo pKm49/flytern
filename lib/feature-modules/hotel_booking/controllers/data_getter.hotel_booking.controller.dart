@@ -69,7 +69,7 @@ extension HotelBookingControllerGetter on HotelBookingController {
     }
     return  selectedRoomOption
         .value[selectedRoomSelectionIndex.value]
-        .perNightPrice;
+        .perNightPrice.toStringAsFixed(3);
   }
   getGrandTotal() {
     if (selectedRoom.isEmpty) {
@@ -80,7 +80,7 @@ extension HotelBookingControllerGetter on HotelBookingController {
     }
     return  selectedRoomOption
         .value[selectedRoomSelectionIndex.value]
-        .totalPrice;
+        .totalPrice.toStringAsFixed(3);
   }
 
   getTotalPrice() {
@@ -92,7 +92,7 @@ extension HotelBookingControllerGetter on HotelBookingController {
     }
     return  selectedRoomOption
         .value[selectedRoomSelectionIndex.value]
-        .totalBase;
+        .totalBase.toStringAsFixed(3);
   }
 
   getTaxPrice() {
@@ -104,7 +104,7 @@ extension HotelBookingControllerGetter on HotelBookingController {
     }
     return  selectedRoomOption
         .value[selectedRoomSelectionIndex.value]
-        .totalTax;
+        .totalTax.toStringAsFixed(3);
   }
 
   String getRoomImage(int i) {

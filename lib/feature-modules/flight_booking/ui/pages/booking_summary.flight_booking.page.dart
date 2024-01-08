@@ -251,7 +251,7 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                                       .copyWith(color: flyternGrey60)),
                               Text(
                                   "${flightBookingController.selectedPaymentGateway.value.currencyCode} "
-                                  "${flightBookingController.selectedPaymentGateway.value.processingFee}",
+                                  "${flightBookingController.selectedPaymentGateway.value.processingFee.toStringAsFixed(3)}",
                                   style: getBodyMediumStyle(context)
                                       .copyWith(color: flyternGrey80)),
                             ],
@@ -282,7 +282,7 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                                       .copyWith(color: flyternGrey60)),
                               Text(
                                   "${flightBookingController.selectedPaymentGateway.value.currencyCode}"
-                                  " ${flightBookingController.selectedPaymentGateway.value.finalAmount}",
+                                  " ${flightBookingController.selectedPaymentGateway.value.finalAmount.toStringAsFixed(3)}",
                                   style: getBodyMediumStyle(context).copyWith(
                                       color: flyternGrey80,
                                       fontWeight: flyternFontWeightBold)),
@@ -478,7 +478,7 @@ class _FlightBookingSummaryPageState extends State<FlightBookingSummaryPage> {
                               Expanded(
                                 child: Text(
                                   "${flightBookingController.selectedPaymentGateway.value.currencyCode}"
-                                  " ${flightBookingController.selectedPaymentGateway.value.finalAmount}",
+                                  " ${flightBookingController.selectedPaymentGateway.value.finalAmount.toStringAsFixed(3)}",
                                 ),
                               ),
                               Visibility(

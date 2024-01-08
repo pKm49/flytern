@@ -1,4 +1,6 @@
-import 'package:flytern/feature-modules/activity_booking/models/details.activity_booking.model.dart';
+ import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flytern/feature-modules/flight_booking/constants/http_request_endpoint.flight_booking.constant.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/extra_package/extra_package.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/extra_package/set_extra_package.flight_booking.model.dart';
@@ -351,7 +353,8 @@ class FlightBookingHttpService {
       FlyternHttpResponse response = await postRequest(
           FlightBookingHttpRequestEndpointGetSaveTravellerData,
           flightTravellerData.toJson());
-
+      log("setTravellerData data");
+      log(flightTravellerData.toJson().toString());
       if (response.success && response.statusCode == 200) {
         if (response.data != null) {
           bookingRef = response.data["bookingRef"] ?? "";
@@ -371,6 +374,9 @@ class FlightBookingHttpService {
         isExtraBaggageSelection: isExtraBaggageSelection,
       );
     } catch (e) {
+
+      log("setTravellerData error");
+      log(e.toString());
       return BookingRefData(
         bookingRef: bookingRef,
         isSeatSelection: isSeatSelection,
@@ -387,7 +393,6 @@ class FlightBookingHttpService {
     List<String> alertMsg = [];
     FlightDetails flightDetails = mapFlightDetails({});
     HotelDetails hotelDetails = mapHotelDetails({});
-    ActivityDetails activityDetails = mapActivityDetails({}, []);
 
     try {
       FlyternHttpResponse response = await postRequest(
@@ -433,7 +438,6 @@ class FlightBookingHttpService {
 
       return GetGatewayData(
           hotelDetails: hotelDetails,
-          activityDetails: activityDetails,
           paymentGateways: paymentGateways,
           alert: alertMsg,
           bookingInfo: bookingInfo,
@@ -441,7 +445,6 @@ class FlightBookingHttpService {
     } catch (e) {
       return GetGatewayData(
           hotelDetails: hotelDetails,
-          activityDetails: activityDetails,
           paymentGateways: paymentGateways,
           alert: alertMsg,
           bookingInfo: bookingInfo,

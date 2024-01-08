@@ -28,9 +28,8 @@ class _AuthSelectorPageState extends State<AuthSelectorPage> {
     // Create and store the VideoPlayerController. The VideoPlayerController
     // offers several different constructors to play videos from assets, files,
     // or the internet.
-    _controller = VideoPlayerController.asset(
-        ASSETS_AUTH_BG
-    );
+    Uri uri = Uri.parse(ASSETS_BG_URL);
+    _controller = VideoPlayerController.networkUrl(uri);
     _initializeVideoPlayerFuture =  _controller.initialize();
     _controller.setLooping(true);
     _initializeVideoPlayerFuture.then((_) => setState(() {

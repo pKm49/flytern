@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
- import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
+import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
- import 'package:ionicons/ionicons.dart';
+import 'package:ionicons/ionicons.dart';
 
 class PackageListCard extends StatelessWidget {
-
   final String imageUrl;
   final String title;
   final String flightName;
@@ -18,8 +17,8 @@ class PackageListCard extends StatelessWidget {
   final String ratings;
   final GestureTapCallback packageSelected;
 
-    PackageListCard({
-      super.key,
+  PackageListCard({
+    super.key,
     required this.imageUrl,
     required this.title,
     required this.flightName,
@@ -29,7 +28,7 @@ class PackageListCard extends StatelessWidget {
     required this.currency,
     required this.ratings,
     required this.packageSelected,
-    });
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,36 +38,50 @@ class PackageListCard extends StatelessWidget {
     return InkWell(
       onTap: packageSelected,
       child: Container(
-        decoration:  BoxDecoration(
+        decoration: BoxDecoration(
           color: flyternBackgroundWhite,
         ),
         padding: flyternMediumPaddingAll,
         child: Row(
           children: [
             Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(flyternBorderRadiusExtraSmall),
-                ),
-                clipBehavior: Clip.hardEdge,
-                child:Image.network(imageUrl,width: screenwidth*.25, height:  screenwidth*.25,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Image.asset(ASSETS_PACKAGE_1_SAMPLE,width: screenwidth*.25, height:  screenwidth*.25);
-                    }), ),
+              decoration: BoxDecoration(
+                borderRadius:
+                    BorderRadius.circular(flyternBorderRadiusExtraSmall),
+              ),
+              clipBehavior: Clip.hardEdge,
+              child: Image.network(imageUrl,
+                  width: screenwidth * .25, height: screenwidth * .25,
+                  errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  width: screenwidth * .25,
+                  height: screenwidth * .25,
+                  color: flyternGrey20,
+                );
+              }),
+            ),
             addHorizontalSpace(flyternSpaceMedium),
             Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
+                Text(
+                  title,
                   maxLines: 2,
-                  style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold),),
-
+                  style: getBodyMediumStyle(context)
+                      .copyWith(fontWeight: flyternFontWeightBold),
+                ),
                 addVerticalSpace(flyternSpaceSmall),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("${currency} ${price}",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold, color: flyternSecondaryColor),),
+                    Text(
+                      "${currency} ${price.toStringAsFixed(3)}",
+                      style: getBodyMediumStyle(context).copyWith(
+                          fontWeight: flyternFontWeightBold,
+                          color: flyternSecondaryColor),
+                    ),
                     Expanded(
                         flex: 1,
                         child: Row(
@@ -80,45 +93,50 @@ class PackageListCard extends StatelessWidget {
                                 size: flyternFontSize20),
                             addHorizontalSpace(flyternSpaceExtraSmall),
                             Text(
-                              ratings ,
+                              ratings,
                               style: getBodyMediumStyle(context)
                                   .copyWith(color: flyternGrey80),
                             ),
                           ],
                         )),
-
                   ],
                 ),
-
                 addVerticalSpace(flyternSpaceSmall),
                 Row(
                   children: [
-                    Expanded(child:  Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(Ionicons.share_social_outline,color: flyternGrey40),
-                        addHorizontalSpace(flyternSpaceSmall),
-                        Text(flightName,
-                            style:  getBodyMediumStyle(context).copyWith(color: flyternGrey40)),
-                      ],
-                    ),),
-
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(Ionicons.share_social_outline,
+                              color: flyternGrey40),
+                          addHorizontalSpace(flyternSpaceSmall),
+                          Text(flightName,
+                              style: getBodyMediumStyle(context)
+                                  .copyWith(color: flyternGrey40)),
+                        ],
+                      ),
+                    ),
                     addHorizontalSpace(flyternSpaceSmall),
                     Expanded(
                         flex: 1,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                        Icon(Ionicons.airplane_outline,color: flyternGrey40),
-                        addHorizontalSpace(flyternSpaceSmall),
-                        Text(sponsoredBy,style: getBodyMediumStyle(context).copyWith(color: flyternGrey40),),
-                      ],
-                    )),
+                            Icon(Ionicons.airplane_outline,
+                                color: flyternGrey40),
+                            addHorizontalSpace(flyternSpaceSmall),
+                            Text(
+                              sponsoredBy,
+                              style: getBodyMediumStyle(context)
+                                  .copyWith(color: flyternGrey40),
+                            ),
+                          ],
+                        )),
                   ],
                 )
               ],
             ))
-
           ],
         ),
       ),

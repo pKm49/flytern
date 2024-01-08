@@ -497,22 +497,5 @@ class _HotelBookingConfirmationPageState
     }
   }
 
-  getGrandTotal() {
-    double grandTotal = 0;
-    hotelBookingController.selectedRoomOption.value.forEach((element) {
-      grandTotal += element.totalPrice;
-    });
-    grandTotal +=
-        hotelBookingController.selectedPaymentGateway.value.processingFee;
-    grandTotal -= hotelBookingController.selectedPaymentGateway.value.discount;
-    return grandTotal;
-  }
 
-  getBaseTotal() {
-    double grandTotal = 0;
-    hotelBookingController.selectedRoomOption.value.forEach((element) {
-      grandTotal += element.totalPrice;
-    });
-    return grandTotal;
-  }
 }

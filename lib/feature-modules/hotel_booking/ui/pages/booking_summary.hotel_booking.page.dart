@@ -272,7 +272,7 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                                           .currencyCode}"
                                           " ${ hotelBookingController
                                           .selectedPaymentGateway.value
-                                          .processingFee}",
+                                          .processingFee.toStringAsFixed(3)}",
                                       style: getBodyMediumStyle(context)
                                           .copyWith(color: flyternGrey80)),
                                 ],
@@ -310,7 +310,7 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                                           .currencyCode}"
                                           " ${ hotelBookingController
                                           .selectedPaymentGateway.value
-                                          .finalAmount}",
+                                          .finalAmount.toStringAsFixed(3)}",
                                       style: getBodyMediumStyle(context)
                                           .copyWith(
                                           color: flyternGrey80,
@@ -902,7 +902,7 @@ class _HotelBookingSummaryPageState extends State<HotelBookingSummaryPage> {
                                 "${ hotelBookingController
                                     .selectedPaymentGateway.value.currencyCode}"
                                     " ${ hotelBookingController
-                                    .selectedPaymentGateway.value.finalAmount}",
+                                    .selectedPaymentGateway.value.finalAmount.toStringAsFixed(3)}",
                               ),
                             ),
                             Visibility(

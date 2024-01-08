@@ -142,26 +142,42 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
         height: screenheight,
         width: screenwidth,
         padding: flyternLargePaddingAll,
-        child: Center(
-          child: Wrap(
-            alignment: WrapAlignment.center,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            runSpacing: flyternSpaceLarge,
-            spacing: flyternSpaceLarge,
-            direction: Axis.vertical,
-            children: [
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                runSpacing: flyternSpaceLarge,
+                spacing: flyternSpaceLarge,
+                direction: Axis.vertical,
+                children: [
 
-              Icon(Ionicons.wifi_outline,color: flyternTertiaryColor,size: screenwidth*.3,),
-              Padding(
-                padding:   EdgeInsets.only(top: flyternSpaceLarge*1),
-                child: Text("no_internet".tr,style: getHeadlineMediumStyle(context).copyWith(color: flyternSecondaryColor),textAlign: TextAlign.center,),
+                  Icon(Icons.wifi_off_outlined,color: flyternGrey40,size: screenwidth*.3,),
+                  Padding(
+                    padding:   EdgeInsets.only(top: flyternSpaceLarge*1),
+                    child: Text("no_internet".tr,style: getHeadlineMediumStyle(context).copyWith(color: flyternSecondaryColor),textAlign: TextAlign.center,),
+                  ),
+
+                  ElevatedButton(
+                      onPressed:(){
+                        checkConnectivity();
+                      },
+                      style: getElevatedButtonStyle(context).copyWith(padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                          EdgeInsets.symmetric(
+                              horizontal: flyternSpaceLarge,
+                              vertical: flyternSpaceSmall))),
+                      child:  Text("try_again".tr))
+
+                ],
               ),
-              Padding(
-                padding:   EdgeInsets.only(top: screenheight*.2),
-                child: Image.asset(ASSETS_NAMELOGO,width: screenwidth*.5),
-              ),
-            ],
-          ),
+            ),
+            Padding(
+              padding:   EdgeInsets.only(top: screenheight*.2),
+              child: Image.asset(ASSETS_NAMELOGO,width: screenwidth*.5),
+            ),
+          ],
         ),
       ),
         bottomNavigationBar:isConnected ? Container(
@@ -350,5 +366,21 @@ class _CoreLandingPageState extends State<CoreLandingPage> with SingleTickerProv
       default:break;
     }
 
+  }
+
+  Future<void> checkConnectivity() async {
+    bool result = await InternetConnectionChecker().hasConnection;
+
+    if (result == true) {
+      setState(() {
+        isConnected = true;
+      });
+      getInitialData();
+
+    }else{
+      if (Get.context != null){
+        showSnackbar(Get.context!, "no_internet".tr, "error");
+      }
+    }
   }
 }

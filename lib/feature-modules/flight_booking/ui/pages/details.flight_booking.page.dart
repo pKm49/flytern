@@ -298,7 +298,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                           flightBookingController.flightDetails.value.child > 0
                           && flightBookingController.flightDetails.value.isBaseFareToShow,
                       child: FlightDetailsAddonServiceCard(
-                        ImageUrl: ASSETS_COUPLE_ICON,
+                        ImageUrl: ASSETS_KIDS_ICON,
                         keyLabel: "child".tr,
                         value: " ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.childBase.toStringAsFixed(3)}",
                         valueLabel:
@@ -323,7 +323,7 @@ class _FlightDetailsPageState extends State<FlightDetailsPage> {
                           flightBookingController.flightDetails.value.infant >
                               0 && flightBookingController.flightDetails.value.isBaseFareToShow,
                       child: FlightDetailsAddonServiceCard(
-                        ImageUrl: ASSETS_COUPLE_ICON,
+                        ImageUrl: ASSETS_KIDS_ICON,
                         keyLabel: "infant".tr,
                         value: " ${flightBookingController.cabinInfo.value.currency} ${flightBookingController.cabinInfo.value.infantBase.toStringAsFixed(3)}",
                         valueLabel:

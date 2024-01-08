@@ -433,7 +433,7 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
                                 visible: !insuranceBookingController
                                     .isInsurancePriceGetterLoading.value,
                                 child: Text(
-                                    "${insuranceBookingController.insurancePriceData.value.code} ${insuranceBookingController.insurancePriceData.value.price}"),
+                                    "${insuranceBookingController.insurancePriceData.value.code} ${insuranceBookingController.insurancePriceData.value.price.toStringAsFixed(3)}"),
                               ),
                               Visibility(
                                   visible: insuranceBookingController

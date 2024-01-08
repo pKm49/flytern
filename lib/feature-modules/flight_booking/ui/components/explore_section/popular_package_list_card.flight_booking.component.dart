@@ -12,6 +12,7 @@ class PopularPackageListCard extends StatelessWidget {
   final String destination;
   final double price;
   final String rating;
+  final String currency;
 
   PopularPackageListCard({
     super.key,
@@ -20,6 +21,7 @@ class PopularPackageListCard extends StatelessWidget {
     required this.destination,
     required this.price,
     required this.rating,
+    required this.currency,
   });
 
   @override
@@ -45,7 +47,11 @@ class PopularPackageListCard extends StatelessWidget {
                 width: screenwidth * .25,
                 height: screenwidth * .25,
                 errorBuilder: (context, error, stackTrace) {
-                  return Image.asset(ASSETS_DESTINATION_1_SAMPLE,width: screenwidth*.25, height:  screenwidth*.25);
+                  return Container(
+                    width: screenwidth * .25,
+                    height: screenwidth * .25,
+                    color: flyternGrey20,
+                  );
                 },
               )),
           addHorizontalSpace(flyternSpaceMedium),
@@ -89,7 +95,7 @@ class PopularPackageListCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'AED 15,000',
+                    '${currency} ${price.toStringAsFixed(3)}',
                     style: getBodyMediumStyle(context).copyWith(
                         fontWeight: flyternFontWeightBold,
                         color: flyternSecondaryColor),

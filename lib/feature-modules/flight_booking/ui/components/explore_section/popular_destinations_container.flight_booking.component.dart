@@ -3,7 +3,7 @@ import 'package:flytern/feature-modules/flight_booking/models/popular_destinatio
 import 'package:flytern/feature-modules/flight_booking/ui/components/explore_section/popular_package_list_card.flight_booking.component.dart';
 import 'package:flytern/feature-modules/packages/controllers/package.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
- import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
+import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:get/get.dart';
 
@@ -11,8 +11,10 @@ class PopularDestinationsContainer extends StatelessWidget {
   PackageBookingController packageBookingController;
   List<PopularDestination> popularDestinations;
 
-  PopularDestinationsContainer({super.key, required this.popularDestinations,
-   required this.packageBookingController});
+  PopularDestinationsContainer(
+      {super.key,
+      required this.popularDestinations,
+      required this.packageBookingController});
 
   @override
   Widget build(BuildContext context) {
@@ -23,18 +25,26 @@ class PopularDestinationsContainer extends StatelessWidget {
       color: flyternBackgroundWhite,
       child: Wrap(
         children: [
-          for (var i = 0; i < (popularDestinations.length>5?5:popularDestinations.length); i++)
+          for (var i = 0;
+              i <
+                  (popularDestinations.length > 5
+                      ? 5
+                      : popularDestinations.length);
+              i++)
             Container(
-              decoration: BoxDecoration(border:
-              i==(popularDestinations.length-1)?null:
-              flyternDefaultBorderBottomOnly),
+              decoration: BoxDecoration(
+                  border: i == (popularDestinations.length - 1)
+                      ? null
+                      : flyternDefaultBorderBottomOnly),
               child: InkWell(
-                onTap: (){
-                  packageBookingController.getPackageDetails(popularDestinations[i].refId);
+                onTap: () {
+                  packageBookingController
+                      .getPackageDetails(popularDestinations[i].refId);
                   Get.toNamed(Approute_packagesDetails);
                 },
                 child: PopularPackageListCard(
                   imageUrl: popularDestinations[i].url,
+                  currency: popularDestinations[i].currency,
                   title: popularDestinations[i].name,
                   destination: popularDestinations[i].destinations,
                   rating: popularDestinations[i].ratings,

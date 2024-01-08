@@ -2,7 +2,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/models/segment.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/airport_lable_card.flight_booking.component.dart';
-  import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
+import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
@@ -135,7 +135,8 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                       alignment: WrapAlignment.center,
                       children: [
                         Icon(Ionicons.bag_outline,
-                            color: flyternPrimaryColor, size: flyternFontSize16),
+                            color: flyternPrimaryColor,
+                            size: flyternFontSize16),
                         addHorizontalSpace(flyternSpaceSmall),
                         Text(
                           "${flightSegment.flightSegmentBaggages[i].passTy} - ${flightSegment.flightSegmentBaggages[i].cabin}",
@@ -148,34 +149,42 @@ class FlightDetailsItineraryCard extends StatelessWidget {
               ],
             ),
           ),
-
           Divider(),
           for (var i = 0; i < flightSegment.flightSegmentDetails.length; i++)
             Wrap(
-               children: [
+              children: [
                 //airline data
 
                 Visibility(
-                  visible: flightSegment.flightSegmentDetails[i].flightNumber !="" &&
-                      flightSegment.flightSegmentDetails[i].flightName !="" ,
+                  visible: flightSegment.flightSegmentDetails[i].flightNumber !=
+                          "" &&
+                      flightSegment.flightSegmentDetails[i].flightName != "",
                   child: Padding(
-                    padding: flyternMediumPaddingAll.copyWith(bottom: 0,top:i==0? flyternSpaceSmall:flyternSpaceMedium),
+                    padding: flyternMediumPaddingAll.copyWith(
+                        bottom: 0,
+                        top: i == 0 ? flyternSpaceSmall : flyternSpaceMedium),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.all(
                               Radius.circular(flyternBlurRadiusSmall)),
-                          child: Image.network(flightSegment.flightSegmentDetails[i].carrierImageUrl,
-                              height: 25, errorBuilder: (context, error, stackTrace) {
-                                return Container(
-                                  height: 25,
-                                  width: screenwidth * .2,
-                                );
-                              }),
+                          child: Image.network(
+                              flightSegment
+                                  .flightSegmentDetails[i].carrierImageUrl,
+                              height: 25,
+                              errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              height: 25,
+                              width: screenwidth * .2,
+                            );
+                          }),
                         ),
                         addHorizontalSpace(flyternSpaceSmall),
-                        Text("${flightSegment.flightSegmentDetails[i].flightName} - ${flightSegment.flightSegmentDetails[i].flightNumber}",style: getBodyMediumStyle(context),)
+                        Text(
+                          "${flightSegment.flightSegmentDetails[i].flightName} - ${flightSegment.flightSegmentDetails[i].flightNumber}",
+                          style: getBodyMediumStyle(context),
+                        )
                       ],
                     ),
                   ),
@@ -192,17 +201,26 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.all(
                               Radius.circular(flyternBorderRadiusExtraSmall)),
-                          child: Image.network(flightSegment.flightSegmentDetails[i].operatingCarrierImageUrl,
-                              height: 25, errorBuilder: (context, error, stackTrace) {
-                                return Container(
-                                  height: 25,
-                                  width: screenwidth * .2,
-                                );
-                              }),
+                          child: Image.network(
+                              flightSegment.flightSegmentDetails[i]
+                                  .operatingCarrierImageUrl,
+                              height: 25,
+                              errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              height: 25,
+                              width: screenwidth * .2,
+                            );
+                          }),
                         ),
                         addHorizontalSpace(flyternSpaceSmall),
-                        Text("operated_by".tr.replaceAll("name",
-                            flightSegment.flightSegmentDetails[i].operatingCarrierName)+" - ${flightSegment.flightSegmentDetails[i].operatingCarrierFlightNumber}" ,style: getBodyMediumStyle(context),)
+                        Text(
+                          "operated_by".tr.replaceAll(
+                                  "name",
+                                  flightSegment.flightSegmentDetails[i]
+                                      .operatingCarrierName) +
+                              " - ${flightSegment.flightSegmentDetails[i].operatingCarrierFlightNumber}",
+                          style: getBodyMediumStyle(context),
+                        )
                       ],
                     ),
                   ),
@@ -210,67 +228,70 @@ class FlightDetailsItineraryCard extends StatelessWidget {
 
                 //flight data
                 Container(
-                  padding: flyternMediumPaddingAll.copyWith(bottom: flyternSpaceLarge,top: flyternSpaceLarge),
+                  padding: flyternMediumPaddingAll.copyWith(
+                      bottom: flyternSpaceLarge, top: flyternSpaceLarge),
                   child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                          child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          FlightAirportLabelCard(
-                            topLabel: flightSegment
-                                .flightSegmentDetails[i].departuredt,
-                            midLabel: flightSegment
-                                .flightSegmentDetails[i].departuretime,
-                            bottomLabel: flightSegment
-                                .flightSegmentDetails[i].departure,
-                            sideNumber: 1,
-                          ),
-                        ],
-                      )),
-                      Container(
-                        width: screenwidth*.2,
-                        padding: flyternSmallPaddingHorizontal,
-                        child: Column(
-                          children: [
-                            Image.asset(ASSETS_FLIGHT_CHART_ICON,width: screenwidth*.2,
-                              matchTextDirection: true,
-                            ),
-//                                 addVerticalSpace(flyternSpaceSmall),
-                            addVerticalSpace(flyternSpaceSmall),
-                            FittedBox(
-                              fit: BoxFit.contain,
-                              child: Text(
-                                flightSegment
-                                    .flightSegmentDetails[i].duration,
-                                style: getLabelLargeStyle(context),
+                          Expanded(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              FlightAirportLabelCard(
+                                topLabel: flightSegment
+                                    .flightSegmentDetails[i].departuredt,
+                                midLabel: flightSegment
+                                    .flightSegmentDetails[i].departuretime,
+                                bottomLabel: flightSegment
+                                    .flightSegmentDetails[i].departure,
+                                sideNumber: 1,
                               ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                          child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          FlightAirportLabelCard(
-                            topLabel: flightSegment
-                                .flightSegmentDetails[i].arrivaldt,
-                            midLabel: flightSegment
-                                .flightSegmentDetails[i].arrivaltime,
-                            bottomLabel: flightSegment
-                                .flightSegmentDetails[i].arrival,
-                            sideNumber: 2,
+                            ],
+                          )),
+                          Container(
+                            width: screenwidth * .2,
+                            padding: flyternSmallPaddingHorizontal,
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  ASSETS_FLIGHT_CHART_ICON,
+                                  width: screenwidth * .2,
+                                  matchTextDirection: true,
+                                ),
+//                                 addVerticalSpace(flyternSpaceSmall),
+                                addVerticalSpace(flyternSpaceSmall),
+                                FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Text(
+                                    flightSegment
+                                        .flightSegmentDetails[i].duration,
+                                    style: getLabelLargeStyle(context),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
+                          Expanded(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              FlightAirportLabelCard(
+                                topLabel: flightSegment
+                                    .flightSegmentDetails[i].arrivaldt,
+                                midLabel: flightSegment
+                                    .flightSegmentDetails[i].arrivaltime,
+                                bottomLabel: flightSegment
+                                    .flightSegmentDetails[i].arrival,
+                                sideNumber: 2,
+                              ),
+                            ],
+                          ))
                         ],
-                      ))
+                      ),
                     ],
-                  ),
-                ],
                   ),
                 ),
 
@@ -288,23 +309,34 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                               child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(flightSegment
-                                  .flightSegmentDetails[i].departurecntry,maxLines: 2,),
+                              Text(
+                                flightSegment
+                                    .flightSegmentDetails[i].departurecntry,
+                                maxLines: 2,
+                              ),
                               addVerticalSpace(flyternSpaceSmall),
-                              Text("terminal".tr.replaceAll("1", flightSegment
-                                  .flightSegmentDetails[i].departureTerminal)),
+                              Text("terminal".tr.replaceAll(
+                                  "1",
+                                  flightSegment.flightSegmentDetails[i]
+                                      .departureTerminal)),
                             ],
                           )),
                           Expanded(
                               child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text(flightSegment
-                                  .flightSegmentDetails[i].arrivalcntry,maxLines: 2,
-                              textAlign: TextAlign.end),
+                              Text(
+                                  flightSegment
+                                      .flightSegmentDetails[i].arrivalcntry,
+                                  maxLines: 2,
+                                  textAlign: TextAlign.end),
                               addVerticalSpace(flyternSpaceSmall),
-                              Text("terminal".tr.replaceAll("1", flightSegment
-                                  .flightSegmentDetails[i].arrivalTerminal),textAlign: TextAlign.end),
+                              Text(
+                                  "terminal".tr.replaceAll(
+                                      "1",
+                                      flightSegment.flightSegmentDetails[i]
+                                          .arrivalTerminal),
+                                  textAlign: TextAlign.end),
                             ],
                           ))
                         ],
@@ -339,9 +371,9 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                           dashGapRadius: 0.0,
                         )),
                         Visibility(
-                          visible: flightSegment
-                                  .flightSegmentDetails[i].stopover !=
-                              "",
+                          visible:
+                              flightSegment.flightSegmentDetails[i].stopover !=
+                                  "",
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: flyternSpaceMedium),

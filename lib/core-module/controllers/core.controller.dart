@@ -1,8 +1,7 @@
 import 'package:flytern/shared-module/constants/service_types.core.constant.dart';
 import 'package:flytern/core-module/models/notification.core.model.dart';
 import 'package:flytern/core-module/models/service_booking_status.dart';
-import 'package:flytern/feature-modules/activity_booking/controllers/activity_booking.controller.dart';
-import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
+ import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
 import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
 import 'package:flytern/feature-modules/insurance/controllers/insurance.controller.dart';
  import 'package:flytern/core-module/services/http.core.service.dart';
@@ -38,10 +37,6 @@ class CoreController extends GetxController {
       } else if (serviceBookingStatus.servicetype == ServiceType.HOTEL.name) {
         final hotelBookingController = Get.find<HotelBookingController>();
         hotelBookingController.getPaymentGateways(true, tempBookingRef);
-      } else if (serviceBookingStatus.servicetype ==
-          ServiceType.ACTIVITY.name) {
-        final activityBookingController = Get.find<ActivityBookingController>();
-        activityBookingController.getPaymentGateways(true, tempBookingRef);
       } else if (serviceBookingStatus.servicetype ==
           ServiceType.INSURANCE.name) {
         final insuranceBookingController =
@@ -88,11 +83,7 @@ class CoreController extends GetxController {
       } else if (serviceBookingStatus.servicetype == ServiceType.HOTEL.name) {
         final hotelBookingController = Get.find<HotelBookingController>();
         hotelBookingController.getConfirmationData(tempBookingRef, true);
-      } else if (serviceBookingStatus.servicetype ==
-          ServiceType.ACTIVITY.name) {
-        final activityBookingController = Get.find<ActivityBookingController>();
-        activityBookingController.getConfirmationData(tempBookingRef, true);
-      } else if (serviceBookingStatus.servicetype ==
+      }else if (serviceBookingStatus.servicetype ==
           ServiceType.INSURANCE.name) {
         final insuranceBookingController =
             Get.find<InsuranceBookingController>();

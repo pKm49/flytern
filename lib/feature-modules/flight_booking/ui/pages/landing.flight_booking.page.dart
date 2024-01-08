@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flytern/feature-modules/activity_booking/controllers/activity_booking.controller.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
 import 'package:flytern/feature-modules/flight_booking/constants/flight_mode.flight_booking.constant.dart';
 import 'package:flytern/feature-modules/flight_booking/services/helper.flight_booking.service.dart';
@@ -40,7 +39,6 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
   final packageBookingController = Get.find<PackageBookingController>();
   final insuranceBookingController =Get.find<InsuranceBookingController>();
   final hotelBookingController =Get.find<HotelBookingController>();
-  final activityBookingController = Get.find<ActivityBookingController>();
 
   @override
   void initState() {
