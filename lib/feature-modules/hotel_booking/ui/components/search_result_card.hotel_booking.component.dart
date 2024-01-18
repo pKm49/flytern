@@ -66,23 +66,28 @@ class _HotelSearchResultCardState extends State<HotelSearchResultCard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+
+                    Expanded(child: Row(
+                      children: [
+                        for(var i = 1; i <= 5; i++)
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                right: flyternSpaceExtraSmall),
+                            child: Icon(
+                               i<= widget.hotelSearchResponse.rating.round()  ? Ionicons.star :
+                                Ionicons.star_outline,
+                                color:
+                                i <= widget.hotelSearchResponse.rating.round()  ?
+                                flyternAccentColor : flyternGrey40,size: flyternFontSize12,),
+                          ),
+
+                      ],
+                    )),
                     Expanded(
-                        child:                 Text("${widget.hotelSearchResponse.priceUnit} ${widget.hotelSearchResponse.fromPrice.toStringAsFixed(3)}",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold, color: flyternSecondaryColor),),
+                      child: Text("${widget.hotelSearchResponse.priceUnit} ${widget.hotelSearchResponse.fromPrice.toStringAsFixed(3)}",style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold, color: flyternSecondaryColor),textAlign: TextAlign.end,),
                     ),
 
-                    Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            for(var i=0;i<widget.hotelSearchResponse.rating.round();i++)
-                             Padding(
-                               padding: const EdgeInsets.only(right:flyternSpaceExtraSmall),
-                               child: Icon(Ionicons.star, color: flyternAccentColor,size: flyternFontSize12),
-                             )
 
-                          ],
-                        ))
                   ],
                 ),
                 addVerticalSpace(flyternSpaceExtraSmall),

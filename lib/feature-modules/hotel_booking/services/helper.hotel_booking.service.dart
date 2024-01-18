@@ -1,15 +1,13 @@
-
 import 'package:flytern/feature-modules/hotel_booking/models/search_data.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/search_item_room_data.hotel_booking.model.dart';
 import 'package:get/get.dart';
 
 class HotelBookingHelperServices {
-
   HotelSearchData addHotelRoom(HotelSearchData hotelSearchData) {
     List<HotelSearchItemRoomData> hotelRooms = [];
 
     HotelSearchItemRoomData hotelRoom =
-    HotelSearchItemRoomData(adults: 1, childs: 0, childAges: []);
+        HotelSearchItemRoomData(adults: 1, childs: 0, childAges: []);
     hotelRooms.addAll(hotelSearchData.rooms);
     hotelRooms.add(hotelRoom);
 
@@ -45,8 +43,8 @@ class HotelBookingHelperServices {
     return newHotelSearchData;
   }
 
-  HotelSearchData changeDate(HotelSearchData hotelSearchData,
-      DateTime dateTime, bool isCheckoutDate) {
+  HotelSearchData changeDate(
+      HotelSearchData hotelSearchData, DateTime dateTime, bool isCheckoutDate) {
     HotelSearchData newHotelSearchData = HotelSearchData(
         cityCode: hotelSearchData.cityCode,
         countryCode: hotelSearchData.countryCode,
@@ -63,34 +61,45 @@ class HotelBookingHelperServices {
     String returnString = "";
 
     if (hotelSearchData.rooms.length >= index + 1) {
-      returnString = "${hotelSearchData.rooms[index].adults} ${'adults'.tr}, "
+      if (hotelSearchData.rooms[index].adults > 0) {
+        if (hotelSearchData.rooms[index].adults == 1) {
+          returnString = "${hotelSearchData.rooms[index].adults} ${'adult'.tr}";
+        } else {
+          returnString =
+              "${hotelSearchData.rooms[index].adults} ${'adults'.tr}";
+        }
+      }
+
+      if (hotelSearchData.rooms[index].adults > 0 &&
+          hotelSearchData.rooms[index].childs > 0) {
+        returnString += ", ";
+      }
+      if (hotelSearchData.rooms[index].childs > 0) {
+        if (hotelSearchData.rooms[index].childs == 1) {
+          returnString = "${hotelSearchData.rooms[index].childs} ${'child'.tr}";
+        } else {
+          returnString =
           "${hotelSearchData.rooms[index].childs} ${'children'.tr}";
+        }
+      }
 
       return returnString;
     }
+
     return "select_number_of_guests".tr;
   }
 
-  HotelSearchData updatePassengerCount(
-      HotelSearchData hotelSearchData,
-      int index,
-      int adultCount,
-      int childCount,
-      List<int> childAges) {
-
-
-
+  HotelSearchData updatePassengerCount(HotelSearchData hotelSearchData,
+      int index, int adultCount, int childCount, List<int> childAges) {
     if (hotelSearchData.rooms.length >= index + 1) {
       List<HotelSearchItemRoomData> hotelRooms = [];
-      for (var i=0;i<hotelSearchData.rooms.length;i++) {
-
-        if(i==index){
+      for (var i = 0; i < hotelSearchData.rooms.length; i++) {
+        if (i == index) {
           hotelRooms.add(HotelSearchItemRoomData(
               adults: adultCount, childs: childCount, childAges: childAges));
-        } else{
+        } else {
           hotelRooms.add(hotelSearchData.rooms[i]);
         }
-
       }
 
       return HotelSearchData(
@@ -102,10 +111,7 @@ class HotelBookingHelperServices {
           checkOutDate: hotelSearchData.checkOutDate,
           nationalityCode: hotelSearchData.nationalityCode,
           rooms: hotelRooms);
-
     }
     return hotelSearchData;
   }
-
-
 }

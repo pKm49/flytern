@@ -17,7 +17,6 @@ class NotificationController {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-
 // This function is called when ios app is opened, for android case `onDidReceiveNotificationResponse` function is called
     FirebaseMessaging.onMessageOpenedApp.listen(
           (RemoteMessage message) {

@@ -134,7 +134,7 @@ class HotelBookingController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getRecentSearch();
+    // getRecentSearch();
   }
 
   Future<void> getRecentSearch() async {
@@ -143,6 +143,7 @@ class HotelBookingController extends GetxController {
     quickSearch.value = await hotelBookingHttpService.getRecentSearch();
 
     if (isInitial) {
+      isInitial = false;
       resetDestinationAndNationality();
     }
 
@@ -656,4 +657,5 @@ class HotelBookingController extends GetxController {
     tempTravelInfo.add(tTravelInfo);
     travelInfo.value = tempTravelInfo;
   }
+
 }

@@ -48,17 +48,19 @@ android {
         minSdkVersion 21
         compileSdkVersion 34
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 23
-        versionName "1.0.23"
+        versionCode 25
+        versionName "1.0.25"
     }
 
     buildTypes {
         release {
+            minifyEnabled true
+            shrinkResources true
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
         }
     }
+
 }
 
 flutter {

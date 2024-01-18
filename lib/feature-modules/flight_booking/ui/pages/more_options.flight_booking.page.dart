@@ -166,22 +166,37 @@ class _FlightMoreOptionsPageState extends State<FlightMoreOptionsPage>
       return "${flightBookingController.flightSearchData.value.mode.name}";
     }
     searchParamsPreviewString = "";
-    if(index == 4){
-      if (flightBookingController.flightSearchData.value.adults > 0) {
+    if(index == 4){ if (flightBookingController.flightSearchData.value.adults > 0) {
+      if (flightBookingController.flightSearchData.value.adults ==1) {
+        searchParamsPreviewString +=
+        "${flightBookingController.flightSearchData.value.adults} ${'adult'.tr}";
+      }else{
         searchParamsPreviewString +=
         "${flightBookingController.flightSearchData.value.adults} ${'adults'.tr}";
       }
 
-      if (flightBookingController.flightSearchData.value.child > 0) {
+    }
+
+    if (flightBookingController.flightSearchData.value.child > 0) {
+      if (flightBookingController.flightSearchData.value.child == 1) {
+        searchParamsPreviewString +=
+        " -${flightBookingController.flightSearchData.value.child} ${'child'.tr}";
+      }else{
         searchParamsPreviewString +=
         " -${flightBookingController.flightSearchData.value.child} ${'children'.tr}";
       }
+    }
 
-      if (flightBookingController.flightSearchData.value.infants > 0) {
+    if (flightBookingController.flightSearchData.value.infants > 0) {
+      if (flightBookingController.flightSearchData.value.infants == 1) {
+        searchParamsPreviewString +=
+        " -${flightBookingController.flightSearchData.value.infants} ${'infant'.tr}";
+      }else{
         searchParamsPreviewString +=
         " -${flightBookingController.flightSearchData.value.infants} ${'infants'.tr}";
       }
-      return searchParamsPreviewString;
+    }
+    return searchParamsPreviewString;
     }
 
     searchParamsPreviewString = "";
@@ -208,11 +223,38 @@ class _FlightMoreOptionsPageState extends State<FlightMoreOptionsPage>
 
   getDateString(FlightSearchItem element) {
     if (element.returnDate == null) {
-      return "  ${getFormattedDate(element.departureDate)}";
+      return "${getFormattedDate(element.departureDate)}";
     }
-    if (element.returnDate?.day == element.departureDate.day) {
-      return "  ${getFormattedDate(element.departureDate)}";
+
+    if (element.returnDate?.year == element.departureDate.year) {
+
+      if (element.returnDate?.month == element.departureDate.month) {
+        if (element.returnDate?.day == element.departureDate.day) {
+          return "${getFormattedDate(element.departureDate)}";
+        }
+        String departureDay = element.departureDate.day<10?"0${element.departureDate.day}":"${element.departureDate.day}";
+        return "$departureDay & ${getFormattedDate(element.returnDate)}";
+      }
+
+      return "${getFormattedDate(element.departureDate)} & ${getFormattedDate(element.returnDate)}";
+
+    }else{
+
+      if (element.returnDate?.month == element.departureDate.month) {
+        if (element.returnDate?.day == element.departureDate.day) {
+          return "${getFormattedDate(element.departureDate)}";
+        }
+        String departureDay = element.departureDate.day<10?"0${element.departureDate.day}":"${element.departureDate.day}";
+
+        return "$departureDay & ${getFormattedDate(element.returnDate)}";
+      }
+
+      return "${getFormattedDate(element.departureDate)} & ${getFormattedDate(element.returnDate)}";
+
     }
-    return " ${element.departureDate.day}-${getFormattedDate(element.returnDate)}";
+
+
   }
+
+
 }

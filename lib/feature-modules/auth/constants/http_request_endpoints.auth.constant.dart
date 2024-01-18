@@ -1,4 +1,4 @@
-const String AuthHttpRequestEndpointLogin = "/coreapi/api/Users/Login";
-const String AuthHttpRequestEndpointRegister = "/coreapi/api/Users/Register";
-const String AuthHttpRequestEndpointForgetPassword = "/coreapi/api/Users/ForgetPassword";
-const String AuthHttpRequestEndpointChangePassword = "/coreapi/api/Users/ChangePassword";
+const String AuthHttpRequestEndpointLogin = "/liveapi/api/Users/Login";
+const String AuthHttpRequestEndpointRegister = "/liveapi/api/Users/Register";
+const String AuthHttpRequestEndpointForgetPassword = "/liveapi/api/Users/ForgetPassword";
+const String AuthHttpRequestEndpointChangePassword = "/liveapi/api/Users/ChangePassword";

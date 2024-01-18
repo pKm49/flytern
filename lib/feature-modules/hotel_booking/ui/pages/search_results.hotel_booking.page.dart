@@ -372,7 +372,11 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
     }
 
     if (index == 3) {
-      return "${"rooms_no".tr.replaceAll("2", hotelBookingController.hotelSearchData.value.rooms.length.toString())}";
+      if(hotelBookingController.hotelSearchData.value.rooms.length == 1){
+        return "single_room".tr;
+      }else{
+        return "${"rooms_no".tr.replaceAll("2", hotelBookingController.hotelSearchData.value.rooms.length.toString())}";
+      }
     }
 
     if(index == 4){

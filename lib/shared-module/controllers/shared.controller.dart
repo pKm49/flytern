@@ -87,6 +87,7 @@ class SharedController extends GetxController {
   }
 
   Future<void> setAuthToken() async {
+    var isGuest = true;
     isAuthTokenSet.value = false;
     AppUpdateChecker appUpdateChecker = AppUpdateChecker();
 
@@ -96,7 +97,6 @@ class SharedController extends GetxController {
     if (!isUpdateAvailable) {
 
       isAuthTokenSet.value = false;
-
 
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       var sharedHttpService = SharedHttpService();
@@ -121,6 +121,7 @@ class SharedController extends GetxController {
         if (DateTime.now().isAfter(expiryOn)) {
           AuthToken authToken = await sharedHttpService.getRefreshedToken();
           if (authToken.accessToken != "") {
+
             saveAuthTokenToSharedPreference(authToken);
           }
         }
@@ -142,7 +143,11 @@ class SharedController extends GetxController {
 
         if (langs.isNotEmpty) {
           changeLanguage(langs[0]);
-          Get.offAllNamed(Approute_landingpage);
+          if(!isGuest!){
+            Get.offAllNamed(Approute_landingpage );
+          }else{
+            Get.offAllNamed(Approute_authSelector);
+          }
         } else {
           isAuthTokenSet.value = true;
         }
@@ -293,7 +298,7 @@ class SharedController extends GetxController {
     SetDeviceInfoRequestBody setDeviceInfoRequestBody =
         SetDeviceInfoRequestBody(
             language: selectedLanguage.value.code,
-            countryCode: selectedCountry.value.countryCode,
+            countryCode: selectedCountry.value.countryISOCode,
             notificationEnabled: true,
             notificationToken: firebaseToken);
 

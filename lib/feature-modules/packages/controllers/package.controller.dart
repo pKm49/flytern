@@ -33,7 +33,7 @@ class PackageBookingController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getInitialInfo();
+
   }
 
   Future<void> getInitialInfo() async {

@@ -253,7 +253,6 @@ ThemeData getThemeData( String type, String locale) {
             borderSide: const BorderSide(
                 color: flyternGrey40, width: .50)) ),
     scaffoldBackgroundColor: flyternBackgroundWhite,
-
     appBarTheme: AppBarTheme(
         titleSpacing: 0,
         titleTextStyle:TextStyle(
@@ -275,4 +274,5 @@ ThemeData getThemeData( String type, String locale) {
         centerTitle: false,
         elevation: 0.0),
   );
+
 }

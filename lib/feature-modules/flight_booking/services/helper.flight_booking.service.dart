@@ -187,8 +187,12 @@ class FlightBookingHelperServices {
             flightBookingController.flightSearchData.value.infants +
             flightBookingController.flightSearchData.value.child;
     if (numberOfPassengers > 0) {
-       returnString = "$numberOfPassengers ${'passengers'.tr}";
-       if(flightBookingController.flightSearchData.value.allowedCabins.isNotEmpty){
+      if(numberOfPassengers == 1) {
+        returnString = "${'single_passenger'.tr}";
+      }else {
+        returnString = "$numberOfPassengers ${'passengers'.tr}";
+      }
+        if(flightBookingController.flightSearchData.value.allowedCabins.isNotEmpty){
          returnString +=" - ";
          for(var i =0; i<flightBookingController.flightSearchData.value.allowedCabins.length;i++){
            returnString += flightBookingController.flightSearchData.value.allowedCabins[i].name;
@@ -196,7 +200,6 @@ class FlightBookingHelperServices {
              returnString +=", ";
            }
          }
-
        }
        return returnString;
     } else {

@@ -1,7 +1,7 @@
-const String InsuranceBookingHttpRequestEndpointGetInitalInfo = "/coreapi/api/Insurances/PreInsurance";
-const String InsuranceBookingHttpRequestEndpointGetPrice = "/coreapi/api/Insurances/GetPriceInfo";
-const String InsuranceBookingHttpRequestEndpointSetUserData = "/coreapi/api/Insurances/SaveTraveller";
-const String InsuranceBookingHttpRequestEndpointGetGateways = "/coreapi/api/Payments/GetGateways";
-const String InsuranceBookingHttpRequestEndpointSetGateway = "/coreapi/api/Payments/SaveGateway";
-const String InsuranceBookingHttpRequestEndpointCheckGatewayStatus = "/coreapi/api/Payments/CheckGatewayStatus";
-const String InsuranceBookingHttpRequestEndpointConfirmation = "/coreapi/api/Payments/Confirmation";
+const String InsuranceBookingHttpRequestEndpointGetInitalInfo = "/liveapi/api/Insurances/PreInsurance";
+const String InsuranceBookingHttpRequestEndpointGetPrice = "/liveapi/api/Insurances/GetPriceInfo";
+const String InsuranceBookingHttpRequestEndpointSetUserData = "/liveapi/api/Insurances/SaveTraveller";
+const String InsuranceBookingHttpRequestEndpointGetGateways = "/liveapi/api/Payments/GetGateways";
+const String InsuranceBookingHttpRequestEndpointSetGateway = "/liveapi/api/Payments/SaveGateway";
+const String InsuranceBookingHttpRequestEndpointCheckGatewayStatus = "/liveapi/api/Payments/CheckGatewayStatus";
+const String InsuranceBookingHttpRequestEndpointConfirmation = "/liveapi/api/Payments/Confirmation";

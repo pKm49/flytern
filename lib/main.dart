@@ -60,6 +60,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   @override
   void dispose() {
     _themeManager.removeListener(themeListener);
@@ -68,7 +69,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-
 
     Get.put(CoreController());
     Get.put(SharedController());

@@ -17,7 +17,6 @@ class FlyternHttpInterceptor implements InterceptorContract {
       var Bearer = await sharedPreferences.getString("accessToken");
       var Basic = env.basicToken;
 
-
       data.headers["Accept"] = "*/*";
       data.headers["Content-Type"] = "application/json";
 

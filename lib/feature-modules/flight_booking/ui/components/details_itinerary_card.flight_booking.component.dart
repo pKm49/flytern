@@ -315,10 +315,14 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                                 maxLines: 2,
                               ),
                               addVerticalSpace(flyternSpaceSmall),
-                              Text("terminal".tr.replaceAll(
-                                  "1",
-                                  flightSegment.flightSegmentDetails[i]
-                                      .departureTerminal)),
+                              Visibility(
+                                visible: flightSegment.flightSegmentDetails[i]
+                                    .departureTerminal !="",
+                                child: Text("terminal".tr.replaceAll(
+                                    "1",
+                                    flightSegment.flightSegmentDetails[i]
+                                        .departureTerminal)),
+                              ),
                             ],
                           )),
                           Expanded(
@@ -331,12 +335,16 @@ class FlightDetailsItineraryCard extends StatelessWidget {
                                   maxLines: 2,
                                   textAlign: TextAlign.end),
                               addVerticalSpace(flyternSpaceSmall),
-                              Text(
-                                  "terminal".tr.replaceAll(
-                                      "1",
-                                      flightSegment.flightSegmentDetails[i]
-                                          .arrivalTerminal),
-                                  textAlign: TextAlign.end),
+                              Visibility(
+                                visible: flightSegment.flightSegmentDetails[i]
+                                    .arrivalTerminal !="",
+                                child: Text(
+                                    "terminal".tr.replaceAll(
+                                        "1",
+                                        flightSegment.flightSegmentDetails[i]
+                                            .arrivalTerminal),
+                                    textAlign: TextAlign.end),
+                              ),
                             ],
                           ))
                         ],

@@ -202,21 +202,22 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                                   top: flyternSpaceMedium,
                                   bottom: flyternSpaceExtraSmall),
                               color: flyternBackgroundWhite,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                              child:Row(
                                 children: [
-                                  Icon(Ionicons.star,
-                                      color: flyternAccentColor,
-                                      size: flyternFontSize20),
-                                  addHorizontalSpace(flyternSpaceExtraSmall),
-                                  Text(
-                                    "${hotelBookingController.hotelDetails.value.rating}",
-                                    style: getBodyMediumStyle(context)
-                                        .copyWith(color: flyternGrey80),
-                                  ),
+                                  for(var i = 1; i <= 5; i++)
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: flyternSpaceExtraSmall),
+                                      child: Icon(
+                                        i<= hotelBookingController.hotelDetails.value.rating.round()  ? Ionicons.star :
+                                        Ionicons.star_outline,
+                                        color:
+                                        i <=hotelBookingController.hotelDetails.value.rating.round()  ?
+                                        flyternAccentColor : flyternGrey40,size: flyternFontSize14,),
+                                    ),
+
                                 ],
-                              )),
+                              ),  ),
                         ),
 
                         Visibility(

@@ -127,11 +127,7 @@ class _FlightUserDetailsSubmissionPageState
                               tabs: <Tab>[
                                 for (var i = 0; i < tabLength; i++)
                                   Tab(
-                                      text: i == 0
-                                          ? "${'adults'.tr} (${adultExpansionControllers.length})"
-                                          : i == 1
-                                              ? "${'children'.tr} (${childExpansionControllers.length})"
-                                              : "${'infants'.tr} (${infantExpansionControllers.length})"),
+                                      text: getTabTitle(i)),
                               ])),
                     ),
                     Expanded(
@@ -368,5 +364,29 @@ class _FlightUserDetailsSubmissionPageState
     int currenYear = DateTime.now().year;
     int dobYear = dateOfBirth.year;
     return currenYear - dobYear;
+  }
+
+  String getTabTitle(int i) {
+
+    if(i == 0){
+      if(adultExpansionControllers.length==1){
+        return "${'adult'.tr} (${adultExpansionControllers.length})";
+      }else{
+        return "${'adults'.tr} (${adultExpansionControllers.length})";
+      }
+    }else if(i==1){
+      if(childExpansionControllers.length==1){
+        return "${'child'.tr} (${childExpansionControllers.length})";
+      }else{
+        return "${'children'.tr} (${childExpansionControllers.length})";
+      }
+    }else{
+      if(infantExpansionControllers.length==1){
+        return "${'infant'.tr} (${infantExpansionControllers.length})";
+      }else{
+        return "${'infants'.tr} (${infantExpansionControllers.length})";
+      }
+    }
+
   }
 }

@@ -587,11 +587,14 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
 
     if(index ==1){
       if (flightBookingController.flightSearchData.value.searchList.isNotEmpty) {
-        flightBookingController.flightSearchData.value.searchList
-            .forEach((element) {
+        for (var i=0; i<flightBookingController.flightSearchData.value.searchList.length;i++) {
+        FlightSearchItem element = flightBookingController.flightSearchData.value.searchList[i];
           searchParamsPreviewString +=
           "${element.departure.airportCode}-${element.arrival.airportCode}";
-        });
+          if(i!=0 && i!=flightBookingController.flightSearchData.value.searchList.length-1){
+            searchParamsPreviewString += ", ";
+          }
+        }
         return searchParamsPreviewString;
       }
     }
@@ -613,18 +616,34 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
     searchParamsPreviewString = "";
     if(index == 4){
       if (flightBookingController.flightSearchData.value.adults > 0) {
-        searchParamsPreviewString +=
-        "${flightBookingController.flightSearchData.value.adults} ${'adults'.tr}";
+        if (flightBookingController.flightSearchData.value.adults ==1) {
+          searchParamsPreviewString +=
+          "${flightBookingController.flightSearchData.value.adults} ${'adult'.tr}";
+        }else{
+          searchParamsPreviewString +=
+          "${flightBookingController.flightSearchData.value.adults} ${'adults'.tr}";
+        }
+
       }
 
       if (flightBookingController.flightSearchData.value.child > 0) {
-        searchParamsPreviewString +=
-        " -${flightBookingController.flightSearchData.value.child} ${'children'.tr}";
+        if (flightBookingController.flightSearchData.value.child == 1) {
+          searchParamsPreviewString +=
+          " -${flightBookingController.flightSearchData.value.child} ${'child'.tr}";
+        }else{
+          searchParamsPreviewString +=
+          " -${flightBookingController.flightSearchData.value.child} ${'children'.tr}";
+        }
       }
 
       if (flightBookingController.flightSearchData.value.infants > 0) {
-        searchParamsPreviewString +=
-        " -${flightBookingController.flightSearchData.value.infants} ${'infants'.tr}";
+        if (flightBookingController.flightSearchData.value.infants == 1) {
+          searchParamsPreviewString +=
+          " -${flightBookingController.flightSearchData.value.infants} ${'infant'.tr}";
+        }else{
+          searchParamsPreviewString +=
+          " -${flightBookingController.flightSearchData.value.infants} ${'infants'.tr}";
+        }
       }
       return searchParamsPreviewString;
     }
@@ -674,7 +693,8 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
         if (element.returnDate?.day == element.departureDate.day) {
           return "${getFormattedDate(element.departureDate)}";
         }
-         return "${element.departureDate.day} & ${getFormattedDate(element.returnDate)}";
+        String departureDay = element.departureDate.day<10?"0${element.departureDate.day}":"${element.departureDate.day}";
+         return "$departureDay & ${getFormattedDate(element.returnDate)}";
       }
 
       return "${getFormattedDate(element.departureDate)} & ${getFormattedDate(element.returnDate)}";
@@ -685,7 +705,9 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
         if (element.returnDate?.day == element.departureDate.day) {
           return "${getFormattedDate(element.departureDate)}";
         }
-        return "${element.departureDate.day} & ${getFormattedDate(element.returnDate)}";
+        String departureDay = element.departureDate.day<10?"0${element.departureDate.day}":"${element.departureDate.day}";
+
+        return "$departureDay & ${getFormattedDate(element.returnDate)}";
       }
 
       return "${getFormattedDate(element.departureDate)} & ${getFormattedDate(element.returnDate)}";

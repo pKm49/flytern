@@ -1,13 +1,13 @@
-const String ProfileHttpRequestEndpointGetUserDetails = "/coreapi/api/Users/GetUserProfile";
-const String ProfileHttpRequestEndpointUpdateUserMobile = "/coreapi/api/Users/ChangeMobile";
-const String ProfileHttpRequestEndpointUpdateUserEmail = "/coreapi/api/Users/ChangeEmail";
-const String ProfileHttpRequestEndpointUpdateUserDetails = "/coreapi/api/Users/UpdateUserProfile";
-const String ProfileHttpRequestEndpointUpdateUserPassword = "/coreapi/api/Users/ChangePassword";
-const String ProfileHttpRequestEndpointGetUserTravelStories = "/coreapi/api/TravelStories/GetTravelStories";
-const String ProfileHttpRequestEndpointCreateUserTravelStory = "/coreapi/api/TravelStories/CreateTestimonials";
-const String ProfileHttpRequestEndpointGetUserCoPaxs = "/coreapi/api/CoPaxs/GetUserCoPaxs";
-const String ProfileHttpRequestEndpointGetUserCreateCoPaxs = "/coreapi/api/CoPaxs/CreateUserCopax";
-const String ProfileHttpRequestEndpointGetUserUpdateCoPaxs = "/coreapi/api/CoPaxs/UpdateUserCopax";
-const String ProfileHttpRequestEndpointGetUserDeleteCoPaxs = "/coreapi/api/CoPaxs/DeleteUserCopax/";
-const String ProfileHttpRequestEndpointGetUserBookings = "/coreapi/api/Bookings/GetMyBooking/";
+const String ProfileHttpRequestEndpointGetUserDetails = "/liveapi/api/Users/GetUserProfile";
+const String ProfileHttpRequestEndpointUpdateUserMobile = "/liveapi/api/Users/ChangeMobile";
+const String ProfileHttpRequestEndpointUpdateUserEmail = "/liveapi/api/Users/ChangeEmail";
+const String ProfileHttpRequestEndpointUpdateUserDetails = "/liveapi/api/Users/UpdateUserProfile";
+const String ProfileHttpRequestEndpointUpdateUserPassword = "/liveapi/api/Users/ChangePassword";
+const String ProfileHttpRequestEndpointGetUserTravelStories = "/liveapi/api/TravelStories/GetTravelStories";
+const String ProfileHttpRequestEndpointCreateUserTravelStory = "/liveapi/api/TravelStories/CreateTestimonials";
+const String ProfileHttpRequestEndpointGetUserCoPaxs = "/liveapi/api/CoPaxs/GetUserCoPaxs";
+const String ProfileHttpRequestEndpointGetUserCreateCoPaxs = "/liveapi/api/CoPaxs/CreateUserCopax";
+const String ProfileHttpRequestEndpointGetUserUpdateCoPaxs = "/liveapi/api/CoPaxs/UpdateUserCopax";
+const String ProfileHttpRequestEndpointGetUserDeleteCoPaxs = "/liveapi/api/CoPaxs/DeleteUserCopax/";
+const String ProfileHttpRequestEndpointGetUserBookings = "/liveapi/api/Bookings/GetMyBooking/";
 

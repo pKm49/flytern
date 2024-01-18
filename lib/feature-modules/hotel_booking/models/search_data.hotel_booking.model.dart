@@ -2,6 +2,7 @@ import 'package:flytern/feature-modules/hotel_booking/models/search_item_room_da
 import 'package:intl/intl.dart';
 
 class HotelSearchData {
+
   final String countryCode;
   final String hotelCode;
   final String cityCode;

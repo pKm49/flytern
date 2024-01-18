@@ -47,7 +47,7 @@ HotelSearchItemRoomData mapHotelSearchItem(dynamic payload) {
 HotelSearchItemRoomData getDefaultHotelSearchItem() {
 
   return HotelSearchItemRoomData(
-      adults: 1,
+      adults: 2,
       childs: 0,
       childAges: []
   );

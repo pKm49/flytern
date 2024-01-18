@@ -33,6 +33,10 @@ class _ContactDetailsGetterState extends State<ContactDetailsGetter> {
     // TODO: implement initState
     super.initState();
     profileController.updateEditForm(profileController.userDetails.value);
+    if(sharedController.titleList.isEmpty){
+      sharedController.getInitialInfo();
+    }
+
   }
 
   @override

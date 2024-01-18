@@ -35,7 +35,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
   @override
   void initState() {
     super.initState();
-    hotelBookingController.resetDestinationAndNationality();
+    // hotelBookingController.resetDestinationAndNationality();
     hotelBookingController.getRecentSearch();
   }
 
@@ -306,7 +306,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  'no_of_guests'.tr,
+                                                  getNumberOfGuestsTitle(index),
                                                   style: getLabelLargeStyle(
                                                           context)
                                                       .copyWith(
@@ -635,5 +635,12 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
     }
 
    return "night_count".tr.replaceAll("1", durationDays.toString());
+  }
+
+  String getNumberOfGuestsTitle(int index) {
+    if(index + 1 == 1){
+      return "single_room".tr;
+    }
+    return "${'room'.tr} ${index + 1} : ${'no_of_guests'.tr} ";
   }
 }

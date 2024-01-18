@@ -124,7 +124,7 @@
       "child": "Child",
       "base_fare": "Base Fare",
       "discount": "Discount",
-      "tax_fare": "Tax Fare",
+      "tax_fare": "Tax & Fees",
       "total_fare": "Total Fare",
       "processing_fee": "Processing Fee",
       "grand_total": "Grand Total",
@@ -374,6 +374,8 @@
       "non_stop": "Non-Stop",
       "single_stop": "1 Stop",
       "single_night": "1 Night",
+      "single_room": "1 Room",
+      "single_passenger": "1 Passenger",
       "complete_payment": "Complete Payment",
       "enquiry": "Your Query",
       "help_center": "Help Center",
@@ -398,7 +400,9 @@
       "app_update_title": "App Update Available!",
       "app_update_content": "Enhance your experience with the latest version.",
       "app_update_button_text": "Update Now",
-      "try_again": "Try Again"
+      "try_again": "Try Again",
+      "title": "Title",
+      "gender": "Gender"
     }
   },
   {
@@ -525,7 +529,7 @@
       "child": "طفل",
       "base_fare": "الرسوم الأساسية",
       "discount": "الخصم",
-      "tax_fare": "رسوم الضريبة",
+      "tax_fare": "الضرائب والرسوم",
       "total_fare": "الرسوم الإجمالية",
       "processing_fee": "رسوم المعالجة",
       "grand_total": "المجموع الكلي",
@@ -776,6 +780,8 @@
       "non_stop": "بدون توقف",
       "single_stop": "1 توقف",
       "single_night": "1 ليلة",
+      "single_room": "1 غرفة",
+      "single_passenger": "1 راكب",
       "complete_payment": "أكمل دفعتك",
       "help_center": "مركز المساعدة",
       "enquiry": "سؤال",
@@ -799,7 +805,9 @@
       "app_update_title": "تحديث التطبيق متاح!",
       "app_update_content": "قم بتعزيز تجربتك مع الإصدار الأحدث.",
       "app_update_button_text": "حدّث الآن",
-      "try_again": "حاول ثانية"
+      "try_again": "حاول ثانية",
+      "title": "عنوان",
+      "gender": "نوع الجنس"
     }
   }
 ]
