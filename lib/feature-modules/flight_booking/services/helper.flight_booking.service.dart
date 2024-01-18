@@ -27,6 +27,25 @@ class FlightBookingHelperServices {
     return (length * 200) + extraSpace;
   }
 
+bool isDestinationChangable(FlightSearchData flightSearchData,
+      FlightDestination flightDestination, bool isArrival, int index) {
+
+    bool isChangable = false;
+
+    for (var i = 0; i < flightSearchData.searchList.length; i++) {
+      if (index == i) {
+        if(isArrival){
+          isChangable =  flightDestination.airportCode != flightSearchData.searchList[i].departure.airportCode;
+        }else{
+          isChangable = flightDestination.airportCode != flightSearchData.searchList[i].arrival.airportCode;
+        }
+      }
+    }
+
+    return isChangable;
+  }
+
+
   List<FlightSearchItem> getUpdatedSearchList(FlightSearchData flightSearchData,
       FlightDestination flightDestination, bool isArrival, int index) {
     List<FlightSearchItem> flightSearchItems = [];
