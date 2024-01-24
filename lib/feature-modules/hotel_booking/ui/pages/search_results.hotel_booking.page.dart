@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
+import 'package:flytern/feature-modules/hotel_booking/models/destination.hotel_booking.model.dart';
+import 'package:flytern/feature-modules/hotel_booking/models/search_response.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/models/search_result.hotel_booking.model.dart';
+import 'package:flytern/feature-modules/hotel_booking/services/fav_hotel_search_delegate.hotel_booking.service.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/components/search_result_card.hotel_booking.component.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/components/card_loader.hotel_booking.component.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/components/filter_option_selector.hotel_booking.component.dart';
@@ -61,6 +64,20 @@ class _HotelSearchResultPageState extends State<HotelSearchResultPage>
       appBar: AppBar(
         elevation: 0.5,
         title: Text("search_results".tr),
+        actions: [
+          InkWell(
+            onTap: () async {
+              HotelSearchResponse hotelSearchResponse = await showSearch(
+                  context: context,
+                  delegate: FavHotelSearchDelegate());
+              hotelBookingController.getHotelDetails(
+                  hotelSearchResponse
+                      .hotelId);
+            },
+            child: Icon(Ionicons.search_outline),
+          ),
+          addHorizontalSpace(flyternSpaceSmall)
+        ],
       ),
       body: Obx(
         () => Stack(

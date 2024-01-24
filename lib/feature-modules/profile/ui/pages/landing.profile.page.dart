@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/profile/controllers/profile.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
@@ -248,7 +251,32 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
                         ),
                       ),
                     ),
+
                   ],
+                ),
+              ),
+            ),
+             Visibility(
+              visible: profileController.userDetails.value.email != "",
+              child: SizedBox(
+                width: double.infinity,
+                child: Container(
+                  color: flyternTertiaryColor,
+                  padding: flyternMediumPaddingHorizontal,
+                  child: PrePostIconButton(
+                    specialColor: 2,
+                    onPressed: () {
+                      showDeleteConfirmationDialogue();
+                    },
+                    theme: 'dark',
+                    border: '',
+                    buttonTitle: "delete_account".tr,
+                    preIconData: Ionicons.trash_bin_outline,
+                    postIconData:Localizations.localeOf(context)
+                        .languageCode
+                        .toString() ==
+                        'ar'? Ionicons.chevron_back :Ionicons.chevron_forward,
+                  ),
                 ),
               ),
             ),
@@ -304,6 +332,63 @@ class _ProfileLandingPageState extends State<ProfileLandingPage> {
       ),
     );
   }
+
+  void showDeleteConfirmationDialogue() async {
+    BuildContext context = Get.context!;
+
+    final dialogTitleWidget = Text('account_delete_title'.tr,style: getHeadlineMediumStyle(context).copyWith(color: flyternGrey80,fontWeight: flyternFontWeightBold));
+    final dialogTextWidget = Text( 'account_delete_content'.tr,style: getBodyMediumStyle(context),
+    );
+
+    final updateButtonTextWidget = Text('yes'.tr);
+    final updateButtonCancelTextWidget = Text('no'.tr);
+
+    updateAction() {
+      Navigator.pop(context);
+       profileController.deleteAccount();
+    }
+
+    List<Widget> actions = [
+
+      TextButton(onPressed: (){
+        Navigator.pop(context);
+      }, child: updateButtonCancelTextWidget),
+
+      Platform.isAndroid
+          ?  ElevatedButton(
+          onPressed:updateAction,
+          style: getElevatedButtonStyle(context).copyWith(padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+              EdgeInsets.symmetric(
+                  horizontal: flyternSpaceLarge,
+                  vertical: flyternSpaceSmall))),
+          child:  updateButtonTextWidget)
+          : CupertinoDialogAction(
+        onPressed: updateAction,
+        child: updateButtonTextWidget,
+      ),
+    ];
+
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return WillPopScope(
+            child: Platform.isAndroid
+                ? AlertDialog(
+              title: dialogTitleWidget,
+              content: dialogTextWidget,
+              actions: actions,
+            )
+                : CupertinoAlertDialog(
+              title: dialogTitleWidget,
+              content: dialogTextWidget,
+              actions: actions,
+            ),
+            onWillPop: () => Future.value(false));
+      },
+    );
+
+  }
+
 
   showConfirmDialog() async {
     showDialog(

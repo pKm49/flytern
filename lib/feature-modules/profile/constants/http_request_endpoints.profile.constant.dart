@@ -1,3 +1,4 @@
+const String ProfileHttpRequestEndpointDeleteUserDetails = "/liveapi/api/Users/DeleteUser";
 const String ProfileHttpRequestEndpointGetUserDetails = "/liveapi/api/Users/GetUserProfile";
 const String ProfileHttpRequestEndpointUpdateUserMobile = "/liveapi/api/Users/ChangeMobile";
 const String ProfileHttpRequestEndpointUpdateUserEmail = "/liveapi/api/Users/ChangeEmail";

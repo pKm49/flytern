@@ -78,8 +78,7 @@ class _PaymentGatewayWebViewState extends State<PaymentGatewayWebView> {
                 },
                 onUpdateVisitedHistory: (InAppWebViewController controller, Uri? url, bool? flag) {
 
-
-                  if(url.toString().contains(confirmationUrl) ){
+                  if(url.toString() == confirmationUrl ){
                     setBack(true);
                   }
                 },

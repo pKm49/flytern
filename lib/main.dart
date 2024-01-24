@@ -1,4 +1,7 @@
- import 'package:flutter/material.dart';
+ import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flytern/core-module/controllers/core.controller.dart';
@@ -14,10 +17,13 @@ import 'package:flytern/feature-modules/flight_booking/controllers/flight_bookin
 import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
 import 'package:flytern/feature-modules/insurance/controllers/insurance.controller.dart';
 import 'package:flytern/feature-modules/packages/controllers/package.controller.dart';
+import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:get/get.dart';
  import 'package:permission_handler/permission_handler.dart';
+
+import 'shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 
 Future<void> main() async {
 
@@ -29,14 +35,9 @@ Future<void> main() async {
   // await NotificationController.getInitialNotificationAction();
 
 
-
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
-  await Permission.notification.isDenied.then((value) {
-    if (value) {
-      Permission.notification.request();
-    }
-  });
+
 
   // await Permission.notification.isDenied.then(
   //       (bool value) {
@@ -47,6 +48,7 @@ Future<void> main() async {
   // );
 
 }
+
 
 ThemeManager _themeManager = ThemeManager();
 

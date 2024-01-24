@@ -164,6 +164,21 @@ class HotelBookingController extends GetxController {
     }
   }
 
+  Future<List<HotelSearchResponse>> getFavHotels(
+      String searchQuery) async {
+
+    print("getFavHotels");
+    print(searchQuery);
+    if (searchQuery != "") {
+      HotelSearchResult hotelSearchResult =
+      await hotelBookingHttpService.getFavHotelSearchResults(objectId.value,searchQuery);
+       return hotelSearchResult.searchResponses;
+    } else {
+      return [];
+    }
+  }
+
+
   resetDestinationAndNationality() async {
     selectedDestination.value = mapHotelDestination({
       "cityName": "select_destination".tr,

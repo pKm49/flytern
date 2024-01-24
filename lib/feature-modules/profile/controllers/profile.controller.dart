@@ -402,4 +402,17 @@ class ProfileController extends GetxController {
     }
 
   }
+
+  Future<void> deleteAccount() async {
+
+     bool isSuccess = await profileHttpServices.deleteUserDetails();
+    if(isSuccess){
+      final sharedController = Get.find<SharedController>();
+      sharedController.handleLogout();
+      showSnackbar(Get.context!, "account_delete_success_message".tr, "info");
+    }else{
+      showSnackbar(Get.context!, "something_went_wrong".tr, "error");
+    }
+
+  }
 }

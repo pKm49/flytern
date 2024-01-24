@@ -93,6 +93,24 @@ class ProfileHttpServices {
     }
   }
 
+
+  Future<bool> deleteUserDetails() async {
+    try {
+      FlyternHttpResponse response =
+      await postRequest(ProfileHttpRequestEndpointDeleteUserDetails, null);
+      print("deleteUserDetails");
+      print(response.statusCode);
+      print(response.success);
+      if (response.success && response.statusCode == 200) {
+        return true;
+      }
+
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<UserDetails> getUserDetails() async {
     try {
       FlyternHttpResponse response =

@@ -638,9 +638,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
   }
 
   String getNumberOfGuestsTitle(int index) {
-    if(index + 1 == 1){
-      return "single_room".tr;
-    }
+
     return "${'room'.tr} ${index + 1} : ${'no_of_guests'.tr} ";
   }
 }

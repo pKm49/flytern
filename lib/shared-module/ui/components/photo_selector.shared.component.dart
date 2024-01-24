@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
+import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -50,12 +51,7 @@ class PhotoSelector extends StatelessWidget {
           InkWell(
             onTap: () async {
               Navigator.pop(context);
-              if (await Permission.camera.request().isGranted) {
-                getPictureFromCamera();
-              } else {
-                showSnackbar(
-                    context, "camera_permission_message".tr, "error");
-              }
+              handleCameraClick(context);
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -152,52 +148,186 @@ class PhotoSelector extends StatelessWidget {
   }
 
   Future<void> handleMediaClick(context) async {
-    if (await permissionPhotoOrStorage()) {
-      openFilePicker();
-    } else {
-      showSnackbar(context, "media_permission_message".tr, "error");
-    }
-  }
-
-
-  Future<bool> permissionPhotoOrStorage() async {
-    bool perm = false;
+    print("handleMediaClick");
     if (Platform.isIOS) {
-      perm = await permissionPhotos();
+      if (await Permission.photos.isGranted) {
+        getPictureFromCamera();
+      } else {
+        if (await Permission.photos.isPermanentlyDenied) {
+          showSnackbar(context, "media_permission_message".tr, "error");
+        }else{
+          showPhotosPermissionDialogue( );
+        }
+      }
     } else if (Platform.isAndroid) {
       final AndroidDeviceInfo android = await DeviceInfoPlugin().androidInfo;
-      final int sdkInt = android.version.sdkInt ?? 0;
-      perm = sdkInt > 32 ? await permissionPhotos() : await permissionStorage();
-    }
-    return Future<bool>.value(perm);
+      final int sdkInt = android.version.sdkInt;
+    print("Device is Android");
+    print(sdkInt);
+      if(sdkInt>32){
+        print("sdkInt>32");
+
+        if (await Permission.photos.isGranted) {
+          print("Permission is granted");
+          openFilePicker();
+        } else {
+          print("Permission not granted");
+          if (await Permission.photos.isPermanentlyDenied) {
+            print("Permission isPermanentlyDenied");
+            showSnackbar(context, "media_permission_message".tr, "error");
+          }else{
+            print("Permission is not PermanentlyDenied");
+            showPhotosPermissionDialogue( );
+          }
+        }
+      }else{
+        print("sdkInt<32");
+        if (await Permission.storage.isGranted) {
+          openFilePicker();
+        } else {
+          if (await Permission.storage.isPermanentlyDenied) {
+            showSnackbar(context, "media_permission_message".tr, "error");
+          }else{
+            showPhotosPermissionDialogue( );
+          }
+        }
+      }
+     }
+
   }
 
-  Future<bool> permissionPhotos() async {
-    bool hasPhotosPermission = false;
-    final PermissionStatus try0 = await Permission.photos.status;
-    if (try0 == PermissionStatus.granted) {
-      hasPhotosPermission = true;
+  Future<void> handleCameraClick(BuildContext context) async {
+    if (await Permission.camera.isGranted) {
+    getPictureFromCamera();
     } else {
-      final PermissionStatus try1 = await Permission.photos.request();
-      if (try1 == PermissionStatus.granted) {
-        hasPhotosPermission = true;
-      } else {}
+      if (await Permission.camera.isPermanentlyDenied) {
+        showSnackbar(
+            context, "camera_permission_message".tr, "error");
+      }else{
+        showCameraPermissionDialogue();
+      }
+
     }
-    return Future<bool>.value(hasPhotosPermission);
   }
 
-  Future<bool> permissionStorage() async {
-    bool hasStoragePermission = false;
-    final PermissionStatus try0 = await Permission.storage.status;
-    if (try0 == PermissionStatus.granted) {
-      hasStoragePermission = true;
-    } else {
-      final PermissionStatus try1 = await Permission.storage.request();
-      if (try1 == PermissionStatus.granted) {
-        hasStoragePermission = true;
-      } else {}
+  void showPhotosPermissionDialogue() async {
+    BuildContext context = Get.context!;
+    final dialogTitleWidget = Text('photo_access_permission_title'.tr,style: getHeadlineMediumStyle(context).copyWith(color: flyternGrey80,fontWeight: flyternFontWeightBold));
+    final dialogTextWidget = Text( 'photo_access_permission_info'.tr,style: getBodyMediumStyle(context),
+    );
+
+    final updateButtonTextWidget = Text('continue'.tr);
+    final updateButtonCancelTextWidget = Text('cancel'.tr);
+
+    updateAction() async {
+      Navigator.pop(context);
+      if (Platform.isIOS) {
+        Permission.photos.request();
+      }else{
+        final AndroidDeviceInfo android = await DeviceInfoPlugin().androidInfo;
+        final int sdkInt = android.version.sdkInt;
+        if(sdkInt>32){
+          Permission.photos.request();
+        }else{
+          Permission.storage.request();
+        }
+      }
     }
-    return Future<bool>.value(hasStoragePermission);
+
+    List<Widget> actions = [
+
+      TextButton(onPressed: (){
+        Navigator.pop(context);
+      }, child: updateButtonCancelTextWidget),
+
+      Platform.isAndroid
+          ?  ElevatedButton(
+          onPressed:updateAction,
+          style: getElevatedButtonStyle(context).copyWith(padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+              EdgeInsets.symmetric(
+                  horizontal: flyternSpaceLarge,
+                  vertical: flyternSpaceSmall))),
+          child:  updateButtonTextWidget)
+          : CupertinoDialogAction(
+        onPressed: updateAction,
+        child: updateButtonTextWidget,
+      ),
+    ];
+
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return WillPopScope(
+            child: Platform.isAndroid
+                ? AlertDialog(
+              title: dialogTitleWidget,
+              content: dialogTextWidget,
+              actions: actions,
+            )
+                : CupertinoAlertDialog(
+              title: dialogTitleWidget,
+              content: dialogTextWidget,
+              actions: actions,
+            ),
+            onWillPop: () => Future.value(false));
+      },
+    );
+  }
+
+  void showCameraPermissionDialogue() async {
+    BuildContext context = Get.context!;
+
+    final dialogTitleWidget = Text('camera_access_permission_title'.tr,style: getHeadlineMediumStyle(context).copyWith(color: flyternGrey80,fontWeight: flyternFontWeightBold));
+    final dialogTextWidget = Text( 'camera_access_permission_info'.tr,style: getBodyMediumStyle(context),
+    );
+
+    final updateButtonTextWidget = Text('continue'.tr);
+    final updateButtonCancelTextWidget = Text('cancel'.tr);
+
+    updateAction() {
+      Navigator.pop(context);
+      Permission.camera.request();
+    }
+
+    List<Widget> actions = [
+
+      TextButton(onPressed: (){
+        Navigator.pop(context);
+      }, child: updateButtonCancelTextWidget),
+
+      Platform.isAndroid
+          ?  ElevatedButton(
+          onPressed:updateAction,
+          style: getElevatedButtonStyle(context).copyWith(padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+              EdgeInsets.symmetric(
+                  horizontal: flyternSpaceLarge,
+                  vertical: flyternSpaceSmall))),
+          child:  updateButtonTextWidget)
+          : CupertinoDialogAction(
+        onPressed: updateAction,
+        child: updateButtonTextWidget,
+      ),
+    ];
+
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return WillPopScope(
+            child: Platform.isAndroid
+                ? AlertDialog(
+              title: dialogTitleWidget,
+              content: dialogTextWidget,
+              actions: actions,
+            )
+                : CupertinoAlertDialog(
+              title: dialogTitleWidget,
+              content: dialogTextWidget,
+              actions: actions,
+            ),
+            onWillPop: () => Future.value(false));
+      },
+    );
+
   }
 
 }

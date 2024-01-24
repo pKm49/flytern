@@ -4,6 +4,7 @@ const String HotelBookingHttpRequestEndpointGetDestinations = "/liveapi/api/Hote
 const String HotelBookingHttpRequestEndpointGetMoreOptionHotels = "/liveapi/api/Hotels/MoreOptionHotels";
 const String HotelBookingHttpRequestEndpointFilterHotels = "/liveapi/api/Hotels/FilterHotels";
 const String HotelBookingHttpRequestEndpointSearchHotels = "/liveapi/api/Hotels/GetHotels";
+const String HotelBookingHttpRequestEndpointSearchFavHotels = "/liveapi/api/Hotels/GetHotelbyNames";
 const String HotelBookingHttpRequestEndpointGetDetailHotels = "/liveapi/api/Hotels/Detail";
 const String HotelBookingHttpRequestEndpointGetPreTravellerData = "/liveapi/api/Hotels/PreTraveller";
 const String HotelBookingHttpRequestEndpointGetSaveTravellerData = "/liveapi/api/Hotels/SaveTraveller";

@@ -155,6 +155,65 @@ class HotelBookingHttpService {
 
   }
 
+  Future<HotelSearchResult> getFavHotelSearchResults(int objectId,
+      String query) async {
+
+    List<HotelSearchResponse> searchResponses = [];
+    print("getFavHotelSearchResults");
+    print(query);
+    print(objectId);
+    try {
+      FlyternHttpResponse response = await postRequest(
+          HotelBookingHttpRequestEndpointSearchFavHotels,
+           {"objectID":objectId,"searchByName":query});
+      print("getFavHotelSearchResults");
+      print(response.success);
+      print(response.data);
+      if (response.success) {
+        if (response.data != null) {
+          if (response.data["_lst"] != null) {
+            for (var i = 0; i < response.data["_lst"].length; i++) {
+              searchResponses
+                  .add(mapHotelSearchResponse(response.data["_lst"][i]));
+            }
+          }
+
+        }
+      }
+
+      HotelSearchResult flightSearchResult = HotelSearchResult(
+        alertMsg:"",
+        totalHotels:1,
+        objectID: 1,
+        searchResponses: searchResponses,
+        priceDcs: [],
+        sortingDcs: [],
+        ratingDcs: [],
+        locationDcs: [],
+      );
+
+      return flightSearchResult;
+    } catch (e) {
+
+      HotelSearchResult flightSearchResult = HotelSearchResult(
+        alertMsg:"",
+        totalHotels:1,
+        objectID: 1,
+        searchResponses: searchResponses,
+        priceDcs: [],
+        sortingDcs: [],
+        ratingDcs: [],
+        locationDcs: [],
+      );
+
+
+      return flightSearchResult;
+    }
+
+
+  }
+
+
   Future<HotelSearchResult> getHotelSearchResultsFiltered(
       HotelFilterBody flightFilterBody) async {
 

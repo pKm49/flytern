@@ -7,7 +7,7 @@ class HotelBookingHelperServices {
     List<HotelSearchItemRoomData> hotelRooms = [];
 
     HotelSearchItemRoomData hotelRoom =
-        HotelSearchItemRoomData(adults: 1, childs: 0, childAges: []);
+        HotelSearchItemRoomData(adults: 2, childs: 0, childAges: []);
     hotelRooms.addAll(hotelSearchData.rooms);
     hotelRooms.add(hotelRoom);
 

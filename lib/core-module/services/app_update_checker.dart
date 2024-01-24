@@ -171,6 +171,7 @@ class AppUpdateChecker {
       },
     );
   }
+
 }
 
 class VersionStatus {
