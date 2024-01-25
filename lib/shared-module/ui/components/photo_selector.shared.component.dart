@@ -211,10 +211,20 @@ class PhotoSelector extends StatelessWidget {
   }
 
   void showPhotosPermissionDialogue() async {
+
     BuildContext context = Get.context!;
+
     final dialogTitleWidget = Text('photo_access_permission_title'.tr,style: getHeadlineMediumStyle(context).copyWith(color: flyternGrey80,fontWeight: flyternFontWeightBold));
-    final dialogTextWidget = Text( 'photo_access_permission_info'.tr,style: getBodyMediumStyle(context),
-    );
+    final dialogTextWidget = Text( 'photo_access_permission_info'.tr,style: getBodyMediumStyle(context));
+    final why_permission_q = Text( 'why_permission_q'.tr,style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold));
+    final photo_access_permission_why_a = Text( 'photo_access_permission_why_a'.tr,style: getBodyMediumStyle(context));
+    final how_permission_q = Text( 'how_permission_q'.tr,style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold));
+    final photo_camear_access_permission_how_a1 = Text( 'photo_camear_access_permission_how_a1'.tr,style: getBodyMediumStyle(context));
+    final photo_access_permission_how_a2 = Text( 'photo_access_permission_how_a2'.tr,style: getBodyMediumStyle(context));
+    final privacy_at_core = Text( 'privacy_at_core'.tr,style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold));
+    final privacy_at_core_info1 = Text( 'privacy_at_core_info1'.tr,style: getBodyMediumStyle(context));
+    final privacy_at_core_info2 = Text( 'privacy_at_core_info2'.tr,style: getBodyMediumStyle(context));
+    final thanks_for_personalizing = Text( 'thanks_for_personalizing'.tr,style: getBodyMediumStyle(context));
 
     final updateButtonTextWidget = Text('continue'.tr);
     final updateButtonCancelTextWidget = Text('cancel'.tr);
@@ -258,28 +268,51 @@ class PhotoSelector extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return WillPopScope(
-            child: Platform.isAndroid
-                ? AlertDialog(
+            child: AlertDialog(
               title: dialogTitleWidget,
-              content: dialogTextWidget,
-              actions: actions,
-            )
-                : CupertinoAlertDialog(
-              title: dialogTitleWidget,
-              content: dialogTextWidget,
+              content: Container(
+                height: 700,
+                width: 500,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    dialogTextWidget,
+                    why_permission_q,
+                    photo_access_permission_why_a,
+                    how_permission_q,
+                    photo_camear_access_permission_how_a1,
+                    photo_access_permission_how_a2,
+                    privacy_at_core,
+                    privacy_at_core_info1,
+                    privacy_at_core_info2,
+                    thanks_for_personalizing
+                  ],
+                ),
+              ),
               actions: actions,
             ),
             onWillPop: () => Future.value(false));
       },
     );
+
   }
 
   void showCameraPermissionDialogue() async {
     BuildContext context = Get.context!;
 
     final dialogTitleWidget = Text('camera_access_permission_title'.tr,style: getHeadlineMediumStyle(context).copyWith(color: flyternGrey80,fontWeight: flyternFontWeightBold));
-    final dialogTextWidget = Text( 'camera_access_permission_info'.tr,style: getBodyMediumStyle(context),
-    );
+    final dialogTextWidget = Text( 'camera_access_permission_info'.tr,style: getBodyMediumStyle(context),);
+
+    final why_permission_q = Text( 'why_permission_q'.tr,style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold));
+    final camera_access_permission_why_a = Text( 'camera_access_permission_why_a'.tr,style: getBodyMediumStyle(context));
+    final how_permission_q = Text( 'how_permission_q'.tr,style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold));
+    final photo_camear_access_permission_how_a1 = Text( 'photo_camear_access_permission_how_a1'.tr,style: getBodyMediumStyle(context));
+    final camera_access_permission_how_a2 = Text( 'camera_access_permission_how_a2'.tr,style: getBodyMediumStyle(context));
+    final privacy_at_core = Text( 'privacy_at_core'.tr,style: getBodyMediumStyle(context).copyWith(fontWeight: flyternFontWeightBold));
+    final privacy_at_core_info1 = Text( 'privacy_at_core_info1'.tr,style: getBodyMediumStyle(context));
+    final privacy_at_core_info2 = Text( 'privacy_at_core_info2'.tr,style: getBodyMediumStyle(context));
+    final thanks_for_personalizing = Text( 'thanks_for_personalizing'.tr,style: getBodyMediumStyle(context));
 
     final updateButtonTextWidget = Text('continue'.tr);
     final updateButtonCancelTextWidget = Text('cancel'.tr);
@@ -313,15 +346,28 @@ class PhotoSelector extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return WillPopScope(
-            child: Platform.isAndroid
-                ? AlertDialog(
+            child:AlertDialog(
               title: dialogTitleWidget,
-              content: dialogTextWidget,
-              actions: actions,
-            )
-                : CupertinoAlertDialog(
-              title: dialogTitleWidget,
-              content: dialogTextWidget,
+              content: Container(
+                height: 700,
+                width: 500,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    dialogTextWidget,
+                    why_permission_q,
+                    camera_access_permission_why_a,
+                    how_permission_q,
+                    photo_camear_access_permission_how_a1,
+                    camera_access_permission_how_a2,
+                    privacy_at_core,
+                    privacy_at_core_info1,
+                    privacy_at_core_info2,
+                    thanks_for_personalizing
+                  ],
+                ),
+              ),
               actions: actions,
             ),
             onWillPop: () => Future.value(false));

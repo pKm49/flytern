@@ -25,6 +25,7 @@ import 'package:flytern/shared-module/services/utility-services/widget_propertie
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CoreLandingPage extends StatefulWidget {
@@ -410,9 +411,11 @@ class _CoreLandingPageState extends State<CoreLandingPage>
   Future<void> checkNotificationsPermission() async {
     await Permission.notification.isDenied.then((value) async {
       if (value) {
-        await Permission.notification.isPermanentlyDenied.then((value) {
+        await Permission.notification.isPermanentlyDenied.then((value) async {
           if (!value) {
-            showPermissionDialogue();
+            if(!await getPermissionRequestSharedPreference()){
+              showPermissionDialogue();
+            }
           }
         });
       }
@@ -420,7 +423,9 @@ class _CoreLandingPageState extends State<CoreLandingPage>
   }
 
   void showPermissionDialogue( ) async {
-     final dialogTitleWidget = Text('notification_access_permission_title'.tr,style: getHeadlineMediumStyle(context).copyWith(color: flyternGrey80,fontWeight: flyternFontWeightBold));
+    setPermissionRequestSharedPreference();
+
+    final dialogTitleWidget = Text('notification_access_permission_title'.tr,style: getHeadlineMediumStyle(context).copyWith(color: flyternGrey80,fontWeight: flyternFontWeightBold));
      final dialogTextWidget = Text( 'notification_access_permission_info'.tr,style: getBodyMediumStyle(context),
     );
 
@@ -471,6 +476,19 @@ class _CoreLandingPageState extends State<CoreLandingPage>
             onWillPop: () => Future.value(false));
       },
     );
+  }
+
+  Future<bool> getPermissionRequestSharedPreference() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final bool? isNotificationPermissionAsked = prefs.getBool('isNotificationPermissionAsked');
+    print("getPermissionRequestSharedPreference");
+    print(isNotificationPermissionAsked);
+    return isNotificationPermissionAsked !=null?isNotificationPermissionAsked:false;
+  }
+
+  Future<void> setPermissionRequestSharedPreference() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isNotificationPermissionAsked',true);
   }
 
 }
