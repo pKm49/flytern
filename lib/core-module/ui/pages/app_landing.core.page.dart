@@ -443,18 +443,13 @@ class _CoreLandingPageState extends State<CoreLandingPage>
         Navigator.pop(context);
       }, child: updateButtonCancelTextWidget),
 
-      Platform.isAndroid
-          ?  ElevatedButton(
+      ElevatedButton(
           onPressed:updateAction,
           style: getElevatedButtonStyle(context).copyWith(padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
               EdgeInsets.symmetric(
                   horizontal: flyternSpaceLarge,
                   vertical: flyternSpaceSmall))),
           child:  updateButtonTextWidget)
-          : CupertinoDialogAction(
-        onPressed: updateAction,
-        child: updateButtonTextWidget,
-      ),
     ];
 
     await showDialog(
@@ -462,13 +457,7 @@ class _CoreLandingPageState extends State<CoreLandingPage>
       barrierDismissible: false,
       builder: (BuildContext context) {
         return WillPopScope(
-            child: Platform.isAndroid
-                ? AlertDialog(
-              title: dialogTitleWidget,
-              content: dialogTextWidget,
-              actions: actions,
-            )
-                : CupertinoAlertDialog(
+            child:AlertDialog(
               title: dialogTitleWidget,
               content: dialogTextWidget,
               actions: actions,

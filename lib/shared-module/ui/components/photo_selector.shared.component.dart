@@ -250,18 +250,13 @@ class PhotoSelector extends StatelessWidget {
         Navigator.pop(context);
       }, child: updateButtonCancelTextWidget),
 
-      Platform.isAndroid
-          ?  ElevatedButton(
+      ElevatedButton(
           onPressed:updateAction,
           style: getElevatedButtonStyle(context).copyWith(padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
               EdgeInsets.symmetric(
                   horizontal: flyternSpaceLarge,
                   vertical: flyternSpaceSmall))),
           child:  updateButtonTextWidget)
-          : CupertinoDialogAction(
-        onPressed: updateAction,
-        child: updateButtonTextWidget,
-      ),
     ];
 
     await showDialog(
@@ -328,18 +323,13 @@ class PhotoSelector extends StatelessWidget {
         Navigator.pop(context);
       }, child: updateButtonCancelTextWidget),
 
-      Platform.isAndroid
-          ?  ElevatedButton(
+      ElevatedButton(
           onPressed:updateAction,
           style: getElevatedButtonStyle(context).copyWith(padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
               EdgeInsets.symmetric(
                   horizontal: flyternSpaceLarge,
                   vertical: flyternSpaceSmall))),
           child:  updateButtonTextWidget)
-          : CupertinoDialogAction(
-        onPressed: updateAction,
-        child: updateButtonTextWidget,
-      ),
     ];
 
     await showDialog(
