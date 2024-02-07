@@ -655,9 +655,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
               if (dateTime != null && dateTime.isAfter(DateTime.now().add(const Duration(days: -1)))) {
                 widget.flightBookingController
                     .changeDate(index, isReturn, dateTime, false);
-                if(!isReturn){
-                  handleReturnClick(index);
-                }
+
               }
             },
             title:title

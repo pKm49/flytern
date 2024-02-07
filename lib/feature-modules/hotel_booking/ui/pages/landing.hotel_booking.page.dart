@@ -120,7 +120,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                           flex: 1,
                           child: InkWell(
                             onTap: () {
-                              showCustomDatePicker(false);
+                              showCustomDatePicker(false,'checkin'.tr);
                             },
                             child: Container(
                               decoration:
@@ -174,7 +174,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                           flex: 1,
                           child: InkWell(
                             onTap: () {
-                              showCustomDatePicker(true);
+                              showCustomDatePicker(true,'checkout'.tr);
                             },
                             child: Container(
                               decoration:
@@ -563,7 +563,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
     // );
   }
 
-  void showCustomDatePicker(bool isCheckoutDate) {
+  void showCustomDatePicker(bool isCheckoutDate, String title) {
     showModalBottomSheet(
         useSafeArea: false,
         shape: RoundedRectangleBorder(
@@ -576,6 +576,8 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
         context: context,
         builder: (context) {
           return CustomDatePicker(
+            isSingleTapSubmission:true,
+              title:title ,
             minimumDate:isCheckoutDate?hotelBookingController
                 .hotelSearchData.value.checkInDate.add(Duration(days: 1)): DateTime.now(),
             maximumDate:isCheckoutDate?hotelBookingController
