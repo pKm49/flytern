@@ -253,7 +253,8 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                                 .value
                                                 .searchList[index]
                                                 .departureDate,
-                                            false);
+                                            false,
+                                            'travel_date'.tr);
                                       },
                                       child: Container(
                                         decoration:
@@ -332,7 +333,8 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                                   .value
                                                   .searchList[index]
                                                   .returnDate!,
-                                              true);
+                                              true,
+                                              'return_date'.tr);
                                         },
                                         child: Container(
                                           decoration:
@@ -616,7 +618,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
   }
 
   void showCustomDatePicker(
-      int index, DateTime currentDateTime, bool isReturn) {
+      int index, DateTime currentDateTime, bool isReturn, String title) {
     showModalBottomSheet(
         useSafeArea: false,
         shape: const RoundedRectangleBorder(
@@ -629,6 +631,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
         context: context,
         builder: (context) {
           return CustomDatePicker(
+              isSingleTapSubmission:true,
             selectedDate: currentDateTime,
             minimumDate: isReturn
                 ? widget.flightBookingController.flightSearchData.value
@@ -649,11 +652,15 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                     ? currentDateTime.add(Duration(days: 365))
                     : DateTime.now().add(Duration(days: 365)),
             dateSelected: (DateTime? dateTime) {
-              if (dateTime != null && dateTime.isAfter(DateTime.now())) {
+              if (dateTime != null && dateTime.isAfter(DateTime.now().add(const Duration(days: -1)))) {
                 widget.flightBookingController
                     .changeDate(index, isReturn, dateTime, false);
+                if(!isReturn){
+                  handleReturnClick(index);
+                }
               }
             },
+            title:title
           );
         });
   }
@@ -743,5 +750,18 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
       return "  ${getFormattedDate(element.departureDate)}";
     }
     return " ${element.departureDate.day}-${getFormattedDate(element.returnDate!)}";
+  }
+
+  void handleReturnClick(int index) {
+    showCustomDatePicker(
+        index,
+        widget
+            .flightBookingController
+            .flightSearchData
+            .value
+            .searchList[index]
+            .returnDate!,
+        true,
+        'return_date'.tr);
   }
 }

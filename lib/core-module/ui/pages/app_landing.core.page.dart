@@ -411,13 +411,9 @@ class _CoreLandingPageState extends State<CoreLandingPage>
   Future<void> checkNotificationsPermission() async {
     await Permission.notification.isDenied.then((value) async {
       if (value) {
-        await Permission.notification.isPermanentlyDenied.then((value) async {
-          if (!value) {
-            if(!await getPermissionRequestSharedPreference()){
-              showPermissionDialogue();
-            }
-          }
-        });
+        if(!await getPermissionRequestSharedPreference()){
+          showPermissionDialogue();
+        }
       }
     });
   }

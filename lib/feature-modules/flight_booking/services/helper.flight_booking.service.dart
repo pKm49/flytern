@@ -6,6 +6,7 @@ import 'package:flytern/feature-modules/flight_booking/models/destination.flight
 import 'package:flytern/feature-modules/flight_booking/models/search_data.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/search_item.flight_booking.model.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
+import 'package:flytern/shared-module/services/utility-services/numeric_to_arabic.shared.service.dart';
 import 'package:get/get.dart';
 
 class FlightBookingHelperServices {
@@ -27,19 +28,14 @@ class FlightBookingHelperServices {
     return (length * 200) + extraSpace;
   }
 
-bool isDestinationChangable(FlightSearchData flightSearchData,
-      FlightDestination flightDestination, bool isArrival, int index) {
+bool isDestinationChangable(FlightSearchData flightSearchData ) {
 
     bool isChangable = false;
 
     for (var i = 0; i < flightSearchData.searchList.length; i++) {
-      if (index == i) {
-        if(isArrival){
-          isChangable =  flightDestination.airportCode != flightSearchData.searchList[i].departure.airportCode;
-        }else{
-          isChangable = flightDestination.airportCode != flightSearchData.searchList[i].arrival.airportCode;
-        }
-      }
+
+      isChangable =  flightSearchData.searchList[i].departure.airportCode != flightSearchData.searchList[i].arrival.airportCode;
+
     }
 
     return isChangable;
@@ -209,7 +205,7 @@ bool isDestinationChangable(FlightSearchData flightSearchData,
       if(numberOfPassengers == 1) {
         returnString = "${'single_passenger'.tr}";
       }else {
-        returnString = "$numberOfPassengers ${'passengers'.tr}";
+        returnString = "${replaceEnglishNumber(numberOfPassengers.toString())} ${'passengers'.tr}";
       }
         if(flightBookingController.flightSearchData.value.allowedCabins.isNotEmpty){
          returnString +=" - ";

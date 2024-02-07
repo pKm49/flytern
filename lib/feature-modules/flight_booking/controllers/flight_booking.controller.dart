@@ -82,7 +82,6 @@ class FlightBookingController extends GetxController {
   var addonMeals = <FlightAddonMeal>[].obs;
   var addonExtraPackages = <FlightAddonExtraPackage>[].obs;
 
-
   var isTravelStoriesLoading = false.obs;
   var isTravelStoriesPageLoading = false.obs;
   var isRecommendedLoading = false.obs;
@@ -261,41 +260,49 @@ class FlightBookingController extends GetxController {
     if (flightSearchData.value.allowedCabins.isNotEmpty &&
         flightSearchData.value.adults > 0 &&
         !isFlightSearchResponsesLoading.value) {
-      searchResultsPage.value = 1;
-      totalFlights.value = 0;
-      isSearchScrollOver.value = false;
-      if (isNavigationRequired) {
-        Get.toNamed(Approute_flightsSearchResult);
-      } else {
-        isModifySearchVisible.value = false;
-      }
-      isFlightSearchFilterResponsesLoading.value = true;
-      isFlightSearchResponsesLoading.value = true;
-      FlightSearchResult flightSearchResult = await flightBookingHttpService
-          .getFlightSearchResults(flightSearchData.value);
-      alertMsg.value = flightSearchResult.alertMsg;
-      totalFlights.value = flightSearchResult.totalFlights;
-      flightSearchResponses.value = flightSearchResult.searchResponses;
-      if (flightSearchResponses.isNotEmpty) {
-        objectId.value = flightSearchResponses.value[0].objectId;
-        currency.value = flightSearchResponses.value[0].currency;
-        startDate.value = flightSearchData.value.searchList[0].departureDate;
-      }
-      sortingDcs.value = flightSearchResult.sortingDcs;
-      if (sortingDcs.isNotEmpty) {
-        List<SortingDcs> defaultSort =
-            sortingDcs.where((p0) => p0.isDefault).toList();
-        sortingDc.value =
-            defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
-      }
-      priceDcs.value = flightSearchResult.priceDcs;
-      airlineDcs.value = flightSearchResult.airlineDcs;
-      arrivalTimeDcs.value = flightSearchResult.arrivalTimeDcs;
-      departureTimeDcs.value = flightSearchResult.departureTimeDcs;
-      stopDcs.value = flightSearchResult.stopDcs;
 
-      isFlightSearchResponsesLoading.value = false;
-      isFlightSearchFilterResponsesLoading.value = false;
+      if(flightBookingHelperServices.isDestinationChangable(
+          flightSearchData.value ) ){
+        searchResultsPage.value = 1;
+        totalFlights.value = 0;
+        isSearchScrollOver.value = false;
+        if (isNavigationRequired) {
+          Get.toNamed(Approute_flightsSearchResult);
+        } else {
+          isModifySearchVisible.value = false;
+        }
+        isFlightSearchFilterResponsesLoading.value = true;
+        isFlightSearchResponsesLoading.value = true;
+        FlightSearchResult flightSearchResult = await flightBookingHttpService
+            .getFlightSearchResults(flightSearchData.value);
+        alertMsg.value = flightSearchResult.alertMsg;
+        totalFlights.value = flightSearchResult.totalFlights;
+        flightSearchResponses.value = flightSearchResult.searchResponses;
+        if (flightSearchResponses.isNotEmpty) {
+          objectId.value = flightSearchResponses.value[0].objectId;
+          currency.value = flightSearchResponses.value[0].currency;
+          startDate.value = flightSearchData.value.searchList[0].departureDate;
+        }
+        sortingDcs.value = flightSearchResult.sortingDcs;
+        if (sortingDcs.isNotEmpty) {
+          List<SortingDcs> defaultSort =
+          sortingDcs.where((p0) => p0.isDefault).toList();
+          sortingDc.value =
+          defaultSort.isNotEmpty ? defaultSort[0] : sortingDcs[0];
+        }
+        priceDcs.value = flightSearchResult.priceDcs;
+        airlineDcs.value = flightSearchResult.airlineDcs;
+        arrivalTimeDcs.value = flightSearchResult.arrivalTimeDcs;
+        departureTimeDcs.value = flightSearchResult.departureTimeDcs;
+        stopDcs.value = flightSearchResult.stopDcs;
+
+        isFlightSearchResponsesLoading.value = false;
+        isFlightSearchFilterResponsesLoading.value = false;
+      }else{
+        showSnackbar(Get.context!, "select_another_destination".tr, "info");
+      }
+
+
     } else {
       if (flightSearchData.value.allowedCabins.isEmpty ||
           flightSearchData.value.adults == 0) {

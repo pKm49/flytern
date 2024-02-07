@@ -85,6 +85,6 @@ HotelSearchData getDefaultHotelSearchData() {
       hotelCode: "",
       checkInDate: DateTime.now(),
       checkOutDate: DateTime.now().add(Duration(days: 1)),
-      nationalityCode: "KWT",
+      nationalityCode: "KW",
       rooms: [getDefaultHotelSearchItem()]);
 }

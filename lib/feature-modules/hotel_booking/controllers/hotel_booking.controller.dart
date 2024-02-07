@@ -118,12 +118,12 @@ class HotelBookingController extends GetxController {
   var hotelPretravellerData = mapHotelPretravellerData({}).obs;
   var nationality = Country(
       isDefault: 1,
-      countryName: ("select_nationality".tr),
-      countryCode: "",
-      countryISOCode: "",
-      countryName_Ar: "",
-      flag: "",
-      code: "")
+      countryName: "Kuwait",
+      countryCode: "KWT",
+      countryISOCode: "KW",
+      countryName_Ar: "الكويت",
+      flag: "https://flagcdn.com/48x36/kw.png",
+      code: "+965")
       .obs;
 
   var mobileCntry = "".obs;
@@ -200,12 +200,12 @@ class HotelBookingController extends GetxController {
       }else{
         nationality.value = Country(
             isDefault: 1,
-            countryName: ("select_nationality".tr),
-            countryCode: "",
-            countryISOCode: "",
-            countryName_Ar: "",
-            flag: "",
-            code: "");
+            countryName: "Kuwait",
+            countryCode: "KWT",
+            countryISOCode: "KW",
+            countryName_Ar: "الكويت",
+            flag: "https://flagcdn.com/48x36/kw.png",
+            code: "+965");
       }
 
 

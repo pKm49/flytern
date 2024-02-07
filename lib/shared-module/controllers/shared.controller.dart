@@ -142,7 +142,7 @@ class SharedController extends GetxController {
         languages.where((e) => e.code == selectedLanguage).toList();
 
         if (langs.isNotEmpty) {
-          changeLanguage(langs[0]);
+          changeLanguage(langs[0],false);
           if(!isGuest!){
             Get.offAllNamed(Approute_landingpage );
           }else{
@@ -177,8 +177,11 @@ class SharedController extends GetxController {
     Get.offAllNamed(Approute_authSelector);
   }
 
-  changeLanguage(Language language) async {
+  changeLanguage(Language language, bool isLocaleChange) async {
     selectedLanguage.value = language;
+    if(isLocaleChange){
+      updateLocale();
+    }
   }
 
   changeCountry(Country country) async {
@@ -304,8 +307,7 @@ class SharedController extends GetxController {
 
     await sharedHttpService.setDeviceInfo(setDeviceInfoRequestBody);
     isSetDeviceLanguageAndCountrySubmitting.value = false;
-    Get.updateLocale(Locale(selectedLanguage.value.code));
-
+    updateLocale();
     if (isToast) {
       showSnackbar(Get.context!, "settings_updated".tr, "info");
       if(!isRedirection){
@@ -532,5 +534,9 @@ class SharedController extends GetxController {
 
   void changePaymentGatewayBackConfirmation() {
     paymentGatewayIsBackConfirmed.value = !paymentGatewayIsBackConfirmed.value;
+  }
+
+  void updateLocale() {
+    Get.updateLocale(Locale(selectedLanguage.value.code));
   }
 }

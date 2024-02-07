@@ -26,6 +26,9 @@ class FlyternHttpInterceptor implements InterceptorContract {
         data.headers["Authorization"] = "Basic $Basic";
       }
 
+      print("Authorization headers");
+      print(data.headers["Authorization"]);
+
       data.headers["Host"]=env.apiEndPoint;
       if(data.url.contains(SharedHttpRequestEndpoint_GetGuestToken)){
         String? deviceId = await _getId();

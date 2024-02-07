@@ -29,9 +29,9 @@ getRequest(endpoint, parameters) async {
   if (result == true) {
 
     try {
-      // print("getRequest called");
-      // print(env.apiEndPoint + "$endpoint");
-      // print(parameters);
+      print("getRequest called");
+      print(env.apiEndPoint + "$endpoint");
+      print(parameters);
 
       final http = InterceptedHttp.build(
           client: getClient(), interceptors: [
@@ -40,12 +40,12 @@ getRequest(endpoint, parameters) async {
 
       final httpResponse = await http.get(Uri.https(env.apiEndPoint, "$endpoint"),
           params: json.decode(json.encode(parameters)));
-      // print(Uri.https(env.apiEndPoint, "$endpoint").toString());
-      //
-      // print("httpResponse");
-      // print(httpResponse.headers.toString());
-      // print(httpResponse.body);
-      // print("httpResponse");
+      print(Uri.https(env.apiEndPoint, "$endpoint").toString());
+
+      print("httpResponse");
+      print(httpResponse.headers.toString());
+      print("httpResponse body is "+httpResponse.body);
+      print("httpResponse");
       var httpResponseBody = json.decode(httpResponse.body);
       return generateSuccessResponse(httpResponseBody);
     } catch (e) {

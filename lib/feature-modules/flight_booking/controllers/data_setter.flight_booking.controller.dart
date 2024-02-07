@@ -48,24 +48,18 @@ extension FlightBookingControllerSetter on FlightBookingController {
   setDestination(FlightDestination flightDestination, bool isArrival,
       int index) {
 
-    if(flightBookingHelperServices.isDestinationChangable(
-        flightSearchData.value, flightDestination, isArrival, index) ){
-      FlightSearchData newFlightSearchData = FlightSearchData(
-          promoCode: flightSearchData.value.promoCode,
-          adults: flightSearchData.value.adults,
-          child: flightSearchData.value.child,
-          infants: flightSearchData.value.infants,
-          searchList: flightBookingHelperServices.getUpdatedSearchList(
-              flightSearchData.value, flightDestination, isArrival, index),
-          allowedCabins: flightSearchData.value.allowedCabins,
-          mode: flightSearchData.value.mode,
-          isDirectFlight: flightSearchData.value.isDirectFlight);
+    FlightSearchData newFlightSearchData = FlightSearchData(
+        promoCode: flightSearchData.value.promoCode,
+        adults: flightSearchData.value.adults,
+        child: flightSearchData.value.child,
+        infants: flightSearchData.value.infants,
+        searchList: flightBookingHelperServices.getUpdatedSearchList(
+            flightSearchData.value, flightDestination, isArrival, index),
+        allowedCabins: flightSearchData.value.allowedCabins,
+        mode: flightSearchData.value.mode,
+        isDirectFlight: flightSearchData.value.isDirectFlight);
 
-      flightSearchData.value = newFlightSearchData;
-    }else{
-      showSnackbar(Get.context!, "select_another_destination".tr, "info");
-    }
-
+    flightSearchData.value = newFlightSearchData;
 
   }
 

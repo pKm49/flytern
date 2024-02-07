@@ -49,7 +49,6 @@ Future<void> main() async {
 
 }
 
-
 ThemeManager _themeManager = ThemeManager();
 
 class MyApp extends StatefulWidget {

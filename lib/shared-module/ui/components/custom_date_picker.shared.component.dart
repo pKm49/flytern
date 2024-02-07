@@ -12,6 +12,8 @@ class CustomDatePicker extends StatefulWidget {
   DateTime selectedDate;
   DateTime? minimumDate;
   DateTime? maximumDate;
+  String? title;
+  bool? isSingleTapSubmission;
   DatePickerMode? calendarViewMode;
   final Function(DateTime? dateTime) dateSelected;
 
@@ -21,6 +23,8 @@ class CustomDatePicker extends StatefulWidget {
       this.minimumDate,
       this.maximumDate,
       this.calendarViewMode,
+      this.title,
+      this.isSingleTapSubmission,
       required this.selectedDate});
 
   @override
@@ -53,7 +57,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
     return Container(
       width: screenwidth,
-      height: screenheight * .7,
+      height:widget.isSingleTapSubmission==true?screenheight*.6: screenheight * .7,
       padding: flyternSmallPaddingAll,
       child: Column(
         children: [
@@ -69,7 +73,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("select_date".tr,
+                        Text(widget.title != null? widget.title!: "select_date".tr ,
                             style: getHeadlineMediumStyle(context).copyWith(
                                 color: flyternGrey80,
                                 fontWeight: flyternFontWeightBold),
@@ -103,6 +107,13 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                           selectedDOB =
                               (dates.isNotEmpty ? dates[0] : DateTime.now()) ??
                                   DateTime.now();
+                          print("widget.isSingleTapSubmission");
+                          print(widget.isSingleTapSubmission);
+                          if(widget.isSingleTapSubmission == true){
+                            widget.dateSelected(selectedDOB);
+                            Navigator.pop(context);
+                          }
+
                         })
                           },
                         ),
@@ -114,27 +125,31 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
             ),
           ),
           addVerticalSpace(flyternSpaceSmall),
-          InkWell(
-            onTap: () {
-
-              if (selectedDOB.year == DateTime.now().year &&
-                  selectedDOB.month == DateTime.now().month &&
-                  selectedDOB.day == DateTime.now().day) {
-                widget.dateSelected(widget.selectedDate);
-              } else {
+          Visibility( 
+            visible: widget.isSingleTapSubmission != true,
+            child: InkWell(
+              onTap: () {
                 widget.dateSelected(selectedDOB);
-              }
-              Navigator.pop(context);
-            },
-            child: Container(
-              width: screenwidth,
-              padding: flyternMediumPaddingAll,
-              decoration: flyternBorderedContainerSmallDecoration,
-              child: Center(
-                child: Text("done".tr,
-                    style: getHeadlineMediumStyle(context).copyWith(
-                        color: flyternPrimaryColor,
-                        fontWeight: flyternFontWeightBold)),
+
+                // if (selectedDOB.year == DateTime.now().year &&
+                //     selectedDOB.month == DateTime.now().month &&
+                //     selectedDOB.day == DateTime.now().day) {
+                //   widget.dateSelected(widget.selectedDate);
+                // } else {
+                //   widget.dateSelected(selectedDOB);
+                // }
+                Navigator.pop(context);
+              },
+              child: Container(
+                width: screenwidth,
+                padding: flyternMediumPaddingAll,
+                decoration: flyternBorderedContainerSmallDecoration,
+                child: Center(
+                  child: Text("done".tr,
+                      style: getHeadlineMediumStyle(context).copyWith(
+                          color: flyternPrimaryColor,
+                          fontWeight: flyternFontWeightBold)),
+                ),
               ),
             ),
           )

@@ -151,7 +151,7 @@ class PhotoSelector extends StatelessWidget {
     print("handleMediaClick");
     if (Platform.isIOS) {
       if (await Permission.photos.isGranted) {
-        getPictureFromCamera();
+        openFilePicker();
       } else {
         if (await Permission.photos.isPermanentlyDenied) {
           showSnackbar(context, "media_permission_message".tr, "error");
@@ -232,14 +232,32 @@ class PhotoSelector extends StatelessWidget {
     updateAction() async {
       Navigator.pop(context);
       if (Platform.isIOS) {
-        Permission.photos.request();
+        final PermissionStatus try1 = await Permission.photos.request();
+        if (try1 == PermissionStatus.granted) {
+          openFilePicker();
+        }else{
+          showSnackbar(
+              context, "media_permission_message".tr, "error");
+        }
       }else{
         final AndroidDeviceInfo android = await DeviceInfoPlugin().androidInfo;
         final int sdkInt = android.version.sdkInt;
         if(sdkInt>32){
-          Permission.photos.request();
+          final PermissionStatus try1 = await Permission.photos.request();
+          if (try1 == PermissionStatus.granted) {
+            openFilePicker();
+          }else{
+            showSnackbar(
+                context, "media_permission_message".tr, "error");
+          }
         }else{
-          Permission.storage.request();
+          final PermissionStatus try1 = await Permission.storage.request();
+          if (try1 == PermissionStatus.granted) {
+            openFilePicker();
+          }else{
+            showSnackbar(
+                context, "media_permission_message".tr, "error");
+          }
         }
       }
     }
@@ -312,9 +330,16 @@ class PhotoSelector extends StatelessWidget {
     final updateButtonTextWidget = Text('continue'.tr);
     final updateButtonCancelTextWidget = Text('cancel'.tr);
 
-    updateAction() {
+    updateAction() async {
       Navigator.pop(context);
-      Permission.camera.request();
+      final PermissionStatus try1 = await Permission.camera.request();
+      if (try1 == PermissionStatus.granted) {
+        getPictureFromCamera();
+      }else{
+        showSnackbar(
+            context, "camera_permission_message".tr, "error");
+      }
+
     }
 
     List<Widget> actions = [

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
@@ -306,50 +308,58 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                           ),
                         ),
                         addVerticalSpace(flyternSpaceLarge),
-                        Container(
+                        Visibility(
+                          visible:  hotelBookingController
+                              .hotelDetails.value.amenitys.isNotEmpty,
+                          child: Container(
+                              width: screenwidth,
+                              color: flyternGrey10,
+                              height: 1),
+                        ),
+                        Visibility(
+                          visible:  hotelBookingController
+                              .hotelDetails.value.amenitys.isNotEmpty,
+                          child: Container(
+                            padding: flyternLargePaddingAll,
                             width: screenwidth,
-                            color: flyternGrey10,
-                            height: 1),
-                        Container(
-                          padding: flyternLargePaddingAll,
-                          width: screenwidth,
-                          height: screenwidth * .22 + (flyternSpaceLarge * 2),
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: hotelBookingController
-                                  .hotelDetails.value.amenitys.length,
-                              itemBuilder: (context, i) {
-                                return Container(
-                                  margin: EdgeInsets.only(
-                                      right: flyternSpaceMedium),
-                                  width: screenwidth * .2,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Image.network(
+                            height: screenwidth * .22 + (flyternSpaceLarge * 2),
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: hotelBookingController
+                                    .hotelDetails.value.amenitys.length,
+                                itemBuilder: (context, i) {
+                                  return Container(
+                                    margin: EdgeInsets.only(
+                                        right: flyternSpaceMedium),
+                                    width: screenwidth * .2,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Image.network(
+                                            hotelBookingController.hotelDetails
+                                                .value.amenitys[i].imagePath,
+                                            height: screenwidth * .1,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                          return Container(
+                                              color: flyternGrey10,
+                                              height: screenwidth * .1);
+                                        }),
+                                        addVerticalSpace(flyternSpaceSmall),
+                                        Text(
                                           hotelBookingController.hotelDetails
-                                              .value.amenitys[i].imagePath,
-                                          height: screenwidth * .1,
-                                          errorBuilder:
-                                              (context, error, stackTrace) {
-                                        return Container(
-                                            color: flyternGrey10,
-                                            height: screenwidth * .1);
-                                      }),
-                                      addVerticalSpace(flyternSpaceSmall),
-                                      Text(
-                                        hotelBookingController.hotelDetails
-                                            .value.amenitys[i].amenityName,
-                                        maxLines: 2,
-                                        textAlign: TextAlign.center,
-                                        style: getLabelLargeStyle(context)
-                                            .copyWith(color: flyternGrey60),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              }),
+                                              .value.amenitys[i].amenityName,
+                                          maxLines: 2,
+                                          textAlign: TextAlign.center,
+                                          style: getLabelLargeStyle(context)
+                                              .copyWith(color: flyternGrey60),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                }),
+                          ),
                         ),
 
                         Visibility(
@@ -468,125 +478,140 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                                             Value);
                                   }
                                 },
-                                items: hotelBookingController
-                                    .getRoomOptions()
-                                    .map((HotelRoomOption value) {
-                                  return DropdownMenuItem<HotelRoomOption>(
-                                    value: value,
-                                    child: Padding(
-                                      padding: flyternSmallPaddingVertical,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Visibility(
-                                                  visible: value
-                                                      .imageURLs.isNotEmpty,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets
-                                                        .only(
-                                                        right:
-                                                            flyternSpaceMedium),
-                                                    child: Image.network(
-                                                        value.imageURLs
-                                                                .isNotEmpty
-                                                            ? value.imageURLs[0]
-                                                            : "",
-                                                        height: 80 -
-                                                            flyternSpaceSmall),
-                                                  )),
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(value.roomName,
-                                                        textAlign:
-                                                            TextAlign.start,
-                                                        maxLines: 2,
-                                                        style:
-                                                            getLabelLargeStyle(
-                                                                context)),
-                                                    addVerticalSpace(
-                                                        flyternSpaceSmall),
-                                                    Container(
-                                                      padding: flyternSmallPaddingHorizontal
-                                                          .copyWith(
-                                                              top:
-                                                                  flyternSpaceExtraSmall,
-                                                              bottom:
-                                                                  flyternSpaceExtraSmall),
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            flyternPrimaryColorBg,
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                flyternBorderRadiusExtraSmall),
-                                                      ),
-                                                      child: Text(
-                                                        "${value.currency} ${value.totalPrice.toStringAsFixed(3)}",
-                                                        style: getLabelLargeStyle(
-                                                                context)
-                                                            .copyWith(
-                                                                color:
-                                                                    flyternPrimaryColor),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
+                                items:hotelBookingController
+                                    .getRoomOptions().asMap().map((i, value) =>
+                                    MapEntry(i, DropdownMenuItem<HotelRoomOption>(
+                                      value: value,
+                                      child: Container(
+
+                                        decoration: BoxDecoration(
+                                            border:hotelBookingController.selectedRoomOption.value.isNotEmpty?
+                                            hotelBookingController.selectedRoomOption.value[0].roomOptionid !=value.roomOptionid?
+                                            Border(
+                                              top: BorderSide(
+                                                color: i==0?Colors.transparent:flyternGrey20,
+                                                width: 1.0,
                                               ),
-                                            ],
-                                          ),
-                                          addVerticalSpace(flyternSpaceSmall),
-                                          Expanded(
-                                            child: ListView(
-                                              scrollDirection: Axis.horizontal,
+                                              bottom: BorderSide(
+                                                color: i==(hotelBookingController
+                                                    .getRoomOptions().length-1)?Colors.transparent: flyternGrey20,
+                                                width:  1.0,
+                                              ),
+                                            ):null:null
+                                        ),
+                                        padding: flyternSmallPaddingVertical,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                               children: [
-                                                for (var i = 0;
-                                                    i < value.shortdesc.length;
-                                                    i++)
-                                                  Container(
-                                                    margin: EdgeInsets.only(
-                                                        right:
-                                                            flyternSpaceExtraSmall),
-                                                    padding: flyternSmallPaddingHorizontal
-                                                        .copyWith(
+                                                Visibility(
+                                                    visible: value
+                                                        .imageURLs.isNotEmpty,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                          .only(
+                                                          right:
+                                                          flyternSpaceMedium),
+                                                      child: Image.network(
+                                                          value.imageURLs
+                                                              .isNotEmpty
+                                                              ? value.imageURLs[0]
+                                                              : "",
+                                                          height: 80 -
+                                                              flyternSpaceSmall),
+                                                    )),
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(value.roomName,
+                                                          textAlign:
+                                                          TextAlign.start,
+                                                          maxLines: 2,
+                                                          style:
+                                                          getLabelLargeStyle(
+                                                              context)),
+                                                      addVerticalSpace(
+                                                          flyternSpaceSmall),
+                                                      Container(
+                                                        padding: flyternSmallPaddingHorizontal
+                                                            .copyWith(
                                                             top:
-                                                                flyternSpaceExtraSmall,
+                                                            flyternSpaceExtraSmall,
                                                             bottom:
-                                                                flyternSpaceExtraSmall),
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          flyternTertiaryColorBg,
-                                                      borderRadius:
+                                                            flyternSpaceExtraSmall),
+                                                        decoration: BoxDecoration(
+                                                          color:
+                                                          flyternPrimaryColorBg,
+                                                          borderRadius:
                                                           BorderRadius.circular(
                                                               flyternBorderRadiusExtraSmall),
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        value.shortdesc[i],
-                                                        style: getLabelLargeStyle(
-                                                                context)
-                                                            .copyWith(
-                                                                color:
-                                                                    flyternTertiaryColor),
+                                                        ),
+                                                        child: Text(
+                                                          "${value.currency} ${value.totalPrice.toStringAsFixed(3)}",
+                                                          style: getLabelLargeStyle(
+                                                              context)
+                                                              .copyWith(
+                                                              color:
+                                                              flyternPrimaryColor),
+                                                        ),
                                                       ),
-                                                    ),
+                                                    ],
                                                   ),
+                                                ),
                                               ],
                                             ),
-                                          ),
-                                        ],
+                                            addVerticalSpace(flyternSpaceSmall),
+                                            Expanded(
+                                              child: ListView(
+                                                scrollDirection: Axis.horizontal,
+                                                children: [
+                                                  for (var i = 0;
+                                                  i < value.shortdesc.length;
+                                                  i++)
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          right:
+                                                          flyternSpaceExtraSmall),
+                                                      padding: flyternSmallPaddingHorizontal
+                                                          .copyWith(
+                                                          top:
+                                                          flyternSpaceExtraSmall,
+                                                          bottom:
+                                                          flyternSpaceExtraSmall),
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                        flyternTertiaryColorBg,
+                                                        borderRadius:
+                                                        BorderRadius.circular(
+                                                            flyternBorderRadiusExtraSmall),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          value.shortdesc[i],
+                                                          style: getLabelLargeStyle(
+                                                              context)
+                                                              .copyWith(
+                                                              color:
+                                                              flyternTertiaryColor),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                }).toList(),
+                                    ) )).values.toList()
+
                               ),
                             ),
                           ),

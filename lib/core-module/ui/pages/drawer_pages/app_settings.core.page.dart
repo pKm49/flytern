@@ -123,7 +123,7 @@ class _CoreSettingsPageState extends State<CoreSettingsPage> {
                             .where((e) => e.code == newLang)
                             .toList();
                         if (langs.isNotEmpty) {
-                          sharedController.changeLanguage(langs[0]);
+                          sharedController.changeLanguage(langs[0],false);
                         }
                       },
                     ),
@@ -210,7 +210,7 @@ class _CoreSettingsPageState extends State<CoreSettingsPage> {
           .where((element) => selectedMobileCountry == element.code)
           .toList();
       if (tLanguageList.isNotEmpty) {
-        sharedController.changeLanguage(tLanguageList[0]);
+        sharedController.changeLanguage(tLanguageList[0],false);
       }
     }
   }
