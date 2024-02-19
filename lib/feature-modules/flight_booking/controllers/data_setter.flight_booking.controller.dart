@@ -90,6 +90,10 @@ extension FlightBookingControllerSetter on FlightBookingController {
   }
 
   changeDate(int index, bool isReturnDate, DateTime dateTime, bool isFilter) {
+    debugPrint("changeDate");
+    debugPrint(index.toString());
+    debugPrint(flightSearchData.value.searchList.length.toString());
+
     FlightSearchData newFlightSearchData = flightBookingHelperServices
         .changeDate(flightSearchData.value, index, dateTime, isReturnDate);
 
@@ -101,6 +105,19 @@ extension FlightBookingControllerSetter on FlightBookingController {
           .changeDate(newFlightSearchData, index, dateTime, true);
     }
     startDate.value = newFlightSearchData.searchList[0].departureDate;
+
+    if(flightSearchData.value.searchList.length>1 &&
+        index < flightSearchData.value.searchList.length -1){
+
+      for(var i = index+1; i<flightSearchData.value.searchList.length;i++){
+        if(dateTime.isBefore(flightSearchData.value.searchList[index]
+            .returnDate!))
+          newFlightSearchData = flightBookingHelperServices
+            .changeDate(newFlightSearchData, i , dateTime, false);
+      }
+
+    }
+
     flightSearchData.value = newFlightSearchData;
     if (isFilter) {
       getSearchResults(false);
@@ -308,6 +325,13 @@ extension FlightBookingControllerSetter on FlightBookingController {
         {
           return (localIndex-(flightPretravellerData.value.adult + flightPretravellerData.value.child))  ;
         }
+    }
+  }
+
+  void resetMulticityDates(int index, DateTime dateTime ) {
+    for(var i = index; i<flightSearchData.value.searchList.length;i++){
+      FlightSearchData newFlightSearchData = flightBookingHelperServices
+          .changeDate(flightSearchData.value, i , dateTime, false);
     }
   }
 

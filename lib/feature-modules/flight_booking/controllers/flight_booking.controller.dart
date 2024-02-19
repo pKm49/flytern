@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:ffi';
 
+import 'package:flutter/material.dart';
 import 'package:flytern/feature-modules/flight_booking/constants/flight_mode.flight_booking.constant.dart';
  import 'package:flytern/feature-modules/flight_booking/models/addons/extra_package/extra_package.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/addons/extra_package/extra_package_selection.flight_booking.model.dart';
@@ -374,6 +375,17 @@ class FlightBookingController extends GetxController {
         FlightDetails tempFlightDetails = await flightBookingHttpService
             .getFlightDetails(index, objectId.value);
         flightDetails.value = tempFlightDetails;
+
+        if(flightDetails.value.priceChanged &&
+            flightDetails.value.priceChangedMessage !=""){
+          showSnackbar(Get.context!, flightDetails.value.priceChangedMessage, "info");
+        }
+
+        if(flightDetails.value.scheduleChanged &&
+            flightDetails.value.scheduleChangedMessage != ""){
+          showSnackbar(Get.context!, flightDetails.value.scheduleChangedMessage, "info");
+        }
+
         List<CabinInfo> selectedCabinInfo = flightDetails.value.cabinInfos
             .where((element) => element.id == flightDetails.value.selectedCabinId)
             .toList();

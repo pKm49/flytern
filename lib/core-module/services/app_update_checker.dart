@@ -31,9 +31,9 @@ class AppUpdateChecker {
             localVersion: packageInfo.version,
             storeVersion: '0.0.0',
             appStoreLink: 'appStoreLink');
-    debugPrint("appVersionCode $appVersionName");
-    debugPrint("storeVersionCode ${versionStatus.storeVersion}");
-    debugPrint("storeVersionCode ${versionStatus.canUpdate}");
+    print("appVersionCode $appVersionName");
+    print("storeVersionCode ${versionStatus.storeVersion}");
+    print("storeVersionCode ${versionStatus.canUpdate}");
     if (versionStatus.canUpdate) {
       showUpdateDialog(storeLink: versionStatus.appStoreLink);
     }
@@ -45,14 +45,13 @@ class AppUpdateChecker {
 
     int appVersionCode = int.parse(packageInfo.buildNumber);
     int storeVersionCode = await getAndroidStoreVersion(appVersionCode);
-    debugPrint("appVersionCode $appVersionCode");
-    debugPrint("storeVersionCode $storeVersionCode");
+    print("appVersionCode $appVersionCode");
+    print("storeVersionCode $storeVersionCode");
     final uri = Uri.https("play.google.com", "/store/apps/details",
         {"id": env.playStorePackageId, "hl": "en"});
 
     if (storeVersionCode > appVersionCode) {
       showUpdateDialog(storeLink: uri.toString());
-
       return true;
     } else {
       return false;
@@ -70,13 +69,13 @@ class AppUpdateChecker {
     var uri = Uri.https("itunes.apple.com", "/lookup", parameters);
     final response = await http.get(uri);
     if (response.statusCode != 200) {
-      debugPrint('Failed to query iOS App Store');
+      print('Failed to query iOS App Store');
       return null;
     }
     final jsonObj = json.decode(response.body);
     final List results = jsonObj['results'];
     if (results.isEmpty) {
-      debugPrint('Can\'t find an app in the App Store with the id: $id');
+      print('Can\'t find an app in the App Store with the id: $id');
       return null;
     }
     return VersionStatus(
@@ -97,13 +96,13 @@ class AppUpdateChecker {
     var uri = Uri.https("itunes.apple.com", "/lookup", parameters);
     final response = await http.get(uri);
     if (response.statusCode != 200) {
-      debugPrint('Failed to query iOS App Store');
+      print('Failed to query iOS App Store');
       return null;
     }
     final jsonObj = json.decode(response.body);
     final List results = jsonObj['results'];
     if (results.isEmpty) {
-      debugPrint('Can\'t find an app in the App Store with the id: $bundleID');
+      print('Can\'t find an app in the App Store with the id: $bundleID');
       return null;
     }
     return jsonObj['results'][0]['trackViewUrl'];
@@ -206,7 +205,7 @@ class VersionStatus {
 }
 
 Future<void> launchAppStore(String appStoreLink) async {
-  debugPrint(appStoreLink);
+  print(appStoreLink);
   if (await canLaunchUrl(Uri.parse(appStoreLink))) {
     await launchUrl(Uri.parse(appStoreLink));
   } else {

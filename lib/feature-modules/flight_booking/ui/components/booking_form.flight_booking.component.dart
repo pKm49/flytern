@@ -167,7 +167,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                         .reverseTrip(index);
                                   },
                                   child: Icon(
-                                    Ionicons.sync_circle,
+                                    Ionicons.swap_horizontal_outline,
                                     size: 30,
                                     color: flyternTertiaryColor,
                                   ),

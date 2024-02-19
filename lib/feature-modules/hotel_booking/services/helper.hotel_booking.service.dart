@@ -76,9 +76,9 @@ class HotelBookingHelperServices {
       }
       if (hotelSearchData.rooms[index].childs > 0) {
         if (hotelSearchData.rooms[index].childs == 1) {
-          returnString = "${hotelSearchData.rooms[index].childs} ${'child'.tr}";
+          returnString += "${hotelSearchData.rooms[index].childs} ${'child'.tr}";
         } else {
-          returnString =
+          returnString +=
           "${hotelSearchData.rooms[index].childs} ${'children'.tr}";
         }
       }
