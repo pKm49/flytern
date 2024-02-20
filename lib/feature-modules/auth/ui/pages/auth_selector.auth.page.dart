@@ -60,9 +60,18 @@ class _AuthSelectorPageState extends State<AuthSelectorPage> {
         color: flyternBackgroundWhite,
         child:Stack(
           children: [
+            
             Container(
               width: screenwidth,
               padding: EdgeInsets.only(top: flyternSpaceLarge*2),
+                decoration: BoxDecoration(
+                  borderRadius:
+                  BorderRadius.circular(flyternBorderRadiusExtraSmall),
+                  image:   const DecorationImage(
+                    image:  AssetImage(ASSETS_VIDEO_BG),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               height: screenheight ,
                 child: FutureBuilder(
                   future: _initializeVideoPlayerFuture,
@@ -78,10 +87,7 @@ class _AuthSelectorPageState extends State<AuthSelectorPage> {
                     } else {
                       // If the VideoPlayerController is still initializing, show a
                       // loading spinner.
-                      return LoadingAnimationWidget.prograssiveDots(
-                        color: flyternBackgroundWhite,
-                        size: 50,
-                      );
+                      return Image.asset(ASSETS_VIDEO_BG,width: screenwidth);
                     }
                   },
                 )

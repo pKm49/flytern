@@ -204,6 +204,7 @@ class FlightBookingController extends GetxController {
   Future<List<FlightDestination>> getFlightDestinations(
       String searchQuery) async {
     if (searchQuery != "") {
+
       flightDestinations.value =
           await flightBookingHttpService.getFlightDestinations(searchQuery);
       isFlightDestinationsLoading.value = false;

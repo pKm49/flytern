@@ -17,6 +17,7 @@ import 'package:flytern/feature-modules/flight_booking/controllers/flight_bookin
 import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
 import 'package:flytern/feature-modules/insurance/controllers/insurance.controller.dart';
 import 'package:flytern/feature-modules/packages/controllers/package.controller.dart';
+import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
@@ -81,7 +82,6 @@ class _MyAppState extends State<MyApp> {
     Get.put(PackageBookingController());
     Get.put(InsuranceBookingController());
     Get.put(HotelBookingController());
-
     CoreTranslationController.initLanguages();
     _themeManager.addListener(themeListener);
     // NotificationController.startListeningNotificationEvents();
@@ -98,6 +98,8 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    precacheImage(AssetImage(ASSETS_VIDEO_BG), context);
+
     return GetMaterialApp(
       navigatorKey: MyApp.navigatorKey,
       locale: Get.deviceLocale,

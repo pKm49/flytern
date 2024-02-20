@@ -132,13 +132,6 @@ class FavHotelSearchDelegate extends SearchDelegate {
 
   }
 
-  bool checkSearchCondition(){
-  return  hotelBookingController.hotelDestinations.value.where(
-          (element) =>
-              element.cityCode.toLowerCase().contains(query.toLowerCase()) ||
-              element.cityName.toLowerCase().contains(query.toLowerCase())
 
-  ).toList().isNotEmpty;
-  }
 
 }

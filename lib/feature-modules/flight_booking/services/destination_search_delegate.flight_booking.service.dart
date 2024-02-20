@@ -17,10 +17,11 @@ class DestinationSearchDelegate extends SearchDelegate {
 
   Completer<List<FlightDestination>> _completer = Completer();
 
-
   late final Debouncer _debouncer = Debouncer(Duration(seconds: 1),
       initialValue: '',
       onChanged: (value) {
+    print("_debouncer called");
+    print(value);
         _completer.complete(flightBookingController.getFlightDestinations(value) ); // call the API endpoint
       }
   );
@@ -55,7 +56,7 @@ class DestinationSearchDelegate extends SearchDelegate {
     return FutureBuilder<List<FlightDestination>>(
       future: flightBookingController.getFlightDestinations(query),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.connectionState == ConnectionState.done ) {
           return ListView.builder(
             itemBuilder: (context, index) {
               return InkWell(
@@ -106,7 +107,11 @@ class DestinationSearchDelegate extends SearchDelegate {
     return FutureBuilder<List<FlightDestination>>(
       future:_completer.future,
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
+
+        print("buildSuggestions");
+        print(ConnectionState.done);
+        print(snapshot.connectionState);
+        if (snapshot.connectionState == ConnectionState.done  ) {
           return ListView.builder(
             itemBuilder: (context, index) {
               return InkWell(
@@ -133,7 +138,7 @@ class DestinationSearchDelegate extends SearchDelegate {
             itemCount: snapshot.data?.length,
           );
         } else {
-          if(query !=""){
+          if(query !="" ){
             return Center(
                 child: LoadingAnimationWidget.prograssiveDots(
                   color: flyternSecondaryColor,
@@ -149,13 +154,5 @@ class DestinationSearchDelegate extends SearchDelegate {
 
   }
 
-  bool checkSearchCondition(){
-  return  flightBookingController.flightDestinations.value.where(
-          (element) =>
-              element.airportCode.toLowerCase().contains(query.toLowerCase()) ||
-              element.airportName.toLowerCase().contains(query.toLowerCase())
-
-  ).toList().isNotEmpty;
-  }
 
 }

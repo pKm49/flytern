@@ -2,6 +2,7 @@ const String ASSETS_LOGO = "assets/logo_1152.png";
 const String ASSETS_NAMELOGO = "assets/logo_name_1024.png";
 const String ASSETS_FLIGHTS_BG = "assets/flights_bg.png";
 const String ASSETS_HOTELS_BG = "assets/hotels_bg.png";
+const String ASSETS_VIDEO_BG = "assets/video_bg.jpg";
 const String ASSETS_TRANSLATIONS = "assets/translations/translations.json";
 
 const String ASSETS_COUPLE_ICON = "assets/icons/couple.png";

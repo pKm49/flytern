@@ -106,12 +106,7 @@ class _CoreLanguageSelectorState extends State<CoreLanguageSelector> {
                         } else {
                           // If the VideoPlayerController is still initializing, show a
                           // loading spinner.
-                          return Center(
-                            child: LoadingAnimationWidget.prograssiveDots(
-                              color: flyternBackgroundWhite,
-                              size: 50,
-                            ),
-                          );
+                          return Image.asset(ASSETS_VIDEO_BG,width: screenwidth);
                         }
                       },
                     )),
