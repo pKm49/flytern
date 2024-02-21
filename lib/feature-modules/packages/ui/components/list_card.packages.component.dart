@@ -9,9 +9,9 @@ import 'package:ionicons/ionicons.dart';
 class PackageListCard extends StatelessWidget {
   final String imageUrl;
   final String title;
-  final String flightName;
+  final String fromTo;
   final String hotelName;
-  final String sponsoredBy;
+  final String airline;
   final String currency;
   final double price;
   final String ratings;
@@ -21,9 +21,9 @@ class PackageListCard extends StatelessWidget {
     super.key,
     required this.imageUrl,
     required this.title,
-    required this.flightName,
+    required this.fromTo,
     required this.hotelName,
-    required this.sponsoredBy,
+    required this.airline,
     required this.price,
     required this.currency,
     required this.ratings,
@@ -102,38 +102,47 @@ class PackageListCard extends StatelessWidget {
                   ],
                 ),
                 addVerticalSpace(flyternSpaceSmall),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(Ionicons.share_social_outline,
-                              color: flyternGrey40),
-                          addHorizontalSpace(flyternSpaceSmall),
-                          Text(flightName,
-                              style: getBodyMediumStyle(context)
-                                  .copyWith(color: flyternGrey40)),
-                        ],
+                Visibility(
+                  visible: airline !="" || fromTo !="",
+                  child: Row(
+                    children: [
+                      Visibility(
+                        visible: fromTo !="",
+                        child: Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(Ionicons.location_outline,
+                                  color: flyternGrey40),
+                              addHorizontalSpace(flyternSpaceSmall),
+                              Text(fromTo,
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey40)),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
-                    addHorizontalSpace(flyternSpaceSmall),
-                    Expanded(
-                        flex: 1,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Icon(Ionicons.airplane_outline,
-                                color: flyternGrey40),
-                            addHorizontalSpace(flyternSpaceSmall),
-                            Text(
-                              sponsoredBy,
-                              style: getBodyMediumStyle(context)
-                                  .copyWith(color: flyternGrey40),
-                            ),
-                          ],
-                        )),
-                  ],
+                      addHorizontalSpace(flyternSpaceSmall),
+                      Visibility(
+                        visible: airline !="",
+                        child: Expanded(
+                            flex: 1,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Icon(Ionicons.airplane_outline,
+                                    color: flyternGrey40),
+                                addHorizontalSpace(flyternSpaceSmall),
+                                Text(
+                                  airline,
+                                  style: getBodyMediumStyle(context)
+                                      .copyWith(color: flyternGrey40),
+                                ),
+                              ],
+                            )),
+                      ),
+                    ],
+                  ),
                 )
               ],
             ))

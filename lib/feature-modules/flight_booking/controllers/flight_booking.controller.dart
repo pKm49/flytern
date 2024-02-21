@@ -204,14 +204,20 @@ class FlightBookingController extends GetxController {
   Future<List<FlightDestination>> getFlightDestinations(
       String searchQuery) async {
     if (searchQuery != "") {
+      isFlightDestinationsLoading.value = true;
 
       flightDestinations.value =
           await flightBookingHttpService.getFlightDestinations(searchQuery);
       isFlightDestinationsLoading.value = false;
       return flightDestinations.value;
     } else {
+      flightDestinations.value = [];
       return [];
     }
+  }
+
+  resetDestinations(){
+    flightDestinations.value = [];
   }
 
   Future<void> getQuickSearchResult(FlightSearchData tFlightSearchData) async {

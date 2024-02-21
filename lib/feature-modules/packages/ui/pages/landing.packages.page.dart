@@ -98,11 +98,13 @@ class _PackageBookingLandingPageState extends State<PackageBookingLandingPage> {
                                     packageBookingController.packages[index].url,
                                 title:
                                     packageBookingController.packages[index].name,
-                                flightName: packageBookingController
-                                    .packages[index].fromTo,
+                                fromTo: packageBookingController
+                                    .packages[index].fromTo != ""? packageBookingController
+                                    .packages[index].fromTo :packageBookingController
+                                    .packages[index].destinations ,
                                 hotelName: packageBookingController
                                     .packages[index].hotelName,
-                                sponsoredBy: packageBookingController
+                                airline: packageBookingController
                                     .packages[index].airline,
                                 price: packageBookingController
                                     .packages[index].price,

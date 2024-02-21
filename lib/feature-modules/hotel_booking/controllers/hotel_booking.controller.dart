@@ -160,8 +160,13 @@ class HotelBookingController extends GetxController {
       return hotelDestinations.value;
     } else {
       isHotelDestinationsLoading.value = false;
+      hotelDestinations.value = [];
       return [];
     }
+  }
+
+  resetHotelDestinations(){
+    hotelDestinations.value = [];
   }
 
   Future<List<HotelSearchResponse>> getFavHotels(

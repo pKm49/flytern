@@ -4,6 +4,7 @@ import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.
 import 'package:flytern/feature-modules/hotel_booking/models/destination.hotel_booking.model.dart';
 import 'package:flytern/feature-modules/hotel_booking/services/destination_search_delegate.hotel_booking.service.dart';
 import 'package:flytern/feature-modules/hotel_booking/services/helper.hotel_booking.service.dart';
+import 'package:flytern/feature-modules/hotel_booking/ui/pages/custom_destination_search_delegate.hotel.page.dart';
  import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
@@ -71,10 +72,11 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
                 children: [
                   InkWell(
                     onTap: () async {
-                      HotelDestination destination = await showSearch(
-                          context: context,
-                          delegate: HotelDestinationSearchDelegate());
-                      hotelBookingController.setDestination(destination);
+                      // HotelDestination destination = await showSearch(
+                      //     context: context,
+                      //     delegate: HotelDestinationSearchDelegate());
+                      // hotelBookingController.setDestination(destination);
+                      showDestinationGetterInput();
                     },
                     child: Container(
                       decoration:
@@ -561,6 +563,26 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
     //     borderRadius: BorderRadius.circular(10),
     //   ),
     // );
+  }
+
+  void showDestinationGetterInput( ) {
+    showModalBottomSheet(
+        useSafeArea: true,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(builder: (BuildContext context,
+              StateSetter setModalState /*You can rename this!*/) {
+            return CustomHotelDestinationSearchDelegate(
+
+                destinationSelected: (HotelDestination hotelDestination) {
+                  hotelBookingController.setDestination(hotelDestination);
+
+                  Navigator.pop(context);
+                });
+          });
+        });
   }
 
   void showCustomDatePicker(bool isCheckoutDate, String title) {

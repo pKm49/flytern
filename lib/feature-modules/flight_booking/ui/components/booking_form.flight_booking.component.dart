@@ -5,6 +5,7 @@ import 'package:flytern/feature-modules/flight_booking/models/cabin_class.flight
 import 'package:flytern/feature-modules/flight_booking/models/destination.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/search_data.flight_booking.model.dart';
 import 'package:flytern/feature-modules/flight_booking/models/search_item.flight_booking.model.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/pages/custom_destination_search_delegate.flight.page.dart';
 import 'package:flytern/feature-modules/flight_booking/services/destination_search_delegate.flight_booking.service.dart';
 import 'package:flytern/feature-modules/flight_booking/services/helper.flight_booking.service.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/components/airport_lable_card.flight_booking.component.dart';
@@ -104,15 +105,14 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                   flex: 1,
                                   child: InkWell(
                                     onTap: () async {
-                                      FlightDestination destination =
-                                          await showSearch(
-                                              context: context,
-                                              delegate:
-                                                  DestinationSearchDelegate());
+                                      // FlightDestination destination =
+                                      //     await showSearch(
+                                      //         context: context,
+                                      //         delegate:
+                                      //             DestinationSearchDelegate());
 
-                                      widget.flightBookingController
-                                          .setDestination(
-                                              destination, false, index);
+
+                                      showDestinationGetterInput(false, index);
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(),
@@ -176,15 +176,13 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                                   flex: 1,
                                   child: InkWell(
                                     onTap: () async {
-                                      FlightDestination destination =
-                                          await showSearch(
-                                              context: context,
-                                              delegate:
-                                                  DestinationSearchDelegate());
+                                      // FlightDestination destination =
+                                      //     await showSearch(
+                                      //         context: context,
+                                      //         delegate:
+                                      //             DestinationSearchDelegate());
+                                      showDestinationGetterInput(true, index);
 
-                                      widget.flightBookingController
-                                          .setDestination(
-                                              destination, true, index);
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(),
@@ -701,6 +699,29 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                 .map((e) => e.value)
                 .toList(),
           );
+        });
+  }
+
+  void showDestinationGetterInput( bool isArrival,
+      int index) {
+    showModalBottomSheet(
+        useSafeArea: true,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(builder: (BuildContext context,
+              StateSetter setModalState /*You can rename this!*/) {
+            return CustomFlightDestinationSearchDelegate(
+
+                destinationSelected: (FlightDestination flightDestination) {
+                  widget.flightBookingController
+                      .setDestination(
+                      flightDestination, isArrival, index);
+
+                  Navigator.pop(context);
+                });
+          });
         });
   }
 

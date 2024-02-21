@@ -47,7 +47,7 @@ extension FlightBookingControllerSetter on FlightBookingController {
 
   setDestination(FlightDestination flightDestination, bool isArrival,
       int index) {
-
+    resetDestinations();
     FlightSearchData newFlightSearchData = FlightSearchData(
         promoCode: flightSearchData.value.promoCode,
         adults: flightSearchData.value.adults,
