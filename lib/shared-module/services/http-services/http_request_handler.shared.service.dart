@@ -81,7 +81,7 @@ postRequest(endpoint, body) async {
       // print(endpoint.toString().contains('postRequest'));
       final httpResponse = await http.post(
           Uri.https(env.apiEndPoint, "$endpoint"),
-          body: endpoint == InsuranceBookingHttpRequestEndpointGetPrice
+          body: endpoint == InsuranceBookingHttpRequestEndpointGetPrice || endpoint== "/liveapi/api/Reviews/SaveLogs"
               ? null
               : body != null
               ? json.encode(body)
