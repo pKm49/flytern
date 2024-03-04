@@ -86,7 +86,7 @@ postRequest(endpoint, body) async {
               : body != null
               ? json.encode(body)
               : body,
-          params: endpoint == InsuranceBookingHttpRequestEndpointGetPrice
+          params: endpoint == InsuranceBookingHttpRequestEndpointGetPrice || endpoint== "/liveapi/api/Reviews/SaveLogs"
               ? body
               : null);
       // print("postRequest called pass 2");

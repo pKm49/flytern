@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flytern/shared-module/constants/business_specific/http_request_endpoints.shared.constant.dart';
+import 'package:flytern/shared-module/services/utility-services/device_id_generator.shared.service.dart';
 import 'package:http_interceptor/http_interceptor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flytern/config/env.dart' as env;
@@ -31,7 +32,7 @@ class FlyternHttpInterceptor implements InterceptorContract {
 
       data.headers["Host"]=env.apiEndPoint;
       if(data.url.contains(SharedHttpRequestEndpoint_GetGuestToken)){
-        String? deviceId = await _getId();
+        String? deviceId = await getDeviceId();
 
         data.headers["DeviceID"] = deviceId??"";
       }
@@ -82,26 +83,6 @@ class FlyternHttpInterceptor implements InterceptorContract {
     throw UnimplementedError();
   }
 
-  Future<String?> _getId() async {
-    String idPattern = "FLYMOB";
-    var deviceInfo = DeviceInfoPlugin();
-    String uniqueDeviceId = '';
-
-    if (Platform.isIOS) {
-      var iosDeviceInfo = await deviceInfo.iosInfo;
-
-      uniqueDeviceId =
-      '$idPattern-IOS-${iosDeviceInfo.name}-${iosDeviceInfo.identifierForVendor}';
-    } else if(Platform.isAndroid) {
-      var androidDeviceInfo = await deviceInfo.androidInfo;
-
-
-      uniqueDeviceId =
-      '$idPattern-AND-${androidDeviceInfo.brand}-${androidDeviceInfo.model}-${androidDeviceInfo.id}' ;
-    }
-
-    return uniqueDeviceId;
-  }
 
   Future<String> getRefreshToken() async {
 

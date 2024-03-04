@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flytern/shared-module/constants/business_specific/http_request_endpoints.shared.constant.dart';
 import 'package:flytern/shared-module/models/flytern_http_response.dart';
 import 'package:flytern/shared-module/models/set_device_info_request_body.dart';
@@ -9,6 +10,25 @@ import 'package:flytern/shared-module/services/http-services/http_request_handle
 import 'package:get/get.dart';
 
 class SharedHttpService {
+
+  Future<bool> saveAutoUpdateCheckerLog(String request) async {
+
+    try {
+      FlyternHttpResponse response =
+      await postRequest("/liveapi/api/Reviews/SaveLogs", {"request":request});
+    debugPrint("saveAutoUpdateCheckerLog");
+    debugPrint(response.success.toString());
+    debugPrint(response.statusCode.toString());
+      if (response.success && response.statusCode == 200) {
+       return true;
+      }
+
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
 
   Future<AuthToken> getGuestToken() async {
 

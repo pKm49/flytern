@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flytern/main.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
+import 'package:flytern/shared-module/services/http-services/http.shared.service.dart';
+import 'package:flytern/shared-module/services/utility-services/device_id_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +16,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flytern/config/env.dart' as env;
 
 class AppUpdateChecker {
+
+
   Future<bool> checkStatus() async {
+
     if (Platform.isAndroid) {
       return await checkAndroidUpdateStatus();
     }
@@ -22,6 +27,8 @@ class AppUpdateChecker {
   }
 
   Future<bool> checkIOSUpdateStatus() async {
+    String? deviceId = await getDeviceId();
+
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
     String appVersionName = _getCleanVersion(packageInfo.version);
@@ -31,25 +38,45 @@ class AppUpdateChecker {
             localVersion: packageInfo.version,
             storeVersion: '0.0.0',
             appStoreLink: 'appStoreLink');
+
     print("appVersionCode $appVersionName");
     print("storeVersionCode ${versionStatus.storeVersion}");
-    print("storeVersionCode ${versionStatus.canUpdate}");
+    print("localVersion ${versionStatus.localVersion}");
+    print("canUpdate ${versionStatus.canUpdate}");
+    print("canUpdateTwo ${versionStatus.canUpdateTwo}");
+    print("appStoreLink ${versionStatus.appStoreLink}");
+    print("deviceId $deviceId");
+    var sharedHttpService = SharedHttpService();
+
+    sharedHttpService.saveAutoUpdateCheckerLog(
+        " _deviceId : $deviceId _timestamp : ${DateTime.now().toString()} checkIOSUpdateStatus _appVersionCode : $appVersionName _packageInfoVersion :${packageInfo.version} _storeVersionCode : ${versionStatus.storeVersion} _localVersion : ${versionStatus.localVersion} _canUpdate : ${versionStatus.canUpdate} _canUpdateTwo : ${versionStatus.canUpdateTwo} _appStoreLink : ${versionStatus.appStoreLink}"
+    );
+
     if (versionStatus.canUpdate) {
       showUpdateDialog(storeLink: versionStatus.appStoreLink);
+      return true;
+    } else {
+      return false;
     }
-    return versionStatus.canUpdate;
+
   }
 
   Future<bool> checkAndroidUpdateStatus() async {
+    String? deviceId = await getDeviceId();
+
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
     int appVersionCode = int.parse(packageInfo.buildNumber);
     int storeVersionCode = await getAndroidStoreVersion(appVersionCode);
     print("appVersionCode $appVersionCode");
     print("storeVersionCode $storeVersionCode");
+    print("deviceId $deviceId");
     final uri = Uri.https("play.google.com", "/store/apps/details",
         {"id": env.playStorePackageId, "hl": "en"});
-
+    var sharedHttpService = SharedHttpService();
+    sharedHttpService.saveAutoUpdateCheckerLog(
+        " _deviceId : $deviceId _timestamp : ${DateTime.now().toString()} checkAndroidUpdateStatus _appVersionCode : $appVersionCode _storeVersionCode : ${storeVersionCode} _storeLink : ${uri}"
+    );
     if (storeVersionCode > appVersionCode) {
       showUpdateDialog(storeLink: uri.toString());
       return true;
@@ -62,7 +89,7 @@ class AppUpdateChecker {
     final id = env.appStorePackageId;
     final parameters = {"bundleId": id};
     String countryCode =
-        findCountryCodeEdited(context: MyApp.navigatorKey.currentContext!);
+    findCountryCodeEdited(context: MyApp.navigatorKey.currentContext!);
 
     parameters.addAll({"country": countryCode});
 
@@ -89,7 +116,7 @@ class AppUpdateChecker {
   Future<String?> getAppStoreLink(String bundleID) async {
     final parameters = {"bundleId": bundleID};
     String countryCode =
-        findCountryCodeEdited(context: MyApp.navigatorKey.currentContext!);
+    findCountryCodeEdited(context: MyApp.navigatorKey.currentContext!);
 
     parameters.addAll({"country": countryCode});
 
@@ -145,9 +172,9 @@ class AppUpdateChecker {
                   vertical: flyternSpaceSmall))),
           child:  updateButtonTextWidget)
           : CupertinoDialogAction(
-              onPressed: updateAction,
-              child: updateButtonTextWidget,
-            ),
+        onPressed: updateAction,
+        child: updateButtonTextWidget,
+      ),
     ];
 
     await showDialog(
@@ -157,15 +184,15 @@ class AppUpdateChecker {
         return WillPopScope(
             child: Platform.isAndroid
                 ? AlertDialog(
-                    title: dialogTitleWidget,
-                    content: dialogTextWidget,
-                    actions: actions,
-                  )
+              title: dialogTitleWidget,
+              content: dialogTextWidget,
+              actions: actions,
+            )
                 : CupertinoAlertDialog(
-                    title: dialogTitleWidget,
-                    content: dialogTextWidget,
-                    actions: actions,
-                  ),
+              title: dialogTitleWidget,
+              content: dialogTextWidget,
+              actions: actions,
+            ),
             onWillPop: () => Future.value(false));
       },
     );
@@ -181,6 +208,7 @@ class VersionStatus {
   final String? releaseNotes;
 
   bool get canUpdate {
+
     final local = localVersion.split('.').map(int.parse).toList();
     final store = storeVersion.split('.').map(int.parse).toList();
 
@@ -193,9 +221,24 @@ class VersionStatus {
         return false;
       }
     }
+
     return false;
+
   }
 
+  bool get canUpdateTwo {
+
+    final local = localVersion.split('.').join();
+    final store = storeVersion.split('.').join();
+    debugPrint("local version $local");
+    debugPrint("store version $store");
+    if(int.parse(store)>int.parse(local)){
+      return true;
+    }
+
+    return false;
+
+  }
   VersionStatus({
     required this.localVersion,
     required this.storeVersion,

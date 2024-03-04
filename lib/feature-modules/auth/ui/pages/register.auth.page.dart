@@ -279,9 +279,7 @@ class _AuthRegisterDetailsInputPageState
                         registerController.updateTermsAndPrivacyAgreement(value??false);
                       },
                     ),
-
                     addHorizontalSpace(flyternSpaceSmall),
-
                     Expanded(
                       child:  RichText(
                         textScaleFactor: MediaQuery.of(context).textScaleFactor,
