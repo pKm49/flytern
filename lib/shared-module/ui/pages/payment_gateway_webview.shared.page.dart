@@ -78,7 +78,7 @@ class _PaymentGatewayWebViewState extends State<PaymentGatewayWebView> {
                 },
                 onUpdateVisitedHistory: (InAppWebViewController controller, Uri? url, bool? flag) {
 
-                  if(url.toString() == confirmationUrl ){
+                  if(url.toString().contains(confirmationUrl) ){
                     setBack(true);
                   }
                 },
@@ -177,7 +177,8 @@ class _PaymentGatewayWebViewState extends State<PaymentGatewayWebView> {
 
 
   Future<void> setBack(bool status) async {
-
+    debugPrint("setBack called");
+    debugPrint(status.toString());
     sharedController.changePaymentGatewayLoading(false);
     sharedController.changePaymentGatewayBackConfirmation();
     setState(() {
