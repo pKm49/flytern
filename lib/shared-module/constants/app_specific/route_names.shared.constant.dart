@@ -28,6 +28,7 @@ const String Approute_allrecommendedpackages = '/all-recommended-packages';
 
 //flights booking
 const String Approute_flightsSearchResult = '/flights-search-result';
+const String Approute_flightsFilterResult = '/flights-filter-result';
 const String Approute_flightsMoreOptions = '/flights-more-options';
 const String Approute_flightsDetails = '/flights-details';
 const String Approute_flightsAddonServices = '/flights-addon-services';

@@ -10,8 +10,7 @@ import 'package:flytern/core-module/controllers/core.controller.dart';
 import 'package:flytern/core-module/controllers/localization.core.controller.dart';
 import 'package:flytern/core-module/constants/app_routes.core.constant.dart';
 import 'package:flytern/core-module/constants/theme_data.core.constant.dart';
-import 'package:flytern/core-module/services/notification_controller.dart';
-import 'package:flytern/core-module/services/theme_manager.core.constant.dart';
+ import 'package:flytern/core-module/services/theme_manager.core.constant.dart';
  import 'package:flytern/feature-modules/auth/controllers/login.auth.controller.dart';
 import 'package:flytern/feature-modules/auth/controllers/register.auth.controller.dart';
 import 'package:flytern/feature-modules/auth/controllers/reset_password.auth.controller.dart';
@@ -25,6 +24,7 @@ import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
 import 'package:flytern/shared-module/services/notification-services/local_notification.service.dart';
+import 'package:flytern/shared-module/services/notification-services/notification_controller_local_notification.dart';
 import 'package:get/get.dart';
  import 'package:permission_handler/permission_handler.dart';
 

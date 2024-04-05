@@ -264,7 +264,7 @@ class FlightBookingController extends GetxController {
     }
   }
 
-  Future<void> getSearchResults(bool isNavigationRequired) async {
+  Future<void> getSearchResults(bool isNavigationRequired, bool isDateTabChange) async {
     if (flightSearchData.value.allowedCabins.isNotEmpty &&
         flightSearchData.value.adults > 0 &&
         !isFlightSearchResponsesLoading.value) {
@@ -289,7 +289,10 @@ class FlightBookingController extends GetxController {
         if (flightSearchResponses.isNotEmpty) {
           objectId.value = flightSearchResponses.value[0].objectId;
           currency.value = flightSearchResponses.value[0].currency;
-          startDate.value = flightSearchData.value.searchList[0].departureDate;
+          if(!isDateTabChange){
+            startDate.value = flightSearchData.value.searchList[0].departureDate;
+
+          }
         }
         sortingDcs.value = flightSearchResult.sortingDcs;
         if (sortingDcs.isNotEmpty) {

@@ -165,34 +165,6 @@ class NotificationService {
     final Map<String, dynamic> data = message.data;
     final AndroidNotification? android = message.notification?.android;
     final AppleNotification? apple = message.notification?.apple;
-    String logoPath =
-        "https://lh3.googleusercontent.com/4h2XkERxolE4FL97S1AwPucH48MwqbrLc63B5PvunkPoVHd_X1bKPfILsmzy-ZHTEuQ";
-    String imageUrl = logoPath;
-
-    if(android != null){
-      if(android.imageUrl != null){
-        imageUrl = android.imageUrl??logoPath;
-      }
-    }
-    if(apple != null){
-      if(apple.imageUrl != null){
-        imageUrl = apple.imageUrl??logoPath;
-      }
-    }
-
-    String bigPicturePath = "";
-    try {
-      bigPicturePath = await _downloadAndSaveFile(
-          imageUrl, 'bigPicture');
-    } catch (e) {
-      bigPicturePath =
-      await _downloadAndSaveFile(logoPath ?? "", 'bigPicture');
-    }
-
-    final BigPictureStyleInformation bigPictureStyleInformation =
-    BigPictureStyleInformation(FilePathAndroidBitmap(bigPicturePath));
-    // If `onMessage` is triggered with a notification, construct our own
-// local notification to show to users using the created channel.
 
     if(notification != null){
       notificationsPlugin.show(
@@ -203,75 +175,13 @@ class NotificationService {
           android: AndroidNotificationDetails(
               channel.id,
               channel.name,
-              channelDescription: channel.description,
-              icon: '@mipmap/ic_launcher',
-              styleInformation: bigPictureStyleInformation),
+              channelDescription: channel.description),
           iOS: const DarwinNotificationDetails(),
         ),
         payload: message.data.toString(),
       );
     }
 
-    if(Platform.isAndroid){
-      if (notification != null && android != null) {
-        // final http.Response response = await http.get(Uri.parse(URL));
-
-        String logoPath =
-            "https://lh3.googleusercontent.com/4h2XkERxolE4FL97S1AwPucH48MwqbrLc63B5PvunkPoVHd_X1bKPfILsmzy-ZHTEuQ";
-
-        String bigPicturePath = "";
-        try {
-          bigPicturePath = await _downloadAndSaveFile(
-              android.imageUrl ?? "", 'bigPicture');
-        } catch (e) {
-          bigPicturePath =
-          await _downloadAndSaveFile(logoPath ?? "", 'bigPicture');
-        }
-
-        final BigPictureStyleInformation bigPictureStyleInformation =
-        BigPictureStyleInformation(FilePathAndroidBitmap(bigPicturePath));
-        // final http.Response response = await http.get(Uri.parse(imageUrl));
-        // bigPictureStyleInformation = BigPictureStyleInformation(
-        //     ByteArrayAndroidBitmap.fromBase64String(base64Encode(response.bodyBytes)));
-
-
-      }
-    }
-    if(Platform.isIOS){
-      if (notification != null && apple != null) {
-        // final http.Response response = await http.get(Uri.parse(URL));
-
-        String logoPath =
-            "https://lh3.googleusercontent.com/4h2XkERxolE4FL97S1AwPucH48MwqbrLc63B5PvunkPoVHd_X1bKPfILsmzy-ZHTEuQ";
-        String bigPicturePath = "";
-        try {
-          bigPicturePath = await _downloadAndSaveFile(
-              apple.imageUrl ?? "", 'bigPicture');
-        } catch (e) {
-          bigPicturePath =
-          await _downloadAndSaveFile(logoPath ?? "", 'bigPicture');
-        }
-
-        final BigPictureStyleInformation bigPictureStyleInformation =
-        BigPictureStyleInformation(FilePathAndroidBitmap(bigPicturePath));
-        // final http.Response response = await http.get(Uri.parse(imageUrl));
-        // bigPictureStyleInformation = BigPictureStyleInformation(
-        //     ByteArrayAndroidBitmap.fromBase64String(base64Encode(response.bodyBytes)));
-
-        notificationsPlugin.show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
-          flutter_local_notifications.NotificationDetails(
-            android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,),
-            iOS: const DarwinNotificationDetails(),
-          ),
-          payload: message.data.toString(),
-        );
-      }
-    }
 
   }
 

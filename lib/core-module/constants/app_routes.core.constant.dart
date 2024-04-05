@@ -12,6 +12,7 @@ import 'package:flytern/feature-modules/auth/ui/pages/login.auth.page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/explore_section/all_popular_destinations.flight_booking.page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/explore_section/all_recommended_items.flight_booking.page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/explore_section/all_travel_stories.flight_booking.page.dart';
+import 'package:flytern/feature-modules/flight_booking/ui/pages/filter_option_selector.flight_booking.page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/more_options.flight_booking.page.dart';
 import 'package:flytern/feature-modules/flight_booking/ui/pages/userdetails_submission.flight_booking.page.dart';
 import 'package:flytern/feature-modules/hotel_booking/ui/pages/userdetails_submission.hotel_booking.page.dart';
@@ -127,6 +128,11 @@ getAppRoutes() => [
         name: Approute_flightsSearchResult,
         page: () => const FlightSearchResultPage(),
       ),
+
+  GetPage(
+    name: Approute_flightsFilterResult,
+    page: () => const FlightFilterOptionSelectorPage( ),
+  ),
 
       GetPage(
         name: Approute_flightsMoreOptions,

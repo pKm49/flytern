@@ -549,7 +549,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                 style: getElevatedButtonStyle(context),
                 onPressed: () {
                   widget.flightBookingController
-                      .getSearchResults(widget.isRedirectionRequired);
+                      .getSearchResults(widget.isRedirectionRequired,false);
                 },
                 child: widget.flightBookingController
                         .isFlightSearchResponsesLoading.value
@@ -655,7 +655,7 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
             dateSelected: (DateTime? dateTime) {
               if (dateTime != null && dateTime.isAfter(DateTime.now().add(const Duration(days: -1)))) {
                 widget.flightBookingController
-                    .changeDate(index, isReturn, dateTime, false);
+                    .changeDate(index, isReturn, dateTime);
 
               }
             },
