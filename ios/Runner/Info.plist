@@ -57,5 +57,9 @@
 			<string>UIInterfaceOrientationPortrait</string>
 			<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		</array>
+		<key>FirebaseScreenReportingEnabled</key>
+        <true/>
+        <key>FirebaseAppDelegateProxyEnabled</key>
+        <true/>
 	</dict>
 </plist>

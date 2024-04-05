@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:flytern/core-module/services/app_update_checker.dart';
 import 'package:flytern/feature-modules/flight_booking/controllers/flight_booking.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
@@ -143,11 +144,8 @@ class SharedController extends GetxController {
 
         if (langs.isNotEmpty) {
           changeLanguage(langs[0],false);
-          if(!isGuest!){
-            Get.offAllNamed(Approute_landingpage );
-          }else{
-            Get.offAllNamed(Approute_authSelector);
-          }
+          Get.offAllNamed(Approute_landingpage );
+
         } else {
           isAuthTokenSet.value = true;
         }
@@ -292,6 +290,9 @@ class SharedController extends GetxController {
     );
     String firebaseToken = await getFirebaseMessagingToken();
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    debugPrint("firebaseToken");
+    debugPrint(firebaseToken);
 
     await sharedPreferences.setString(
         'selectedLanguage', selectedLanguage.value.code);

@@ -1,5 +1,7 @@
  import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,38 +19,43 @@ import 'package:flytern/feature-modules/flight_booking/controllers/flight_bookin
 import 'package:flytern/feature-modules/hotel_booking/controllers/hotel_booking.controller.dart';
 import 'package:flytern/feature-modules/insurance/controllers/insurance.controller.dart';
 import 'package:flytern/feature-modules/packages/controllers/package.controller.dart';
+import 'package:flytern/firebase_options.dart';
 import 'package:flytern/shared-module/constants/ui_specific/asset_urls.shared.constant.dart';
 import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.constant.dart';
 import 'package:flytern/shared-module/controllers/shared.controller.dart';
 import 'package:flytern/shared-module/constants/app_specific/route_names.shared.constant.dart';
+import 'package:flytern/shared-module/services/notification-services/local_notification.service.dart';
 import 'package:get/get.dart';
  import 'package:permission_handler/permission_handler.dart';
 
 import 'shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 
-Future<void> main() async {
+ @pragma('vm:entry-point')
+ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+   // If you're going to use other Firebase services in the background, such as Firestore,
+   // make sure you call `initializeApp` before using other Firebase services.
+   await Firebase.initializeApp(
+     options: DefaultFirebaseOptions.currentPlatform,
+   );
+   NotificationService().initNotification();
+   NotificationService().handleFcmNotification(message);
+   print("Handling a background message: ${message.messageId}");
+ }
 
-  WidgetsFlutterBinding.ensureInitialized();
-  NotificationController notificationController = NotificationController();
-  notificationController.setupInteractedMessage( );
-  // await NotificationController.initializeRemoteNotifications(debug: true);
-  // await NotificationController.initializeIsolateReceivePort();
-  // await NotificationController.getInitialNotificationAction();
+ Future<void> main() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
+   NotificationService().initNotification();
+   NotificationController notificationController = NotificationController();
+   notificationController.setupInteractedMessage();
+   // await NotificationService.initializeNotification();
+   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(const MyApp());
+   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+   runApp(const MyApp());
+ }
 
-
-  // await Permission.notification.isDenied.then(
-  //       (bool value) {
-  //     if (value) {
-  //       Permission.notification.request();
-  //     }
-  //   },
-  // );
-
-}
 
 ThemeManager _themeManager = ThemeManager();
 

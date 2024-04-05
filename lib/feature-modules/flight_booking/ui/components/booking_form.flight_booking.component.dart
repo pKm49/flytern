@@ -461,6 +461,9 @@ class _FlightBookingFormState extends State<FlightBookingForm> {
                         addVerticalSpace(flyternSpaceExtraSmall * 1.5),
                         Text(
                             flightBookingHelperServices.getPassengerCabinData(
+                                Localizations.localeOf(context)
+                                    .languageCode
+                                    .toString(),
                                 widget.flightBookingController),
                             style: getLabelLargeStyle(context).copyWith(
                               color: flyternGrey80,

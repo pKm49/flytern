@@ -193,7 +193,7 @@ bool isDestinationChangable(FlightSearchData flightSearchData ) {
         isDirectFlight: flightSearchData.isDirectFlight);
   }
 
-  String getPassengerCabinData(
+  String getPassengerCabinData(String currentLanguageCode,
       FlightBookingController flightBookingController) {
 
     String returnString = "";
@@ -205,7 +205,13 @@ bool isDestinationChangable(FlightSearchData flightSearchData ) {
       if(numberOfPassengers == 1) {
         returnString = "${'single_passenger'.tr}";
       }else {
-        returnString = "${replaceEnglishNumber(numberOfPassengers.toString())} ${'passengers'.tr}";
+        if(currentLanguageCode =='ar'){
+          returnString = "${replaceEnglishNumber(numberOfPassengers.toString())} ${'passengers'.tr}";
+
+        }else{
+          returnString = "${numberOfPassengers.toString()} ${'passengers'.tr}";
+
+        }
       }
         if(flightBookingController.flightSearchData.value.allowedCabins.isNotEmpty){
          returnString +=" - ";

@@ -40,7 +40,7 @@ class FlightSearchResultCard extends StatelessWidget {
           runSpacing: flyternSpaceSmall,
           children: [
             Padding(
-              padding: const EdgeInsets.only(bottom: flyternSpaceSmall),
+              padding: const EdgeInsets.only(bottom: 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -73,6 +73,10 @@ class FlightSearchResultCard extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: flyternSpaceExtraSmall),
+              child: Text(flightSearchResponse.airlineName,style: getBodyMediumStyle(context),),
             ),
             for (var i = 0; i < flightSearchResponse.dTOSegments.length; i++)
               Padding(
