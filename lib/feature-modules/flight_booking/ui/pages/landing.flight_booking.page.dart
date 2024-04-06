@@ -43,7 +43,6 @@ class _FlightBookingLandingPageState extends State<FlightBookingLandingPage>
   @override
   void initState() {
     super.initState();
-    flightBookingController.getInitialInfo();
   }
 
   @override

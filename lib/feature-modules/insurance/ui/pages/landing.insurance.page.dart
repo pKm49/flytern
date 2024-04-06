@@ -35,7 +35,6 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
   @override
   void initState() {
     super.initState();
-    insuranceBookingController.getInitialInfo();
   }
 
   @override

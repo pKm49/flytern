@@ -37,7 +37,7 @@ class _HotelBookingLandingPageState extends State<HotelBookingLandingPage>
   void initState() {
     super.initState();
     // hotelBookingController.resetDestinationAndNationality();
-    hotelBookingController.getRecentSearch();
+
   }
 
   @override

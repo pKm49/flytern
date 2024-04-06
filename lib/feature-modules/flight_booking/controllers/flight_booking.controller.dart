@@ -183,7 +183,7 @@ class FlightBookingController extends GetxController {
   }
 
   Future<void> getInitialInfo() async {
-
+      Future.delayed(Duration(milliseconds: 100));
       isInitialDataLoading.value = true;
       print("flight getInitialInfo");
       sharedController.setDeviceLanguageAndCountry(false,false);
@@ -520,7 +520,8 @@ class FlightBookingController extends GetxController {
       Get.toNamed(Approute_paymentPage, arguments: [
         gatewayUrl.value,
         confirmationUrl.value,
-        Approute_flightsSummary
+        Approute_flightsSummary,
+        selectedPaymentGateway.value.displayName
       ])?.then((value) {
 
         isFlightSavePaymentGatewayLoading.value = false;

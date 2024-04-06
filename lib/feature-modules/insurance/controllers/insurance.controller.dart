@@ -339,7 +339,8 @@ class InsuranceBookingController extends GetxController {
 
     if (gatewayUrl.value != "") {
       Get.toNamed(Approute_paymentPage,
-          arguments: [gatewayUrl.value, confirmationUrl.value, Approute_insuranceSummary])?.then((value) {
+          arguments: [gatewayUrl.value, confirmationUrl.value, Approute_insuranceSummary,
+            selectedPaymentGateway.value.displayName])?.then((value) {
         checkGatewayStatus();
 
       });

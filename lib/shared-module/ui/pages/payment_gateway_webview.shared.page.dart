@@ -21,6 +21,7 @@ class _PaymentGatewayWebViewState extends State<PaymentGatewayWebView> {
   String gatewayUrl="";
   String confirmationUrl="";
   String summaryPageUrl="";
+  String paymentGatewayName="";
   bool isConfirmationReached = false;
 
   var getArguments = Get.arguments;
@@ -77,24 +78,52 @@ class _PaymentGatewayWebViewState extends State<PaymentGatewayWebView> {
                   controller = controller;
                 },
                 onUpdateVisitedHistory: (InAppWebViewController controller, Uri? url, bool? flag) {
+                  debugPrint("onUpdateVisitedHistory called");
+                  debugPrint(url.toString());
+                  debugPrint(confirmationUrl);
+                  debugPrint(paymentGatewayName);
 
-                  if(url.toString().contains(confirmationUrl) ){
-                    setBack(true);
+                  if(paymentGatewayName.toUpperCase().contains("CREDITCARD")){
+                    if(url.toString() == confirmationUrl ){
+                      setBack(true);
+                    }
+                  }else{
+                    if(url.toString().contains(confirmationUrl) ){
+                      setBack(true);
+                    }
                   }
+
                 },
                 onLoadStart: (InAppWebViewController controller, Uri? url) {
 
                 },
                 onLoadStop: (InAppWebViewController controller, Uri? url) async {
+                  debugPrint("onLoadStop called");
+                  debugPrint(url.toString());
+                  debugPrint(confirmationUrl);
+                  debugPrint(paymentGatewayName);
 
-                  if(!url.toString().contains(confirmationUrl) ){
-                    sharedController.changePaymentGatewayLoading(false);
+                  if(paymentGatewayName.toUpperCase().contains("CREDITCARD")){
+                    if(url.toString() != confirmationUrl ){
+                      sharedController.changePaymentGatewayLoading(false);
+                    }else{
+                      isConfirmationReached = true;
+                      setState(() {
+
+                      });
+                    }
                   }else{
-                    isConfirmationReached = true;
-                    setState(() {
+                    if(!url.toString().contains(confirmationUrl) ){
+                      sharedController.changePaymentGatewayLoading(false);
+                    }else{
+                      isConfirmationReached = true;
+                      setState(() {
 
-                    });
+                      });
+                    }
                   }
+
+
 
                 },
                 onProgressChanged: (InAppWebViewController controller, int progress) {
@@ -129,6 +158,7 @@ class _PaymentGatewayWebViewState extends State<PaymentGatewayWebView> {
     gatewayUrl = getArguments[0];
     confirmationUrl = getArguments[1];
     summaryPageUrl = getArguments[2];
+    paymentGatewayName = getArguments[3];
     isConfirmationReached = false;
     setState(() {
 

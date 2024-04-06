@@ -478,7 +478,8 @@ class HotelBookingController extends GetxController {
       Get.toNamed(Approute_paymentPage, arguments: [
         gatewayUrl.value,
         confirmationUrl.value,
-        Approute_hotelsSummary
+        Approute_hotelsSummary,
+        selectedPaymentGateway.value.displayName
       ])?.then((value) {
         checkGatewayStatus();
       });

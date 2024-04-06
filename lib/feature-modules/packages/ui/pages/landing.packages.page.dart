@@ -26,7 +26,6 @@ class _PackageBookingLandingPageState extends State<PackageBookingLandingPage> {
   @override
   void initState() {
     super.initState();
-    packageBookingController.getInitialInfo();
     // Setup the listener.
     _controller.addListener(() {
       if (_controller.position.atEdge) {

@@ -69,6 +69,7 @@ class _CoreLandingPageState extends State<CoreLandingPage>
     _tabController.addListener(() {
       setState(() {
         _currentIndex = _tabController.index;
+        getInitialData();
       });
     });
 

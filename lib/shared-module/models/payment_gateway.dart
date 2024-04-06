@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flytern/shared-module/constants/app_specific/default_values.shared.constant.dart';
 
 //"displayName": "Credit Card",
@@ -33,6 +34,8 @@ class PaymentGateway {
 }
 
 PaymentGateway mapPaymentGateway(dynamic payload) {
+  debugPrint("mapPaymentGateway");
+  debugPrint(payload.toString());
   return PaymentGateway(
       displayName: payload["displayName"] ?? "",
       processID: payload["processID"] ?? "",
