@@ -57,7 +57,7 @@ class _CountrySelectorState extends State<CountrySelector> {
                 controller: searchController,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Ionicons.search_outline),
-                  labelText: "search".tr,
+                  labelText: "search_countries".tr,
                 )),
             addVerticalSpace(flyternSpaceMedium ),
             Expanded(

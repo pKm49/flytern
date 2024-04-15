@@ -51,6 +51,8 @@ import 'shared-module/services/utility-services/widget_properties_generator.shar
    notificationController.setupInteractedMessage();
    // await NotificationService.initializeNotification();
    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+   await FirebaseMessaging.instance.subscribeToTopic("andriod_flytern_topic");
+   //ios_flytern_topic
 
    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
    runApp(const MyApp());

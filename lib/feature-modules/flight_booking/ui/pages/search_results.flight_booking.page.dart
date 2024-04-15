@@ -639,14 +639,14 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
     }
     searchParamsPreviewString = "";
     if (index == 2) {
-      if (flightBookingController
-          .flightSearchData.value.searchList.isNotEmpty) {
-        flightBookingController.flightSearchData.value.searchList
-            .forEach((element) {
-          searchParamsPreviewString += "${getDateString(element)} ";
-        });
-        return searchParamsPreviewString;
-      }
+
+      searchParamsPreviewString +=   getFormattedDate(
+          flightBookingController.startDate.value
+              .add(Duration(days: tabController.index-1)));
+
+      return searchParamsPreviewString;
+
+
     }
 
     if (index == 3) {
@@ -785,7 +785,7 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
 
   changeDate(int index) {
     flightBookingController.changeDateTab(
-        flightBookingController.startDate.value.add(Duration(days: index)));
+        flightBookingController.startDate.value.add(Duration(days: index-1)));
   }
 
   String getFilterTitle() {
@@ -842,4 +842,5 @@ class _FlightSearchResultPageState extends State<FlightSearchResultPage>
     }
     return "multi_city".tr;
   }
+
 }

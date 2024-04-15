@@ -229,6 +229,12 @@ class InsuranceBookingController extends GetxController {
           policyplan: value ?? insurancePriceGetBody.value.policyplan,
           policy_type: insurancePriceGetBody.value.policy_type,
           policyperiod: insurancePriceGetBody.value.policyperiod));
+    }else{
+      insurancePriceGetBody.value = InsurancePriceGetBody(
+          covidtype: insurancePriceGetBody.value.covidtype,
+          policyplan: value ?? insurancePriceGetBody.value.policyplan,
+          policy_type: insurancePriceGetBody.value.policy_type,
+          policyperiod: insurancePriceGetBody.value.policyperiod);
     }
   }
 
@@ -263,6 +269,12 @@ class InsuranceBookingController extends GetxController {
           policyplan: insurancePriceGetBody.value.policyplan,
           policy_type: insurancePriceGetBody.value.policy_type,
           policyperiod: value ?? insurancePriceGetBody.value.policyperiod));
+    }else{
+      insurancePriceGetBody.value = InsurancePriceGetBody(
+          covidtype: insurancePriceGetBody.value.covidtype,
+          policyplan: insurancePriceGetBody.value.policyplan,
+          policy_type: insurancePriceGetBody.value.policy_type,
+          policyperiod: value ?? insurancePriceGetBody.value.policyperiod);
     }
   }
 

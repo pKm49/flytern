@@ -6,6 +6,7 @@ import 'package:flytern/shared-module/constants/ui_specific/style_params.shared.
 import 'package:flytern/shared-module/constants/ui_specific/widget_styles.shared.constant.dart';
 import 'package:flytern/shared-module/models/general_item.dart';
 import 'package:flytern/shared-module/services/utility-services/form_validator.shared.service.dart';
+import 'package:flytern/shared-module/services/utility-services/toaster_snackbar_shower.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_generator.shared.service.dart';
 import 'package:flytern/shared-module/services/utility-services/widget_properties_generator.shared.service.dart';
 import 'package:flytern/shared-module/ui/components/contact_details_getter.shared.component.dart';
@@ -422,7 +423,11 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
                       child: ElevatedButton(
                           style: getElevatedButtonStyle(context),
                           onPressed: () {
-                            openContactDetailsGetterBottomSheet();
+                            if(!insuranceBookingController
+                                .isInsurancePriceGetterLoading.value){
+                              openContactDetailsGetterBottomSheet();
+                            }
+
 
                           },
                           child: Row(
@@ -467,19 +472,29 @@ class _InsuranceLandingPageState extends State<InsuranceLandingPage>
   }
 
   void openContactDetailsGetterBottomSheet() {
-    showModalBottomSheet(
-        useSafeArea: false,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(flyternBorderRadiusSmall),
-              topRight: Radius.circular(flyternBorderRadiusSmall)),
-        ),
-        isScrollControlled: true,
-        context: context,
-        builder: (context) {
-          return ContactDetailsGetter(
-              route: Approute_insuranceUserDetailsSubmission);
-        });
+
+    if(insuranceBookingController
+        .insurancePriceGetBody.value.policyplan == "0"){
+      showSnackbar(Get.context!, "select_policy_plan".tr, "error");
+    }else if(insuranceBookingController
+        .insurancePriceGetBody.value.policyperiod == "0"){
+      showSnackbar(Get.context!, "select_policy_period".tr, "error");
+    }else{
+      showModalBottomSheet(
+          useSafeArea: false,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(flyternBorderRadiusSmall),
+                topRight: Radius.circular(flyternBorderRadiusSmall)),
+          ),
+          isScrollControlled: true,
+          context: context,
+          builder: (context) {
+            return ContactDetailsGetter(
+                route: Approute_insuranceUserDetailsSubmission);
+          });
+    }
+
   }
 
   Future<void> _launchUrl(String urlString) async {

@@ -309,10 +309,11 @@ class SharedController extends GetxController {
     await sharedHttpService.setDeviceInfo(setDeviceInfoRequestBody);
     isSetDeviceLanguageAndCountrySubmitting.value = false;
     updateLocale();
+    getInitialInfo();
     if (isToast) {
       showSnackbar(Get.context!, "settings_updated".tr, "info");
       if(!isRedirection){
-         getInitialInfo();
+
         final flightBookingController = Get.find<FlightBookingController>();
         flightBookingController.getInitialInfo();
 

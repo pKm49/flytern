@@ -90,22 +90,22 @@ class _FlightBookingConfirmationPageState
                     child: ListView(
                       children: [
 
-                        Visibility(
-                          visible:flightBookingController.alert.isEmpty  &&
-                              flightBookingController
-                                  .flightDetails.value.flightSegments.isEmpty,
-                          child: Container(
-                            padding: flyternMediumPaddingAll,
-                            margin: flyternLargePaddingAll.copyWith(
-                                bottom: flyternSpaceMedium),
-                            decoration: BoxDecoration(
-                              color: flyternPrimaryColorBg,
-                              borderRadius: BorderRadius.circular(
-                                  flyternBorderRadiusExtraSmall),
-                            ),
-                            child: Text("couldnt_find_booking".tr),
-                          ),
-                        ),
+                        // Visibility(
+                        //   visible:flightBookingController.alert.isEmpty  &&
+                        //       flightBookingController
+                        //           .flightDetails.value.flightSegments.isEmpty,
+                        //   child: Container(
+                        //     padding: flyternMediumPaddingAll,
+                        //     margin: flyternLargePaddingAll.copyWith(
+                        //         bottom: flyternSpaceMedium),
+                        //     decoration: BoxDecoration(
+                        //       color: flyternPrimaryColorBg,
+                        //       borderRadius: BorderRadius.circular(
+                        //           flyternBorderRadiusExtraSmall),
+                        //     ),
+                        //     child: Text("couldnt_find_booking".tr),
+                        //   ),
+                        // ),
 
                         addVerticalSpace(flyternSpaceLarge  ),
                         Visibility(
